@@ -3,7 +3,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.icia.adaco.entity.Art" alias="art"/>
-		<typeAlias type="com.icia.adaco.entity.ArtComment" alias="artComment"/>
+	<!-- 	<typeAlias type="com.icia.adaco.entity.ArtComment" alias="artComment"/> -->
 		<typeAlias type="com.icia.adaco.entity.Artist" alias="artist"/>
 		<typeAlias type="com.icia.adaco.entity.Attachment" alias="attachment"/>
 		<typeAlias type="com.icia.adaco.entity.Authorities" alias="authorities"/>

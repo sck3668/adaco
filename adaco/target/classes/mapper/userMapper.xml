@@ -8,14 +8,13 @@
 		select email from users where email=#{email} and rownum=1
 	</select>
 	<insert id="insert">
-	insert into users(username,email,irum,join_date,birth_date,tel,password,profile,address)values
-	(#{username},#{password},#{email},#{irum},#{tel},
-	#{profile},#{address},sysdate,#{birthDate})
+	insert into users(username,email,irum,join_date,birth_date,tel,password,profile,address)
+	values(#{username},#{password},#{email},#{irum},#{tel},	#{profile},#{address},sysdate,#{birthDate})
 	</insert>
 	<select id="findidByCheckTel" resultType="string">
 		select username from users where tel=#{tel} and rownum=1
 	</select>
-	<select id="findidByCheckName"resultType="string">
+	<select id="findidByCheckName" resultType="string">
 		select username from users where irum=#{irum} and rownum=1		
 	</select>
 	<select id="findidByCheckEmail" resultType="string">
