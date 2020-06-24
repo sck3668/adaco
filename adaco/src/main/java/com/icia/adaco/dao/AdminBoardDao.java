@@ -14,7 +14,7 @@ public class AdminBoardDao {
 	private SqlSessionTemplate tpl;
 
 //	신고글 조회 (신고수로 페이징 인덱스 키 어케 써야 할 듯<미완성>)
-	public List<artComment> findAllByReport(int startRowNum, int endRowNum) {
+	public List<ArtComment> findAllByReport(int startRowNum, int endRowNum) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startRowNum", startRowNum);
 		map.put("endRowNum", endRowNum);
@@ -45,7 +45,7 @@ public class AdminBoardDao {
 	}
 	
 //	1:1 문의 답변
-	public int insertByAnswer(int qno) {
+	public int updateByAnswer(int qno) {
 		return tpl.update("adminBoardMapper.insertByAnswer", qno);
 	}
 	
@@ -87,6 +87,11 @@ public class AdminBoardDao {
 //	FAQ 업데이트
 	public int updateByFAQ(FAQ faq) {
 		return tpl.update("adminBoardMapper.updateByFAQ", faq);
+	}
+	
+//	FAQ 삭제
+	public int deleteByFAQ(int faqno) {
+		return tpl.delete("adminBoardMapper.deleteByFAQ", faqno);
 	}
 	
 //	카테고리 등록

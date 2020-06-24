@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="userMapper">
-	
+	<select id ="existsUsername" resultType="string">
+		select username from users where username=#{username} and rownum=1
+	</select>
+	<select id="existsEmail" resultType="string">
+		select email from users where email=#{email} and rownum=1
+	</select>
+	<insert id="insert">
+	insert into users(username,email,irum,join_date,birth_date,tel,password,profile,address)values
+	(#{username},#{password},#{email},#{irum},#{tel},
+	#{profile},#{address},sysdate,#{birthDate})
+	</insert>
+	<select id="findidByCheckTel" resultType="string">
+		select username from users where tel=#{tel} and rownum=1
+	</select>
+	<select id="findidByCheckName" resultType="string">
+		select username from users where irum=#{irum} and rownum=1		
+	</select>
+	<select id="findidByCheckEmail" resultType="string">
+		select username from users where email=#{email} and rownum=1
+	</select>
+	<select id="findById" resultType="user">
+		select username,password,email,irum,tel,profile,address,join_date joinDate,birth_date birthDate
+		from users where username=#{username} and rownum=1
+	</select>
+	<update id="update">
+		update users
+		<trim suffixOverrides="," prefix="set" >
+			<if test="password!==null">password=#{password},</if>
+			<if test="eamil!==null">email=#{email},</if>
+			<if test="profile!==null">profile=#{profile},</if>
+			<if test="address!==null">address=#{address},</if>
+			<if test="tel!==null">tel=#{tel},</if>
+			<if test="enabled!==0">enabled=1,</if>
+		</trim>
+		where username=#{username} and rownum=1
+	</update>
+	<delete id="delete">
+		delete from users where username=#{username} and rownum=1
+	</delete>
 </mapper>
 

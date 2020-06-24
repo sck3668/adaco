@@ -9,7 +9,7 @@ import lombok.experimental.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain=true)
-public class artComment {
+public class ArtComment {
 	private Integer cno;
 	private LocalDateTime writeDate;
 	private String profile;

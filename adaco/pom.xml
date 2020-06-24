@@ -18,7 +18,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
-			<artifactId>ehcache</artifactId>
+			<artifactId>ehcache</artifactId>m                                                               
 			<version>2.10.6</version>
 		</dependency>
 		<!-- 네이버 루시 XSS 필터 -->

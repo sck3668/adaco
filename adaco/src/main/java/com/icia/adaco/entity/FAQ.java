@@ -11,5 +11,5 @@ import lombok.experimental.*;
 public class FAQ {
 	private Integer faqno;
 	private String title;
-	private String conent;
+	private String content;
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="adminBoardMapper">
 	
-	<select id = "findAllByReport" resultType="comments">
+	<select id = "findAllByReport" resultType="artComment">
 	<![CDATA[
 		select * from
 			(select b.*, rownum rnum from
@@ -25,7 +25,7 @@
 		select /*+ index_desc(question question_pk_qno) qno, writer, title, write_date writeDate   
 	</select>
 	
-	<select id="findAllByQuestion" resultMap="findAllMap">
+	<select id="findAllByQuestionTEST" resultType="question">
 		select * from
 			(select b.*,rownum as rnum from
 				(select /*+ index_desc(question question_pk_qno) */ qno, writer, title, write_date writeDate from question
@@ -99,8 +99,12 @@
 		where faqno = #{faqno}
 	</update>
 	
+	<delete id="deleteByFAQ">
+		delete from faq where faqno = #{faqno} and rownum = 1
+	</delete>
+	
 	<insert id = "insertByCategory">
-		insert into category values(#{category})
+		insert into category(category) values(#{category})
 	</insert>
 	
 	<update id="updateByCategory">
