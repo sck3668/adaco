@@ -2,8 +2,9 @@ package com.icia.adaco.dao;
 
 import org.mybatis.spring.*;
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.*;
+
+import com.icia.adaco.entity.*;
 @Repository
 public class UserDao {
 	@Autowired

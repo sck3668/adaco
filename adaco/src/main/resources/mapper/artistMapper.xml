@@ -1,47 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="artistMapper">
-	<select id ="existsUsername" resultType="string">
-		select username from artist where username=#{username} and rownum=1
-	</select>
-	<select id="existsEmail" resultType="string">
-		select email from artist where email=#{email} and rownum=1
-	</select>
 	<insert id="insert">
-	<selectKey keyProperty="bno" resultType="int" order="BEFORE">
-		select artist_seq.nextval dual
-	</selectKey>
-		insert into artist()values()
+		<selectKey keyProperty="ano" resultType="int" order="BEFORE">
+			select artist_seq.nextval dual
+		</selectKey>
+		insert into artist(artistno,artist_into,profile,username,shopno)
+		values(#{artistno},#{artistInto},#{profile},#{username},#{shopno})
 	</insert>
-	<select id="findidByCheckTel" resultType="string">
-		select artistno from artist where tel=#{tel} and rownum=1
-	</select>
-	<select id="findidByCheckName"resultType="string">
-		select artistno from artist where irum=#{irum} and rownum=1		
-	</select>
-	<select id="findidByCheckEmail" resultType="string">
-		select artistno from artist where email=#{email} and rownum=1
-	</select>
 	<select id="findById" resultType="artist">
-		select 
-	</select>
-	<select id="findShopNoByid" resultType="artist">
-		select artistno from artist where shopno =#{shopno} and rownum=1
+		select artistno,artist_into
+		artistInto,profile,username,shopno from artist where and=#{ano}
 	</select>
 	<update id="update">
 		update artist
-		<trim suffixOverrides="," prefix="set" >
-			<if test=""></if>
-			<if test=""></if>
-			<if test=""></if>
-			<if test=""></if>
-			<if test=""></if>
+		<trim suffixOverrides="," prefix="set">
+			<if test="artistInto!==null">artist_into=#{artistInto}</if>
+			<if test="profile!==null">profile=#{profile}</if>
 		</trim>
 		where username=#{username} and rownum=1
 	</update>
-	
 	<delete id="delete">
-		delete from artist where artistno=#{artistno} and rownum=1
+		delete from artist where artistno=#{artistno} and
+		rownum=1
 	</delete>
 </mapper>
 

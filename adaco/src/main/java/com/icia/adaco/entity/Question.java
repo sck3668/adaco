@@ -8,18 +8,15 @@ import lombok.experimental.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Accessors(chain=true)
-public class Board {
-	private Integer bno;
+@Builder
+public class Question {
+	private Integer qno;
 	private String writer;
+	private String answer;
 	private String content;
 	private String title;
+	private String answerContent;
 	private LocalDateTime writeDate;
-	private Integer commentCnt;
-	private Integer readCnt;
-	private Integer deleteCommentCnt;
-	private Integer attachmentCnt;
-	private boolean enabled;
-	
+	private LocalDateTime answerDate;
 }

@@ -8,7 +8,9 @@
 		select email from users where email=#{email} and rownum=1
 	</select>
 	<insert id="insert">
-		insert into users(username,email,irum,write_date,birth_date,writer,)values()
+	insert into users(username,email,irum,join_date,birth_date,tel,password,profile,address)values
+	(#{username},#{password},#{email},#{irum},#{tel},
+	#{profile},#{address},sysdate,#{birthDate})
 	</insert>
 	<select id="findidByCheckTel" resultType="string">
 		select username from users where tel=#{tel} and rownum=1
@@ -20,16 +22,18 @@
 		select username from users where email=#{email} and rownum=1
 	</select>
 	<select id="findById" resultType="users">
-		select 
+		select username,password,email,irum,tel,profile,address,join_date joinDate,birth_date birthDate
+		from users where username=#{username} and rownum=1
 	</select>
 	<update id="update">
 		update users
 		<trim suffixOverrides="," prefix="set" >
-			<if test=""></if>
-			<if test=""></if>
-			<if test=""></if>
-			<if test=""></if>
-			<if test=""></if>
+			<if test="password!==null">password=#{password},</if>
+			<if test="eamil!==null">email=#{email},</if>
+			<if test="profile!==null">profile=#{profile},</if>
+			<if test="address!==null">address=#{address},</if>
+			<if test="tel!==null">tel=#{tel},</if>
+			<if test="enabled!==0">enabled=1,</if>
 		</trim>
 		where username=#{username} and rownum=1
 	</update>
