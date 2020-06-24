@@ -11,7 +11,7 @@ import lombok.experimental.*;
 @Accessors(chain=true)
 @Builder
 public class Notice {
-	private Integer noticeNo;
+	private Integer noticeno;
 	private String content;
 	private String title;
 	private LocalDateTime writeDate;

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminUserMapper">
+	
+	<select id = "countByUser" resultType="int">
+		select count(*) from users where writer = #{writer}
+	</select>
+	
+	<!-- 수정수정수정 -->
+	<select id = "countByArtist" resultType="int">
+		select count(*) from artist where writer = #{writer}
+	</select>
+	
+	<select id="findAllByUser" resultType="user">
+	<![CDATA[
+		select * from
+			(select b.*, rownum rnum from
+				(select /*+ index_desc(users username) */ username, irum, email from users) b
+			where rownum <= #{endRowNum})
+		where rnum >= #{startRowNum}
+	]]>
+	
+	</select>
+
+	<select id = "findAllByArtist" resultType="artist">
+	<![CDATA[
+		select * from
+			(select b.*, rownum rnum from
+				(select /*+ index_desc(artist username) */ username, irum, email from artist) b
+			where rownum >= #{endRowNum})
+		where rnum >= #{startRowNum} 
+	]]>
+	</select>
+	
+	<update id= "updateByUser">
+		update users set enabled = #{enabled} where username = #{username} and rownum = 1
+	</update>
+	
+	<insert id = "insertByAuthority">
+		insert into authorities values (#{username}, #{authority}) 
+	</insert>
+	
+	<update id = "updateByAuthority">
+		update authorities set authority = #{authority} where username = #{username}
+	</update>
+ </mapper>

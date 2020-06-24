@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminBoardMapper">
+	
+	<select id = "findAllByReport" resultType="artComment">
+	<![CDATA[
+		select * from
+			(select b.*, rownum rnum from
+				(select /*+ index_desc(art_comment report_cnt) */ cno, username, content, report_cnt reportCnt from art_comment) b
+			where rownum <= #{endRowNum})
+		where rnum >= #{startRowNum}
+	]]>
+	</select>
+	
+	<delete id ="deleteByReport">
+		delete from art_comments where cno = #{cno} and rownum = 1
+	</delete>
+	
+	<delete id = "deleteByArt">
+		delete from art where artno = #{artno} and rownum = 1
+	</delete>
+	
+	<!-- 둘 중 하나로 가능? -->
+	<select id = "findAllByQuestion" resultType="question">
+		select /*+ index_desc(question question_pk_qno) qno, writer, title, write_date writeDate   
+	</select>
+	
+	<select id="findAllByQuestionTEST" resultType="question">
+		select * from
+			(select b.*,rownum as rnum from
+				(select /*+ index_desc(question question_pk_qno) */ qno, writer, title, write_date writeDate from question
+				  <trim prefix="WHERE" prefixOverrides="AND|OR">
+                     <if test="searchType=='TITLE' and keyword != null and keyword != '' ">
+                        AND TITLE like '%' || #{keyword} || '%'
+                     </if>
+                     <if test="searchType=='BOARDCONTENT' and keyword != null and keyword != '' ">
+                        AND BOARDCONTENT like '%' || #{keyword} || '%'
+                     </if>
+                     <if test="searchType=='WRITER' and keyword != null and keyword != '' ">
+                        AND WRITER like '%' || #{keyword} || '%'
+                     </if>   
+            </trim>
+				) b
+			    where rownum&lt;=#{endRowNum})
+      		where rnum&gt;=#{startRowNum}
+	</select>
+	
+	<select id = "findQuestionById" resultType="question">
+		select qno, writer, answer, content, title, answer_content answerContent, write_date writeDate, answer_date answerDate
+		from question where qno = #{qno} and rownum = 1	
+	</select>
+	
+	<update id = "insertByAnswer">
+		update question set answer_content = #{answerContent}, answer = #{answer}, answer_date = #{answerDate}
+		where qno = #{qno} and rownum = 1
+	</update>
+	
+	<insert id = "insertByNotice">
+		<selectKey keyProperty="noticeno" resultType="int" order="BEFORE">
+			select notice_seq.nextval from dual
+		</selectKey>
+		insert into notice(noticeno, content, title, write_date, writer) values(#{noticeno}, #{content}, #{title}, #{writeDate}, #{writer})
+	</insert>
+	
+	<update id = "updateByNotice">
+		update notice
+		<trim suffixOverrides="," prefix="SET">
+			<if test="title != null">title = #{title},</if>
+			<if test="content != null">content = #{content},</if>
+		</trim>
+		where noticeno = #{noticeno}
+	</update>
+	
+	<delete id="deleteByNotice">
+		delete from notice where noticeno = #{noticeno} and rownum = 1
+	</delete>
+	
+	<insert id="insertByFAQ">
+		<selectKey keyProperty="faqno" resultType="int" order="BEFORE">
+			select faq_seq.nextval from dual
+		</selectKey>
+		insert into faq(faqno, title, content) values(#{faqno}, #{title}, #{content})
+	</insert>
+	
+	<select id="findAllByFAQ" resultType="faq">
+		select faqno, title from faq
+	</select>
+	
+	<select id="findFAQById" resultType="faq">
+		select faqno, title, content from faq where faqno = #{faqno} and rownum = 1
+	</select>
+	
+	<update id = "updateByFAQ">
+		update faq
+		<trim suffixOverrides="," prefix="SET">
+			<if test="title != null">title = #{title},</if>
+			<if test="content != null">content = #{content},</if>
+		</trim>
+		where faqno = #{faqno}
+	</update>
+	
+	<delete id="deleteByFAQ">
+		delete from faq where faqno = #{faqno} and rownum = 1
+	</delete>
+	
+	<insert id = "insertByCategory">
+		insert into category(category) values(#{category})
+	</insert>
+	
+	<update id="updateByCategory">
+		update category set category = #{category} and rownum = 1
+	</update>
+	
+	<delete id = "deleteByCategory">
+		delete category and category = #{category} and rownum = 1
+	</delete>
+	
+</mapper>
