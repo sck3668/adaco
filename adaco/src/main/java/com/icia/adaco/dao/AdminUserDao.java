@@ -21,9 +21,9 @@ public class AdminUserDao {
 		return tpl.selectList("adminUserMapper.findAllByUser", map);
 	}
 	
-//	유저 검색 기능 (아직 안배움)
+//	유저 검색 기능 (아직 안배움. index 사용해야하는데 어케함?)
 	public int countByUser(String username) {
-		return tpl.selectOne("adminUserMapper.countByUser", writer);
+		return tpl.selectOne("adminUserMapper.countByUser", username);
 	}
 
 //	작가 목록 조회 (작가 이름으로 페이징) -> 아이디, 이름, 이메일 확인해야 하는데 작가 테이블 내에 없음. 조인 필요한데 페이징이라 힘듦
@@ -39,12 +39,12 @@ public class AdminUserDao {
 		return tpl.selectOne("adminUserMapper.countByArtist", username);
 	}
 	
-//	유저 블락
+//	유저 블락 (판매자 유저)
 	public int updateByUser(User user) {
 		return tpl.update("adminUserMapper.updateByUser", user);
 	}
 	
-//	권한 부여하기 (맵으로 넘겼는데 됨? 테스트 필요 / 안되면 dao 따로 만들면 됨)
+//	권한 부여하기 (맵으로 넘겼는데 됨? 테스트 필요 / 안되면 dao 인터페이스로 따로 만들면 됨)
 	public int insertByAuthority(String username, String authority) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("username", username);
