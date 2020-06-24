@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="userMapper">
-	
+	<select id ="existsUsername" resultType="string">
+		select username from users where username=#{username} and rownum=1
+	</select>
+	<select id="existsEmail" resultType="string">
+		select email from users where email=#{email} and rownum=1
+	</select>
+	<insert id="insert">
+		insert into users(username,email,irum,write_date,birth_date,writer,)values()
+	</insert>
+	<select id="findidByCheckTel" resultType="string">
+		select username from users where tel=#{tel} and rownum=1
+	</select>
+	<select id="findidByCheckName"resultType="string">
+		select username from users where irum=#{irum} and rownum=1		
+	</select>
+	<select id="findidByCheckEmail" resultType="string">
+		select username from users where email=#{email} and rownum=1
+	</select>
+	<select id="findById" resultType="users">
+		select 
+	</select>
+	<update id="update">
+		update users
+		<trim suffixOverrides="," prefix="set" >
+			<if test=""></if>
+			<if test=""></if>
+			<if test=""></if>
+			<if test=""></if>
+			<if test=""></if>
+		</trim>
+		where username=#{username} and rownum=1
+	</update>
+	<delete id="delete">
+		delete from users where username=#{username} and rownum=1
+	</delete>
 </mapper>
 
