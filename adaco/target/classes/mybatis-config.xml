@@ -4,6 +4,9 @@
 	<typeAliases>
 		<typeAlias type="com.icia.adaco.entity.Board" alias="board"/>
 		<typeAlias type="com.icia.adaco.entity.User" alias="user"/>
+		<typeAlias type="com.icia.adaco.entity.Notice" alias="notice"/>
+		<typeAlias type="com.icia.adaco.entity.FAQ" alias="faq"/>
+		<typeAlias type="com.icia.adaco.entity.Question" alias="question"/>
 	</typeAliases>
 	<typeHandlers>
 		<typeHandler handler="com.icia.adaco.util.typehandler.LocalDateTimeTypeHandler"/>
