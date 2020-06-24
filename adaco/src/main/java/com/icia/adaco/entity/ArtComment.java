@@ -8,6 +8,7 @@ import lombok.experimental.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Accessors(chain=true)
 public class ArtComment {
 	private Integer cno;
