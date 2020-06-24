@@ -1,8 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-		
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="net.sf.log4jdbc.DriverSpy" />
+		<property name="url" value="jdbc:log4jdbc:oracle:thin:@127.0.0.1:1521:XE" />
+		<property name="username" value="adaco" />
+		<property name="password" value="1234" />		
+		<property name="maxTotal" value="10" />			<!-- 최대 활성 연결수 -->
+		<property name="maxIdle" value="10" />			<!-- 최대 비활성 연결수 -->
+		<property name="maxWaitMillis" value="3000" />	<!-- Connection이 모두 사용중일때 최대 대기 시간을 3초로 지정 -->
+	</bean>
+ 	
+ 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+ 		<property name="dataSource" ref="dataSource" />
+ 		<property name="mapperLocations" value="classpath:/mapper/*.xml" />
+ 		<property name="configLocation" value="classpath:/mybatis-config.xml" />
+ 	</bean>
+ 	
+ 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+ 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+ 	</bean>
+ 	
+ 	<bean id="modelMapper" class="org.modelmapper.ModelMapper" />
+	<bean id="objectMapper"	class="com.fasterxml.jackson.databind.ObjectMapper"/>
+ 	
+ 	
+ 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="username" value="sckpsj3668@gmail.com" />
+		<property name="password" value="cks19079" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.host">smtp.gmail.com</prop>
+				<prop key="mail.smtp.port">465</prop>
+				<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+				<prop key="mail.smtp.socketFactory.port">465</prop>
+				<prop key="mail.smtp.socketFactory.fallback">false</prop>
+				<prop key="mail.smtp.auth">true</prop> 
+				<prop key="mail.smtp.timeout">8500</prop>
+				<!-- log를 보고 싶다면 true. false로 하면 메일 관련 메시지가 나오지 않는다 -->
+				<prop key="mail.debug">true</prop>	
+			</props>
+		</property>
+	</bean>
+ 	
+ 	<bean id="mailUtil" class="com.icia.adaco.util.MailUtil" />
+ 	
+ 	<bean id="filterMultipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+         <!-- 최대업로드 가능한 바이트크기 : 1MB-->
+         <property name="maxUploadSize" value="1048576" />
+	</bean>
+	
+	<mybatis-spring:scan base-package="com.icia.adaco.dao"/>
+	
 </beans>
