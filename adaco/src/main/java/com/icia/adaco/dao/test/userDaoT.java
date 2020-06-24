@@ -19,13 +19,5 @@ import com.icia.adaco.entity.*;
 public class userDaoT {
 	@Autowired
 	private UserDao userDao ;
-	@Test
-	public void insertT() {
-		User user =
-	User.builder().username("tjdcjfgns215").password("1234")
-	.email("tjdcjfgns@naver.com").irum("성철훈").
-	birthDate(LocalDateTime.now()).profile("aaa.jpg").address("용현동산다").tel("01024262394").build();
-		
-	assertThat(userDao.insert(user),is("tjdcjfgns"));	
-	}
+
 }
