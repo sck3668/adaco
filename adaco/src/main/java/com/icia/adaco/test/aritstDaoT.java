@@ -18,14 +18,18 @@ public class aritstDaoT {
 	@Autowired
 	private ArtistDao artistDao;
 	
-	@Test
+	//@Test
 	public void insertT() {
 	Artist artist = Artist.builder().artistIntro("안녕하세요").profile("aa.jpg").username("하이요").shopno(3).build();
 	assertThat(artistDao.insert(artist),is(1));
 	}
 	//@Test
 	public void updateT() {
-	Artist artist = Artist.builder().artistno(27).artistIntro("안녕못하지").build();
+	Artist artist = Artist.builder().artistno(4).artistIntro("안녕못하지").build();
 		assertThat(artistDao.update(artist),is(1));
+	}
+	//@Test
+	public void deleteT() {
+		System.out.println(artistDao.delete(4));
 	}
 }
