@@ -32,7 +32,7 @@ public class AdminBoardDao {
 		return tpl.delete("adminBoardMapper.deleteByArt", artno);
 	}
 		
-//	1:1문의 페이징
+//	1:1문의 페이징 ))))))) 개선 예정 
 	public List<Question> findAllByQuestion(int startRowNum, int endRowNum) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startRowNum", startRowNum);
