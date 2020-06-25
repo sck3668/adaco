@@ -1,5 +1,4 @@
-package com.icia.adaco.dao;
-
+package com.icia.adaco.test;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
@@ -9,6 +8,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.*;
 
+import com.icia.adaco.dao.*;
 import com.icia.adaco.entity.*;
 
 

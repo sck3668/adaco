@@ -54,17 +54,38 @@
 		]]>
 	</select>
 	
-	<!-- 작품 검색 (이름으로) -->
-	<select id="searchByArt" resultType="art">
-		select*from (select/*+index_desc(art art_pk_artno)*/ 
-		artno, category, main_img, art_name, price
-		from art
-		where art_name like '%{#artName}%'
+	
+	 <!-- 검색어(작품이름)로 작품 검색 -->
+	   <select id="searchByArt" resultType="art">
+	   	select artno, art_name, main_img
+	   	from(
+	   		select artno, art_name, main_img,
+	   		row_numer() over(order artno desc)as rnum
+	   		from art
+	   			<include refid="search"></include>
+	   			) b
+	   		where rnum between #{startRowNum} and #{endRowNum}
+	   		order by artno desc
+	   </select>
+	   
+	   <sql id="search">
+	   	<if test="searchType!=null">
+	   		<if test="searchType == 'a'.toString()">where art_name like '%' || #{tag} || '%'</if>
+	   		<if test="searchType == 'u'.toString()">where username like '%' || #{tag} || '%'</if>
+	   	</if>
+	   </sql>
+	   
+	   <!-- 검색어에 맞는 작품 갯수 -->
+	   <select id="countSearch" resultType="int">
+	   		select count(artno)
+	   		from art
+	   		<include refid="search"></include>
+	   		<![CDATA[
+	   		and artno>0
+	   		]]>
+	   </select>
+	   
 		
-		)
-	
-	</select>
-	
 	<!-- 작품 삭제 -->
 	<delete id="delete">
 		delete from art where artno=#{artno} and rownum=1
