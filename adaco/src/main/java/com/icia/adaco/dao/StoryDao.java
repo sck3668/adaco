@@ -24,11 +24,11 @@ public class StoryDao {
 	}
 	//스토리 작성
 	public int insert(Story story) {
-		return tpl.selectOne("storyMapper.insert", story);
+		return tpl.insert("storyMapper.insert", story);
 	}
 	//스토리삭제
 	public int delete(int storyno) {
-		return tpl.selectOne("storyMapper.delete", storyno);
+		return tpl.delete("storyMapper.delete", storyno);
 	}
 	
 }

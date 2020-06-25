@@ -21,7 +21,7 @@ public class StoryDaoTest {
 	@Inject
 	private StoryDao storyDao;
 	
-	@Test
+	//
 	public void insertTest() {
 		Story story = Story.builder().storyNo(3).writeDate(LocalDateTime.now()).title("안녕").content("하세요").artistNo(1).build();
 		assertThat(storyDao.insert(story),is(1));

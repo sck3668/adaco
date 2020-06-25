@@ -19,11 +19,11 @@ public class MessageDao {
 	}
 	//메시지 보내기
 	public int insert(Message message) {
-		return tpl.selectOne("messageMapper.insert", message);
+		return tpl.insert("messageMapper.insert", message);
 	}
 	//메시지 삭제하기
 	public int delete(int mno) {
-		return tpl.selectOne("messageMapper.delete",mno);
+		return tpl.delete("messageMapper.delete",mno);
 	}
 	
 }

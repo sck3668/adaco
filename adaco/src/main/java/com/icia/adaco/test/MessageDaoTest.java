@@ -23,12 +23,12 @@ public class MessageDaoTest {
 	
 	//@Test
 	public void insertTest() {
-		Message message = Message.builder().mno(1).title("테스트").username("혁지").content("아아")
+		Message message = Message.builder().title("테스트").username("혁지").content("아아")
 				.sendId("gk").recipientId("아").msgCheck(0).writeDate(LocalDateTime.now()).build();
 				assertThat(messageDao.insert(message), is(1));
 				
 	}
-	@Test
+	//@Test
 	public void deleteTest() {
 		assertThat(messageDao.delete(1), is(1));
 	}
