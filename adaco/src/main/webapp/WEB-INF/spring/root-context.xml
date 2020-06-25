@@ -27,9 +27,9 @@
  		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
  	</bean>
  	
- 	<!-- <bean id="modelMapper" class="org.modelmapper.ModelMapper" />
+ 	<bean id="modelMapper" class="org.modelmapper.ModelMapper" />
 	<bean id="objectMapper"	class="com.fasterxml.jackson.databind.ObjectMapper"/>
- 	 -->
+ 	
  	
  	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="username" value="sckpsj3668@gmail.com" />

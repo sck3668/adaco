@@ -2,8 +2,9 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org/DTD config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
+		<typeAlias type="com.icia.adaco.entity.Admin" alias="admin"/>
 		<typeAlias type="com.icia.adaco.entity.Art" alias="art"/>
-	<typeAlias type="com.icia.adaco.entity.ArtComment" alias="artComment"/>
+		<typeAlias type="com.icia.adaco.entity.ArtComment" alias="artComment"/>
 		<typeAlias type="com.icia.adaco.entity.Artist" alias="artist"/>
 		<typeAlias type="com.icia.adaco.entity.Attachment" alias="attachment"/>
 		<typeAlias type="com.icia.adaco.entity.Authorities" alias="authorities"/>
@@ -12,6 +13,7 @@
 		<typeAlias type="com.icia.adaco.entity.Category" alias="category"/>
 		<typeAlias type="com.icia.adaco.entity.FAQ" alias="faq"/>
 		<typeAlias type="com.icia.adaco.entity.Favorite" alias="favorite"/>
+		<typeAlias type="com.icia.adaco.entity.isShipping" alias="isShipping"/>
 		<typeAlias type="com.icia.adaco.entity.Message" alias="message"/>
 		<typeAlias type="com.icia.adaco.entity.Notice" alias="notice"/>
 		<typeAlias type="com.icia.adaco.entity.Option" alias="option"/>
@@ -19,11 +21,12 @@
 		<typeAlias type="com.icia.adaco.entity.OrderDetail" alias="orderDetail"/>
 		<typeAlias type="com.icia.adaco.entity.Point" alias="point"/>
 		<typeAlias type="com.icia.adaco.entity.Question" alias="question"/>
-		<!-- <typeAlias type="com.icia.adaco.entity.StoryComment" alias="storyComment"/>	 -->	
-		<!-- <typeAlias type="com.icia.adaco.entity.Review" alias="review"/> -->
+		<typeAlias type="com.icia.adaco.entity.Review" alias="review"/> 
 		<typeAlias type="com.icia.adaco.entity.SellDetail" alias="sellDetail"/>
 		<typeAlias type="com.icia.adaco.entity.Shop" alias="shop"/>
+		<typeAlias type="com.icia.adaco.entity.star" alias="star"/>
 		<typeAlias type="com.icia.adaco.entity.Story" alias="story"/>
+		<typeAlias type="com.icia.adaco.entity.StoryComment" alias="storyComment"/>
 		<typeAlias type="com.icia.adaco.entity.User" alias="user"/>
 	</typeAliases>
 	<typeHandlers>
