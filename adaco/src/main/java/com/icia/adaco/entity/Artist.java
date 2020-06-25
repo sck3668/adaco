@@ -9,8 +9,8 @@ import lombok.experimental.*;
 @Builder
 @Accessors(chain=true)
 public class Artist {
-	private Integer artistNo;
-	private String artistInto;
+	private Integer artistno;
+	private String artistIntro;
 	private String profile;
 	private String username;
 	private Integer shopno;
