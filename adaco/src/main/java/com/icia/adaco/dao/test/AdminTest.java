@@ -1,5 +1,4 @@
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+package com.icia.adaco.dao.test;
 
 import java.time.*;
 
@@ -11,6 +10,7 @@ import org.springframework.test.context.junit4.*;
 
 import com.icia.adaco.dao.*;
 import com.icia.adaco.entity.*;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/**/*-context.xml")
@@ -42,12 +42,12 @@ public class AdminTest {
 	
 //	@Test
 	public void findFAQById() {
-		adminBoardDao.findFAQById(3);
+//		adminBoardDao.findFAQById(3);
 	}
 	
 //	@Test
 	public void findAllByFAQ() {
-		adminBoardDao.findAllByFAQ();
+//		adminBoardDao.findAllByFAQ();
 	}
 	
 //	@Test
