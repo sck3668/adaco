@@ -19,12 +19,20 @@ public class ArtDaoTest {
 	@Autowired
 	private ArtDao artdao;
 	
-	@Test
+	//상품 등록 테스트
+	//@Test
 	public void insertTest() {
 		Art art = Art.builder().artName("신상").price(1000).mainImg(true).artImg(false).stock(300).tag("검색").category("목걸이").shopno(1234).couriPrice(3000).returnAddress("배송지야").courier("대한통운").accumulated(500).artistno(123).build();
 		assertThat(artdao.writeByArt(art), is(1));
 		System.out.println(art);
 	}
+	
+	//상품 수정 테스트
+	/*@Test
+	public void updateTest() {
+		Art art = Art.builder().artName("변경신상").price(2000).mainImg(true).artImg(artImg)build();
+		artdao.updateByArt(art);
+	}*/
 	
 	
 
