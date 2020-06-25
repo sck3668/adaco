@@ -4,13 +4,12 @@
 		
 		<!-- 작가의 스토리 목록보기-->
 		<select id="findAllStory">
-		select storyno, title, write_date writeDate, story_img storyImg, 
-		content, artisno from story 
+		select storyno, title, write_date writeDate,content, artisno from story 
 		</select>
 		
 		<!-- 작가의 스토리 정보보기 -->
 		<select id="findByStory">
-		select storyno, title, write_date writeDate, story_img storyImg,
+		select storyno, title, write_date writeDate,
 		content, artisno from story where storyno=#{storyno} and rownum=1
 		</select>
 		
@@ -19,8 +18,8 @@
 			<selectKey keyProperty="storyno" resultType="int" order="BEFORE">
 				select story_seq.nextval from dual
 			</selectKey>
-		insert into story(stortno, title, write_date, story_img, content, artistno)
-		values(#{storyno},#{title},sysdate,#{storyImg},#{content},#{artistno})
+		insert into story(storyno, title, write_date, content, artistno)
+		values(#{storyNo},#{title},#{writeDate},#{content},#{artistNo})
 		</insert>
 		
 		<delete id="delete">

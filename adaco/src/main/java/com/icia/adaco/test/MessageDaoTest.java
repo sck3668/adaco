@@ -29,6 +29,11 @@ public class MessageDaoTest {
 				
 	}
 	@Test
+	public void deleteTest() {
+		assertThat(messageDao.delete(1), is(1));
+	}
+	
+	//@Test
 	public void findAllMessageTest() {
 		messageDao.findAllMessage();
 	}

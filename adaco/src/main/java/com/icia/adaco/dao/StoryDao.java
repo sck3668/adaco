@@ -27,8 +27,8 @@ public class StoryDao {
 		return tpl.selectOne("storyMapper.insert", story);
 	}
 	//스토리삭제
-	public int delete(Story story) {
-		return tpl.selectOne("storyMapper.delete", story);
+	public int delete(int storyno) {
+		return tpl.selectOne("storyMapper.delete", storyno);
 	}
 	
 }

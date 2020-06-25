@@ -22,8 +22,8 @@ public class MessageDao {
 		return tpl.selectOne("messageMapper.insert", message);
 	}
 	//메시지 삭제하기
-	public int delete(Message message) {
-		return tpl.selectOne("messageMapper.delete",message);
+	public int delete(int mno) {
+		return tpl.selectOne("messageMapper.delete",mno);
 	}
 	
 }
