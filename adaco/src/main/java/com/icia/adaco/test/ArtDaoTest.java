@@ -1,4 +1,5 @@
 package com.icia.adaco.test;
+
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
