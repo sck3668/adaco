@@ -3,17 +3,21 @@
 <mapper namespace="messageMapper">
 	
 	<!-- 쪽지 목록 ????읽음 여부? -->
-	<select id="findAllMessage">
+	<select id="findAllMessage" resultType="message">
 	select mno, username, title, content, write_date writeDate, send_id sendId,
 	recipient_id recipientId, msg_check msgCheck, is_send_message isSendMessage, is_reciver_message isReciverMessage
 	from message 
 	</select>
 	
+	
 	<insert id="insert">
+		<selectKey keyProperty="mno" resultType="int" order="BEFORE">
+			select message_seq.nextval from dual
+		</selectKey>
 	insert into message(mno, username, title, content, write_date, send_id
-	,recipent_id, msg_check, is_send_message, is_reciver_message)
-	values(#{mno},#{username},#{title},#{content},sysdate,,#{sendId},#{recipentId},
-	#{msgCheck},#{isSendMessage},#{isReciverMessage})
+	,recipient_id, msg_check, is_send_message, is_reciver_message)
+	values(#{mno},#{username},#{title},#{content},#{writeDate},#{sendId},#{recipientId},
+	#{msgCheck},0,0)
 	</insert>
 	
 	<delete id="delete">
