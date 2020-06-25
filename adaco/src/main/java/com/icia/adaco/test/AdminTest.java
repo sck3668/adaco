@@ -1,4 +1,4 @@
-package com.icia.adaco.dao.test;
+package com.icia.adaco.test;
 
 import java.time.*;
 

@@ -20,5 +20,6 @@ public class User {
 	private String address;
 	private LocalDateTime joinDate;
 	private LocalDateTime birthDate;
+	private boolean enabled;
 	
 }

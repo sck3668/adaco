@@ -19,5 +19,7 @@ public class Message {
 	private String sendId;
 	private String recipientId;
 	private Integer msgCheck;
+	private boolean isSendMessage;
+	private boolean isReciverMessage;
 	
 }

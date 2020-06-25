@@ -12,4 +12,5 @@ public class Order {
 	private Integer orderNo;
 	private LocalDateTime oderDate;
 	private String username;
+	private Integer shippingCharge;
 }

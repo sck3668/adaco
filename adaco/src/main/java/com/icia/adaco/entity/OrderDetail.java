@@ -12,6 +12,10 @@ import lombok.experimental.*;
 public class OrderDetail {
 	private Integer oderno;
 	private Integer optno;
+	private Integer artistNo;
+	private String artName;
+	private String optionName;
+	private String optionValue;
 	private Integer artno;
 	private Integer amount;
 	private Integer price;
@@ -23,5 +27,6 @@ public class OrderDetail {
 	private Integer addPoint;
 	private String postalcode;
 	private String refundAccount;
+	private isShipping isShipping;
 	
 }

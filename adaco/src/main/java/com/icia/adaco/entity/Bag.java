@@ -13,4 +13,6 @@ public class Bag {
 	private Integer artno;
 	private Integer totalPrice;
 	private Integer amount;
+	private String optionName;
+	private String optionValue;
 }

@@ -9,12 +9,13 @@ import lombok.experimental.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain=true)
-public class ReviewComment {
-	private Integer rno;
-	private Integer star;
+@Builder
+public class StoryComment {
+	private Integer cno;
+	private LocalDateTime writeDate;
+	private String writer;
 	private String content;
-	private String image;
-	private LocalDateTime writeTime;
-	private Integer artno;
+	private String profile;
+	private Integer storyNo;
 	private String username;
 }

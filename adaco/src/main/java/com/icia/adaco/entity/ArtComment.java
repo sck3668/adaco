@@ -8,8 +8,8 @@ import lombok.experimental.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Accessors(chain=true)
+@Builder
 public class ArtComment {
 	private Integer cno;
 	private LocalDateTime writeDate;

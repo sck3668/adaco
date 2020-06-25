@@ -8,7 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Point {
-	private Integer pointNo;
 	private Integer point;
 	private LocalDateTime startDate;
 	private LocalDateTime endDate;
