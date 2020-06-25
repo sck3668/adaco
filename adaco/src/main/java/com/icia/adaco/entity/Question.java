@@ -19,4 +19,5 @@ public class Question {
 	private String answerContent;
 	private LocalDateTime writeDate;
 	private LocalDateTime answerDate;
+	private State state;	
 }

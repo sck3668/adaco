@@ -1,10 +1,14 @@
 package com.icia.adaco.test;
 
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+
 import java.time.*;
 
 import org.junit.*;
 import org.junit.runner.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.config.annotation.authentication.configurers.userdetails.*;
 import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.*;
 import org.springframework.test.context.web.*;
@@ -14,12 +18,15 @@ import com.icia.adaco.entity.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/**/**-context.xml")
+@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/**/*-context.xml")
 public class AdminTest {
-	
+
 	@Autowired
 	AdminBoardDao adminBoardDao;
-
+	@Autowired
+	AdminUserDao adminUserDao;
+	@Autowired
+	AuthorityDao authorityDao;
 //	@Test
 	public void noticeInsertTest() {
 		adminBoardDao.insertByNotice(
@@ -45,12 +52,12 @@ public class AdminTest {
 
 //	@Test
 	public void findFAQById() {
-//		adminBoardDao.findFAQById(3);
+		adminBoardDao.findFAQById(3);
 	}
 
 //	@Test
 	public void findAllByFAQ() {
-//		adminBoardDao.findAllByFAQ();
+		adminBoardDao.findAllByFAQ();
 	}
 
 //	@Test
@@ -73,7 +80,7 @@ public class AdminTest {
 
 //	@Test
 	public void deleteByCatehory() {
-		adminBoardDao.deleteByCategory("카테고리다2");
+		adminBoardDao.deleteByCategory("카테고리다");
 	}
 	
 //	@Test
@@ -85,5 +92,44 @@ public class AdminTest {
 	public void updateQuestionByAnswerTest() {
 		adminBoardDao.updateQuestionByAnswer(Question.builder().answer("관리자").answerContent("답변이에요").answerDate(LocalDateTime.now()).qno(1).build());
 	}
+	
+//	@Test
+	public void deleteByArtTest() {
+		assertThat(adminBoardDao.deleteByArt(2), is(0));
+		assertThat(adminBoardDao.deleteByArt(1), is(1));
+	}
+	
+//	@Test
+	public void deleteByReportTest() {
+		assertThat(adminBoardDao.deleteByReport(1), is(1));
+	}
+	
+//	@Test
+	public void findByReportTest() {
+		adminBoardDao.findAllByReport(1, 10);
+	}
+	
+	
+	
+	
+	
+	
+//	유 저 테 스 트 유 저 테 스 트 유 저 테 스 트 유 저 테 스 트 유 저 테 스 트 유 저 테 스 트 유 저 테 스 트 유 저 테 스 트 유 저 테 스 트   
+	
+//	@Test
+	public void updateByUserTest() {
+		adminUserDao.updateByUser(User.builder().enabled(true).username("spring232").build());
+	}
+	
+//	@Test
+	public void authorityInsertTest() {
+		authorityDao.insert("spring232", "ROLE_USER");
+	}
+	
+//	@Test
+	public void authorityUpdateTest() {
+		authorityDao.update("spring232", "ROLE_MANAGER");
+	}
+	
 
 }

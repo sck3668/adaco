@@ -10,11 +10,11 @@ import com.icia.adaco.entity.*;
 
 @Repository
 public class AdminBoardDao {
-	
+
 	@Autowired
 	private SqlSessionTemplate tpl;
 
-//	신고글 조회 (신고수로 페이징 인덱스 키 어케 써야 할 듯<미완성>)
+//	신고글 조회 (신고수로 인덱스키는 맥여놈 나중에 페이징 유틸 머 어케해서 해야할 듯)
 	public List<ArtComment> findAllByReport(int startRowNum, int endRowNum) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startRowNum", startRowNum);
@@ -24,7 +24,7 @@ public class AdminBoardDao {
 	
 //	신고글 삭제 (체크해서 삭제하는거 가능하면 추가)
 	public int deleteByReport(int cno) {
-		return tpl.delete("adminBoardMapper.delete", cno);
+		return tpl.delete("adminBoardMapper.deleteByReport", cno);
 	}
 	
 //	판매글 삭제
@@ -32,12 +32,17 @@ public class AdminBoardDao {
 		return tpl.delete("adminBoardMapper.deleteByArt", artno);
 	}
 		
-//	1:1문의 페이징 ))))))) 개선 예정 
+//	1:1문의 페이징 ))))))) idx키 추가해서 해볼것
 	public List<Question> findAllByQuestion(int startRowNum, int endRowNum) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startRowNum", startRowNum);
 		map.put("endRowNum", endRowNum);
 		return tpl.selectList("adminBoardMapper.findAllByQuestion", map);
+	}
+	
+//	1:1문의 작성자 검색 & 페이징인데 아직 못함 추가해야됨
+	public void findQuestionById() {
+		
 	}
 	
 //	1:1 문의 읽기
