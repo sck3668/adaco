@@ -12,9 +12,6 @@
 	</select> -->
 	
 	<insert id = "insert">
-		<selectKey keyProperty="artno" resultType="int" order="BEFORE">
-			select bag_seq.nextval from dual
-		</selectKey>
 		insert into bag(username,artno,total_price,amount)
 		values(#{username},#{artno},#{totalPrice},0)
 	</insert>

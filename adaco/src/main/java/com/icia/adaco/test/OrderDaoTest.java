@@ -3,6 +3,8 @@ package com.icia.adaco.test;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
+import java.time.*;
+
 import org.junit.*;
 import org.junit.runner.*;
 import org.springframework.beans.factory.annotation.*;
@@ -14,18 +16,23 @@ import com.icia.adaco.entity.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/**/*-context.xml")
-public class BagDaoTest {
+public class OrderDaoTest {
 	@Autowired
-	private BagDao bagdao;
+	private OrderDao orderdao;
 	
-	@Test
+	//@Test
 	public void insertTest() {
-		Bag bag = 
-		Bag.builder().username("spring11").artno(1)
-		.totalPrice(1000).amount(10).build();
-		
-		assertThat(bagdao.insert(bag), is(notNullValue()));
-		
+		Order order = Order.builder().orderno(11).orderDate(LocalDateTime.now())
+				.username("moojyh").build();
+		assertThat(orderdao.insert(order), is(notNullValue()));
+	}
+	//@Test
+	public void updateTest() {
+		Order order = Order.builder().orderno(12).build();
+		assertThat(orderdao.update(order), is(notNullValue()));
+	}
+	@Test
+	public void deleteTest() {
+		assertThat(orderdao.delete(12), is(notNullValue()));
 	}
 }
-  
