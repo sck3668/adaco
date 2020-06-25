@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="optionMapper">
+	<!--옵션 추가-->
+	<insert id="insert">
+	<selectKey keyProperty="optno" resultType="int" order="BEFORE">
+		select optno_seq.nextval from dual
+	</selectKey>
+		insert into option(optno, artno, option_name, option_value, option_stock, add_price)
+		values(#{optno}, #{artno}, #{name}, #{value}, #{optionStock}, #{addPrice})
+	</insert>
+	
+	<!-- 옵션 변경 -->
+	<update id="update">
+		update option
+		<trim suffixOverrides="," prefix="set">
+			<if test="">,</if>
+			
+		</trim>
+		where optno=#{optno} and rownum=1
+	</update>
+	
+	<!-- 옵션 삭제 -->
+	<delete id="delete">
+		delete from option where optno=#{optno} and rownum=1
+	</delete>
+	
+ </mapper>

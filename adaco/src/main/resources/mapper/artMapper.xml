@@ -6,7 +6,7 @@
 	<selectKey keyProperty="artno" resultType="int" order="BEFORE">
 		select art_seq.nextval from dual
 	</selectKey>
-		insert into art(artno, art_name, price, main_img, art_img, stock, tag, art_date, category, shopno, shipping_price, return_address, courier, read_cnt, accumulated, favorite, artistno )
+		insert into art(artno, art_name, price, main_img, art_img, stock, tag, art_date, category, shopno, couri_price, return_address, courier, read_cnt, accumulated, favorite, artistno )
 		values(#{artno},#{artName},#{price},#{mainImg},#{artImg},#{stock}, #{tag}, sysdate, #{category}, #{shopno}, #{couriPrice}, #{returnAddress}, #{courier}, 0,#{accumulated}, 0, #{artistno})
 	</insert>
 	
@@ -20,7 +20,7 @@
 			<if test="artImg!=null">art_img=#{artImg},</if>
 			<if test="stock!=null">stock=#{stock},</if>
 			<if test="tag!=null">tag=#{tag},</if>
-			<if test="shippingPrice!=null">shipping_price=#{shippingPrice},</if>
+			<if test="couriPrice!=null">couri_price=#{couriPrice},</if>
 			<if test="returnAddress!=null">return_address=#{returnAddress},</if>
 			<if test="courier!=null">courier=#{courier},</if>
 			<if test="readCnt!=null">read_cnt=read_cnt+1,</if>
