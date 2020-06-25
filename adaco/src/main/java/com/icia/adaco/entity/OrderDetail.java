@@ -10,9 +10,9 @@ import lombok.experimental.*;
 @Accessors(chain=true)
 @Builder
 public class OrderDetail {
-	private Integer oderno;
+	private Integer orderno;
 	private Integer optno;
-	private Integer artistNo;
+	private Integer artistno;
 	private String artName;
 	private String optionName;
 	private String optionValue;
