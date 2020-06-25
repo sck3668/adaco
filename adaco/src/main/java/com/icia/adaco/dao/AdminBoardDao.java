@@ -10,6 +10,7 @@ import com.icia.adaco.entity.*;
 
 @Repository
 public class AdminBoardDao {
+	
 	@Autowired
 	private SqlSessionTemplate tpl;
 
@@ -30,7 +31,7 @@ public class AdminBoardDao {
 	public int deleteByArt(int artno) {
 		return tpl.delete("adminBoardMapper.deleteByArt", artno);
 	}
-	
+		
 //	1:1문의 페이징
 	public List<Question> findAllByQuestion(int startRowNum, int endRowNum) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -45,8 +46,8 @@ public class AdminBoardDao {
 	}
 	
 //	1:1 문의 답변
-	public int updateByAnswer(int qno) {
-		return tpl.update("adminBoardMapper.insertByAnswer", qno);
+	public int updateQuestionByAnswer(Question question) {
+		return tpl.update("adminBoardMapper.updateQuestionByAnswer", question);
 	}
 	
 //	공지사항 작성
@@ -99,7 +100,7 @@ public class AdminBoardDao {
 		return tpl.insert("adminBoardMapper.insertByCategory", category);
 	}
 
-//	카테고리 변경
+//	카테고리 변경 ))))))))))))) 컬럼 하나라서 사실상 불가  번호추가 해야할듯
 	public int updateByCategory(Category category) {
 		return tpl.update("adminBoardMapper.updateByCategory", category);
 	}

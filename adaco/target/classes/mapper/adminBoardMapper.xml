@@ -27,20 +27,14 @@
 	
 	<select id="findAllByQuestionTEST" resultType="question">
 		select * from
-			(select b.*,rownum as rnum from
+			(select q.*,rownum as rnum from
 				(select /*+ index_desc(question question_pk_qno) */ qno, writer, title, write_date writeDate from question
 				  <trim prefix="WHERE" prefixOverrides="AND|OR">
-                     <if test="searchType=='TITLE' and keyword != null and keyword != '' ">
-                        AND TITLE like '%' || #{keyword} || '%'
-                     </if>
-                     <if test="searchType=='BOARDCONTENT' and keyword != null and keyword != '' ">
-                        AND BOARDCONTENT like '%' || #{keyword} || '%'
-                     </if>
-                     <if test="searchType=='WRITER' and keyword != null and keyword != '' ">
-                        AND WRITER like '%' || #{keyword} || '%'
-                     </if>   
-            </trim>
-				) b
+				  	<if test="searchType=='WRITER' and keyword != null and keyword != '' ">
+                    	AND WRITER like '%' || #{keyword} || '%'
+                    </if>   
+           		   </trim>
+				) q
 			    where rownum&lt;=#{endRowNum})
       		where rnum&gt;=#{startRowNum}
 	</select>
@@ -50,7 +44,7 @@
 		from question where qno = #{qno} and rownum = 1	
 	</select>
 	
-	<update id = "insertByAnswer">
+	<update id = "updateQuestionByAnswer">
 		update question set answer_content = #{answerContent}, answer = #{answer}, answer_date = #{answerDate}
 		where qno = #{qno} and rownum = 1
 	</update>

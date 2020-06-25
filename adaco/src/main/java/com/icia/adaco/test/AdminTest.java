@@ -1,4 +1,4 @@
-/*package com.icia.adaco.test;
+package com.icia.adaco.test;
 
 import java.time.*;
 
@@ -7,16 +7,18 @@ import org.junit.runner.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.*;
+import org.springframework.test.context.web.*;
 
 import com.icia.adaco.dao.*;
 import com.icia.adaco.entity.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/**-context.xml")
+@ContextConfiguration("file:src/main/webapp/WEB-INF/**/**-context.xml")
 public class AdminTest {
+	
 	@Autowired
-	private AdminBoardDao adminBoardDao;
+	AdminBoardDao adminBoardDao;
 
 //	@Test
 	public void noticeInsertTest() {
@@ -63,14 +65,25 @@ public class AdminTest {
 		assertThat(adminBoardDao.deleteByFAQ(2), is(1));
 	}
 
-	@Test
+//	@Test
 	public void insertByCategory() {
 		Category category = Category.builder().category("카테고리다2").build();
 		adminBoardDao.insertByCategory(category);
 	}
 
-	public void updateByCatehory() {
-		Category.builder().category("새로운카테고리")
+//	@Test
+	public void deleteByCatehory() {
+		adminBoardDao.deleteByCategory("카테고리다2");
+	}
+	
+//	@Test
+	public void findQuestionById() {
+		adminBoardDao.findQuestionById(1);
+	}
+	
+//	@Test
+	public void updateQuestionByAnswerTest() {
+		adminBoardDao.updateQuestionByAnswer(Question.builder().answer("관리자").answerContent("답변이에요").answerDate(LocalDateTime.now()).qno(1).build());
 	}
 
-}*/
+}
