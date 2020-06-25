@@ -21,7 +21,7 @@ public class ArtDaoTest {
 	
 	@Test
 	public void insertTest() {
-		Art art = Art.builder().artName("신상").price(1000).mainImg(true).artImg(false).stock(300).tag("검색").category("목걸이").shopNo(1234).couriPrice(3000).returnAddress("배송지야").courier("대한통운").accumulated(500).artistNo(123).build();
+		Art art = Art.builder().artName("신상").price(1000).mainImg(true).artImg(false).stock(300).tag("검색").category("목걸이").shopno(1234).couriPrice(3000).returnAddress("배송지야").courier("대한통운").accumulated(500).artistno(123).build();
 		assertThat(artdao.writeByArt(art), is(1));
 		System.out.println(art);
 	}

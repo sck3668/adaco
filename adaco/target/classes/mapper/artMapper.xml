@@ -7,7 +7,7 @@
 		select art_seq.nextval from dual
 	</selectKey>
 		insert into art(artno, art_name, price, main_img, art_img, stock, tag, art_date, category, shopno, shipping_price, return_address, courier, read_cnt, accumulated, favorite, artistno )
-		values(#{artno},#{artName},#{price},#{mainImg},#{artImg},#{stock}, #{tag}, sysdate, #{category}, #{shopNo}, #{couriPrice}, #{returnAddress}, #{courier}, 0,#{accumulated}, 0, #{artistNo})
+		values(#{artno},#{artName},#{price},#{mainImg},#{artImg},#{stock}, #{tag}, sysdate, #{category}, #{shopno}, #{couriPrice}, #{returnAddress}, #{courier}, 0,#{accumulated}, 0, #{artistno})
 	</insert>
 	
 	<!--작품 수정 / 작품 번호,카테고리 수정불가-->
