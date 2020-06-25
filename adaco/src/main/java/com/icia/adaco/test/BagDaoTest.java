@@ -1,4 +1,4 @@
-package com.icia.adaco.dao.test;
+package com.icia.adaco.test;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
@@ -28,3 +28,4 @@ public class BagDaoTest {
 		
 	}
 }
+  
