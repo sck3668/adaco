@@ -11,7 +11,7 @@ import lombok.experimental.*;
 @Accessors(chain=true)
 @Builder
 public class Shop {
-	private Integer shopNo;
+	private Integer shopno;
 	private String shopName;
 	private Integer shopIntro;
 	private String  businessno;

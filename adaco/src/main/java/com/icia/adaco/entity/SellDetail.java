@@ -11,7 +11,7 @@ import lombok.experimental.*;
 @Accessors(chain=true)
 @Builder
 public class SellDetail {
-	private Integer oderNo;
+	private Integer orderno;
 	private String artName;
 	private Integer price;
 	private LocalDateTime sellDate;

@@ -19,7 +19,7 @@ public class Review {
 	private String content;
 	private String image;
 	private type type;
-	private LocalDateTime writeTime;
+	private LocalDateTime writeDate;
 	private Integer artno;
 	private String username;
 }

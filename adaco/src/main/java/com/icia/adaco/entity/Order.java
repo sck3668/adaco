@@ -9,8 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class Order {
-	private Integer orderNo;
-	private LocalDateTime oderDate;
+	private Integer orderno;
+	private LocalDateTime orderDate;
 	private String username;
 	private Integer shippingCharge;
 }
