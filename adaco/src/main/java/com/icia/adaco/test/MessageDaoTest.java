@@ -28,7 +28,7 @@ public class MessageDaoTest {
 				assertThat(messageDao.insert(message), is(1));
 				
 	}
-	@Test
+	//@Test
 	public void deleteTest() {
 		assertThat(messageDao.delete(1), is(1));
 	}
