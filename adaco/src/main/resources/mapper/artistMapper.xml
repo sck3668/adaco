@@ -5,17 +5,17 @@
 		<selectKey keyProperty="ano" resultType="int" order="BEFORE">
 			select artist_seq.nextval dual
 		</selectKey>
-		insert into artist(artistno,artist_into,profile,username,shopno)
-		values(#{artistno},#{artistInto},#{profile},#{username},#{shopno})
+		insert into artist(artistno,artist_intro,profile,username,shopno)
+		values(#{artistno},#{artistIntro},#{profile},#{username},#{shopno})
 	</insert>
 	<select id="findById" resultType="artist">
-		select artistno,artist_into
-		artistInto,profile,username,shopno from artist where and=#{ano}
+		select artistno,artist_intro
+		artistIntro,profile,username,shopno from artist where and=#{ano}
 	</select>
 	<update id="update">
 		update artist
 		<trim suffixOverrides="," prefix="set">
-			<if test="artistInto!==null">artist_into=#{artistInto}</if>
+			<if test="artistIntro!==null">artist_intro=#{artistIntro}</if>
 			<if test="profile!==null">profile=#{profile}</if>
 		</trim>
 		where username=#{username} and rownum=1
