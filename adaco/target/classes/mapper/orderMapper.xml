@@ -7,7 +7,7 @@
 	</select>
 	 -->
 	<select id = "findById" resultType="order">
-		select orderno, order_date orderDate, shipping_charge
+		select orderno, order_date orderDate, username, shipping_charge
 		shippingCharge from orders where orderno=#{orderno} and rownum=1
 	</select>
 	

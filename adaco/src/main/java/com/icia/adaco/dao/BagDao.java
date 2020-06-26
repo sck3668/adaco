@@ -22,7 +22,9 @@ public class BagDao {
 	public int delete(Integer artno) {
 		return tpl.delete("bagMapper.delete", artno);
 	}
-	
+	public Bag findById(Integer artno) {
+		return tpl.selectOne("bagMapper.findById", artno);
+	}
 	
 	
 }

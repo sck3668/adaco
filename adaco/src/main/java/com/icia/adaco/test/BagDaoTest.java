@@ -39,5 +39,10 @@ public class BagDaoTest {
 	public void deleteTest() {
 		assertThat(bagdao.delete(3), is(1));
 	}
+	@Test
+	public void findByIdTest() {
+		bagdao.findById(10);
+		System.out.println(bagdao.findById(10));
+	}
 }
   
