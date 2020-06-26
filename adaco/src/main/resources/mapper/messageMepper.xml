@@ -3,7 +3,7 @@
 <mapper namespace="messageMapper">
 	
 	<!-- 쪽지 목록 ????읽음 여부? -->
-	<select id="findAllMessage" resultType="message">
+	<select id="findAllMessage">
 	select mno, username, title, content, write_date writeDate, send_id sendId,
 	recipient_id recipientId, msg_check msgCheck, is_send_message isSendMessage, is_reciver_message isReciverMessage
 	from message 

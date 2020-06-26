@@ -17,25 +17,16 @@ import com.icia.adaco.entity.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/**/*-context.xml")
-public class MessageDaoTest {
+public class StoryCommentDaoTest {
 	@Inject
-	private MessageDao messageDao;
+	private StoryCommentDao storyCommentDao;
 	
-	//@Test
+	//스토리 댓글 입력
+	@Test
 	public void insertTest() {
-		Message message = Message.builder().title("테스트").username("혁지").content("아아")
-				.sendId("gk").recipientId("아").msgCheck(0).writeDate(LocalDateTime.now()).build();
-				assertThat(messageDao.insert(message), is(1));
-				
-	}
-	//@Test
-	public void deleteTest() {
-		assertThat(messageDao.delete(1), is(1));
+		StoryComment storyComment = StoryComment.builder().cno(1).writeDate(LocalDateTime.now()).writer("테스트1")
+				.content("테스트입니다.").profile("jpg").storyno(1).username("혁").build();
+		assertThat(storyCommentDao.insertByCommentOfStory(storyComment), is(1));
 	}
 	
-//	@Test
-//	public void findAllMessageTest() {
-//		messageDao.findAllMessage();
-//		System.out.println(messageDao);
-//	}
 }
