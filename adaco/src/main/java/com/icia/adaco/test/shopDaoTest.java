@@ -17,7 +17,7 @@ import com.icia.adaco.entity.*;
 @ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/spring/**/*-context.xml")
 public class shopDaoTest {
 	@Autowired
-	private shopDao shopDao;
+	private ShopDao shopDao;
 
 	//@Test
 	public void inserTest() {
@@ -34,7 +34,7 @@ public class shopDaoTest {
 	public void findByShopnoTest() {
 		assertThat(shopDao.readByShop(2), is(notNullValue()));
 	}
-	@Test
+	//@Test
 	public void deleteTest() {
 		assertThat(shopDao.deleteByArt(3), is(1));
 	}
