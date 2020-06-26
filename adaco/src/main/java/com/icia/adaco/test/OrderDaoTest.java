@@ -35,9 +35,13 @@ public class OrderDaoTest {
 	public void deleteTest() {
 		assertThat(orderdao.delete(8), is(notNullValue()));
 	}
-	@Test
-	public void findById() {
+	//@Test
+	public void findByIdTest() {
 		orderdao.findById(9);
 		System.out.println(orderdao.findById(9));
+	}
+	@Test
+	public void findAllOrderTest() {
+		orderdao.findAllOrder();
 	}
 }

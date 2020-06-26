@@ -19,30 +19,34 @@ public class BagDaoTest {
 	private BagDao bagdao;
 	
 	//@Test
-	public void insertTest() {
+	public void insertByBagTest() {
 		Bag bag = 
 		Bag.builder().username("spring2321").artno(10)
 		.totalPrice(100).amount(10).optionName("모니터")
 		.optionValue("11").build();
 		
-		assertThat(bagdao.insert(bag), is(notNullValue()));
+		assertThat(bagdao.insertByBag(bag),is(notNullValue()));
 	}
 	//@Test
-	public void updateTest() {
+	public void updateByBagTest() {
 		Bag bag = Bag.builder().username("spring2321").artno(10)
 				.totalPrice(10000).amount(1)
 				.optionName("색상").optionValue("12")
 				.build();
-		assertThat(bagdao.update(bag), is(1));
+		assertThat(bagdao.updateByBag(bag), is(1));
 	}
 	//@Test
-	public void deleteTest() {
-		assertThat(bagdao.delete(3), is(1));
+	public void deleteByBagTest() {
+		assertThat(bagdao.deleteByBag(3), is(1));
+	}
+	//@Test
+	public void findByArtnoTest() {
+		bagdao.findByArtno(10);
+		System.out.println(bagdao.findByArtno(10));
 	}
 	@Test
-	public void findByIdTest() {
-		bagdao.findById(10);
-		System.out.println(bagdao.findById(10));
+	public void findAllByBagTest() {
+		bagdao.findAllByBag();
 	}
 }
   

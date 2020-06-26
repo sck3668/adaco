@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="orderMapper">
-	<!--
-	<select id = "findAllOrder">
-		
+
+	<select id = "findAllByOrder" resultType="order">
+		select orderno, order_date orderDate, username, shipping_charge shippingCharge
+		from orders
 	</select>
-	 -->
-	<select id = "findById" resultType="order">
+	 
+	<select id = "findByOrder" resultType="order">
 		select orderno, order_date orderDate, username, shipping_charge
 		shippingCharge from orders where orderno=#{orderno} and rownum=1
 	</select>
 	
-	<insert id="insert">
+	<insert id="insertByOrder">
 		<selectKey keyProperty="orderno" resultType="int" order="BEFORE">
 			select orders_seq.nextval from dual
 		</selectKey>
@@ -19,7 +20,7 @@
 		values(#{orderno},sysdate,#{username},#{shippingCharge})
 	</insert>
 	
-	<update id ="update">
+	<update id ="updateByOrder">
 		update orders
 		<trim suffixOverrides="," prefix="set">
 			<if test="shippingCharge!=null">shipping_charge=#{shippingCharge}</if>
@@ -27,7 +28,7 @@
 		where orderno=#{orderno} and rownum=1
 	</update>
 	
-	<delete id ="delete">
+	<delete id ="deleteByOrder">
 		delete from orders where orderno=#{orderno} and rownum=1
 	</delete>
 	

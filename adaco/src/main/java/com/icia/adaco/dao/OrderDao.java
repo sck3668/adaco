@@ -1,5 +1,7 @@
 package com.icia.adaco.dao;
 
+import java.util.*;
+
 import org.mybatis.spring.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
@@ -25,5 +27,9 @@ public class OrderDao {
 	
 	public Order findById(Integer orderno) {
 		return tpl.selectOne("orderMapper.findById", orderno);
+	}
+	
+	public List<Order> findAllOrder() {
+		return tpl.selectList("orderMapper.findAllOrder");
 	}
 }

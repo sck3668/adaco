@@ -2,29 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bagMapper">
 	<!-- 장바구니 목록 보기 -->
-<!-- 	<select id = "findAllBag">
-		select artno, total_price, amount, name, value from bag
-		
+	
+	<select id = "findAllByBag" resultType="bag">
+		select username, artno, total_price totalPrice, amount
+		,option_name optionName, option_value optionValue
+		from bag
 	</select>
 	
-	<select id="findArtImgByBag" resultt>
-		select 
-	</select> -->
-	
-	<select id = "findById" resultType="bag">
+	<select id = "findByArtno" resultType="bag">
 		select username, artno, total_price totalPrice, amount
 		,option_name optionName, option_value optionValue
 		from bag where artno=#{artno} and rownum=1
 	</select>
 	
-	<insert id = "insert">
+	<insert id = "insertByBag">
 		insert into bag(username,artno,total_price,amount,option_name
 		,option_value)
 		values(#{username},#{artno},#{totalPrice},#{amount}
 		,#{optionName},#{optionValue})
 	</insert>
 	
-	<update id="update">
+	<update id="updateByBag">
 		update bag
 		<trim suffixOverrides="," prefix="set">
 			<if test="totalPrice!=null">total_price=#{totalPrice},</if>
@@ -35,7 +33,7 @@
 		where artno=#{artno} and rownum=1
 	</update>
 	
-	<delete id="delete">
+	<delete id="deleteByBag">
 		delete from bag where artno=#{artno} and rownum=1
 	</delete>
  </mapper>
