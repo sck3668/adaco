@@ -15,7 +15,7 @@ public class ArtComment {
 	private LocalDateTime writeDate;
 	private String profile;
 	private String content;
-	private LocalDate reportCnt;
+	private Integer reportCnt;
 	private String username;
 	private Integer artno;
 }

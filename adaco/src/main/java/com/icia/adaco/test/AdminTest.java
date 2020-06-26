@@ -1,23 +1,32 @@
-/*package com.icia.adaco.test;
+package com.icia.adaco.test;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 import java.time.*;
 
 import org.junit.*;
 import org.junit.runner.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.config.annotation.authentication.configurers.userdetails.*;
 import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.*;
+import org.springframework.test.context.web.*;
 
 import com.icia.adaco.dao.*;
 import com.icia.adaco.entity.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/**-context.xml")
+@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/**/*-context.xml")
 public class AdminTest {
-	@Autowired
-	private AdminBoardDao adminBoardDao;
 
+	@Autowired
+	AdminBoardDao adminBoardDao;
+	@Autowired
+	AdminUserDao adminUserDao;
+	@Autowired
+	AuthorityDao authorityDao;
 //	@Test
 	public void noticeInsertTest() {
 		adminBoardDao.insertByNotice(
@@ -43,12 +52,12 @@ public class AdminTest {
 
 //	@Test
 	public void findFAQById() {
-//		adminBoardDao.findFAQById(3);
+		adminBoardDao.findFAQById(3);
 	}
 
 //	@Test
 	public void findAllByFAQ() {
-//		adminBoardDao.findAllByFAQ();
+		adminBoardDao.findAllByFAQ();
 	}
 
 //	@Test
@@ -63,14 +72,79 @@ public class AdminTest {
 		assertThat(adminBoardDao.deleteByFAQ(2), is(1));
 	}
 
-	@Test
+//	@Test
 	public void insertByCategory() {
 		Category category = Category.builder().category("카테고리다2").build();
 		adminBoardDao.insertByCategory(category);
 	}
 
-	public void updateByCatehory() {
-		Category.builder().category("새로운카테고리")
+//	@Test
+	public void deleteByCatehory() {
+		adminBoardDao.deleteByCategory("카테고리다");
 	}
+	
+//	@Test
+	public void findQuestionById() {
+		adminBoardDao.findQuestionById(1);
+	}
+	
+//	@Test
+	public void updateQuestionByAnswerTest() {
+		adminBoardDao.updateQuestionByAnswer(Question.builder().answer("관리자").answerContent("답변이에요").answerDate(LocalDateTime.now()).qno(1).build());
+	}
+	
+//	@Test
+	public void deleteByArtTest() {
+		assertThat(adminBoardDao.deleteByArt(2), is(0));
+		assertThat(adminBoardDao.deleteByArt(1), is(1));
+	}
+	
+//	@Test
+	public void deleteByReportTest() {
+		assertThat(adminBoardDao.deleteByReport(1), is(1));
+	}
+	
+//	@Test
+	public void findByReportTest() {
+		adminBoardDao.findAllByReport(5, 10);
+	}
+	
+//	@Test
+	public void insertByQuestionTest() {
+		adminBoardDao.insertByQuestion(Question.builder().writer("spring123").title("제목").writeDate(LocalDateTime.of(2020, 06, 25, 0, 0)).content("내용임").build());
+	}
+	
+//	@Test
+	public void findByQuestionTest() {
+		adminBoardDao.findAllByQuestion(1, 15);
+	}
+	
+//	@Test
+	public void updateByQuestionTest() {
+		adminBoardDao.updateQuestionByAnswer(Question.builder().qno(5).answer("관리자").answerContent("답변입니다.").answerDate(LocalDateTime.now()).state(State.답변완료).build());
+	}
+	
+	
+	
+	
+	
+	
+//	유 저 테 스 트 유 저 테 스 트 유 저 테 스 트 유 저 테 스 트 유 저 테 스 트 유 저 테 스 트 유 저 테 스 트 유 저 테 스 트 유 저 테 스 트   
+	
+//	@Test
+	public void updateByUserTest() {
+		adminUserDao.updateByUser(User.builder().enabled(true).username("spring232").build());
+	}
+	
+//	@Test
+	public void authorityInsertTest() {
+		authorityDao.insert("spring232", "ROLE_USER");
+	}
+	
+//	@Test
+	public void authorityUpdateTest() {
+		authorityDao.update("spring232", "ROLE_MANAGER");
+	}
+	
 
-}*/
+}

@@ -14,8 +14,8 @@ public class Art {
 	private Integer artno;
 	private String artName;
 	private Integer price;
-	private boolean mainImg;
-	private boolean artImg;
+	private String mainImg;
+	private String artImg;
 	private Integer stock;
 	private String tag;
 	private LocalDateTime artDate;

@@ -36,7 +36,7 @@
 		select*from
 			(select rownum as rnum, b.*from
 				(select /*+ index_desc(art art_pk_artno) */ artno, category, main_img, art_name, price
-				from art ) b
+				from art ) a
 			where rownum <=#{endRowNum}) 
 		where rnum>=#{startRowNum}
 		]]>
@@ -93,7 +93,7 @@
 	
 	<!-- 작품 상세 보기 -->
 	<select id="findById" resultType="art">
-		select artno, art_name, price, main_img, art_img, stock, tag, art_date, category, shopno, shipping_price, return_address, courier, read_cnt, accumulated, favorite, artistno
+		select artno, art_name artName, price, main_img mainImg , art_img artImg , stock, tag, art_date artDate, category, shopno, couri_price couriPrice, return_address returnAddress, courier, read_cnt readCnt, accumulated, favorite, artistno
 		from art
 		where artno=#{artno} and rownum=1
 	</select>

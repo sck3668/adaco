@@ -7,14 +7,17 @@
 		select options_seq.nextval from dual
 	</selectKey>
 		insert into options(optno, artno, option_name, option_value, option_price, option_stock)
-		values(#{optno}, #{artno}, #{name}, #{value}, #{optionStock}, #{addPrice})
+		values(#{optno}, #{artno}, #{name}, #{value}, #{optionStock}, #{optionPrice})
 	</insert>
 	
 	<!-- 옵션 변경 -->
 	<update id="update">
-		update option
+		update options
 		<trim suffixOverrides="," prefix="set">
-			<if test="">,</if>
+			<if test="name!=null">option_name=#{name},</if>
+			<if test="value!=null">option_value=#{value},</if>
+			<if test="optionStock!=null">option_stock=#{optionStock},</if>
+			<if test="optionPrice!=null">option_price=#{optionPrice},</if>
 			
 		</trim>
 		where optno=#{optno} and rownum=1
@@ -22,7 +25,7 @@
 	
 	<!-- 옵션 삭제 -->
 	<delete id="delete">
-		delete from option where optno=#{optno} and rownum=1
+		delete from options where optno=#{optno} and rownum=1
 	</delete>
 	
  </mapper>
