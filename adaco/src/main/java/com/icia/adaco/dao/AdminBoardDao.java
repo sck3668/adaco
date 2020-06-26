@@ -13,9 +13,17 @@ public class AdminBoardDao {
 
 	@Autowired
 	private SqlSessionTemplate tpl;
-
-	public int count() {
-		return tpl.selectOne("adminBoardMapper.countByReport");
+	
+//	문의글 개수 카운팅
+	public int countByQuestion(String writer) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("writer", writer);
+		return tpl.selectOne("adminBoardMapper.countByQuestion", map);
+	}
+	
+//	공지사항 개수 카운팅
+	public int countByNotice() {
+		return tpl.selectOne("adminBoardMapper.countByNotice");
 	}
 //	신고글 조회
 	public List<ArtComment> findAllByReport(int startRowNum, int endRowNum) {
@@ -48,9 +56,13 @@ public class AdminBoardDao {
 		return tpl.selectList("adminBoardMapper.findAllByQuestion", map);
 	}
 	
-//	1:1문의 작성자 검색 & 페이징인데 아직 못함 추가해야됨 )))))))
-	public void findQuestionById() {
-		
+//	1:1문의 작성자 검색 & 페이징
+	public List<Question> findQuestionById(int startRowNum, int endRowNum, String writer) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("startRowNum", startRowNum);
+		map.put("endRowNum", endRowNum);
+		map.put("writer", writer);
+		return tpl.selectList("adminBoardMapper.findQuestionById", map);
 	}
 	
 //	1:1 문의 읽기
@@ -68,9 +80,17 @@ public class AdminBoardDao {
 		return tpl.insert("adminBoardMapper.insertByNotice", notice);
 	}
 	
-//	중요 공지 작성인데 mapper 안만듦. 어케해야될까? )))))))))
-	public int insertByMostNotice(Notice notice) {
-		return tpl.insert("adminBoardMapper.insertByMostNotice", notice);
+//	공지사항 목록	
+	public List<Notice> findAllByNotice(int startRowNum, int endRowNum) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("startRowNum", startRowNum);
+		map.put("endRowNum", endRowNum);
+		return tpl.selectList("adminBoardMapper.findAllByNotice", map);
+	}
+	
+//	중요 공지 목록
+	public List<Notice> findAllByImportantNotice() {
+		return tpl.selectList("adminBoardMapper.findAllByImportantNotice");
 	}
 	
 //	공지사항 수정
@@ -113,7 +133,7 @@ public class AdminBoardDao {
 		return tpl.insert("adminBoardMapper.insertByCategory", category);
 	}
 
-//	카테고리 변경 ))))))))))))) 컬럼 하나라서 사실상 불가  번호추가 해야할듯
+//	카테고리 변경
 	public int updateByCategory(Category category) {
 		return tpl.update("adminBoardMapper.updateByCategory", category);
 	}

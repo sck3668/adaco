@@ -3,31 +3,59 @@
 <mapper namespace="adminUserMapper">
 	
 	<select id = "countByUser" resultType="int">
-		select count(*) from users where writer = #{writer}
-	</select>
-	<select id = "countByArtist" resultType="int">
-		select count(*) from artist where writer = #{writer}
+		select count(*) from users
+		<where>
+			<if test="username != null">and username = #{username}</if>
+		</where>
 	</select>
 	
+	<select id = "countByArtist" resultType="int">
+		select count(*) from artist
+		<where>
+			<if test="username != null">and username = #{username}</if>
+		</where>
+	</select>
 	
 	<select id="findAllByUser" resultType="user">
-	<![CDATA[
-		select * from
-			(select u.*, rownum rnum from
-				(select /*+ index_desc(users users_idx_username) */ username, irum, email from users) u
-			where rownum <= #{endRowNum})
-		where rnum >= #{startRowNum}
-	]]>
+		<![CDATA[
+	      select B.username, B.irum, B.email
+	      from
+	         (select /*+ index_asc(users users_pk_username) */ rownum rnum, A.username, A.irum, A.email
+	         from (
+	            select username, irum, email
+	            from users
+	            order by username asc ) A
+	         where rownum <= #{endRowNum})B
+	      where B.rnum >= #{startRowNum}
+		]]>
 	</select>
 
 	<select id = "findAllByArtist" resultType="artist">
 	<![CDATA[
-		select * from
-			(select a.*, rownum rnum from
-				(select /*+ index_desc(artist artist_idx_username) */ username, irum, email from artist) a
-			where rownum >= #{endRowNum})
-		where rnum >= #{startRowNum} 
+		select B.username, B.irum, B.email, B.artistno
+	    	from
+	       		(select /*+ index_asc(users users_pk_username) */ rownum rnum, A.username, A.irum, A.email, A.artistno
+	         	from (
+		            select u.username, u.irum, u.email, a.artistno
+		            from users u, artist a
+	                where u.username = a.username
+		            order by username asc ) A
+	         	where rownum <= #{endRowNum})B
+	      	where B.rnum >= #{startRowNum}
 	]]>
+	</select>
+	
+	<select id="findUserByKeyWord" resultType="user">
+	      select B.username, B.irum, B.email
+	      from
+	         (select /*+ index_asc(users users_pk_username) */ rownum rnum, A.username, A.irum, A.email
+	         from (
+	            select username, irum, email
+	            from users
+	       		where username like '%'|| #{keyWord} || '%'
+	            order by username asc ) A
+	         where rownum&lt;= #{endRow+Num})B
+	      where B.rnum&gt;= #{startRowNum}
 	</select>
 	
 	<update id= "updateByUser">
