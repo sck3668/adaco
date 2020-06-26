@@ -4,9 +4,9 @@
 	<!--옵션 추가-->
 	<insert id="insert">
 	<selectKey keyProperty="optno" resultType="int" order="BEFORE">
-		select optno_seq.nextval from dual
+		select options_seq.nextval from dual
 	</selectKey>
-		insert into option(optno, artno, option_name, option_value, option_stock, add_price)
+		insert into options(optno, artno, option_name, option_value, option_price, option_stock)
 		values(#{optno}, #{artno}, #{name}, #{value}, #{optionStock}, #{addPrice})
 	</insert>
 	
