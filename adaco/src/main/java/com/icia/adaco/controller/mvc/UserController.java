@@ -9,6 +9,16 @@ public class UserController {
 	
 	@GetMapping("/user/login")
 	public ModelAndView login() {
-		return new ModelAndView("main").addObject("user/login.jsp");
+		return new ModelAndView("main").addObject("viewName","user/login.jsp");
+	}
+	
+	@GetMapping("/")
+	public ModelAndView main() {
+		return new ModelAndView("main").addObject("viewName","user/section.jsp");
+	}
+	
+	@GetMapping("/user/reset_pwd")
+	public ModelAndView resetPassword() {
+		return new ModelAndView("main").addObject("viewName","user/reset_pwd.jsp");
 	}
 }

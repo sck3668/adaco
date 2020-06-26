@@ -13,7 +13,7 @@ import lombok.experimental.*;
 public class Shop {
 	private Integer shopno;
 	private String shopName;
-	private Integer shopIntro;
+	private String shopIntro;
 	private String  businessno;
 	private String account; 
 }
