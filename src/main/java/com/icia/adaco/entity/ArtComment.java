@@ -10,12 +10,12 @@ import lombok.experimental.*;
 @NoArgsConstructor
 @Accessors(chain=true)
 @Builder
-public class Notice {
-	private Integer noticeno;
-	private String content;
-	private String title;
+public class ArtComment {
+	private Integer cno;
 	private LocalDateTime writeDate;
-	private String writer;
-	private Boolean isImportant;
+	private String profile;
+	private String content;
+	private Integer reportCnt;
+	private String username;
+	private Integer artno;
 }
-

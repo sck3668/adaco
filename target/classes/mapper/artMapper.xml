@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="artMapper">
+	<!-- 작품 등록 -->	
+	<insert id="insert">
+	<selectKey keyProperty="artno" resultType="int" order="BEFORE">
+		select art_seq.nextval from dual
+	</selectKey>
+		insert into art(artno, art_name, price, main_img, art_img, stock, tag, art_date, category, shopno, shipping_price, return_address, courier, read_cnt, accumulated, favorite, artistno )
+		values(#{artno},#{artName},#{price},#{mainImg},#{artImg},#{stock}, #{tag}, sysdate, #{category}, #{shopNo}, #{couriPrice}, #{returnAddress}, #{courier}, 0,#{accumulated}, 0, #{artistNo})
+	</insert>
+	
+	<!--작품 수정 / 작품 번호,카테고리 수정불가-->
+	<update id="update">
+		update art
+		<trim suffixOverrides="," prefix="set">
+			<if test="artName!=null">art_name=#{artName},</if>
+			<if test="price!=null">price=#{price},</if>
+			<if test="mainImg!=null">main_img=#{mainImg},</if>
+			<if test="artImg!=null">art_img=#{artImg},</if>
+			<if test="stock!=null">stock=#{stock},</if>
+			<if test="tag!=null">tag=#{tag},</if>
+			<if test="shippingPrice!=null">shipping_price=#{shippingPrice},</if>
+			<if test="returnAddress!=null">return_address=#{returnAddress},</if>
+			<if test="courier!=null">courier=#{courier},</if>
+			<if test="readCnt!=null">read_cnt=read_cnt+1,</if>
+			<if test="accumulated!=null">accumulated=#{accumulated},</if>
+			<if test="favorite!=null">favorite=favorite+1,</if>
+		</trim>
+		where artno=#{artno} and rownum=1
+	</update>
+	
+	<!-- 작품 내역보기/최신순 -->
+		<select id="findAll" resultType="art">
+	<![CDATA[
+		select*from
+			(select rownum as rnum, b.*from
+				(select /*+ index_desc(art art_pk_artno) */ artno, category, main_img, art_name, price
+				from art ) b
+			where rownum <=#{endRowNum}) 
+		where rnum>=#{startRowNum}
+		]]>
+	</select>
+	
+	<!-- 작품 정렬(리뷰순) -->
+		<select id="findAllByReview" resultType="art">
+	<![CDATA[
+		select*from
+			(select rownum as rnum, b.*from
+				(select /*+ index_desc(art art_pk_artno) */ artno, category, main_img, art_name, price
+				from art ) b
+			where rownum <=#{endRowNum}) 
+		where rnum>=#{startRowNum}
+		]]>
+	</select>
+	
+	<!-- 작품 검색 (이름으로) -->
+	<select id="searchByArt" resultType="art">
+		select*from (select/*+index_desc(art art_pk_artno)*/ 
+		artno, category, main_img, art_name, price
+		from art
+		where art_name like '%{#artName}%'
+		
+		)
+	
+	</select>
+	
+	<!-- 작품 삭제 -->
+	<delete id="delete">
+		delete from art where artno=#{artno} and rownum=1
+	</delete>
+	
+	<!-- 작품 상세 보기 -->
+	<select id="findById" resultType="art">
+		select artno, art_name, price, main_img, art_img, stock, tag, art_date, category, shopno, shipping_price, return_address, courier, read_cnt, accumulated, favorite, artistno
+		from art
+		where artno=#{artno} and rownum=1
+	</select>
+	
+	
+	
+ </mapper>

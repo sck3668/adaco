@@ -8,14 +8,18 @@ import lombok.experimental.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Accessors(chain=true)
 @Builder
-public class Notice {
-	private Integer noticeno;
+@Accessors(chain=true)
+public class Board {
+	private Integer bno;
+	private String writer;
 	private String content;
 	private String title;
 	private LocalDateTime writeDate;
-	private String writer;
-	private Boolean isImportant;
+	private Integer commentCnt;
+	private Integer readCnt;
+	private Integer deleteCommentCnt;
+	private Integer attachmentCnt;
+	private boolean enabled;
+	
 }
-

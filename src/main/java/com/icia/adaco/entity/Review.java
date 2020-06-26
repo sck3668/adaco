@@ -10,12 +10,16 @@ import lombok.experimental.*;
 @NoArgsConstructor
 @Accessors(chain=true)
 @Builder
-public class Notice {
-	private Integer noticeno;
+public class Review {
+	public enum type{
+		waking, runnin, tracking, hiking
+	}
+	private Integer rno;
+	private star star;
 	private String content;
-	private String title;
+	private String image;
+	private type type;
 	private LocalDateTime writeDate;
-	private String writer;
-	private Boolean isImportant;
+	private Integer artno;
+	private String username;
 }
-

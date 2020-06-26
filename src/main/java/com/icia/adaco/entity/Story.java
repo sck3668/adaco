@@ -10,12 +10,11 @@ import lombok.experimental.*;
 @NoArgsConstructor
 @Accessors(chain=true)
 @Builder
-public class Notice {
-	private Integer noticeno;
-	private String content;
+public class Story {
+	private Integer storyNo;
 	private String title;
 	private LocalDateTime writeDate;
-	private String writer;
-	private Boolean isImportant;
+	private String image;
+	private String content;
+	private Integer artistNo;
 }
-

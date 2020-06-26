@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bagMapper">
+	<!-- 장바구니 목록 보기 -->
+	
+	<select id = "findAllByBag" resultType="bag">
+		select username, artno, total_price totalPrice, amount
+		,option_name optionName, option_value optionValue
+		from bag
+	</select>
+	
+	<select id = "findByArtno" resultType="bag">
+		select username, artno, total_price totalPrice, amount
+		,option_name optionName, option_value optionValue
+		from bag where artno=#{artno} and rownum=1
+	</select>
+	
+	<insert id = "insertByBag">
+		insert into bag(username,artno,total_price,amount,option_name
+		,option_value)
+		values(#{username},#{artno},#{totalPrice},#{amount}
+		,#{optionName},#{optionValue})
+	</insert>
+	
+	<update id="updateByBag">
+		update bag
+		<trim suffixOverrides="," prefix="set">
+			<if test="totalPrice!=null">total_price=#{totalPrice},</if>
+			<if test="amount!=null">amount=#{amount},</if>
+			<if test="optionName!=null">option_name=#{optionName},</if>
+			<if test="optionValue!=null">option_value=#{optionValue}</if>
+		</trim>
+		where artno=#{artno} and rownum=1
+	</update>
+	
+	<delete id="deleteByBag">
+		delete from bag where artno=#{artno} and rownum=1
+	</delete>
+ </mapper>

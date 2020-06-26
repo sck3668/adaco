@@ -1,7 +1,5 @@
 package com.icia.adaco.entity;
 
-import java.time.*;
-
 import lombok.*;
 import lombok.experimental.*;
 
@@ -10,12 +8,8 @@ import lombok.experimental.*;
 @NoArgsConstructor
 @Accessors(chain=true)
 @Builder
-public class Notice {
-	private Integer noticeno;
-	private String content;
+public class FAQ {
+	private Integer faqno;
 	private String title;
-	private LocalDateTime writeDate;
-	private String writer;
-	private Boolean isImportant;
+	private String content;
 }
-
