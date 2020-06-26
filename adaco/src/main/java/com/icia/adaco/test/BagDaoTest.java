@@ -18,14 +18,26 @@ public class BagDaoTest {
 	@Autowired
 	private BagDao bagdao;
 	
-	@Test
+	//@Test
 	public void insertTest() {
 		Bag bag = 
-		Bag.builder().username("spring11").artno(1)
-		.totalPrice(1000).amount(10).build();
+		Bag.builder().username("spring2321").artno(10)
+		.totalPrice(100).amount(10).optionName("모니터")
+		.optionValue("11").build();
 		
 		assertThat(bagdao.insert(bag), is(notNullValue()));
-		
+	}
+	//@Test
+	public void updateTest() {
+		Bag bag = Bag.builder().username("spring2321").artno(10)
+				.totalPrice(10000).amount(1)
+				.optionName("색상").optionValue("12")
+				.build();
+		assertThat(bagdao.update(bag), is(1));
+	}
+	//@Test
+	public void deleteTest() {
+		assertThat(bagdao.delete(3), is(1));
 	}
 }
   

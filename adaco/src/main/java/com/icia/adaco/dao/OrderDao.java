@@ -19,11 +19,11 @@ public class OrderDao {
 		return tpl.update("orderMapper.update", orderNo);
 	}
 	
-	public int delete(Integer artno) {
-		return tpl.delete("orderMapper.delete", artno);
+	public int delete(Integer orderno) {
+		return tpl.delete("orderMapper.delete", orderno);
 	}
 	
-	public Order findById(Integer artno) {
-		return tpl.selectOne("orderMapper.findById", artno);
+	public Order findById(Integer orderno) {
+		return tpl.selectOne("orderMapper.findById", orderno);
 	}
 }

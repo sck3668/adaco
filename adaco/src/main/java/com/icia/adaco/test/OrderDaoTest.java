@@ -22,17 +22,22 @@ public class OrderDaoTest {
 	
 	//@Test
 	public void insertTest() {
-		Order order = Order.builder().orderno(11).orderDate(LocalDateTime.now())
-				.username("moojyh").build();
+		Order order = Order.builder().orderDate(LocalDateTime.now())
+				.username("spring232").shippingCharge(100).build();
 		assertThat(orderdao.insert(order), is(notNullValue()));
 	}
 	//@Test
 	public void updateTest() {
-		Order order = Order.builder().orderno(12).build();
-		assertThat(orderdao.update(order), is(notNullValue()));
+		Order order = Order.builder().orderno(8).shippingCharge(10).build();
+		assertThat(orderdao.update(order), is(1));
+	}
+	//@Test
+	public void deleteTest() {
+		assertThat(orderdao.delete(8), is(notNullValue()));
 	}
 	@Test
-	public void deleteTest() {
-		assertThat(orderdao.delete(12), is(notNullValue()));
+	public void findById() {
+		orderdao.findById(9);
+		System.out.println(orderdao.findById(9));
 	}
 }
