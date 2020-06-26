@@ -106,7 +106,22 @@ public class AdminTest {
 	
 //	@Test
 	public void findByReportTest() {
-		adminBoardDao.findAllByReport(1, 10);
+		adminBoardDao.findAllByReport(5, 10);
+	}
+	
+//	@Test
+	public void insertByQuestionTest() {
+		adminBoardDao.insertByQuestion(Question.builder().writer("spring123").title("제목").writeDate(LocalDateTime.of(2020, 06, 25, 0, 0)).content("내용임").build());
+	}
+	
+//	@Test
+	public void findByQuestionTest() {
+		adminBoardDao.findAllByQuestion(1, 15);
+	}
+	
+//	@Test
+	public void updateByQuestionTest() {
+		adminBoardDao.updateQuestionByAnswer(Question.builder().qno(5).answer("관리자").answerContent("답변입니다.").answerDate(LocalDateTime.now()).state(State.답변완료).build());
 	}
 	
 	

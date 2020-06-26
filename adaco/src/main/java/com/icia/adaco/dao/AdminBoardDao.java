@@ -14,7 +14,10 @@ public class AdminBoardDao {
 	@Autowired
 	private SqlSessionTemplate tpl;
 
-//	신고글 조회 (신고수로 인덱스키는 맥여놈 나중에 페이징 유틸 머 어케해서 해야할 듯)
+	public int count() {
+		return tpl.selectOne("adminBoardMapper.countByReport");
+	}
+//	신고글 조회
 	public List<ArtComment> findAllByReport(int startRowNum, int endRowNum) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startRowNum", startRowNum);
@@ -31,8 +34,13 @@ public class AdminBoardDao {
 	public int deleteByArt(int artno) {
 		return tpl.delete("adminBoardMapper.deleteByArt", artno);
 	}
+	
+//	1:1 문의 등록
+	public int insertByQuestion(Question question) {
+		return tpl.insert("adminBoardMapper.insertByQuestion", question);
+	}
 		
-//	1:1문의 페이징 ))))))) idx키 추가해서 해볼것
+//	1:1문의 페이징
 	public List<Question> findAllByQuestion(int startRowNum, int endRowNum) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startRowNum", startRowNum);
@@ -40,7 +48,7 @@ public class AdminBoardDao {
 		return tpl.selectList("adminBoardMapper.findAllByQuestion", map);
 	}
 	
-//	1:1문의 작성자 검색 & 페이징인데 아직 못함 추가해야됨
+//	1:1문의 작성자 검색 & 페이징인데 아직 못함 추가해야됨 )))))))
 	public void findQuestionById() {
 		
 	}
@@ -60,7 +68,7 @@ public class AdminBoardDao {
 		return tpl.insert("adminBoardMapper.insertByNotice", notice);
 	}
 	
-//	중요 공지 작성인데 mapper 안만듬 상의 필요.)))))))))
+//	중요 공지 작성인데 mapper 안만듦. 어케해야될까? )))))))))
 	public int insertByMostNotice(Notice notice) {
 		return tpl.insert("adminBoardMapper.insertByMostNotice", notice);
 	}
