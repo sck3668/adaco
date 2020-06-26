@@ -3,13 +3,17 @@
 <mapper namespace="adminBoardMapper">
 	
 	<select id = "findAllByReport" resultType="artComment">
-	<![CDATA[
-		select * from
-			(select b.*, rownum rnum from
-				(select /*+ index_desc(art_comment report_cnt) */ cno, username, content, report_cnt reportCnt from art_comment) b
-			where rownum <= #{endRowNum})
-		where rnum >= #{startRowNum}
-	]]>
+	   <![CDATA[
+	      select B.cno, B.username, B.write_date writeDate, B.report_cnt reportCnt
+	      from
+	         (select /*+ index_asc(art_comments art_comments_pk_cno) */ rownum rnum, A.cno, A.username, A.write_date, A.report_cnt
+	         from (
+	            select cno, username, write_date, report_cnt
+	            from art_comments
+	            order by report_cnt desc ) A
+	         where rownum <= #{endRowNum})B
+	      where B.rnum >= #{startRowNum}
+	   ]]>
 	</select>
 	
 	<delete id ="deleteByReport">
@@ -20,38 +24,43 @@
 		delete from art where artno = #{artno} and rownum = 1
 	</delete>
 	
-	<!-- 둘 중 하나로 가능? -->
+	<!-- 1:1문의 기본 페이징 -->
 	<select id = "findAllByQuestion" resultType="question">
-		select /*+ index_desc(question question_pk_qno) qno, writer, title, write_date writeDate   
+		<![CDATA[
+		      select B.qno, B.writer, B.title, B.write_date writeDate, B.state
+		      from
+		         (select /*+ index_asc(question question_pk_qno) */ rownum rnum, A.qno, A.writer, A.title, A.write_date, A.state
+		         from (
+		            select qno, writer, title, write_date, state
+		            from question
+		            order by write_date asc ) A
+		         where rownum <= #{endRowNum})B
+		      where B.rnum >= #{startRowNum}
+		]]>
 	</select>
 	
-	<select id="findAllByQuestionTEST" resultType="question">
+	<!-- 1:1문의 작성자 검색인데 해봐야알듯 (DAO추가해야 됨) -->
+	<select id="findQuestionByIdTTTTTT" resultType="question">
 		select * from
-			(select b.*,rownum as rnum from
+			(select q.*,rownum as rnum from
 				(select /*+ index_desc(question question_pk_qno) */ qno, writer, title, write_date writeDate from question
 				  <trim prefix="WHERE" prefixOverrides="AND|OR">
-                     <if test="searchType=='TITLE' and keyword != null and keyword != '' ">
-                        AND TITLE like '%' || #{keyword} || '%'
-                     </if>
-                     <if test="searchType=='BOARDCONTENT' and keyword != null and keyword != '' ">
-                        AND BOARDCONTENT like '%' || #{keyword} || '%'
-                     </if>
-                     <if test="searchType=='WRITER' and keyword != null and keyword != '' ">
-                        AND WRITER like '%' || #{keyword} || '%'
-                     </if>   
-            </trim>
-				) b
+				  	<if test="searchType=='WRITER' and keyword != null and keyword != '' ">
+                    	AND WRITER like '%' || #{keyword} || '%'
+                    </if>   
+           		   </trim>
+				) q
 			    where rownum&lt;=#{endRowNum})
       		where rnum&gt;=#{startRowNum}
 	</select>
 	
 	<select id = "findQuestionById" resultType="question">
-		select qno, writer, answer, content, title, answer_content answerContent, write_date writeDate, answer_date answerDate
+		select qno, writer, answer, content, title, answer_content answerContent, write_date writeDate, answer_date answerDate, state
 		from question where qno = #{qno} and rownum = 1	
 	</select>
 	
-	<update id = "insertByAnswer">
-		update question set answer_content = #{answerContent}, answer = #{answer}, answer_date = #{answerDate}
+	<update id = "updateQuestionByAnswer">
+		update question set answer_content = #{answerContent}, answer = #{answer}, answer_date = #{answerDate}, state = #{state}
 		where qno = #{qno} and rownum = 1
 	</update>
 	
@@ -62,6 +71,13 @@
 		insert into notice(noticeno, content, title, write_date, writer) values(#{noticeno}, #{content}, #{title}, #{writeDate}, #{writer})
 	</insert>
 	
+	<insert id = "insertByQuestion">
+		<selectKey keyProperty="qno" resultType="int" order="BEFORE">
+			select question_seq.nextval from dual
+		</selectKey>
+		insert into question(qno, writer, content, title, write_date) values(#{qno}, #{writer}, #{content}, #{title}, #{writeDate})
+	</insert>
+		
 	<update id = "updateByNotice">
 		update notice
 		<trim suffixOverrides="," prefix="SET">

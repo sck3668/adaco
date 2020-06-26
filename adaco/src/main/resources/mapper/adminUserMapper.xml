@@ -5,28 +5,26 @@
 	<select id = "countByUser" resultType="int">
 		select count(*) from users where writer = #{writer}
 	</select>
-	
-	<!-- 수정수정수정 -->
 	<select id = "countByArtist" resultType="int">
 		select count(*) from artist where writer = #{writer}
 	</select>
 	
+	
 	<select id="findAllByUser" resultType="user">
 	<![CDATA[
 		select * from
-			(select b.*, rownum rnum from
-				(select /*+ index_desc(users username) */ username, irum, email from users) b
+			(select u.*, rownum rnum from
+				(select /*+ index_desc(users users_idx_username) */ username, irum, email from users) u
 			where rownum <= #{endRowNum})
 		where rnum >= #{startRowNum}
 	]]>
-	
 	</select>
 
 	<select id = "findAllByArtist" resultType="artist">
 	<![CDATA[
 		select * from
-			(select b.*, rownum rnum from
-				(select /*+ index_desc(artist username) */ username, irum, email from artist) b
+			(select a.*, rownum rnum from
+				(select /*+ index_desc(artist artist_idx_username) */ username, irum, email from artist) a
 			where rownum >= #{endRowNum})
 		where rnum >= #{startRowNum} 
 	]]>
@@ -36,11 +34,4 @@
 		update users set enabled = #{enabled} where username = #{username} and rownum = 1
 	</update>
 	
-	<insert id = "insertByAuthority">
-		insert into authorities values (#{username}, #{authority}) 
-	</insert>
-	
-	<update id = "updateByAuthority">
-		update authorities set authority = #{authority} where username = #{username}
-	</update>
  </mapper>
