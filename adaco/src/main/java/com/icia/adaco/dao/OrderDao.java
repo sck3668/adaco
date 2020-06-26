@@ -13,23 +13,24 @@ public class OrderDao {
 	@Autowired
 	private SqlSessionTemplate tpl;
 	
-	public int insert(Order orderNo) {
-		return tpl.insert("orderMapper.insert", orderNo);
+	// 주문 목록에 추가
+	public int insertByOrder(Order orderNo) {
+		return tpl.insert("orderMapper.insertByOrder", orderNo);
 	}
-	
-	public int update(Order orderNo) {
-		return tpl.update("orderMapper.update", orderNo);
+	// 주문 내역 변경
+	public int updateByOrder(Order orderNo) {
+		return tpl.update("orderMapper.updateByOrder", orderNo);
 	}
-	
-	public int delete(Integer orderno) {
-		return tpl.delete("orderMapper.delete", orderno);
+	// 주문 내역 삭제
+	public int deleteByOrder(Integer orderno) {
+		return tpl.delete("orderMapper.deleteByOrder", orderno);
 	}
-	
-	public Order findById(Integer orderno) {
-		return tpl.selectOne("orderMapper.findById", orderno);
+	// 주문 상세 보기
+	public Order findByOrderno(Integer orderno) {
+		return tpl.selectOne("orderMapper.findByOrderno", orderno);
 	}
-	
-	public List<Order> findAllOrder() {
-		return tpl.selectList("orderMapper.findAllOrder");
+	// 주문 목록 보기
+	public List<Order> findAllByOrder() {
+		return tpl.selectList("orderMapper.findAllByOrder");
 	}
 }

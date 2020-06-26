@@ -12,7 +12,7 @@
 		shippingCharge from orders where orderno=#{orderno} and rownum=1
 	</select>
 	
-	<insert id="insertByOrder">
+	<insert id="insertByOrderno">
 		<selectKey keyProperty="orderno" resultType="int" order="BEFORE">
 			select orders_seq.nextval from dual
 		</selectKey>
