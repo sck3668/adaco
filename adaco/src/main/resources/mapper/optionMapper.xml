@@ -22,7 +22,7 @@
 		</trim>
 		where optno=#{optno} and rownum=1
 	</update>
-	
+	ㅁㅁ
 	<!-- 옵션 삭제 -->
 	<delete id="delete">
 		delete from options where optno=#{optno} and rownum=1
