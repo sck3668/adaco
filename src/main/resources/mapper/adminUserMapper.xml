@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminUserMapper">
+	
+	<select id = "countByUser" resultType="int">
+		select count(*) from users where writer = #{writer}
+	</select>
+	<select id = "countByArtist" resultType="int">
+		select count(*) from artist where writer = #{writer}
+	</select>
+	
+	
+	<select id="findAllByUser" resultType="user">
+	<![CDATA[
+		select * from
+			(select u.*, rownum rnum from
+				(select /*+ index_desc(users users_idx_username) */ username, irum, email from users) u
+			where rownum <= #{endRowNum})
+		where rnum >= #{startRowNum}
+	]]>
+	</select>
+
+	<select id = "findAllByArtist" resultType="artist">
+	<![CDATA[
+		select * from
+			(select a.*, rownum rnum from
+				(select /*+ index_desc(artist artist_idx_username) */ username, irum, email from artist) a
+			where rownum >= #{endRowNum})
+		where rnum >= #{startRowNum} 
+	]]>
+	</select>
+	
+	<update id= "updateByUser">
+		update users set enabled = #{enabled} where username = #{username} and rownum = 1
+	</update>
+	
+ </mapper>

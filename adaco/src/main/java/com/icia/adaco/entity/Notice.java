@@ -18,3 +18,4 @@ public class Notice {
 	private String writer;
 	private Boolean isImportant;
 }
+
