@@ -37,6 +37,7 @@ public class UserService {
 	private String profilePath;
 	
 	public void join(UserDto.DtoForJoin dto, MultipartFile sajin) throws IllegalStateException, IOException, MessagingException {
+		System.out.println("uservice=============");
 		User user = modelMapper.map(dto, User.class);
 		if(sajin!=null && sajin.isEmpty()==false) {
 			if(sajin.getContentType().toLowerCase().startsWith("image/")==true) {
@@ -55,16 +56,17 @@ public class UserService {
 			user.setProfile(profilePath + "anony.jpg");
 		}
 		String password = user.getPassword();
+		System.out.println("password===="+password);
 		String encodedPassword = pwdEncoder.encode(password);
+		System.out.println("encodedPassword====="+encodedPassword);
+		System.out.println("encodedPassword====="+password);
 		user.setPassword(encodedPassword);
 		
 		List<String> authorities = dto.getAuthorities();
 		for(String authority:authorities) {
 			authorityDao.insert(user.getUsername(), authority);
-		
 		String checkCode = RandomStringUtils.randomAlphanumeric(10);
 		user.setCheckCode(checkCode);
-		
 		user.setJoinDate(LocalDateTime.now());
 		userDao.insert(user);
 		
@@ -75,14 +77,10 @@ public class UserService {
 		sb.append(link);
 		sb.append("클릭하세요</a></p>");
 		String msg = sb.toString();
-		
 		Mail mail = Mail.builder().sender("webmaster@icia.com")
 				.receiver(user.getEmail()).title("회원가입 안내")
 				.content(msg).build();
-		
 		mailUtil.sendMail(mail);
 		}
-		
-		
 	}
 }

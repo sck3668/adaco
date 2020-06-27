@@ -30,6 +30,7 @@ public class UserController {
 	
 	@PostMapping("/user/join")
 	public String join(@Valid UserDto.DtoForJoin dto, BindingResult bindingResult, @Nullable MultipartFile sajin, RedirectAttributes ra) throws BindException {
+		System.out.println("controller==================");
 		if(bindingResult.hasErrors()==true)
 			throw new BindException(bindingResult);
 		try {
