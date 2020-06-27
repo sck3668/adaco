@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 import java.time.*;
+import java.util.*;
 
 import javax.inject.*;
 
@@ -20,16 +21,36 @@ import com.icia.adaco.entity.*;
 public class StoryDaoTest {
 	@Inject
 	private StoryDao storyDao;
-	
-	//
+
+	// @Test
 	public void insertTest() {
-		Story story = Story.builder().storyNo(3).writeDate(LocalDateTime.now()).title("안녕").content("하세요").artistNo(1).build();
-		assertThat(storyDao.insert(story),is(1));
+		for (int i = 1; i < 11; i++) {
+			storyDao.insert(Story.builder().artistno(3).writeDate(LocalDateTime.now()).title("안녕" + i).content("하세요")
+					.image("d.jpg").build());
+		}
 	}
-	//삭제
-	//@Test
+
+	// @Test
+	public void updateT() {
+		Story story = Story.builder().storyno(4).title("gd").build();
+		storyDao.update(story);
+	}
+
+	// @Test
 	public void deleteTest() {
-		assertThat(storyDao.delete(1),is(1));
+		assertThat(storyDao.delete(4), is(1));
 	}
-	
+
+	//@Test
+	public void findAllStoryTest() {
+		List<Story> list = new ArrayList<>();
+		list = storyDao.findAllStory(1, 10);
+		System.out.println(list);
+	}
+
+	// @Test
+	public void findByStoryTest() {
+		storyDao.findByStory(5);
+		System.out.println(storyDao);
+	}
 }

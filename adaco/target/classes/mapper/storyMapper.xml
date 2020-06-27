@@ -3,25 +3,39 @@
 <mapper namespace="storyMapper">
 		
 		<!-- 작가의 스토리 목록보기-->
-		<select id="findAllStory">
-		select storyno, title, write_date writeDate,content, artisno from story 
+		<select id="findAllStory" resultType="story">
+		<![CDATA[
+		 select * from
+	    	(select b.* , rownum as rnum  from
+			   (select /*+ index_desc(story story_pk_storyno) */ storyno, title, write_date writeDate, artistno, image from story) b 
+			where rownum<=#{endRowNum})
+    where rnum>=#{startRowNum}
+		]]>
 		</select>
 		
 		<!-- 작가의 스토리 정보보기 -->
-		<select id="findByStory">
-		select storyno, title, write_date writeDate,
-		content, artisno from story where storyno=#{storyno} and rownum=1
+		<select id="findByStory" resultType="story">
+		select storyno, title, write_date writeDate,image,
+		content, artistno from story where storyno=#{storyno} and rownum=1
 		</select>
 		
 		
-		<insert id="insert">
-			<selectKey keyProperty="storyno" resultType="int" order="BEFORE">
-				select story_seq.nextval from dual
-			</selectKey>
-		insert into story(storyno, title, write_date, content, artistno)
-		values(#{storyNo},#{title},#{writeDate},#{content},#{artistNo})
-		</insert>
-		
+	<insert id="insert">
+	 <selectKey keyProperty="storyno" order="BEFORE" resultType="int">
+	 		select story_seq.nextval from dual
+	 </selectKey>
+ 		insert into story(storyno, title, write_date, content, artistno, image) 
+ 		values(#{storyno},#{title},sysdate,#{content},#{artistno},#{image}) 
+ 		</insert>
+		<update id="update">
+			update story
+			<trim suffixOverrides="," prefix="SET">
+				<if test="title!=null">title=#{title},</if>
+				<if test="image!=null">image=#{image},</if>
+				<if test="content!=null">content=#{content}</if>
+			</trim>
+			where storyno=#{storyno} and rownum=1
+		</update>	
 		<delete id="delete">
 		delete from story where storyno=#{storyno} and rownum=1
 		</delete>

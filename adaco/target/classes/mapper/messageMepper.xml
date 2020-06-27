@@ -2,12 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="messageMapper">
 	
-	<!-- 쪽지 목록 ????읽음 여부? -->
-	<select id="findAllMessage" resultType="message">
-	select mno, username, title, content, write_date writeDate, send_id sendId,
-	recipient_id recipientId, msg_check msgCheck, is_send_message isSendMessage, is_reciver_message isReciverMessage
-	from message 
-	</select>
+	<!-- 쪽지 목록 ???? -->
+<!-- 	<select id="findAllMessage" resultType="Message"> -->
+<!-- 	select mno, username, title, content, write_date writeDate, send_id sendId, -->
+<!-- 	recipient_id recipientId, msg_check msgCheck, is_send_message isSendMessage, is_reciver_message isReciverMessage -->
+<!-- 	from message  -->
+<!-- 	</select> -->
+<select id="findAllMessage" resultType="Message">
+		<![CDATA[
+		 select * from
+	    	(select b.* , rownum as rnum  from
+			   (select /*+ index_desc(message message_pk_storyno) */ mno, username, title, content, write_date writeDate,
+			    send_id sendId, recipient_id recipientId, msg_check mshCheck, is_send_message isSendMessage,
+			    is_reciver_message isReciverMessage from message) b 
+			where rownum<=#{endRowNum})
+    where rnum>=#{startRowNum}
+		]]>
+		</select>
 	
 	
 	<insert id="insert">

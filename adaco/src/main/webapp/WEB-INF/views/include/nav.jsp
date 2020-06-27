@@ -41,6 +41,15 @@ $(function() {
 				<li class="nav-item">
 					<a class="nav-link" href="/adaco/user/myPage">마이페이지</a>
 				</li>
+				<li class="nav-item" id="aa">
+					<button type="button" class="btn-dropdown" id="gogak">고객센터</button>
+					<ul class="menu-dropdown" id="gogak-d">
+						<li><a href="#">공지사항</a></li>
+						<li><a href="#">자주 묻는 질문</a></li>
+						<li><a href="#">메일로 문의</a></li>
+					</ul>
+				</li>
+				
 			</sec:authorize>
 			
 <!-- 일반회원  nav -->          
@@ -62,6 +71,7 @@ $(function() {
 						<li><a href="#">메일로 문의</a></li>
 					</ul>
 				</li>
+				
 			</sec:authorize>
 <!-- 작가 nav -->
 			<sec:authorize access="hasRole('ROLE_SELLER')">
@@ -90,14 +100,7 @@ $(function() {
          		</li>
 			</sec:authorize>
 <!--  -->
-				<li class="nav-btn ui-dropdown" id="aa">
-					<button type="button" class="btn-dropdown" id="gogak">고객센터</button>
-					<ul class="menu-dropdown" id="gogak-d">
-						<li><a href="#">공지사항</a></li>
-						<li><a href="#">자주 묻는 질문</a></li>
-						<li><a href="#">메일로 문의</a></li>
-					</ul>
-				</li>
+			
 			</ul>
       </div>
     </div>

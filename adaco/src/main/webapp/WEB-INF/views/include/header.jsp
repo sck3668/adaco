@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+
+a {text-decoration: none;}
 #header  {
 	letter-spacing: 0.75em
 }
@@ -13,34 +15,37 @@
 	font-size: 1.75em;
 	text-align: center;
 }
-#logo {
-	display:inline-block; float:left; width:300px;
-}
+.ui_gnb {}
 .ui_gnb__menu {
 	display: inline-block; width:120px;
 }
-.dropdown-menu {
+#dropdown-menu {
 	display: inline-block; width:120px;
 }
+#dropdown {float: left; display:inline-block; width:120px; }
+
+
 </style>
 <script>
 function init() {
-	$("#dropdownCategoryMenu").hide();
+	$("#dropdown-menu").hide();
 	}
 $(function() {
 	init();
-/* 	$(".dropdown").on("click", function() {
-		}); */
+	$("#dropdown-menu").hide();
+ 	$("#dropdownCategoryMenu").on("click", function() {
+		$("#dropdown-menu").toggle();	
+ 		}); 
 	})
+	
 </script>
 </head>
 <body>
-      <a href="/adaco/" id="logo"><img src="image/hanstory.png" alt="" style="width:40px; height:40px;">HandStory</a>
       <div class="full-w gnb-scroll ">
       <div class="inner-w container_gnb">
         <ul class="ui_gnb">
-          <li class="dropdown">
-          	<a href="#" id="dropdownCategoryMenu" data-toggle="dropdown">
+           <li class="dropdown" id="dropdown">
+          	<a href="#" id="dropdownCategoryMenu">
           		<i class="fa fa-folder-open"></i> 카테고리 <i class="caret"></i>
           	</a>
           	<ul id="dropdown-menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownCategoryMenu"> 
@@ -51,6 +56,7 @@ $(function() {
           		<li><a href="/category/3"><i class="fa fa-folder"></i>공예</a></li> 
           		<li><a href="/category/4"><i class="fa fa-folder"></i>기타</a></li> 
           	</ul> 
+          </li>
           <li class="ui_gnb__menu">
             <a href="#">최신작품</a>
           </li>
@@ -60,10 +66,8 @@ $(function() {
           <li class="ui_gnb__menu">
             <a href="#">스토리</a>
           </li>
+       
           
-          
-          </li>
-
           
         </ul>
       </div>
