@@ -19,13 +19,31 @@ import com.icia.adaco.entity.*;
 public class userDaoT {
 	@Autowired
 	private UserDao userDao;
-
+	
+	
+	//@Test
+	public void idByCheckEmail() {
+		System.out.println(userDao.findidByCheckEmail("tj@na"));
+	}
+	//@Test
+	public void idByCheckTel() {
+		System.out.println(userDao.findidByCheckTel("01024262394"));
+	}
+	//@Test
+	public void existstt() {
+		assertThat(userDao.existsUsername("spring232"),is(true));
+	}
+	//@Test
+	public void existT() {
+		assertThat(userDao.existsEmail("tj@na"),is(true));
+	}
 	//@Test
 	public void insertT() {
-		User user = User.builder().username("spring22").password("1234")
-				.email("tj@na").irum("d").profile("aaa.jpg").birthDate(LocalDateTime.now())
-				.address("용현동산다").tel("01024262394").build();
-		assertThat(userDao.insert(user), is(1));
+		 for(int i=0;i<11;i++) {
+				userDao.insert(User.builder().username("spring2323"+i).password("1234")
+				.email("tj@na").irum("d").profile("aaa.jpg").birthDate(LocalDateTime.now()).checkCode("1111")
+				.address("용현동산다").tel("01024262394").build());
+		}
 	}
 	//@Test
 	public void updateT() {
@@ -35,7 +53,36 @@ public class userDaoT {
 				
 	}
 	//@Test
+	public void findJoinCheckCode () {
+		System.out.println(userDao.findJoinCheckCode("1111"));
+	}
+	//@Test
+	public void pointInsert() {
+		Point point = Point.builder().point(1234).endDate(LocalDateTime.now()).username("spring2324").build();
+		assertThat(userDao.insertpoint(point),is(1));
+	}
+	//@Test
+	public void findAllByPoint () {
+		assertThat(userDao.findAllByPoint(),is(notNullValue()));
+		System.out.println(userDao.findAllByPoint());
+	}
+	//@Test
+	public void insertFavorite() {
+		for(int i =0;i<11;i++) {
+			userDao.insertFavorite(
+			Favorite.builder().artno(5).username("spring232").build());
+		}
+	}
+	//@Test
+	public void findAllFavorite() {
+		System.out.println(userDao.findAllFavorite());
+	}
+	//@Test
 	public void deleteT() {
 		userDao.delete("spring22");
+	}
+	//@Test
+	public void deleteFavorite() {
+		System.out.println(userDao.deleteFavorite(2));
 	}
 }
