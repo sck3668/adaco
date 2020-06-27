@@ -13,6 +13,10 @@
 		select count(*) from notice
 	</select>
 	
+	<select id="countByReport" resultType="int">
+		select count(*) from art_comments where report_cnt >= 1
+	</select>
+	
 	<select id = "findAllByReport" resultType="artComment">
 	   <![CDATA[
 	      select B.cno, B.username, B.write_date writeDate, B.report_cnt reportCnt

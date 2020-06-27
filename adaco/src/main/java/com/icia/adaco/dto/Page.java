@@ -2,6 +2,8 @@ package com.icia.adaco.dto;
 
 import java.util.*;
 
+import com.icia.adaco.entity.*;
+
 import lombok.*;
 
 @Data
@@ -17,5 +19,5 @@ public class Page {
 	private boolean isPrev;
 	private boolean isNext;
 	
-	List<BoardDto.DtoForList> list;
+	List<AdminBoardDto.DtoForList> adminReportList;
 }

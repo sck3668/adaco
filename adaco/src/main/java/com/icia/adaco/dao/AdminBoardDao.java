@@ -25,6 +25,12 @@ public class AdminBoardDao {
 	public int countByNotice() {
 		return tpl.selectOne("adminBoardMapper.countByNotice");
 	}
+	
+//	신고글 개수 카운팅
+	public int countByReport() {
+		return tpl.selectOne("adminBoardMapper.countByReport");
+	}
+	
 //	신고글 조회
 	public List<ArtComment> findAllByReport(int startRowNum, int endRowNum) {
 		Map<String, Object> map = new HashMap<String, Object>();
