@@ -1,6 +1,6 @@
 package com.icia.adaco.util;
 
-import com.icia.aboard.dto.*;
+import com.icia.adaco.dto.*;
 
 public class PagingUtil {
 	// 페이지당 글의 개수

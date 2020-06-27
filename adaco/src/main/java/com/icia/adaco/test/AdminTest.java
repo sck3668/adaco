@@ -4,17 +4,19 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 import java.time.*;
+import java.util.*;
 
 import org.junit.*;
 import org.junit.runner.*;
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.security.config.annotation.authentication.configurers.userdetails.*;
 import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.*;
-import org.springframework.test.context.web.*;
 
 import com.icia.adaco.dao.*;
+import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
+import com.icia.adaco.service.mvc.*;
+import com.icia.adaco.util.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,6 +29,8 @@ public class AdminTest {
 	AdminUserDao adminUserDao;
 	@Autowired
 	AuthorityDao authorityDao;
+	@Autowired
+	AdminUserService adminUserService;
 	
 //	@Test
 	public void noticeInsertTest() {
@@ -44,6 +48,11 @@ public class AdminTest {
 	public void noticeDeleteTest() {
 		assertThat(adminBoardDao.deleteByNotice(2), is(1));
 		assertThat(adminBoardDao.deleteByNotice(3), is(0));
+	}
+	
+//	@Test
+	public void countByReportTest() {
+		adminBoardDao.countByReport();
 	}
 
 //	@Test
@@ -151,6 +160,17 @@ public class AdminTest {
 	}
 	
 	
+//	@Test
+	public void findAllTest() {
+		int cnt = adminBoardDao.countByReport();
+		System.out.println(cnt);
+		Page page = PagingUtil.getPage(2, cnt);
+		System.out.println(page.getStartRowNum());
+		System.out.println(page.getEndRowNum());
+		List<ArtComment> list = adminBoardDao.findAllByReport(page.getStartRowNum(), page.getEndRowNum());
+		System.out.println("AAAAAAAA"+list);
+	}
+	
 	
 	
 	
@@ -163,7 +183,7 @@ public class AdminTest {
 	
 //	@Test
 	public void authorityInsertTest() {
-		authorityDao.insert("spring232", "ROLE_USER");
+		authorityDao.insert("spring23231", "ROLE_USER");
 	}
 	
 //	@Test
@@ -195,5 +215,22 @@ public class AdminTest {
 	public void findAllByArtistTest() {
 		adminUserDao.findAllByArtist(1, 10);
 	}
+	
+//	@Test
+	public void findAllByUserTest() {
+		int cnt = adminUserDao.countByUser(null);
+		System.out.println(cnt);
+		Page page = PagingUtil.getPage(1, cnt);
+		System.out.println(page.getStartRowNum());
+		System.out.println(page.getEndRowNum());
+		List<User> list = adminUserDao.findAllByUser(page.getStartRowNum(), page.getEndRowNum());
+		System.out.println("AAAAAAAA"+list);
+	}
+	
+//	@Test
+	public void adminfindUserTest() {
+		adminUserService.list(2);
+	}
+	
 
 }
