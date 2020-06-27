@@ -14,7 +14,7 @@ public class AdminBoardController {
 	@Autowired
 	AdminBoardService service;
 
-	@GetMapping("/admin/reportList")
+	@GetMapping("/admin/report_list")
 	@PreAuthorize("isAuthenticated")
 	//@Secured("ROLE_ADMIN")
 	public ModelAndView reportList(@RequestParam(defaultValue = "1")int pageno) {

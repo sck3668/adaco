@@ -20,4 +20,5 @@ public class Page {
 	private boolean isNext;
 	
 	List<AdminBoardDto.DtoForList> adminReportList;
+	List<AdminUserDto.DtoForUserList> adminUserList;
 }

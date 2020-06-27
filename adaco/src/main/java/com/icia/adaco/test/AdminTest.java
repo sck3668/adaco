@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.*;
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
+import com.icia.adaco.service.mvc.*;
 import com.icia.adaco.util.*;
 
 
@@ -28,6 +29,8 @@ public class AdminTest {
 	AdminUserDao adminUserDao;
 	@Autowired
 	AuthorityDao authorityDao;
+	@Autowired
+	AdminUserService adminUserService;
 	
 //	@Test
 	public void noticeInsertTest() {
@@ -157,11 +160,11 @@ public class AdminTest {
 	}
 	
 	
-	@Test
+//	@Test
 	public void findAllTest() {
 		int cnt = adminBoardDao.countByReport();
 		System.out.println(cnt);
-		Page page = PagingUtil.getPage(1, cnt);
+		Page page = PagingUtil.getPage(2, cnt);
 		System.out.println(page.getStartRowNum());
 		System.out.println(page.getEndRowNum());
 		List<ArtComment> list = adminBoardDao.findAllByReport(page.getStartRowNum(), page.getEndRowNum());
@@ -212,5 +215,22 @@ public class AdminTest {
 	public void findAllByArtistTest() {
 		adminUserDao.findAllByArtist(1, 10);
 	}
+	
+//	@Test
+	public void findAllByUserTest() {
+		int cnt = adminUserDao.countByUser(null);
+		System.out.println(cnt);
+		Page page = PagingUtil.getPage(1, cnt);
+		System.out.println(page.getStartRowNum());
+		System.out.println(page.getEndRowNum());
+		List<User> list = adminUserDao.findAllByUser(page.getStartRowNum(), page.getEndRowNum());
+		System.out.println("AAAAAAAA"+list);
+	}
+	
+//	@Test
+	public void adminfindUserTest() {
+		adminUserService.list(2);
+	}
+	
 
 }
