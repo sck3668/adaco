@@ -15,12 +15,21 @@ public class StoryDao {
 	private SqlSessionTemplate tpl;
 	
 	//스토리 목록보기
-	public List<Story> findAllStory(){
-		return tpl.selectList("storyMapper.findAllStory");
+	public int count () {
+		return tpl.selectOne("storyMapper.count");
+	}
+	public List<Story> findAllStory(int startRowNum, int endRowNum){
+		Map<String,Integer> map = new HashMap<>();
+		map.put("startRowNum", startRowNum);
+		map.put("endRowNum",endRowNum);
+		return tpl.selectList("storyMapper.findAllStory", map);
 	}
 	//스토리 상세보기
 	public Story findByStory(int storyno) {
 		return tpl.selectOne("storyMapper.findByStory", storyno);
+	}
+	public int update(Story story) {
+		return tpl.update("storyMapper.update",story);
 	}
 	//스토리 작성
 	public int insert(Story story) {
