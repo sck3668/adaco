@@ -46,7 +46,7 @@ public class MessageDaoTest {
 	}
 	
 	//쪽지 페이지 목록보기
-	@Test
+	//@Test
 	public void findAllMessageTest() {
 		List<Message> list = new ArrayList<>();
 		list = messageDao.findAllMessage(1, 10);
