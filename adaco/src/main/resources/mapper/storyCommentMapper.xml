@@ -3,8 +3,8 @@
 <mapper namespace="storyCommentMapper">
 	
 	<!-- 스토리 댓글 작성하기 -->
-	<insert id="insert">
-	<selectKey keyProperty="storyno" resultType="int" order="BEFORE">
+	<insert id="insertByCommentOfStory">
+	<selectKey keyProperty="cno" resultType="int" order="BEFORE">
 		select story_comments_seq.nextval from dual
 	</selectKey>
 		insert into story_comments(cno,write_date,writer,content,profile,storyno,username)
@@ -12,13 +12,19 @@
 	</insert>
 	
 	<!-- 스토리 댓글 목록 보기 -->
-	<select id="findAllByCno">
-		select cno,write_date,writer,content,ptofile,storyno,username from 
-		story_comments where cno=#{cno} order cno by desc
-	</select>
+	<select id="findAllByCno" resultType="storyComment">
+		<![CDATA[
+		 select * from
+	    	(select b.* , rownum as rnum  from
+			   (select /*+ index_desc(storyComment story_comments_pk_storyno) */ cno, write_date writeDate, writer, content, profile, storyno, username from story_comments) b 
+			where rownum<=#{endRowNum})
+    where rnum>=#{startRowNum}
+		]]>
+		</select>
+	
 	
 	<!-- 스토리 댓글 삭제하기 -->
-	<delete id="delete">
+	<delete id="deleteByCommentOfStory">
 		delete from story_comments where cno=#{cno} and rownum=1
 	</delete>
  </mapper>
