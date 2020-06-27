@@ -21,19 +21,25 @@ public class reviewDaoTest {
 	//리뷰등록 테스트 ok
 	//@Test
 	public void insertTest() {
-	//Review review = Review.builder().star(star.fivePoint).content("만족해요").image("aaa.jpg").artno(12).username("spring232").build();
-	//assertThat(reviewdao.writeByCommentOfArt(review),is(1));
+	//Review review = Review.builder().star(star.fivePoint).content("만족해요").image("aaa.jpg").artno(29).username("spring23231").build();
+	//assertThat(reviewdao.writeByReviewOfArt(review),is(1));
 	for(int i=1; i<=10; i++) {
-		reviewdao.writeByReviewOfArt(Review.builder().star(star.fivePoint).content("만족해요").image("aaa.jpg").artno(12).username("spring232").build());
+		reviewdao.writeByReviewOfArt(Review.builder().star(star.fivePoint).content("만족해요").image("aaa.jpg").artno(28).username("spring23237").build());
 	}
 	
 	//System.out.println(review);
 	}
 	
-	//리뷰삭제 테스트
+	//리뷰삭제 테스트 ok
 	//@Test
 	public void deleteTest() {
-		assertThat(reviewdao.deleteByReviewOfArt(2), is(1));
+		assertThat(reviewdao.deleteByReviewOfArt(24), is(1));
+	}
+	
+	//리뷰페이징 테스트 ok
+	//@Test
+	public void listByReviewOfArt() {
+		assertThat(reviewdao.listByReviewOfArt(1,3),is(notNullValue()));
 	}
 	
 	

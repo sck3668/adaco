@@ -20,9 +20,9 @@ public class optionDaoTest {
 	private OptionDao optiondao;
 	
 	// 옵션등록 테스트 ok
-	//@Test
+	@Test
 	public void insertTest() {
-		Option option = Option.builder().artno(18).optionName("색상").optionValue("그린").optionStock(30).optionPrice(3000).build();
+		Option option = Option.builder().artno(23).optionName("색상").optionValue("옐로우").optionStock(30).optionPrice(3000).build();
 		assertThat(optiondao.writeByOption(option), is(1));
 		System.out.println(option);
 	}
@@ -30,14 +30,21 @@ public class optionDaoTest {
 	// 옵션 삭제 테스트 ok
 	//@Test
 	public void deleteTest() {
-		assertThat(optiondao.deleteByOption(3),is(1));
+		assertThat(optiondao.deleteByOption(22),is(1));
 	}
 	
 	//옵션 수정 테스트 ok
 	//@Test
 	public void updateTest() {
-		Option option = Option.builder().optno(1).artno(18).optionName("사이즈").optionValue("200").optionStock(20).optionPrice(2000).build();
+		Option option = Option.builder().optno(24).artno(23).optionName("사이즈").optionValue("200").optionStock(20).optionPrice(2000).build();
 		optiondao.updateByOption(option);
 	}
+	
+	//옵션 목록보기 테스트 ok
+	//@Test
+	public void listByOptionTest() {
+		assertThat(optiondao.listByOption(), is(notNullValue()));
+	}
+	
 	
 }
