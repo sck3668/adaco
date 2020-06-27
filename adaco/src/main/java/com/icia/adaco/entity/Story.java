@@ -11,10 +11,10 @@ import lombok.experimental.*;
 @Accessors(chain=true)
 @Builder
 public class Story {
-	private Integer storyNo;
+	private Integer storyno;
 	private String title;
 	private LocalDateTime writeDate;
 	private String image;
 	private String content;
-	private Integer artistNo;
+	private Integer artistno;
 }
