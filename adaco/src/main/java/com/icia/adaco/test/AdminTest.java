@@ -27,15 +27,16 @@ public class AdminTest {
 	AdminUserDao adminUserDao;
 	@Autowired
 	AuthorityDao authorityDao;
+	
 //	@Test
 	public void noticeInsertTest() {
 		adminBoardDao.insertByNotice(
-				Notice.builder().content("내용").title("제목").writeDate(LocalDateTime.now()).writer("관리자").build());
+				Notice.builder().content("내용").title("제목").writeDate(LocalDateTime.now()).writer("관리자").isImportant(false).build());
 	}
 
 //	@Test
 	public void noticeUpdateTest() {
-		Notice notice = Notice.builder().title("제목3").writeDate(LocalDateTime.now()).noticeno(2).build();
+		Notice notice = Notice.builder().title("제목3").writeDate(LocalDateTime.now()).isImportant(true).noticeno(2).build();
 		adminBoardDao.updateByNotice(notice);
 	}
 
@@ -45,6 +46,11 @@ public class AdminTest {
 		assertThat(adminBoardDao.deleteByNotice(3), is(0));
 	}
 
+//	@Test
+	public void findAllByImportantNoticeTest() {
+		adminBoardDao.findAllByImportantNotice();
+	}
+	
 //	@Test
 	public void faqInsertTest() {
 		adminBoardDao.insertByFAQ(FAQ.builder().content("내용입니다.").title("제목입니다.").build());
@@ -106,9 +112,43 @@ public class AdminTest {
 	
 //	@Test
 	public void findByReportTest() {
-		adminBoardDao.findAllByReport(1, 10);
+		adminBoardDao.findAllByReport(5, 10);
 	}
 	
+//	@Test
+	public void insertByQuestionTest() {
+		adminBoardDao.insertByQuestion(Question.builder().writer("spring1234").title("제목").writeDate(LocalDateTime.of(2020, 06, 25, 0, 0)).content("내용임").build());
+	}
+	
+//	@Test
+	public void findByQuestionTest() {
+		adminBoardDao.findAllByQuestion(1, 15);
+	}
+	
+//	@Test
+	public void updateByQuestionTest() {
+		adminBoardDao.updateQuestionByAnswer(Question.builder().qno(5).answer("관리자").answerContent("답변입니다.").answerDate(LocalDateTime.now()).state(State.답변완료).build());
+	}
+	
+//	@Test
+	public void countByQuestionTest() {
+		adminBoardDao.countByQuestion("spring1234");
+	}
+	
+//	@Test
+	public void countByNoticeTest() {
+		adminBoardDao.countByNotice();
+	}
+	
+//	@Test
+	public void findAllByNoticeTest() {
+		adminBoardDao.findAllByNotice(1, 10);
+	}
+	
+//	@Test
+	public void findQuestionByIdTest() {
+		adminBoardDao.findQuestionById(1, 10, "s");
+	}
 	
 	
 	
@@ -131,5 +171,29 @@ public class AdminTest {
 		authorityDao.update("spring232", "ROLE_MANAGER");
 	}
 	
+//	@Test
+	public void findByUserTest() {
+		adminUserDao.findAllByUser(1, 20);
+	}
+	
+//	@Test
+	public void countByUserTest() {
+		adminUserDao.countByUser("spring2320");
+	}
+	
+//	@Test
+	public void countByArtistTest() {
+		adminUserDao.countByArtist("spring2320");
+	}
+	
+//	@Test
+	public void findUserByKeyWordTest() {
+		adminUserDao.findUserByKeyWord(1, 10, "sp");
+	}
+
+//	@Test
+	public void findAllByArtistTest() {
+		adminUserDao.findAllByArtist(1, 10);
+	}
 
 }

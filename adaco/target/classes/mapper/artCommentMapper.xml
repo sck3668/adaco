@@ -11,12 +11,16 @@
 	</insert>
 
 	<!-- 작품 댓글 목록보기 -->
-	<select id="findAllByCno" >
-		select cno, username, artno, write_date, profile, content, report_cnt
-		from art_comments
-		where cno=#{cno} 
-		order cno by desc
-	</select> 
+	<select id="findAll" resultType="artComment">
+	<![CDATA[
+		select*from
+			(select rownum as rnum, b.*from
+				(select /*+ index_desc(art_comments art_comments_pk_rno) */ cno, username, write_date, profile, content, report_cnt
+				from board ) c
+			where rownum <=#{endRowNum}) 
+		where rnum>=#{startRowNum}
+		]]>
+	</select>
 
 	
 	

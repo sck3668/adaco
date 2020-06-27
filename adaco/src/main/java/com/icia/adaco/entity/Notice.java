@@ -16,4 +16,6 @@ public class Notice {
 	private String title;
 	private LocalDateTime writeDate;
 	private String writer;
+	private Boolean isImportant;
 }
+

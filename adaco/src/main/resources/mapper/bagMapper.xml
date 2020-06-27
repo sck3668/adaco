@@ -2,35 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bagMapper">
 	<!-- 장바구니 목록 보기 -->
-<!-- 	<select id = "findAllBag">
-		select artno, total_price, amount, name, value from bag
-		
+	
+	<select id = "findAllByBag" resultType="bag">
+		select username, artno, total_price totalPrice, amount
+		,option_name optionName, option_value optionValue
+		from bag
 	</select>
 	
-	<select id="findArtImgByBag" resultt>
-		select 
-	</select> -->
+	<select id = "findByArtno" resultType="bag">
+		select username, artno, total_price totalPrice, amount
+		,option_name optionName, option_value optionValue
+		from bag where artno=#{artno} and rownum=1
+	</select>
 	
-	<insert id = "insert">
-		<selectKey keyProperty="artno" resultType="int" order="BEFORE">
-			select bag_seq.nextval from dual
-		</selectKey>
-		insert into bag(username,artno,total_price,amount)
-		values(#{username},#{artno},#{totalPrice},0)
+	<insert id = "insertByBag">
+		insert into bag(username,artno,total_price,amount,option_name
+		,option_value)
+		values(#{username},#{artno},#{totalPrice},#{amount}
+		,#{optionName},#{optionValue})
 	</insert>
 	
-	<update id="update">
+	<update id="updateByBag">
 		update bag
 		<trim suffixOverrides="," prefix="set">
-			<if test="totalPrice!=null">total_price=#{total_price},</if>
+			<if test="totalPrice!=null">total_price=#{totalPrice},</if>
 			<if test="amount!=null">amount=#{amount},</if>
-			<if test="name!=null">name=#{name},</if>
-			<if test="value!=null">value=#{value}</if>
+			<if test="optionName!=null">option_name=#{optionName},</if>
+			<if test="optionValue!=null">option_value=#{optionValue}</if>
 		</trim>
 		where artno=#{artno} and rownum=1
 	</update>
 	
-	<delete id="delete">
+	<delete id="deleteByBag">
 		delete from bag where artno=#{artno} and rownum=1
 	</delete>
  </mapper>

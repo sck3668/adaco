@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="messageMapper">
+	
+	<!-- 쪽지 목록 ????읽음 여부? -->
+	<select id="findAllMessage" resultType="message">
+	select mno, username, title, content, write_date writeDate, send_id sendId,
+	recipient_id recipientId, msg_check msgCheck, is_send_message isSendMessage, is_reciver_message isReciverMessage
+	from message 
+	</select>
+	
+	
+	<insert id="insert">
+		<selectKey keyProperty="mno" resultType="int" order="BEFORE">
+			select message_seq.nextval from dual
+		</selectKey>
+	insert into message(mno, username, title, content, write_date, send_id
+	,recipient_id, msg_check, is_send_message, is_reciver_message)
+	values(#{mno},#{username},#{title},#{content},#{writeDate},#{sendId},#{recipientId},
+	#{msgCheck},0,0)
+	</insert>
+	
+	<delete id="delete">
+	delete from message where mno=#{mno} and rownum=1
+	</delete>
+</mapper>

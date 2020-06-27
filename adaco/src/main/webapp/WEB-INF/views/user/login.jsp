@@ -6,24 +6,71 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-<!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Custom styles for this template -->
   <link href="css/shop-homepage.css" rel="stylesheet">
+<style>
+	#a {text-decoration: none;}
+</style>
 </head>
 <body>
-		<div class="alert alert-success alert-dismissible" id="msg" style="display:none;">
+	<div class="alert alert-success alert-dismissible" id="msg" style="display:none;">
     	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     	<strong>서버 메시지 </strong><span id="alert"></span>
   	</div>
-	<form action="/aboard/user/login" method="post">
-		아이디:<input type="text" name="username"><br>
-		비밀번호:<input type="password" name="password"><br>
-		<!-- csrf토큰을 되돌려야 한다 -->
-		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
-		<button>로그인</button>
-	</form>
+
+<main class="login-form">
+    <div class="cotainer">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">로그인</div>
+                    <div class="card-body">
+                        <form action="/adaco/user/login" method="post">
+                            <div class="form-group row">
+                                <span for="email_address" class="col-md-4 col-form-label text-md-right">
+                                	username
+                                </span>
+                                <div class="col-md-6">
+                                    <input type="text" id="email_address" class="form-control" name="email-address" required autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="password" class="col-md-4 col-form-label text-md-right">
+                                	password
+                                </label>
+                                <div class="col-md-6">
+                                    <input type="password" id="password" class="form-control" name="password" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-6 offset-md-4">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="remember"> 아이디저장하기
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                           		         로그인
+                                </button>
+                                <div style="width:300px; height:30px; background-color: white; text-align: center; border: 1px solid black;">
+                                	<a id="a" href="/adaco/user/join" class="btn btn-link">회원가입</a>
+                                </div>
+                                <div style="width:300px; height:30px; background-color: white; text-align: center; border: 1px solid black;">
+                                	<a id="a" href="#" class="btn btn-link">아이디/비밀번호 찾기</a>
+                            	</div>
+                            </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
 </body>
 </html>

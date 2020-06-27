@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shopMapper">
+	<insert id="insert">
+		<selectKey keyProperty="shopno" resultType="int" order="BEFORE">
+			select shop_seq.nextval from dual
+		</selectKey>
+		insert into shop(shopno,shop_name,shop_intro, businessno,account)
+			values(#{shopno},#{shopName},#{shopIntro},#{businessno},#{account})
+	</insert>
+	
+	<select id="findByShopno" resultType="shop">
+		select shopno,shop_name shopName, shop_intro shopIntro,businessno,account
+		from shop where shopno=#{shopno}
+	</select>
+	
+	<update id="update">
+		update shop
+		<trim suffixOverrides="," prefix="set">
+			<if test="shopName!=null">shop_name=#{shopName},</if>
+			<if test="shopIntro!=null">shop_intro=#{shopIntro},</if>
+		</trim>
+		where shopno=#{shopno} and rownum=1
+	</update>
+	
+	<delete id="delete">
+		delete from shop where shopno=#{shopno}
+	</delete>
+</mapper>

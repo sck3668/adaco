@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="artistMapper">
+	<insert id="insert">
+		<selectKey keyProperty="artistno" resultType="int" order="BEFORE">
+			select artist_seq.nextval from dual
+		</selectKey>
+		insert into artist(artistno,artist_intro,profile,username,shopno)
+		values(#{artistno},#{artistIntro},#{profile},#{username},#{shopno})
+	</insert>
+	<select id="findById" resultType="artist">
+		select artistno,artist_intro
+		artistIntro,profile,username,shopno from artist where and=#{ano}
+	</select>
+	<update id="update">
+		update artist
+		<trim suffixOverrides="," prefix="set">
+			<if test="artistIntro!=null">artist_intro=#{artistIntro}</if>
+			<if test="profile!=null">profile=#{profile}</if>
+		</trim>
+		where artistno=#{artistno} and rownum=1
+	</update>
+	<delete id="delete">
+		delete from artist where artistno=#{artistno} and
+		rownum=1
+	</delete>
+</mapper>
+
