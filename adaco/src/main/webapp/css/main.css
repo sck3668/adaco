@@ -26,10 +26,9 @@ aside {
 }
 
 section {
-	width: 800px;
+	width: 1000px;
 	padding: 20px;
 	float: right;
-	border: 1px solid orange;
 	min-height: 600px;
 }
 

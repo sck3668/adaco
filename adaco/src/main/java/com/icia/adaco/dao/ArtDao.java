@@ -61,7 +61,6 @@ public class ArtDao {
 	}
 	
 	//포인트 적립????
-	
 	public int updateByPoint(Art art) {
 		return tpl.update("artMapper.update",art);
 	}

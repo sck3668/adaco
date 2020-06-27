@@ -7,6 +7,13 @@ import org.springframework.web.servlet.*;
 @Controller
 public class UserController {
 	
+	@GetMapping("/user/join")
+	public ModelAndView join() {
+		return new ModelAndView("main").addObject("viewName","user/join.jsp");
+	}
+	
+	
+	
 	@GetMapping("/user/login")
 	public ModelAndView login() {
 		return new ModelAndView("main").addObject("viewName","user/login.jsp");
@@ -21,4 +28,6 @@ public class UserController {
 	public ModelAndView resetPassword() {
 		return new ModelAndView("main").addObject("viewName","user/reset_pwd.jsp");
 	}
+	
+	
 }

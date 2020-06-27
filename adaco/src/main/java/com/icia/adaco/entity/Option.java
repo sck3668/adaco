@@ -8,7 +8,9 @@ import lombok.*;
 @Builder
 public class Option {
 	private Integer optno;
-	private String name;
-	private String value;
+	private String optionName;
+	private String optionValue;
 	private Integer artno;
+	private Integer optionStock;
+	private Integer optionPrice;
 }
