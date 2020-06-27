@@ -157,7 +157,7 @@ public class AdminTest {
 	}
 	
 	
-//	@Test
+	@Test
 	public void findAllTest() {
 		int cnt = adminBoardDao.countByReport();
 		System.out.println(cnt);
@@ -178,7 +178,7 @@ public class AdminTest {
 		adminUserDao.updateByUser(User.builder().enabled(true).username("spring232").build());
 	}
 	
-	@Test
+//	@Test
 	public void authorityInsertTest() {
 		authorityDao.insert("spring23231", "ROLE_USER");
 	}
