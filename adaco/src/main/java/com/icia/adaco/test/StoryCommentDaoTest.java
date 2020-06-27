@@ -29,7 +29,6 @@ public class StoryCommentDaoTest {
 //				.content("테스트입니다.").profile("jpg").storyno(8).username("spring23236").build();
 //		assertThat(storyCommentDao.insertByCommentOfStory(storyComment), is(1));
 //	}
-
 	
     //스토리 댓글 페이징 입력
 	//@Test
