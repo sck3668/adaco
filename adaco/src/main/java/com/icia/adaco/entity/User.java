@@ -21,5 +21,5 @@ public class User {
 	private LocalDateTime joinDate;
 	private LocalDateTime birthDate;
 	private boolean enabled;
-	
+	private String checkCode;
 }
