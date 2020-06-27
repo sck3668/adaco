@@ -32,9 +32,9 @@ public class ArtDaoTest {
 	}
 	
 	//작품 수정 테스트 ok
-	//@Test 
+	@Test 
 	public void updateTest() {
-		Art art = Art.builder().artno(27).artName("변경신상").price(2000).mainImg("ccc.jpg").artImg("ddd.jpg").stock(50).tag("태그얏").couriPrice(2500).returnAddress("배송지 업뎃").accumulated(1000).favorite(true).build();
+		Art art = Art.builder().artno(18).artName("변경신상").price(2000).mainImg("ccc.jpg").artImg("ddd.jpg").stock(50).tag("태그얏").couriPrice(2500).returnAddress("배송지 업뎃").accumulated(1000).favorite(true).build();
 		artdao.updateByArt(art);
 	}
 	
