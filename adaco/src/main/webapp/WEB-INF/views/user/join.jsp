@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,10 +83,12 @@ function checkEmail() {
 		$("#email_msg").text("");
 		const email1 = $("#email1").val();
 		const email2 = $("#email2").val();
-		const $email = 'email1+"@"+email2';
+		const $email = email1+"@"+email2;
+		$email.replace(/%/g, '%40');
 		console.log("email==="+$email);
 		const patt = /^[A-Za-z][A-Za-z0-9]+@[A-Za-z0-9]+\.[A-Za-z0-9\.]+$/;
-		$('<input>').attr('type','text').attr('name',"email").val(email).appendTo($("#joinForm"));
+		$('<input>').attr('type','text').attr('name',"email").attr("id","email").val($email).appendTo($("#joinForm"));
+		console.log($("#email").val());
 		if($email.length==0)
 			return printErrorMsg($("#email_msg"),"이메일은 필수입력입니다")
 		if(patt.test($email)==false)
@@ -157,13 +160,20 @@ function checkTel() {
 	}
 	
 //생년월일 체크
-function checkBirthDate() {
+ function checkBirthDate() {
 		$("#birthDate_msg").text("");
-		
-	}
+		var $birthDate = $("#birthDate").val();
+		console.log("====================ddddd="+$birthDate);
+		var patt =  /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;
+		if(patt.test($birthDate)==false)
+			return printErrorMsg($("#birthDate_msg"),"형식이 맞지 않습니다")
+		$birthDate = $("#birthDate").val().replace(/-/g,'');
+		console.log($birthDate);
+		return true;
+	} 
 	
 $(function() {
-	/* $("#sajin").on("change", loadImage); */
+	 $("#sajin").on("change", loadImage); 
 	$("#username").on("blur", function() {
 		checkUsername();
 	});
@@ -174,20 +184,17 @@ $(function() {
 	$("#irum").on("blur", checkIrum);
 	$("#password").on("blur", checkPassword);
 	$("#password2").on("blur", checkPassword2);
-	$("#birth_date").on("blur", checkBirthDate);
+	$("#birthDate").on("blur", checkBirthDate);
 	
 	$("#join").on("click", function() {
 		console.log($("#joinForm").serialize());
 		alert("AAA");
 		// ajax 통신에서 multipart 넘기기위한 자바스크립트 객체
-		/* var formData = new FormData(document.getElementById("joinForm"));
-		alert("AAASSSSS");
+		 var formData = new FormData(document.getElementById("joinForm"));
 		for(var key of formData.keys())
-			alert("AAA==========");
 			console.log(key);
 		for(var value of formData.values())
-			alert("aaaa===========");
-			console.log(value); */
+			console.log(value); 
 		var r1 = checkUsername();
 		var r2 = checkEmail();
 		var r3 = checkPassword();
@@ -195,9 +202,13 @@ $(function() {
 		var r5 = checkTel();
 		var r6 = checkBirthDate();
 		var r7 = checkIrum();
-		console.log($("#joinForm").serialize());
+		alert("QQ");
+		console.log(r6);
+		alert("@@");
+		$("#joinForm").serialize().replace(/%/g, '%25');
+		console.log($("#joinForm").serialize().replace(/%40/g, '@'));
+		console.log("=========================")
 		alert("CCCC");
-		
 		var result = r1 && r2 && r3 && r4 && r5 && r6 && r7;
 		if(result===true) {
 			alert("DDD");
@@ -217,10 +228,14 @@ $(function() {
                 <hr><h4>회원가입에 오신걸 환영합니다</h4><hr>
                 </div>
             </div>
-            <form action="/adaco/user/join" method="post" id="joinForm">
             <div id="wrap">
-                
+            	<form action="/adaco/user/join" method="post" id="joinForm" enctype="multipart/form-data">    
+                    <img id="show_profile" height="240px">
                     <input type="hidden" name="_csrf" value="${_csrf.token }">
+                    <div class="form-group">
+						<label for="sajin">프로필 사진</label>
+						<input id="sajin" type="file" name="sajin" class="form-control"  accept=".jpg,.jpeg,.png,.gif,.bmp">
+					</div>
                     <div class="form-group">
                         <label for="irum">이름</label>
                         <input type="text" class="form-control" name="irum" id="irum" placeholder="이름을 입력해 주세요">
@@ -243,7 +258,7 @@ $(function() {
                     </div>
                     <div class="form-group">
                         <label for="email">이메일</label><br>
-                        <input type="text" name="email1" id="email1">&nbsp;@&nbsp;<input type="text" name="email2" id="email2">&nbsp;&nbsp;
+                        <input type="text" id="email1">&nbsp;@&nbsp;<input type="text" id="email2">&nbsp;&nbsp;
 					<select id="selectEmail">
 						<option selected="selected">직접 입력</option>
 						<option>naver.com</option>
@@ -255,18 +270,20 @@ $(function() {
                     </div>
                     <div class="form-group">
                         <label for="tel">연락처</label><br>
-                        <input type="text" name="tel1" id="tel1" maxlength="3">&nbsp-&nbsp;
-						<input type="text" name="tel2" id="tel2" maxlength="4">&nbsp-&nbsp;
-						<input type="text" name="tel3" id="tel3" maxlength="4">
+                        <input type="text" id="tel1" maxlength="3">&nbsp-&nbsp;
+						<input type="text" id="tel2" maxlength="4">&nbsp-&nbsp;
+						<input type="text" id="tel3" maxlength="4">
                     	<button id="tel" type="button">확인</button>
                     	<span id="tel_msg"></span>
                     </div>
                     <div class="form-group">
-                        <label for="birthDay">생년월일</label>
-                        <input type="tel" class="form-control" id="birthDay" placeholder="생년월일을 입력해 주세요">
-                    	<span id="birthDay_msg"></span>
+                        <label for="birthDate">생년월일</label>
+                        <input type="date" class="form-control" id="birthDate" name="birthDate" placeholder="생년월일을 입력해 주세요">
+                    	<span id="birthDate_msg"></span>
                     </div>
-
+                    <div class="form-group">
+                    	<input type="hidden" class="form-control" name="authorities" value="ROLE_USER">
+                    </div>
                     <div class="form-group">
                     <label>약관 동의</label>
                     <div data-toggle="buttons">
@@ -285,8 +302,9 @@ $(function() {
                             가입취소<i class="fa fa-times spaceLeft"></i>
                         </button>
                     </div>
+           		</form>
             </div>
-            </form>
+           
    <!--      </article> -->
 </body>
 </html>

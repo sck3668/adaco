@@ -62,6 +62,9 @@ public class UserService {
 		System.out.println("encodedPassword====="+password);
 		user.setPassword(encodedPassword);
 		
+		//integrity constraint (ADACO.FK_USERS_TO_AUTHORITIES)
+		//violated - parent key not found
+		
 		List<String> authorities = dto.getAuthorities();
 		for(String authority:authorities) {
 			authorityDao.insert(user.getUsername(), authority);

@@ -62,7 +62,7 @@
                                 	<a id="a" href="/adaco/user/join" class="btn btn-link">회원가입</a>
                                 </div>
                                 <div style="width:300px; height:30px; background-color: white; text-align: center; border: 1px solid black;">
-                                	<a id="a" href="#" class="btn btn-link">아이디/비밀번호 찾기</a>
+                                	<a id="a" href="/adaco/user/findId" class="btn btn-link">아이디/비밀번호 찾기</a>
                             	</div>
                             </div>
                     </div>
