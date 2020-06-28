@@ -81,6 +81,11 @@ public class ArtDao {
 		return tpl.selectList("artMapper.searchByArt",map);
 	}
 	
+	//작품 갯수
+	public int countByArt() {
+		return tpl.selectOne("artMapper.count");
+	}
+	
 	
 	
 	
