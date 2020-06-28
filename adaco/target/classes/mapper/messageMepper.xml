@@ -20,6 +20,24 @@
 		]]>
 		</select>
 	
+	<select id="findById" resultType="message">
+		select mno, title, content, send_id sendId, recipient_id recipientId, write_date writeDate, msg_check msgCheck, is_send_message isSendMessage, is_reciver_message isReciverMessage
+		from message where mno=#{mno} and rownum=1
+	</select>
+	
+	<select id="findAllBySender" resultType="message">
+		select mno, title, send_id sendId, recipient_id recipientId, write_date writeDate, msg_check msgCheck from message
+		where send_id=#{sendId} and is_send_message=0
+	</select>
+	
+	<select id="findAllByReceiver" resultType="message">
+		select mno, title, send_id sendId, recipient_id recipientId, write_date writeDate, is_read isRead from message
+		where recipient_id=#{recipientId} and is_reciver_message=0
+	</select>
+	
+	<update id="setRead">
+		update message set msg_check=1 where mno=#{mno} and rownum=1
+	</update>
 	
 	<insert id="insert">
 		<selectKey keyProperty="mno" resultType="int" order="BEFORE">
@@ -32,6 +50,6 @@
 	</insert>
 	
 	<delete id="delete">
-	delete from message where mno=#{mno} and rownum=1
+	delete from message where is_send_message=0 and is_reciver_message=1
 	</delete>
 </mapper>

@@ -86,4 +86,19 @@ public class UserService {
 		mailUtil.sendMail(mail);
 		}
 	}
+	public User findById(String username) {
+		return userDao.findByid(username);
+	}
+	
+	public String findByTel(String tel) {
+		return userDao.findidByCheckTel(tel);
+	}
+	
+	public boolean exsitsUsername(String irum) {
+		return userDao.existsUsername(irum);
+	}
+	
+	public String findByIrum(String irum) {
+		return userDao.findidByCheckName(irum);
+	}
 }

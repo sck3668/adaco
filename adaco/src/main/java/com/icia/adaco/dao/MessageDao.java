@@ -30,9 +30,25 @@ public class MessageDao {
 	public int insert(Message message) {
 		return tpl.insert("messageMapper.insert", message);
 	}
-	//쪽지 삭제하기
-	public int delete(int mno) {
-		return tpl.delete("messageMapper.delete",mno);
+
+	public List<Message> findAllBySender(String username) {
+		return tpl.selectList("messageMapper.findAllBySender", username);
+	}
+
+	public List<Message> findAllByReceiver(String username) {
+		return tpl.selectList("messageMapper.findAllByReceiver", username);
+	}
+
+	public Message findById(Integer mno) {
+		return tpl.selectOne("messageMapper.findById", mno);
 	}
 	
+	public int setRead(Integer mno) {
+		return tpl.update("memoMapper.setRead", mno);
+	}
+	
+	//쪽지 삭제하기
+		public int delete() {
+			return tpl.delete("messageMapper.delete");
+		}
 }

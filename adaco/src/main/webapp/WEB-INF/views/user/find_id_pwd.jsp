@@ -7,7 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="/adaco/user/findIdPwd" method="post" id="findIdForm">
+<!--  핸드폰 인증api(rest) -->
+<!-- <form action="/adaco/user/findIdPwd" method="post" id="findIdForm"> -->
+<form action="/adaco/user/findId2" method="get" id="findIdForm">
 	<div>
 		<div>
 			<hr>

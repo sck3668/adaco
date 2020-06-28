@@ -1,6 +1,7 @@
 package com.icia.adaco.controller.mvc;
 
 import java.io.*;
+import java.security.*;
 import java.time.*;
 import java.util.*;
 
@@ -17,9 +18,9 @@ import org.springframework.web.multipart.*;
 import org.springframework.web.servlet.*;
 import org.springframework.web.servlet.mvc.support.*;
 
-import com.icia.adaco.util.editor.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.service.mvc.*;
+import com.icia.adaco.util.editor.*;
 
 @Controller
 public class UserController {
@@ -64,20 +65,50 @@ public class UserController {
 	public ModelAndView main() {
 		return new ModelAndView("main").addObject("viewName","user/section.jsp");
 	}
+	// 아이디 비밀번호 찾기 화면
+	// 휴대폰 인증화면
+	@GetMapping("/user/findIdPwd")
+	public ModelAndView findIdPwd() {
+		return new ModelAndView("main").addObject("viewName","user/find_id_pwd.jsp");
+	}
 	
+	// 아이디찾기 인지 비밀번호 찾기인지 라디오값 확인후 각각의 화면으로 이동
+	// 아이디 찾기 체크 시 findIdPwd의 의 값이 findId.
+	// 입력한 핸드폰번호로 찾은 username이 존재하면 2단계 인증으로
+	// false면 비밀번호 찾기므로 비밀번호 찾기로 이동
+	@PostMapping("/user/findIdPwd")
+	public String findIdPwd(String findIdPwd,String tel) {
+		if(findIdPwd.equals("findId")==true) {
+			String username = userService.findByTel(tel);
+			if(username!=null)
+				return "redirect:/user/findId2";
+			return "exception으로";
+		} else {
+		return "redirect:/user/resetPwd";
+		}
+	}
+	
+	// 아이디찾기 2단계 화면
+	@GetMapping("/user/findId2")
+	public ModelAndView findId2() {
+		return new ModelAndView("main").addObject("viewName","user/find_id2.jsp");
+	}
+	
+	// 아이디찾기 2단계는 이름확인
+	// 핸드폰 인증한 회원의 이름이 존재하는 아이디면 username출력하고 로그인버튼
+	@PostMapping("/user/findId2")
+	public String findId2(String irum) {
+		if(irum.equals(userService.exsitsUsername(irum))==true) {
+			String username = userService.findByIrum(irum);
+			return "redirect:/user/login";
+		} else 
+		return "redirect:/system/msg";
+	}
+	//비밀번호변경
 	@GetMapping("/user/reset_pwd")
 	public ModelAndView resetPassword() {
 		return new ModelAndView("main").addObject("viewName","user/reset_pwd.jsp");
 	}
 	
-	@GetMapping("/user/findId")
-	public ModelAndView findId() {
-		return new ModelAndView("main").addObject("viewName","user/find_id.jsp");
-	}
-	
-	@GetMapping("/user/findId")
-	public ModelAndView findIdPwd() {
-		return new ModelAndView("main").addObject("viewName","user/find_id.jsp");
-	}
 	
 }
