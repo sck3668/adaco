@@ -41,7 +41,6 @@ public class UserServiceTest {
 				.password("da600425!!").irum("송찬권").email("sck3668@naver.com")
 				.tel("01011112222").profile("sss.jsp").birthDate("20200229")
 				.address("인천").build();
-		
 		userService.join(dto, sajin);
 	}
 }

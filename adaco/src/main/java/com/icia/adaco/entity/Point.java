@@ -7,6 +7,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Point {
 	private Integer point;
 	private LocalDateTime startDate;
