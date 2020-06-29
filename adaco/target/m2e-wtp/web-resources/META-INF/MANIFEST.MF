@@ -1,5 +1,10 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: 2
 Build-Jdk: 1.8.0_251
+=======
+Built-By: 4
+Build-Jdk: 1.8.0_241
+>>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 Created-By: Maven Integration for Eclipse
 
