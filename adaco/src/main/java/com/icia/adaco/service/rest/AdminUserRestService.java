@@ -1,13 +1,13 @@
 package com.icia.adaco.service.rest;
 
-import java.util.List;
+import java.util.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.stereotype.*;
 
-import com.icia.adaco.dao.AdminUserDao;
-import com.icia.adaco.dao.AuthorityDao;
-import com.icia.adaco.entity.User;
+import com.icia.adaco.dao.*;
+import com.icia.adaco.entity.*;
+import com.icia.adaco.exception.*;
 
 @Service
 public class AdminUserRestService {

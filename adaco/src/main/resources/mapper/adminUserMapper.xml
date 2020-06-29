@@ -63,7 +63,7 @@
 	</update>
 	
 	<select id="findOrderById" resultType="string">
-		select d.request from orders o, order_detail d
+		select d.state from orders o, order_detail d
 		where o.orderno = d.orderno and username = #{username}
 	</select>
 	
