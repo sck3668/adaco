@@ -22,7 +22,7 @@ import com.icia.adaco.util.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/**/*-context.xml")
 public class AdminTest {
-
+	
 	@Autowired
 	AdminBoardDao adminBoardDao;
 	@Autowired
@@ -31,6 +31,8 @@ public class AdminTest {
 	AuthorityDao authorityDao;
 	@Autowired
 	AdminUserService adminUserService;
+	@Autowired
+	AdminUserRestService adminUserRestService;
 	
 //	@Test
 	public void noticeInsertTest() {
@@ -230,6 +232,24 @@ public class AdminTest {
 //	@Test
 	public void adminfindUserTest() {
 		adminUserService.list(2);
+	}
+	
+	
+//  어 드 민 유 저 서 비 스 어 드 민 유 저 서 비 스 어 드 민 유 저 서 비 스 어 드 민 유 저 서 비 스 어 드 민 유 저 서 비 스 어 드 민 유 저 서 비 스 어 드 민 유 저 서 비 스 어 드 민 유 저 서 비 스   
+
+//	@Test
+	public void adminfindUserTest() {
+		adminUserService.userList(1, "spring1234");
+	}
+	
+//	@Test
+	public void adminfindArtistTest() {
+		System.out.println(adminUserService.artistList(1, null));
+	}
+
+//	@Test
+	public void adminUserUpdateTest() {
+		adminUserRestService.update("summer999", "ROLE_MANAGER", false);
 	}
 	
 
