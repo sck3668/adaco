@@ -20,8 +20,8 @@ public class BagService {
 	}
 	
 	// 장바구니 목록
-	public List<Bag> findAllByBag(String username){
-		return bagdao.findAllByBag(username);
+	public List<Bag> findAllByBag(){
+		return bagdao.findAllByBag();
 	}
 	
 	// 장바구니 삭제

@@ -1,6 +1,8 @@
 package com.icia.adaco.controller.mvc;
 
-@con
+import org.springframework.stereotype.*;
+
+@Controller
 public class BagController {
 	
 }
