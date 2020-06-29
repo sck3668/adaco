@@ -14,7 +14,7 @@ public class UserRestController {
 	private UserRestService userRestService;
 	
 	@GetMapping("/user/check_id")
-	public ResponseEntity<Boolean> checkId(@RequestParam @NotNull String username) throws UsernameExistException {
+	public ResponseEntity<Boolean> checkId(@RequestParam String username) {
 		System.out.println("restControlerr==================");
 		return ResponseEntity.ok(userRestService.checkId(username));
 	}

@@ -1,5 +1,7 @@
 package com.icia.adaco.service.mvc;
 
+import java.util.*;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
@@ -10,11 +12,30 @@ import com.icia.adaco.entity.*;
 public class BagService {
 	
 	@Autowired
-	private BagDao bagDao;
+	private BagDao bagdao;
 	
 	// 장바구니 추가
-	@Override
-	public void insert(Bag bag) {
-		bagDao.insertByBag(bag);
+	public void insertByBag(Bag bag) {
+		bagdao.insertByBag(bag);
+	}
+	
+	// 장바구니 목록
+	public List<Bag> findAllByBag(String username){
+		return bagdao.findAllByBag(username);
+	}
+	
+	// 장바구니 삭제
+	public void deleteByBag(Integer artno) {
+		bagdao.deleteByBag(artno);
+	}
+	
+	// 장바구니 변경
+	public void updateByBag(Bag bag) {
+		bagdao.updateByBag(bag);
+	}
+	
+	// 장바구니 작품 보기
+	public void findByArtno(Integer artno) {
+		bagdao.findByArtno(artno);
 	}
 }
