@@ -27,4 +27,11 @@ public class StoryRestService {
 		story=modelMapper.map(updateDto,Story.class);
 		storyDao.update(story);
 	}
+	public void deleteStory(Principal principal,Integer storyno) {
+		Story story = storyDao.findByStory(storyno);
+		if(story==null)
+			throw new JobFailException("보드가없다");
+		if(story.getWriter().equals(principal.getName())==true)
+			storyDao.delete(storyno);
+	}
 }

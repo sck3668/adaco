@@ -30,7 +30,7 @@
 			<c:forEach items="${page.list}" var="board">
 				<tr>
 					<td>${board.bno}</td>
-					<td><a href="/adaco/story/read?bno=${story.storyno}">${sotry.image }</a></td>
+					<td><a href="/adaco/story/read?bno=${story.storyno}">${story.image }</a></td>
 					<td class='writer'   data-writer="${board.writer }">${board.writer }</td>
 					<td>${board.writeTimeStr}</td>
 					<td>${board.readCnt }</td>

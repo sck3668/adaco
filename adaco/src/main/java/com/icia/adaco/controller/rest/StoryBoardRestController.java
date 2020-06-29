@@ -22,4 +22,10 @@ public class StoryBoardRestController {
 		restService.updateStory(updateDto, principal);
 		return ResponseEntity.ok(null);
 	}
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/story/delete")
+	public ResponseEntity<?> deleteStory(Principal principal,Integer storyno){
+		restService.deleteStory(principal, storyno);
+		return ResponseEntity.ok("/adaco/story/list");
+	}
 }

@@ -27,7 +27,7 @@ public class StoryController {
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("story/writeStory")
 	public ModelAndView writeStory() {
-		return new ModelAndView("main").addObject("viewName","story/write.jsp");
+		return new ModelAndView("main").addObject("viewName","artist/story/write.jsp");
 	}
 
 	@PreAuthorize("isAuthenticated()")
@@ -39,6 +39,7 @@ public class StoryController {
 	@GetMapping("story/readStory")
 	public ModelAndView readStory(Integer storyno) {
 		storyService.storyRead(storyno);
-		return new ModelAndView("main").addObject("viewName","story/read.jsp");
+		return new ModelAndView("main").addObject("viewName","artist/story/read.jsp");
 	}
+	
 }
