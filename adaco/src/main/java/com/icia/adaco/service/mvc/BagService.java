@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
 import com.icia.adaco.dao.*;
+import com.icia.adaco.entity.*;
 
 @Service
 public class BagService {
@@ -12,5 +13,8 @@ public class BagService {
 	private BagDao bagDao;
 	
 	// 장바구니 추가
-	
+	@Override
+	public void insert(Bag bag) {
+		bagDao.insertByBag(bag);
+	}
 }
