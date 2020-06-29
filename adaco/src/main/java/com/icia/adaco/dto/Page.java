@@ -17,5 +17,11 @@ public class Page {
 	private boolean isPrev;
 	private boolean isNext;
 	
-	List<BoardDto.DtoForList> list;
+	List<AdminBoardDto.DtoForList> adminReportList;
+	List<AdminUserDto.DtoForUserList> adminUserList;
+
+	List<ArtDto.DtoForList> artList;
+
+	List<AdminUserDto.DtoForArtistList> adminArtist;
+	List<StoryBoardDto.DtoForWrite> storyList;
 }

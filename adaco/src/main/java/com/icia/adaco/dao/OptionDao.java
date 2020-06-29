@@ -1,5 +1,7 @@
 package com.icia.adaco.dao;
 
+import java.util.*;
+
 import org.mybatis.spring.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
@@ -25,5 +27,12 @@ public class OptionDao {
 	public int updateByOption(Option option) {
 		return tpl.update("optionMapper.update",option);
 	}
+	
+	// 옵션 목록보기
+	public List<Option> listByOption(){
+		Map<String, Integer>map = new HashMap<>();
+		return tpl.selectList("optionMapper.findAll",map);
+	}
+	
 	
 }

@@ -21,7 +21,7 @@ $(function() {
 </head>
 <body>
     <div class="container">
-		<a class="navbar-brand" href="/adaco/"><img src="image/hanstory.png" style="width:25px; height:25px;" alt="">HandStory</a>
+		<a class="navbar-brand" href="/adaco/"><!-- <img src="image/hanstory.png" style="width:25px; height:25px;" alt=""> -->HandStory</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>

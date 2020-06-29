@@ -18,8 +18,8 @@ public class Message {
 	private LocalDateTime writeDate;
 	private String sendId;
 	private String recipientId;
-	private Integer msgCheck;
-	private boolean isSendMessage;
-	private boolean isReciverMessage;
+	private Boolean msgCheck;
+	private Boolean isSendMessage;
+	private Boolean isReciverMessage;
 	
 }

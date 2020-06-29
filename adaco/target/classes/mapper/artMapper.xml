@@ -34,7 +34,7 @@
 		<select id="findAll" resultType="art">
 	<![CDATA[
 		select*from
-			(select rownum as rnum, b.*from
+			(select rownum as rnum, a.*from
 				(select /*+ index_desc(art art_pk_artno) */ artno, category, main_img, art_name, price
 				from art ) a
 			where rownum <=#{endRowNum}) 
@@ -55,35 +55,29 @@
 	</select>
 	
 	
-	 <!-- 검색어(작품이름)로 작품 검색 -->
-	   <select id="searchByArt" resultType="art">
-	   	select artno, art_name, main_img
-	   	from(
-	   		select artno, art_name, main_img,
-	   		row_numer() over(order artno desc)as rnum
-	   		from art
-	   			<include refid="search"></include>
-	   			) b
-	   		where rnum between #{startRowNum} and #{endRowNum}
-	   		order by artno desc
-	   </select>
+	 <!-- 검색어(일단 작품이름)로 작품 검색 -->
+	<select id="searchByArt" resultType="art">
+	      select B.art_name, B.main_img, B.price
+	      from
+	         (select /*+ index_desc(art art_pk_artno) */ rownum rnum, A.art_name, A.main_img, A.price
+	         from (
+	            select art_name, main_img, price
+	            from art
+	       		where art_name like '%'|| #{keyWord} || '%' 
+	       		order by art_name) A
+	         where rownum&lt;= #{endRowNum})B
+	      where B.rnum&gt;= #{startRowNum}
+	</select>
 	   
-	   <sql id="search">
-	   	<if test="searchType!=null">
-	   		<if test="searchType == 'a'.toString()">where art_name like '%' || #{tag} || '%'</if>
-	   		<if test="searchType == 'u'.toString()">where username like '%' || #{tag} || '%'</if>
-	   	</if>
-	   </sql>
-	   
-	   <!-- 검색어에 맞는 작품 갯수 -->
-	   <select id="countSearch" resultType="int">
+	<!-- 검색어에 맞는 작품 갯수 -->
+	<!--    <select id="countSearch" resultType="int">
 	   		select count(artno)
 	   		from art
 	   		<include refid="search"></include>
 	   		<![CDATA[
 	   		and artno>0
 	   		]]>
-	   </select>
+	   </select> -->
 	   
 		
 	<!-- 작품 삭제 -->
@@ -96,6 +90,11 @@
 		select artno, art_name artName, price, main_img mainImg , art_img artImg , stock, tag, art_date artDate, category, shopno, couri_price couriPrice, return_address returnAddress, courier, read_cnt readCnt, accumulated, favorite, artistno
 		from art
 		where artno=#{artno} and rownum=1
+	</select>
+	
+	<!-- 작품 count -->
+	<select id="count" resultType="int">
+		select count(*) from art
 	</select>
 	
 	

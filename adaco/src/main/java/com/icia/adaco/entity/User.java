@@ -2,6 +2,8 @@ package com.icia.adaco.entity;
 
 import java.time.*;
 
+import javax.validation.constraints.*;
+
 import lombok.*;
 import lombok.experimental.*;
 

@@ -19,12 +19,17 @@
 	<select id="findAll" resultType="review">
 	<![CDATA[
 		select*from
-			(select rownum as rnum, b.*from
+			(select rownum as rnum, r.*from
 				(select /*+ index_desc(review review_pk_rno) */ rno, content, star, write_date, image, artno, username
-				from board ) b
+				from review ) r
 			where rownum <=#{endRowNum}) 
 		where rnum>=#{startRowNum}
 		]]>
+	</select>
+	
+	<!--해당 작품 리뷰 수  -->
+	<select id="count" resultType="int">
+		select count(*)	from review where artno=#{artno}
 	</select>
 	
  </mapper>

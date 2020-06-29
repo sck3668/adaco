@@ -36,13 +36,13 @@ public class MessageDaoTest {
 	public void insertTest1() {
 			for (int i = 2; i < 12; i++) {
 				messageDao.insert(Message.builder().title("테스트").username("spring23236").content("아아")
-						.sendId("gk").recipientId("아").msgCheck(0).writeDate(LocalDateTime.now()).build());
+						.sendId("gk").recipientId("아").msgCheck(false).writeDate(LocalDateTime.now()).build());
 				}
 			}
 	
 	//@Test
 	public void deleteTest() {
-		assertThat(messageDao.delete(1), is(1));
+		assertThat(messageDao.delete(), is(1));
 	}
 	
 	//쪽지 페이지 목록보기

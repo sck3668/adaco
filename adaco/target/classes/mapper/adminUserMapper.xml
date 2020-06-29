@@ -5,7 +5,7 @@
 	<select id = "countByUser" resultType="int">
 		select count(*) from users
 		<where>
-			<if test="username != null">and username = #{username}</if>
+			<if test="username != null">and username like '%' || #{username} || '%'</if>
 		</where>
 	</select>
 	
@@ -17,49 +17,54 @@
 	</select>
 	
 	<select id="findAllByUser" resultType="user">
-		<![CDATA[
-	      select B.username, B.irum, B.email
+	      select B.username, B.irum, B.email, B.join_date joinDate
 	      from
-	         (select /*+ index_asc(users users_pk_username) */ rownum rnum, A.username, A.irum, A.email
+	         (select /*+ index_asc(users users_pk_username) */ rownum rnum, A.username, A.irum, A.email, A.join_date
 	         from (
-	            select username, irum, email
+	            select username, irum, email, join_date
 	            from users
+	            <trim prefix="WHERE" prefixOverrides="AND|OR">
+				  	<if test="username != null and username != '' ">
+                    	AND username like '%' || #{username} || '%'
+                    </if>   
+           		</trim>
 	            order by username asc ) A
-	         where rownum <= #{endRowNum})B
-	      where B.rnum >= #{startRowNum}
-		]]>
+	         where rownum&lt;= #{endRowNum})B
+	      where B.rnum&gt;= #{startRowNum}
 	</select>
 
 	<select id = "findAllByArtist" resultType="artist">
-	<![CDATA[
 		select B.username, B.irum, B.email, B.artistno
 	    	from
-	       		(select /*+ index_asc(users users_pk_username) */ rownum rnum, A.username, A.irum, A.email, A.artistno
+	       		(select /*+ index_asc(artist artist_pk_artistno) */ rownum rnum, A.username, A.irum, A.email, A.artistno
 	         	from (
-		            select u.username, u.irum, u.email, a.artistno
+		            select a.username, u.irum, u.email, a.artistno
 		            from users u, artist a
-	                where u.username = a.username
-		            order by username asc ) A
+	                <trim prefix="WHERE" prefixOverrides="AND|OR">
+	                	<if test="username != null and username != '' ">
+	                		AND u.username like '%' || #{username} || '%'
+	                	</if>
+	                </trim>
+	                group by a.username, u.irum, u.email, a.artistno
+ 		            order by username asc ) A
+ 		    <![CDATA[
 	         	where rownum <= #{endRowNum})B
 	      	where B.rnum >= #{startRowNum}
-	]]>
+	      	]]>
 	</select>
-	
-	<select id="findUserByKeyWord" resultType="user">
-	      select B.username, B.irum, B.email
-	      from
-	         (select /*+ index_asc(users users_pk_username) */ rownum rnum, A.username, A.irum, A.email
-	         from (
-	            select username, irum, email
-	            from users
-	       		where username like '%'|| #{keyWord} || '%'
-	            order by username asc ) A
-	         where rownum&lt;= #{endRow+Num})B
-	      where B.rnum&gt;= #{startRowNum}
+		
+	<select id="findById" resultType="user">
+		select username,password,email,irum,tel,profile,address,join_date joinDate,birth_date birthDate
+		from users where username=#{username} and rownum=1
 	</select>
 	
 	<update id= "updateByUser">
 		update users set enabled = #{enabled} where username = #{username} and rownum = 1
 	</update>
+	
+	<select id="findOrderById" resultType="string">
+		select d.state from orders o, order_detail d
+		where o.orderno = d.orderno and username = #{username}
+	</select>
 	
  </mapper>

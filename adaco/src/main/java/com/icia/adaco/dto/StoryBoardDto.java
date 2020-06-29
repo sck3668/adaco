@@ -19,6 +19,7 @@ public class StoryBoardDto {
 		private String title;
 		private String content;
 		private String writer;
+		private List<MultipartFile> attachment;
 	}
 	@Data
 	@Accessors (chain=true)
@@ -51,6 +52,7 @@ public class StoryBoardDto {
 		private String title;
 		private String image;
 		private String content;
+		private List<MultipartFile> attachment;
 	}
 	
 	
