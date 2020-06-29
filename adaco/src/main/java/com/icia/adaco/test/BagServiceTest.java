@@ -35,6 +35,8 @@ public class BagServiceTest {
 	
 	// 장바구니 목록
 	@Test
-	public void findAllByBagTest)()
+	public void findAllByBagTest() {
+		
+	}
 	
 }

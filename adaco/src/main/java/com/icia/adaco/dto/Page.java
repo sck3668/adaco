@@ -2,8 +2,6 @@ package com.icia.adaco.dto;
 
 import java.util.*;
 
-import com.icia.adaco.entity.*;
-
 import lombok.*;
 
 @Data
@@ -25,5 +23,5 @@ public class Page {
 	List<ArtDto.DtoForList> artList;
 
 	List<AdminUserDto.DtoForArtistList> adminArtist;
-
+	List<StoryBoardDto.DtoForWrite> storyList;
 }

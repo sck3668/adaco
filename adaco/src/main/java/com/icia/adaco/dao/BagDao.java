@@ -29,8 +29,8 @@ public class BagDao {
 		return tpl.selectOne("bagMapper.findByArtno", artno);
 	}
 	// 장바구니 목록 보기
-	public List<Bag> findAllByBag(String username){
-		return tpl.selectList("bagMapper.findAllByBag", username);
+	public List<Bag> findAllByBag(){
+		return tpl.selectList("bagMapper.findAllByBag");
 	}
-	
+	 
 }
