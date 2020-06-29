@@ -61,6 +61,12 @@ public class ArtDaoTest {
 	public void searchByArtTest() {
 		artdao.searchByArt(1,2, "신");
 	}
+	
+	//작품 갯수 테스트 ok
+	//@Test
+	public void countByArtTest() {
+		artdao.countByArt();
+	}
 
 
 	
