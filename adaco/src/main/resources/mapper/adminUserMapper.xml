@@ -72,4 +72,8 @@
 		where a.artistno = d.artistno and username = #{username}
 	</select>
 	
+	<select id = "existsByArtist" resultType="boolean">
+		select count(*) from artist where username = #{username} and rownum = 1
+	</select>
+	
  </mapper>

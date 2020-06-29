@@ -9,11 +9,23 @@ public class AdminBoardDto {
 	@AllArgsConstructor
 	@NoArgsConstructor
 	@Builder
-	public static class DtoForList{
+	public static class DtoForReportList{
 		private int cno;
 		private String username;
 		private String content;
 		private String writeDateStr;
 		private int reportCnt;
+	}
+
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Builder
+	public static class DtoForQuestionList{
+		private int qno;
+		private String wirter;
+		private String title;
+		private String writeDateStr;
+		private String state;
 	}
 }

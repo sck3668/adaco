@@ -65,4 +65,8 @@ public class AdminUserDao {
 		return tpl.selectList("adminUserMapper.findSellById", username);
 	}
 	
+//	판매자 여부 확인
+	public boolean existsByArtist(String username) {
+		return tpl.selectOne("adminUserMapper.existsByArtist", username);
+	}
 }

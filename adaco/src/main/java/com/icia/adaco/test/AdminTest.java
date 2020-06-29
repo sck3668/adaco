@@ -16,6 +16,7 @@ import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.service.mvc.*;
+import com.icia.adaco.service.rest.*;
 import com.icia.adaco.util.*;
 
 
@@ -33,7 +34,11 @@ public class AdminTest {
 	AdminUserService adminUserService;
 	@Autowired
 	AdminUserRestService adminUserRestService;
-	
+	@Autowired
+	AdminBoardService adminBoardService;
+	@Autowired
+	AdminBoardRestService adminBoardRestService;
+
 //	@Test
 	public void noticeInsertTest() {
 		adminBoardDao.insertByNotice(
@@ -133,7 +138,7 @@ public class AdminTest {
 	
 //	@Test
 	public void findByQuestionTest() {
-		adminBoardDao.findAllByQuestion(1, 15);
+		adminBoardDao.findAllByQuestion(1, 2, "summer");
 	}
 	
 //	@Test
@@ -154,13 +159,7 @@ public class AdminTest {
 //	@Test
 	public void findAllByNoticeTest() {
 		adminBoardDao.findAllByNotice(1, 10);
-	}
-	
-//	@Test
-	public void findQuestionByIdTest() {
-		adminBoardDao.findQuestionById(1, 10, "s");
-	}
-	
+	}	
 	
 //	@Test
 	public void findAllTest() {
@@ -230,13 +229,30 @@ public class AdminTest {
 	}
 	
 //	@Test
-	public void adminfindUserTest() {
-		adminUserService.list(2);
+	public void existsByArtistTest() {
+		adminUserDao.existsByArtist("spring232");
 	}
+	
+	
+//	어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 
+//	@Test
+	public void adminReportListTest() {
+		adminBoardService.reprotList(2);
+	}
+	
+	@Test
+	public void adminQuestionListTest() {
+		adminBoardService.questionList(1, null);
+	}
+	
+	
+	
+	
 	
 	
 //  어 드 민 유 저 서 비 스 어 드 민 유 저 서 비 스 어 드 민 유 저 서 비 스 어 드 민 유 저 서 비 스 어 드 민 유 저 서 비 스 어 드 민 유 저 서 비 스 어 드 민 유 저 서 비 스 어 드 민 유 저 서 비 스   
 
+	
 //	@Test
 	public void adminfindUserTest() {
 		adminUserService.userList(1, "spring1234");
@@ -252,5 +268,9 @@ public class AdminTest {
 		adminUserRestService.update("summer999", "ROLE_MANAGER", false);
 	}
 	
+//	@Test
+	public void adminArtistUpdateTest() {
+		adminUserRestService.update("spring2321", "ROLE_MANAGER", false);
+	}
 
 }

@@ -19,19 +19,35 @@ public class AdminBoardService {
 	@Autowired
 	ModelMapper modelMapper;
 
-	public Page list(int pageno) {
-		int countOfBoard = dao.countByReport();
-		Page page = PagingUtil.getPage(pageno, countOfBoard);
+	public Page reprotList(int pageno) {
+		int countOfReport = dao.countByReport();
+		Page page = PagingUtil.getPage(pageno, countOfReport);
 		int srn = page.getStartRowNum();
 		int ern = page.getEndRowNum();
 		List<ArtComment> reportList = dao.findAllByReport(srn, ern);
-		List<AdminBoardDto.DtoForList> dtoList = new ArrayList<AdminBoardDto.DtoForList>();
+		List<AdminBoardDto.DtoForReportList> dtoList = new ArrayList<AdminBoardDto.DtoForReportList>();
 		for(ArtComment comment:reportList) {
-			AdminBoardDto.DtoForList dto = modelMapper.map(comment, AdminBoardDto.DtoForList.class);
+			AdminBoardDto.DtoForReportList dto = modelMapper.map(comment, AdminBoardDto.DtoForReportList.class);
 			dto.setWriteDateStr(comment.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
 			dtoList.add(dto);
 		}
 		page.setAdminReportList(dtoList);
+		return page;
+	}
+
+	public Page questionList(int pageno, String writer) {
+		int countOfQuestion = dao.countByQuestion(writer);
+		Page page = PagingUtil.getPage(pageno, countOfQuestion);
+		int srn = page.getStartRowNum();
+		int ern = page.getEndRowNum();
+		List<Question> questionList = dao.findAllByQuestion(srn, ern, writer);
+		List<AdminBoardDto.DtoForQuestionList> dtoList = new ArrayList<AdminBoardDto.DtoForQuestionList>();
+		for(Question question:questionList) {
+			AdminBoardDto.DtoForQuestionList dto = modelMapper.map(question, AdminBoardDto.DtoForQuestionList.class);
+			dto.setWriteDateStr(question.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
+			dtoList.add(dto);
+		}
+		page.setAdminQuestionList(dtoList);
 		return page;
 	}
 

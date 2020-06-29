@@ -55,21 +55,14 @@ public class AdminBoardDao {
 	}
 		
 //	1:1문의 페이징
-	public List<Question> findAllByQuestion(int startRowNum, int endRowNum) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("startRowNum", startRowNum);
-		map.put("endRowNum", endRowNum);
-		return tpl.selectList("adminBoardMapper.findAllByQuestion", map);
-	}
-	
-//	1:1문의 작성자 검색 & 페이징
-	public List<Question> findQuestionById(int startRowNum, int endRowNum, String writer) {
+	public List<Question> findAllByQuestion(int startRowNum, int endRowNum, String writer) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startRowNum", startRowNum);
 		map.put("endRowNum", endRowNum);
 		map.put("writer", writer);
-		return tpl.selectList("adminBoardMapper.findQuestionById", map);
+		return tpl.selectList("adminBoardMapper.findAllByQuestion", map);
 	}
+	
 	
 //	1:1 문의 읽기
 	public Question findQuestionById(int qno) {
