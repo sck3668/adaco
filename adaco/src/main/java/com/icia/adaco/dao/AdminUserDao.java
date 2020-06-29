@@ -45,7 +45,7 @@ public class AdminUserDao {
 		return tpl.selectList("adminUserMapper.findAllByArtist", map);
 	}
 	
-//	유저 블락 (판매자 유저)
+//	유저 블락
 	public int updateByUser(User user) {
 		return tpl.update("adminUserMapper.updateByUser", user);
 	}
@@ -58,6 +58,11 @@ public class AdminUserDao {
 //	유저 거래 내역 불러오기
 	public List<String> findOrderById(String username) {
 		return tpl.selectList("adminUserMapper.findOrderById", username);
+	}
+	
+//	판매자 거래 내역 불러오기
+	public List<String> findSellById(String username) {
+		return tpl.selectList("adminUserMapper.findSellById", username);
 	}
 	
 }

@@ -21,6 +21,5 @@ public class AdminUserRestController {
 	public ResponseEntity<Void> update(String username, String authority, boolean enabled) {
 		service.update(username, authority, enabled);
 		return ResponseEntity.ok(null);
-	}
-	
+	}	
 }
