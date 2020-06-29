@@ -27,7 +27,7 @@ public class ArtService {
 		
 		return art.getArtno();
 	}
-	//풀풀
+	
 	// 작품 리스트
 	public Page list(int pageno) {
 		int countOfArt = artdao.countByArt();

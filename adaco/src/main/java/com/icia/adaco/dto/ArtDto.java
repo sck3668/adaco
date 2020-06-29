@@ -33,6 +33,7 @@ public class ArtDto {
 		private String category;
 		private Integer artistno;
 		private Integer shopno;
+		private String username;
 		
 	}
 	
@@ -68,6 +69,7 @@ public class ArtDto {
 		private String returnAddress;
 		private String courier;
 		private Integer artistNo;
+		private String username;
 		
 		
 	}
