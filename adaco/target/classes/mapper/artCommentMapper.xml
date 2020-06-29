@@ -14,9 +14,9 @@
 	<select id="findAll" resultType="artComment">
 	<![CDATA[
 		select*from
-			(select rownum as rnum, b.*from
+			(select rownum as rnum, c.*from
 				(select /*+ index_desc(art_comments art_comments_pk_rno) */ cno, username, write_date, profile, content, report_cnt
-				from board ) c
+				from art_comments ) c
 			where rownum <=#{endRowNum}) 
 		where rnum>=#{startRowNum}
 		]]>
