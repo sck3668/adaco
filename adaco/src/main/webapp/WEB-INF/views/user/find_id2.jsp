@@ -5,14 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script>
-	$(document).ready(function(){
-		$("$radioButton").click(function(){
-			var radioVal = $("input[name="irum"]:checked").val();
-			alert(radioVal);
-		});
-	});
-</script>
 </head>
 <body>
 <!-- irum값 랜덤으로 출력

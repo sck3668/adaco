@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
-import com.icia.adaco.exception.*;
 import com.icia.adaco.service.rest.*;
 @RestController
 public class UserRestController {
@@ -14,7 +13,7 @@ public class UserRestController {
 	private UserRestService userRestService;
 	
 	@GetMapping("/user/check_id")
-	public ResponseEntity<Boolean> checkId(@RequestParam @NotNull String username) throws UsernameExistException {
+	public ResponseEntity<Boolean> checkId(@RequestParam String username) {
 		System.out.println("restControlerr==================");
 		return ResponseEntity.ok(userRestService.checkId(username));
 	}
