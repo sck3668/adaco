@@ -2,15 +2,14 @@ package com.icia.adaco.service.mvc;
 
 import java.io.*;
 import java.time.*;
-import java.util.*;
 
 import javax.mail.*;
+import javax.validation.constraints.*;
 
 import org.apache.commons.lang3.*;
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.crypto.password.*;
-import org.springframework.stereotype.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.*;
 
@@ -67,14 +66,16 @@ public class UserService {
 		String checkCode = RandomStringUtils.randomAlphanumeric(10);
 		user.setCheckCode(checkCode);
 		user.setJoinDate(LocalDateTime.now());
+		user.setAddress("인천");
+		user.setBirthDate(LocalDateTime.now());
 		System.out.println("user============"+user);
 		userDao.insert(user);
 		
-		List<String> authorities = dto.getAuthorities();
-		for(String authority:authorities) {
-			authorityDao.insert(user.getUsername(), authority);
+		/* List<String> authorities = dto.getAuthorities(); */
+		/* for(String authority:authorities) */ 
+			authorityDao.insert(user.getUsername(), "ROLE_USER");
 		
-		String link = "<a href='http://localhost:8081/abaco/user/join_check?checkCode=" + checkCode + "'>";
+		String link = "<a href='http://localhost:8081/adaco/user/join_check?checkCode=" + checkCode + "'>";
 		StringBuffer sb = new StringBuffer("<p>회원가입을 위한 안내 메일입니다</p>");
 		sb.append("<p>가입 확인을 위해 아래 링크를 클릭해 주세요</p>");
 		sb.append("<p>로그인 하기 : ");
@@ -85,7 +86,7 @@ public class UserService {
 				.receiver(user.getEmail()).title("회원가입 안내")
 				.content(msg).build();
 		mailUtil.sendMail(mail);
-		}
+		
 	}
 	public User findById(String username) {
 		return userDao.findByid(username);
@@ -101,5 +102,15 @@ public class UserService {
 	
 	public String findByIrum(String irum) {
 		return userDao.findidByCheckName(irum);
+	}
+	
+	public void joinCheck(@NotNull String checkCode) {
+			String username = userDao.findJoinCheckCode(checkCode);
+			/*
+			 * if(username==null) throw new UserNotFoundException();
+			 */
+			User u = User.builder().enabled(true).checkCode(checkCode).username(username).build();
+			userDao.update(u);
+		
 	}
 }

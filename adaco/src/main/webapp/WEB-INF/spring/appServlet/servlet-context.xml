@@ -6,9 +6,11 @@
 	xmlns:sec="http://www.springframework.org/schema/security"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xmlns:cache="http://www.springframework.org/schema/cache"
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
 		http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
 		http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.3.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
@@ -51,9 +53,16 @@
 		</interceptor>
 	</interceptors>
 	
-<!-- 	<websocket:handlers>
+ 	<websocket:handlers>
 		<websocket:mapping path="/web/socket" handler="messageWebSocketHandler" />
 	</websocket:handlers>
 	
-	 -->
+<!--  <cache:annotation-driven/>
+	<beans:bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager" >
+		<beans:property name="cacheManager" ref="ehcache" />
+	</beans:bean>
+	<beans:bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<beans:property name="configLocation" value="classpath:/cache-config.xml" />
+	</beans:bean> 
+	  -->	
 </beans:beans>

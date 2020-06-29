@@ -7,6 +7,7 @@ import java.util.*;
 
 import javax.mail.*;
 import javax.validation.*;
+import javax.validation.constraints.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.lang.*;
@@ -107,6 +108,17 @@ public class UserController {
 	@GetMapping("/user/reset_pwd")
 	public ModelAndView resetPassword() {
 		return new ModelAndView("main").addObject("viewName","user/reset_pwd.jsp");
+	}
+	
+	@GetMapping("/user/join_check")
+	public String joinCheck(@RequestParam @NotNull String checkCode) {
+		userService.joinCheck(checkCode);
+		return "redirect:/user/login";
+	}
+	
+	@GetMapping("/user/mypage")
+	public ModelAndView userRead() {
+		return new ModelAndView("main").addObject("viewName","user/mypage.jsp");
 	}
 	
 	

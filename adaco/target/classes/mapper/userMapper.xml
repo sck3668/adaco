@@ -7,9 +7,9 @@
 	<select id="existsEmail" resultType="string">
 		select email from users where email=#{email} and rownum=1
 	</select>
-	<insert id="insert">
+	<insert id="insert" parameterType="user">
 	insert into users(username,email,irum,join_date,birth_date,tel,password,profile,address,enabled,check_code)
-	values(#{username},#{email},#{irum},sysdate,sysdate,#{tel},#{password},#{profile},#{address},0,#{checkCode jdbcType=null})
+	values(#{username},#{email},#{irum},sysdate,sysdate,#{tel},#{password},#{profile},#{address},0,#{checkCode})
 	</insert>
 	<select id="findidByCheckTel" resultType="string">
 		select username from users where tel=#{tel} and rownum=1
@@ -33,7 +33,7 @@
 			<if test="address!=null">address=#{address},</if>
 			<if test="tel!=null">tel=#{tel},</if>
 			<if test="enabled!=null">enabled=#{enabled},</if>
-			<if test="check_code!=null">check_code=#{checkCode}</if>
+			<if test="checkCode!=null">check_code=#{checkCode}</if>
 		</trim>
 		where username=#{username} and rownum=1
 	</update>
@@ -45,7 +45,7 @@
 		insert into point(point,start_date,end_date,username)
 		values(#{point},sysdate,#{endDate},#{username})
 	</insert>	
-	<select id="findJoinCheckCode" resultType="user">
+	<select id="findJoinCheckCode" resultType="string">
 		select username from users where check_code=#{checkCode} and rownum=1
 	</select>
 	<select id="findAllFavorite" resultType="favorite">
