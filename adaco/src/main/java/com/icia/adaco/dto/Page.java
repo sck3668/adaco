@@ -17,10 +17,20 @@ public class Page {
 	private boolean isPrev;
 	private boolean isNext;
 	
+<<<<<<< HEAD
 	List<AdminBoardDto.DtoForList> adminReportList;
 	List<AdminUserDto.DtoForUserList> adminUserList;
 	List<ArtDto.DtoForList> artList;
 	List<AdminUserDto.DtoForArtistList> adminArtist;
+=======
+	List<AdminBoardDto.DtoForReportList> adminReportList;
+	List<AdminBoardDto.DtoForQuestionList> adminQuestionList;
+	List<AdminBoardDto.DtoForNoticeList> adminNoticeList;
+	List<AdminUserDto.DtoForUserList> adminUserList;
+	List<AdminUserDto.DtoForArtistList> adminArtist;
+
+	List<ArtDto.DtoForList> artList;
+>>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 	List<StoryBoardDto.DtoForWrite> storyList;
 
 }

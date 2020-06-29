@@ -18,11 +18,20 @@ public class AdminUserRestService {
 	
 	public void update(String username, String authority, boolean enabled) {
 		
+		if(dao.existsByArtist(username)==true) {
+			if(enabled == false || authority != "ROLE_ADMIN") {
+				List<String> list = dao.findSellById(username);
+				for(String state:list) {
+					if(state.equals("구매 확정") == false)
+					throw new JobFailException("진행 중인 거래가 있어 정보를 수정 할 수 없습니다.");
+				}
+			}
+		}
 		if(enabled == false) {			
 			List<String> list = dao.findOrderById(username);
 			for(String state:list) {			
 				if(state.equals("구매 확정") == false)
-				throw new JobFailException("진행 중인 거래가 있어 블락할 수 없습니다.");
+				throw new JobFailException("진행 중인 거래가 있어 정보를 수정 할 수 없습니다.");
 			}
 		}
 		dao.updateByUser(User.builder().enabled(enabled).username(username).build());
