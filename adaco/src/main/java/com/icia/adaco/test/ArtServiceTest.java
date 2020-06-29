@@ -25,6 +25,7 @@ public class ArtServiceTest {
 	private ArtDao artdao;
 	@Autowired
 	private ArtService artservice;
+	
 	@Autowired
 	private ModelMapper modelMapper;
 	
@@ -91,4 +92,7 @@ public class ArtServiceTest {
 		})
 
 }*/
+	
+	
+	
 }
