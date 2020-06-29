@@ -64,13 +64,15 @@ public class UserService {
 		//integrity constraint (ADACO.FK_USERS_TO_AUTHORITIES)
 		//violated - parent key not found
 		
-		List<String> authorities = dto.getAuthorities();
-		for(String authority:authorities) {
-			authorityDao.insert(user.getUsername(), authority);
 		String checkCode = RandomStringUtils.randomAlphanumeric(10);
 		user.setCheckCode(checkCode);
 		user.setJoinDate(LocalDateTime.now());
+		System.out.println("user============"+user);
 		userDao.insert(user);
+		
+		List<String> authorities = dto.getAuthorities();
+		for(String authority:authorities) {
+			authorityDao.insert(user.getUsername(), authority);
 		
 		String link = "<a href='http://localhost:8081/abaco/user/join_check?checkCode=" + checkCode + "'>";
 		StringBuffer sb = new StringBuffer("<p>회원가입을 위한 안내 메일입니다</p>");

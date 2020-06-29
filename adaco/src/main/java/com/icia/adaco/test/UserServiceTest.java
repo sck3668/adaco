@@ -27,16 +27,22 @@ public class UserServiceTest {
 	private UserService userService;
 	@Autowired
 	private AuthorityDao dao;
+	@Autowired
+	private MultipartFile sajin;
 	
-	@Test
+	//@Test
 	public void aaaTest() {
 		dao.insert("spring23232", "ROLE_USER");
 	}
 	
-	//@Test
+	@Test
 	public void joinTest() throws IllegalStateException, IOException, MessagingException {
+		UserDto.DtoForJoin dto = UserDto.DtoForJoin.builder().username("spring123")
+				.password("da600425!!").irum("송찬권").email("sck3668@naver.com")
+				.tel("01011112222").profile("sss.jsp").birthDate("20200229")
+				.address("인천").build();
 		
-
+		userService.join(dto, sajin);
 	}
 }
 	

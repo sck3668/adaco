@@ -29,6 +29,7 @@
  	
  	<bean id="modelMapper" class="org.modelmapper.ModelMapper" />
 	<bean id="objectMapper"	class="com.fasterxml.jackson.databind.ObjectMapper"/>
+	<bean id="MultipartFile" class="org.springframework.web.multipart.MultipartFile"/>
  	
  	
  	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
