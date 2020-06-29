@@ -2,6 +2,8 @@ package com.icia.adaco.dto;
 
 import java.time.*;
 
+import javax.validation.constraints.*;
+
 import lombok.*;
 import lombok.experimental.*;
 
@@ -46,6 +48,28 @@ public class ArtDto {
 		private String mainImg;
 		private String artName;
 		private Integer price;
+	}
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Builder
+	@Accessors(chain=true)
+	// 작품 업데이트
+	public static class DtoForUpdate{
+		@NotNull
+		private Integer artno;
+		private String artName;
+		private Integer price;
+		private String mainImg;
+		private String artImg;
+		private Integer stock;
+		private String tag;
+		private String couriPrice;
+		private String returnAddress;
+		private String courier;
+		private Integer artistNo;
+		
+		
 	}
 
 }
