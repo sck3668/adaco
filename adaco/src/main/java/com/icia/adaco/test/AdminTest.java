@@ -138,7 +138,7 @@ public class AdminTest {
 	
 //	@Test
 	public void findByQuestionTest() {
-		adminBoardDao.findAllByQuestion(1, 2, "summer");
+		adminBoardDao.findAllByQuestion(1, 2, null, State.답변완료);
 	}
 	
 //	@Test
@@ -148,18 +148,18 @@ public class AdminTest {
 	
 //	@Test
 	public void countByQuestionTest() {
-		adminBoardDao.countByQuestion("spring1234");
+		adminBoardDao.countByQuestion("spr", "답변완료");
 	}
 	
 //	@Test
 	public void countByNoticeTest() {
-		adminBoardDao.countByNotice();
+		adminBoardDao.countByNotice(true);
 	}
 	
 //	@Test
 	public void findAllByNoticeTest() {
-		adminBoardDao.findAllByNotice(1, 10);
-	}	
+		adminBoardDao.findAllByNotice(1, 10, true);
+	}
 	
 //	@Test
 	public void findAllTest() {
@@ -237,14 +237,28 @@ public class AdminTest {
 //	어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 
 //	@Test
 	public void adminReportListTest() {
-		adminBoardService.reprotList(2);
+		adminBoardService.reportList(2);
 	}
 	
-	@Test
+//	@Test
 	public void adminQuestionListTest() {
-		adminBoardService.questionList(1, null);
+		adminBoardService.questionList(1, null, State.답변완료);
 	}
 	
+//	@Test
+	public void adminQuestionReadTest() {
+		System.out.println(adminBoardService.questionRead(5));
+	}
+	
+//	@Test
+	public void adminQuestionAnswerTest() {
+		adminBoardService.questionAnswer(Question.builder().answer("관리자").answerContent("답변이에요").qno(3).build());
+	}
+	
+//	@Test
+	public void adminNoticeListTest() {
+		adminBoardService.noticeList(1, true);
+	}
 	
 	
 	

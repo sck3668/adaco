@@ -15,15 +15,18 @@ public class AdminBoardDao {
 	private SqlSessionTemplate tpl;
 	
 //	문의글 개수 카운팅
-	public int countByQuestion(String writer) {
+	public int countByQuestion(String writer, State searchType) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("writer", writer);
+		map.put("searchType", searchType);
 		return tpl.selectOne("adminBoardMapper.countByQuestion", map);
 	}
 	
 //	공지사항 개수 카운팅
-	public int countByNotice() {
-		return tpl.selectOne("adminBoardMapper.countByNotice");
+	public int countByNotice(Boolean isImportant) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("isImportant", isImportant);
+		return tpl.selectOne("adminBoardMapper.countByNotice", map);
 	}
 	
 //	신고글 개수 카운팅
@@ -55,11 +58,12 @@ public class AdminBoardDao {
 	}
 		
 //	1:1문의 페이징
-	public List<Question> findAllByQuestion(int startRowNum, int endRowNum, String writer) {
+	public List<Question> findAllByQuestion(int startRowNum, int endRowNum, String writer, State searchType) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startRowNum", startRowNum);
 		map.put("endRowNum", endRowNum);
 		map.put("writer", writer);
+		map.put("searchType", searchType);
 		return tpl.selectList("adminBoardMapper.findAllByQuestion", map);
 	}
 	
@@ -80,10 +84,11 @@ public class AdminBoardDao {
 	}
 	
 //	공지사항 목록	
-	public List<Notice> findAllByNotice(int startRowNum, int endRowNum) {
+	public List<Notice> findAllByNotice(int startRowNum, int endRowNum, Boolean isImportant) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startRowNum", startRowNum);
 		map.put("endRowNum", endRowNum);
+		map.put("isImportant", isImportant);
 		return tpl.selectList("adminBoardMapper.findAllByNotice", map);
 	}
 	
