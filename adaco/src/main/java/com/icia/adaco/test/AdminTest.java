@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 import java.time.*;
 import java.util.*;
 
+import org.junit.*;
 import org.junit.runner.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.test.context.*;
@@ -15,7 +16,6 @@ import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.service.mvc.*;
-import com.icia.adaco.service.rest.*;
 import com.icia.adaco.util.*;
 
 
@@ -208,6 +208,10 @@ public class AdminTest {
 		adminUserDao.countByArtist("spring2320");
 	}
 	
+//	@Test
+	public void findUserByKeyWordTest() {
+		adminUserDao.findUserByKeyWord(1, 10, "sp");
+	}
 
 //	@Test
 	public void findAllByArtistTest() {

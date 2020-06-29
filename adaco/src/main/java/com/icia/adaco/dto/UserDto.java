@@ -1,6 +1,5 @@
 package com.icia.adaco.dto;
 
-import java.time.*;
 import java.util.*;
 
 import com.icia.adaco.entity.*;
@@ -23,7 +22,7 @@ public class UserDto {
 		private String email;
 		private String tel;
 		private String profile;
-		private LocalDateTime birthDate;
+		private String birthDate;
 		private String address;
 		private List<String> authorities;
 	}
