@@ -2,12 +2,15 @@ package com.icia.adaco.controller.rest;
 
 import java.security.*;
 
+import javax.validation.constraints.*;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.security.access.prepost.*;
 import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
 
+import com.fasterxml.jackson.core.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.service.rest.*;
 
@@ -28,4 +31,8 @@ public class ArtRestController {
 		
 	}
 
+	/*@PostMapping("/art/read")
+	public ResponseEntity<?>read(@RequestParam @NotNull Integer artno, Principal principal) throws JsonProcessingException {
+		String username = prn
+	}*/
 }

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
 import com.fasterxml.jackson.databind.*;
+<<<<<<< HEAD
 
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
@@ -36,6 +37,22 @@ public class ArtRestService {
 		artDao.updateByArt(art);
 		
 	}
+=======
+import com.icia.adaco.dao.*;
+
+@Service
+public class ArtRestService {
+	@Autowired
+	private ArtDao artDao;
+	@Autowired
+	private ArtCommentDao artCommentDao;
+	@Autowired
+	private ObjectMapper objectMapper;
+	@Autowired
+	private ModelMapper modelMapper;
+
+	
+>>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 	
 	
 	

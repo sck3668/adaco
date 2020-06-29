@@ -13,7 +13,7 @@ public class Attachment {
 	private String writer;
 	private String saveFimeName;
 	private String length;
-	private Integer bno;
+	private Integer storyno;
 	private boolean isImage;
 	
 }

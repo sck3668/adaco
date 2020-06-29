@@ -1,5 +1,6 @@
 package com.icia.adaco.controller.mvc;
 
+
 import java.io.*;
 import java.security.*;
 import java.util.*;
@@ -62,12 +63,8 @@ public class ArtController {
 		} catch(IOException e) {
 			e.printStackTrace();
 		}*/
-		return "redirect:/";
+		return "redirect:/art/list";
 	}
 	
 	
-	
-	
-	
-
 }
