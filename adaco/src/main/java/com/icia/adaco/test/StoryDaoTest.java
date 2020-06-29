@@ -22,10 +22,10 @@ public class StoryDaoTest {
 	@Inject
 	private StoryDao storyDao;
 
-	// @Test
+	 @Test
 	public void insertTest() {
 		for (int i = 1; i < 11; i++) {
-			storyDao.insert(Story.builder().artistno(3).writeDate(LocalDateTime.now()).title("안녕" + i).content("하세요")
+			storyDao.insert(Story.builder().artistno(8).writeDate(LocalDateTime.now()).title("안녕" + i).content("하세요").writer("글쓴이")
 					.image("d.jpg").build());
 		}
 	}
