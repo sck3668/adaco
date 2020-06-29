@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
 
 import com.icia.adaco.service.mvc.*;
+import com.sun.istack.internal.Nullable;
 
 @Controller
 public class AdminUserController {
@@ -15,10 +16,16 @@ public class AdminUserController {
 	AdminUserService service;
 	
 	@GetMapping("/admin/user_list")
-	@PreAuthorize("isAuthenticdated()")
+//	@PreAuthorize("isAuthenticdated()")
 //	@Secured("ROLE_ADMIN")
-	public ModelAndView userList(@RequestParam(defaultValue = "1")int pageno) {
-		return new ModelAndView("admin/main").addObject("viewName", "admin/user_list.jsp").addObject("userPage", service.list(pageno));
+	public ModelAndView userList(@RequestParam(defaultValue = "1")int pageno, @Nullable String username) {
+		return new ModelAndView("admin/user_list").addObject("userPage", service.userList(pageno, username));
 	}
+	
+	@GetMapping("/admin/artist_list")
+	public ModelAndView artistList(@RequestParam(defaultValue = "1") int pageno, @Nullable String username) {
+		return new ModelAndView("admin/user_list").addObject("artistPage", service.artistList(pageno, username));
+	}
+	
 	
 }
