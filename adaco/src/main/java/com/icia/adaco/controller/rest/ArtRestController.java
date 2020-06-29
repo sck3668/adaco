@@ -30,9 +30,25 @@ public class ArtRestController {
 		return ResponseEntity.ok(null);
 		
 	}
-
-	/*@PostMapping("/art/read")
-	public ResponseEntity<?>read(@RequestParam @NotNull Integer artno, Principal principal) throws JsonProcessingException {
-		String username = prn
-	}*/
+	// 작품 상세보기 (작가용)
+	@PostMapping("/art/read")
+	public ResponseEntity<?>readArt(@RequestParam @NotNull Integer artno, Principal principal) throws JsonProcessingException {
+		String username = principal!=null? principal.getName():null;
+		ArtDto.DtoForRead dto = service.readArt(artno, username);
+		return ResponseEntity.ok(dto);
+	}
+	
+	// 작품 이미지 찾기
+	@GetMapping("/art/artfile")
+	public ResponseEntity<String> findArtfile(Integer artno){
+		return ResponseEntity.ok(service.findArtfile(artno));
+	}
+	
+	// 작품 삭제
+	//@PreAuthorize("isAuthenticated()")
+	@DeleteMapping("/art/delete")
+	public ResponseEntity<?> deleteArt(Integer artno, Principal principal, Integer artistno){
+		service.deleteArt(artno, principal.getName(), artistno);
+		return ResponseEntity.ok("/adaco/art/list");
+	}
 }

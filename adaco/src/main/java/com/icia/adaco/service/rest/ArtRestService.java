@@ -1,14 +1,16 @@
 package com.icia.adaco.service.rest;
 
+import java.time.format.*;
+
+import javax.validation.constraints.*;
+
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
-
 import com.fasterxml.jackson.databind.*;
-<<<<<<< HEAD
-
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
+import com.icia.adaco.dto.ArtDto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.exception.*;
 
@@ -16,10 +18,6 @@ import com.icia.adaco.exception.*;
 public class ArtRestService {
 	@Autowired
 	private ArtDao artDao;
-	@Autowired
-	private ArtCommentDao artCommentDao;
-	@Autowired
-	private ObjectMapper objectMapper;
 	@Autowired
 	private ModelMapper modelMapper;
 	@Autowired
@@ -37,23 +35,39 @@ public class ArtRestService {
 		artDao.updateByArt(art);
 		
 	}
-=======
-import com.icia.adaco.dao.*;
 
-@Service
-public class ArtRestService {
-	@Autowired
-	private ArtDao artDao;
-	@Autowired
-	private ArtCommentDao artCommentDao;
-	@Autowired
-	private ObjectMapper objectMapper;
-	@Autowired
-	private ModelMapper modelMapper;
+	// 작품 상세보기 (작가용)
+	public ArtDto.DtoForRead readArt(Integer artno, String username) {
+		Art art = artDao.readByArt(artno);
+		if(art==null)
+			throw new ArtNotFoundException();
+		ArtDto.DtoForRead dto = modelMapper.map(art, ArtDto.DtoForRead.class);
+		String str = art.getArtDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일"));
+		dto.setArtDate(str);
+		
+		return dto;
+	}
 
+	// 작품 이미지 찾기
+	public String findArtfile(Integer artno) {
+		Art art = artDao.readByArt(artno);
+		return art.getArtImg();
+	}
+
+	//작품 삭제
+	public boolean deleteArt(Integer artno, String username, Integer artistno) {
+		Art art = artDao.readByArt(artno);
+		String artWriter = artistDao.findByid(artistno).getUsername();
+		if(art==null)
+			throw new ArtNotFoundException();
+		if(username.equals(artWriter)==false)
+			throw new IllegalJobException();
+		return artDao.deleteByArt(artno)==1;
+		
+	}
 	
->>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 	
 	
+
 	
 }

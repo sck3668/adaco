@@ -15,5 +15,6 @@ public class Attachment {
 	private String length;
 	private Integer storyno;
 	private boolean isImage;
+	private String artno;
 	
 }
