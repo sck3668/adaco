@@ -18,10 +18,10 @@ public class StoryController {
 	@Autowired
 	private StoryService storyService;
 
-	@GetMapping("story/listStory")
+	@GetMapping("/story/listStory")
 	public ModelAndView listStory(@RequestParam(defaultValue = "1") int storyno) {
 		return new ModelAndView("main")
-		.addObject("viewName", "story/list.jsp");
+		.addObject("viewName", "artist/story/list.jsp");
 	}
 
 	@PreAuthorize("isAuthenticated()")
