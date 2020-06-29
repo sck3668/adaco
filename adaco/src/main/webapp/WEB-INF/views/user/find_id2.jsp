@@ -5,6 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+	$(document).ready(function(){
+		$("$radioButton").click(function(){
+			var radioVal = $("input[name="irum"]:checked").val();
+			alert(radioVal);
+		});
+	});
+</script>
 </head>
 <body>
 <!-- irum값 랜덤으로 출력
@@ -33,7 +41,7 @@
 				<input type="text" id="irum4" value="icia" disabled="disabled">
 			</div>
 			<br>
-			<button>아이디찾기</button>	
+			<button type=button name="button" id="radioButton">아이디찾기</button>	
 		</div>
 	</form>
 </body>
