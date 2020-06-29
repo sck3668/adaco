@@ -50,8 +50,10 @@ public class ArtService {
 		} else {
 			throw new JobFailException("작품 사진을 등록해주세요");
 		}
-		artdao.writeByArt(art);
+		option.setArtno(art.getArtno());
 		optionDao.writeByOption(option);
+		artdao.writeByArt(art);
+		
 		
 		
 		

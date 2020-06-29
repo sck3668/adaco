@@ -22,6 +22,8 @@ public class ArtRestService {
 	private ModelMapper modelMapper;
 	@Autowired
 	private ArtistDao artistDao;
+	@Autowired
+	private OptionDao optionDao;
 
 	//작품 업데이트
 	public void updateArt(ArtDto.DtoForUpdate dto) {

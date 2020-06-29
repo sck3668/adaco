@@ -39,6 +39,11 @@ public class ArtDto {
 		private String username;
 		private int attachmentCnt;
 		private List<Attachment> attachments;
+		private int optno;
+		private String optionName;
+		private String optionValue;
+		private Integer optionStock;
+		private Integer optionPrice;
 		
 	}
 	
