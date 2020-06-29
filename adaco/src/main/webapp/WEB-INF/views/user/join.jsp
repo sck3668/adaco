@@ -163,7 +163,6 @@ function checkTel() {
  function checkBirthDate() {
 		$("#birthDate_msg").text("");
 		var $birthDate = $("#birthDate").val();
-		console.log("====================ddddd="+$birthDate);
 		var patt =  /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;
 		if(patt.test($birthDate)==false)
 			return printErrorMsg($("#birthDate_msg"),"형식이 맞지 않습니다")
@@ -187,8 +186,6 @@ $(function() {
 	$("#birthDate").on("blur", checkBirthDate);
 	
 	$("#join").on("click", function() {
-		console.log($("#joinForm").serialize());
-		alert("AAA");
 		// ajax 통신에서 multipart 넘기기위한 자바스크립트 객체
 		 var formData = new FormData(document.getElementById("joinForm"));
 		for(var key of formData.keys())
@@ -202,16 +199,11 @@ $(function() {
 		var r5 = checkTel();
 		var r6 = checkBirthDate();
 		var r7 = checkIrum();
-		alert("QQ");
-		console.log(r6);
-		alert("@@");
 		$("#joinForm").serialize().replace(/%/g, '%25');
 		console.log($("#joinForm").serialize().replace(/%40/g, '@'));
-		console.log("=========================")
 		alert("CCCC");
 		var result = r1 && r2 && r3 && r4 && r5 && r6 && r7;
 		if(result===true) {
-			alert("DDD");
 			$.when($.ajax("/adaco/user/check_id?username=" + $("#username").val()),
 				$.ajax("/adaco/user/check_email?email=" + $("#email").val())
 			).done(()=>{ $("#joinForm").submit(); })

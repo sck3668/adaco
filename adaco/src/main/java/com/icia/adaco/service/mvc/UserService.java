@@ -56,7 +56,6 @@ public class UserService {
 			user.setProfile(profilePath + "anony.jpg");
 		}
 		String password = user.getPassword();
-		System.out.println("password===="+password);
 		String encodedPassword = pwdEncoder.encode(password);
 		System.out.println("encodedPassword====="+encodedPassword);
 		System.out.println("encodedPassword====="+password);
@@ -85,20 +84,5 @@ public class UserService {
 				.content(msg).build();
 		mailUtil.sendMail(mail);
 		}
-	}
-	public User findById(String username) {
-		return userDao.findByid(username);
-	}
-	
-	public String findByTel(String tel) {
-		return userDao.findidByCheckTel(tel);
-	}
-	
-	public boolean exsitsUsername(String irum) {
-		return userDao.existsUsername(irum);
-	}
-	
-	public String findByIrum(String irum) {
-		return userDao.findidByCheckName(irum);
 	}
 }

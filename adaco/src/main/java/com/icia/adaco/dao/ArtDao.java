@@ -2,6 +2,7 @@ package com.icia.adaco.dao;
 
 import java.util.*;
 
+import org.apache.ibatis.annotations.*;
 import org.mybatis.spring.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
@@ -24,7 +25,7 @@ public class ArtDao {
 	public int updateByArt(Art art) {
 		return tpl.update("artMapper.update",art);
 	}
-	//사진추가
+	// 사진추가
 	public int addBySajin(Art art) {
 		return tpl.update("artMapper.update",art);
 	}
@@ -68,6 +69,16 @@ public class ArtDao {
 	//재고 수량 증감
 	public int updateByArtCount(Art art) {
 		return tpl.update("artMapper.update",art);
+	}
+	
+	//작품 검색하기 (작품 이름, 작가명)
+	public List<Art> searchByArt(@Param("startRowNum")int startRowNum, @Param("endRowNum")int endRowNum, @Param("keyWord")String keyWord) {
+		 Map<String, Object> map = new HashMap<String, Object>();
+		 map.put("startRowNum", startRowNum); 
+		 map.put("endRowNum", endRowNum);
+		 map.put("keyWord", keyWord);
+		 
+		return tpl.selectList("artMapper.searchByArt",map);
 	}
 	
 	

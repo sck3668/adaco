@@ -48,19 +48,19 @@ public class WSUserService {
 	}
 	
 	// 메시지 보내기 1: 보내는 사람, 받는 사람
-	public void sendMsg(String sender, String receiver, String msg) {
-		System.out.println("보내는 사람 : " + receiver);
+	public void sendMsg(String sendId, String recipientId, String msg) {
+		System.out.println("보내는 사람 : " + recipientId);
 		for(WSUser user:list) {
 			System.out.println("리스트에 저장된 유저 : " + user);
-			if(user.getUsername().equals(receiver)) {
-				user.sendMessage(sender+"의 메시지:" + msg);
+			if(user.getUsername().equals(recipientId)) {
+				user.sendMessage(recipientId+"의 메시지:" + msg);
 			}
 		}
 	}
 	
 	// 메시지 보내기 2: 모든 사람(broadcast)
-	public void sendMsgAll(String sender, String msg) {
+	public void sendMsgAll(String sendId, String msg) {
 		for(WSUser user:list) 
-			user.sendMessage(sender+"의 메시지:" + msg);
+			user.sendMessage(sendId+"의 메시지:" + msg);
 	}
 }

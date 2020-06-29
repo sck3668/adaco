@@ -26,7 +26,6 @@ import com.icia.adaco.util.editor.*;
 public class UserController {
 	@InitBinder
 	public void init(WebDataBinder wdb) {
-		wdb.registerCustomEditor(List.class, "authorities", new AuthorityPropertyEditor());
 		wdb.registerCustomEditor(LocalDateTime.class, "birthDate", new DatePropertyEditor());
 	}
 	

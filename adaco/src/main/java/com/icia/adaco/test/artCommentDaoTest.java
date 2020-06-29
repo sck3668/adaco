@@ -21,7 +21,7 @@ public class artCommentDaoTest {
 	//댓글 입력 테스트 ok
 	//@Test
 	public void insertTest() {
-		ArtComment artcomment = ArtComment.builder().artno(10).username("spring23210").profile("aaa.jpg").content("하이하이").build();
+		ArtComment artcomment = ArtComment.builder().username("spring23235").artno(23).profile("aaa.jpg").content("하이하이").build();
 		assertThat(artcommentdao.writeByCommentOfArt(artcomment), is(1));
 		System.out.println(artcomment);
 	}
@@ -29,12 +29,12 @@ public class artCommentDaoTest {
 	//댓글 삭제 테스트 ok
 	//@Test
 	public void delete() {
-		assertThat(artcommentdao.deleteByCommentOfArt(9), is(1));
+		assertThat(artcommentdao.deleteByCommentOfArt(15), is(1));
 	}
 	
-	/*//댓글 목록 보기 테스트 
-	@Test
-	public void findAll() {
-		assertThat(artcommentdao.findAll(),	is(notNullValue()));
-	}*/
+	//댓글 목록 보기 테스트 
+	//@Test
+	public void listByReviewOfArt() {
+		assertThat(artcommentdao.listByCommentOfArt(1,17),is(notNullValue()));
+	}
 }

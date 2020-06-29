@@ -18,11 +18,11 @@
 	
 	<select id="findAllByUser" resultType="user">
 		<![CDATA[
-	      select B.username, B.irum, B.email
+	      select B.username, B.irum, B.email, B.join_date joinDate
 	      from
-	         (select /*+ index_asc(users users_pk_username) */ rownum rnum, A.username, A.irum, A.email
+	         (select /*+ index_asc(users users_pk_username) */ rownum rnum, A.username, A.irum, A.email, A.join_date
 	         from (
-	            select username, irum, email
+	            select username, irum, email, join_date
 	            from users
 	            order by username asc ) A
 	         where rownum <= #{endRowNum})B
