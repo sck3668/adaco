@@ -4,6 +4,7 @@ import java.security.*;
 import java.time.*;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.*;
 import org.springframework.security.access.annotation.*;
 import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
@@ -76,6 +77,13 @@ public class AdminBoardController {
 		return "redirect:/admin/notice_read?qno="+notice.getNoticeno();
 	}
 	
+//	@PreAuthorize("isAuthenticated()")
+//	@Secured("ROLE_ADMIN")
+	@DeleteMapping("/admin/notice_delete")
+	public ResponseEntity<?> noticeDelete(Integer noticeno) {
+		service.deleteNoitce(noticeno);
+		return ResponseEntity.ok("/adaco/admin");
+	}
 	
 	/* 유저 파트 일단 보류
 	@GetMapping("/user/notice_read")

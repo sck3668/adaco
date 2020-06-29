@@ -92,11 +92,11 @@ public class AdminBoardDao {
 		return tpl.selectList("adminBoardMapper.findAllByNotice", map);
 	}
 	
-//	중요 공지 목록
-	public List<Notice> findAllByImportantNotice() {
-		return tpl.selectList("adminBoardMapper.findAllByImportantNotice");
+//	공지사항 읽기
+	public Notice findNoticeById(int noticeno) {
+		return tpl.selectOne("adminBoardMapper.findNoticeById", noticeno);
 	}
-	
+		
 //	공지사항 수정
 	public int updateByNotice(Notice notice) {
 		return tpl.update("adminBoardMapper.updateByNotice", notice);

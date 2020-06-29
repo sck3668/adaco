@@ -9,6 +9,7 @@ import java.util.*;
 import org.junit.*;
 import org.junit.runner.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.config.annotation.authentication.configurers.userdetails.*;
 import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.*;
 
@@ -172,6 +173,10 @@ public class AdminTest {
 		System.out.println("AAAAAAAA"+list);
 	}
 	
+	@Test
+	public void findNoticeByIdTest() {
+		adminBoardDao.findNoticeById(3);
+	}
 	
 	
 	

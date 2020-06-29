@@ -1,16 +1,17 @@
 package com.icia.adaco.service.mvc;
 
-import java.time.*;
+import java.io.*;
 import java.time.format.*;
 import java.util.*;
+import java.util.regex.*;
 
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.*;
 
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
-import com.icia.adaco.dto.AdminBoardDto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.exception.*;
 import com.icia.adaco.util.*;
@@ -23,7 +24,10 @@ public class AdminBoardService {
 	AdminBoardDao dao;
 	@Autowired
 	ModelMapper modelMapper;
-
+	@Value("${imageFolder}")
+	private String imageFolder;
+	Pattern ckImagePattern = Pattern.compile("src=\".+\"\\s");
+	
 	public Page reportList(int pageno) {
 		int countOfReport = dao.countByReport();
 		Page page = PagingUtil.getPage(pageno, countOfReport);
@@ -94,6 +98,23 @@ public class AdminBoardService {
 
 	public void noticeUpdate(Notice notice) {
 		dao.updateByNotice(notice);	
+	}
+
+	public void deleteNoitce(Integer noticeno) {
+		Notice notice = dao.findNoticeById(noticeno);
+		if (notice == null)
+			throw new JobFailException("공지사항을 찾을 수 없습니다.");
+		String content = notice.getContent();
+		Matcher matcher = ckImagePattern.matcher(content);
+		while(matcher.find()) {
+			String src = matcher.group();
+			int start = src.indexOf("ckimage/");
+			int end = src.indexOf("style=");
+			String fileName = src.substring(start+8, end-2);
+			File file = new File(imageFolder, fileName);
+			if(file.exists()==true)
+				file.delete();
+		}
 	}
 
 	/* 유저 파트 일단 보류

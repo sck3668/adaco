@@ -97,10 +97,10 @@
 		      	where B.rnum&gt;= #{startRowNum}
 	</select>
 	
-	<select id = "findAllByImportantNotice" resultType="notice">
-		select noticeno, title, write_date writeDate, writer from notice where is_important = 1
+	<select id="findNoticeById" resultType="notice">
+		select noticeno, content, title, write_date writeDate, writer, is_important isImportant
 	</select>
-			
+	
 	<insert id = "insertByNotice">
 		<selectKey keyProperty="noticeno" resultType="int" order="BEFORE">
 			select notice_seq.nextval from dual

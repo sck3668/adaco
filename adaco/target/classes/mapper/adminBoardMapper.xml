@@ -69,7 +69,7 @@
 	</select>
 			
 	<update id = "updateQuestionByAnswer">
-		update question set answer_content = #{answerContent}, answer = #{answer}, answer_date = #{answerDate}, state = #{state}
+		update question set answer_content = #{answerContent}, answer = #{answer}, answer_date = sysdate, state = #{state}
 		where qno = #{qno} and rownum = 1
 	</update>
 	
@@ -97,15 +97,15 @@
 		      	where B.rnum&gt;= #{startRowNum}
 	</select>
 	
-	<select id = "findAllByImportantNotice" resultType="notice">
-		select noticeno, title, write_date writeDate, writer from notice where is_important = 1
+	<select id="findNoticeById" resultType="notice">
+		select noticeno, content, title, write_date writeDate, writer, is_important isImportant
 	</select>
-			
+	
 	<insert id = "insertByNotice">
 		<selectKey keyProperty="noticeno" resultType="int" order="BEFORE">
 			select notice_seq.nextval from dual
 		</selectKey>
-		insert into notice(noticeno, content, title, write_date, writer, is_important) values(#{noticeno}, #{content}, #{title}, #{writeDate}, #{writer}, #{isImportant})
+		insert into notice(noticeno, content, title, write_date, writer, is_important) values(#{noticeno}, #{content}, #{title}, sysdate, #{writer}, #{isImportant})
 	</insert>
 	
 	<update id = "updateByNotice">
