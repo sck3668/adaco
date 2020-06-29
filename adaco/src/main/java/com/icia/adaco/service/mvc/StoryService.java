@@ -1,8 +1,10 @@
 package com.icia.adaco.service.mvc;
 
 import java.security.*;
+import java.time.format.*;
 import java.util.*;
 
+import org.apache.ibatis.javassist.expr.*;
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
@@ -53,7 +55,12 @@ public class StoryService {
 		Page page = PagingUtil.getPage(pageno, countOfBoard);
 		int srn = page.getStartPage();
 		int ern = page.getEndPage();
-		
-		 
+		List<Story>storyList = null;
+		storyList = storyDao.findAllStory(srn,ern);
+		List<StoryBoardDto.DtoForList> dtoList = new ArrayList<StoryBoardDto.DtoForList>();
+		for(Story story:storyList) {
+			StoryBoardDto.DtoForList listDto = modelMapper.map(story,StoryBoardDto.class);
+			listDto.setWriteDateStr(story.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
+		}
 	}
 }
