@@ -15,7 +15,7 @@
 		
 		<!-- 작가의 스토리 정보보기 -->
 		<select id="findByStory" resultType="story">
-		select storyno, title, write_date writeDate,image,writer 
+		select storyno, title, write_date writeDate,image,writer,
 		content, artistno from story where storyno=#{storyno} and rownum=1
 		</select>
 		

@@ -2,6 +2,8 @@ package com.icia.adaco.dto;
 
 import java.util.*;
 
+import com.icia.adaco.dto.StoryBoardDto;
+
 import lombok.*;
 
 @Data
@@ -16,13 +18,7 @@ public class Page {
 	private int endPage;
 	private boolean isPrev;
 	private boolean isNext;
-	
-<<<<<<< HEAD
-	List<AdminBoardDto.DtoForList> adminReportList;
-	List<AdminUserDto.DtoForUserList> adminUserList;
-	List<ArtDto.DtoForList> artList;
-	List<AdminUserDto.DtoForArtistList> adminArtist;
-=======
+		
 	List<AdminBoardDto.DtoForReportList> adminReportList;
 	List<AdminBoardDto.DtoForQuestionList> adminQuestionList;
 	List<AdminBoardDto.DtoForNoticeList> adminNoticeList;
@@ -30,7 +26,5 @@ public class Page {
 	List<AdminUserDto.DtoForArtistList> adminArtist;
 
 	List<ArtDto.DtoForList> artList;
->>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 	List<StoryBoardDto.DtoForWrite> storyList;
-
 }

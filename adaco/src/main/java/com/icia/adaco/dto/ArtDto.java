@@ -81,6 +81,11 @@ public class ArtDto {
 		private String courier;
 		private Integer artistNo;
 		private String username;
+		private int optno;
+		private String optionName;
+		private String optionValue;
+		private Integer optionStock;
+		private Integer optionPrice;
 	}
 	
 	

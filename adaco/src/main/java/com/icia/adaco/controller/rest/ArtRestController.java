@@ -47,8 +47,8 @@ public class ArtRestController {
 	// 작품 삭제
 	//@PreAuthorize("isAuthenticated()")
 	@DeleteMapping("/art/delete")
-	public ResponseEntity<?> deleteArt(Integer artno, Principal principal, Integer artistno){
-		service.deleteArt(artno, principal.getName(), artistno);
+	public ResponseEntity<?> deleteArt(Integer artno, Principal principal, Integer artistno, Integer optno){
+		service.deleteArt(artno, principal.getName(), artistno, optno);
 		return ResponseEntity.ok("/adaco/art/list");
 	}
 }

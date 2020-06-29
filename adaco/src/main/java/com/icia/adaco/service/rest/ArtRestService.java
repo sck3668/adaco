@@ -28,12 +28,15 @@ public class ArtRestService {
 	//작품 업데이트
 	public void updateArt(ArtDto.DtoForUpdate dto) {
 		Art art = artDao.readByArt(dto.getArtno());
+		Option option = modelMapper.map(dto,Option.class);
 		Artist artist = artistDao.findByid(dto.getArtistNo());
 		if(art==null)
 			throw new ArtNotFoundException();
 		if(artist.getUsername().equals(dto.getUsername())==false)
 			throw new IllegalJobException();
 		art = modelMapper.map(dto, Art.class);
+		option.setArtno(art.getArtno());
+		optionDao.updateByOption(option);
 		artDao.updateByArt(art);
 		
 	}
@@ -57,14 +60,17 @@ public class ArtRestService {
 	}
 
 	//작품 삭제
-	public boolean deleteArt(Integer artno, String username, Integer artistno) {
+	public void deleteArt(Integer artno, String username, Integer artistno, Integer optno) {
 		Art art = artDao.readByArt(artno);
+		Option option = optionDao.readByOption(optno);
 		String artWriter = artistDao.findByid(artistno).getUsername();
 		if(art==null)
 			throw new ArtNotFoundException();
 		if(username.equals(artWriter)==false)
 			throw new IllegalJobException();
-		return artDao.deleteByArt(artno)==1;
+		option.setArtno(art.getArtno());
+		optionDao.updateByOption(option);
+		artDao.deleteByArt(artno);
 		
 	}
 	
