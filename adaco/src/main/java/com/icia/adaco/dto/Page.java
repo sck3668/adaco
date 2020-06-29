@@ -21,5 +21,9 @@ public class Page {
 	
 	List<AdminBoardDto.DtoForList> adminReportList;
 	List<AdminUserDto.DtoForUserList> adminUserList;
+
+	List<ArtDto.DtoForList> artList;
+
 	List<AdminUserDto.DtoForArtistList> adminArtist;
+
 }
