@@ -2,10 +2,12 @@ package com.icia.adaco.controller.mvc;
 
 import java.security.*;
 
+
 import javax.validation.*;
 import javax.validation.constraints.*;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
 import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +16,7 @@ import org.springframework.web.servlet.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.exception.*;
 import com.icia.adaco.service.mvc.*;
-
+@PreAuthorize("isAuthenticated()")
 @Controller
 public class MessageController {
 	@Autowired
@@ -22,9 +24,9 @@ public class MessageController {
 	
 	@GetMapping("/message/write")
 	public ModelAndView write(@RequestParam @NotNull String recipientId) {
+		System.out.println("messageWrite");
 		return new ModelAndView("main").addObject("viewName", "message/write.jsp").addObject("recipientId", recipientId);
 	}
-	
 	// 메모 보내기
 	@PostMapping("/message/write")
 	public ModelAndView write(Message msg, BindingResult results, Principal principal) throws BindException {

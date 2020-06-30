@@ -31,7 +31,7 @@
 	</select>
 	
 	<select id="findAllByReceiver" resultType="message">
-		select mno, title, send_id sendId, recipient_id recipientId, write_date writeDate, is_read isRead from message
+		select mno, title, send_id sendId, recipient_id recipientId, write_date writeDate, msg_check msgCheck from message
 		where recipient_id=#{recipientId} and is_reciver_message=0
 	</select>
 	
