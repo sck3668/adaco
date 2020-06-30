@@ -13,6 +13,8 @@ import com.icia.adaco.entity.*;
 public class ArtDao {
 	@Autowired
 	private SqlSessionTemplate tpl;
+	////////////////////// 작가 전용 ///////////////////////////
+	
 	//작품 등록
 	public int writeByArt(Art art) {
 		return tpl.insert("artMapper.insert",art);
@@ -71,6 +73,15 @@ public class ArtDao {
 		return tpl.update("artMapper.update",art);
 	}
 	
+
+	
+	//작품 갯수
+	public int countByArt() {
+		return tpl.selectOne("artMapper.count");
+	}
+	
+	////////////////////// 회원 전용 ///////////////////////////
+	
 	//작품 검색하기 (작품 이름, 작가명)
 	public List<Art> searchByArt(@Param("startRowNum")int startRowNum, @Param("endRowNum")int endRowNum, @Param("keyWord")String keyWord) {
 		 Map<String, Object> map = new HashMap<String, Object>();
@@ -81,17 +92,18 @@ public class ArtDao {
 		return tpl.selectList("artMapper.searchByArt",map);
 	}
 	
-	//작품 갯수
-	public int countByArt() {
-		return tpl.selectOne("artMapper.count");
-	}
-	
-	
-	
-	
-	
-	
-
+	//작품 내역 보기(최신순)
+		public List<Art> listByArtFromUser(int startRowNum, int endRowNum){
+			Map<String, Integer>map = new HashMap<>();
+			map.put("startRowNum", startRowNum);
+			map.put("endRowNum",endRowNum);
+			return tpl.selectList("artMapper.findAllFromUser",map); 
+		}
+		
+	// 작품 상세보기
+		public Art readByArtFromUser(Integer artno) {
+			return tpl.selectOne("artMapper.findByArtFromUser",artno);
+		}
 	
 	
 

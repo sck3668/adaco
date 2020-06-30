@@ -33,6 +33,11 @@ public class OptionDao {
 		Map<String, Integer>map = new HashMap<>();
 		return tpl.selectList("optionMapper.findAll",map);
 	}
+
+	// 옵션 보기
+	public Option readByOption(Integer optno) {
+		return tpl.selectOne("optionMapper.findById",optno);
+	}
 	
 	
 }

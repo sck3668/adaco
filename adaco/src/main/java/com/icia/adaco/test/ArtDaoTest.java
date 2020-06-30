@@ -18,11 +18,12 @@ import com.icia.adaco.entity.*;
 public class ArtDaoTest {
 	@Autowired
 	private ArtDao artdao;
+	//////////// 작가 전용 테스트 ////////////////////
 	
 	//상품 등록 테스트 ok
 	//@Test
 	public void insertTest() {
-		Art art = Art.builder().artName("새상품").price(1000).mainImg("aaa.jpg").artImg("bbb.jpg").stock(300).tag("검색").category("카테고리다").shopno(2).couriPrice(3000).returnAddress("배송지야").courier("대한통운").accumulated(500).artistno(4).build();
+		Art art = Art.builder().artName("새상품").price(1000).mainImg("aaa.jpg").artImg("bbb.jpg").stock(300).tag("검색").category("카테고리다").shopno(2).couriPrice(3000).returnAddress("배송지야").courier("대한통운").accumulated(500).artistno(6).artDetail("신상이에요").build();
 		assertThat(artdao.writeByArt(art), is(1));
 		/*for(int i=1; i<=10; i++) {
 			artdao.writeByArt(Art.builder().artName("신상").price(1000).mainImg("aaa.jpg").artImg("bbb.jpg").stock(300).tag("검색").category("카테고리다").shopno(1).couriPrice(3000).returnAddress("배송지야").courier("대한통운").accumulated(500).artistno(12).build());
@@ -33,7 +34,7 @@ public class ArtDaoTest {
 	//작품 수정 테스트 ok
 	//@Test 
 	public void updateTest() {
-		Art art = Art.builder().artno(32).artName("변경신상").price(2000).mainImg("ccc.jpg").artImg("ddd.jpg").stock(50).tag("태그얏").couriPrice(2500).returnAddress("배송지 업뎃").accumulated(1000).favorite(true).build();
+		Art art = Art.builder().artno(45).artName("변경신상").price(2000).mainImg("ccc.jpg").artImg("ddd.jpg").stock(50).tag("태그얏").couriPrice(2500).returnAddress("배송지 업뎃").accumulated(1000).favorite(true).artDetail("상품설명 수정이얌").build();
 		artdao.updateByArt(art);
 	}
 	
@@ -46,21 +47,16 @@ public class ArtDaoTest {
 	//작품 상세보기 테스트 ok
 	//@Test
 	public void readByArtTest() {
-		assertThat(artdao.readByArt(32), is(notNullValue()));
-		assertThat(artdao.readByArt(32).getArtName(),is("변경신상"));
+		assertThat(artdao.readByArt(45), is(notNullValue()));
+		assertThat(artdao.readByArt(45).getArtName(),is("변경신상"));
 	}
 	
 	//작품 내역보기 /최신순정렬 테스트  ok
 	//@Test
-		public void listByReviewOfArt() {
-			assertThat(artdao.listByArt(1,4),is(notNullValue()));
+		public void listByArtTest() {
+			assertThat(artdao.listByArt(1,19),is(notNullValue()));
 		}
 	
-	//작품 검색하기 (일단 작품명으로 검색만) 테스트 ok
-	//@Test
-	public void searchByArtTest() {
-		artdao.searchByArt(1,2, "신");
-	}
 	
 	//작품 갯수 테스트 ok
 	//@Test
@@ -68,7 +64,25 @@ public class ArtDaoTest {
 		artdao.countByArt();
 	}
 
+	//////////// 회원 전용 테스트 ////////////////////
 
+	//작품 검색하기 (일단 작품명으로 검색만) 테스트 ok
+	//@Test
+	public void searchByArtTest() {
+		artdao.searchByArt(1,2, "신");
+	}
 	
+	//작품 내역보기 /최신순정렬 테스트  ok
+	//@Test
+		public void listByArtFromUser() {
+			assertThat(artdao.listByArtFromUser(1,20),is(notNullValue()));
+		}
+		
+	//작품 상세보기 테스트 ok
+	//@Test
+		public void readByArtFromUserTest() {
+			assertThat(artdao.readByArtFromUser(45), is(notNullValue()));
+			assertThat(artdao.readByArtFromUser(45).getArtName(),is("변경신상"));
+		}
 
 }
