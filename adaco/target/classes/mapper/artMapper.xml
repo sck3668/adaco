@@ -1,16 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="artMapper">
+	
+	<!-- 작가 사용 -->
 	<!-- 작품 등록 -->	
 	<insert id="insert">
 	<selectKey keyProperty="artno" resultType="int" order="BEFORE">
 		select art_seq.nextval from dual
 	</selectKey>
-		insert into art(artno, art_name, price, main_img, art_img, stock, tag, art_date, category, shopno, couri_price, return_address, courier, read_cnt, accumulated, favorite, artistno )
-		values(#{artno},#{artName},#{price},#{mainImg},#{artImg},#{stock}, #{tag}, sysdate, #{category}, #{shopno}, #{couriPrice}, #{returnAddress}, #{courier}, 0,#{accumulated}, 0, #{artistno})
+		insert into art(artno, art_name, price, main_img, art_img, stock, tag, art_date, category, shopno, couri_price, return_address, courier, accumulated, favorite, artistno, art_detail )
+		values(#{artno},#{artName},#{price},#{mainImg},#{artImg},#{stock}, #{tag}, sysdate, #{category}, #{shopno}, #{couriPrice}, #{returnAddress}, #{courier}, #{accumulated}, 0, #{artistno}, #{artDetail})
 	</insert>
 	
-	<!--작품 수정 / 작품 번호,카테고리 수정불가-->
+	<!-- 작품 내역보기/최신순-->
+		<select id="findAll" resultType="art">
+	<![CDATA[
+		select*from
+			(select rownum as rnum, a.*from
+				(select /*+ index_desc(art art_pk_artno) */ artno, category, main_img, art_name, price
+				from art ) a
+			where rownum <=#{endRowNum}) 
+		where rnum>=#{startRowNum}
+		]]>
+	</select>
+	
+	<!-- 작품 삭제 -->
+	<delete id="delete">
+		delete from art where artno=#{artno} and rownum=1
+	</delete>
+	
+	<!-- 작품 상세 보기 -->
+	<select id="findById" resultType="art">
+		select artno, art_name artName, price, main_img mainImg , art_img artImg , stock, tag, art_date artDate, category, shopno, couri_price couriPrice, return_address returnAddress, courier, read_cnt readCnt, accumulated, favorite, artistno
+		from art
+		where artno=#{artno} and rownum=1
+	</select>
+	
+	<!--작품 수정 / 작품 번호,카테고리 수정불가 / 작가,회원 같이 사용-->
 	<update id="update">
 		update art
 		<trim suffixOverrides="," prefix="set">
@@ -26,34 +52,18 @@
 			<if test="readCnt!=null">read_cnt=read_cnt+1,</if>
 			<if test="accumulated!=null">accumulated=#{accumulated},</if>
 			<if test="favorite!=null">favorite=favorite+1,</if>
+			<if test="artDetail!=null">art_detail=#{artDetail},</if>
 		</trim>
 		where artno=#{artno} and rownum=1
 	</update>
 	
-	<!-- 작품 내역보기/최신순 -->
-		<select id="findAll" resultType="art">
-	<![CDATA[
-		select*from
-			(select rownum as rnum, a.*from
-				(select /*+ index_desc(art art_pk_artno) */ artno, category, main_img, art_name, price
-				from art ) a
-			where rownum <=#{endRowNum}) 
-		where rnum>=#{startRowNum}
-		]]>
+	<!-- 작품 count / 페이징 위한 -->
+	<select id="count" resultType="int">
+		select count(*) from art
 	</select>
 	
-	<!-- 작품 정렬(리뷰순) -->
-		<select id="findAllByReview" resultType="art">
-	<![CDATA[
-		select*from
-			(select rownum as rnum, b.*from
-				(select /*+ index_desc(art art_pk_artno) */ artno, category, main_img, art_name, price
-				from art ) b
-			where rownum <=#{endRowNum}) 
-		where rnum>=#{startRowNum}
-		]]>
-	</select>
 	
+	<!-- 회원 사용 -->
 	
 	 <!-- 검색어(일단 작품이름)로 작품 검색 -->
 	<select id="searchByArt" resultType="art">
@@ -68,7 +78,41 @@
 	         where rownum&lt;= #{endRowNum})B
 	      where B.rnum&gt;= #{startRowNum}
 	</select>
-	   
+	
+	<!-- 작품 리스트/최신순-->
+		<select id="findAllFromUser" resultType="art">
+	<![CDATA[
+		select*from
+			(select rownum as rnum, a.*from
+				(select /*+ index_desc(art art_pk_artno) */ artno, main_img, art_name, favorite
+				from art ) a
+			where rownum <=#{endRowNum}) 
+		where rnum>=#{startRowNum}
+		]]>
+	</select>
+	
+	<!-- 작품 정렬(리뷰순) -->
+	<select id="findAllByReview" resultType="art">
+	<![CDATA[
+		select*from
+			(select rownum as rnum, b.*from
+				(select /*+ index_desc(art art_pk_artno) */ artno, category, main_img, art_name, price
+				from art ) b
+			where rownum <=#{endRowNum}) 
+		where rnum>=#{startRowNum}
+		]]>
+	</select>
+	
+	<!-- 작품 상세 보기 -->
+	<select id="findByArtFromUser" resultType="art">
+		select artno, art_name artName, price, main_img mainImg , art_img artImg , stock, tag, category, shopno, 
+		couri_price couriPrice, return_address returnAddress, courier, read_cnt readCnt, accumulated, favorite, 
+		artistno, art_detail artDetail
+		from art
+		where artno=#{artno} and rownum=1
+	</select>
+	
+	
 	<!-- 검색어에 맞는 작품 갯수 -->
 	<!--    <select id="countSearch" resultType="int">
 	   		select count(artno)
@@ -79,24 +123,5 @@
 	   		]]>
 	   </select> -->
 	   
-		
-	<!-- 작품 삭제 -->
-	<delete id="delete">
-		delete from art where artno=#{artno} and rownum=1
-	</delete>
-	
-	<!-- 작품 상세 보기 -->
-	<select id="findById" resultType="art">
-		select artno, art_name artName, price, main_img mainImg , art_img artImg , stock, tag, art_date artDate, category, shopno, couri_price couriPrice, return_address returnAddress, courier, read_cnt readCnt, accumulated, favorite, artistno
-		from art
-		where artno=#{artno} and rownum=1
-	</select>
-	
-	<!-- 작품 count -->
-	<select id="count" resultType="int">
-		select count(*) from art
-	</select>
-	
-	
 	
  </mapper>

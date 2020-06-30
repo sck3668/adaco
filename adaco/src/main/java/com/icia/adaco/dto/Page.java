@@ -2,7 +2,7 @@ package com.icia.adaco.dto;
 
 import java.util.*;
 
-import com.icia.adaco.dto.StoryBoardDto.*;
+import com.icia.adaco.dto.StoryBoardDto;
 
 import lombok.*;
 
@@ -18,7 +18,7 @@ public class Page {
 	private int endPage;
 	private boolean isPrev;
 	private boolean isNext;
-	
+		
 	List<AdminBoardDto.DtoForReportList> adminReportList;
 	List<AdminBoardDto.DtoForQuestionList> adminQuestionList;
 	List<AdminBoardDto.DtoForNoticeList> adminNoticeList;
