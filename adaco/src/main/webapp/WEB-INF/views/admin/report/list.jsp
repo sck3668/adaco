@@ -1,9 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <title>신고 댓글 목록</title>
 <style>
       table {
@@ -42,54 +47,37 @@
 			</i>
 		</button>
 	</label>
-	<table >
+	<div>
+	<table class = "table table-hover">
 		<colgroup>
-				<col width="10%">
-				<col width="40%">
+				<col width="5%">
 				<col width="10%">
 				<col width="30%">
-				<col width="40%">
+				<col width="10%">
+				<col width="5%">
 			</colgroup>
-	 <caption><strong> <h3>신고 댓글 목록</h3></strong></caption>
+	 	<caption><strong>신고 댓글 목록</strong></caption>
 		<thead>
 			<tr>
-				<th>아이디</th>
+				<th>댓글 번호</th>
+				<th>유저명</th>
 				<th>내용</th>
-				<th>이메일</th>
+				<th>작성일</th>
+				<th>신고수</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody id = "list">
+		<c:forEach items = "${reportPage.adminReportList}" var = "report">
 			<tr>
-				<td><a href="/adaco/adminuser/read?username=${user.uesrname}">${user.username}</a></td>
-				<td>content</td>
-				<td>email1</td>
+				<td>${report.cno }</td>
+				<td>${report.username }</td>
+				<td>${report.content }</td>
+				<td>${report.writeDateStr }</td>
+				<td>${report.reportCnt }</td>
 			</tr>
-			<tr>
-				<td><a href="/adaco/adminuser/read?username=${user.uesrname}">${user.username}</a></td>
-				<td>content</td>
-				<td>email1</td>
-			</tr>
-			<tr>
-				<td><a href="/adaco/adminuser/read?username=${user.uesrname}">${user.username}</a></td>
-				<td>content</td>
-				<td>email1</td>
-			</tr>
-			<tr>
-				<td><a href="/adaco/adminuser/read?username=${user.uesrname}">${user.username}</a></td>
-				<td>content</td>
-				<td>email1</td>
-			</tr>
-			<tr>
-				<td><a href="/adaco/adminuser/read?username=${user.uesrname}">${user.username}</a></td>
-				<td>content</td>
-				<td>email1</td>
-			</tr>
-			<tr>
-				<td><a href="/adaco/adminuser/read?username=${user.uesrname}">${user.username}</a></td>
-				<td>content</td>
-				<td>email1</td>
-			</tr>
+		</c:forEach>
 		</tbody>
 	</table>
+	</div>
 </body>
 </html>

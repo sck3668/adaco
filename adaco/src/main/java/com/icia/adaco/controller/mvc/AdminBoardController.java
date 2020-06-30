@@ -32,7 +32,7 @@ public class AdminBoardController {
 //	@Secured("ROLE_ADMIN")
 	@GetMapping("/admin/report_list")
 	public ModelAndView reportList(@RequestParam(defaultValue = "1")int pageno) {
-		return new ModelAndView("main").addObject("viewName", "admin/report_list.jsp").addObject("reportPage", service.reportList(pageno));
+		return new ModelAndView("admin/report/list").addObject("reportPage", service.reportList(pageno));
 	}
 	
 //	@Secured("ROLE_ADMIN")
@@ -94,17 +94,4 @@ public class AdminBoardController {
 	public String faqWrite(FAQ faq) {
 		return "redirect:/admin/faq_read?faqno="+service.faqWrite(faq);
 	}
-		
-	
-	
-	/* 유저 파트 일단 보류
-	@GetMapping("/user/notice_read")
-	public ModelAndView noticeRead(@RequestParam(value = "noticeno")@NonNull Integer noticeno) {
-		ModelAndView mav = new ModelAndView("admin/notice_read");
-		AdminBoardDto.DtoForNoticeRead dto = service.noticeRead(noticeno);
-		String json =objectMapper.writeValueAsString(dto);
-		mav.addObject("notice", json);
-		return mav;
-	}
-	*/
 }
