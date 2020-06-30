@@ -23,4 +23,12 @@ public class UserRestController {
 		return ResponseEntity.ok(userRestService.checkEmail(email));
 	}
 	
+//	@PostMapping("/user/findId2")
+//	public ResponseEntity<?> checkId2(@RequestParam String Irum) {
+//		System.out.println("===========");
+//		System.out.println(Irum);
+//		return ResponseEntity.ok(null);
+//				
+//	}
+//	
 }
