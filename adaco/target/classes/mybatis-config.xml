@@ -32,4 +32,5 @@
 	<typeHandlers>
 		<typeHandler handler="com.icia.adaco.util.typehandler.LocalDateTimeTypeHandler"/>
 	</typeHandlers>
+	  
 </configuration>
