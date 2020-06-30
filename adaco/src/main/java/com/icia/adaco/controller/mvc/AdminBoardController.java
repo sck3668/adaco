@@ -32,7 +32,7 @@ public class AdminBoardController {
 //	@Secured("ROLE_ADMIN")
 	@GetMapping("/admin/report_list")
 	public ModelAndView reportList(@RequestParam(defaultValue = "1")int pageno) {
-		return new ModelAndView("admin/main").addObject("viewName", "admin/report_list.jsp").addObject("reportPage", service.reportList(pageno));
+		return new ModelAndView("main").addObject("viewName", "admin/report_list.jsp").addObject("reportPage", service.reportList(pageno));
 	}
 	
 //	@Secured("ROLE_ADMIN")
@@ -76,14 +76,26 @@ public class AdminBoardController {
 		service.noticeUpdate(notice);
 		return "redirect:/admin/notice_read?qno="+notice.getNoticeno();
 	}
+
+	
+	@GetMapping("/user/faq_list")
+	public ModelAndView faqList() {
+		return new ModelAndView("main").addObject(service.faqList());
+	}
 	
 //	@PreAuthorize("isAuthenticated()")
 //	@Secured("ROLE_ADMIN")
-	@DeleteMapping("/admin/notice_delete")
-	public ResponseEntity<?> noticeDelete(Integer noticeno) {
-		service.deleteNoitce(noticeno);
-		return ResponseEntity.ok("/adaco/admin");
+	@GetMapping("/admin/faq_write")
+	public ModelAndView faqWrite() {
+		return new ModelAndView("main");
 	}
+	
+	@PostMapping("/admin/faq_write")
+	public String faqWrite(FAQ faq) {
+		return "redirect:/admin/faq_read?faqno="+service.faqWrite(faq);
+	}
+		
+	
 	
 	/* 유저 파트 일단 보류
 	@GetMapping("/user/notice_read")
