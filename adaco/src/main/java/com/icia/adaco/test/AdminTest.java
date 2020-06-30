@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.config.annotation.authentication.configurers.userdetails.*;
 import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.*;
+import org.springframework.test.context.web.*;
 
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
@@ -23,6 +24,7 @@ import com.icia.adaco.util.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/**/*-context.xml")
+@WebAppConfiguration
 public class AdminTest {
 	
 	@Autowired
@@ -173,7 +175,7 @@ public class AdminTest {
 		System.out.println("AAAAAAAA"+list);
 	}
 	
-	@Test
+//	@Test
 	public void findNoticeByIdTest() {
 		adminBoardDao.findNoticeById(3);
 	}
@@ -240,7 +242,7 @@ public class AdminTest {
 	
 	
 //	어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 
-//	@Test
+	@Test
 	public void adminReportListTest() {
 		adminBoardService.reportList(2);
 	}
