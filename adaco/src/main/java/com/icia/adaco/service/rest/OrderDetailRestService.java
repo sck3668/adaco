@@ -18,7 +18,6 @@ public class OrderDetailRestService {
 	private OrderDetailDao orderDetailDao;
 	@Autowired
 	private ModelMapper modelMapper;
-	
 	// 주문 취소
 		public void OrderDelete(Principal principal, Integer orderno) {
 			OrderDetail orderdetail = orderDetailDao.deleteByOrderDetail(orderno);
