@@ -35,4 +35,11 @@
 	order by optno desc
 	</select>
 	
+	<!-- 옵션 상세 보기 / 삭제를 위한 -->
+	<select id="findById" resultType="option">
+		select optno, artno, option_name, option_value, option_price, option_stock
+		from options
+		where optno=#{optno} and rownum=1
+	</select>
+	
  </mapper>
