@@ -8,7 +8,6 @@ import org.mybatis.spring.*;
 import org.springframework.stereotype.*;
 
 import com.icia.adaco.entity.*;
-
 @Repository
 public class StoryDao {
 	@Inject

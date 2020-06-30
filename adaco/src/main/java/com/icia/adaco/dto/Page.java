@@ -2,6 +2,8 @@ package com.icia.adaco.dto;
 
 import java.util.*;
 
+import com.icia.adaco.dto.StoryBoardDto.*;
+
 import lombok.*;
 
 @Data

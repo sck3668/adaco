@@ -1,10 +1,9 @@
 package com.icia.adaco.service.mvc;
 
-import java.security.*;
+import java.io.*;
 import java.time.format.*;
 import java.util.*;
 
-import org.apache.ibatis.javassist.expr.*;
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
@@ -22,29 +21,22 @@ public class StoryService {
 	private StoryDao storyDao;
 	@Autowired
 	private ModelMapper modelMapper;
-	@Autowired
-	private AttachmentDao attachmentDao;
-	@Value("${attachmentFolder}")
-	private String attachmentFolder;
-	@Value("${attachmentPath}")
-	private String attachmentPath;
+	@Value("${profileFolder}")
+	private String profileFolder;
+	@Value("${profilePath}")
+	private String profilePath;
 
-	public int storyWriter(StoryBoardDto.DtoForWrite dtoWrite, Principal principal) {
+	public int storyWrite(StoryBoardDto.DtoForWrite dtoWrite,MultipartFile sajin)throws IOException {
 		Story story = modelMapper.map(dtoWrite, Story.class);
-		if (story.getWriter().equals(principal.getName()) == false)
-			throw new JobFailException("아이디가 다르다 슈발로마");
-		else
-			storyDao.insert(story);
+		if (sajin != null && sajin.isEmpty() == false) {
+			if (sajin.getContentType().toLowerCase().startsWith("image/")) {
+				int lastIndexOfDot = sajin.getOriginalFilename().lastIndexOf(".");
+				String extension = sajin.getOriginalFilename().substring(lastIndexOfDot + 1);
+				File storyFile = new File(profileFolder, story.getWriter() + "." + extension);
 
-		List<MultipartFile> attachments = dtoWrite.getAttachment();
-		if (attachments != null) {
-			for (MultipartFile mf : attachments) {
-				Attachment attachment = new Attachment();
-				String originalFileName = mf.getOriginalFilename();
-				long time = System.nanoTime();
-				String saveFileName = time + "-" + originalFileName;
-				boolean isImage = mf.getContentType().toLowerCase().startsWith("image/");
-				attachmentDao.insert(attachment);
+				sajin.transferTo(storyFile);
+				story.setImage(profilePath + storyFile.getName());
+				storyDao.insert(story);
 			}
 		}
 		return story.getStoryno();
@@ -55,12 +47,27 @@ public class StoryService {
 		Page page = PagingUtil.getPage(pageno, countOfBoard);
 		int srn = page.getStartPage();
 		int ern = page.getEndPage();
-		List<Story>storyList = null;
-		storyList = storyDao.findAllStory(srn,ern);
-		List<StoryBoardDto.DtoForList> dtoList = new ArrayList<StoryBoardDto.DtoForList>();
-		for(Story story:storyList) {
-			StoryBoardDto.DtoForList listDto = modelMapper.map(story,StoryBoardDto.class);
+		List<Story> storyList = null;
+		storyList = storyDao.findAllStory(srn, ern);
+		List<StoryBoardDto.DtoForList> storydtoList = new ArrayList<StoryBoardDto.DtoForList>();
+		for (Story story : storyList) {
+			StoryBoardDto.DtoForList listDto = modelMapper.map(story, StoryBoardDto.DtoForList.class);
 			listDto.setWriteDateStr(story.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
+			storydtoList.add(listDto);
 		}
+		page.setStoryList(storydtoList);
+		return page;
+	}
+	public StoryBoardDto.DtoForRead storyRead(int storyno) {
+		Story story = storyDao.findByStory(storyno);
+		if(story==null)
+			throw new JobFailException("보드가없다");
+		StoryBoardDto.DtoForRead readDto = modelMapper.map(story,StoryBoardDto.DtoForRead.class);
+		String str = story.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일"));
+		readDto.setWriteDateStr(str);
+		return readDto;
+	}
+	public void deleteStory() {
+		
 	}
 }
