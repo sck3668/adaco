@@ -65,7 +65,8 @@ public class ArtRestService {
 		dto = modelMapper.map(option, ArtDto.DtoForRead.class);
 		String str = art.getArtDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일"));
 		dto.setArtDate(str);
-		
+		if(username!=null)
+			artDao.updateByArt(Art.builder().artno(artno).readCnt(0).build());
 		return dto;
 	}
 

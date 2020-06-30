@@ -54,10 +54,8 @@ public class ArtService {
 		optionDao.writeByOption(option);
 		artdao.writeByArt(art);
 		
-		
-		
-		
 	}
+	
 	
 	// 작품 리스트 (작가용)
 	public Page list(int pageno) {
@@ -66,6 +64,22 @@ public class ArtService {
 		int srn = page.getStartRowNum();
 		int ern = page.getEndRowNum();
 		List<Art> artList = artdao.listByArt(srn, ern);
+		List<ArtDto.DtoForList> dtoList = new ArrayList<ArtDto.DtoForList>();
+		for(Art art:artList) {
+			ArtDto.DtoForList dto = modelMapper.map(art,ArtDto.DtoForList.class);
+			dtoList.add(dto);
+		}
+		page.setArtList(dtoList);
+		return page;
+	}
+	
+	// 작품 리스트 최신순 (회원용)
+	public Page listFromUser(int pageno) {
+		int countOfArt = artdao.countByArt();
+		Page page = PagingUtil.getPage(pageno, countOfArt);
+		int srn = page.getStartRowNum();
+		int ern = page.getEndRowNum();
+		List<Art> artList = artdao.listByArtFromUser(srn, ern);
 		List<ArtDto.DtoForList> dtoList = new ArrayList<ArtDto.DtoForList>();
 		for(Art art:artList) {
 			ArtDto.DtoForList dto = modelMapper.map(art,ArtDto.DtoForList.class);

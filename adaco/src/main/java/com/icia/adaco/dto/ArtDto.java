@@ -27,7 +27,7 @@ public class ArtDto {
 		private Integer price;
 		private String mainImg;
 		private String artImg;
-		private String stock;
+		private Integer stock;
 		private String tag;
 		private LocalDateTime artDate;
 		private Integer couriPrice;
@@ -50,17 +50,15 @@ public class ArtDto {
 	@NoArgsConstructor
 	@Builder
 	@Accessors(chain=true)
-	// 작품 리스트 (작가용)
+	// 작품 리스트 (작가용/회원용)
 	public static class DtoForList{
 		private Integer artno;
 		private String category;
 		private String mainImg;
 		private String artName;
 		private Integer price;
+		private boolean favorite;
 	}
-<<<<<<< HEAD
-}
-=======
 	
 	@Data
 	@AllArgsConstructor

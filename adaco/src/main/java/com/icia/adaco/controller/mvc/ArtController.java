@@ -28,13 +28,19 @@ public class ArtController {
 	// 작품 리스트 (작가용)
 	@GetMapping("/art/list")
 	public ModelAndView artList(@RequestParam(defaultValue = "1") int pageno) {
-		return new ModelAndView("artist/main").addObject("viewName","art/list.jsp").addObject("artPage",artservice.list(pageno));
+		return new ModelAndView("main").addObject("viewName","art/list.jsp").addObject("artPage",artservice.list(pageno));
+	}
+	
+	// 작품 리스트 (회원용)
+	@GetMapping("/art/list2")
+	public ModelAndView artListFromUser(@RequestParam(defaultValue = "1") int pageno) {
+		return new ModelAndView("main").addObject("viewName","art/list.jsp").addObject("artPage",artservice.list(pageno));
 	}
 	
 	// 작품 상세보기 (작가용)
 	@GetMapping("/art/read")
 	public ModelAndView read(@NonNull Integer artno) {
-		return new ModelAndView("artist/main").addObject("viewName","art/read.jsp");
+		return new ModelAndView("main").addObject("viewName","art/read.jsp");
 	}
 	
 	static {
@@ -48,7 +54,7 @@ public class ArtController {
 	//@PreAuthorize("isAuthenticated()")
 	@GetMapping("/art/write")
 	public ModelAndView write() {
-		return new ModelAndView("artist/main").addObject("viewName","art/write.jsp");
+		return new ModelAndView("main").addObject("viewName","art/write.jsp");
 	}
 	
 	//작품 등록
