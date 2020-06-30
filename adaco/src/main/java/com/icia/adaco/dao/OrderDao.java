@@ -14,12 +14,12 @@ public class OrderDao {
 	private SqlSessionTemplate tpl;
 	
 	// 주문 목록에 추가
-	public int insertByOrder(Order orderNo) {
-		return tpl.insert("orderMapper.insertByOrder", orderNo);
+	public int insertByOrder(Order orderno) {
+		return tpl.insert("orderMapper.insertByOrder", orderno);
 	}
 	// 주문 내역 변경
-	public int updateByOrder(Order orderNo) {
-		return tpl.update("orderMapper.updateByOrder", orderNo);
+	public int updateByOrder(Order orderno) {
+		return tpl.update("orderMapper.updateByOrder", orderno);
 	}
 	// 주문 내역 삭제
 	public int deleteByOrder(Integer orderno) {

@@ -24,7 +24,7 @@ public class BagDao {
 	public int deleteByBag(Integer artno) {
 		return tpl.delete("bagMapper.deleteByBag", artno);
 	}
-	// 장바구니 작품 상세
+	// 장바구니에 담긴 작품 보기
 	public Bag findByArtno(Integer artno) {
 		return tpl.selectOne("bagMapper.findByArtno", artno);
 	}
@@ -32,5 +32,5 @@ public class BagDao {
 	public List<Bag> findAllByBag(){
 		return tpl.selectList("bagMapper.findAllByBag");
 	}
-	
+	 
 }
