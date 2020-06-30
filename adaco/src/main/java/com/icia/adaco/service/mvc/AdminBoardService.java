@@ -110,6 +110,10 @@ public class AdminBoardService {
 		return faq.getFaqno();
 	}
 
+	public void reportDelete(List<Integer> cnos) {
+		dao.deleteByReport(cnos);
+	}
+
 
 
 	/* 유저 파트 일단 보류
