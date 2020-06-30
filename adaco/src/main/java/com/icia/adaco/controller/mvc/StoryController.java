@@ -24,13 +24,13 @@ public class StoryController {
 		.addObject("viewName", "artist/story/list.jsp");
 	}
 
-	@PreAuthorize("isAuthenticated()")
+	//@PreAuthorize("isAuthenticated()")
 	@GetMapping("story/writeStory")
 	public ModelAndView writeStory() {
 		return new ModelAndView("main").addObject("viewName","artist/story/write.jsp");
 	}
 
-	@PreAuthorize("isAuthenticated()")
+	//@PreAuthorize("isAuthenticated()")
 	@PostMapping("story/writeStory")
 	public String writeStory(StoryBoardDto.DtoForWrite writeDto, Principal principal, MultipartFile sajin) throws IOException {
 		writeDto.setWriter(principal.getName());

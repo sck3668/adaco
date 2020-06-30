@@ -1,22 +1,25 @@
 package com.icia.adaco.service.mvc;
 
-import java.io.*;
-import java.time.format.*;
-import java.util.*;
-import java.util.regex.*;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.modelmapper.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.*;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import com.icia.adaco.dao.*;
-import com.icia.adaco.dto.*;
-import com.icia.adaco.entity.*;
-import com.icia.adaco.exception.*;
-import com.icia.adaco.util.*;
+import com.icia.adaco.dao.AdminBoardDao;
+import com.icia.adaco.dto.AdminBoardDto;
+import com.icia.adaco.dto.Page;
+import com.icia.adaco.entity.ArtComment;
+import com.icia.adaco.entity.FAQ;
+import com.icia.adaco.entity.Notice;
+import com.icia.adaco.entity.Question;
+import com.icia.adaco.entity.State;
+import com.icia.adaco.exception.QuestionNotFoundException;
+import com.icia.adaco.util.PagingUtil;
 
-import lombok.*;
+import lombok.NonNull;
 
 @Service
 public class AdminBoardService {
@@ -24,9 +27,7 @@ public class AdminBoardService {
 	AdminBoardDao dao;
 	@Autowired
 	ModelMapper modelMapper;
-	@Value("${imageFolder}")
-	private String imageFolder;
-	Pattern ckImagePattern = Pattern.compile("src=\".+\"\\s");
+
 	
 	public Page reportList(int pageno) {
 		int countOfReport = dao.countByReport();
@@ -100,22 +101,16 @@ public class AdminBoardService {
 		dao.updateByNotice(notice);	
 	}
 
-	public void deleteNoitce(Integer noticeno) {
-		Notice notice = dao.findNoticeById(noticeno);
-		if (notice == null)
-			throw new JobFailException("공지사항을 찾을 수 없습니다.");
-		String content = notice.getContent();
-		Matcher matcher = ckImagePattern.matcher(content);
-		while(matcher.find()) {
-			String src = matcher.group();
-			int start = src.indexOf("ckimage/");
-			int end = src.indexOf("style=");
-			String fileName = src.substring(start+8, end-2);
-			File file = new File(imageFolder, fileName);
-			if(file.exists()==true)
-				file.delete();
-		}
+	public List<FAQ> faqList() {
+		return dao.findAllByFAQ();
 	}
+
+	public int faqWrite(FAQ faq) {
+		dao.insertByFAQ(faq);
+		return faq.getFaqno();
+	}
+
+
 
 	/* 유저 파트 일단 보류
 	public DtoForNoticeRead noticeRead(@NonNull Integer noticeno) {

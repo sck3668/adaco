@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <title>스토리 리스트</title>
 </head>
+
+
 <body>
 		<div>
 		<table class="table table-hover">
@@ -31,7 +33,7 @@
 				<tr>
 					<td>${board.bno}</td>
 					<td><a href="/adaco/story/read?bno=${story.storyno}">${story.image }</a></td>
-					<td class='writer'   data-writer="${board.writer }">${board.writer }</td>
+					<td class='writer' data-writer="${board.writer }">${board.writer }</td>
 					<td>${board.writeTimeStr}</td>
 					<td>${board.readCnt }</td>
 				</tr>
