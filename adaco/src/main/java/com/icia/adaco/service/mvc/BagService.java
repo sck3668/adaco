@@ -24,7 +24,6 @@ public class BagService {
 	public void insertByBag(BagDto.DtoForWrite dto,Integer artno) {
 		Art art = artdao.readByArt(artno);
 		Bag bag = modelMapper.map(dto,Art.class);
-		
 		bagdao.insertByBag(bag);
 		
 	}
