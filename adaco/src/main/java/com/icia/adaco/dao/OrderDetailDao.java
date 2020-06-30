@@ -13,7 +13,7 @@ public class OrderDetailDao {
 	
 	@Autowired
 	SqlSessionTemplate tpl;
-	
+	 ////////
 	// 결제 하기
 	public int insertByOrderDetail(OrderDetail orderdetail) {
 		return tpl.insert("orderDetailMapper.insert", orderdetail);

@@ -22,7 +22,7 @@ public class BagServiceTest {
 	private BagService bagservice;
 	
 	// 장바구니 추가 Test
-	//@Test
+	@Test
 	public void insertByBagTest() {
 		Bag bag = 
 				Bag.builder().username("spring23230")
@@ -57,7 +57,7 @@ public class BagServiceTest {
 		
 	}
 	
-	@Test
+	//@Test
 	public void deleteByBagTest() {
 		bagservice.deleteByBag(33);
 	}
