@@ -10,6 +10,8 @@
 <!-- irum값 랜덤으로 출력
 	체크한 값만 controller로 넘겨서 확인
  -->
+ 
+ 
 	<form id="findId2Form" action="/adaco/user/findId2" method="post">
 	<div>
 		<hr><h1>질문</h1><hr>
