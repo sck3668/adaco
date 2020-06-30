@@ -18,6 +18,7 @@
 		<typeAlias type="com.icia.adaco.entity.Notice" alias="notice"/>
 		<typeAlias type="com.icia.adaco.entity.Option" alias="option"/>
 		<typeAlias type="com.icia.adaco.entity.Order" alias="order"/>
+		<typeAlias type="com.icia.adaco.entity.OrderDetail" alias="orderDetail"/>
 		<typeAlias type="com.icia.adaco.entity.Point" alias="point"/>
 		<typeAlias type="com.icia.adaco.entity.Question" alias="question"/>
 		<typeAlias type="com.icia.adaco.entity.Review" alias="review"/> 
