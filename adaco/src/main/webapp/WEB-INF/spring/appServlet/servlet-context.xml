@@ -19,6 +19,7 @@
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
+	<!-- <resources location="webapp/image/" mapping="webapp/image/**"></resources> -->
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<default-servlet-handler/>

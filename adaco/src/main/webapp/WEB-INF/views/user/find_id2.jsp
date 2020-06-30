@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+	
 <body>
 <!-- irum값 랜덤으로 출력
 	체크한 값만 controller로 넘겨서 확인
