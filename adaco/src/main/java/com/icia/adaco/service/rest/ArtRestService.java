@@ -74,7 +74,7 @@ public class ArtRestService {
 		Art art = artDao.readByArt(artno);
 		return art.getArtImg();
 	}
-
+//
 	//작품 삭제
 	public void deleteArt(Integer artno, String username, Integer artistno, Integer optno) {
 		Art art = artDao.readByArt(artno);
