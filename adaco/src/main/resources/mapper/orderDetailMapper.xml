@@ -3,19 +3,19 @@
 <mapper namespace="orderDetailMapper">
 
 	<!--결제하기 -->
-	<insert id="insertByOrderDetail" >
+	<insert id="insertByOrderDetail">
 		<selectKey keyProperty="orderno" resultType="int" order="BEFORE">
-			select orders_seq.nextval from dual
+			select order_detail_seq.nextval from dual
 		</selectKey>
-		insert into orders(orderno,optno, artno,artistno,artname, option_name optionName,
+		insert into order_detail(orderno,optno, artno,artistno,artname, option_name optionName,
 		option_value optionValue, amount,price, address, recipient,tel,email,
 			request,add_point addPoint, postalcode,refund_account refundAccount,is_shipping isShipping, state)
-			value//s(#{orderno},#{optno}, #{artno},#{artistno}, #{artname},#{optionName},#{optionValue},#{amount},#{price},
+			values(#{orderno},#{optno}, #{artno},#{artistno}, #{artname},#{optionName},#{optionValue},#{amount},#{price},
 			#{address},#{recipient},#{tel},#{email},#{request},#{addPoint},#{postalcode},#{refundAccount},0,#{state})
 	</insert>
 	
  	<!-- 결제 취소  -->
-	<delete id="deleteByOrderDetail" >
+	<delete id="deleteByOrderDetail">
 		delete from order_detail where orderno=#{orderno} and rownum=1
 	</delete>
 	
