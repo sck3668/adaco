@@ -29,7 +29,7 @@ public class ArtService {
 	@Value("${artfilePath}")
 	private String artfilePath;
 
-	
+	//
 	// 작품 등록
 	public void write(ArtDto.DtoForWrite dto, MultipartFile artSajin) throws IllegalStateException, IOException {
 		System.out.println(dto);
