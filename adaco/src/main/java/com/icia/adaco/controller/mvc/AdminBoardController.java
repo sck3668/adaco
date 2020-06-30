@@ -1,12 +1,12 @@
 package com.icia.adaco.controller.mvc;
 
 import java.security.*;
-import java.time.*;
+import java.util.*;
 
+import javax.validation.constraints.NotNull;
+
+import org.apache.commons.lang3.math.*;
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.http.*;
-import org.springframework.security.access.annotation.*;
-import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
@@ -35,18 +35,29 @@ public class AdminBoardController {
 		return new ModelAndView("admin/report/list").addObject("reportPage", service.reportList(pageno));
 	}
 	
+	@PostMapping("/admin/report_delete")
+	public String reportDelete(@RequestParam @NotNull String cnos) {
+		List<Integer> list = new ArrayList<>();
+		String[] strings = cnos.split(",");
+		for(String str:strings) {
+			list.add(NumberUtils.toInt(str));
+		}
+		service.reportDelete(list);
+		return "redirect:/admin/report_list";
+	}
+	
 //	@Secured("ROLE_ADMIN")
 //	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/admin/question_list")
 	public ModelAndView questionList(@RequestParam(defaultValue = "1")int pageno, @Nullable String writer, @Nullable State searchType) {
-		return new ModelAndView("admin/question_list").addObject(service.questionList(pageno, writer, searchType));
+		return new ModelAndView("admin/question/list").addObject("questionPage", service.questionList(pageno, writer, searchType));
 	}
 	
 //	@Secured("ROLE_ADMIN")
 //	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/admin/question_read")
 	public ModelAndView qusetionRead(@RequestParam(value = "qno")@NonNull Integer qno) throws JsonProcessingException {
-		ModelAndView mav = new ModelAndView("admin/question_read");
+		ModelAndView mav = new ModelAndView("admin/question/read");
 		AdminBoardDto.DtoForQuestionRead dto = service.questionRead(qno);
 		String json = objectMapper.writeValueAsString(dto); 
 		mav.addObject("question", json);
