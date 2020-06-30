@@ -37,8 +37,6 @@ public class ArtDto {
 		private Integer artistno;
 		private Integer shopno;
 		private String username;
-		private int attachmentCnt;
-		private List<Attachment> attachments;
 		private int optno;
 		private String optionName;
 		private String optionValue;
@@ -86,12 +84,14 @@ public class ArtDto {
 		private String optionValue;
 		private Integer optionStock;
 		private Integer optionPrice;
+		private boolean favorite;
+		private Integer readCnt;
 	}
 	
 	
 	@Data
 	@Accessors(chain=true)
-	// 작품 상세 보기 (작가용)
+	// 작품 상세 보기 (작가용/회원용)
 	public static class DtoForRead{
 		private Integer artno;
 		private String artName;
@@ -109,6 +109,11 @@ public class ArtDto {
 		private String category;
 		private Integer artistno;
 		private Integer shopno;
+		private int optno;
+		private String optionName;
+		private String optionValue;
+		private Integer optionStock;
+		private Integer optionPrice;
 		
 	}
 

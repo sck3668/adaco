@@ -28,4 +28,5 @@ public class Art {
 	private String category;
 	private Integer artistno;
 	private Integer shopno;
+	private String artDetail;
 }
