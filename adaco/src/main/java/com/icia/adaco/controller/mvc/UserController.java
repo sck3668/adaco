@@ -3,7 +3,6 @@ package com.icia.adaco.controller.mvc;
 import java.io.*;
 import java.security.*;
 import java.time.*;
-import java.util.*;
 
 import javax.mail.*;
 import javax.validation.*;
@@ -21,6 +20,7 @@ import org.springframework.web.servlet.*;
 import org.springframework.web.servlet.mvc.support.*;
 
 import com.icia.adaco.dto.*;
+import com.icia.adaco.exception.*;
 import com.icia.adaco.service.mvc.*;
 import com.icia.adaco.util.editor.*;
 
@@ -37,6 +37,17 @@ public class UserController {
 	@GetMapping("/user/join")
 	public ModelAndView join() {
 		return new ModelAndView("main").addObject("viewName","user/join.jsp");
+	}
+	//내정보화면 
+	//@PreAuthorize("isAuthenticated()")
+	@GetMapping("/user/read")
+	public ModelAndView read(Principal principal,String username) {
+		  if(username.equals(principal.getName())==false) throw new
+		  JobFailException("아이디달라 안돼 돌아가"); userService.read(principal.getName());
+		  System.out.println(userService.read(principal.getName())); 
+		  return new ModelAndView("main")
+				  .addObject("viewName1","user/read.jsp")
+				  .addObject("user",userService.read(principal.getName()));
 	}
 	//회원가입 처리
 	@PostMapping("/user/join")

@@ -43,8 +43,8 @@ public class AdminBoardDao {
 	}
 	
 //	신고글 삭제 (체크해서 삭제하는거 가능하면 추가)
-	public int deleteByReport(int cno) {
-		return tpl.delete("adminBoardMapper.deleteByReport", cno);
+	public int deleteByReport(List<Integer> cnos) {
+		return tpl.delete("adminBoardMapper.deleteByReport", cnos);
 	}
 	
 //	판매글 삭제

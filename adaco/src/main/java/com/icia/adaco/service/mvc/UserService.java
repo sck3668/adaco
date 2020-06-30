@@ -1,6 +1,7 @@
 package com.icia.adaco.service.mvc;
 
 import java.io.*;
+import java.security.*;
 import java.time.*;
 
 import javax.mail.*;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.*;
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
+import com.icia.adaco.exception.*;
 import com.icia.adaco.util.*;
 
 @Service
@@ -88,7 +90,12 @@ public class UserService {
 		mailUtil.sendMail(mail);
 		
 	}
-	public User findById(String username) {
+	
+	public User read(String username) {
+		User user = userDao.findByid(username);
+		if(user==null)
+			throw new JobFailException("유저가없다");
+		
 		return userDao.findByid(username);
 	}
 	

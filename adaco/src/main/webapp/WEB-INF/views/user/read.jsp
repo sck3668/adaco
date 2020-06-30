@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+</head>
 <style>
 	#aside {
 		width:200px;
@@ -60,18 +62,12 @@
 	</div>
 	</aside>
 	<section id="section">
-		<div id="myInfo">
-			<div id="my">
-				<h2>MY정보</h2>
-			</div>
-			<ul class="dashboard-list">
-				<li class="list">적립금</li>
-				<li class="list">쪽지수</li>
-				<li class="list">취소환불</li>
-			</ul>
-		</div>
+		<div id="username" value="${user.name }">${user.name}</div>		
+		
 	</section>
 	</div>
 	
+<body>
+		
 </body>
 </html>

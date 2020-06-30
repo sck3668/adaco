@@ -39,7 +39,7 @@ $(function() {
 					<a class="nav-link" href="/adaco/user/bag">장바구니</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/adaco/user/myPage">마이페이지</a>
+					<a class="nav-link" href="/adaco/user/mypage">마이페이지</a>
 				</li>
 				<li class="nav-item" id="aa">
 					<button type="button" class="btn-dropdown" id="gogak">고객센터</button>
@@ -61,7 +61,7 @@ $(function() {
 					<a class="nav-link" href="/adaco/user/bag">장바구니</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/adaco/user/myPage">마이페이지</a>
+					<a class="nav-link" href="/adaco/user/mypage">마이페이지</a>
 				</li>
 				<li class="nav-btn ui-dropdown" id="aa">
 					<button type="button" class="btn-dropdown" id="gogak">고객센터</button>
@@ -79,7 +79,7 @@ $(function() {
          		   <a class="nav-link" href="/adaco/user/login">로그아웃</a>
          		</li>
          		<li class="nav-item">
-         		   <a class="nav-link" href="/adaco/artist/myPage">작가페이지</a>
+         		   <a class="nav-link" href="/adaco/artist/mypage">작가페이지</a>
          		</li>
          		<li class="nav-btn ui-dropdown" id="aa">
 					<button type="button" class="btn-dropdown" id="gogak">고객센터</button>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -44,7 +43,7 @@
 </head>
 <body>
 <div>
- <aside id="asideMain">
+<aside>
 	<div id="aside">
 		<div id="profile">
 		</div>
@@ -54,22 +53,13 @@
 				<li><a href="#">주문내역</a></li>
 				<li><a href="#">내리뷰보기</a></li>
 				<li><a href="#">즐겨찾기목록</a></li>
-				<li><a href="#"> </a>
+				<li><a href="#"></a></li>
 			</ul>
 		</div>
 	</div>
-	</aside>
-	<section id="section">
-		<div id="myInfo">
-			<div id="my">
-				<h2>MY정보</h2>
-			</div>
-			<ul class="dashboard-list">
-				<li class="list">적립금</li>
-				<li class="list">쪽지수</li>
-				<li class="list">취소환불</li>
-			</ul>
-		</div>
+</aside>
+<section id="section">
+		<jsp:include page="${viewName1}"/>
 	</section>
 	</div>
 	
