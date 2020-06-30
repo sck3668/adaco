@@ -8,7 +8,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/adaco/main/css">
-
+<script src="/aboard/ckeditor/ckeditor.js"></script>
+<script>
+	$(function(){
+		var ck = CKEDITOR.replace("content", {
+			filebrowserUploadUrl:'http://localhost:8081/adaco/story/ckupload'
+		});
+	})
+</script>
 </head>
 <body>
 <div id="wrap">

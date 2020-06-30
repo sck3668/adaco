@@ -36,9 +36,9 @@ public class StoryService {
 
 				sajin.transferTo(storyFile);
 				story.setImage(profilePath + storyFile.getName());
-				storyDao.insert(story);
 			}
 		}
+		storyDao.insert(story);
 		return story.getStoryno();
 	}
 
@@ -66,8 +66,5 @@ public class StoryService {
 		String str = story.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일"));
 		readDto.setWriteDateStr(str);
 		return readDto;
-	}
-	public void deleteStory() {
-		
 	}
 }
