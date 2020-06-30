@@ -7,8 +7,10 @@ import java.util.*;
 
 import javax.mail.*;
 import javax.validation.*;
+import javax.validation.constraints.*;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.*;
 import org.springframework.lang.*;
 import org.springframework.stereotype.*;
 import org.springframework.validation.*;
@@ -31,12 +33,12 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
-	
+	//회원가입 화면
 	@GetMapping("/user/join")
 	public ModelAndView join() {
 		return new ModelAndView("main").addObject("viewName","user/join.jsp");
 	}
-	
+	//회원가입 처리
 	@PostMapping("/user/join")
 	public String join(@Valid UserDto.DtoForJoin dto, BindingResult bindingResult, @Nullable MultipartFile sajin, RedirectAttributes ra) throws BindException {
 		System.out.println("controller==================");
@@ -54,12 +56,12 @@ public class UserController {
 		ra.addFlashAttribute("msg", "가입확인메일을 보냈습니다. 확인해주십시오");
 		return "redirect:/system/msg";
 	}
-	
+	//로그인 화면
 	@GetMapping("/user/login")
 	public ModelAndView login() {
 		return new ModelAndView("main").addObject("viewName","user/login.jsp");
 	}
-	
+	//메인
 	@GetMapping("/")
 	public ModelAndView main() {
 		return new ModelAndView("main").addObject("viewName","user/section.jsp");
@@ -76,14 +78,17 @@ public class UserController {
 	// 입력한 핸드폰번호로 찾은 username이 존재하면 2단계 인증으로
 	// false면 비밀번호 찾기므로 비밀번호 찾기로 이동
 	@PostMapping("/user/findIdPwd")
-	public String findIdPwd(String findIdPwd,String tel) {
+	public ResponseEntity<String> findIdPwd(String findIdPwd,String tel) {
 		if(findIdPwd.equals("findId")==true) {
 			String username = userService.findByTel(tel);
-			if(username!=null)
-				return "redirect:/user/findId2";
-			return "exception으로";
+			System.out.println(username);
+			if(username!=null) {
+				return ResponseEntity.ok("1");
+			} else {
+				return ResponseEntity.ok("2");
+			}
 		} else {
-		return "redirect:/user/resetPwd";
+			return ResponseEntity.ok("3");
 		}
 	}
 	
@@ -104,10 +109,19 @@ public class UserController {
 		return "redirect:/system/msg";
 	}
 	//비밀번호변경
-	@GetMapping("/user/reset_pwd")
+	@GetMapping("/user/resetPwd")
 	public ModelAndView resetPassword() {
 		return new ModelAndView("main").addObject("viewName","user/reset_pwd.jsp");
 	}
-	
-	
+	//회원가입 체크
+	@GetMapping("/user/join_check")
+	public String joinCheck(@RequestParam @NotNull String checkCode) {
+		userService.joinCheck(checkCode);
+		return "redirect:/user/login";
+	}
+	//마이페이지 화면
+	@GetMapping("/user/mypage")
+	public ModelAndView userRead() {
+		return new ModelAndView("main").addObject("viewName","user/mypage.jsp");
+	}
 }

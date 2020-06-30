@@ -11,6 +11,13 @@
 <style>
 	#a {text-decoration: none;}
 </style>
+<script>
+	$(function() {
+		$("#login").on("click", function() {
+			$("#loginForm").submit();
+		});
+	})
+</script>
 </head>
 <body>
 	<div class="alert alert-success alert-dismissible" id="msg" style="display:none;">
@@ -25,13 +32,13 @@
                 <div class="card">
                     <div class="card-header">로그인</div>
                     <div class="card-body">
-                        <form action="/adaco/user/login" method="post">
+                        <form action="/adaco/user/login" method="post" id="loginForm">
                             <div class="form-group row">
                                 <span for="email_address" class="col-md-4 col-form-label text-md-right">
                                 	username
                                 </span>
                                 <div class="col-md-6">
-                                    <input type="text" id="email_address" class="form-control" name="email-address" required autofocus>
+                                    <input type="text" id="username" class="form-control" name="username" required autofocus>
                                 </div>
                             </div>
 
@@ -55,22 +62,22 @@
                             </div>
 
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="button" class="btn btn-primary" id="login">
                            		         로그인
                                 </button>
                                 <div style="width:300px; height:30px; background-color: white; text-align: center; border: 1px solid black;">
-                                	<a id="a" href="/adaco/user/join" class="btn btn-link">회원가입</a>
+                                	<a id="join" href="/adaco/user/join" class="btn btn-link">회원가입</a>
                                 </div>
                                 <div style="width:300px; height:30px; background-color: white; text-align: center; border: 1px solid black;">
-                                	<a id="a" href="/adaco/user/findIdPwd" class="btn btn-link">아이디/비밀번호 찾기</a>
+                                	<a id="findIdPwd" href="/adaco/user/findIdPwd" class="btn btn-link">아이디/비밀번호 찾기</a>
                             	</div>
                             </div>
-                    </div>
                     </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
+    </main>
 </body>
 </html>
