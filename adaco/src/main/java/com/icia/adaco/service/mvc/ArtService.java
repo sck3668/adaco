@@ -42,10 +42,5 @@ public class ArtService {
 		}
 		page.setArtList(dtoList);
 		return page;
-		
 	}
-	
-	
 }
-
-

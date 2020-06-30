@@ -47,5 +47,4 @@ public class ArtDto {
 		private String artName;
 		private Integer price;
 	}
-
 }
