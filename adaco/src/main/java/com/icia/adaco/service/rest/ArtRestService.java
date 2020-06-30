@@ -68,7 +68,7 @@ public class ArtRestService {
 		
 		return dto;
 	}
-//
+
 	// 작품 이미지 찾기
 	public String findArtfile(Integer artno) {
 		Art art = artDao.readByArt(artno);

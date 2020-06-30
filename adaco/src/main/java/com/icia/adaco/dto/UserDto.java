@@ -24,6 +24,6 @@ public class UserDto {
 		private String profile;
 		private String birthDate;
 		private String address;
-		private List<String> authorities;
+		private String authority;
 	}
 }

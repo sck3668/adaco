@@ -6,7 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<script src="/adaco/script/wsocket.js"></script>
+<sec:authorize access="hasRole('ROLE_USER')">
+	<script src="/aboard/script/wsocket.js"></script>
+</sec:authorize>
 </head>
 <body>
 	<form action="/adaco/message/write" method="post" id="frm">
