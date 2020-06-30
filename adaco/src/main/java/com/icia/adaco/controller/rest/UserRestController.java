@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
-import com.icia.adaco.exception.*;
 import com.icia.adaco.service.rest.*;
 @RestController
 public class UserRestController {
@@ -24,4 +23,11 @@ public class UserRestController {
 		return ResponseEntity.ok(userRestService.checkEmail(email));
 	}
 	
+//	@PostMapping("/user/findId2")
+//	public ResponseEntity<?> checkId2(@RequestParam String Irum) {
+//		System.out.println("===========");
+//		System.out.println(Irum);
+//		return ResponseEntity.ok(null);
+//	}
+//	
 }
