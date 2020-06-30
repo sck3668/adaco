@@ -21,20 +21,20 @@ public class StoryController {
 	@GetMapping("/story/listStory")
 	public ModelAndView listStory(@RequestParam(defaultValue = "1") int storyno) {
 		return new ModelAndView("main")
-		.addObject("viewName", "artist/story/list.jsp");
+		.addObject("viewName","artist/story/list.jsp");
 	}
 
-	@PreAuthorize("isAuthenticated()")
+	//@PreAuthorize("isAuthenticated()")
 	@GetMapping("story/writeStory")
 	public ModelAndView writeStory() {
 		return new ModelAndView("main").addObject("viewName","artist/story/write.jsp");
 	}
 
-	@PreAuthorize("isAuthenticated()")
+	//@PreAuthorize("isAuthenticated()")
 	@PostMapping("story/writeStory")
 	public String writeStory(StoryBoardDto.DtoForWrite writeDto, Principal principal, MultipartFile sajin) throws IOException {
 		writeDto.setWriter(principal.getName());
-		return "redirect:/story/storyRead?storyno=" + storyService.storyWrite(writeDto, sajin);
+		return "redirect:/story/readStory?storyno="+storyService.storyWrite(writeDto, sajin);
 	}
 	@GetMapping("story/readStory")
 	public ModelAndView readStory(Integer storyno) {
