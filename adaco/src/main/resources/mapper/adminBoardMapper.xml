@@ -5,7 +5,7 @@
 	<select id="countByQuestion" resultType="int">
 		select count(*) from question
 		<where>
-			<if test="writer != null">and writer = #{writer}</if>
+			<if test="writer != null">and writer like '%' || #{writer} || '%'</if>
 			<if test="searchType != null">and state = #{searchType}</if>
 		</where>
 	</select>
@@ -36,7 +36,10 @@
 	</select>
 	
 	<delete id ="deleteByReport">
-		delete from art_comments where cno = #{cno} and rownum = 1
+		delete from art_comments where cno in
+		<foreach collection ="list" item ="item" index ="index" separator="," open="(" close=")">
+			#{item}
+		</foreach>
 	</delete>
 	
 	<delete id = "deleteByArt">
