@@ -18,7 +18,7 @@ public class OrderDetailDaoTest {
 	@Autowired
 	private OrderDetailDao orderDetaildao;
 	
-	//@Test
+	@Test
 	public void insertByOrderTest() {
 		OrderDetail orderdetail = OrderDetail.builder().optno(2).artno(21).
 				artistno(12).artname("ㅂㅁㅂ").optionName("검정").optionValue("2")
@@ -26,7 +26,7 @@ public class OrderDetailDaoTest {
 					.request("안녕하").addPoint(3000).postalcode("qwe").refundAccount("12312").state("qwe").build();
 			assertThat(orderDetaildao.insertByOrderDetail(orderdetail), is(notNullValue()));
 	}
-	@Test
+	//@Test
 	public void deleteByOrderDetailTest() {
 		assertThat(orderDetaildao.deleteByOrderDetail(2), is(notNullValue()));
 	}

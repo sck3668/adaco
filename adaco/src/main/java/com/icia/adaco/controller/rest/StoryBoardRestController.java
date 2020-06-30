@@ -1,11 +1,12 @@
 package com.icia.adaco.controller.rest;
 
+import java.io.*;
 import java.security.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
-import org.springframework.security.access.prepost.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.*;
 
 import com.icia.adaco.dto.*;
 import com.icia.adaco.service.rest.*;
@@ -27,5 +28,10 @@ public class StoryBoardRestController {
 	public ResponseEntity<?> deleteStory(Principal principal,Integer storyno){
 		restService.deleteStory(principal, storyno);
 		return ResponseEntity.ok("/adaco/story/list");
+	}
+	@PostMapping("/story/ckupload")
+	public ResponseEntity<?> ckupload(MultipartFile upload) throws IOException{
+		restService.ckupload(upload);
+		return ResponseEntity.ok(restService.ckupload(upload));
 	}
 }

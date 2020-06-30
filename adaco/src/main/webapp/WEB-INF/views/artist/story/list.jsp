@@ -7,8 +7,6 @@
 <meta charset="UTF-8">
 <title>스토리 리스트</title>
 </head>
-
-
 <body>
 		<div>
 		<table class="table table-hover">
