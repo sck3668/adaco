@@ -23,11 +23,11 @@
 	
 	<select id = "findAllByReport" resultType="artComment">
 	   <![CDATA[
-	      select B.cno, B.username, B.write_date writeDate, B.report_cnt reportCnt
+	      select B.cno, B.username, B.content, B.write_date writeDate, B.report_cnt reportCnt
 	      from
-	         (select /*+ index_asc(art_comments art_comments_pk_cno) */ rownum rnum, A.cno, A.username, A.write_date, A.report_cnt
+	         (select /*+ index_asc(art_comments art_comments_pk_cno) */ rownum rnum, A.cno, A.username, A.content, A.write_date, A.report_cnt
 	         from (
-	            select cno, username, write_date, report_cnt
+	            select cno, username, content, write_date, report_cnt
 	            from art_comments
 	            order by report_cnt desc ) A
 	         where rownum <= #{endRowNum})B
