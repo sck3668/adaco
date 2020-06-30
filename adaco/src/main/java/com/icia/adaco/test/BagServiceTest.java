@@ -1,0 +1,64 @@
+package com.icia.adaco.test;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+
+import org.junit.*;
+import org.junit.runner.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.test.context.*;
+import org.springframework.test.context.junit4.*;
+
+import com.icia.adaco.dao.*;
+import com.icia.adaco.entity.*;
+import com.icia.adaco.service.mvc.*;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/**/*-context.xml")
+public class BagServiceTest {
+	@Autowired
+	private BagDao bagdao;
+	@Autowired
+	private BagService bagservice;
+	
+	// 장바구니 추가 Test
+	@Test
+	public void insertByBagTest() {
+		Bag bag = 
+				Bag.builder().username("spring23230")
+				.artno(33).totalPrice(2000).amount(8)
+				.optionName("이정훈").optionValue("24").build();
+		int b = bagdao.insertByBag(bag);
+		assertThat(b, is(1));
+		
+	}
+	
+	// 장바구니 목록 Test
+	//@Test
+	public void findAllByBagTest() {
+		bagservice.findAllByBag();
+	}
+	
+	// 장바구니 변경 테스트
+	// @Test
+	public void updateByBagTest() {
+		Bag bag =
+				Bag.builder().username("spring2322").artno(35)
+				.totalPrice(20000).amount(2)
+				.optionName("사이즈").optionValue("111")
+				.build();
+		int b = bagdao.updateByBag(bag);
+		assertThat(b, is(1));
+	}
+	// 장바구니 작품 보기 Test
+	//@Test
+	public void findByArtnoTest() {
+		bagservice.findByArtno(35);
+		
+	}
+	
+	//@Test
+	public void deleteByBagTest() {
+		bagservice.deleteByBag(33);
+	}
+}
