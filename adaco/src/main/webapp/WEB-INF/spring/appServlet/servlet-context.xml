@@ -49,5 +49,5 @@
 		</interceptor>
 	</interceptors>
 	
-	
+	<!-- <resources location="/css/" mapping="/css/**"></resources> -->
 </beans:beans>

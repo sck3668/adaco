@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body>
    <div>
@@ -44,6 +45,11 @@
                   <td></td>
                   <td><input type="checkbox" class="bag" value="${bag}"></td>
            </tr>
+           
+           
+           
+           
+           
          </tbody>
       </table>
       <br><br><br><br><br><br><br><br><br><br><br>

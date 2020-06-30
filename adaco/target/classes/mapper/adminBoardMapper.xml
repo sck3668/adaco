@@ -6,11 +6,15 @@
 		select count(*) from question
 		<where>
 			<if test="writer != null">and writer = #{writer}</if>
+			<if test="searchType != null">and state = #{searchType}</if>
 		</where>
 	</select>
 	
 	<select id = "countByNotice" resultType="int">
 		select count(*) from notice
+		<where>
+			<if test="isImportant == true">and is_important = 1</if>
+		</where>
 	</select>
 	
 	<select id="countByReport" resultType="int">
@@ -19,11 +23,11 @@
 	
 	<select id = "findAllByReport" resultType="artComment">
 	   <![CDATA[
-	      select B.cno, B.username, B.write_date writeDate, B.report_cnt reportCnt
+	      select B.cno, B.username, B.content, B.write_date writeDate, B.report_cnt reportCnt
 	      from
-	         (select /*+ index_asc(art_comments art_comments_pk_cno) */ rownum rnum, A.cno, A.username, A.write_date, A.report_cnt
+	         (select /*+ index_asc(art_comments art_comments_pk_cno) */ rownum rnum, A.cno, A.username, A.content, A.write_date, A.report_cnt
 	         from (
-	            select cno, username, write_date, report_cnt
+	            select cno, username, content, write_date, report_cnt
 	            from art_comments
 	            order by report_cnt desc ) A
 	         where rownum <= #{endRowNum})B
@@ -40,36 +44,32 @@
 	</delete>
 	
 	<select id = "findAllByQuestion" resultType="question">
-		<![CDATA[
 		      select B.qno, B.writer, B.title, B.write_date writeDate, B.state
 		      from
 		         (select /*+ index_asc(question question_pk_qno) */ rownum rnum, A.qno, A.writer, A.title, A.write_date, A.state
 		         from (
 		            select qno, writer, title, write_date, state
 		            from question
+		           	<trim prefix="WHERE" prefixOverrides="AND|OR">
+					  	<if test="writer != null and writer != '' ">
+	                    	AND writer like '%' || #{writer} || '%'
+	                    </if>
+	                    <if test = "searchType != null">
+	                    	AND state = #{searchType}
+	                    </if>   
+           			</trim>
 		            order by write_date asc ) A
-		         where rownum <= #{endRowNum})B
-		      where B.rnum >= #{startRowNum}
-		]]>
+		         where rownum&lt;= #{endRowNum})B
+		      where B.rnum&gt;= #{startRowNum}
 	</select>
 	
-	<!-- 1:1문의 작성자 검색인데 해봐야알듯 (DAO추가해야 됨) -->
 	<select id="findQuestionById" resultType="question">
-		select * from
-			(select q.*,rownum as rnum from
-				(select /*+ index_desc(question question_pk_qno) */ qno, writer, title, write_date writeDate from question
-				  <trim prefix="WHERE" prefixOverrides="AND|OR">
-				  	<if test="writer != null and writer != '' ">
-                    	AND WRITER like '%' || #{writer} || '%'
-                    </if>   
-           		   </trim>
-				) q
-			    where rownum&lt;=#{endRowNum})
-      		where rnum&gt;=#{startRowNum}
+		select qno, writer, answer, content, title, answer_content answerContent, write_date writeDate, answer_date answerDate, state
+		from question where qno = #{qno} and rownum = 1
 	</select>
-		
+			
 	<update id = "updateQuestionByAnswer">
-		update question set answer_content = #{answerContent}, answer = #{answer}, answer_date = #{answerDate}, state = #{state}
+		update question set answer_content = #{answerContent}, answer = #{answer}, answer_date = sysdate, state = #{state}
 		where qno = #{qno} and rownum = 1
 	</update>
 	
@@ -81,28 +81,31 @@
 	</insert>
 	
 	<select id="findAllByNotice" resultType="notice">
-		<![CDATA[
 			select B.noticeno, B.title, B.write_date writeDate, B.writer
-				from
+					from
 		    		(select /*+ index_asc(notice notice_pk_noticeno) */ rownum rnum, A.noticeno, A.title, A.write_date, A.writer
 		         	from (
 		            	select noticeno, title, write_date, writer
 		            	from notice
+     			        <trim prefix="WHERE" prefixOverrides="AND|OR">
+					  	<if test="isImportant == true">
+	                    	AND is_important = 1
+	                    </if>
+           				</trim>
 		            	order by write_date desc ) A
-		         	where rownum <= #{endRowNum})B
-		      	where B.rnum >= #{startRowNum}
-		]]>
+		         	where rownum&lt;= #{endRowNum})B
+		      	where B.rnum&gt;= #{startRowNum}
 	</select>
 	
-	<select id = "findAllByImportantNotice" resultType="notice">
-		select noticeno, title, write_date writeDate, writer from notice where is_important = 1
+	<select id="findNoticeById" resultType="notice">
+		select noticeno, content, title, write_date writeDate, writer, is_important isImportant
 	</select>
-			
+	
 	<insert id = "insertByNotice">
 		<selectKey keyProperty="noticeno" resultType="int" order="BEFORE">
 			select notice_seq.nextval from dual
 		</selectKey>
-		insert into notice(noticeno, content, title, write_date, writer, is_important) values(#{noticeno}, #{content}, #{title}, #{writeDate}, #{writer}, #{isImportant})
+		insert into notice(noticeno, content, title, write_date, writer, is_important) values(#{noticeno}, #{content}, #{title}, sysdate, #{writer}, #{isImportant})
 	</insert>
 	
 	<update id = "updateByNotice">

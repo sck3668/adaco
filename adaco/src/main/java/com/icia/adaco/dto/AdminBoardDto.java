@@ -9,11 +9,63 @@ public class AdminBoardDto {
 	@AllArgsConstructor
 	@NoArgsConstructor
 	@Builder
-	public static class DtoForList{
-		private int cno;
+	public static class DtoForReportList{
+		private Integer cno;
 		private String username;
 		private String content;
 		private String writeDateStr;
-		private int reportCnt;
+		private Integer reportCnt;
 	}
+
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Builder
+	public static class DtoForQuestionList{
+		private Integer qno;
+		private String wirter;
+		private String title;
+		private String writeDateStr;
+		private String state;
+	}
+	
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Builder
+	public static class DtoForQuestionRead{
+		private Integer qno;
+		private String writer;
+		private String title;
+		private String state;
+		private String answer;
+		private String content;
+		private String writeDateStr;
+		private String answerDateStr;
+	}
+	
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Builder
+	public static class DtoForNoticeList{
+		private Integer noticeno;
+		private String title;
+		private String writeDateStr;
+		private String writer;		
+	}
+	
+	@Data
+	@AllArgsConstructor
+	@NonNull
+	@Builder
+	public static class DtoForNoticeRead{
+		private Integer noticeno;
+		private String content;
+		private String title;
+		private String writeDateStr;
+		private String writer;
+		private Boolean isImportant;
+	}
+	
 }

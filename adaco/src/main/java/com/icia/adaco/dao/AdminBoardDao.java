@@ -15,15 +15,18 @@ public class AdminBoardDao {
 	private SqlSessionTemplate tpl;
 	
 //	문의글 개수 카운팅
-	public int countByQuestion(String writer) {
+	public int countByQuestion(String writer, State searchType) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("writer", writer);
+		map.put("searchType", searchType);
 		return tpl.selectOne("adminBoardMapper.countByQuestion", map);
 	}
 	
 //	공지사항 개수 카운팅
-	public int countByNotice() {
-		return tpl.selectOne("adminBoardMapper.countByNotice");
+	public int countByNotice(Boolean isImportant) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("isImportant", isImportant);
+		return tpl.selectOne("adminBoardMapper.countByNotice", map);
 	}
 	
 //	신고글 개수 카운팅
@@ -55,21 +58,15 @@ public class AdminBoardDao {
 	}
 		
 //	1:1문의 페이징
-	public List<Question> findAllByQuestion(int startRowNum, int endRowNum) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("startRowNum", startRowNum);
-		map.put("endRowNum", endRowNum);
-		return tpl.selectList("adminBoardMapper.findAllByQuestion", map);
-	}
-	
-//	1:1문의 작성자 검색 & 페이징
-	public List<Question> findQuestionById(int startRowNum, int endRowNum, String writer) {
+	public List<Question> findAllByQuestion(int startRowNum, int endRowNum, String writer, State searchType) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startRowNum", startRowNum);
 		map.put("endRowNum", endRowNum);
 		map.put("writer", writer);
-		return tpl.selectList("adminBoardMapper.findQuestionById", map);
+		map.put("searchType", searchType);
+		return tpl.selectList("adminBoardMapper.findAllByQuestion", map);
 	}
+	
 	
 //	1:1 문의 읽기
 	public Question findQuestionById(int qno) {
@@ -87,18 +84,19 @@ public class AdminBoardDao {
 	}
 	
 //	공지사항 목록	
-	public List<Notice> findAllByNotice(int startRowNum, int endRowNum) {
+	public List<Notice> findAllByNotice(int startRowNum, int endRowNum, Boolean isImportant) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startRowNum", startRowNum);
 		map.put("endRowNum", endRowNum);
+		map.put("isImportant", isImportant);
 		return tpl.selectList("adminBoardMapper.findAllByNotice", map);
 	}
 	
-//	중요 공지 목록
-	public List<Notice> findAllByImportantNotice() {
-		return tpl.selectList("adminBoardMapper.findAllByImportantNotice");
+//	공지사항 읽기
+	public Notice findNoticeById(int noticeno) {
+		return tpl.selectOne("adminBoardMapper.findNoticeById", noticeno);
 	}
-	
+		
 //	공지사항 수정
 	public int updateByNotice(Notice notice) {
 		return tpl.update("adminBoardMapper.updateByNotice", notice);

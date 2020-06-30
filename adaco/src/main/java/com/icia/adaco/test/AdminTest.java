@@ -9,18 +9,22 @@ import java.util.*;
 import org.junit.*;
 import org.junit.runner.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.config.annotation.authentication.configurers.userdetails.*;
 import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.*;
+import org.springframework.test.context.web.*;
 
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.service.mvc.*;
+import com.icia.adaco.service.rest.*;
 import com.icia.adaco.util.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/**/*-context.xml")
+@WebAppConfiguration
 public class AdminTest {
 	
 	@Autowired
@@ -33,7 +37,11 @@ public class AdminTest {
 	AdminUserService adminUserService;
 	@Autowired
 	AdminUserRestService adminUserRestService;
-	
+	@Autowired
+	AdminBoardService adminBoardService;
+	@Autowired
+	AdminBoardRestService adminBoardRestService;
+
 //	@Test
 	public void noticeInsertTest() {
 		adminBoardDao.insertByNotice(
@@ -133,7 +141,7 @@ public class AdminTest {
 	
 //	@Test
 	public void findByQuestionTest() {
-		adminBoardDao.findAllByQuestion(1, 15);
+		adminBoardDao.findAllByQuestion(1, 2, null, State.답변완료);
 	}
 	
 //	@Test
@@ -143,24 +151,18 @@ public class AdminTest {
 	
 //	@Test
 	public void countByQuestionTest() {
-		adminBoardDao.countByQuestion("spring1234");
+		adminBoardDao.countByQuestion("spr", "답변완료");
 	}
 	
 //	@Test
 	public void countByNoticeTest() {
-		adminBoardDao.countByNotice();
+		adminBoardDao.countByNotice(true);
 	}
 	
 //	@Test
 	public void findAllByNoticeTest() {
-		adminBoardDao.findAllByNotice(1, 10);
+		adminBoardDao.findAllByNotice(1, 10, true);
 	}
-	
-//	@Test
-	public void findQuestionByIdTest() {
-		adminBoardDao.findQuestionById(1, 10, "s");
-	}
-	
 	
 //	@Test
 	public void findAllTest() {
@@ -173,6 +175,10 @@ public class AdminTest {
 		System.out.println("AAAAAAAA"+list);
 	}
 	
+//	@Test
+	public void findNoticeByIdTest() {
+		adminBoardDao.findNoticeById(3);
+	}
 	
 	
 	
@@ -230,13 +236,44 @@ public class AdminTest {
 	}
 	
 //	@Test
-	public void adminfindUserTest() {
-		adminUserService.list(2);
+	public void existsByArtistTest() {
+		adminUserDao.existsByArtist("spring232");
 	}
+	
+	
+//	어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 
+	@Test
+	public void adminReportListTest() {
+		adminBoardService.reportList(2);
+	}
+	
+//	@Test
+	public void adminQuestionListTest() {
+		adminBoardService.questionList(1, null, State.답변완료);
+	}
+	
+//	@Test
+	public void adminQuestionReadTest() {
+		System.out.println(adminBoardService.questionRead(5));
+	}
+	
+//	@Test
+	public void adminQuestionAnswerTest() {
+		adminBoardService.questionAnswer(Question.builder().answer("관리자").answerContent("답변이에요").qno(3).build());
+	}
+	
+//	@Test
+	public void adminNoticeListTest() {
+		adminBoardService.noticeList(1, true);
+	}
+	
+	
+	
 	
 	
 //  어 드 민 유 저 서 비 스 어 드 민 유 저 서 비 스 어 드 민 유 저 서 비 스 어 드 민 유 저 서 비 스 어 드 민 유 저 서 비 스 어 드 민 유 저 서 비 스 어 드 민 유 저 서 비 스 어 드 민 유 저 서 비 스   
 
+	
 //	@Test
 	public void adminfindUserTest() {
 		adminUserService.userList(1, "spring1234");
@@ -252,5 +289,9 @@ public class AdminTest {
 		adminUserRestService.update("summer999", "ROLE_MANAGER", false);
 	}
 	
+//	@Test
+	public void adminArtistUpdateTest() {
+		adminUserRestService.update("spring2321", "ROLE_MANAGER", false);
+	}
 
 }

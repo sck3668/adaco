@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="orderDetailMapper">
+
+	<!--결제하기 -->
+	<insert id="insertByOrderDetail">
+		<selectKey keyProperty="orderno" resultType="int" order="BEFORE">
+			select order_detail_seq.nextval from dual
+		</selectKey>
+		insert into order_detail(orderno,optno, artno,artistno,artname, option_name optionName,
+		option_value optionValue, amount,price, address, recipient,tel,email,
+			request,add_point addPoint, postalcode,refund_account refundAccount,is_shipping isShipping, state)
+			values(#{orderno},#{optno}, #{artno},#{artistno}, #{artname},#{optionName},#{optionValue},#{amount},#{price},
+			#{address},#{recipient},#{tel},#{email},#{request},#{addPoint},#{postalcode},#{refundAccount},0,#{state})
+	</insert>
+	
+ 	<!-- 결제 취소  -->
+	<delete id="deleteByOrderDetail">
+		delete from order_detail where orderno=#{orderno} and rownum=1
+	</delete>
+	
+	<!-- 모든 결제 목록 -->
+	<select id="OrderByAll" resultType="orderDetail">
+		<![CDATA[
+			select b.orderno, b.artname, b.option_name optionName, b.opiont_value optionValue,
+				b.amount, b.price, b.address, b.recipient, b.tel, b.request, b.add_point addPoint,
+				b.refundAccount, b.isShipping,b.state
+				from
+		    		(select /*+ index_asc(order_detail orderno_pk_orderno) */ rownum rnum, b.orderno, b.artname, b.option_name , b.opiont_value ,
+				b.amount, b.price, b.address, b.recipient, b.tel, b.request, b.add_point ,
+				b.refundAccount, b.isShipping, b.state
+		         	from (
+		            	select orderno, artname, option_name , opiont_value ,
+							amount, price, address, recipient, tel, request, b.add_point ,
+							refundAccount, isShipping, state
+		     	       	from order_detail
+		            	order by isShipping desc ) A
+		         	where rownum <= #{endRowNum})B
+		      	where B.rnum >= #{startRowNum}
+		]]>
+	</select>
+
+	<!-- 결제 상세 내역 --> 
+	<select id="findOrderByDetail" resultType="int">
+		select orderno, optno, artno, artistno,artname,optionName,optionValue,
+				amount,price,addtel,email,request,addPoint,
+				postalcode,refundAccoress,recipient,unt,isShipping
+		from oder_detail
+		where orderno = #{orderno} and rownum =1 
+ 	</select>
+
+<!-- 	 특정 주문 목록 -->  
+<!-- 	<select id="orderView" resultType=""> -->
+<!-- 		select o.orderno, o.orderDate, o.orderRec, -->
+<!-- 		o.userAddr1, o.userAddr2, o.userAddr3, -->
+<!-- 		o.orderPhon, o.amount, o.orderDate, o.delivery, -->
+<!-- 		d.orderDetailsNum, d.gdsNum, d.cartStock, -->
+<!-- 		g.gdsName, g.gdsThumbImg, g.gdsPrice -->
+<!-- 		from tbl_order o -->
+<!-- 		inner join tbl_order_details d -->
+<!-- 		on o.orderno = d.orderno -->
+<!-- 		inner join tbl_goods g -->
+<!-- 		on d.gdsNum = g.gdsNum -->
+<!-- 		where o.orderno = #{orderno} -->
+<!--  	</select> -->
+
+</mapper>
