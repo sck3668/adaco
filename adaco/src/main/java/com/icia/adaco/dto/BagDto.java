@@ -20,7 +20,9 @@ public class BagDto {
 		private Integer price;
 		private String artImg;
 		private LocalDateTime artDate;
-		private String stock;
-		private Integer couriPrice;
+		private int orderPrice;
+		private String count;		//수량
+		private Integer couriPrice;	//배송비
+		
 	}
 }
