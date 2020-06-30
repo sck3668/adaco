@@ -32,14 +32,21 @@ public class ArtService {
 	
 	// 작품 등록
 	public void write(ArtDto.DtoForWrite dto, MultipartFile artSajin) throws IllegalStateException, IOException {
+		System.out.println(dto);
+		System.out.println(artSajin);
+		System.out.println("===================");
 		Art art = modelMapper.map(dto, Art.class);	
 		Option option = modelMapper.map(dto, Option.class);
+		System.out.println(art);
+		System.out.println(option);
+		System.out.println("__________________");
 		if(artSajin!=null && artSajin.isEmpty()==false) {
 			if(artSajin.getContentType().toLowerCase().startsWith("image/")==true) {
 				int lastIndexOfDot = artSajin.getOriginalFilename().lastIndexOf('.');
 				String extension = artSajin.getOriginalFilename().substring(lastIndexOfDot+1);
 				File artfile = new File(artfileFolder, art.getArtName()+"."+ extension);
-				
+				System.out.println(art.getArtName()+"222222222222");
+				System.out.println(artfile+"33333333333333333");
 				artSajin.transferTo(artfile);
 				art.setMainImg(artfilePath+ artfile.getName());
 				

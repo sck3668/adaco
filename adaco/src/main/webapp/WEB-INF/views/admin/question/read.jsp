@@ -33,8 +33,34 @@
     </style>
 </head>
 <body>
-	<hr width="100px;">
-	FAQ
-	<hr width="100px;">
+	    <div class="ui middle aligned center aligned grid">
+        <div class="column">
+            <h2 class="ui teal image header">
+                게시판 페이지
+            </h2>
+            <div class="ui large form">
+                <div class="ui stacked segment">
+                    <a href="/coco/write_bbs"><button class="ui fluid large teal submit button">게시글 작성하기</button></a>
+                    <table class="ui celled table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>제목</th>
+                                <th>등록자</th>
+                                <th>등록일</th>
+                            </tr>
+                        </thead>
+                        <tbody id="list">
+                        </tbody>
+                    </table>
+                </div>
+ 
+                <div class="ui error message"></div>
+ 
+            </div>
+        </div>
+    </div>
+
+
 </body>
 </html>
