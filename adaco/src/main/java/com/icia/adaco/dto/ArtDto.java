@@ -58,6 +58,9 @@ public class ArtDto {
 		private String artName;
 		private Integer price;
 	}
+<<<<<<< HEAD
+}
+=======
 	
 	@Data
 	@AllArgsConstructor
@@ -118,3 +121,4 @@ public class ArtDto {
 	}
 
 }
+
