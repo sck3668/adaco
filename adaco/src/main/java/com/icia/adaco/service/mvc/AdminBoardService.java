@@ -1,5 +1,6 @@
 package com.icia.adaco.service.mvc;
 
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ import com.icia.adaco.entity.FAQ;
 import com.icia.adaco.entity.Notice;
 import com.icia.adaco.entity.Question;
 import com.icia.adaco.entity.State;
-import com.icia.adaco.exception.QuestionNotFoundException;
+import com.icia.adaco.exception.*;
 import com.icia.adaco.util.PagingUtil;
 
 import lombok.NonNull;
@@ -50,6 +51,8 @@ public class AdminBoardService {
 		Page page = PagingUtil.getPage(pageno, countOfQuestion);
 		int srn = page.getStartRowNum();
 		int ern = page.getEndRowNum();
+		page.setState(searchType);
+		page.setSearch(writer);
 		List<Question> questionList = dao.findAllByQuestion(srn, ern, writer, searchType);
 		List<AdminBoardDto.DtoForQuestionList> dtoList = new ArrayList<AdminBoardDto.DtoForQuestionList>();
 		for(Question question:questionList) {
@@ -76,10 +79,18 @@ public class AdminBoardService {
 	}
 
 	public void questionAnswer(Question question) {
+		String answer = question.getAnswer();
+		String answerContent = question.getAnswerContent();
+		question = dao.findQuestionById(question.getQno());
+		if(question == null)
+			throw new JobFailException("아 못찾겠습니다.");
 		question.setState(State.답변완료);
+		question.setAnswer(answer);
+		question.setAnswerContent(answerContent);
+		System.out.println("AAAAAAAAAAAAAAA"+question);
 //		메시지 보내기 추가예정
 		dao.updateQuestionByAnswer(question);
-	}
+	} 
 
 	public Page noticeList(int pageno, Boolean isImportant) {
 		int countOfNotice = dao.countByNotice(isImportant);

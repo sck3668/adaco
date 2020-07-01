@@ -34,7 +34,6 @@
 <script type="text/javascript">
 	$(function(){
 		var a = location.href;
-		console.log(a);
 		$("#search").on("click", function(){
 			var writer = $("#writer").val();
 			location.href = "/adaco/admin/question_list?writer="+writer	
@@ -103,7 +102,7 @@
 						</li>
 					</c:when>
 					<c:otherwise>
-						<li><a href="/adaco/admin/question_list?searchType=답변대기&pageno=${i}">${i}</a></li>
+						<li><a href="/adaco/admin/question_list?searchType=${questionPage.state}&writer=${questionPage.search }&pageno=${i}">${i}</a></li>
 					</c:otherwise>
 				</c:choose>
 				
