@@ -120,8 +120,8 @@ public class ArtServiceTest {
 		assertThat(art, is(notNullValue()));
 	}
 	
-	// 작품 상세 보기(회원용)
-	@Test
+	// 작품 상세 보기(회원용) ok
+	//@Test
 	public void readArtFromUserTest() {
 		DtoForRead art = service.readArtFromUser(52, 83, "spring2321");
 		assertThat(art, is(notNullValue()));

@@ -7,13 +7,14 @@
 <title>상품 상세 페이지</title>
 </head>
 <body>	
+${artPage }
 	<div id="wrap">
 	<section id="img-section" class="prd-dateil-section">
 	<div class="image-preview ui-slider">
 		<div class="outer-frame">
 			<ul class="img-view inner-frame">
 				<li class="ui-slide-img slide-img" style="width: 0px;">
-<!-- 		이미지 링크 <img src=" img.jpg " alt style="margin-left: -440.5px; -->
+	이미지 링크 <img src=" ${artPage.mainImg } " alt="s" style="margin-left: -440.5px; 
 <!-- 						margin-top: -440.5px;"> -->
 				</li>
 				<li class="ui-slide-img slide-img" style="width: 0px;">
@@ -42,7 +43,7 @@
 			</div>
 		</div>
 		
-		<h2 class="sticky_aside_title"> 더치커피 콜드블루원액세트
+		<h2 class="sticky_aside_title">${artPage.artName }
 		</h2>
 		<span class="price_tag_strong">
 		<strong class=price>9,900원</strong>

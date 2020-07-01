@@ -15,6 +15,7 @@ import org.springframework.web.servlet.*;
 
 import com.icia.adaco.dto.*;
 import com.icia.adaco.service.mvc.*;
+import com.icia.adaco.service.rest.*;
 
 import lombok.*;
 
@@ -22,8 +23,8 @@ import lombok.*;
 public class ArtController {
 	@Autowired
 	private ArtService artservice;
-	//@Autowired
-	//private static Map<String, MediaType> mediaMap;
+	@Autowired
+	private ArtRestService service;
 	
 	// 작품 리스트 (작가용)
 	@GetMapping("/art/list")
@@ -38,22 +39,15 @@ public class ArtController {
 	}
 	
 	// 작품 상세보기 (작가용)
-	@GetMapping("/art/read")
+	@GetMapping("/art/read2")
 	public ModelAndView read(@NonNull Integer artno) {
 		return new ModelAndView("main").addObject("viewName","art/read.jsp");
 	}
 	
-	/*static {
-		mediaMap = new HashMap<>();
-		mediaMap.put("JPG",	MediaType.IMAGE_JPEG);
-		mediaMap.put("GIF", MediaType.IMAGE_GIF);
-		mediaMap.put("PNG", MediaType.IMAGE_PNG);
-	}*/
-	
 	// 작품 상세보기 (회원용)
-	@GetMapping("/art/read2")
-	public ModelAndView readFromUser(@NonNull Integer artno) {
-		return new ModelAndView("main").addObject("viewName","art/read.jsp");
+	@GetMapping("/art/read")
+	public ModelAndView readFromUser(@NonNull int artno , Integer optno, String username) {
+		return new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPage",service.readArtFromUser(52, 83, "spring2321"));
 	}
 
 	// 작품 등록

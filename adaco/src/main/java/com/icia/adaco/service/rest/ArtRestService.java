@@ -70,11 +70,9 @@ public class ArtRestService {
 		if(art==null)
 			throw new ArtNotFoundException();
 		ArtDto.DtoForRead dto = modelMapper.map(art, ArtDto.DtoForRead.class);
-		ArtDto.DtoForRead dto2 = modelMapper.map(option, ArtDto.DtoForRead.class);
-		//dto.setArtno(dto2);
+		if(option!=null)
+			dto.setArtno(option.getOptno());
 		System.out.println("중간"+dto);
-		String str = art.getArtDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일"));
-		dto.setArtDate(str);
 		if(username!=null)
 			artDao.updateByArt(Art.builder().artno(artno).readCnt(0).build());
 		System.out.println("완성"+dto);

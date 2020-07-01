@@ -40,6 +40,7 @@ public class AdminBoardDto {
 		private String state;
 		private String answer;
 		private String content;
+		private String answerContent;
 		private String writeDateStr;
 		private String answerDateStr;
 	}
