@@ -23,6 +23,5 @@ public class BagDto {
 		private int orderPrice;
 		private String count;		//수량
 		private Integer couriPrice;	//배송비
-		
 	}
 }

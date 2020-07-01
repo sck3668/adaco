@@ -18,12 +18,16 @@ public class BagService {
 	@Autowired
 	private ArtDao artdao;
 	@Autowired
+	private OptionDao optionDao;
+	@Autowired
 	private ModelMapper modelMapper;
 	
 	// 장바구니 추가
-	public void insertByBag(BagDto.DtoForWrite dto,Integer artno) {
-		Art art = artdao.readByArt(artno);
-		Bag bag = modelMapper.map(dto,Art.class);
+	public void insertByBag(String username,BagDto.DtoForWrite dto,Integer artno,Option option,Art art) {
+		Bag bag = modelMapper.map(dto,Bag.class);
+		artdao.writeByArt(art);
+		optionDao.writeByOption(option);
+		bagdao.findBagByUsername(username);
 		bagdao.insertByBag(bag);
 		
 	}
