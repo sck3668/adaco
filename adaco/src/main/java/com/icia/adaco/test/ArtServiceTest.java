@@ -58,8 +58,39 @@ public class ArtServiceTest {
 	public ArtDto.DtoForWrite getDtoForWrite() {
 		ArtDto.DtoForWrite dto = new DtoForWrite();
 		dto.setArtDate(LocalDateTime.now());
-		dto.setArtName("테스트상품");
+		dto.setArtName("테스트상품3");
 		dto.setCategory("카테고리다");
+		dto.setCourier("로젠택배");
+		dto.setTag("검색태그");
+		dto.setStock(30);
+		dto.setPrice(35000);
+		dto.setOptno(1);
+		dto.setOptionName("색상");
+		dto.setOptionPrice(2000);
+		dto.setOptionStock(20);
+		dto.setOptionValue("레드");
+		dto.setArtistno(13);
+		dto.setShopno(2);
+		
+		return dto;
+	}
+	
+	
+	// 작품 등록 테스트 (작가용) ok
+	//@Test
+	public void writeWithSajinTest() throws IllegalStateException, IOException, MessagingException {
+		ArtDto.DtoForWrite dto = getDtoForWrite();
+		File targetFile = new File("d:/test1.jpg");
+		MockMultipartFile file = new MockMultipartFile("artSajin", targetFile.getName(), "image/jpeg", new FileInputStream(targetFile));
+		artservice.write(dto, file);
+		
+	}
+	
+	//작품 업데이트 테스트 메소드
+	public ArtDto.DtoForUpdate getDtoForUpdate() {
+		ArtDto.DtoForUpdate dto = new DtoForUpdate();
+		dto.setArtno(23);
+		dto.setArtName("테스트상품");
 		dto.setCourier("로젠택배");
 		dto.setOptionName("테스트옵션");
 		dto.setOptionPrice(2000);
@@ -68,22 +99,37 @@ public class ArtServiceTest {
 		dto.setTag("검색태그");
 		dto.setStock(30);
 		dto.setPrice(35000);
-		dto.setArtno(33);
-		dto.setUsername("spring23236"); //작가된 유저
-		dto.setOptno(26);
+		dto.setOptno(27);
 		return dto;
 	}
 	
-	
-	//작품 등록 테스트
-	@Test
-	public void writeWithSajinTest() throws IllegalStateException, IOException, MessagingException {
-		ArtDto.DtoForWrite dto = getDtoForWrite();
+	//작품 업데이트 테스트 -> 실패
+	//@Test
+	public void updateTest() throws FileNotFoundException, IOException {
+		ArtDto.DtoForUpdate dto = getDtoForUpdate();
 		File targetFile = new File("d:/test.jpg");
 		MockMultipartFile file = new MockMultipartFile("artSajin", targetFile.getName(), "image/jpeg", new FileInputStream(targetFile));
-		artservice.write(dto, file);
-		//assertThat(service.readArt(33, 26, "spring23236").getMainImg(),is("http://localhost:8081/artfile/테스트1.jpg"));
+		service.updateArt(dto, file);
 		
 	}
+	
+	//작품 상세보기 (작가용)-> 뭐지
+	//@Test
+	public void readFromArtistTest() {
+		DtoForRead art = service.readArt(23, 27, "spring2321");
+		assertThat(art, is(notNullValue()));
+	}
+	
+	// 작품 상세 보기(회원용)
+	@Test
+	public void readArtFromUserTest() {
+		DtoForRead art = service.readArtFromUser(52, 83, "spring2321");
+		assertThat(art, is(notNullValue()));
+	}
+	
+	
+	
+	
+	
 		
 }

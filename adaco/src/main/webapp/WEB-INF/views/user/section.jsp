@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+${artPage.artList }
 	<div class="container">
     <div class="row">
       <div class="col-lg-3">
@@ -46,15 +48,16 @@
         </div>
 
         <div class="row">
-
+<c:forEach items="${artPage.artList }" var="art">
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
               <a href="#"><img class="card-img-top" src="image/art1.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">Item One</a>
+                  <a href="#">
+                  <img alt="사진출력안됨" src="${art.mainImg }"></a>
                 </h4>
-                <h5>$24.99</h5>
+                <h5>${art.artno}</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
               </div>
               <div class="card-footer">
@@ -62,7 +65,7 @@
               </div>
             </div>
           </div>
-
+</c:forEach>
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
               <a href="#"><img class="card-img-top" src="image/art2.jpg" alt=""></a>

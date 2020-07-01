@@ -9,7 +9,7 @@
 		select art_seq.nextval from dual
 	</selectKey>
 		insert into art(artno, art_name, price, main_img, art_img, stock, tag, art_date, category, shopno, couri_price, return_address, courier, accumulated, favorite, artistno, art_detail )
-		values(#{artno},#{artName},#{price},#{mainImg},#{artImg},#{stock}, #{tag}, sysdate, #{category}, #{shopno}, #{couriPrice}, #{returnAddress}, #{courier}, #{accumulated}, 0, #{artistno}, #{artDetail})
+		values(#{artno},#{artName},#{price},#{mainImg},#{artImg, jdbcType=VARCHAR},#{stock}, #{tag}, sysdate, #{category}, #{shopno}, #{couriPrice, jdbcType=INTEGER}, #{returnAddress, jdbcType=VARCHAR}, #{courier, jdbcType=VARCHAR}, #{accumulated, jdbcType=INTEGER}, 0, #{artistno}, #{artDetail, jdbcType=VARCHAR})
 	</insert>
 	
 	<!-- 작품 내역보기/최신순-->

@@ -22,8 +22,8 @@ import lombok.*;
 public class ArtController {
 	@Autowired
 	private ArtService artservice;
-	@Autowired
-	private static Map<String, MediaType> mediaMap;
+	//@Autowired
+	//private static Map<String, MediaType> mediaMap;
 	
 	// 작품 리스트 (작가용)
 	@GetMapping("/art/list")
@@ -34,7 +34,7 @@ public class ArtController {
 	// 작품 리스트 (회원용)
 	@GetMapping("/art/list2")
 	public ModelAndView artListFromUser(@RequestParam(defaultValue = "1") int pageno) {
-		return new ModelAndView("main").addObject("viewName","art/list.jsp").addObject("artPage",artservice.list(pageno));
+		return new ModelAndView("main").addObject("viewName","user/section.jsp").addObject("artPage",artservice.listFromUser(3));
 	}
 	
 	// 작품 상세보기 (작가용)
@@ -43,13 +43,19 @@ public class ArtController {
 		return new ModelAndView("main").addObject("viewName","art/read.jsp");
 	}
 	
-	static {
+	/*static {
 		mediaMap = new HashMap<>();
 		mediaMap.put("JPG",	MediaType.IMAGE_JPEG);
 		mediaMap.put("GIF", MediaType.IMAGE_GIF);
 		mediaMap.put("PNG", MediaType.IMAGE_PNG);
-	}
+	}*/
 	
+	// 작품 상세보기 (회원용)
+	@GetMapping("/art/read2")
+	public ModelAndView readFromUser(@NonNull Integer artno) {
+		return new ModelAndView("main").addObject("viewName","art/read.jsp");
+	}
+
 	// 작품 등록
 	//@PreAuthorize("isAuthenticated()")
 	@GetMapping("/art/write")

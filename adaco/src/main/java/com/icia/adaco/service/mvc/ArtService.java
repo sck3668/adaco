@@ -24,27 +24,21 @@ public class ArtService {
 	private OptionDao optionDao;
 	@Autowired
 	private ModelMapper modelMapper;
-	@Value("${artfileFolder}")
+	@Value("d:/upload/artfile")
 	private String artfileFolder;
-	@Value("${artfilePath}")
+	@Value("http://localhost:8081/artfile/")
 	private String artfilePath;
 
 	// 작품 등록
+
 	public void write(ArtDto.DtoForWrite dto, MultipartFile artSajin) throws IllegalStateException, IOException {
-		//System.out.println(dto);
-		//System.out.println(artSajin);
-		//System.out.println("===================");
 		Art art = modelMapper.map(dto, Art.class);
-		//System.out.println(art);
-		//System.out.println(option);
-		//System.out.println("__________________");
-		if (artSajin != null && artSajin.isEmpty() == false) {
+		Option option = modelMapper.map(dto, Option.class);
+		if (artSajin!= null && artSajin.isEmpty()==false) {
 			if (artSajin.getContentType().toLowerCase().startsWith("image/") == true) {
 				int lastIndexOfDot = artSajin.getOriginalFilename().lastIndexOf('.');
 				String extension = artSajin.getOriginalFilename().substring(lastIndexOfDot + 1);
 				File artfile = new File(artfileFolder, art.getArtName() + "." + extension);
-				System.out.println(art.getArtName() + "222222222222");
-				System.out.println(artfile + "33333333333333333");
 				artSajin.transferTo(artfile);
 				art.setMainImg(artfilePath + artfile.getName());
 
@@ -55,17 +49,15 @@ public class ArtService {
 		} else {
 			throw new JobFailException("작품 사진을 등록해주세요");
 		}
-
-		Option option = modelMapper.map(dto, Option.class);
 		if (option!=null) {
-			optionDao.writeByOption(option);
-			option.setArtno(art.getArtno());
-			System.out.println(option);
-		} else {
 			artdao.writeByArt(art);
-			System.out.println(art);
+			option.setArtno(art.getArtno());
+			optionDao.writeByOption(option);
+			art.setArtno(option.getOptno());
+	
+		} else {
+			
 		}
-		
 	}
 
 	// 작품 리스트 (작가용)

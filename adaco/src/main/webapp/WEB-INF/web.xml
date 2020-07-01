@@ -53,14 +53,7 @@
 			<param-value>http://localhost:8081/ckimage/</param-value>
 		</context-param>
 	</context-param>
-	<context-param>
-		<param-name>attachmentFolder</param-name>
-		<param-value>d:/upload/profile</param-value>
-	</context-param>
-	<context-param>
-		<param-name>attachmentPath</param-name>
-		<param-value>http://localhost:8081/profile/</param-value>
-	</context-param>
+
 
    <!-- Creates the Spring Container shared by all Servlets and Filters -->
    <listener>

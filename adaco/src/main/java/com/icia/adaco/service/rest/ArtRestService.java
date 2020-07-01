@@ -7,6 +7,8 @@ import javax.validation.constraints.*;
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
+import org.springframework.web.multipart.*;
+
 import com.fasterxml.jackson.databind.*;
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
@@ -24,16 +26,20 @@ public class ArtRestService {
 	private ArtistDao artistDao;
 	@Autowired
 	private OptionDao optionDao;
+	@Value("d:/upload/artfile")
+	private String artfileFolder;
+	@Value("http://localhost:8081/artfile/")
+	private String artfilePath;
 
 	//작품 업데이트
-	public void updateArt(ArtDto.DtoForUpdate dto) {
+	public void updateArt(ArtDto.DtoForUpdate dto, MultipartFile artSajin) {
 		Art art = artDao.readByArt(dto.getArtno());
 		Option option = modelMapper.map(dto,Option.class);
 		Artist artist = artistDao.findByid(dto.getArtistNo());
 		if(art==null)
 			throw new ArtNotFoundException();
 		if(artist.getUsername().equals(dto.getUsername())==false)
-			throw new IllegalJobException();
+			throw new JobFailException("상품 수정 권한이 없습니다");
 		art = modelMapper.map(dto, Art.class);
 		option.setArtno(art.getArtno());
 		optionDao.updateByOption(option);
@@ -59,14 +65,19 @@ public class ArtRestService {
 	public ArtDto.DtoForRead readArtFromUser(Integer artno, Integer optno, String username) {
 		Art art = artDao.readByArtFromUser(artno);
 		Option option = optionDao.readByOption(optno);
+		System.out.println("아트얌" + art);
+		System.out.println("옵션아 들어와와아아아아" + option);
 		if(art==null)
 			throw new ArtNotFoundException();
 		ArtDto.DtoForRead dto = modelMapper.map(art, ArtDto.DtoForRead.class);
-		dto = modelMapper.map(option, ArtDto.DtoForRead.class);
+		ArtDto.DtoForRead dto2 = modelMapper.map(option, ArtDto.DtoForRead.class);
+		//dto.setArtno(dto2);
+		System.out.println("중간"+dto);
 		String str = art.getArtDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일"));
 		dto.setArtDate(str);
 		if(username!=null)
 			artDao.updateByArt(Art.builder().artno(artno).readCnt(0).build());
+		System.out.println("완성"+dto);
 		return dto;
 	}
 
