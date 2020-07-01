@@ -11,7 +11,10 @@
 		insert into art(artno, art_name, price, main_img, art_img, stock, tag, art_date, category, shopno, couri_price, return_address, courier, accumulated, favorite, artistno, art_detail )
 		values(#{artno},#{artName},#{price},#{mainImg},#{artImg},#{stock}, #{tag}, sysdate, #{category}, #{shopno}, #{couriPrice}, #{returnAddress}, #{courier}, #{accumulated}, 0, #{artistno}, #{artDetail})
 	</insert>
-	
+<!-- 장바구니에서 작품보기 -->
+	<select id="list" resultType="art">
+		select artno, art_name artName, price,main_img mainImg from art 
+	</select>
 	<!-- 작품 내역보기/최신순-->
 		<select id="findAll" resultType="art">
 	<![CDATA[

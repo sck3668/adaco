@@ -31,6 +31,11 @@ public class BagService {
 		bagdao.insertByBag(bag);
 		
 	}
+	//장바구니목록
+	public List<Art> listByArt(int artno) {
+		return artdao.list(artno);
+	}
+	
 	
 	// 장바구니 목록
 	public List<Bag> findAllByBag(){
@@ -38,8 +43,10 @@ public class BagService {
 	}
 	
 	// 장바구니 삭제
-	public void deleteByBag(Integer artno) {
+	public List<Art> deleteByBag(Integer artno) {
+		List<Art> bagList = listByArt(artno);
 		bagdao.deleteByBag(artno);
+		return bagList;
 	}
 	
 	// 장바구니 변경

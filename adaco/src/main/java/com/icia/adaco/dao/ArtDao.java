@@ -104,7 +104,10 @@ public class ArtDao {
 		public Art readByArtFromUser(Integer artno) {
 			return tpl.selectOne("artMapper.findByArtFromUser",artno);
 		}
-	
-	
+		
+	//작품목록
+		public List<Art> list(int artno) {
+			return tpl.selectList("artMapper.list",artno);
+		}
 
 }
