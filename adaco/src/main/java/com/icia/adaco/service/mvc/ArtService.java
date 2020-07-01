@@ -29,41 +29,45 @@ public class ArtService {
 	@Value("${artfilePath}")
 	private String artfilePath;
 
-	//
 	// 작품 등록
 	public void write(ArtDto.DtoForWrite dto, MultipartFile artSajin) throws IllegalStateException, IOException {
-		System.out.println(dto);
-		System.out.println(artSajin);
-		System.out.println("===================");
-		Art art = modelMapper.map(dto, Art.class);	
-		Option option = modelMapper.map(dto, Option.class);
-		System.out.println(art);
-		System.out.println(option);
-		System.out.println("__________________");
-		if(artSajin!=null && artSajin.isEmpty()==false) {
-			if(artSajin.getContentType().toLowerCase().startsWith("image/")==true) {
+		//System.out.println(dto);
+		//System.out.println(artSajin);
+		//System.out.println("===================");
+		Art art = modelMapper.map(dto, Art.class);
+		//System.out.println(art);
+		//System.out.println(option);
+		//System.out.println("__________________");
+		if (artSajin != null && artSajin.isEmpty() == false) {
+			if (artSajin.getContentType().toLowerCase().startsWith("image/") == true) {
 				int lastIndexOfDot = artSajin.getOriginalFilename().lastIndexOf('.');
-				String extension = artSajin.getOriginalFilename().substring(lastIndexOfDot+1);
-				File artfile = new File(artfileFolder, art.getArtName()+"."+ extension);
-				System.out.println(art.getArtName()+"222222222222");
-				System.out.println(artfile+"33333333333333333");
+				String extension = artSajin.getOriginalFilename().substring(lastIndexOfDot + 1);
+				File artfile = new File(artfileFolder, art.getArtName() + "." + extension);
+				System.out.println(art.getArtName() + "222222222222");
+				System.out.println(artfile + "33333333333333333");
 				artSajin.transferTo(artfile);
-				art.setMainImg(artfilePath+ artfile.getName());
-				
+				art.setMainImg(artfilePath + artfile.getName());
+
 			} else {
 				throw new JobFailException("파일 확장자를 확인해주세요.");
 			}
-			
+
 		} else {
 			throw new JobFailException("작품 사진을 등록해주세요");
 		}
-		option.setArtno(art.getArtno());
-		optionDao.writeByOption(option);
-		artdao.writeByArt(art);
+
+		Option option = modelMapper.map(dto, Option.class);
+		if (option!=null) {
+			optionDao.writeByOption(option);
+			option.setArtno(art.getArtno());
+			System.out.println(option);
+		} else {
+			artdao.writeByArt(art);
+			System.out.println(art);
+		}
 		
 	}
-	
-	
+
 	// 작품 리스트 (작가용)
 	public Page list(int pageno) {
 		int countOfArt = artdao.countByArt();
@@ -72,14 +76,14 @@ public class ArtService {
 		int ern = page.getEndRowNum();
 		List<Art> artList = artdao.listByArt(srn, ern);
 		List<ArtDto.DtoForList> dtoList = new ArrayList<ArtDto.DtoForList>();
-		for(Art art:artList) {
-			ArtDto.DtoForList dto = modelMapper.map(art,ArtDto.DtoForList.class);
+		for (Art art : artList) {
+			ArtDto.DtoForList dto = modelMapper.map(art, ArtDto.DtoForList.class);
 			dtoList.add(dto);
 		}
 		page.setArtList(dtoList);
 		return page;
 	}
-	
+
 	// 작품 리스트 최신순 (회원용)
 	public Page listFromUser(int pageno) {
 		int countOfArt = artdao.countByArt();
@@ -88,8 +92,8 @@ public class ArtService {
 		int ern = page.getEndRowNum();
 		List<Art> artList = artdao.listByArtFromUser(srn, ern);
 		List<ArtDto.DtoForList> dtoList = new ArrayList<ArtDto.DtoForList>();
-		for(Art art:artList) {
-			ArtDto.DtoForList dto = modelMapper.map(art,ArtDto.DtoForList.class);
+		for (Art art : artList) {
+			ArtDto.DtoForList dto = modelMapper.map(art, ArtDto.DtoForList.class);
 			dtoList.add(dto);
 		}
 		page.setArtList(dtoList);
