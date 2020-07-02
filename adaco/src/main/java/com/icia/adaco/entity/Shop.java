@@ -1,7 +1,5 @@
 package com.icia.adaco.entity;
 
-import java.time.*;
-
 import lombok.*;
 import lombok.experimental.*;
 
@@ -15,5 +13,8 @@ public class Shop {
 	private String shopName;
 	private String shopIntro;
 	private String  businessno;
-	private String account; 
+	private String account;
+	private String image;
+	private String forwarding;
+	private String back;
 }

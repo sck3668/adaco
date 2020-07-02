@@ -14,16 +14,18 @@ public class ShopDao {
 	public int writeByShop (Shop shop) {
 		return sql.insert("shopMapper.insert",shop);
 	}
-	//상점 보기
-	public Shop readByShop(int shopno) {
-		return sql.selectOne("shopMapper.findByShopno",shopno);
-	}
-	//상점 수정
-	public int updateByShop(Shop shop) {
-		return sql.update("shopMapper.update",shop);
-	}
-	//상점 삭제
-	public int deleteByArt(int shopno) {
-		return sql.delete("shopMapper.delete",shopno);
-	}
+	
+	
+//	//상점 보기
+//	public Shop readByShop(int shopno) {
+//		return sql.selectOne("shopMapper.findByShopno",shopno);
+//	}
+//	//상점 수정
+//	public int updateByShop(Shop shop) {
+//		return sql.update("shopMapper.update",shop);
+//	}
+//	//상점 삭제
+//	public int deleteByArt(int shopno) {
+//		return sql.delete("shopMapper.delete",shopno);
+//	}
 }
