@@ -5,6 +5,7 @@ import java.util.*;
 
 import org.springframework.web.multipart.*;
 
+import com.icia.adaco.entity.*;
 
 import lombok.*;
 import lombok.experimental.*;
@@ -78,7 +79,7 @@ public class AdminBoardDto {
 	
 	@Data
 	@AllArgsConstructor
-	@NonNull
+	@NoArgsConstructor
 	@Builder
 	public static class DtoForNoticeRead{
 		private Integer noticeno;
@@ -87,6 +88,9 @@ public class AdminBoardDto {
 		private String writeDateStr;
 		private String writer;
 		private Boolean isImportant;
+		private int attachmentCnt;
+		private List<Attachment> attachments;
+		
 	}
 	
 }

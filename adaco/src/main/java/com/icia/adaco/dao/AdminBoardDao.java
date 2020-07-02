@@ -93,7 +93,7 @@ public class AdminBoardDao {
 	}
 	
 //	공지사항 읽기
-	public Notice findNoticeById(int noticeno) {
+	public Notice findNoticeById(Integer noticeno) {
 		return tpl.selectOne("adminBoardMapper.findNoticeById", noticeno);
 	}
 		

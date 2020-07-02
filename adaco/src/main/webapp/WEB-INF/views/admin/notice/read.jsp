@@ -183,6 +183,10 @@ input[type="text"]:focus {
 input[type="text"]:focus, input[type="text"]:hover {
   border-color: #999;
 }
+
+#content_div {
+	overflow: auto;
+}
 /* IE 10/11+ - This hides native dropdown button arrow so it will have the custom appearance, IE 9 and earlier get a native select - targeting media query hack via http://browserhacks.com/#hack-28f493d247a12ab654f6c3637f6978d5 - looking for better ways to achieve this targeting */
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
   select::-ms-expand {
@@ -229,6 +233,45 @@ input[type="text"]:focus, input[type="text"]:hover {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="/adaco/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+	var notice = ${notice};
+	console.log(notice);
+	function printAttachment(attachments) {
+		console.log(attachments);
+		var $ul = $("#attachment");
+		$ul.empty();
+		$.each(attachments, function(i, attachment){
+			var $li = $("<li>").appendTo($ul);
+			if(attachment.image == true)
+				$("<i class = 'fa fa-file-image-o'></i>").appendTo($li);			
+			else 
+				$("<i class = 'fa fa-paperclip'></i>").appendTo($li);
+			// 첨부파일에 대한 링크를 아이콘 뒤에 추가
+			$("<a href='/adaco/attachment/view?ano=" + attachment.ano + "'>" + attachment.originalFileName + "</a>").appendTo($li);
+			
+			// 첨부파일을 삭제하기 위한 <span></span> 출력
+			// <span class = '' data-ano = '20' data-bno = '129'>
+			if(isLogin == true && board.writer == loginId) {
+				var str = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" 
+				str += "<span class = 'delete_attachment' data-ano='";
+				str += attachment.ano;
+				str += "' data-bno='";
+				str += attachment.bno;
+				str += "' >X</span>"
+				$li.append(str);
+				$(".delete_attachment").css("cursor", "pointer").attr("title", "삭제하기");
+			}
+		});
+	}
+	
+	$(function(){
+		$("#title").val(notice.title);
+		$("#content").val(notice.content);
+		$("#write_date").text(notice.writeDateStr);
+		$("#content").html(notice.content);
+		printAttachment(notice.attachments);
+	})
+</script>
 </head>
 <body>
 	<form action="/adaco/admin/notice_write" method="post" id = "wrFrm" enctype="multipart/form-data">
@@ -237,6 +280,11 @@ input[type="text"]:focus, input[type="text"]:hover {
 			<input type = "text" class = "form-control" id = "title" name = "title">
 		</div>
 		<div class = "form-group">
+			[첨부 파일]
+			<ul id = "attachment">
+			</ul>
+		</div>
+		<div class = "form-group" id ="content_div">
 			<textarea class = "form-control" id = "content" name = "content" cols="50" rows="10" readonly="readonly" style="background-color: white;"></textarea>
 		</div>
 		<sec:authorize access="hasRole('ROLE_ADMIN')">

@@ -16,7 +16,6 @@ import org.springframework.web.servlet.*;
 
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
-import com.icia.aboard.dto.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.service.mvc.*;
@@ -87,14 +86,18 @@ public class AdminBoardController {
 	}
 	
 	@GetMapping("/admin/notice_read")
-	public ModelAndView noticeRead() {
-		return new ModelAndView("admin/notice/read").addObject(service.noticeRead());
+	public ModelAndView noticeRead(@NonNull Integer noticeno) throws JsonProcessingException {
+		ModelAndView mav = new ModelAndView("admin/notice/read");		
+		AdminBoardDto.DtoForNoticeRead dto = service.noticeRead(noticeno);
+		String json = objectMapper.writeValueAsString(dto);
+		mav.addObject("notice", json);
+		return mav;
+		
 	}
 	
 	@PostMapping("/admin/notice_write")
 	public String write(AdminBoardDto.DtoForNoticeWrite dto) {
 		dto.setWriter("관리자");
-//		아래 ip는 신뢰 불가
 		try {
 			return "redirect:/admin/notice_read?noticeno="+service.write(dto);
 		} catch (IOException e) {

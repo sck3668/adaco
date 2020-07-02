@@ -86,7 +86,6 @@ public class AdminBoardService {
 		question.setState(State.답변완료);
 		question.setAnswer(answer);
 		question.setAnswerContent(answerContent);
-		System.out.println("AAAAAAAAAAAAAAA"+question);
 //		메시지 보내기 추가예정
 		dao.updateQuestionByAnswer(question);
 	} 
@@ -124,9 +123,9 @@ public class AdminBoardService {
 		dao.deleteByReport(cnos);
 	}
 
-	public int write(DtoForNoticeWrite dto) throws IOException {
+	public int write(AdminBoardDto.DtoForNoticeWrite dto) throws IOException {
 		Notice notice = modelMapper.map(dto, Notice.class);
-		if(dto.getAttachments()!=null)
+		if(dto.getAttachments()!=null) 
 			notice.setAttachmentCnt(dto.getAttachments().size());
 		else
 			notice.setAttachmentCnt(0);
@@ -149,6 +148,22 @@ public class AdminBoardService {
 			}
 		}
 		return notice.getNoticeno();
+	}
+
+	public AdminBoardDto.DtoForNoticeRead noticeRead(@NonNull Integer noticeno) {
+		Notice notice = dao.findNoticeById(noticeno);
+		if(notice == null)
+			throw new JobFailException("해당 글을 찾을 수 없습니다.");
+		System.out.println("A포인트"+notice);
+		AdminBoardDto.DtoForNoticeRead dto = modelMapper.map(notice, AdminBoardDto.DtoForNoticeRead.class);
+		System.out.println("B포인트"+dto);
+		String str = notice.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
+		dto.setWriteDateStr(str);
+		
+		if(notice.getAttachmentCnt()>0)
+			dto.setAttachments(attachmentDao.findAllNoticeByNoticeno(noticeno));
+
+		return dto;
 	}
 
 
