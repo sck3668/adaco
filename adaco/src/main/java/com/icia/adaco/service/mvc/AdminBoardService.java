@@ -1,31 +1,30 @@
 package com.icia.adaco.service.mvc;
 
-import java.time.*;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+import java.time.format.*;
+import java.util.*;
 
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.modelmapper.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.stereotype.*;
+import org.springframework.util.*;
+import org.springframework.web.multipart.*;
 
-import com.icia.adaco.dao.AdminBoardDao;
-import com.icia.adaco.dto.AdminBoardDto;
-import com.icia.adaco.dto.Page;
-import com.icia.adaco.entity.ArtComment;
-import com.icia.adaco.entity.FAQ;
-import com.icia.adaco.entity.Notice;
-import com.icia.adaco.entity.Question;
-import com.icia.adaco.entity.State;
+import com.icia.adaco.dao.*;
+import com.icia.adaco.dto.*;
+import com.icia.adaco.dto.AdminBoardDto.*;
+import com.icia.adaco.entity.*;
 import com.icia.adaco.exception.*;
-import com.icia.adaco.util.PagingUtil;
+import com.icia.adaco.util.*;
 
-import lombok.NonNull;
+import lombok.*;
 
 @Service
 public class AdminBoardService {
 	@Autowired
 	AdminBoardDao dao;
+	@Autowired
+	AttachmentDao attachmentDao;
 	@Autowired
 	ModelMapper modelMapper;
 
@@ -123,6 +122,33 @@ public class AdminBoardService {
 
 	public void reportDelete(List<Integer> cnos) {
 		dao.deleteByReport(cnos);
+	}
+
+	public int write(DtoForNoticeWrite dto) throws IOException {
+		Notice notice = modelMapper.map(dto, Notice.class);
+		if(dto.getAttachments()!=null)
+			notice.setAttachmentCnt(dto.getAttachments().size());
+		else
+			notice.setAttachmentCnt(0);
+		dao.insertByNotice(notice);
+		
+		List<MultipartFile> attachments = dto.getAttachments();
+		List<Attachment> list = new ArrayList<Attachment>();
+		if(attachments != null) {
+			for(MultipartFile mf:attachments) {
+				Attachment a = new Attachment();
+				String originalFileName = mf.getOriginalFilename();
+				long time = System.currentTimeMillis();
+				String saveFileName = time + "-" + originalFileName;
+				boolean isImage = mf.getContentType().toLowerCase().startsWith("image/");
+				a.setNoticeno(notice.getNoticeno()).setImage(isImage).setLength((int)mf.getSize()).setOriginalFileName(originalFileName)
+					.setSaveFileName(saveFileName).setWriter(notice.getWriter());
+				File file = new File("d:/upload/attachment", saveFileName);
+				FileCopyUtils.copy(mf.getBytes(), file);
+				attachmentDao.noticeInsert(a);
+			}
+		}
+		return notice.getNoticeno();
 	}
 
 

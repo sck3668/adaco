@@ -91,8 +91,8 @@
 	</table>
  	<div style="text-align:center;">
 		<ul class="pagination">
-			<c:if test="${question.prev==true}">
-				<li><a href="/adaco/admin/question_list?pageno=${page.startPage-1}">이전</a></li>
+			<c:if test="${questionPage.prev==true}">
+				<li><a href="/adaco/admin/question_list?pageno=${questionPage.startPage-1}">이전</a></li>
 			</c:if>
 			<c:forEach begin="${questionPage.startPage}" end="${questionPage.endPage}" var="i">
 				<c:choose>

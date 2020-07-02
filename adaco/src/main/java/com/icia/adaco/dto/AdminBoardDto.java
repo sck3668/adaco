@@ -1,6 +1,13 @@
 package com.icia.adaco.dto;
 
+import java.time.*;
+import java.util.*;
+
+import org.springframework.web.multipart.*;
+
+
 import lombok.*;
+import lombok.experimental.*;
 
 public class AdminBoardDto {
 	private AdminBoardDto() {}
@@ -46,6 +53,18 @@ public class AdminBoardDto {
 	}
 	
 	@Data
+	@Accessors(chain = true)
+	public static class DtoForNoticeWrite {
+		private Integer noticeno;
+		private String title;
+		private String content;
+		private String writer;
+		private Boolean isImportant;
+		private LocalDateTime writeDate;
+		private List<MultipartFile> attachments;
+	}
+	
+	@Data
 	@AllArgsConstructor
 	@NoArgsConstructor
 	@Builder
@@ -54,6 +73,7 @@ public class AdminBoardDto {
 		private String title;
 		private String writeDateStr;
 		private String writer;		
+		private boolean isImportant;
 	}
 	
 	@Data

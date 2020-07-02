@@ -1,18 +1,22 @@
 package com.icia.adaco.controller.mvc;
 
+import java.io.*;
 import java.security.*;
 import java.util.*;
 
+import javax.servlet.http.*;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.math.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
 
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
+import com.icia.aboard.dto.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.service.mvc.*;
@@ -77,6 +81,30 @@ public class AdminBoardController {
 		return new ModelAndView("admin/notice/list").addObject("noticePage", service.noticeList(pageno, isImportant));
 	}
 	
+	@GetMapping("/admin/notice_write")
+	public ModelAndView noticeWrite() {
+		return new ModelAndView("admin/notice/write");
+	}
+	
+	@GetMapping("/admin/notice_read")
+	public ModelAndView noticeRead() {
+		return new ModelAndView("admin/notice/read").addObject(service.noticeRead());
+	}
+	
+	@PostMapping("/admin/notice_write")
+	public String write(AdminBoardDto.DtoForNoticeWrite dto) {
+		dto.setWriter("관리자");
+//		아래 ip는 신뢰 불가
+		try {
+			return "redirect:/admin/notice_read?noticeno="+service.write(dto);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+//		for(MultipartFile f:dto.getAttachments())
+//			System.out.println("파일이름"+f.getOriginalFilename());
+		return "redirect:/";
+	}
+	
 //	@PreAuthorize("isAuthenticated()")
 //	@Secured("ROLE_ADMIN")
 	@PostMapping("/admin/notice_update")
@@ -102,4 +130,6 @@ public class AdminBoardController {
 	public String faqWrite(FAQ faq) {
 		return "redirect:/admin/faq_read?faqno="+service.faqWrite(faq);
 	}
+	
+
 }
