@@ -1,12 +1,8 @@
 package com.icia.adaco.dto;
 
 import java.time.*;
-import java.util.*;
 
 import javax.validation.constraints.*;
-
-import com.icia.aboard.dto.*;
-import com.icia.adaco.entity.*;
 
 import lombok.*;
 import lombok.experimental.*;
@@ -59,6 +55,7 @@ public class UserDto {
 		private String tel;
 		@Pattern(regexp="^[A-Za-z][A-Za-z0-9]+@[A-Za-z\\.]+$", message="잘못된 이메일 형식입니다")
 		private String email;
+		private String profile;
+		private String birthDateStr;
 	}
-	
 }

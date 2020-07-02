@@ -18,6 +18,23 @@
          </tr>
          </thead>
          <tbody>
+         			<tr> 
+                  <td></td>
+                  <td></td>
+                  <td></td>               
+                  <td></td>
+                  <td></td>
+                  <td>
+					<input type="button" value="하나 더" id="PLUS"><input type="text" value="1" style="text-align:center"><input type="button" value="빼기" id=Minus>
+                  <td></td>
+                  <td><input type="checkbox" class="bag" value="${bag}"></td>
+           </tr>
+         </tbody>
+      </table>
+      <br><br><br><br><br><br><br><br><br><br><br>
+      <button style="float:right;">선택 삭제</button>
+   </div>
+         
 <%--           <c:forEach items="${list}" var="bag"> --%>
 <!--                <tr> -->
 <!--                   <td></td> -->
@@ -34,27 +51,6 @@
 <%--                   <td><input type="checkbox" class="bag" value="${bag}"></td> --%>
 <!--            </tr> -->
 <%--            </c:forEach> --%>
-			<tr> 
-                  <td></td>
-                  <td></td>
-                  <td></td>               
-                  <td></td>
-                  <td></td>
-                  <td>
-					<input type="button" value="하나 더" id="PLUS"><input type="text" value="1" style="text-align:center"><input type="button" value="빼기" id=Minus>
-                  <td></td>
-                  <td><input type="checkbox" class="bag" value="${bag}"></td>
-           </tr>
-           
-           
-           
-           
-           
-         </tbody>
-      </table>
-      <br><br><br><br><br><br><br><br><br><br><br>
-      <button style="float:right;">선택 삭제</button>
-   </div>
 
 </body>
 </html>

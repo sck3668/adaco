@@ -1,54 +1,311 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>공지사항 읽기</title>
 <style>
-table {
-	width: 100%;
+@-moz-keyframes borderscale {
+  50% {
+    box-shadow: 0 0 0 2px #999;
+  }
+}
+@-webkit-keyframes borderscale {
+  50% {
+    box-shadow: 0 0 0 2px #999;
+  }
+}
+@keyframes borderscale {
+  50% {
+    box-shadow: 0 0 0 2px #999;
+  }
+}
+html, body {
+  height: 100%;
 }
 
-table, th, td {
-	border: 1px solid #bcbcbc;
+body {
+  font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  background: #2d2d2d;
 }
 
-table {
-	width: 100%;
-	border-top: 1px solid #444444;
-	border-collapse: collapse;
+form {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 5px 5px 15px rgba(107, 173, 182, 0.6);
+  padding: 1rem 2rem;
+  min-width: 90vw;
+  height: 900px;
+}
+form li {
+  margin: 0.3rem 0;
+}
+form div {
+  margin: 0.5rem 0;
 }
 
-th, td {
-	border-bottom: 1px solid #444444;
-	padding: 10px;
-	text-align: center;
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-th {
-	background-color: #bbdefb;
+input[type="checkbox"],
+input[type="radio"] {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
 }
-/*   td { */
-/*     background-color: #e3f2fd; */
-/*   } */
+input[type="checkbox"]:hover + label:before,
+input[type="radio"]:hover + label:before {
+  border-color: #999;
+}
+input[type="checkbox"]:active + label:before,
+input[type="radio"]:active + label:before {
+  transition-duration: 0;
+  filter: brightness(0.2);
+}
+input[type="checkbox"] + label,
+input[type="radio"] + label {
+  position: relative;
+  padding-left: 26px;
+  font-weight: normal;
+}
+input[type="checkbox"] + label:before, input[type="checkbox"] + label:after,
+input[type="radio"] + label:before,
+input[type="radio"] + label:after {
+  box-sizing: content-box;
+  position: absolute;
+  content: '';
+  display: block;
+  left: 0;
+}
+input[type="checkbox"] + label:before,
+input[type="radio"] + label:before {
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  margin-top: -10px;
+  border: 2px solid #d9d9d9;
+  text-align: center;
+}
+input[type="checkbox"] + label:after,
+input[type="radio"] + label:after {
+  background-color: #00bad2;
+  top: 50%;
+  left: 6px;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  transform: scale(0);
+  transform-origin: 50%;
+  transition: transform 200ms ease-out;
+}
+
+input[type="radio"]:checked + label:before {
+  -moz-animation: borderscale 300ms ease-in;
+  -webkit-animation: borderscale 300ms ease-in;
+  animation: borderscale 300ms ease-in;
+  background-color: #fff;
+}
+input[type="radio"]:checked + label:after {
+  transform: scale(1);
+}
+input[type="radio"] + label:before, input[type="radio"] + label:after {
+  border-radius: 50%;
+}
+
+input[type="checkbox"] + label:after {
+  background-color: transparent;
+  top: 50%;
+  left: 5px;
+  width: 7px;
+  height: 4px;
+  margin-top: -5px;
+  border-style: solid;
+  border-color: #00bad2;
+  border-width: 0 0 3px 3px;
+  -moz-transform: rotate(-45deg) scale(0);
+  -ms-transform: rotate(-45deg) scale(0);
+  -webkit-transform: rotate(-45deg) scale(0);
+  transform: rotate(-45deg) scale(0);
+  -moz-transition: none;
+  -o-transition: none;
+  -webkit-transition: none;
+  transition: none;
+}
+input[type="checkbox"]:checked + label:before {
+  -moz-animation: borderscale 200ms ease-in;
+  -webkit-animation: borderscale 200ms ease-in;
+  animation: borderscale 200ms ease-in;
+}
+input[type="checkbox"]:checked + label:after {
+  content: '';
+  -moz-transform: rotate(-45deg) scale(1);
+  -ms-transform: rotate(-45deg) scale(1);
+  -webkit-transform: rotate(-45deg) scale(1);
+  transform: rotate(-45deg) scale(1);
+  -moz-transition: -moz-transform 200ms ease-out;
+  -o-transition: -o-transform 200ms ease-out;
+  -webkit-transition: -webkit-transform 200ms ease-out;
+  transition: transform 200ms ease-out;
+}
+
+input[type="text"] {
+  font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 5px 10px;
+  background-color: #fff;
+  border: 2px solid #d9d9d9;
+}
+input[type="text"]:focus {
+  outline: none;
+}
+input[type="text"]:focus, input[type="text"]:hover {
+  border-color: #999;
+}
+
+#content_div {
+	overflow: auto;
+}
+/* IE 10/11+ - This hides native dropdown button arrow so it will have the custom appearance, IE 9 and earlier get a native select - targeting media query hack via http://browserhacks.com/#hack-28f493d247a12ab654f6c3637f6978d5 - looking for better ways to achieve this targeting */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  select::-ms-expand {
+    display: none;
+  }
+
+  select:focus::-ms-value {
+    background: transparent;
+    color: grey;
+  }
+}
+
+	.form-group {
+		margin: 0 auto;
+	}
+	
+	body {
+		margin: 0;
+		padding: 0 ;
+		background : #f3f3f3;
+  		padding-top: 50px;
+	}
+	#title {
+		width: 800px;
+	}
+	.form-group {
+		width: 800px;
+	}
+	#title.form-control {
+		margin: 0 auto;
+		margin-bottom: 50px; 
+	}
+	#content.form-control {
+		width: 800px;
+	}
+	#content {
+		min-height: 600px;
+	}
+	#content-disabled{
+    background-color:#FFF !important;
+	}
 </style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="/adaco/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+	var notice = ${notice};
+	console.log(notice);
+	function printAttachment(attachments) {
+		console.log(attachments);
+		var $ul = $("#attachment");
+		$ul.empty();
+		$.each(attachments, function(i, attachment){
+			var $li = $("<li>").appendTo($ul);
+			if(attachment.image == true)
+				$("<i class = 'fa fa-file-image-o'></i>").appendTo($li);			
+			else 
+				$("<i class = 'fa fa-paperclip'></i>").appendTo($li);
+			// 첨부파일에 대한 링크를 아이콘 뒤에 추가
+			$("<a href='/adaco/attachment/view?ano=" + attachment.ano + "'>" + attachment.originalFileName + "</a>").appendTo($li);
+			
+			// 첨부파일을 삭제하기 위한 <span></span> 출력
+			// <span class = '' data-ano = '20' data-bno = '129'>
+			if(isLogin == true && board.writer == loginId) {
+				var str = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" 
+				str += "<span class = 'delete_attachment' data-ano='";
+				str += attachment.ano;
+				str += "' data-bno='";
+				str += attachment.bno;
+				str += "' >X</span>"
+				$li.append(str);
+				$(".delete_attachment").css("cursor", "pointer").attr("title", "삭제하기");
+			}
+		});
+	}
+	
+	$(function(){
+		$("#title").val(notice.title);
+		$("#content").val(notice.content);
+		$("#write_date").text(notice.writeDateStr);
+		$("#content").html(notice.content);
+		printAttachment(notice.attachments);
+	})
+</script>
 </head>
 <body>
-	<div style="text-align: center">
-	<hr width="1200px;">
-		<h1><b>FAQ</b></h1> 
-	<hr width="1200px;">
-	<h1>적립금이 확인되지 않았어요!</h1>
-
-	Lorem Ipsum 은 단순히 인쇄 및 조판 산업의 더미
-		텍스트입니다. Lorem Ipsum은 1500 년대 이래로 업계의 표준 더미 텍스트였습니다. <br>
-		알려지지 않은 프린터가 유형의
-		교정쇄를 가져 와서 표본 표본 책을 만들기 위해 그것을 뒤섞 었습니다.<br> 5 세기뿐만 아니라 전자 조판으로의 도약에도 불구하고
-		살아 남았습니다.<br> Lorem Ipsum 구절이 포함 된 Letraset 시트가 출시되면서 1960 년대에 대중화되었으며,
-		최근에는 Lorem Ipsum 버전을 포함하여 Aldus PageMaker와 같은 데스크탑 출판 소프트웨어가 사용되었습니다.
-
-
-	</div>
+	<form action="/adaco/admin/notice_write" method="post" id = "wrFrm" enctype="multipart/form-data">
+		<div class = "form-group">
+			<label for = "title">제목:</label>
+			<input type = "text" class = "form-control" id = "title" name = "title">
+		</div>
+		<div class = "form-group">
+			[첨부 파일]
+			<ul id = "attachment">
+			</ul>
+		</div>
+		<div class = "form-group" id ="content_div">
+			<textarea class = "form-control" id = "content" name = "content" cols="50" rows="10" readonly="readonly" style="background-color: white;"></textarea>
+		</div>
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
+		<div class = "form-grop">
+			<button type = "button" class = "btn btn-success" id = "write">작성</button>
+			<button type = "button" id = "add">첨부파일 추가</button>
+			<div id = "attachment_div">
+			</div>
+			<div id = "check_div">
+				<input type = "hidden"id = "isImportant" name = "isImportant" value="0">
+			</div>
+			<div>
+	       		<ul>
+	            	<li>
+	            		<input id="checkbox1" id= "checkbox" name="checkbox" type="checkbox"> <label for="checkbox1">중요 공지</label>
+            		</li>
+	            </ul>
+            </div>
+        </div>
+		</sec:authorize>
+		<input type = "hidden" name = "_csrf" value = "${_csrf.token }">
+	</form>
 </body>
 </html>

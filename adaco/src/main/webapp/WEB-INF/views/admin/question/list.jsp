@@ -11,14 +11,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
-      table {
-        width: 100%;
-      }
       table, th, td {
         border: 1px solid #bcbcbc;
-      }
-      
-        table {
+      }   
+      table {
     width: 100%;
     border-top: 1px solid #444444;
     border-collapse: collapse;
@@ -34,15 +30,19 @@
 /*   td { */
 /*     background-color: #e3f2fd; */
 /*   } */
-
     </style>
 <script type="text/javascript">
 	$(function(){
+		var a = location.href;
 		$("#search").on("click", function(){
 			var writer = $("#writer").val();
-			location.href = "/adaco/admin/question_list?writer="+writer;
+			location.href = "/adaco/admin/question_list?writer="+writer	
 		});
-	});
+		$(".category").on("change", function(){
+			var $category = $(".category").val();
+			location.href = "/adaco/admin/question_list?searchType="+$category
+		});
+	});	
 </script>
 </head>
 <body>
@@ -53,14 +53,12 @@
 	</div>
 	<div>
 		<select class="category">
-				<option value="분류">카테고리 분류</option>
-				<option value="결제">결제 관련</option>
-				<option value="취소">취소 관련</option>
-				<option value="신고">신고 관련</option>
+				<option value="선택">선택</option>
+				<option value="답변대기">미답변 문의</option>
+				<option value="답변완료">답변 완료문의</option>
+				<option value="">전체</option>
 		</select>
-	</div>
-	
-	
+	</div>	
 	<table>
 		<colgroup>
 				<col width="5%">
@@ -91,6 +89,28 @@
 		</c:forEach>
 		</tbody>
 	</table>
-
+ 	<div style="text-align:center;">
+		<ul class="pagination">
+			<c:if test="${questionPage.prev==true}">
+				<li><a href="/adaco/admin/question_list?pageno=${questionPage.startPage-1}">이전</a></li>
+			</c:if>
+			<c:forEach begin="${questionPage.startPage}" end="${questionPage.endPage}" var="i">
+				<c:choose>
+					<c:when test="${questionPage.pageno eq i }">
+						<li class="active">
+							<a href="/adaco/admin/question_list?pageno=${i}">${i}</a>
+						</li>
+					</c:when>
+					<c:otherwise>
+						<li><a href="/adaco/admin/question_list?searchType=${questionPage.state}&writer=${questionPage.search }&pageno=${i}">${i}</a></li>
+					</c:otherwise>
+				</c:choose>
+				
+			</c:forEach>
+			<c:if test="${questionPage.next==true}">
+				<li><a href="/adaco/admin/question_list?pageno=${questionPage.endPage+1}">다음</a></li>
+			</c:if>
+		</ul>
+	</div>
 </body>
 </html>

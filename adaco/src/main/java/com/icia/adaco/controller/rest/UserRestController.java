@@ -23,7 +23,6 @@ public class UserRestController {
 
 	@GetMapping("/user/check_id")
 	public ResponseEntity<Boolean> checkId(@RequestParam String username) {
-		System.out.println("restControlerr==================");
 		return ResponseEntity.ok(userRestService.checkId(username));
 	}
 
@@ -32,24 +31,22 @@ public class UserRestController {
 		return ResponseEntity.ok(userRestService.checkEmail(email));
 	}
 
-	@PreAuthorize("isAuthenticated()")
+	//@PreAuthorize("isAuthenticated()")
 	@PutMapping("/user/update")
-	public ResponseEntity<?> update(@Valid UserDto.DtoForUpdate dto, BindingResult results, MultipartFile sajin, Principal principal) throws BindException {
+	public ResponseEntity<Void> update(UserDto.DtoForUpdate dto, BindingResult results, MultipartFile sajin, Principal principal) throws BindException {
+		System.out.println("컨트롤러 맨위에");
 		if(results.hasErrors())
 			throw new BindException(results);
+		System.out.println("서비스 바로 위에");
 		dto.setUsername(principal.getName());
 		
 		try {
 			userRestService.update(dto, sajin);
+			
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
 		}
 		return ResponseEntity.ok(null);
-	}
-	@GetMapping("/user/profile")
-	public ResponseEntity<?> profile(Principal principal) {
-		userRestService.findProfile(principal.getName());
-		return ResponseEntity.ok(userRestService.findProfile(principal.getName()));
 	}
 //	@PostMapping("/user/findId2")
 //	public ResponseEntity<?> checkId2(@RequestParam String Irum) {

@@ -46,7 +46,6 @@ public class UserController {
 	@GetMapping("/user/read")
 	public ModelAndView read(Principal principal) {
 		System.out.println("ggg리드좀 보자 시발ㅎㅎ홓ㄴㅇㅎㅇㄶㅁㅇㄴㅁㅇㅁㄴㅇㅁㄴㅇ");
-		  userService.read(principal.getName());
 		  return new ModelAndView("main")
 				  .addObject("viewName","user/read.jsp")
 				  .addObject("user",userService.read(principal.getName()));
@@ -120,18 +119,6 @@ public class UserController {
 			String username = userService.findByIrum(irum);
 		};
 		return "redirect:/user/findId3";
-	}
-	// 아이디찾기 3단계 확인
-	@GetMapping("/user/findId3")
-	public ModelAndView findId31() {
-		return new ModelAndView("main").addObject("viewName","user/find_id3.jsp");
-	}
-	@PostMapping("/user/findId3")
-	public String findId3(String email) {
-		if(email.equals(userService.existsEmail(email))==false) {
-			throw new JobFailException("이메일잉 틀려요");
-		}
-		return "redirect:/sysytem/msg";
 	}
 	//비밀번호변경
 	@GetMapping("/user/resetPwd")

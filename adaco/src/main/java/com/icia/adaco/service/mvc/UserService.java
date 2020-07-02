@@ -14,11 +14,9 @@ import org.springframework.security.crypto.password.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.*;
 
-import com.icia.aboard.exception.*;
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
-import com.icia.adaco.exception.*;
 import com.icia.adaco.service.exception.*;
 import com.icia.adaco.util.*;
 
@@ -60,7 +58,9 @@ public class UserService {
 		//비밀 번호 암호화
 		String password = user.getPassword();
 		String encodedPassword = pwdEncoder.encode(password);
+		System.out.println(encodedPassword+"gggggggggg 인코디드팻으워드");
 		user.setPassword(encodedPassword);
+		System.out.println(user.getPassword()+"ggggggg이게 겟패스워드");
 		//권한주기 
 		String authority= dto.getAuthority();
 		//violated - parent key not found
@@ -93,12 +93,13 @@ public class UserService {
 		User user = userDao.findByid(username);
 		if(user==null)
 			throw new UserNotFoundException();
+		user.getProfile();
+		System.out.println(user.getProfile()+"ggg이게 겟 프로필이다");
 		//생일
 		UserDto.DtoForRead dto = modelMapper.map(user,UserDto.DtoForRead.class);
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
 		dto.setBirthDateStr(user.getBirthDate().format(dtf));
-		
-		
+		System.out.println(dto+"gggg");
 		return dto;
 	}
 	

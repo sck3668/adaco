@@ -7,14 +7,14 @@
 <title>상품 상세 페이지</title>
 </head>
 <body>	
+${artPage }
 	<div id="wrap">
 	<section id="img-section" class="prd-dateil-section">
 	<div class="image-preview ui-slider">
 		<div class="outer-frame">
 			<ul class="img-view inner-frame">
 				<li class="ui-slide-img slide-img" style="width: 0px;">
-<!-- 		이미지 링크 <img src=" img.jpg " alt style="margin-left: -440.5px; -->
-<!-- 						margin-top: -440.5px;"> -->
+				 <img src=" ${artPage.mainImg } " alt="사진이 안나와여어" ><!-- 스타일 적용 안됨 style="margin-left: -440.5px; margin-top: -440.5px;"  -->
 				</li>
 				<li class="ui-slide-img slide-img" style="width: 0px;">
 <!-- 		이미지 링크2 <img src=" img.jpg " alt style="margin-left: -440.5px; -->
@@ -38,14 +38,14 @@
 		
 		<div class="">
 			<div class="">
-				작가 &emsp;&emsp;&emsp; 상품번호 :3  &emsp;&emsp;&emsp; 조회수 :999+
+				상점명 : ${artPage.shopName} + ${artPage.username} &emsp;&emsp;&emsp; 작품 번호 : ${artPage.artno}  &emsp;&emsp;&emsp; 조회수 : ${artPage.readCnt}
 			</div>
 		</div>
 		
-		<h2 class="sticky_aside_title"> 더치커피 콜드블루원액세트
+		<h2 class="sticky_aside_title">${artPage.artName}
 		</h2>
 		<span class="price_tag_strong">
-		<strong class=price>9,900원</strong>
+		<strong class=price>${artPage.price}</strong>
 		</span>
 		<div class="product-define-info">
 			<div class="data-row">
@@ -98,9 +98,9 @@
 			<div class="">
 				<table>
 					<tr>
-						<td class="">수량</td>
+						<td class="">재고 : ${artPage.stock}</td>
 						<td class="">
-							<span>주문시 제작</span>
+							제작 시기 : <span>주문시 제작</span>
 						</td>
 					</tr>
 				</table>
@@ -111,8 +111,16 @@
 					<form class="">
 						<div class="">
 							<select>
-								<option>옵션 선택</option>
-								<option>1</option>
+								<strong class=option>${artPage.optionName}</strong>
+								<option>옵션명 선택</option>
+								<option>${artPage.optionName}</option>
+								<option>2</option>
+								<option>3</option>
+							</select>
+							<select>
+								<strong class=option>${artPage.optionValue}</strong>
+								<option>옵션값 선택</option>
+								<option>${artPage.optionValue}</option>
 								<option>2</option>
 								<option>3</option>
 							</select>

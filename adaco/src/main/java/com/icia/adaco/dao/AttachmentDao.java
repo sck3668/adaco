@@ -24,4 +24,21 @@ public interface AttachmentDao {
 	@Delete("delete from attachment where storyno=#{storyno}")
 	public void deleteAllByBno(Integer story);
 
+	
+	
+	//어드민
+	@Insert("insert into attachment(ano, writer, original_file_name, save_file_name, length, noticeno, is_image) values(attachment_seq.nextval, #{a.writer}, #{a.originalFileName}, #{a.saveFileName}, #{a.length}, #{a.noticeno}, #{a.isImage})")
+	public void noticeInsert(@Param("a") Attachment a);
+	
+	@Select("select ano, writer, noticeno, original_file_name originalFileName, save_file_name saveFileName, length, is_image isImage from attachment where noticeno = #{noticeno}")
+	public List<Attachment> findAllNoticeByNoticeno(int noticeno);
+	
+	@Select("select ano, writer, noticeno, original_file_name originalFileName, save_file_name saveFileName, length, is_image isImage from attachment where ano = #{ano} and rownum =1")
+	public Attachment findNoticeById(Integer ano);
+	
+	@Delete("delete from attachment where ano = #{ano} and rownum = 1")
+	public void deleteNotice(Integer ano);
+	
+	@Delete("delete from attachment where noticeno = #{noticeno}")
+	public void deleteAllNoticeByNoticeno(Integer noticeno);
 }

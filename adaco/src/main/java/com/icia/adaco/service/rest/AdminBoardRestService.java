@@ -1,23 +1,26 @@
 package com.icia.adaco.service.rest;
 
-import java.io.File;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.io.*;
+import java.util.*;
+import java.util.regex.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.stereotype.*;
+import org.springframework.web.multipart.*;
 
-import com.icia.adaco.dao.AdminBoardDao;
-import com.icia.adaco.entity.FAQ;
-import com.icia.adaco.entity.Notice;
-import com.icia.adaco.exception.JobFailException;
+import com.fasterxml.jackson.databind.*;
+import com.icia.adaco.dao.*;
+import com.icia.adaco.entity.*;
+import com.icia.adaco.exception.*;
 
 @Service
 public class AdminBoardRestService {
 	@Autowired
 	AdminBoardDao adminBoardDao;
-	
+	@Autowired
+	ObjectMapper objectMapper;
+	@Value("http://localhost:8081/ckimage/")
+	private String ckUrl;
 	@Value("${imageFolder}")
 	private String imageFolder;
 	
@@ -62,6 +65,28 @@ public class AdminBoardRestService {
 		if(faq == null)
 			throw new JobFailException("해당 글을 찾을 수 없습니다.");
 		return adminBoardDao.deleteByFAQ(faqno);
+	}
+
+	public Object saveCkImage(MultipartFile upload) {
+		Map<String, String> map = new HashMap<String, String>();
+		if(upload != null) {
+			if(upload.getContentType().toLowerCase().startsWith("image/")) {
+				String imageName = UUID.randomUUID().toString()+".jpg";
+				try {
+					File file = new File("d:/upload/ckimage", imageName);
+					System.out.println("파일 업로드");
+				upload.transferTo(file);
+				map.put("uploaded", "1");
+				map.put("fileName", imageName);
+				map.put("url", ckUrl + imageName);
+				System.out.println("맵 추가"+map);
+				return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return null;
 	}
 
 }

@@ -5,14 +5,14 @@
 	<select id = "countByUser" resultType="int">
 		select count(*) from users
 		<where>
-			<if test="username != null">and username like '%' || #{username} || '%'</if>
+			<if test="username != null and username != ''">and username like '%' || #{username} || '%'</if>
 		</where>
 	</select>
 	
 	<select id = "countByArtist" resultType="int">
 		select count(*) from artist
 		<where>
-			<if test="username != null">and username = #{username}</if>
+			<if test="username != null and username != ''">and username = #{username}</if>
 		</where>
 	</select>
 	
@@ -33,7 +33,7 @@
 	      where B.rnum&gt;= #{startRowNum}
 	</select>
 
-	<select id = "findAllByArtist" resultType="artist">
+	<select id = "findAllByArtist" resultType="map">
 		select B.username, B.irum, B.email, B.artistno
 	    	from
 	       		(select /*+ index_asc(artist artist_pk_artistno) */ rownum rnum, A.username, A.irum, A.email, A.artistno
@@ -41,8 +41,9 @@
 		            select a.username, u.irum, u.email, a.artistno
 		            from users u, artist a
 	                <trim prefix="WHERE" prefixOverrides="AND|OR">
+	                	AND a.username = u.username
 	                	<if test="username != null and username != '' ">
-	                		AND u.username like '%' || #{username} || '%'
+	                		AND u.username = #{username}
 	                	</if>
 	                </trim>
 	                group by a.username, u.irum, u.email, a.artistno
@@ -75,5 +76,13 @@
 	<select id = "existsByArtist" resultType="boolean">
 		select count(*) from artist where username = #{username} and rownum = 1
 	</select>
+	
+	<insert id="insertByArtist">
+		<selectKey keyProperty="artistno" resultType="int" order="BEFORE">
+			select artist_seq.nextval from dual
+		</selectKey>
+		insert into artist(artistno,artist_intro,profile,username,shopno)
+		values(#{artistno},#{artistIntro},#{profile},#{username},#{shopno})
+	</insert>
 	
  </mapper>

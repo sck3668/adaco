@@ -8,8 +8,8 @@
 	<selectKey keyProperty="artno" resultType="int" order="BEFORE">
 		select art_seq.nextval from dual
 	</selectKey>
-		insert into art(artno, art_name, price, main_img, art_img, stock, tag, art_date, category, shopno, couri_price, return_address, courier, accumulated, favorite, artistno, art_detail )
-		values(#{artno},#{artName},#{price},#{mainImg},#{artImg},#{stock}, #{tag}, sysdate, #{category}, #{shopno}, #{couriPrice}, #{returnAddress}, #{courier}, #{accumulated}, 0, #{artistno}, #{artDetail})
+		insert into art(artno, art_name, price, main_img, art_img, stock, tag, art_date, category, shopno, couri_price, return_address, courier, accumulated, favorite, artistno, art_detail, read_cnt )
+		values(#{artno},#{artName},#{price},#{mainImg},#{artImg, jdbcType=VARCHAR},#{stock}, #{tag}, sysdate, #{category}, #{shopno}, #{couriPrice, jdbcType=INTEGER}, #{returnAddress, jdbcType=VARCHAR}, #{courier, jdbcType=VARCHAR}, #{accumulated, jdbcType=INTEGER}, 0, #{artistno}, #{artDetail, jdbcType=VARCHAR},0)
 	</insert>
 	
 	<!-- 작품 내역보기/최신순-->
@@ -17,7 +17,7 @@
 	<![CDATA[
 		select*from
 			(select rownum as rnum, a.*from
-				(select /*+ index_desc(art art_pk_artno) */ artno, category, main_img, art_name, price
+				(select /*+ index_desc(art art_pk_artno) */ artno, category, main_img mainImg, art_name artName, price
 				from art ) a
 			where rownum <=#{endRowNum}) 
 		where rnum>=#{startRowNum}
@@ -51,7 +51,7 @@
 			<if test="courier!=null">courier=#{courier},</if>
 			<if test="readCnt!=null">read_cnt=read_cnt+1,</if>
 			<if test="accumulated!=null">accumulated=#{accumulated},</if>
-			<if test="favorite!=null">favorite=favorite+1,</if>
+			<if test="favorite!=null">favorite=#{favorite},</if>
 			<if test="artDetail!=null">art_detail=#{artDetail},</if>
 		</trim>
 		where artno=#{artno} and rownum=1
@@ -84,7 +84,7 @@
 	<![CDATA[
 		select*from
 			(select rownum as rnum, a.*from
-				(select /*+ index_desc(art art_pk_artno) */ artno, main_img, art_name, favorite
+				(select /*+ index_desc(art art_pk_artno) */ artno, main_img mainImg, art_name artName, favorite
 				from art ) a
 			where rownum <=#{endRowNum}) 
 		where rnum>=#{startRowNum}
@@ -96,7 +96,7 @@
 	<![CDATA[
 		select*from
 			(select rownum as rnum, b.*from
-				(select /*+ index_desc(art art_pk_artno) */ artno, category, main_img, art_name, price
+				(select /*+ index_desc(art art_pk_artno) */ artno, category, main_img mainImg, art_name artName, price
 				from art ) b
 			where rownum <=#{endRowNum}) 
 		where rnum>=#{startRowNum}

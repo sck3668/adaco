@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <html>
 <head>
 <meta charset="UTF-8">
@@ -98,8 +99,8 @@ $(function(){
 			data:parmas,
 			method:"post",
 			url:"/adaco/user/update"
-		}).done(()=>{toastr.info("비밀번호 변경 성공");})
-		  .fail((r)=>{alert("G>G<G")})
+		}).done(()=>{toastr.info("비밀번호 변경 성공")})
+		  .fail(()=>{toastr.info("비밀번호 변경 실패")})
 	})
 	$("#update").on("click",function(){
 		var formData = new FormData();
@@ -143,7 +144,7 @@ $(function(){
 	
 	<section id="section">
 		<div>
-			<img id ="show_profile" height="200px;"src="${user.profile }">${user.profile }
+			<img id ="show_profile" height="200px;"src="${user.profile }">
 		</div>
 		<div>
 			<input type="file">
