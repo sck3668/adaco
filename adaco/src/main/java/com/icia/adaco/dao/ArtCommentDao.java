@@ -25,13 +25,17 @@ public class ArtCommentDao {
 	public int deleteByCommentOfArt(int cno) {
 		return tpl.delete("artCommentMapper.delete", cno);
 	}
+	
 	//댓글 목록 보기
-	public List<Art> listByCommentOfArt(int startRowNum, int endRowNum){
-		Map<String, Integer>map = new HashMap<>();
-		map.put("startRowNum", startRowNum);
-		map.put("endRowNum",endRowNum);
-		return tpl.selectList("artCommentMapper.findAll",map); 
+	public List<ArtComment> listByCommentOfArt(int cno){
+		return tpl.selectList("artCommentMapper.findAll", cno); 
 	}
+	
+	//댓글 상세보기
+	public ArtComment readByCommentOfArt(Integer cno) {
+		return tpl.selectOne("artCommentMapper.findById",cno);
+	}
+	
 	
 
 }

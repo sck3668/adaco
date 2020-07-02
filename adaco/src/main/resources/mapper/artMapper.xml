@@ -8,8 +8,8 @@
 	<selectKey keyProperty="artno" resultType="int" order="BEFORE">
 		select art_seq.nextval from dual
 	</selectKey>
-		insert into art(artno, art_name, price, main_img, art_img, stock, tag, art_date, category, shopno, couri_price, return_address, courier, accumulated, favorite, artistno, art_detail, read_cnt )
-		values(#{artno},#{artName},#{price},#{mainImg},#{artImg, jdbcType=VARCHAR},#{stock}, #{tag}, sysdate, #{category}, #{shopno}, #{couriPrice, jdbcType=INTEGER}, #{returnAddress, jdbcType=VARCHAR}, #{courier, jdbcType=VARCHAR}, #{accumulated, jdbcType=INTEGER}, 0, #{artistno}, #{artDetail, jdbcType=VARCHAR},0)
+		insert into art(artno, art_name, price, main_img, art_img, stock, tag, art_date, category, shopno, couri_price, return_address, courier, accumulated, favorite, artistno, art_detail, read_cnt, review_cnt, art_comment_cnt )
+		values(#{artno},#{artName},#{price},#{mainImg},#{artImg, jdbcType=VARCHAR},#{stock}, #{tag}, sysdate, #{category}, #{shopno}, #{couriPrice, jdbcType=INTEGER}, #{returnAddress, jdbcType=VARCHAR}, #{courier, jdbcType=VARCHAR}, #{accumulated, jdbcType=INTEGER}, 0, #{artistno}, #{artDetail, jdbcType=VARCHAR},0, 0, 0)
 	</insert>
 	
 	<!-- 작품 내역보기/최신순-->
@@ -50,6 +50,8 @@
 			<if test="returnAddress!=null">return_address=#{returnAddress},</if>
 			<if test="courier!=null">courier=#{courier},</if>
 			<if test="readCnt!=null">read_cnt=read_cnt+1,</if>
+			<if test="reviewCnt!=null">review_cnt=review_cnt+1,</if>
+			<if test="artCommentCnt!=null">art_comment_cnt=art_comment_cnt+1,</if>
 			<if test="accumulated!=null">accumulated=#{accumulated},</if>
 			<if test="favorite!=null">favorite=#{favorite},</if>
 			<if test="artDetail!=null">art_detail=#{artDetail},</if>

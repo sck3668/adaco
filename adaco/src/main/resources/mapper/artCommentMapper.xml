@@ -12,17 +12,16 @@
 
 	<!-- 작품 댓글 목록보기 -->
 	<select id="findAll" resultType="artComment">
-	<![CDATA[
-		select*from
-			(select rownum as rnum, c.*from
-				(select /*+ index_desc(art_comments art_comments_pk_rno) */ cno, username, write_date, profile, content, report_cnt
-				from art_comments ) c
-			where rownum <=#{endRowNum}) 
-		where rnum>=#{startRowNum}
-		]]>
+		select cno, username, write_date writeDate, profile, content, report_cnt
+		from art_comments order by cno desc
 	</select>
 
-	
+	<!-- 작품 댓글 상세보기 -->
+	<select id="findById" resultType="artComment">
+		select cno, username, write_date writeDate, profile, content, report_cnt
+		from art_comments
+		where cno=#{cno} and rownum=1
+	</select>
 	
 	<!-- 작품 댓글 삭제 -->	
 	<delete id="delete">

@@ -119,6 +119,23 @@ public class ArtDto {
 		private Integer optionPrice;
 		
 	}
+	
+	
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Builder
+	@Accessors(chain=true)
+	// 작품 리뷰 리스트 (회원용)
+	public static class DtoForReviewList{
+		private Integer rno;
+		private star star;
+		private String content;
+		private String image;
+		private LocalDateTime writeDate;
+		private String username;
+	}
+	
 
 }
 

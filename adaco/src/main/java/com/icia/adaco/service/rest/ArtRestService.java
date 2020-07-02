@@ -30,6 +30,8 @@ public class ArtRestService {
 	private OptionDao optionDao;
 	@Autowired
 	private ReviewDao reviewDao;
+	@Autowired
+	private ArtCommentDao artCommemtDao;
 	@Value("d:/upload/artfile")
 	private String artfileFolder;
 	@Value("http://localhost:8081/artfile/")
@@ -111,17 +113,18 @@ public class ArtRestService {
 		return artDao.deleteByArt(artno)==1;
 	}
 	
-	/*// 리뷰 작성하기
-	public List<Review> writeReview(Review review){
-		review.setWriteDate(LocalDateTime.now());
-		String reviewStr = review.getContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
-		review.setContent(reviewStr);
-		reviewDao.writeByReviewOfArt(review);
-		artDao.updateByArt(Art.builder().artno(review.getArtno().re))
-		
-		
-	}*/
+	// 작품 댓글 작성하기
+	public List<ArtComment> writeCommentOfArt(ArtComment artcomment){
+		artcomment.setWriteDate(LocalDateTime.now());
+		String reviewStr = artcomment.getContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
+		artcomment.setContent(reviewStr);
+		artCommemtDao.writeByCommentOfArt(artcomment);
+		artDao.updateByArt(Art.builder().artno(artcomment.getArtno()).artCommentCnt(1).build());
+		return artCommemtDao.listByCommentOfArt(artcomment.getArtno());
+	}
 	
+	// 작품 댓글 삭제하기
+	//public List<ArtComment> deleteCommentOfArt
 	
 	
 

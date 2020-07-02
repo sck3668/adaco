@@ -32,9 +32,18 @@ public class artCommentDaoTest {
 		assertThat(artcommentdao.deleteByCommentOfArt(15), is(1));
 	}
 	
-	//댓글 목록 보기 테스트 
-	//@Test
+	//댓글 목록 보기 테스트 ok
+	@Test
 	public void listByReviewOfArt() {
-		assertThat(artcommentdao.listByCommentOfArt(1,17),is(notNullValue()));
+		assertThat(artcommentdao, is(notNullValue()));
+		
 	}
+	
+	//댓글 상세 보기 테스트 ok
+	//@Test
+	public void readByCommentOfArtTest() {
+		assertThat(artcommentdao.readByCommentOfArt(1), is(notNullValue()));
+		assertThat(artcommentdao.readByCommentOfArt(1).getUsername(), is("spring23230"));
+	}
+	
 }
