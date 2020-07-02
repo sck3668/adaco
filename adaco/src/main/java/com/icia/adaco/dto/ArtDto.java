@@ -108,8 +108,10 @@ public class ArtDto {
 		private Integer accumulated;
 		private boolean favorite;
 		private String category;
+		private Integer readCnt; 
 		private Integer artistno;
-		private Integer shopno;
+		private String shopName;
+		private String username;
 		private int optno;
 		private String optionName;
 		private String optionValue;

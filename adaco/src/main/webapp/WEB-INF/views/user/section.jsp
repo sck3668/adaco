@@ -55,9 +55,9 @@ ${artPage.artList }
               <div class="card-body">
                 <h4 class="card-title">
                   <a href="#">
-                  <img alt="사진출력안됨" src="${art.mainImg }"></a>
+                  <img alt="상품 사진" src="${art.mainImg }"></a>
                 </h4>
-                <h5>${art.artno}</h5>
+                <h5>${art.artName}</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
               </div>
               <div class="card-footer">

@@ -30,7 +30,7 @@
 	
 	<!-- 옵션 목록 보기 -->
 	<select id="findAll" resultType="option">
-	select optno, artno, option_name, option_value, option_price, option_stock
+	select optno, artno, option_name optionName, option_value optionValue, option_price optionPrice, option_stock optionStock
 	from options
 	order by optno desc
 	</select>

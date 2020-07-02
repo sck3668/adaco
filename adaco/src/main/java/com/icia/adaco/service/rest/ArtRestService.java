@@ -34,16 +34,20 @@ public class ArtRestService {
 	//작품 업데이트
 	public void updateArt(ArtDto.DtoForUpdate dto, MultipartFile artSajin) {
 		Art art = artDao.readByArt(dto.getArtno());
-		Option option = modelMapper.map(dto,Option.class);
+		System.out.println("아트처음이야" + art);
+		Option option = optionDao.readByOption(dto.getArtno());
+		System.out.println("옵션이 나올까"+ option);
 		Artist artist = artistDao.findByid(dto.getArtistNo());
 		if(art==null)
 			throw new ArtNotFoundException();
 		if(artist.getUsername().equals(dto.getUsername())==false)
 			throw new JobFailException("상품 수정 권한이 없습니다");
 		art = modelMapper.map(dto, Art.class);
+		option = modelMapper.map(dto,Option.class);
 		option.setArtno(art.getArtno());
 		optionDao.updateByOption(option);
 		artDao.updateByArt(art);
+		System.out.println(art);
 		
 	}
 
@@ -54,10 +58,16 @@ public class ArtRestService {
 		if(art==null)
 			throw new ArtNotFoundException();
 		ArtDto.DtoForRead dto = modelMapper.map(art, ArtDto.DtoForRead.class);
-		dto = modelMapper.map(option, ArtDto.DtoForRead.class);
+		if(option!=null)
+			option.setArtno(art.getArtno());
+			dto.setOptno(option.getOptno());
+			dto.setOptionName(option.getOptionName());
+			dto.setOptionValue(option.getOptionValue());
+			dto.setOptionStock(option.getOptionStock());
+			dto.setOptionPrice(option.getOptionPrice());
 		String str = art.getArtDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일"));
 		dto.setArtDate(str);
-		
+		System.out.println("작가상세" + dto);
 		return dto;
 	}
 	
@@ -65,17 +75,18 @@ public class ArtRestService {
 	public ArtDto.DtoForRead readArtFromUser(Integer artno, Integer optno, String username) {
 		Art art = artDao.readByArtFromUser(artno);
 		Option option = optionDao.readByOption(optno);
-		System.out.println("아트얌" + art);
-		System.out.println("옵션아 들어와와아아아아" + option);
 		if(art==null)
 			throw new ArtNotFoundException();
 		ArtDto.DtoForRead dto = modelMapper.map(art, ArtDto.DtoForRead.class);
 		if(option!=null)
-			dto.setArtno(option.getOptno());
-		System.out.println("중간"+dto);
+			option.setArtno(art.getArtno());
+			dto.setOptno(option.getOptno());
+			dto.setOptionName(option.getOptionName());
+			dto.setOptionValue(option.getOptionValue());
+			dto.setOptionStock(option.getOptionStock());
+			dto.setOptionPrice(option.getOptionPrice());
 		if(username!=null)
-			artDao.updateByArt(Art.builder().artno(artno).readCnt(0).build());
-		System.out.println("완성"+dto);
+			artDao.updateByArt(Art.builder().artno(artno).readCnt(1).build());
 		return dto;
 	}
 
