@@ -95,8 +95,8 @@
 	</div>
 	<div style="text-align:center;">
 		<ul class="pagination">
-			<c:if test="${report.prev==true}">
-				<li><a href="/adaco/admin/report_list?pageno=${page.startPage-1}">이전</a></li>
+			<c:if test="${reportPage.prev==true}">
+				<li><a href="/adaco/admin/report_list?pageno=${reportPage.startPage-1}">이전</a></li>
 			</c:if>
 			<c:forEach begin="${reportPage.startPage}" end="${reportPage.endPage}" var="i">
 				<c:choose>

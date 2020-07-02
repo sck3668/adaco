@@ -84,31 +84,27 @@
 	</insert>
 	
 	<select id="findAllByNotice" resultType="notice">
-			select B.noticeno, B.title, B.write_date writeDate, B.writer
+			select B.noticeno, B.title, B.write_date writeDate, B.writer, B.is_important isImportant
 					from
-		    		(select /*+ index_asc(notice notice_pk_noticeno) */ rownum rnum, A.noticeno, A.title, A.write_date, A.writer
+		    		(select /*+ index_asc(notice notice_pk_noticeno) */ rownum rnum, A.noticeno, A.title, A.write_date, A.writer, A.is_important
 		         	from (
-		            	select noticeno, title, write_date, writer
+		            	select noticeno, title, write_date, writer, is_important
 		            	from notice
-     			        <trim prefix="WHERE" prefixOverrides="AND|OR">
-					  	<if test="isImportant == true">
-	                    	AND is_important = 1
-	                    </if>
-           				</trim>
-		            	order by write_date desc ) A
+		            	order by is_important desc, write_date desc ) A
 		         	where rownum&lt;= #{endRowNum})B
 		      	where B.rnum&gt;= #{startRowNum}
 	</select>
 	
 	<select id="findNoticeById" resultType="notice">
-		select noticeno, content, title, write_date writeDate, writer, is_important isImportant
+		select noticeno, content, title, write_date writeDate, writer, is_important isImportant, attachment_cnt attachmentCnt
+		from notice where noticeno = #{noticeno} and rownum = 1
 	</select>
 	
 	<insert id = "insertByNotice">
 		<selectKey keyProperty="noticeno" resultType="int" order="BEFORE">
 			select notice_seq.nextval from dual
 		</selectKey>
-		insert into notice(noticeno, content, title, write_date, writer, is_important) values(#{noticeno}, #{content}, #{title}, sysdate, #{writer}, #{isImportant})
+		insert into notice(noticeno, content, title, write_date, writer, is_important, attachment_cnt) values(#{noticeno}, #{content}, #{title}, sysdate, #{writer}, #{isImportant}, ${attachmentCnt})
 	</insert>
 	
 	<update id = "updateByNotice">
