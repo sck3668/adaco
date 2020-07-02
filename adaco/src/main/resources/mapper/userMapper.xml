@@ -9,7 +9,7 @@
 	</select>
 	<insert id="insert" parameterType="user">
 	insert into users(username,email,irum,join_date,birth_date,tel,password,profile,address,enabled,check_code)
-	values(#{username},#{email},#{irum},sysdate,sysdate,#{tel},#{password},#{profile},#{address},0,#{checkCode})
+	values(#{username},#{email},#{irum},sysdate,#{birthDate},#{tel},#{password},#{profile},#{address,jdbcType=VARCHAR},0,#{checkCode,jdbcType=VARCHAR})
 	</insert>
 	<select id="findidByCheckTel" resultType="string">
 		select username from users where tel=#{tel} and rownum=1
@@ -33,7 +33,7 @@
 			<if test="address!=null">address=#{address},</if>
 			<if test="tel!=null">tel=#{tel},</if>
 			<if test="enabled!=null">enabled=#{enabled},</if>
-			<if test="checkCode!=null">check_code=#{checkCode}</if>
+			<if test="checkCode!=null">check_code=null</if>
 		</trim>
 		where username=#{username} and rownum=1
 	</update>

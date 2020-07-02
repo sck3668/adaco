@@ -19,6 +19,7 @@ import org.springframework.web.multipart.*;
 import org.springframework.web.servlet.*;
 import org.springframework.web.servlet.mvc.support.*;
 
+import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.exception.*;
 import com.icia.adaco.service.mvc.*;
@@ -33,6 +34,8 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private UserDao userDao;
 	//회원가입 화면
 	@GetMapping("/user/join")
 	public ModelAndView join() {
@@ -41,29 +44,28 @@ public class UserController {
 	//내정보화면 
 	//@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/read")
-	public ModelAndView read(Principal principal,String username) {
-		  if(username.equals(principal.getName())==false) throw new
-		  JobFailException("아이디달라 안돼 돌아가"); userService.read(principal.getName());
-		  System.out.println(userService.read(principal.getName())); 
+	public ModelAndView read(Principal principal) {
+		System.out.println("ggg리드좀 보자 시발ㅎㅎ홓ㄴㅇㅎㅇㄶㅁㅇㄴㅁㅇㅁㄴㅇㅁㄴㅇ");
+		  userService.read(principal.getName());
 		  return new ModelAndView("main")
-				  .addObject("viewName1","user/read.jsp")
+				  .addObject("viewName","user/read.jsp")
 				  .addObject("user",userService.read(principal.getName()));
 	}
 	//회원가입 처리
 	@PostMapping("/user/join")
 	public String join(@Valid UserDto.DtoForJoin dto, BindingResult bindingResult, @Nullable MultipartFile sajin, RedirectAttributes ra) throws BindException {
-		System.out.println("controller==================");
-		System.out.println("C---dto"+dto);
-		System.out.println("sajin============"+sajin);
+		System.out.println("controller");
 		if(bindingResult.hasErrors()==true) 
 			throw new BindException(bindingResult);
 		try {
-			System.out.println("servicejoin");
 			userService.join(dto, sajin);
+			System.out.println("========");
+			System.out.println("gg");
 		} catch (IllegalStateException | IOException | MessagingException e) {
 			e.printStackTrace();
+			System.out.println("ggg");
+			System.out.println("=============msgg");
 		}
-		System.out.println("=============msgg");
 		ra.addFlashAttribute("msg", "가입확인메일을 보냈습니다. 확인해주십시오");
 		return "redirect:/system/msg";
 	}
@@ -106,7 +108,8 @@ public class UserController {
 	// 아이디찾기 2단계 화면
 	@GetMapping("/user/findId2")
 	public ModelAndView findId2() {
-		return new ModelAndView("main").addObject("viewName","user/find_id2.jsp");
+		return new ModelAndView("main")
+				.addObject("viewName","user/find_id2.jsp");
 	}
 	
 	// 아이디찾기 2단계는 이름확인
@@ -115,9 +118,20 @@ public class UserController {
 	public String findId2(String irum) {
 		if(irum.equals(userService.exsitsUsername(irum))==true) {
 			String username = userService.findByIrum(irum);
-			return "redirect:/user/login";
-		} else 
-		return "redirect:/system/msg";
+		};
+		return "redirect:/user/findId3";
+	}
+	// 아이디찾기 3단계 확인
+	@GetMapping("/user/findId3")
+	public ModelAndView findId31() {
+		return new ModelAndView("main").addObject("viewName","user/find_id3.jsp");
+	}
+	@PostMapping("/user/findId3")
+	public String findId3(String email) {
+		if(email.equals(userService.existsEmail(email))==false) {
+			throw new JobFailException("이메일잉 틀려요");
+		}
+		return "redirect:/sysytem/msg";
 	}
 	//비밀번호변경
 	@GetMapping("/user/resetPwd")

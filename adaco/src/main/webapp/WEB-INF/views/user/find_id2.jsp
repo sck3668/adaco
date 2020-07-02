@@ -6,10 +6,19 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-	
+<script>
+	function randomInput(){
+		 }
+			
+	}
+	$(function(){
+		randomInput();
+	})	
+</script>
 <body>
 <!-- irum값 랜덤으로 출력
 	체크한 값만 controller로 넘겨서 확인
+	
  -->
  
 	<form id="findId2Form" method="post">
@@ -22,16 +31,19 @@
 				<input type="radio" name=irum id="irum1" value="aaaa">aaaa<br>
 			</div>
 			<div>
-				<input type="radio" name=irum id="irum2" value="성철훈">성철훈<br>
+				<input type="radio" name=irum id="irum1" value="성철훈">성철훈<br>
 			</div>
 			<div>
-				<input type="radio" name="irum" id="irum3" value="송철훈">송철훈<br>
+				<input type="radio" name="irum" id="irum1" value="송철훈">송철훈<br>
 			</div>
 			<div>
-				<input type="radio" name="irum" id="irum4" value="icia">icia<br>
+				<input type="radio" name="irum" id="irum1" value="icia">icia<br>
 			</div>
 			<div>
-				<input type="radio" name="irum" id="irum5" value="송찬권">송찬권<br>
+				<input type="radio" name="irum" id="irum1" value="송찬권">송찬권<br>
+			</div>
+			<div>
+				<!-- <input type="radio" name="irum" id="irum5" value= -->
 			</div>
 			<br>
 			<div>
