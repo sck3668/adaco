@@ -32,5 +32,4 @@ public class BagDao {
 	public List<Bag> findAllByBag(){
 		return tpl.selectList("bagMapper.findAllByBag");
 	}
-	 
 }
