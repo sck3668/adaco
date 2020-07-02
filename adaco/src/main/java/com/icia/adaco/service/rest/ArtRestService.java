@@ -1,6 +1,8 @@
 package com.icia.adaco.service.rest;
 
+import java.time.*;
 import java.time.format.*;
+import java.util.*;
 
 import javax.validation.constraints.*;
 
@@ -26,17 +28,18 @@ public class ArtRestService {
 	private ArtistDao artistDao;
 	@Autowired
 	private OptionDao optionDao;
+	@Autowired
+	private ReviewDao reviewDao;
 	@Value("d:/upload/artfile")
 	private String artfileFolder;
 	@Value("http://localhost:8081/artfile/")
 	private String artfilePath;
 
-	//작품 업데이트
+	// 작품 업데이트
 	public void updateArt(ArtDto.DtoForUpdate dto, MultipartFile artSajin) {
 		Art art = artDao.readByArt(dto.getArtno());
-		System.out.println("아트처음이야" + art);
-		Option option = optionDao.readByOption(dto.getArtno());
-		System.out.println("옵션이 나올까"+ option);
+		dto.setArtistNo(art.getArtistno());
+		Option option = optionDao.readByOption(dto.getOptno());
 		Artist artist = artistDao.findByid(dto.getArtistNo());
 		if(art==null)
 			throw new ArtNotFoundException();
@@ -47,8 +50,6 @@ public class ArtRestService {
 		option.setArtno(art.getArtno());
 		optionDao.updateByOption(option);
 		artDao.updateByArt(art);
-		System.out.println(art);
-		
 	}
 
 	// 작품 상세보기 옵션 포함(작가용)
@@ -96,8 +97,8 @@ public class ArtRestService {
 		return art.getArtImg();
 	}
 
-	//작품 삭제
-	public void deleteArt(Integer artno, String username, Integer artistno, Integer optno) {
+	// 작품 삭제
+	public boolean deleteArt(Integer artno, String username, Integer artistno, Integer optno) {
 		Art art = artDao.readByArt(artno);
 		Option option = optionDao.readByOption(optno);
 		String artWriter = artistDao.findByid(artistno).getUsername();
@@ -106,10 +107,20 @@ public class ArtRestService {
 		if(username.equals(artWriter)==false)
 			throw new IllegalJobException();
 		option.setArtno(art.getArtno());
-		optionDao.updateByOption(option);
-		artDao.deleteByArt(artno);
-		
+		optionDao.deleteByOption(optno);
+		return artDao.deleteByArt(artno)==1;
 	}
+	
+	/*// 리뷰 작성하기
+	public List<Review> writeReview(Review review){
+		review.setWriteDate(LocalDateTime.now());
+		String reviewStr = review.getContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
+		review.setContent(reviewStr);
+		reviewDao.writeByReviewOfArt(review);
+		artDao.updateByArt(Art.builder().artno(review.getArtno().re))
+		
+		
+	}*/
 	
 	
 	

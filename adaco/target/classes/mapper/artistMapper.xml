@@ -10,7 +10,7 @@
 	</insert>
 	<select id="findById" resultType="artist">
 		select artistno,artist_intro
-		artistIntro,profile,username,shopno from artist where and=#{ano}
+		artistIntro,profile,username,shopno from artist where artistno=#{artistno}
 	</select>
 	<update id="update">
 		update artist

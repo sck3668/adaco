@@ -16,8 +16,8 @@ public class ReviewDao {
 	@Autowired
 	private SqlSessionTemplate tpl;
 	//작품 리뷰 작성 //메소드 이름 comment????
-	public int writeByReviewOfArt(Review reviewcomment) {
-		return tpl.insert("reviewMapper.insert", reviewcomment);
+	public int writeByReviewOfArt(Review review) {
+		return tpl.insert("reviewMapper.insert", review);
 	}
 	//작품 리뷰 목록
 	public List<Art> listByReviewOfArt(int startRowNum, int endRowNum){

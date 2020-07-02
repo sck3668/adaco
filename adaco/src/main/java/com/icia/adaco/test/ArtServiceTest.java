@@ -58,7 +58,7 @@ public class ArtServiceTest {
 	public ArtDto.DtoForWrite getDtoForWrite() {
 		ArtDto.DtoForWrite dto = new DtoForWrite();
 		dto.setArtDate(LocalDateTime.now());
-		dto.setArtName("테스트상품5");
+		dto.setArtName("테스트상품9");
 		dto.setCategory("카테고리다");
 		dto.setCourier("로젠택배");
 		dto.setTag("검색태그");
@@ -80,7 +80,7 @@ public class ArtServiceTest {
 	//@Test
 	public void writeWithSajinTest() throws IllegalStateException, IOException, MessagingException {
 		ArtDto.DtoForWrite dto = getDtoForWrite();
-		File targetFile = new File("d:/test4.jpg");
+		File targetFile = new File("d:/test9.jpg");
 		MockMultipartFile file = new MockMultipartFile("artSajin", targetFile.getName(), "image/jpeg", new FileInputStream(targetFile));
 		artservice.write(dto, file);
 		
@@ -90,9 +90,9 @@ public class ArtServiceTest {
 	public ArtDto.DtoForUpdate getDtoForUpdate() {
 		ArtDto.DtoForUpdate dto = new DtoForUpdate();
 		dto.setArtno(58);
-		dto.setArtName("변경테스트상품");
+		dto.setArtName("변경테스트상품7");
 		dto.setCourier("대한통운");
-		//dto.setOptno(88);
+		dto.setOptno(88);
 		dto.setOptionName("변경테스트옵션명");
 		dto.setOptionPrice(2000);
 		dto.setOptionStock(200);
@@ -100,11 +100,12 @@ public class ArtServiceTest {
 		dto.setTag("변경검색태그");
 		dto.setStock(30);
 		dto.setPrice(35000);
+		dto.setUsername("spring123");
 		return dto;
 	}
 	
-	//작품 업데이트 테스트 -> 실패
-	@Test
+	//작품 업데이트 테스트  ok
+	//@Test
 	public void updateTest() throws FileNotFoundException, IOException {
 		ArtDto.DtoForUpdate dto = getDtoForUpdate();
 		File targetFile = new File("d:/test1.jpg");
@@ -113,23 +114,26 @@ public class ArtServiceTest {
 		
 	}
 	
-	//작품 상세보기 (작가용) ok
+	//작품 상세보기 테스트(작가용) ok
 	//@Test
 	public void readFromArtistTest() {
 		DtoForRead art = service.readArt(58, 88, "spring123");
 		assertThat(art.getOptionName(), is("색상"));
 	}
 	
-	// 작품 상세 보기(회원용) ok
+	// 작품 상세 보기 테스트(회원용) ok
 	//@Test
 	public void readArtFromUserTest() {
 		DtoForRead art = service.readArtFromUser(58, 88, "spring123");
 		assertThat(art, is(notNullValue()));
 	}
 	
-	
-	
-	
-	
+	// 작품 삭제 테스트 ok
+	//@Test
+	public void deleteTest() {
+		boolean result = service.deleteArt(61, "spring123", 14, 91);
+		assertThat(result, is(true));
+		
+	}
 		
 }

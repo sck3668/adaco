@@ -41,7 +41,7 @@ public class ArtController {
 	// 작품 상세보기 (작가용)
 	@GetMapping("/art/read2")
 	public ModelAndView read(@NonNull Integer artno) {
-		return new ModelAndView("main").addObject("viewName","art/read.jsp");
+		return new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPage",service.readArt(58, 88, "spring123"));
 	}
 	
 	// 작품 상세보기 (회원용)
