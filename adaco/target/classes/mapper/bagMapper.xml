@@ -8,6 +8,10 @@
 		,option_name optionName, option_value optionValue
 		from bag
 	</select>
+	<select id="findAllByUsername" resultType="bag">
+		select artno,toal_price totalPrice, amount, option_name optionName,
+		option_value optionValue from bag where username=#{username}
+	</select>
 	
 	<select id = "findByArtno" resultType="bag">
 		select username, artno, total_price totalPrice, amount
@@ -15,6 +19,11 @@
 		from bag where artno=#{artno} and rownum=1
 	</select>
 	
+	<select id="findBagByUsername" resultType="bag">
+		select artno, total_price totalPrice, amount
+		,option_name optionName, option_value optionValue
+		from bag where username=#{username} and rownum=1
+	</select>
 	<insert id = "insertByBag">
 		insert into bag(username,artno,total_price,amount,option_name
 		,option_value)

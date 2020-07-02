@@ -42,4 +42,10 @@
 		where optno=#{optno} and rownum=1
 	</select>
 	
+	<select id="findOptionByArtno" resultType="option">
+		select optno, artno, option_name optionName, option_value optionValue, option_price optionPrice, option_stock optionStock
+		from options
+		where artno=#{artno} and rownum=1
+	</select>
+	
  </mapper>

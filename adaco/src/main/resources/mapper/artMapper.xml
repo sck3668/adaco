@@ -9,9 +9,16 @@
 		select art_seq.nextval from dual
 	</selectKey>
 		insert into art(artno, art_name, price, main_img, art_img, stock, tag, art_date, category, shopno, couri_price, return_address, courier, accumulated, favorite, artistno, art_detail, read_cnt )
-		values(#{artno},#{artName},#{price},#{mainImg},#{artImg, jdbcType=VARCHAR},#{stock}, #{tag}, sysdate, #{category}, #{shopno}, #{couriPrice, jdbcType=INTEGER}, #{returnAddress, jdbcType=VARCHAR}, #{courier, jdbcType=VARCHAR}, #{accumulated, jdbcType=INTEGER}, 0, #{artistno}, #{artDetail, jdbcType=VARCHAR},0)
+		values(#{artno},#{artName},#{price},#{mainImg},#{artImg, jdbcType=VARCHAR},#{stock, jdbcType=VARCHAR}, #{tag}, sysdate, #{category}, #{shopno}, #{couriPrice, jdbcType=INTEGER}, #{returnAddress, jdbcType=VARCHAR}, #{courier, jdbcType=VARCHAR}, #{accumulated, jdbcType=INTEGER}, 0, #{artistno}, #{artDetail, jdbcType=VARCHAR},0)
 	</insert>
+<!-- 장바구니에서 작품보기 -->
+	<select id="list" resultType="art">
+		select artno, art_name artName, price,main_img mainImg from art 
+	</select>
 	
+	<select id="findArtByUsername" resultType="art">
+		select artno, art_name artName, price,main_img mainImg from art where artistno=#{artistno} 
+	</select>
 	<!-- 작품 내역보기/최신순-->
 		<select id="findAll" resultType="art">
 	<![CDATA[

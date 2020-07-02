@@ -18,24 +18,54 @@ public class BagService {
 	@Autowired
 	private ArtDao artdao;
 	@Autowired
+	private OptionDao optionDao;
+	@Autowired
 	private ModelMapper modelMapper;
 	
 	// 장바구니 추가
-	public void insertByBag(BagDto.DtoForWrite dto,Integer artno) {
-		Art art = artdao.readByArt(artno);
-		Bag bag = modelMapper.map(dto,Art.class);
-		bagdao.insertByBag(bag);
-		
+	public int insertByBag(Bag bag) {
+		return bagdao.insertByBag(bag);
 	}
 	
+////////////////////////////////////////////////	
+	// 장바구니 추가
+	public int insertByBag(String username,BagDto.DtoForWrite dto) {
+		Bag bag = modelMapper.map(dto,Bag.class);
+		Art art = modelMapper.map(dto,Art.class);
+		bagdao.findBagByUsername(username);
+		return bagdao.insertByBag(bag);
+	}
+	//장바구니목록
+	public List<Art> listByArt(int artno) {
+		return artdao.list(artno);
+	}
+	
+	
 	// 장바구니 목록
-	public List<Bag> findAllByBag(){
+	public List<Bag> findAllByBag(int artno){
+		Art art = artdao.readByArt(artno);
+		List<Art> list = new ArrayList<Art>();
+		for(Art art1:list) {
+			
+		}
 		return bagdao.findAllByBag();
 	}
 	
+	public List<Bag> findAllBagByUsername(String username) {
+		Art art = (Art) artdao.findAllByUsername(username);
+		List<Art> list = new ArrayList<Art>();
+		for(Art art2:list) {
+		} 
+			return bagdao.findAllBagByUsername(username);
+	}
+	
 	// 장바구니 삭제
-	public void deleteByBag(Integer artno) {
+	public List<Bag> deleteByBag(Integer artno) {
+		System.out.println("service====");
 		bagdao.deleteByBag(artno);
+		List<Bag> bagList = findAllByBag(artno);
+		System.out.println(bagList+"------------");
+		return bagList;
 	}
 	
 	// 장바구니 변경

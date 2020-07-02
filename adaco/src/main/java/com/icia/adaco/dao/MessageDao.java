@@ -51,4 +51,13 @@ public class MessageDao {
 		public int delete() {
 			return tpl.delete("messageMapper.delete");
 		}
+		
+		public int disableBySender(List<Integer> list) {
+			return tpl.update("messageMapper.disableBySender", list);
+		}
+
+		public int disableByReceiver(List<Integer> list) {
+			return tpl.update("messageMapper.disableByReceiver", list);
+		}
+
 }
