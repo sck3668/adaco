@@ -1,10 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	#aside {
+		width:200px;
+		height:500px;
+		background-color: white;
+		border: 1px solid red;
+		float: left;
+	}
+	#profile {
+		width:200px;
+		height:200px;
+	}
+	#section {
+	width: 850px;
+	padding: 5px;
+	float: right;
+	min-height: 600px;
+	}
+	#my {
+		width:750px;
+		padding: 0px;
+		height:80px;
+		background-color: gray;
+		margin: 0px;
+	}
+	
+	.list {
+		margin-top:0px;
+		padding-top:0px;
+		display:inline-block;
+		width:240px;
+		height:50px;
+		border: 1px solid red;
+	}
+</style>
 
 </head>
 <body>
@@ -15,42 +49,25 @@
 		</div>
 		<div>
 			<ul>
-				<li><a href="/adaco">메인</a></li>
-				<li><a href="/adaco/artist/sales">매출관리</a></li>
-				<li><a href="/adaco/artist/orderAdmin">주문/배송관리</a></li>
-				<li><a href="/adaco/artist/shopMade">상점개설</a></li>
+			<li class="list"><a href="/adaco/message/listReceiver">쪽지함</a></li>
+				<li class="list"><a href="#">상점 정보보기</a></li>
+				<li class="list"><a href="#">스토리</a></li>
 			</ul>
-		</div>	
+		</div>
 	</div>
 	</aside>
 	<section id="section">
-	 <div>
-   <h1>장바구니</h1>
-      <table class="table table-hover">
-         <thead>
-         <tr>
-            <th>번호</th><th>이미지</th><th>상품명</th><th>상품코드</th><th>옵션 값</th><th>수량</th><th>주문금액</th><th>선택</th>
-         </tr>
-         </thead>
-         <tbody>
-         			<tr> 
-                  <td></td>
-                  <td></td>
-                  <td></td>               
-                  <td></td>
-                  <td></td>
-                  <td>
-					<input type="button" value="하나 더" id="PLUS"><input type="text" value="1" style="text-align:center"><input type="button" value="빼기" id=Minus>
-                  <td></td>
-                  <td><input type="checkbox" class="bag" value="${bag}"></td>
-           </tr>
-         </tbody>
-      </table>
-      <br><br><br><br><br><br><br><br><br><br><br>
-      <button style="float:right;">선택 삭제</button>
-   </div>
+		<div id="myInfo">
+			<div id="my">
+				<h2>작가님의 정보</h2>
+			</div>
+			<ul class="dashboard-list">
+				<li><a href="/adaco/artist/orderAdmin">주문 배송관리</a></li>
+				<li><a href="/adaco/artist/sales">매출 관리</a></li>
+				<li><a href="/adaco/artist/shopMade">상점 개설</a></li>
+			</ul>
+		</div>
 	</section>
 	</div>
-	
 </body>
 </html>
