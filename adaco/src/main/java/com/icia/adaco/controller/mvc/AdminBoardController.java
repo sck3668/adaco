@@ -1,12 +1,12 @@
 package com.icia.adaco.controller.mvc;
 
 import java.security.*;
-import java.time.*;
+import java.util.*;
 
+import javax.validation.constraints.NotNull;
+
+import org.apache.commons.lang3.math.*;
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.http.*;
-import org.springframework.security.access.annotation.*;
-import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
@@ -35,18 +35,29 @@ public class AdminBoardController {
 		return new ModelAndView("admin/report/list").addObject("reportPage", service.reportList(pageno));
 	}
 	
+	@PostMapping("/admin/report_delete")
+	public String reportDelete(@RequestParam @NotNull String cnos) {
+		List<Integer> list = new ArrayList<>();
+		String[] strings = cnos.split(",");
+		for(String str:strings) {
+			list.add(NumberUtils.toInt(str));
+		}
+		service.reportDelete(list);
+		return "redirect:/admin/report_list";
+	}
+	
 //	@Secured("ROLE_ADMIN")
 //	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/admin/question_list")
 	public ModelAndView questionList(@RequestParam(defaultValue = "1")int pageno, @Nullable String writer, @Nullable State searchType) {
-		return new ModelAndView("admin/question_list").addObject(service.questionList(pageno, writer, searchType));
+		return new ModelAndView("admin/question/list").addObject("questionPage", service.questionList(pageno, writer, searchType));
 	}
 	
 //	@Secured("ROLE_ADMIN")
 //	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/admin/question_read")
 	public ModelAndView qusetionRead(@RequestParam(value = "qno")@NonNull Integer qno) throws JsonProcessingException {
-		ModelAndView mav = new ModelAndView("admin/question_read");
+		ModelAndView mav = new ModelAndView("admin/question/read");
 		AdminBoardDto.DtoForQuestionRead dto = service.questionRead(qno);
 		String json = objectMapper.writeValueAsString(dto); 
 		mav.addObject("question", json);
@@ -57,16 +68,13 @@ public class AdminBoardController {
 //	@Secured("ROLE_ADMIN")
 	@PostMapping("/admin/question_answer")
 	public String questionAnswer(Question question, Principal principal) {
-		String answer = principal.getName();
-		question.setAnswer(answer);
-		question.setContent(question.getAnswerContent());
 		service.questionAnswer(question);
 		return "redirect:/admin/question_read?qno="+question.getQno();
 	}
 	
 	@GetMapping("/admin/notice_list")
 	public ModelAndView noticeList(@RequestParam(defaultValue = "1")int pageno, @Nullable Boolean isImportant) {
-		return new ModelAndView("admin/noitce_list").addObject(service.noticeList(pageno, isImportant));
+		return new ModelAndView("admin/notice/list").addObject("noticePage", service.noticeList(pageno, isImportant));
 	}
 	
 //	@PreAuthorize("isAuthenticated()")

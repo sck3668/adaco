@@ -201,7 +201,7 @@ public class AdminTest {
 	
 //	@Test
 	public void findByUserTest() {
-		adminUserDao.findAllByUser(1, 20);
+		adminUserDao.findAllByUser(1, 20, null);
 	}
 	
 //	@Test
@@ -216,12 +216,12 @@ public class AdminTest {
 	
 //	@Test
 	public void findUserByKeyWordTest() {
-         adminUserDao.findUserByKeyWord(1, 10, "sp");
+		adminUserDao.findUserByKeyWord(1, 10, "sp");
 	}
 
 //	@Test
 	public void findAllByArtistTest() {
-		adminUserDao.findAllByArtist(1, 10);
+		adminUserDao.findAllByArtist(1, 30, null);
 	}
 	
 //	@Test
@@ -242,6 +242,7 @@ public class AdminTest {
 	
 	
 //	어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 어 드 민 보 드 서 비 스 
+//	@Test
 	public void adminReportListTest() {
 		adminBoardService.reportList(2);
 	}

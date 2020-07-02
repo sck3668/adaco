@@ -9,6 +9,8 @@ import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
 
+import com.icia.adaco.dto.*;
+import com.icia.adaco.entity.*;
 import com.icia.adaco.service.mvc.*;
 
 @Controller
@@ -35,10 +37,10 @@ public class OrderDetailController {
 //		}
 		
 		// 결제하기
-		@GetMapping("/orderdetail/Payment")
+		@GetMapping("/orderdetail/payment")
 		public ModelAndView Payment(Principal principal) {
 			
-			return new ModelAndView("main").addObject("viewName", "order_detail/Payment.jsp");
+			return new ModelAndView("main").addObject("viewName", "order_detail/payment.jsp");
 		}
 		
 		// 주문 내역 상세 
@@ -46,5 +48,11 @@ public class OrderDetailController {
 		public ModelAndView orderDetail() {
 			return new ModelAndView("main").addObject("viewName", "order_detail/orderdetail.jsp");
 		}
-
+		
+		// 장바구니에서 주문
+		@GetMapping("/order/carByorder")
+		public ModelAndView orderDetail2(OrderDetailDto.DtoForOrdering Dto,Order order) {
+			service.Ordering(Dto, order);
+			return new ModelAndView("main").addObject("viewName", "order/carByorder");
+		}
 }

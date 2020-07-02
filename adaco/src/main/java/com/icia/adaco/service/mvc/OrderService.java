@@ -19,8 +19,6 @@ public class OrderService {
 	@Autowired
 	private ModelMapper modelMapper;
 	
-		
-		
 		// 주문 하기    
 		public void Ordering(String username,int shippingCharge,Order order) {
 			order.setUsername(username);
@@ -39,5 +37,4 @@ public class OrderService {
 		public void findByOrder(Integer orderno) {
 			orderDao.findByOrder(orderno);
 		}
-		
 }

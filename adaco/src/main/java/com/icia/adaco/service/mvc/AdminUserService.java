@@ -17,6 +17,8 @@ public class AdminUserService {
 	@Autowired
 	AdminUserDao dao;
 	@Autowired
+	AuthorityDao authorityDao;
+	@Autowired
 	ModelMapper modelMapper;
 
 	public Page userList(int pageno, String username) {
@@ -24,6 +26,7 @@ public class AdminUserService {
 		Page page = PagingUtil.getPage(pageno, countOfBoard);
 		int srn = page.getStartRowNum();
 		int ern = page.getEndRowNum();
+		page.setSearch(username);
 		List<User> userList = dao.findAllByUser(srn, ern, username);
 		List<AdminUserDto.DtoForUserList> dtoList = new ArrayList<AdminUserDto.DtoForUserList>();
 		for(User user:userList) {
@@ -40,17 +43,26 @@ public class AdminUserService {
 		Page page = PagingUtil.getPage(pageno, countOfBoard);
 		int srn = page.getStartRowNum();
 		int ern = page.getEndRowNum();
-		List<Artist> artistList = dao.findAllByArtist(srn, ern, username);
+		List<Map<String, Object>> artistList = dao.findAllByArtist(srn, ern, username);
 		List<AdminUserDto.DtoForArtistList> dtoList = new ArrayList<AdminUserDto.DtoForArtistList>();
-		for(Artist artist:artistList) {
-			AdminUserDto.DtoForArtistList dto = modelMapper.map(artist, AdminUserDto.DtoForArtistList.class);
-			User user = dao.findByid(artist.getUsername());
+		for(Map<String, Object> map : artistList) {
+			AdminUserDto.DtoForArtistList dto = modelMapper.map(map, AdminUserDto.DtoForArtistList.class);
+			User user = dao.findByid(dto.getUsername());
 			dto.setJoinDateStr(user.getJoinDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
 			dtoList.add(dto);
 		}
+		
+//		for(Artist artist:artistList) {
+//		    AdminUserDto.DtoForArtistList dto = modelMapper.map(artist, AdminUserDto.DtoForArtistList.class);
+//		    User user = dao.findByid(artist.getUsername());
+//		    dto.setJoinDateStr(user.getJoinDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
+//			dtoList.add(dto); 
+//		}
+		
 		page.setAdminArtist(dtoList);
 		return page;
 	}
+
 
 	
 }

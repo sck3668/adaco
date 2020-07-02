@@ -19,7 +19,7 @@ public class OrderController {
 	
 	//주문 하기
 	@GetMapping("/order/ordering")
-	public ModelAndView Ordering() {
+	public ModelAndView Ordering(Principal principal) {
 		return new ModelAndView("main").addObject("viewName","order/ordering.jsp");
 	}
 	

@@ -1,15 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+
 </head>
 <body>
-   <div>
+<div>
+<aside id="asideMain">
+	<div id="aside">
+		<div id="profile">
+		</div>
+		<div>
+			<ul>
+				<li><a href="/adaco">메인</a></li>
+				<li><a href="/adaco/artist/sales">매출관리</a></li>
+				<li><a href="/adaco/artist/orderAdmin">주문/배송관리</a></li>
+				<li><a href="/adaco/artist/shopMade">상점개설</a></li>
+			</ul>
+		</div>
+	</div>
+	</aside>
+	<section id="section">
+	<div>
    <h1>장바구니</h1>
       <table class="table table-hover">
          <thead>
@@ -34,23 +50,10 @@
       <br><br><br><br><br><br><br><br><br><br><br>
       <button style="float:right;">선택 삭제</button>
    </div>
-         
-<%--           <c:forEach items="${list}" var="bag"> --%>
-<!--                <tr> -->
-<!--                   <td></td> -->
-<!--                   <td></td> -->
-<!--                   <td></td>                -->
-<!--                   <td></td> -->
-<!--                   <td></td> -->
-<!--                   <td> -->
-<%--                    <c:choose> --%>
-<%--                         <c:when test="${bag==true}"><button>+</button></c:when> --%>
-<%--                         <c:otherwise><button>-</button></c:otherwise> --%>
-<%--                      </c:choose></td> --%>
-<!--                   <td></td> -->
-<%--                   <td><input type="checkbox" class="bag" value="${bag}"></td> --%>
-<!--            </tr> -->
-<%--            </c:forEach> --%>
-
+	</section>
+	</div>
+	</section>
+	</div>
+	
 </body>
 </html>

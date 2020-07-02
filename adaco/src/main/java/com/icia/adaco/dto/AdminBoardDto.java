@@ -23,7 +23,7 @@ public class AdminBoardDto {
 	@Builder
 	public static class DtoForQuestionList{
 		private Integer qno;
-		private String wirter;
+		private String writer;
 		private String title;
 		private String writeDateStr;
 		private String state;
@@ -40,6 +40,7 @@ public class AdminBoardDto {
 		private String state;
 		private String answer;
 		private String content;
+		private String answerContent;
 		private String writeDateStr;
 		private String answerDateStr;
 	}
