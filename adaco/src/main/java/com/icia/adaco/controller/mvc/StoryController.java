@@ -23,7 +23,7 @@ public class StoryController {
 		return new ModelAndView("main")
 		.addObject("viewName","artist/story/list.jsp");
 	}
-
+ 
 	//@PreAuthorize("isAuthenticated()")
 	@GetMapping("story/writeStory")
 	public ModelAndView writeStory() {

@@ -20,6 +20,14 @@
       <param-name>attachmentPath</param-name>
       <param-value>http://localhost:8081/profile/</param-value>
    </context-param>
+    <context-param>
+      <param-name>artfileFolder</param-name>
+      <param-value>d:/upload/profile</param-value>
+   </context-param>
+   <context-param>
+      <param-name>artfilePath</param-name>
+      <param-value>http://localhost:8081/profile/</param-value>
+   </context-param>
 	<!-- The definition of the Root Spring Container shared by all Servlets 
 		and Filters -->
 	<context-param>
@@ -45,14 +53,7 @@
 			<param-value>http://localhost:8081/ckimage/</param-value>
 		</context-param>
 	</context-param>
-	<context-param>
-		<param-name>attachmentFolder</param-name>
-		<param-value>d:/upload/profile</param-value>
-	</context-param>
-	<context-param>
-		<param-name>attachmentPath</param-name>
-		<param-value>http://localhost:8081/profile/</param-value>
-	</context-param>
+
 
    <!-- Creates the Spring Container shared by all Servlets and Filters -->
    <listener>

@@ -8,7 +8,7 @@
 <title>스토리 리스트</title>
 </head>
 <body>
-		<div>
+	<div>
 		<table class="table table-hover">
 			<colgroup>
 				<col width="10%">
@@ -55,7 +55,6 @@
 						<li><a href="/adaco/story/list?pageno=${i}">${i}</a></li>
 					</c:otherwise>
 				</c:choose>
-				
 			</c:forEach>
 			<c:if test="${page.next==true}">
 				<li><a href="/adaco/story/list?pageno=${page.endPage+1}">다음</a></li>
@@ -63,7 +62,7 @@
 		</ul>
 	</div>
 	<div class="form-group">
-		<button type="button" id="writer" class="btn btn-info">글쓰기</button>
+		<a href="/adaco/story/writeStory">글쓰기</a>
 	</div>
 </body>
 </html>
