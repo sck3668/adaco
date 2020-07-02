@@ -20,15 +20,14 @@ public class AdminUserController {
 //	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/admin/user_list")
 	public ModelAndView userList(@RequestParam(defaultValue = "1")int pageno, @Nullable String username) {
-		return new ModelAndView("admin/user_list").addObject("userPage", service.userList(pageno, username));
+		return new ModelAndView("admin/user/list").addObject("userPage", service.userList(pageno, username));
 	}
 	
 //	@Secured("ROLE_ADMIN")
 //	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/admin/artist_list")
 	public ModelAndView artistList(@RequestParam(defaultValue = "1") int pageno, @Nullable String username) {
-		return new ModelAndView("admin/user_list").addObject("artistPage", service.artistList(pageno, username));
+		return new ModelAndView("admin/artist/list").addObject("artistPage", service.artistList(pageno, username));
 	}
-	
 	
 }

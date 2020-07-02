@@ -49,7 +49,27 @@
 	#{msgCheck},0,0)
 	</insert>
 	
+	
+	<update id="disableBySender">
+		update message set is_send_message=1 where mno in
+		 <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+		 	#{item}
+		 </foreach>
+	</update>
+
+	<update id="disableByReceiver">
+		update message set is_reciver_message=1 where mno in
+		 <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+		 	#{item}
+		 </foreach>
+	</update>
+	
+	
 	<delete id="delete">
 	delete from message where is_send_message=0 and is_reciver_message=1
 	</delete>
+	
+	<select id="isUnreadMemoExist" resultType="boolean">
+		select count(*) from memo where msg_check=0 and recipient_id=#{username} and rownum=1
+	</select>
 </mapper>

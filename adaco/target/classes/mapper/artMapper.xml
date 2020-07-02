@@ -15,6 +15,10 @@
 	<select id="list" resultType="art">
 		select artno, art_name artName, price,main_img mainImg from art 
 	</select>
+	
+	<select id="findArtByUsername" resultType="art">
+		select artno, art_name artName, price,main_img mainImg from art where artistno=#{artistno} 
+	</select>
 	<!-- 작품 내역보기/최신순-->
 		<select id="findAll" resultType="art">
 	<![CDATA[

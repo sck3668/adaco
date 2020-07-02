@@ -68,16 +68,13 @@ public class AdminBoardController {
 //	@Secured("ROLE_ADMIN")
 	@PostMapping("/admin/question_answer")
 	public String questionAnswer(Question question, Principal principal) {
-		String answer = principal.getName();
-		question.setAnswer(answer);
-		question.setContent(question.getAnswerContent());
 		service.questionAnswer(question);
 		return "redirect:/admin/question_read?qno="+question.getQno();
 	}
 	
 	@GetMapping("/admin/notice_list")
 	public ModelAndView noticeList(@RequestParam(defaultValue = "1")int pageno, @Nullable Boolean isImportant) {
-		return new ModelAndView("admin/noitce_list").addObject(service.noticeList(pageno, isImportant));
+		return new ModelAndView("admin/notice/list").addObject("noticePage", service.noticeList(pageno, isImportant));
 	}
 	
 //	@PreAuthorize("isAuthenticated()")

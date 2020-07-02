@@ -109,5 +109,9 @@ public class ArtDao {
 		public List<Art> list(int artno) {
 			return tpl.selectList("artMapper.list",artno);
 		}
+		
+		public List<Art> findAllByUsername(String username) {
+			return tpl.selectList("artMapper.findArtByUsername",username);
+		}
 
 }

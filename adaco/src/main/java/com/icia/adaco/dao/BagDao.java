@@ -41,5 +41,8 @@ public class BagDao {
 	public List<Bag> findAllByBag(){
 		return tpl.selectList("bagMapper.findAllByBag");
 	}
-	 
+	
+	public List<Bag> findAllBagByUsername(String username) {
+		return tpl.selectList("bagMapper.findAllByUsername");
+	}
 }

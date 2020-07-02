@@ -37,12 +37,17 @@ public class AdminUserDao {
 	}
 	
 //	작가 목록 조회 (작가 이름으로 페이징)
-	public List<Artist> findAllByArtist(int startRowNum, int endRowNum, String username) {
+	public List<Map<String, Object>> findAllByArtist(int startRowNum, int endRowNum, String username) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startRowNum", startRowNum);
 		map.put("endRowNum", endRowNum);
 		map.put("username", username);
 		return tpl.selectList("adminUserMapper.findAllByArtist", map);
+	}
+	
+//	작가 등록
+	public int insertByArtist(Artist artist) {
+		return tpl.insert("adminUserMapper.insertByArtist", artist);
 	}
 	
 //	유저 블락

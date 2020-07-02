@@ -38,14 +38,29 @@ public class BagService {
 	
 	
 	// 장바구니 목록
-	public List<Bag> findAllByBag(){
+	public List<Bag> findAllByBag(int artno){
+		Art art = artdao.readByArt(artno);
+		List<Art> list = new ArrayList<Art>();
+		for(Art art1:list) {
+			
+		}
 		return bagdao.findAllByBag();
 	}
 	
+	public List<Bag> findAllBagByUsername(String username) {
+		Art art = (Art) artdao.findAllByUsername(username);
+		List<Art> list = new ArrayList<Art>();
+		for(Art art2:list) {
+		} 
+			return bagdao.findAllBagByUsername(username);
+	}
+	
 	// 장바구니 삭제
-	public List<Art> deleteByBag(Integer artno) {
-		List<Art> bagList = listByArt(artno);
+	public List<Bag> deleteByBag(Integer artno) {
+		System.out.println("service====");
 		bagdao.deleteByBag(artno);
+		List<Bag> bagList = findAllByBag(artno);
+		System.out.println(bagList+"------------");
 		return bagList;
 	}
 	
