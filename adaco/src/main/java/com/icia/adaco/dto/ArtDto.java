@@ -1,5 +1,4 @@
 package com.icia.adaco.dto;
-
 import java.time.*;
 import java.util.*;
 
@@ -117,6 +116,8 @@ public class ArtDto {
 		private String optionValue;
 		private Integer optionStock;
 		private Integer optionPrice;
+		private List<ArtComment> artComments;
+		private List<Review> reviews;
 		
 	}
 	

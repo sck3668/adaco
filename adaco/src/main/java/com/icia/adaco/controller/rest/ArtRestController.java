@@ -2,17 +2,20 @@ package com.icia.adaco.controller.rest;
 
 import java.security.*;
 
+import javax.validation.*;
 import javax.validation.constraints.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
-import org.springframework.security.access.prepost.*;
+
 import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.*;
 import org.springframework.web.multipart.*;
 
 import com.fasterxml.jackson.core.*;
 import com.icia.adaco.dto.*;
+import com.icia.adaco.entity.*;
 import com.icia.adaco.service.rest.*;
 
 @RestController
@@ -60,4 +63,26 @@ public class ArtRestController {
 		service.deleteArt(artno, principal.getName(), artistno, optno);
 		return ResponseEntity.ok("/adaco/art/list");
 	}
+	
+	// 작품 댓글 작성
+	//@PreAuthorize("isAuthenticated()")
+	@PostMapping("/artcomment/write")
+	public ResponseEntity<?> writeArtComment(@Valid ArtComment artcomment, BindingResult bindingResult, Principal principal) {
+		RestTemplate tpl = new RestTemplate();
+		String url = "http://localhost:8081/adaco/user/profile?username" + principal.getName();
+		ResponseEntity<String> result = tpl.getForEntity(url, String.class);
+		String profile = result.getBody();
+		artcomment.setProfile(profile);
+		artcomment.setUsername(principal.getName());
+		return ResponseEntity.ok(service.writeCommentOfArt(artcomment));	
+	}
+	
+	// 작품 댓글 삭제
+	//@PreAuthorize("isAuthenticated()")
+	@DeleteMapping("/artcomment/delete")
+	public ResponseEntity<?> deleteArtComment(Integer cno, Integer artno, String username){
+		return ResponseEntity.ok(service.deleteCommentOfArt(cno, artno, username));
+	}
+	
+	
 }

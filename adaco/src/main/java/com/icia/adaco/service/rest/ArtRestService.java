@@ -88,6 +88,8 @@ public class ArtRestService {
 			dto.setOptionValue(option.getOptionValue());
 			dto.setOptionStock(option.getOptionStock());
 			dto.setOptionPrice(option.getOptionPrice());
+		if(art.getArtCommentCnt()>0)
+			dto.setArtComments(artCommemtDao.listByCommentOfArt(dto.getArtno()));
 		if(username!=null)
 			artDao.updateByArt(Art.builder().artno(artno).readCnt(1).build());
 		return dto;
@@ -124,7 +126,13 @@ public class ArtRestService {
 	}
 	
 	// 작품 댓글 삭제하기
-	//public List<ArtComment> deleteCommentOfArt
+	public List<ArtComment> deleteCommentOfArt(Integer cno, Integer artno, String username){
+		ArtComment artcomment = artCommemtDao.readByCommentOfArt(cno);
+		if(username.equals(artcomment.getUsername())==false)
+			throw new JobFailException("댓글을 삭제할 수 없습니다");
+		artCommemtDao.deleteByCommentOfArt(cno);
+		return artCommemtDao.listByCommentOfArt(cno);
+	}
 	
 	
 
