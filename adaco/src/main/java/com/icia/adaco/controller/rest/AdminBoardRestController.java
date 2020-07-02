@@ -1,15 +1,12 @@
 package com.icia.adaco.controller.rest;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.*;
 
-import com.icia.adaco.entity.FAQ;
-import com.icia.adaco.service.rest.AdminBoardRestService;
+import com.icia.adaco.entity.*;
+import com.icia.adaco.service.rest.*;
 
 @RestController
 public class AdminBoardRestController {
@@ -44,4 +41,10 @@ public class AdminBoardRestController {
 	public ResponseEntity<?> faqDelete(Integer faqno) {
 		return ResponseEntity.ok(service.deleteFaq(faqno));
 	}
+	
+	@PostMapping("/admin/notice/ckupload")
+	public ResponseEntity<?> ckUpload(MultipartFile upload) {
+		return ResponseEntity.ok(service.saveCkImage(upload));
+	}
+
 }
