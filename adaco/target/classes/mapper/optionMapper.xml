@@ -7,7 +7,7 @@
 		select options_seq.nextval from dual
 	</selectKey>
 		insert into options(optno, artno, option_name, option_value, option_price, option_stock)
-		values(#{optno}, #{artno}, #{optionName}, #{optionValue}, #{optionPrice}, #{optionStock})
+		values(#{optno, jdbcType=INTEGER}, #{artno}, #{optionName}, #{optionValue}, #{optionPrice, jdbcType=INTEGER}, #{optionStock, jdbcType=INTEGER})
 	</insert>
 	
 	<!-- 옵션 변경 -->
@@ -30,14 +30,14 @@
 	
 	<!-- 옵션 목록 보기 -->
 	<select id="findAll" resultType="option">
-	select optno, artno, option_name, option_value, option_price, option_stock
+	select optno, artno, option_name optionName, option_value optionValue, option_price optionPrice, option_stock optionStock
 	from options
 	order by optno desc
 	</select>
 	
 	<!-- 옵션 상세 보기 / 삭제를 위한 -->
 	<select id="findById" resultType="option">
-		select optno, artno, option_name, option_value, option_price, option_stock
+		select optno, artno, option_name optionName, option_value optionValue, option_price optionPrice, option_stock optionStock
 		from options
 		where optno=#{optno} and rownum=1
 	</select>
