@@ -67,43 +67,53 @@
 	
 	<!-- 회원 사용 -->
 	
-	 <!-- 검색어(일단 작품이름)로 작품 검색 -->
-	<select id="searchByArt" resultType="art">
+	<!-- 작품 리스트(최신순) / 작품이름으로 검색 리스트-->
+	<select id="findAllFromUser" resultType="art">
+		select B.art_name artName, B.main_img mainImg, B.price
+	      from
+	         (select /*+ index_desc(art art_pk_artno) */ rownum rnum, A.art_name, A.main_img, A.price
+	         from (
+	            select art_name, main_img, price
+	            from art
+	            <trim prefix="WHERE" prefixOverrides="AND">
+	            	<if test="artName!=null and artName != '' ">
+	            		AND art_name like '%'|| #{artName} || '%' 
+	            	</if>
+	            </trim>
+	       		order by art_name) A
+	         where rownum&lt;= #{endRowNum})B
+	      where B.rnum&gt;= #{startRowNum}
+	</select>
+
+	<!-- 작품이름으로 검색한 작품 수 -->
+	<select id="countSearchByArtName" resultType="int">
+	   	select count(*)
+	   	from art 
+	   	<where>
+	   		<if test="artName!=null">and art_name like '%'|| #{artName} || '%'</if>
+	   	</where> 	
+	</select> 
+	
+	<!-- 작품 리스트(일단 리뷰가 5이상인 작품 모음) -->
+	<select id="reviewManyByArt" resultType="art">
 	      select B.art_name, B.main_img, B.price
 	      from
 	         (select /*+ index_desc(art art_pk_artno) */ rownum rnum, A.art_name, A.main_img, A.price
 	         from (
 	            select art_name, main_img, price
 	            from art
-	       		where art_name like '%'|| #{keyWord} || '%' 
+	       		where review_cnt>=5
 	       		order by art_name) A
 	         where rownum&lt;= #{endRowNum})B
 	      where B.rnum&gt;= #{startRowNum}
 	</select>
-	
-	<!-- 작품 리스트/최신순-->
-		<select id="findAllFromUser" resultType="art">
-	<![CDATA[
-		select*from
-			(select rownum as rnum, a.*from
-				(select /*+ index_desc(art art_pk_artno) */ artno, main_img mainImg, art_name artName, favorite
-				from art ) a
-			where rownum <=#{endRowNum}) 
-		where rnum>=#{startRowNum}
-		]]>
-	</select>
-	
-	<!-- 작품 정렬(리뷰순) -->
-	<select id="findAllByReview" resultType="art">
-	<![CDATA[
-		select*from
-			(select rownum as rnum, b.*from
-				(select /*+ index_desc(art art_pk_artno) */ artno, category, main_img mainImg, art_name artName, price
-				from art ) b
-			where rownum <=#{endRowNum}) 
-		where rnum>=#{startRowNum}
-		]]>
-	</select>
+
+	<!-- 일단 리뷰 5이상인 작품 수 -->
+	<select id="countReviewByArt" resultType="int">
+	   	select count(*)
+	   	from art 
+	   	where review_cnt>=5
+	</select> 
 	
 	<!-- 작품 상세 보기 -->
 	<select id="findByArtFromUser" resultType="art">
@@ -113,17 +123,5 @@
 		from art
 		where artno=#{artno} and rownum=1
 	</select>
-	
-	
-	<!-- 검색어에 맞는 작품 갯수 -->
-	<!--    <select id="countSearch" resultType="int">
-	   		select count(artno)
-	   		from art
-	   		<include refid="search"></include>
-	   		<![CDATA[
-	   		and artno>0
-	   		]]>
-	   </select> -->
-	   
 	
  </mapper>

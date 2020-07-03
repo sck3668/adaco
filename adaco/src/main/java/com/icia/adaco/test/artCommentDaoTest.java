@@ -33,7 +33,7 @@ public class artCommentDaoTest {
 	}
 	
 	//댓글 목록 보기 테스트 ok
-	@Test
+	//@Test
 	public void listByReviewOfArt() {
 		assertThat(artcommentdao, is(notNullValue()));
 		

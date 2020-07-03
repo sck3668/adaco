@@ -32,7 +32,7 @@ public class ArtRestController {
 		dto.setUsername(principal.getName());
 		service.updateArt(dto,artSajin);
 		return ResponseEntity.ok(null);
-		//
+		
 	}
 	// 작품 상세보기 (작가용)
 	@PostMapping("/art/read2")

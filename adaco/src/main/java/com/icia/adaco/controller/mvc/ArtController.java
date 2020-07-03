@@ -7,17 +7,21 @@ import java.util.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
+import org.springframework.lang.*;
 import org.springframework.stereotype.*;
+import org.springframework.ui.*;
 import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.*;
 import org.springframework.web.servlet.*;
 
 import com.icia.adaco.dto.*;
+import com.icia.adaco.dto.ArtDto.*;
 import com.icia.adaco.service.mvc.*;
 import com.icia.adaco.service.rest.*;
 
 import lombok.*;
+import lombok.NonNull;
 
 @Controller
 public class ArtController {
@@ -32,10 +36,10 @@ public class ArtController {
 		return new ModelAndView("main").addObject("viewName","art/list.jsp").addObject("artPage",artservice.list(pageno));
 	}
 	
-	// 작품 리스트 (회원용)
+	// 작품 리스트(최신순) + 작품 이름으로 작품 검색(회원용)
 	@GetMapping("/art/list2")
-	public ModelAndView artListFromUser(@RequestParam(defaultValue = "1") int pageno) {
-		return new ModelAndView("main").addObject("viewName","user/section.jsp").addObject("artPage",artservice.listFromUser(3));
+	public ModelAndView artListFromUser(@RequestParam(defaultValue = "1") int pageno, @Nullable String artname) {
+		return new ModelAndView("main").addObject("viewName","user/section.jsp").addObject("artPage",artservice.listFromUser(pageno, artname));
 	}
 	
 	// 작품 상세보기 (작가용)
@@ -72,6 +76,5 @@ public class ArtController {
 		}
 		return "redirect:/art/list";
 	}
-	
 	
 }

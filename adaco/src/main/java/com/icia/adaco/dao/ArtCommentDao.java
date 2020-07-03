@@ -1,13 +1,9 @@
 package com.icia.adaco.dao;
 
-
-
 import java.util.*;
 
 import javax.inject.*;
-import javax.mail.*;
 
-import org.apache.ibatis.session.*;
 import org.mybatis.spring.*;
 import org.springframework.stereotype.*;
 
@@ -34,6 +30,11 @@ public class ArtCommentDao {
 	//댓글 상세보기
 	public ArtComment readByCommentOfArt(Integer cno) {
 		return tpl.selectOne("artCommentMapper.findById",cno);
+	}
+	
+	//신고수 업데이트
+	public int updateByReportCnt(ArtComment artcomment) {
+		return tpl.update("artCommentMapper.update", artcomment);
 	}
 	
 	

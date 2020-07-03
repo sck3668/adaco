@@ -8,14 +8,11 @@ import org.springframework.stereotype.*;
 
 import com.icia.adaco.entity.*;
 
-
-
-
 @Repository
 public class ReviewDao {
 	@Autowired
 	private SqlSessionTemplate tpl;
-	//작품 리뷰 작성 //메소드 이름 comment????
+	//작품 리뷰 작성 
 	public int writeByReviewOfArt(Review review) {
 		return tpl.insert("reviewMapper.insert", review);
 	}
@@ -29,6 +26,15 @@ public class ReviewDao {
 	//작품 리뷰 삭제
 	public int deleteByReviewOfArt(int rno) {
 		return tpl.delete("reviewMapper.delete",rno);
+	}
+	
+	//리뷰 상세(삭제 위한)
+	public Review readByReviewOfArt(Integer rno) {
+		return tpl.selectOne("reviewMapper.findById",rno);
+	}
+	//리뷰 갯수
+	public int countByReviewOfArt() {
+		return tpl.selectOne("reviewMapper.count");
 	}
 	
 

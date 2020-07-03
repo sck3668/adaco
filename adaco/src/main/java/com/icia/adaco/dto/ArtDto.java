@@ -41,6 +41,7 @@ public class ArtDto {
 		private String optionValue;
 		private Integer optionStock;
 		private Integer optionPrice;
+		private Integer reviewCnt;
 		
 	}
 	

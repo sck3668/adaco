@@ -6,12 +6,14 @@ import java.util.*;
 
 import javax.validation.constraints.*;
 
+import org.apache.ibatis.session.*;
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.multipart.*;
 
 import com.fasterxml.jackson.databind.*;
+
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.dto.ArtDto.*;
@@ -134,7 +136,18 @@ public class ArtRestService {
 		return artCommemtDao.listByCommentOfArt(cno);
 	}
 	
+	// 작품 댓글 신고 
+/*	public int report(int cno, String username, boolean isReport) {
+		ArtComment artcomment = artCommemtDao.readByCommentOfArt(cno);
+		if(artcomment==null)
+			throw new ArtCommentNotFoundException();
+		if(
+	}*/
 	
-
+	// 작품 리뷰 작성 하기
+	
+	// 작품 리뷰 삭제 하기
+	
+	
 	
 }
