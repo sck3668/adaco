@@ -96,7 +96,7 @@
 	
 	<!-- 작품 리스트(일단 리뷰가 5이상인 작품 모음) -->
 	<select id="reviewManyByArt" resultType="art">
-	      select B.art_name, B.main_img, B.price
+	      select B.art_name artName, B.main_img mainImg, B.price
 	      from
 	         (select /*+ index_desc(art art_pk_artno) */ rownum rnum, A.art_name, A.main_img, A.price
 	         from (

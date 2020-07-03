@@ -32,7 +32,6 @@ public class ArtService {
 	private String artfilePath;
 
 	// 작품 등록
-
 	public void write(ArtDto.DtoForWrite dto, MultipartFile artSajin) throws IllegalStateException, IOException {
 		Art art = modelMapper.map(dto, Art.class);
 		Option option = modelMapper.map(dto, Option.class);
@@ -85,6 +84,22 @@ public class ArtService {
 		int ern = page.getEndRowNum();
 		page.setSearch(artname);
 		List<Art> artList = artdao.listByArtFromUser(srn, ern, artname);
+		List<ArtDto.DtoForList> dtoList = new ArrayList<ArtDto.DtoForList>();
+		for (Art art : artList) {
+			ArtDto.DtoForList dto = modelMapper.map(art, ArtDto.DtoForList.class);
+			dtoList.add(dto);
+		}
+		page.setArtList(dtoList);
+		return page;
+	}
+	
+	// 작품 (일단 리뷰가 5이상인) 리스트 (회원용)
+	public Page listManyReview(int pageno) {
+		int countOfArt = artdao.countReviewByArt();
+		Page page = PagingUtil.getPage(pageno, countOfArt);
+		int srn = page.getStartRowNum();
+		int ern = page.getEndRowNum();
+		List<Art> artList = artdao.listManyReviewByArt(srn, ern);
 		List<ArtDto.DtoForList> dtoList = new ArrayList<ArtDto.DtoForList>();
 		for (Art art : artList) {
 			ArtDto.DtoForList dto = modelMapper.map(art, ArtDto.DtoForList.class);

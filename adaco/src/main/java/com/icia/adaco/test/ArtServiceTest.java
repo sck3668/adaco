@@ -57,8 +57,8 @@ public class ArtServiceTest {
 	public ArtDto.DtoForWrite getDtoForWrite() {
 		ArtDto.DtoForWrite dto = new DtoForWrite();
 		dto.setArtDate(LocalDateTime.now());
-		dto.setArtName("테스트상품11");
-		dto.setCategory("카테고리다");
+		dto.setArtName("테스트상품12");
+		dto.setCategory("카테고리다2");
 		dto.setCourier("로젠택배");
 		dto.setTag("검색태그");
 		dto.setStock(30);
@@ -70,17 +70,16 @@ public class ArtServiceTest {
 		dto.setOptionValue("레드");
 		dto.setArtistno(14);
 		dto.setShopno(2);
-		dto.setReviewCnt(5);
 		
 		return dto;
 	}
 	
 	
 	// 작품 등록 테스트 (작가용) ok
-	@Test
+	//@Test
 	public void writeWithSajinTest() throws IllegalStateException, IOException, MessagingException {
 		ArtDto.DtoForWrite dto = getDtoForWrite();
-		File targetFile = new File("d:/test1.jpg");
+		File targetFile = new File("d:/test5.jpg");
 		MockMultipartFile file = new MockMultipartFile("artSajin", targetFile.getName(), "image/jpeg", new FileInputStream(targetFile));
 		artservice.write(dto, file);
 		
@@ -136,7 +135,7 @@ public class ArtServiceTest {
 	}
 	
 	// 작품 댓글 작성 테스트 ok
-	//@Test
+	@Test
 	public void writeArtCommentTest() {
 		ArtComment artcomment = ArtComment.builder().username("tjdcjfgns6").artno(58).profile("aaaaa.jpg").content("댓글내용").build();
 		service.writeCommentOfArt(artcomment);

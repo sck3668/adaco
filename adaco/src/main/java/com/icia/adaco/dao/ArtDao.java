@@ -107,6 +107,10 @@ public class ArtDao {
 		return tpl.selectList("artMapper.reviewManyByArt",map); 
 	}
 	
+	//일단 리뷰가 5이상인 작품 수
+	public int countReviewByArt() {
+		return tpl.selectOne("artMapper.countReviewByArt");
+	}
 		
 	// 작품 상세보기
 		public Art readByArtFromUser(Integer artno) {

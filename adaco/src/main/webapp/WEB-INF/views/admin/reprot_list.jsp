@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>신고 댓글 목록</title>
+<script src="/adaco/js"></script>
 <style>
       table {
         width: 100%;

@@ -90,10 +90,11 @@ public class ArtRestService {
 			dto.setOptionValue(option.getOptionValue());
 			dto.setOptionStock(option.getOptionStock());
 			dto.setOptionPrice(option.getOptionPrice());
-		if(art.getArtCommentCnt()>0)
-			dto.setArtComments(artCommemtDao.listByCommentOfArt(dto.getArtno()));
 		if(username!=null)
 			artDao.updateByArt(Art.builder().artno(artno).readCnt(1).build());
+		if(art.getArtCommentCnt()>0)
+			dto.setArtComments(artCommemtDao.listByCommentOfArt(dto.getArtno()));
+		System.out.println("디티오"+dto);
 		return dto;
 	}
 
@@ -119,10 +120,12 @@ public class ArtRestService {
 	
 	// 작품 댓글 작성하기
 	public List<ArtComment> writeCommentOfArt(ArtComment artcomment){
+		System.out.println("==========================");
 		artcomment.setWriteDate(LocalDateTime.now());
 		String reviewStr = artcomment.getContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
 		artcomment.setContent(reviewStr);
 		artCommemtDao.writeByCommentOfArt(artcomment);
+		System.out.println(artcomment.getArtno()+"--------------------");
 		artDao.updateByArt(Art.builder().artno(artcomment.getArtno()).artCommentCnt(1).build());
 		return artCommemtDao.listByCommentOfArt(artcomment.getArtno());
 	}

@@ -33,13 +33,19 @@ public class ArtController {
 	// 작품 리스트 (작가용)
 	@GetMapping("/art/list")
 	public ModelAndView artList(@RequestParam(defaultValue = "1") int pageno) {
-		return new ModelAndView("main").addObject("viewName","art/list.jsp").addObject("artPage",artservice.list(pageno));
+		return new ModelAndView("main").addObject("viewName","user/section.jsp").addObject("artPage",artservice.list(pageno));
 	}
 	
 	// 작품 리스트(최신순) + 작품 이름으로 작품 검색(회원용)
 	@GetMapping("/art/list2")
 	public ModelAndView artListFromUser(@RequestParam(defaultValue = "1") int pageno, @Nullable String artname) {
 		return new ModelAndView("main").addObject("viewName","user/section.jsp").addObject("artPage",artservice.listFromUser(pageno, artname));
+	}
+	
+	// 작품 리스트 (일단 리뷰5이상인) (회원용)
+	@GetMapping("/art/list3")
+	public ModelAndView listReviewManyArt(@RequestParam(defaultValue = "1") int pageno, @Nullable String artname) {
+		return new ModelAndView("main").addObject("viewName","user/section2.jsp").addObject("artReviewPage",artservice.listManyReview(pageno));
 	}
 	
 	// 작품 상세보기 (작가용)

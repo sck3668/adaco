@@ -54,7 +54,7 @@ public class ArtDaoTest {
 	//작품 내역보기 /최신순정렬 테스트  ok
 	//@Test
 		public void listByArtTest() {
-			assertThat(artdao.listByArt(1,19),is(notNullValue()));
+			assertThat(artdao.listByArt(1,9),is(notNullValue()));
 		}
 	
 	
@@ -78,12 +78,18 @@ public class ArtDaoTest {
 		assertThat(artdao.listByArtFromUser(1, 1, "변경"),is(notNullValue()));
 	}
 	
-	//일단 리뷰수가 5이상인 작품 리스트 테스트
-	@Test
+	//일단 리뷰수가 5이상인 작품 리스트 테스트 ok
+	//@Test
 	public void listManyReviewByArt() {
-		assertThat(artdao.listManyReviewByArt(1, 1),is(notNullValue()));
+		assertThat(artdao.listManyReviewByArt(1, 5),is(notNullValue()));
 	}
-		
+	
+	//일단 리뷰수가 5이상인 작품 수 ok
+	//@Test
+	public void countReviewByArtTest() {
+		artdao.countReviewByArt();
+	}
+	
 	//작품 상세보기 테스트 ok
 	//@Test
 		public void readByArtFromUserTest() {
