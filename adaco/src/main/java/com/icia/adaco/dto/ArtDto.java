@@ -42,7 +42,7 @@ public class ArtDto {
 		private Integer optionStock;
 		private Integer optionPrice;
 		private Integer reviewCnt;
-		
+		//
 	}
 	
 	@Data
