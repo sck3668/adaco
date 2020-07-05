@@ -27,7 +27,6 @@
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>메인으로</span></a>
       </li>
-
       <!-- Divider -->
       <hr class="sidebar-divider">
 
@@ -47,8 +46,8 @@
             <h6 class="collapse-header">문의 및 공지, 신고글 관리</h6>
             <a class="collapse-item" href="/adaco/admin/report_list">신고글 관리</a>
             <a class="collapse-item" href="/adaco/admin/question_list">문의 관리</a>
-            <a class="collapse-item" href="cards.html">공지사항 관리</a>
-            <a class="collapse-item" href="cards.html">FAQ 관리</a>
+            <a class="collapse-item" href="/adaco/admin/notice_list">공지사항 관리</a>
+            <a class="collapse-item" href="/adadco/admin/faq_list">FAQ 관리</a>
           </div>
         </div>
       </li>

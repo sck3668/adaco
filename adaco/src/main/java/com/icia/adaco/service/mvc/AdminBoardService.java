@@ -24,6 +24,8 @@ public class AdminBoardService {
 	@Autowired
 	AdminBoardDao dao;
 	@Autowired
+	AdminUserDao userDao;
+	@Autowired
 	AttachmentDao attachmentDao;
 	@Autowired
 	ModelMapper modelMapper;
@@ -163,6 +165,15 @@ public class AdminBoardService {
 		if(notice.getAttachmentCnt()>0)
 			dto.setAttachments(attachmentDao.findAllNoticeByNoticeno(noticeno));
 
+		return dto;
+	}
+
+	public AdminBoardDto.DtoForIndex indexRead() {
+		AdminBoardDto.DtoForIndex dto = new DtoForIndex();
+		dto.setCountByQuestion(dao.countByQuestion(null, null));
+		dto.setCountByNoAnswerQuestion(dao.countByQuestion(null, State.답변대기));
+		dto.setCountByUser(userDao.countByUser(null));
+		dto.setCountByArtist(userDao.countByArtist(null));
 		return dto;
 	}
 
