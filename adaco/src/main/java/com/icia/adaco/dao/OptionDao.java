@@ -39,5 +39,10 @@ public class OptionDao {
 		return tpl.selectOne("optionMapper.findById",optno);
 	}
 	
+	// 작품 번호로 옵션 전체가져오기
+	public Option readByArtno(Integer artno) {
+		return tpl.selectOne("optionMapper.findByArtno",artno);
+	}
+	
 	
 }
