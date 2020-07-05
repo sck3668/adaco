@@ -22,10 +22,8 @@
   
 <meta charset="UTF-8">
 <title>Insert title here</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
   
 <script type="text/javascript">
 	$(function(){
@@ -71,7 +69,8 @@
 
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">신고 처리 방법</h1>
-          <p class="mb-4">사용자 규정에 어긋나는 부적절한 댓글은 우측 처리 탭 체크 후 삭제 버튼을 눌러 삭제해주세요.<a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+          <p class="mb-4">사용자 규정에 어긋나는 부적절한 댓글은 우측 처리 탭 체크 후 삭제 버튼을 눌러 삭제해주세요.
+          <br><a target="_blank" href="https://datatables.net">사용자 규정 확인</a></p>
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
@@ -93,7 +92,7 @@
 				</colgroup>
                 <caption><strong>삭제할 항목을 체크하여 삭제해주세요.</strong></caption>
 			<thead>
-			<tr>
+			<tr style="text-align: center;">
 				<th>댓글 번호</th>
 				<th>유저명</th>
 				<th>내용</th>
@@ -104,7 +103,7 @@
 		</thead>
 		<tbody id = "list">
 		<c:forEach items = "${reportPage.adminReportList}" var = "report">
-			<tr>
+			<tr style="text-align: center;">
 				<td>${report.cno }</td>
 				<td>${report.username }</td>
 				<td>${report.content }</td>
@@ -117,7 +116,7 @@
        </table>
 		<ul class="pagination" style="text-align: center; margin: 0 auto; width: 0px; text-align: center;">
 			<c:if test="${reportPage.prev==true}">
-				<li class = "page-item"><a class="page-link" href="/adaco/admin/report_list?pageno=${reportPage.startPage-1}">이전</a></li>
+				<li class = "page-item" style="width: 60px;"><a style="width: 60px;" class="page-link" href="/adaco/admin/report_list?pageno=${reportPage.startPage-1}">이전</a></li>
 			</c:if>
 			<c:forEach begin="${reportPage.startPage}" end="${reportPage.endPage}" var="i">
 				<c:choose>
@@ -133,10 +132,16 @@
 				
 			</c:forEach>
 			<c:if test="${reportPage.next==true}">
-				<li class = "page-item"><a class="page-link" href="/adaco/admin/report_list?pageno=${reportPage.endPage+1}">다음</a></li>
+				<li class = "page-item" style="width: 60px;"><a style ="width: 60px;" class="page-link" href="/adaco/admin/report_list?pageno=${reportPage.endPage+1}">다음</a></li>
 			</c:if>
 		</ul>
-       <button id = "delete" class = "btn btn-danger">삭제</button>
+       <button id = "delete" class = "btn btn-danger btn-icon-split">
+       		<span class="icon text-white-50">
+       			<i class = "fas fa-trash">
+       			</i>
+       		</span>
+       		<span class ="text">삭제하기</span>
+       </button>
 	  </div>
    </div>
   </div>
