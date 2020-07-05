@@ -35,6 +35,11 @@
 	order by optno desc
 	</select>
 	
+	<select id="findAllByartno" resultType="option">
+	select artno, option_name optionName, option_value optionValue, option_price optionPrice, option_stock optionStock
+	from options where artno=#{artno}
+	</select>
+	
 	<!-- 옵션 상세 보기 / 삭제를 위한 -->
 	<select id="findById" resultType="option">
 		select optno, artno, option_name optionName, option_value optionValue, option_price optionPrice, option_stock optionStock

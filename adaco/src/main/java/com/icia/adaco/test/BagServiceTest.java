@@ -28,6 +28,18 @@ public class BagServiceTest {
 	//장바구니 추가 서비스 테스트
 	
 	@Test
+	public void insertTest() {
+		Bag bag = Bag.builder().username("sck3668").artno(4).totalPrice(30000).amount(3).optionName("색상").optionValue("red").optionStock(10).optionPrice(3000).build();
+		assertThat(bagservice.insertByBag(bag), is(1));
+	}
+	
+	//@Test
+	public void findAllBagByUsernameTest() {
+		assertThat(bagservice.findAllBagByUsername("sck3668"), is(notNullValue()));
+	}
+	
+	
+	//@Test
 	public void inserByBagTest() {
 		Art art = artDao.readByArt(58);
 		Option option = optionDao.readOptionByArtno(58);

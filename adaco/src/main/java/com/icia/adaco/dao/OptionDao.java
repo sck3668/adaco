@@ -33,6 +33,12 @@ public class OptionDao {
 		Map<String, Integer>map = new HashMap<>();
 		return tpl.selectList("optionMapper.findAll",map);
 	}
+	
+	
+	// 작품번호로 검색한 옵션목록보기
+	public List<Option> findAllByartno(int artno){
+		return tpl.selectList("optionMapper.findAllByartno",artno);
+	}
 
 	// 옵션 보기
 	public Option readByOption(Integer optno) {

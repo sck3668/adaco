@@ -16,11 +16,31 @@ public class BagDao {
 	private OptionDao optionDao;
 	
 	
-	// 장바구니 목록에 작품 추가
+	// 장바구니 목록에 작품 추가---------------
 	public int insertByBag(Bag bag) {
 		return tpl.insert("bagMapper.insertByBag", bag);
-		
 	}
+	
+	public List<Bag> findAllBagByUsername(String username) {
+		return tpl.selectList("bagMapper.findAllByUsername",username);
+	}
+		
+	public int increaseByAmount(int artno) {
+		return tpl.update("bagMapper.increaseByAmount",artno);
+	}
+	
+	public int decreaseByAmount(int artno) {
+		return tpl.update("bagMapper.decreaseByAmount",artno);
+	}
+	
+	
+	//===================================
+		// 회원아이디로 장바구니 찾기
+		/*public Bag findBagByUsername(String username) {
+			return tpl.selectOne("bagMapper.findBagByUsername",username);
+		}	
+*/
+
 	// 장바구니에  담아둔 작품의 총금액,수량,옵션명 옵션값 변경
 	public int updateByBag(Bag bag) {
 		return tpl.update("bagMapper.updateByBag", bag);
@@ -34,16 +54,11 @@ public class BagDao {
 		return tpl.selectOne("bagMapper.findByArtno", artno);
 	}
 	
-	// 회원아이디로 장바구니 찾기
-	public Bag findBagByUsername(String username) {
-		return tpl.selectOne("bagMapper.findBagByUsername",username);
-	}
+	
 	// 장바구니 목록 보기
 	public List<Bag> findAllByBag(){
 		return tpl.selectList("bagMapper.findAllByBag");
 	}
 	
-	public List<Bag> findAllBagByUsername(String username) {
-		return tpl.selectList("bagMapper.findAllByUsername");
-	}
+	
 }

@@ -28,5 +28,6 @@ public class Page {
 	List<AdminUserDto.DtoForArtistList> adminArtist;
 
 	List<ArtDto.DtoForList> artList;
+	List<ArtDto.DtoForReviewList> artReviewList;
 	List<StoryBoardDto.DtoForList> storyList;
 }

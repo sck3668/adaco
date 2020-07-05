@@ -20,17 +20,17 @@ $(function() {
 	// 3. 장바구니에 추가
 	$(".cart").on("click", function() {
 		var params = {
-			pno: $(this).attr("data-pno"),
+			artno: $(this).attr("data-artno"),
 			_csrf: "${_csrf.token}"
 		}
 		$.ajax({ 
-			url: "/acart/cart/add",
+			url: "/acart/bag/add",
 			method: "post",
 			data: params,
 		}).done(()=>{
 			var choice = confirm("상품을 장바구니에 담았습니다. 장바구니로 이동하시겠습니까?");
 			if(choice==true)
-				location.href = "/acart/cart/view"
+				location.href = "/acart/bag/view"
 		}).fail((xhr)=>{
 			alert(xhr.responseText);
 		})
