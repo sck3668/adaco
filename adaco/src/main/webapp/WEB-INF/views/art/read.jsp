@@ -14,7 +14,7 @@ ${artPage }
 		<div class="outer-frame">
 			<ul class="img-view inner-frame">
 				<li class="ui-slide-img slide-img" style="width: 0px;">
-				 <img src=" ${artPage.mainImg } " alt="사진이 안나와여어" ><!-- 스타일 적용 안됨 style="margin-left: -440.5px; margin-top: -440.5px;"  -->
+				 <img src=" ${artPage.mainImg } " alt="작품 이미지" ><!-- 스타일 적용 안됨 style="margin-left: -440.5px; margin-top: -440.5px;"  -->
 				</li>
 				<li class="ui-slide-img slide-img" style="width: 0px;">
 <!-- 		이미지 링크2 <img src=" img.jpg " alt style="margin-left: -440.5px; -->

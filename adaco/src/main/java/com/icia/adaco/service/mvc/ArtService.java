@@ -84,11 +84,13 @@ public class ArtService {
 		int ern = page.getEndRowNum();
 		page.setSearch(artname);
 		List<Art> artList = artdao.listByArtFromUser(srn, ern, artname);
+		System.out.println("artlist===="+artList);
 		List<ArtDto.DtoForList> dtoList = new ArrayList<ArtDto.DtoForList>();
 		for (Art art : artList) {
 			ArtDto.DtoForList dto = modelMapper.map(art, ArtDto.DtoForList.class);
 			dtoList.add(dto);
 		}
+		System.out.println(dtoList+"==================");
 		page.setArtList(dtoList);
 		return page;
 	}
