@@ -2,8 +2,6 @@ package com.icia.adaco.entity;
 
 import java.time.*;
 
-import javax.validation.constraints.*;
-
 import lombok.*;
 import lombok.experimental.*;
 
@@ -22,6 +20,6 @@ public class User {
 	private String address;
 	private LocalDateTime joinDate;
 	private LocalDateTime birthDate;
-	private boolean enabled;
+	private Boolean enabled;
 	private String checkCode;
 }
