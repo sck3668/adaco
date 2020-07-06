@@ -8,6 +8,7 @@ import javax.servlet.http.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
+import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
@@ -46,14 +47,13 @@ public class BagController {
 		}
 		
 		@GetMapping("/bag/list1")
-		public ModelAndView findAllBagByUsername1(String username) {
-			return new ModelAndView("main").addObject("viewName", "bag/read.jsp").addObject("bagList",bagService.findAllBagByUsername(username));
+		public ModelAndView findAllBagByUsername1(Principal principal) {
+			return new ModelAndView("main").addObject("viewName", "bag/read.jsp").addObject("bagList",bagService.findAllBagByUsername(principal.getName()));
 		}
-		
-		
+		 
 		@GetMapping("/bag/list2")
-		public ResponseEntity<?> read(String username) {
-			return ResponseEntity.ok(bagService.findAllBagByUsername(username));
+		public ResponseEntity<?> read(Principal principal) {
+			return ResponseEntity.ok(bagService.findAllBagByUsername(principal.getName()));
 		}
 		
 		@GetMapping("/bag/checkStock")
@@ -68,10 +68,10 @@ public class BagController {
 		}
 		
 		@DeleteMapping("/bag/choiseDelete")
-		public ResponseEntity<?> delete(String artnos,String username) throws JsonParseException, JsonMappingException, IOException {
+		public ResponseEntity<?> delete(String artnos,Principal principal) throws JsonParseException, JsonMappingException, IOException {
 			System.out.println("deleteController artno======="+artnos);
 			List<Integer> list = objectMapper.readValue(artnos, new TypeReference<List<Integer>>() {});
-			List<BagDto.DtoForList> bagList = bagService.deleteByBag(list,username);
+			List<BagDto.DtoForList> bagList = bagService.deleteByBag(list,principal.getName());
 			return ResponseEntity.ok(bagList);
 		}
 //////////////////////////////////////////////
