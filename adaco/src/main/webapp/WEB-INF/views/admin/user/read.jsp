@@ -47,7 +47,7 @@ table {
 				<col width="30%">
 				<col width="40%">
 			</colgroup>
-	 <caption><strong> <h3>회원 상세</h3></strong></caption>
+	 <caption><strong><h3>회원 상세</h3></strong></caption>
 		<thead>
 			<tr>
 				<th>프로필</th>

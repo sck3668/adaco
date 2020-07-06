@@ -27,6 +27,9 @@ public class ReviewDao {
 	public int deleteByReviewOfArt(int rno) {
 		return tpl.delete("reviewMapper.delete",rno);
 	}
+	public List<Art> listByReviewOfusername(String username){
+		return tpl.selectList("reviewMapper.listByReviewOfusername",username);
+	}
 	
 	//리뷰 상세(삭제 위한)
 	public Review readByReviewOfArt(Integer rno) {
@@ -38,4 +41,4 @@ public class ReviewDao {
 	}
 	
 
-}
+}	

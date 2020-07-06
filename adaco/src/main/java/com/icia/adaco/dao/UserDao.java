@@ -43,8 +43,8 @@ public class UserDao {
 	public int insertpoint(Point point) {
 		return sql.insert("userMapper.insertpoint",point);
 	}
-	public List<Point> findAllByPoint() {
-		return sql.selectList("userMapper.findAllByPoint"); 
+	public List<Point> findAllByPoint(String username) {
+		return sql.selectList("userMapper.findAllByPoint",username); 
 	}
 	public String findJoinCheckCode(String checkCode) {
 		return sql.selectOne("userMapper.findJoinCheckCode",checkCode);
@@ -57,6 +57,13 @@ public class UserDao {
 	}
 	public int deleteFavorite(int favno) {
 		return sql.delete("userMapper.deleteFavorite",favno);
-		
+	}
+	//페이보릿 찾기
+	public Favorite findByFavoriteId(int favno) {
+			return sql.selectOne("userMapper,findByFavoriteId",favno);
+	}
+		//유저 리뷰함
+	public List<Review> listByReviewUser(){
+				return sql.selectList("userMapper.listByReviewUser");
 	}
 }

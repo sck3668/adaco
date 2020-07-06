@@ -8,6 +8,11 @@
 <meta charset="UTF-8">
 <title>공지사항 읽기</title>
 <style>
+
+	body {
+		padding-left: 320px;
+	}
+	
 	#content {overflow: auto; width:1200px; min-height: 800px; margin-left: 50px; border-radius: 20px; box-shadow: 5px 5px 5px gray;}
 	#title {width: 1200px; margin-left: 50px; border-radius: 20px; box-shadow: 5px 5px 5px gray;}
 	::-webkit-scrollbar{width: 16px;}
