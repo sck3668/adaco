@@ -44,18 +44,15 @@
 </style>
 <script>
 	$(function(){
-		   console.log($( "#tr").children().first().val());
-	})
-	$(function(){
 		
 		$("#delete").on("click",function(){
-
+			console.log($(this).next().val());
 			var params={
 					_method:"put",
 					_csrf:"${_csrf.token}",	
-					favno :1
+					favno :$(this).next().val()
+					
 			}
-			
 			console.log(params)
 			$.ajax({
 				url:"/adaco/user/favoriteDelete",
@@ -77,10 +74,11 @@
 		<div>
 			<ul>
 				<li><a href="/adaco/user/read">내정보보기</a></li>
-				<li><a href="/adaco/user/">주문내역</a></li>
+				<li><a href="">주문내역</a></li>
 				<li><a href="/adaco/user/reviewList">내리뷰보기</a></li>
 				<li><a href="/adaco/user/favoriteList">즐겨찾기목록</a></li>
-				<li><a href="/adaco/user/messageList">메세지함</a></li>
+				<li><a href="/adaco/user/pointList">포인트함 </a>
+				<li><a href="/adaco/user/messageList">메세지함</a>
 			</ul>
 		</div>
 	</div>
@@ -94,17 +92,20 @@
          <thead>
          <tr>
             <th>번호</th><th>상품번호</th><th>상품명</th><th>상품가격</th><th></th>
-            
+            <td><a href="/aboard/board/read?bno=${board.bno}" onclick="openWin()">${board.title}</a></td>
          </tr>
          </thead>
          <tbody>
          <c:forEach items="${favorite }" var="list">
-      		<tr id="tr"> 
+      		<tr class="tr"> 
                   <td>${list.favno }</td>
                   <td>${list.artno }</td>
-                  <td>${list.artName }</td>               
+                  <td><a href="#">${list.artName }</a></td>               
                   <td>${list.price }</td>
-            <td><button type="button" id="delete" class="btn btn-info">삭제</button></td>
+            	<td>
+            		<button type="button" id="delete" class="btn btn-info">삭제</button>
+            		<input type="hidden" value="${list.favno}">
+            	</td>
            </tr>
           </c:forEach>
          </tbody>

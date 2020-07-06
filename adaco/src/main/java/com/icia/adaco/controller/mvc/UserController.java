@@ -93,9 +93,10 @@ public class UserController {
 	@PostMapping("/user/findIdPwd")
 	public ResponseEntity<String> findIdPwd(String findIdPwd,String tel,HttpSession session) {
 		if(findIdPwd.equals("findId")==true) {
-			
 			String irum = userService.findByTel(tel);
+			System.out.println(irum+"=======");
 			session.setAttribute("irum",irum);
+			System.out.println(session.getAttribute("irum")+"================ㅋㅋ");
 			if(irum!=null) {
 				return ResponseEntity.ok("1");
 			} else {
@@ -110,12 +111,11 @@ public class UserController {
 	@GetMapping("/user/findId2")
 	public ModelAndView findId2(HttpSession session) {
 		String irum = (String) session.getAttribute("irum");
+		System.out.println(irum+"gg");
 		session.removeAttribute("irum");
-		System.out.println(irum+"ㅎㅎㅎㅎㅎ");
 		return new ModelAndView("main")
 				.addObject("viewName","user/find_id2.jsp")
 				.addObject("irum",irum);
-		
 				
 	}
 	
@@ -124,8 +124,8 @@ public class UserController {
 	@PostMapping("/user/findId2")
 	public String findId2(String irum,RedirectAttributes ra) {
 		String username = userService.findByIrum(irum);
-		
-		System.out.println(username+"ggggggggggggg");	
+		System.out.println(username);
+			
 		ra.addAttribute("msg","당신의아이디"+username);
 		System.out.println(username+"ggggggggggggg");	
 		return "redirect:/user/login";
@@ -161,21 +161,25 @@ public class UserController {
 	public ModelAndView userReview(Principal principal) {
 		return new ModelAndView("main")
 				.addObject("viewName","user/reviewList.jsp")
-				.addObject("Review",userService.reviewList());
+				.addObject("Review",userService.reviewList(principal.getName()));
 	}
 	//즐겨찾기 화면 리스트
 	//@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/favoriteList")
-	public ModelAndView favoriteList() {
-		System.out.println(userService.favoriteList()+"컨트롤러");
+	public ModelAndView favoriteList(Principal principal) {
+		System.out.println(userService.favoriteList(principal.getName())+"컨트롤러");
 		return new ModelAndView("main")
 				.addObject("viewName","user/favoriteList.jsp")
-				.addObject("favorite",userService.favoriteList());
+				.addObject("favorite",userService.favoriteList(principal.getName()));
 	}
 	//@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/messageList")
-	public ModelAndView messageList() {
+	public ModelAndView messageList(Principal principal) {
 		return new ModelAndView("main").addObject("viewName","user/messageList.jsp");
 	}
-
+	@PostMapping("/user/delete")
+	public int delete(Principal principal) {
+			System.out.println(principal.getName()+"로그인한아이디");
+		return userService.delete(principal.getName());
+	}
 }

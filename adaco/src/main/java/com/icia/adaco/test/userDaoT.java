@@ -10,6 +10,7 @@ import org.junit.runner.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.*;
+import org.springframework.transaction.annotation.*;
 
 import com.icia.adaco.dao.*;
 import com.icia.adaco.entity.*;
@@ -62,8 +63,7 @@ public class userDaoT {
 	}
 	//@Test
 	public void findAllByPoint () {
-		assertThat(userDao.findAllByPoint(),is(notNullValue()));
-		System.out.println(userDao.findAllByPoint());
+		System.out.println(userDao.findAllFavorite("tjdcjfgns3"));
 	}
 	//@Test
 	public void insertFavorite() {
@@ -72,17 +72,30 @@ public class userDaoT {
 			Favorite.builder().artno(5).username("spring232").build());
 		}
 	}
-	@Test
+	//@Test
 	public void findAllFavorite() {
-		System.out.println(userDao.findAllFavorite()+"gggg");
+		System.out.println(userDao.findAllFavorite("tjdcjfgns3")+"gggg");
 	}
 	//@Test
 	public void deleteT() {
 		userDao.delete("spring22");
 	}
-	@Test
+	//@Test
 	public void deleteFavorite() {
 		System.out.println(userDao.deleteFavorite(2));
+	}
+	//@Test
+	//@Transactional
+	public void deletereview() {
+		System.out.println(userDao.reviewDelete(81));
+	}
+	@Test
+	public void reviewList() {
+		System.out.println(userDao.listByReviewUser("tjdcjfgns3"));
+	}
+	//@Test
+	public void findByusernameFavoriteId() {
+		System.out.println(userDao.findByusernameFavoriteId("tjdcjfgns3"));
 	}
 		
 }

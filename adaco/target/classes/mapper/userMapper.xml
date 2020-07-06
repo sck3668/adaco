@@ -14,7 +14,7 @@
 	<select id="findidByCheckTel" resultType="string">
 		select irum from users where tel=#{tel} and rownum=1
 	</select>
-	<select id="findidByCheckNameandtel" resultType="string">
+	<select id="findidByCheckNamel" resultType="string">
 		select username from users where irum=#{irum} rownum=1		
 	</select>
 	<select id="findidByCheckEmail" resultType="string">
@@ -49,7 +49,7 @@
 		select username from users where check_code=#{checkCode} and rownum=1
 	</select>
 	<select id="findAllFavorite" resultType="favorite">
-		select favno,artno,username,price,art_name artName from favorite
+		select favno,artno,username,price,art_name artName from favorite where username=#{username}
 	</select>
 	<insert id="insertFavorite">
 		<selectKey keyProperty="favno" resultType="int" order="BEFORE">
@@ -58,16 +58,22 @@
 		insert into favorite(favno,artno,username,price,art_name)values(#{favno},#{artno},#{username},#{price},#{artName});
 	</insert>
 	<select id = "listByReviewUser" resultType="review">
-		select rno,content,artno,username from review
+		select rno,content,artno,username from review where username=#{username}
 	</select>
 	<select id="findByFavoriteId" resultType="favorite">
-		select favno,artno,username,art_name artName,price from favno = #{favno}
+		select favno,artno,username,art_name artName,price from favorite where favno = #{favno}
+	</select>
+	<select id="findByusernameFavoriteId" resultType="favorite">
+		select favno,artno,username,art_name artName,price from favorite where  username=#{username}
 	</select>
 	<delete id="deleteFavorite">
-		delete from favorite where favno=#{favno}
+		delete from favorite where favno=#{favno} and rownum=1
 	</delete>
 	<delete id="delete">
 		delete from users where username=#{username} and rownum=1
+	</delete>
+	<delete id="reviewDelete">
+		delete from review where rno=#{rno} and rownum=1
 	</delete>
 </mapper>
 

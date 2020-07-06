@@ -160,6 +160,10 @@ function checkTel() {
 		const tel2 = $("#tel2").val();
 		const tel3 = $("#tel3").val();
 		const tel = tel1+tel2+tel3;
+		console.log(tel)
+		console.log(tel1)
+		console.log(tel2)
+		console.log(tel3)
 		const patt = /^[0-9]{10,11}$/;
 		if(tel.length==0)
 			return printErrorMsg($("#tel_msg"),"전화번호는 필수 입력입니다.");

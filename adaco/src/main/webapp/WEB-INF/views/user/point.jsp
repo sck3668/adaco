@@ -45,7 +45,6 @@
 
 </head>
 <body>
-${point }
 <div>
  <aside id="asideMain">
 	<div id="aside">
@@ -54,10 +53,11 @@ ${point }
 		<div>
 			<ul>
 				<li><a href="/adaco/user/read">내정보보기</a></li>
-				<li><a href="#">주문내역</a></li>
-				<li><a href="/adaco/user/review">내리뷰보기</a></li>
+				<li><a href="">주문내역</a></li>
+				<li><a href="/adaco/user/reviewList">내리뷰보기</a></li>
 				<li><a href="/adaco/user/favoriteList">즐겨찾기목록</a></li>
-				<li><a href="/adaco/user/point">포인트함 </a>
+				<li><a href="/adaco/user/pointList">포인트함 </a>
+				<li><a href="/adaco/user/messageList">메세지함</a>
 			</ul>
 		</div>
 	</div>
@@ -68,14 +68,14 @@ ${point }
       <table class="table table-hover">
          <thead>
          <tr>
-            <th>적립일</th><th>적립금액</th><th>포인트만료일</th>
+            <th>적립일</th><th>적립금</th><th>적립만료일</th>
          </tr>
          </thead>
          <tbody> 
          	<c:forEach items="${point}" var="list">
          	<tr>
-         	      <td>${list.point }</td>
-                  <td>${list.startDate }</td>
+         	      <td>${list.startDate }</td>
+                  <td>${list.point }</td>
            	      <td>${list.endDate }</td>
            </tr> 
 			 </c:forEach>

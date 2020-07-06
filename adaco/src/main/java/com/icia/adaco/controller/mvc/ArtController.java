@@ -30,33 +30,33 @@ public class ArtController {
 	private ArtRestService service;
 	
 	// 작품 리스트 (작가용)
-	@GetMapping("/art/list")
+	@GetMapping("/art/listByArtist")
 	public ModelAndView artList(@RequestParam(defaultValue = "1") int pageno) {
 		return new ModelAndView("main").addObject("viewName","user/section.jsp").addObject("artPage",artservice.list(pageno));
 	}
 	
 	// 작품 리스트(최신순) + 작품 이름으로 작품 검색(회원용)
-	@GetMapping("/art/list2")
+	@GetMapping("/art/listByUser")
 	public ModelAndView artListFromUser(@RequestParam(defaultValue = "1") int pageno, @Nullable String artname) {
 		return new ModelAndView("main").addObject("viewName","user/section.jsp").addObject("artPage",artservice.listFromUser(pageno, artname));
 	}
 	
 	// 작품 리스트 (일단 리뷰5이상인) (회원용)
-	@GetMapping("/art/list3")
+	@GetMapping("/art/listByReview")
 	public ModelAndView listReviewManyArt(@RequestParam(defaultValue = "1") int pageno, @Nullable String artname) {
 		return new ModelAndView("main").addObject("viewName","user/section2.jsp").addObject("artReviewPage",artservice.listManyReview(pageno));
 	}
 	
 	// 작품 상세보기 (작가용)
-	@GetMapping("/art/read2")
-	public ModelAndView read(@NonNull Integer artno) {
-		return new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPage",service.readArt(58, 88, "spring123"));
+	@GetMapping("/art/readByArtist")
+	public ModelAndView read(@NonNull Integer artno, @Nullable String username) {
+		return new ModelAndView("main").addObject("viewName","art/detailread.jsp").addObject("artDetailPage",service.readArt(artno, username));
 	}
 	
 	// 작품 상세보기 (회원용)
-	@GetMapping("/art/read")
-	public ModelAndView readFromUser(@NonNull int artno , Integer optno, String username) {
-		return new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPage",service.readArtFromUser(58, 88, "spring123"));
+	@GetMapping("/art/readByUser")
+	public ModelAndView readFromUser(@NonNull int artno , String username) {
+		return new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPage",service.readArtFromUser(artno, username));
 	}
 
 	// 작품 등록

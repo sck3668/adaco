@@ -80,13 +80,18 @@ function makePage(){
 	
 	// 전화번호와 이메일 출력
 	var email = "${user.email}";	
+	console.log(email)
 	// 이메일을 읽어와 @를 기준으로 분리
-	var indexOfAt = email.indexOf('@');
+	var indexOfAt = email.indexOf("@");
+	console.log(indexOfAt)
 	var email1 = email.substr(0, indexOfAt);
+	console.log(email1)
 	var email2 = email.substr(indexOfAt+1);
+	console.log(email2)
 	$("#email1").val(email1);
 	$("#email2").val(email2);
-	
+	console.log(email1)
+	console.log(email2)
 	// #selectEmail에서 선택한 이메일 서버와 email2에 출력되는 서버를 동기화한다
 	var $select = $("#selectEmail").find("option");
 	$select.each(function(idx, option) {
@@ -96,6 +101,7 @@ function makePage(){
 	});
 	
 	// 전화번호를 10자, 11자인 경우 각각 분리해서 출력
+	
 }
 function loadImage() {
 	
@@ -120,11 +126,18 @@ function loadImage() {
 function page(){
 	$("#passwordArea").hide();
 	}
-
-
 $(function(){
 	makePage();
 	page();
+	$("#delete").on("click",function(){
+		$.ajax({
+			data:"${user.username}",
+			url:"/adaco/user/delete",
+			method:"post"
+		}).done((r)=>{console.log(r),alert("삭제성공")})
+		  .fail((r)=>{console.log(r),alert("..ㅇㅅㅇ")})
+		
+	})
 	
 	$("#selectEmail").on("change",function(){
 		var choice = $("#selectEmail").val();
@@ -143,7 +156,7 @@ $(function(){
 		$email2 = $("#email2").val();
 	})
 
-	$("#sajin").on("change", loadImage);
+
 	//토글 
 	$("#pwdbtn").on("click",function(){	
 		$("#passwordArea").toggle();
@@ -169,31 +182,38 @@ $(function(){
 		}).done(()=>{alert("비밀번호 변경 성공")})
 		  .fail(()=>{alert("비밀번호 변경 실패")})
 	})
-	
+		$("#sajin").on("change", loadImage);
 	$("#update").on("click",function(){
+		var $email1 = $("#email1").val();
+		var $email2 = $("#email2").val();
+		console.log($email1)
+		console.log($email2)
+		var $email = $email1+$email2;
+		console.log($email)
+		var $tel = $("#tel").val();
+		console.log($tel)
 		var $password = $("#password").val();
 		var $newPassword=$("#newPassword").val();
 		var $newPassword2=$("#newPassword2").val();
 		var $sajin = $("#sajin").val();
-		if($("#password").val()!=="")
-				console.log("이건 나만 봐야지")
-		if($("#newPassword").val()===$("#newPassword2"))
-				console.log("비밀번호 틀렷다..")
+		
 		var params = {
 				_method:"put",
 				_csrf:"${_csrf.token}",
 				sajin:$sajin,
-				tel:${user.tel},
-				email:"${user.email}"
+				tel:$tel,
+				email:$email,
+				password:$password,
+				newPassword:$newPassword,
+				profile : "${user.profile}"
 		}
-		
 		console.log(params)
 		$.ajax({
-			url:"/adaco/user/update",
+			url:"/adaco/user/update",	
 			data:params,
 			method:"post"
-		}).done((r)=>{alert("변경성공")})
-		  .fail(()=>{alert("변경실패")});
+		}).done((r)=>{console.log(r)})
+		  .fail((r)=>{console.log(r)});
 	})
 });
 
@@ -209,10 +229,11 @@ $(function(){
 		<div>
 			<ul>
 				<li><a href="/adaco/user/read">내정보보기</a></li>
-				<li><a href="#">주문내역</a></li>
+				<li><a href="/adaco/user/"></a></li>
 				<li><a href="/adaco/user/reviewList">내리뷰보기</a></li>
 				<li><a href="/adaco/user/favoriteList">즐겨찾기목록</a></li>
 				<li><a href="/adaco/user/pointList">포인트함 </a>
+				<li><a href="/adaco/user/messageList">메세지함</a>
 			</ul>
 		</div>
 	</div>
@@ -261,13 +282,12 @@ $(function(){
 			</tr>
 			<tr><td class="first">연락처</td>
 			<td colspan="2">
-				<input type="text" name="tel1" id="tel1" maxlength="3">&nbsp;
-				<input type="text" name="tel2" id="tel2" maxlength="4">&nbsp;
-				<input type="text" name="tel3" id="tel3" maxlength="4">&nbsp;
+				<input type="text" id="tel" value="${user.tel }" maxlength="11">
 			</td>
 			</tr>
 		</table>	
 		<button type="button" class="btn btn-info" id="update">변경하자</button>
+		<button type="button" class="btn btn-info" id="delete">탈퇴</button>
 	</section>
 	</div>
 </form>

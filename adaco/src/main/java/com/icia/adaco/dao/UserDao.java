@@ -49,8 +49,8 @@ public class UserDao {
 	public String findJoinCheckCode(String checkCode) {
 		return sql.selectOne("userMapper.findJoinCheckCode",checkCode);
 	}
-	public List<Favorite> findAllFavorite()	{
-		return sql.selectList("userMapper.findAllFavorite");
+	public List<Favorite> findAllFavorite(String username)	{
+		return sql.selectList("userMapper.findAllFavorite",username);
 	}
 	public int insertFavorite(Favorite favorite) {
 		return sql.insert("userMapper.insertFavorite",favorite);
@@ -60,10 +60,18 @@ public class UserDao {
 	}
 	//페이보릿 찾기
 	public Favorite findByFavoriteId(int favno) {
-			return sql.selectOne("userMapper,findByFavoriteId",favno);
+			return sql.selectOne("userMapper.findByFavoriteId",favno);
 	}
-		//유저 리뷰함
-	public List<Review> listByReviewUser(){
-				return sql.selectList("userMapper.listByReviewUser");
+	//유저네임으로 페이보릿찾기
+	public Favorite findByusernameFavoriteId(String username) {
+			return sql.selectOne("userMapper.findByusernameFavoriteId",username);
+	}
+	//유저 리뷰함
+	public List<Review> listByReviewUser(String username){
+			return sql.selectList("userMapper.listByReviewUser",username);
+	}
+	//유저 리뷰삭제
+	public int reviewDelete(int rno) {
+		return sql.delete("userMapper.reviewDelete",rno);
 	}
 }

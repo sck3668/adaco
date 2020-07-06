@@ -20,7 +20,6 @@ public class Page {
 	private boolean isNext;
 	private State state;
 	private String search;
-		
 	List<AdminBoardDto.DtoForReportList> adminReportList;
 	List<AdminBoardDto.DtoForQuestionList> adminQuestionList;
 	List<AdminBoardDto.DtoForNoticeList> adminNoticeList;

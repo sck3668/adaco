@@ -73,5 +73,10 @@ public class UserRestService {
 		System.out.println(sajin+"이것은 사진서비스쪽 아래꺼");
 		userDao.update(user);
 	}
+
+	public void reviewDelete(int rno) {
+		System.out.println(rno+"여기 글");
+		userDao.reviewDelete(rno);
+	}
 	
 }

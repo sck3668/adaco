@@ -48,16 +48,15 @@ public class MessageDao {
 	}
 	
 	//쪽지 삭제하기
-		public int delete() {
-			return tpl.delete("messageMapper.delete");
-		}
-		
-		public int disableBySender(List<Integer> list) {
-			return tpl.update("messageMapper.disableBySender", list);
-		}
-
-		public int disableByReceiver(List<Integer> list) {
-			return tpl.update("messageMapper.disableByReceiver", list);
-		}
+	public int delete() {
+		return tpl.delete("messageMapper.delete");
+	}
+	
+	public int disableBySender(List<Integer> list) {
+		return tpl.update("messageMapper.disableBySender", list);
+	}
+	public int disableByReceiver(List<Integer> list) {
+		return tpl.update("messageMapper.disableByReceiver", list);
+	}
 
 }
