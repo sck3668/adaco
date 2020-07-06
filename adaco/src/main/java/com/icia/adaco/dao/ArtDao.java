@@ -5,6 +5,7 @@ import java.util.*;
 import org.apache.ibatis.annotations.*;
 import org.mybatis.spring.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.lang.*;
 import org.springframework.stereotype.*;
 
 import com.icia.adaco.entity.*;
@@ -82,29 +83,37 @@ public class ArtDao {
 	
 	////////////////////// 회원 전용 ///////////////////////////
 	
-	//작품 검색하기 (작품 이름, 작가명)
-	public List<Art> searchByArt(@Param("startRowNum")int startRowNum, @Param("endRowNum")int endRowNum, @Param("keyWord")String keyWord) {
-		 Map<String, Object> map = new HashMap<String, Object>();
-		 map.put("startRowNum", startRowNum); 
-		 map.put("endRowNum", endRowNum);
-		 map.put("keyWord", keyWord);
-		 
-		return tpl.selectList("artMapper.searchByArt",map);
+	//작품 내역 보기(최신순) + 작품이름으로 검색 리스트
+	public List<Art> listByArtFromUser(int startRowNum, int endRowNum, @Nullable String artname){
+		Map<String, Object>map = new HashMap<String, Object>();
+		map.put("startRowNum", startRowNum);
+		map.put("endRowNum",endRowNum);
+		map.put("artName", artname);
+		return tpl.selectList("artMapper.findAllFromUser",map); 
+	}
+
+	//검색어에 해당되는 작품 수
+	public int countSerchByArtName(String artname) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("artName", artname);
+		return tpl.selectOne("artMapper.countSearchByArtName",map);
 	}
 	
-	//작품 내역 보기(최신순)
-		public List<Art> listByArtFromUser(int startRowNum, int endRowNum){
-			Map<String, Integer>map = new HashMap<>();
-			map.put("startRowNum", startRowNum);
-			map.put("endRowNum",endRowNum);
-			return tpl.selectList("artMapper.findAllFromUser",map); 
-		}
+	//일단 리뷰가 5이상인 작품 리스트
+	public List<Art> listManyReviewByArt(int startRowNum, int endRowNum){
+		Map<String, Integer>map = new HashMap<>();
+		map.put("startRowNum", startRowNum);
+		map.put("endRowNum",endRowNum);
+		return tpl.selectList("artMapper.reviewManyByArt",map); 
+	}
+	
+	//일단 리뷰가 5이상인 작품 수
+	public int countReviewByArt() {
+		return tpl.selectOne("artMapper.countReviewByArt");
+	}
 		
 	// 작품 상세보기
 		public Art readByArtFromUser(Integer artno) {
 			return tpl.selectOne("artMapper.findByArtFromUser",artno);
 		}
-	
-	
-
-}
+	}

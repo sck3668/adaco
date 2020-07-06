@@ -21,13 +21,12 @@ public class reviewDaoTest {
 	//리뷰등록 테스트 ok
 	//@Test
 	public void insertTest() {
-	//Review review = Review.builder().star(star.fivePoint).content("만족해요").image("aaa.jpg").artno(29).username("spring23231").build();
-	//assertThat(reviewdao.writeByReviewOfArt(review),is(1));
-	for(int i=1; i<=10; i++) {
-		reviewdao.writeByReviewOfArt(Review.builder().star(star.fivePoint).content("만족해요").image("aaa.jpg").artno(28).username("spring23237").build());
-	}
-	
-	//System.out.println(review);
+	Review review = Review.builder().star(star.onePoint).content("완전별로").image("aaa.jpg").artno(58).username("tjdcjfgns6").build();
+	assertThat(reviewdao.writeByReviewOfArt(review),is(1));
+	//for(int i=1; i<=10; i++) {
+		//reviewdao.writeByReviewOfArt(Review.builder().star(star.fivePoint).content("만족해요").image("aaa.jpg").artno(28).username("spring23237").build());
+	//}
+	System.out.println(review);
 	}
 	
 	//리뷰삭제 테스트 ok
@@ -40,6 +39,19 @@ public class reviewDaoTest {
 	//@Test
 	public void listByReviewOfArt() {
 		assertThat(reviewdao.listByReviewOfArt(1,3),is(notNullValue()));
+	}
+	
+	//리뷰상세(삭제위한) 테스트 ok
+	//@Test
+	public void readByReviewOfArt() {
+		assertThat(reviewdao.readByReviewOfArt(81), is(notNullValue()));
+		assertThat(reviewdao.readByReviewOfArt(81).getUsername(),is("tjdcjfg5") );
+	}
+	
+	//리뷰갯수 테스트
+	@Test
+	public void countByReviewOfArt() {
+		reviewdao.countByReviewOfArt();
 	}
 	
 	
