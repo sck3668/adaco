@@ -29,7 +29,7 @@ public class OrderService {
 			
 		}
 		
-		public List<OrderDetailDto.DtoForDeleteOrderDetail> payment(){
+		public List<OrderDetailDto.DtoForOrdering> payment(){
 			
 		}
 		
@@ -47,15 +47,5 @@ public class OrderService {
 		// 주문 상세 내역 보기
 		public void findByOrder(Integer orderno) {
 			orderDao.findByOrder(orderno);
-		}
-
-		public void Ordering(String username, Integer shippingCharge, Order order) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void Ordering(String username, Integer shippingCharge, Order order) {
-			// TODO Auto-generated method stub
-			
 		}
 }
