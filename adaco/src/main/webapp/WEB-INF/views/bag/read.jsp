@@ -68,7 +68,7 @@ function printBag(bag,dest) {
       		<col width='10%'>
       		<col width='10%'>
       	</colgroup>").appendTo($table); */
-	$("<td class='first'>").append($("<input>").attr("type","checkbox").attr("class","select").attr("data-artno", bag.artno)).appendTo($tr);
+	$("<td class='first'>").append($("<input>").attr("type","checkbox").attr("class","check").attr("data-artno", bag.artno)).appendTo($tr);
 	$("<td class='second'>").append($("<img>").attr("src", "").css("width", "135px")).appendTo($tr);
 	$("<td class='third'>").text(bag.art.artName).appendTo($tr);
 
@@ -120,8 +120,8 @@ $(function() {
 	
 	var parmas ={
 			_csrf:"${_csrf.token}",
-			username:"sck3668"
 	}
+	
 	$.ajax({
 		url: "/adaco/bag/list2",
 		method: "get",
@@ -130,7 +130,6 @@ $(function() {
 		bagList = result;
 		printBagList();
 	})
-	
 	
 	
 	var isChoice = false;
@@ -159,11 +158,8 @@ $(function() {
 					method:"post"
 				})
 			}).then((bag)=>{
-				console.log(bag.amount);
-				$(this).next().val("");
-				var amount = bag.amount;
-				$(this).parent().prev().text(bag.totalPrice + "원");
 				$(this).next().text(bag.amount);
+				$(this).parent().prev().text(bag.totalPrice + "원");
 			}).fail(()=>{
 				alert("실패");
 			})
@@ -180,21 +176,19 @@ $(function() {
 						_csrf:"${_csrf.token}",
 						artno:$(this).attr("data-artno"),
 						isIncrese:"0"
-				}////ㅇㄴㄹ/
-				console.log(params);
-				return $.ajax({
+				}
+				$.ajax({
 					url:"/adaco/bag/change",
 					data:params,
 					method:"post"
-				})
-			}).then((bag)=>{
+				}).then((bag)=>{
+				$(this).parent().prev().text(bag.totalPrice + "원")
 				$(this).prev().text(bag.amount);
 			}).fail(()=>{
 				alert("실팽");
 			})
-			//
-			
-		
+	})
+		/* 
 		var params = {
 			_csrf: "${_csrf.token}}",
 			_method: "patch",
@@ -208,7 +202,7 @@ $(function() {
 		}).done((cart)=>{
 			$(this).parent().prev().text(cart.jumunMoney + "원")
 			$(this).prev().text(cart.count);
-		}).fail((result)=>{ console.log("fail")})
+		}).fail((result)=>{ console.log("fail")}) */
 			
 			
 			
@@ -226,7 +220,6 @@ $(function() {
 		var params = {
 				_csrf:"${_csrf.token}",
 				_method:"delete",
-				username :'sck3668',
 				artnos:JSON.stringify(ar)
 		}
 		console.log(params);
@@ -238,6 +231,7 @@ $(function() {
 		}).done((result)=>{
 			alert("성공");
 			bagList = result;
+			printBagList();
 		})
 		alert("마지막");
 	})
@@ -255,14 +249,14 @@ $(function() {
       		<col width="5%">
       	</colgroup>
 		<tr>
-			<th>선택</th><th>이미지</th><th>상품명</th><th>옵션</th><th>수량</th><th>주문금액</th>
+			<th>선택</th><th>이미지</th><th>상품명</th><th>옵션</th><th>수량</th><th>가격</th>
 		</tr>
 	</table>
 	<div id="bagArea">
 	</div>
 	<div id="button_area">
-		<input type="checkbox" id="check_all">전체 선택 
-		<button id="delete_all">선택삭제</button>
+		<input type="checkbox" id="checkAll">전체 선택 
+		<button id="choiseDelete">선택삭제</button>
 		<button type="button" id="buy_all">주문하기</button>
 	</div>
   <%--  <div>

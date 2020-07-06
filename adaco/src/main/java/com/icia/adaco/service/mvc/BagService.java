@@ -32,22 +32,25 @@ public class BagService {
 	
 	// 장바구니 추가
 	public int insertByBag(Bag bag) {
+		int artno = bag.getArtno();
+		Art art = artdao.readByArt(artno);
+		bag.setTotalPrice(bag.getAmount()*art.getPrice());
 		return bagdao.insertByBag(bag);
 	}
 	
 	// 회원아이디로 장바구니 목록 불러오기
 	public List<BagDto.DtoForList> findAllBagByUsername(String username) {
-		//System.out.println("username========="+username);
-	//	BagDto.DtoForList dto1 = new BagDto.DtoForList();
+	//	System.out.println("username========="+username);
+		BagDto.DtoForList dto1 = new BagDto.DtoForList();
 		List<Bag> bagList = (List<Bag>) bagdao.findAllBagByUsername(username);
 	//	System.out.println("bagList=========="+bagList);
 		List<BagDto.DtoForList> dtoList= new ArrayList<>();
 		for(Bag bag1:bagList) {
-			//System.out.println("------------=========="+bag1);
+	//		System.out.println("------------=========="+bag1);
 			int artno = bag1.getArtno();
 			Bag bag = bagdao.findByArtno(artno);
-			//System.out.println("bag============="+bag);
-			//System.out.println("artno============="+artno);
+	//		System.out.println("bag============="+bag);
+	//		System.out.println("artno============="+artno);
 			Art art = artdao.readByArt(artno);
 			List<Option> option = optionDao.findAllByartno(artno);
 			//System.out.println("art==============="+art);
@@ -63,7 +66,7 @@ public class BagService {
 			dtoBag.setOption(option);
 			dtoList.add(dtoBag);
 		}
-		//System.out.println("00000000000"+dtoList+"============dtoList");
+	//	System.out.println("00000000000"+dtoList+"============dtoList");
 		
 		return dtoList;
 	}
@@ -83,13 +86,14 @@ public class BagService {
 		Bag bag = bagdao.findByArtno(artno);
 		Art art = artdao.readByArt(artno);
 		if(isIncrese==true) {
-			
 			bag.setAmount(bag.getAmount()+1);
+			bag.setTotalPrice(bag.getAmount()*art.getPrice());
 			bagdao.increaseByAmount(artno);
 			
 		} else {
 			if(bag.getAmount()>1) {
 			bag.setAmount(bag.getAmount()-1);
+			bag.setTotalPrice(bag.getAmount()*art.getPrice());
 			bagdao.decreaseByAmount(artno);
 			}
 		}
