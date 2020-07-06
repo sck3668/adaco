@@ -21,7 +21,8 @@ public class shopDaoTest {
 
 	//@Test
 	public void inserTest() {
-		Shop shop = Shop.builder().shopName("aa").shopIntro("aaaa").businessno("aa").account("aaa").build();
+		Shop shop = Shop.builder().shopName("테스트").shopIntro("테스트해보기").
+				businessno("사호").account("계좌번호").image("jpg").forwarding("인천").back("서울").artistno(14).build();
 		assertThat(shopDao.writeByShop(shop), is(1));
 	}
 	
