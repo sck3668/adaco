@@ -8,6 +8,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+	$(function() {
+		$(".text-muted").on("click",function() {
+			$.ajax({
+				
+			})
+		})
+	})
+</script>
 </head>
 <body>
 ${artPage.artList }
@@ -64,10 +73,17 @@ ${artPage.artList }
                   <img alt="상품 사진" src="${art.mainImg }"></a>
                 </h4>
                 <h5>${art.artName}</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                <p class="card-text">${art }</p>
               </div>
               <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+              <c:choose>
+              <c:when test="${art.favorite==false}">
+                <small class="text-muted"> &#9734;</small>
+              </c:when>
+              <c:otherwise>
+              	<small class="text-muted"> &#9733;</small>
+              </c:otherwise>
+              </c:choose> 
               </div>
             </div>
           </div>

@@ -26,7 +26,6 @@ public class OrderService {
 		public void Ordering(Order order,int artno) {
 			artDao.readByArt(artno);
 			orderDao.Ordering(order);
-			
 		}
 		
 		public List<OrderDetailDto.DtoForOrdering> payment(){

@@ -59,21 +59,22 @@ function printBag(bag,dest) {
 	var $div = $("<div>").appendTo(dest);
 	var $table = $("<table>").appendTo($div);
 	var $tr = $("<tr>").appendTo($table);
-//	var $colgroup = $("<colgroup>").appendTo($table);	
-//	$("<col width='10%'>").appendTo($colgroup);
-/* 	$("<colgroup><col width='10%'>
-      		<col width='10%'>
-      		<col width='10%'>
-      		<col width='10%'>
-      		<col width='10%'>
-      		<col width='10%'>
-      	</colgroup>").appendTo($table); */
+	
+	
 	$("<td class='first'>").append($("<input>").attr("type","checkbox").attr("class","check").attr("data-artno", bag.artno)).appendTo($tr);
 	$("<td class='second'>").append($("<img>").attr("src", "").css("width", "135px")).appendTo($tr);
 	$("<td class='third'>").text(bag.art.artName).appendTo($tr);
 
 	var $td = $("<td class='fourth'>").appendTo($tr);
-	$("<div class='price' id='optionArea'>").appendTo($td);
+	
+	var $optionArea = $("<div class='price' id='optionArea'>").appendTo($td);
+	var optionList = bag.option;
+	var $optionArea = $("#optionArea");
+	$.each(optionList,function(idx,option) {
+		printOption(option,$optionArea);
+	})
+	printOptionList();
+	
 	
 	// 5번째 td에는 <button> 2개를 붙일 것임. 따라서 var $td로 저장
 	var $td = $("<td class='fifth'>").appendTo($tr);
@@ -104,12 +105,19 @@ function printBagList() {
 	});
 }
 
+function printOption(option,dest) {
+	$("<span>").text(option.optionName).appendTo(dest);
+	$("<span>").text(":").appendTo(dest);
+	$("<span>").text(option.optionValue).appendTo(dest);
+
+}
 
 function printOptionList() {
-	var $optionArea = $("#optionArea");
-	$.each(bag.option,function(idx,option) {
-		printOption(option,$optionArea);
-	})
+//	var $optionArea = $("#optionArea");
+//	var optionList = bag;
+//	$.each(optionList,function(idx,option) {
+//		printOption(option,$optionArea);
+//	})
 }
 
 
@@ -129,6 +137,7 @@ $(function() {
 	}).done((result)=>{ 
 		bagList = result;
 		printBagList();
+		printOptionList();
 	})
 	
 	
@@ -235,6 +244,27 @@ $(function() {
 		})
 		alert("마지막");
 	})
+	
+	// 선택한 상품 구매
+	$("#buyAll").on("click",function() {
+		var ar = [];
+		$(".check").each(function(idx) {
+			if($(this).prop("checked")) {
+				var countStr = $(this).parent().next().next().next().next().children().find("span").text();
+				var count = parseInt(countStr);
+				var obj = {
+					artno : $(this).data("artno"),
+					count : count
+				};
+				ar.push(obj);
+			}
+			
+		});
+		var $form = $("<form>").attr("action","/adaco/orderdetail/payment").attr("method","get");
+		$("<input>").attr("type","hidden").attr("name","json").val(JSON.stringify(ar)).appendTo($form);
+		$("<input>").attr("type","hidden").attr("name","_csrf").val("${_csrf.token}").appendTo($form);
+		$form.appendTo($("body")).submit();
+	});
 })
 </script>
 </head>
@@ -257,7 +287,7 @@ $(function() {
 	<div id="button_area">
 		<input type="checkbox" id="checkAll">전체 선택 
 		<button id="choiseDelete">선택삭제</button>
-		<button type="button" id="buy_all">주문하기</button>
+		<button type="button" id="buyAll">주문하기</button>
 	</div>
   <%--  <div>
    <h1>장바구니</h1>
