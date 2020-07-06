@@ -12,6 +12,7 @@
   <link href="${pageContext.request.contextPath}/css/shop-homepage.css" rel="stylesheet">
 	<script src="${pageContext.request.contextPath}/vendor/jquery/jquery.min.js"></script>
   <script src="${pageContext.request.contextPath}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
   <link rel="stylesheet" href="/adaco/css/main.css">
 </head>
 

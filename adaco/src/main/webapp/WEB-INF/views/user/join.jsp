@@ -1,19 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
+<link
+	href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/shop-homepage.css"
+	rel="stylesheet">
+<script
+	src="${pageContext.request.contextPath}/vendor/jquery/jquery.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	#tel1 {width:50px;}
-	#tel2 {width:50px;}
-	#tel3 {width:50px;}
-	#email1 {width:80px;}
-	#email2 {width:100px;}
+#tel1 {
+	width: 50px;
+}
+
+#tel2 {
+	width: 50px;
+}
+
+#tel3 {
+	width: 50px;
+}
+
+#email1 {
+	width: 80px;
+}
+
+#email2 {
+	width: 100px;
+}
 </style>
 <script>
+
+	
+
 function printSuccessMsg(target,msg) {
 	target.text(msg).css("color","green").css("font-size","0.75em");
 }
@@ -49,6 +74,8 @@ function loadImage() {
 	reader.readAsDataURL(file);
 	return true;
 }
+ 
+	
 
 
 // 아이디 체크
@@ -73,12 +100,14 @@ function ajaxCheckUsername() {
 			$("#username_msg").text("좋은 아이디네요").css({"color":"green", "font-size":"0.75em"});
 		},
 		error: function() {
-			$("#username_msg").text("사용중인 아이디입니다").css({"color":"red", "font-size":"0.75em"});
+			$("#username_msg").text("사용중인 아이d디입니다").css({"color":"red", "font-size":"0.75em"});
 		}
 	});
 }
 
 // 이메일 체크
+
+
 function checkEmail() {
 		$("#email_msg").text("");
 		const email1 = $("#email1").val();
@@ -87,24 +116,27 @@ function checkEmail() {
 		$email.replace(/%/g, '%40');
 		console.log("email==="+$email);
 		const patt = /^[A-Za-z][A-Za-z0-9]+@[A-Za-z0-9]+\.[A-Za-z0-9\.]+$/;
-		$('<input>').attr('type','text').attr('name',"email").attr("id","email").val($email).appendTo($("#joinForm"));
 		console.log($("#email").val());
 		if($email.length==0)
 			return printErrorMsg($("#email_msg"),"이메일은 필수입력입니다")
 		if(patt.test($email)==false)
 			return printErrorMsg($("#email_msg"),"이메일 형식에 어긋납니다")
-		ajaxCheckEmail();
+			ajaxCheckEmail();
 		return true;
 	}
 	
 // ajax : 비동기(지멋대로 병렬 실행) -> 동기화(jQuery then, done, fail)
 function ajaxCheckEmail() {
+	const email1 = $("#email1").val();
+	const email2 = $("#email2").val();
+	const $email = email1+"@"+email2;
+	console.log($email+"gg")
 	$.ajax({
 		url: "/adaco/user/check_email",
 		method: "get",
-		data : "email=" + '$("#email").val()'
+		data : "email=" + $email
 	})
-	.done(()=>{$("#email_msg").text("사용가능합니다").css({"color":"green", "font-size":"0.75em"})})
+	.done(()=>{$("#email_msg").text("사용가능합니다").css({"color":"green", "font-size":"0.75em"}),console.log("안녕")})
 	.fail(()=>{$("#email_msg").text("사용중입니다").css({"color":"red", "font-size":"0.75em"})});
 }
 
@@ -128,7 +160,6 @@ function checkTel() {
 		const tel2 = $("#tel2").val();
 		const tel3 = $("#tel3").val();
 		const tel = tel1+tel2+tel3;
-		$('<input>').attr('type','text').attr('name',"tel").val(tel).appendTo($("#joinForm"));
 		const patt = /^[0-9]{10,11}$/;
 		if(tel.length==0)
 			return printErrorMsg($("#tel_msg"),"전화번호는 필수 입력입니다.");
@@ -170,16 +201,46 @@ function checkTel() {
 		console.log($birthDate);
 		return true;
 	} 
+
 	
 $(function() {
+		var today = new Date();
+		console.log(today)
+	 $("#selectEmail").on("change", function() {
+	     var choice = $("#selectEmail").val();
+	     if(choice!="직접 입력") {
+	        $("#email2").val(choice);
+	        $("#email2").prop("disabled", true);
+	     }
+	     if(choice=="직접 입력") {
+	        // input 상자의 내용이 없어야 placeholder가 출력된다
+	        $("#email2").val("");
+	        $("#email2").attr("placeholder", choice);
+	        $("#email2").prop("disabled", false);
+	     }
+	  })
+    
 	 $("#sajin").on("change", loadImage); 
 	$("#username").on("blur", function() {
 		checkUsername();
 	});
 	$("#email").on("click", function() {
 		checkEmail();
+		const email1 = $("#email1").val();
+		const email2 = $("#email2").val();
+		const $email = email1+"@"+email2;
+		console.log($email)
 	});
-	$("#tel").on("click", checkTel);
+		
+	
+	$("#tel").on("click", function(){
+		checkTel();
+		const tel1 = $("#tel1").val();
+		const tel2 = $("#tel2").val();
+		const tel3 = $("#tel3").val();
+		const $tel = tel1+tel2+tel3;
+		console.log($tel)
+	});
 	$("#irum").on("blur", checkIrum);
 	$("#password").on("blur", checkPassword);
 	$("#password2").on("blur", checkPassword2);
@@ -200,102 +261,120 @@ $(function() {
 		var r6 = checkBirthDate();
 		var r7 = checkIrum();
 		$("#joinForm").serialize().replace(/%/g, '%25');
-		console.log($("#joinForm").serialize().replace(/%40/g, '@'));
-		alert("CCCC");
+		//약관동의
+		var $agree = $('input:radio[name="agree"]:checked').val();
+			if($agree!=="on"){
+				alert("동의눌러")
+			}
+			
 		var result = r1 && r2 && r3 && r4 && r5 && r6 && r7;
+		console.log($("#joinForm").serialize());
+		
 		if(result===true) {
+			const tel1 = $("#tel1").val();
+			const tel2 = $("#tel2").val();
+			const tel3 = $("#tel3").val();
+			const $tel = tel1+tel2+tel3;
+			$('<input>').attr('type','hidden').attr('name',"tel").attr("id","tel").val($tel).appendTo($("#joinForm"));
+			
+			const email1 = $("#email1").val();
+			const email2 = $("#email2").val();
+			const $email = email1+"@"+email2;
+			$('<input>').attr('type','hidden').attr('name',"email").attr("id","email").val($email).appendTo($("#joinForm"));
+			
 			$.when($.ajax("/adaco/user/check_id?username=" + $("#username").val()),
 				$.ajax("/adaco/user/check_email?email=" + $("#email").val())
-			).done(()=>{ $("#joinForm").submit(); })
+			)	.done(()=>{ $("#joinForm").submit(); })
 		}
+		
 	})	
 });
+
 </script>
 </head>
 <body>
-      <!--  <article class="container"> -->
-            <div class="page-header">
-                <div class="col-md-6 col-md-offset-3">
-                <hr><h4>회원가입에 오신걸 환영합니다</h4><hr>
-                </div>
-            </div>
-            <div id="wrap">
-            	<form action="/adaco/user/join" method="post" id="joinForm" enctype="multipart/form-data">    
-                    <img id="show_profile" height="240px">
-                    <input type="hidden" name="_csrf" value="${_csrf.token }">
-                    <div class="form-group">
-						<label for="sajin">프로필 사진</label>
-						<input id="sajin" type="file" name="sajin" class="form-control"  accept=".jpg,.jpeg,.png,.gif,.bmp">
-					</div>
-                    <div class="form-group">
-                        <label for="irum">이름</label>
-                        <input type="text" class="form-control" name="irum" id="irum" placeholder="이름을 입력해 주세요">
-                    	<span id="irum_msg"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="username">아아디</label>
-                        <input type="text" class="form-control" name="username" id="username" placeholder="아이디를 입력해주세요">
-                        <span id="username_msg"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">비밀번호</label>
-                        <input type="password" class="form-control" name="password" id="password" placeholder="비밀번호를 입력해주세요">
-                    	<span id="pwd_msg"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="ppassword2">비밀번호 확인</label>
-                        <input type="password" class="form-control" name="password2" id="password2" placeholder="비밀번호 확인을 위해 다시한번 입력 해 주세요">
-                    	<span id="pwdCheck_msg"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">이메일</label><br>
-                        <input type="text" id="email1">&nbsp;@&nbsp;<input type="text" id="email2">&nbsp;&nbsp;
-					<select id="selectEmail">
-						<option selected="selected">직접 입력</option>
-						<option>naver.com</option>
-						<option>daum.net</option>
-						<option>gmail.com</option>
-					</select>
-					<button id="email" type="button">확인</button>
-                    	<span id="email_msg"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="tel">연락처</label><br>
-                        <input type="text" id="tel1" maxlength="3">&nbsp-&nbsp;
-						<input type="text" id="tel2" maxlength="4">&nbsp-&nbsp;
-						<input type="text" id="tel3" maxlength="4">
-                    	<button id="tel" type="button">확인</button>
-                    	<span id="tel_msg"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="birthDate">생년월일</label>
-                        <input type="date" class="form-control" id="birthDate" name="birthDate" placeholder="생년월일을 입력해 주세요">
-                    	<span id="birthDate_msg"></span>
-                    </div>
-                    <div class="form-group">
-                    	<input type="hidden" class="form-control" name="authorities" value="ROLE_USER">
-                    </div>
-                    <div class="form-group">
-                    <label>약관 동의</label>
-                    <div data-toggle="buttons">
-                    <label class="btn btn-primary active">
-                    <span class="fa fa-check"></span>
-                    <input id="agree" type="checkbox" autocomplete="off" checked>
-                    </label>
-                    <a href="#">이용약관</a>에 동의합니다.
-                    </div>
-                    </div>
-                    <div class="form-group text-center">
-                        <button type="submit" id="join" class="btn btn-primary">
-                            회원가입<i class="fa fa-check spaceLeft"></i>
-                        </button>
-                        <button type="submit" class="btn btn-warning">
-                            가입취소<i class="fa fa-times spaceLeft"></i>
-                        </button>
-                    </div>
-           		</form>
-            </div>
-           
-   <!--      </article> -->
+	<!--  <article class="container"> -->
+	<div class="page-header">
+		<div class="col-md-6 col-md-offset-3">
+			<hr>
+			<h4>회원가입에 오신걸 환영합니다</h4>
+			<hr>
+		</div>
+	</div>
+	<div id="wrap">
+		<form action="/adaco/user/join" method="post" id="joinForm"
+			enctype="multipart/form-data">
+			<img id="show_profile" height="240px"> <input type="hidden"
+				name="_csrf" value="${_csrf.token }">
+			<div class="form-group">
+				<label for="sajin">프로필 사진</label> <input id="sajin" type="file"
+					name="sajin" class="form-control"
+					accept=".jpg,.jpeg,.png,.gif,.bmp">
+			</div>
+			<div class="form-group">
+				<label for="irum">이름</label> <input type="text" class="form-control"
+					name="irum" id="irum" placeholder="이름을 입력해 주세요"> <span
+					id="irum_msg"></span>
+			</div>
+			<div class="form-group">
+				<label for="username">아아디</label> <input type="text"
+					class="form-control" name="username" id="username"
+					placeholder="아이디를 입력해주세요"> <span id="username_msg"></span>
+			</div>
+			<div class="form-group">
+				<label for="password">비밀번호</label> <input type="password"
+					class="form-control" name="password" id="password"
+					placeholder="비밀번호를 입력해주세요"> <span id="pwd_msg"></span>
+			</div>
+			<div class="form-group">
+				<label for="ppassword2">비밀번호 확인</label> <input type="password"
+					class="form-control" name="password2" id="password2"
+					placeholder="비밀번호 확인을 위해 다시한번 입력 해 주세요"> <span
+					id="pwdCheck_msg"></span>
+			</div>
+			<div class="form-group">
+				<label for="email">이메일</label><br> <input type="text"
+					id="email1">&nbsp;@&nbsp;<input type="text" id="email2">&nbsp;&nbsp;
+				<select id="selectEmail">
+					<option selected="selected">직접 입력</option>
+					<option value="naver.com">naver.com</option>
+					<option value="daum.net">daum.net</option>
+					<option value="gmail.com">gmail.com</option>
+				</select>
+				<button id="email" type="button">확인</button>
+				<span id="email_msg"></span>
+			</div>
+			<div class="form-group">
+				<label for="tel">연락처</label><br> <input type="text" id="tel1"
+					maxlength="3">&nbsp-&nbsp; <input type="text" id="tel2"
+					maxlength="4">&nbsp-&nbsp; <input type="text" id="tel3"
+					maxlength="4">
+				<button id="tel" type="button">확인</button>
+				<span id="tel_msg"></span>
+			</div>
+			<div class="form-group">
+				<label for="birthDate">생년월일</label> <input type="date"
+					class="form-control" id="birthDate" name="birthDate"
+					placeholder="생년월일을 입력해 주세요"> <span id="birthDate_msg"></span>
+			</div>
+			<div class="form-group">
+				<input type="hidden" class="form-control" name="authorities"
+					value="ROLE_USER">
+			</div>
+			<div class="form-group">
+				<input type="radio" name="agree" id="agree"> 약관동의 
+			</div>
+			<div class="form-group text-center">
+				<button type="button" id="join" class="btn btn-primary">
+					회원가입<i class="fa fa-check spaceLeft"></i>
+				</button>
+				<button type="button" class="btn btn-warning">
+					가입취소<i class="fa fa-times spaceLeft"></i>
+				</button>
+			</div>
+		</form>
+	</div>
+
+	<!--      </article> -->
 </body>
 </html>
