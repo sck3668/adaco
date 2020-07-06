@@ -2,7 +2,6 @@ package com.icia.adaco.dao;
 
 import java.util.*;
 
-import org.apache.ibatis.annotations.*;
 import org.mybatis.spring.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.lang.*;
@@ -48,6 +47,7 @@ public class ArtDao {
 		map.put("endRowNum",endRowNum);
 		return tpl.selectList("artMapper.findAll",map); 
 	}
+	
 	
 	//작품 삭제
 	public int deleteByArt(int artno) {
@@ -116,4 +116,14 @@ public class ArtDao {
 		public Art readByArtFromUser(Integer artno) {
 			return tpl.selectOne("artMapper.findByArtFromUser",artno);
 		}
-	}
+		
+	//작품목록
+		public List<Art> list(int artno) {
+			return tpl.selectList("artMapper.list",artno);
+		}
+		
+		public List<Art> findAllByUsername(String username) {
+			return tpl.selectList("artMapper.findArtByUsername",username);
+		}
+
+}

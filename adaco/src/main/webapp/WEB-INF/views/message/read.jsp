@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-${msg }
+${msg.mno}
 	<%-- <table>
 		<tr><td>${msg.writeDate}에 ${msg.sendId }님이 ${msg.recipientId }님에게 보낸 메모</td></tr>
 		<tr><td>${msg.title }</td></tr> 

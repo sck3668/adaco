@@ -50,7 +50,7 @@ public class MessageController {
 	
 	//메시지 읽기
 	@GetMapping("/message/read")
-	public ModelAndView read(@RequestParam @NotNull Integer mno) {
+	public ModelAndView read(@RequestParam @NotNull int mno) {
 		return new ModelAndView("main").addObject("viewName","message/read.jsp").addObject("msg",msgService.findById(mno));
 	}
 }

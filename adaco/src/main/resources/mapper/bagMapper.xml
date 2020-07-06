@@ -8,18 +8,27 @@
 		,option_name optionName, option_value optionValue
 		from bag
 	</select>
+	<select id="findAllByUsername" resultType="bag">
+		select username,artno,total_price totalPrice, amount, option_name optionName,
+		option_value optionValue,option_stock optionStock,option_price optionPrice from bag where username=#{username}
+	</select>
 	
 	<select id = "findByArtno" resultType="bag">
 		select username, artno, total_price totalPrice, amount
-		,option_name optionName, option_value optionValue
+		,option_name optionName, option_value optionValue,option_stock optionStock,option_price optionPrice
 		from bag where artno=#{artno} and rownum=1
 	</select>
 	
+	<select id="findBagByUsername" resultType="bag">
+		select artno, total_price totalPrice, amount
+		,option_name optionName, option_value optionValue
+		from bag where username=#{username} and rownum=1
+	</select>
 	<insert id = "insertByBag">
 		insert into bag(username,artno,total_price,amount,option_name
-		,option_value)
+		,option_value,option_stock,option_price)
 		values(#{username},#{artno},#{totalPrice},#{amount}
-		,#{optionName},#{optionValue})
+		,#{optionName},#{optionValue},#{optionStock},#{optionPrice})
 	</insert>
 	
 	<update id="updateByBag">
@@ -31,6 +40,13 @@
 			<if test="optionValue!=null">option_value=#{optionValue}</if>
 		</trim>
 		where artno=#{artno} and rownum=1
+	</update>
+	<update id="increaseByAmount">
+		update bag set amount=amount+1 where artno=#{artno}
+	</update>
+	
+	<update id="decreaseByAmount">
+		update bag set amount=amount-1 where artno=#{artno}
 	</update>
 	
 	<delete id="deleteByBag">

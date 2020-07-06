@@ -35,6 +35,11 @@
 	order by optno desc
 	</select>
 	
+	<select id="findAllByartno" resultType="option">
+	select artno, option_name optionName, option_value optionValue, option_price optionPrice, option_stock optionStock
+	from options where artno=#{artno}
+	</select>
+	
 	<!-- 옵션 상세 보기 / 삭제를 위한 -->
 	<select id="findById" resultType="option">
 		select optno, artno, option_name optionName, option_value optionValue, option_price optionPrice, option_stock optionStock
@@ -42,11 +47,18 @@
 		where optno=#{optno} and rownum=1
 	</select>
 	
+<<<<<<< HEAD
 	<!-- 작품 번호로 옵션전체 불러오기 -->
 	<select id="findByArtno" resultType="option">
 		select optno, artno, option_name optionName, option_value optionValue, option_price optionPrice, option_stock optionStock
 		from options
 		where artno=#{artno} and rownum=1 
+=======
+	<select id="findOptionByArtno" resultType="option">
+		select optno, artno, option_name optionName, option_value optionValue, option_price optionPrice, option_stock optionStock
+		from options
+		where artno=#{artno} and rownum=1
+>>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 	</select>
 	
  </mapper>
