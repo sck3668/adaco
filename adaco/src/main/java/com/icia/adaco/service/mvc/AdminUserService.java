@@ -1,6 +1,8 @@
 package com.icia.adaco.service.mvc;
 
+import java.time.*;
 import java.time.format.*;
+import java.time.temporal.*;
 import java.util.*;
 
 import org.modelmapper.*;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.*;
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
+import com.icia.adaco.exception.*;
 import com.icia.adaco.util.*;
 
 @Service
@@ -61,6 +64,20 @@ public class AdminUserService {
 		
 		page.setAdminArtist(dtoList);
 		return page;
+	}
+
+	public AdminUserDto.DtoForUserRead userRead(String username) {
+		User user = dao.findByid(username);
+		if(user == null)
+			throw new JobFailException("유저를 찾을 수 없습니다.");
+		AdminUserDto.DtoForUserRead dto = modelMapper.map(user, AdminUserDto.DtoForUserRead.class);
+		dto.setJoinDateStr(user.getJoinDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
+		dto.setBirthDateStr(user.getBirthDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
+		LocalDate joinDate = user.getJoinDate().toLocalDate();
+		LocalDate today = LocalDate.now();
+		long days = ChronoUnit.DAYS.between(joinDate, today);
+		dto.setDays(days);
+		return dto;
 	}
 
 

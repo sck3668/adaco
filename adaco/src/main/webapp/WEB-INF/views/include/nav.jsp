@@ -35,7 +35,7 @@ $(function() {
 					<a class="nav-link" href="/adaco/user/join">회원가입</a>
 				</li>
          		<li class="nav-item">
-					<a class="nav-link" href="/adaco/bag/list">장바구니</a>
+					<a class="nav-link" href="/adaco/bag/view">장바구니</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="/adaco/user/mypage">마이페이지</a>
@@ -57,7 +57,7 @@ $(function() {
          		   <a class="nav-link" href="/adaco/user/logout">로그아웃</a>
          		</li>
          		<li class="nav-item">
-					<a class="nav-link" href="/adaco/bag/list">장바구니</a>
+					<a class="nav-link" href="/adaco/bag/view">장바구니</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="/adaco/user/mypage">마이페이지</a>
@@ -92,7 +92,7 @@ $(function() {
 <!-- 관리자 nav -->
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li class="nav-item">
-         		   <a class="nav-link" href="#">관리</a>
+         		   <a class="nav-link" href="/adaco/admin/">관리</a>
          		</li>
          		<li class="nav-item">
          		   <a class="nav-link" href="/adaco/user/logout">로그아웃</a>

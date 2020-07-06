@@ -17,6 +17,10 @@ public class AdminUserRestService {
 	AuthorityDao authorityDao;
 	
 	public void update(String username, String authority, boolean enabled) {
+		if(authority.equals("ROLE_SELLER")) {
+			Artist artist = Artist.builder().username(username).build();
+			dao.insertByArtist(artist);
+		}
 		
 		if(dao.existsByArtist(username)==true) {
 			if(enabled == false || authority != "ROLE_ADMIN") {
@@ -27,6 +31,7 @@ public class AdminUserRestService {
 				}
 			}
 		}
+		
 		if(enabled == false) {			
 			List<String> list = dao.findOrderById(username);
 			for(String state:list) {			
@@ -34,6 +39,7 @@ public class AdminUserRestService {
 				throw new JobFailException("진행 중인 거래가 있어 정보를 수정 할 수 없습니다.");
 			}
 		}
+		
 		dao.updateByUser(User.builder().enabled(enabled).username(username).build());
 		authorityDao.update(username, authority);
 	}

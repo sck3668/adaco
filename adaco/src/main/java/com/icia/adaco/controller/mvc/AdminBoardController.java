@@ -135,13 +135,19 @@ public class AdminBoardController {
 //	@Secured("ROLE_ADMIN")
 	@GetMapping("/admin/faq_write")
 	public ModelAndView faqWrite() {
-		return new ModelAndView("main");
+		return new ModelAndView("admin/faq/write");
 	}
 	
 	@PostMapping("/admin/faq_write")
 	public String faqWrite(FAQ faq) {
-		return "redirect:/admin/faq_read?faqno="+service.faqWrite(faq);
+		service.faqWrite(faq);
+		return "redirect:/user/faq_list";
 	}
 	
+	@PostMapping("/admin/faq_delete")
+	public String daqDelete(Integer faqno) {
+		service.faqDelete(faqno);
+		return "redirect:/user/faq_list";
+	}
 
 }

@@ -28,4 +28,20 @@ public class AdminUserDto {
 		private String irum;
 		private String joinDateStr;
 	}
+	
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Builder
+	public static class DtoForUserRead{
+		private String username;
+		private String email;
+		private String irum;
+		private String tel;
+		private String profile;
+		private String address;
+		private String joinDateStr;
+		private String birthDateStr;
+		private long days;
+	}
 }
