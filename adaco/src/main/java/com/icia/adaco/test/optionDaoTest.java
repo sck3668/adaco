@@ -20,7 +20,7 @@ public class optionDaoTest {
 	private OptionDao optiondao;
 	
 	// 옵션등록 테스트 ok
-	@Test
+	//@Test
 	public void insertTest() {
 		Option option = Option.builder().artno(23).optionName("색상").optionValue("옐로우").optionStock(30).optionPrice(3000).build();
 		assertThat(optiondao.writeByOption(option), is(1));
@@ -44,6 +44,13 @@ public class optionDaoTest {
 	//@Test
 	public void listByOptionTest() {
 		assertThat(optiondao.listByOption(), is(notNullValue()));
+	}
+	
+	//작품 번호로 옵션 전체 불러오기 ok
+	//@Test
+	public void readByArtnoTest() {
+		assertThat(optiondao.readByArtno(13), is(notNullValue()));
+		assertThat(optiondao.readByArtno(13).getOptionName(),is("색상"));
 	}
 	
 	

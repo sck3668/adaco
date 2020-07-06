@@ -57,9 +57,9 @@ public class ArtRestService {
 	}
 
 	// 작품 상세보기 옵션 포함(작가용)
-	public ArtDto.DtoForRead readArt(Integer artno, Integer optno, String username) {
+	public ArtDto.DtoForRead readArt(Integer artno, String username) {
 		Art art = artDao.readByArt(artno);
-		Option option = optionDao.readByOption(optno);
+		Option option = optionDao.readByArtno(artno);
 		if(art==null)
 			throw new ArtNotFoundException();
 		ArtDto.DtoForRead dto = modelMapper.map(art, ArtDto.DtoForRead.class);
@@ -77,9 +77,9 @@ public class ArtRestService {
 	}
 	
 	// 작품 상세보기 옵션 포함(회원용)
-	public ArtDto.DtoForRead readArtFromUser(Integer artno, Integer optno, String username) {
+	public ArtDto.DtoForRead readArtFromUser(Integer artno, String username) {
 		Art art = artDao.readByArtFromUser(artno);
-		Option option = optionDao.readByOption(optno);
+		Option option = optionDao.readByArtno(artno);
 		if(art==null)
 			throw new ArtNotFoundException();
 		ArtDto.DtoForRead dto = modelMapper.map(art, ArtDto.DtoForRead.class);

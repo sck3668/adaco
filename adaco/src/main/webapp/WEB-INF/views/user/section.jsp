@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>           
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,7 +56,11 @@ ${artPage.artList }
               <a href="#"><img class="card-img-top" src="image/art1.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="/adaco/art/read?artno=${art.artno}">
+                <sec:authorize access="hasRole('ROLE_SELLER')">
+                  <a href="/adaco/art/readByArtist?artno=${art.artno}">
+                  <img alt="상품 사진" src="${art.mainImg }"></a>
+            	</sec:authorize>
+            		<a href="/adaco/art/readByArtist?artno=${art.artno}">
                   <img alt="상품 사진" src="${art.mainImg }"></a>
                 </h4>
                 <h5>${art.artName}</h5>
