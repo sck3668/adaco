@@ -37,6 +37,7 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private UserDao userDao;
+	private ArtService artService;
 	//회원가입 화면
 	@GetMapping("/user/join")
 	public ModelAndView join() {

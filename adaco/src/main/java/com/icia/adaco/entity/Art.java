@@ -29,4 +29,6 @@ public class Art {
 	private Integer artistno;
 	private Integer shopno;
 	private String artDetail;
+	private Integer reviewCnt;
+	private Integer artCommentCnt;
 }

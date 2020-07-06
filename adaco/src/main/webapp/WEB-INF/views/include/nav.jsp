@@ -16,7 +16,6 @@ $(function() {
 		$("#gogak-d").toggle();
 		}); 
 	}) 
-	
 </script>
 </head>
 <body>
@@ -36,7 +35,7 @@ $(function() {
 					<a class="nav-link" href="/adaco/user/join">회원가입</a>
 				</li>
          		<li class="nav-item">
-					<a class="nav-link" href="/adaco/user/bag">장바구니</a>
+					<a class="nav-link" href="/adaco/bag/list">장바구니</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="/adaco/user/mypage">마이페이지</a>
@@ -58,7 +57,7 @@ $(function() {
          		   <a class="nav-link" href="/adaco/user/logout">로그아웃</a>
          		</li>
          		<li class="nav-item">
-					<a class="nav-link" href="/adaco/user/bag">장바구니</a>
+					<a class="nav-link" href="/adaco/bag/list">장바구니</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="/adaco/user/mypage">마이페이지</a>

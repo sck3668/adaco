@@ -20,7 +20,7 @@
 	<![CDATA[
 		select*from
 			(select rownum as rnum, r.*from
-				(select /*+ index_desc(review review_pk_rno) */ rno, content, star, write_date, image, artno, username
+				(select /*+ index_desc(review review_pk_rno) */ rno, content, star, write_date writeDate, image, artno, username
 				from review ) r
 			where rownum <=#{endRowNum}) 
 		where rnum>=#{startRowNum}
@@ -29,7 +29,14 @@
 	
 	<!--해당 작품 리뷰 수  -->
 	<select id="count" resultType="int">
-		select count(*)	from review where artno=#{artno}
+		select count(*)	from review 
+	</select>
+	
+	<!-- 작품 리뷰 상세 보기 / 리뷰삭제 위한 -->
+	<select id="findById" resultType="review">
+		select rno, artno, content, star, write_date writeDate, image, username
+		from review
+		where rno=#{rno} and rownum=1
 	</select>
 	<select id="listByReviewOfusername" resultType="user">
 		select rno,star,content,image,write_date writeDate,artno,username from user where username=#{username}

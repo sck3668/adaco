@@ -9,9 +9,16 @@
 		select art_seq.nextval from dual
 	</selectKey>
 		insert into art(artno, art_name, price, main_img, art_img, stock, tag, art_date, category, shopno, couri_price, return_address, courier, accumulated, favorite, artistno, art_detail, read_cnt )
-		values(#{artno},#{artName},#{price},#{mainImg},#{artImg, jdbcType=VARCHAR},#{stock}, #{tag}, sysdate, #{category}, #{shopno}, #{couriPrice, jdbcType=INTEGER}, #{returnAddress, jdbcType=VARCHAR}, #{courier, jdbcType=VARCHAR}, #{accumulated, jdbcType=INTEGER}, 0, #{artistno}, #{artDetail, jdbcType=VARCHAR},0)
+		values(#{artno},#{artName},#{price},#{mainImg},#{artImg, jdbcType=VARCHAR},#{stock, jdbcType=VARCHAR}, #{tag}, sysdate, #{category}, #{shopno}, #{couriPrice, jdbcType=INTEGER}, #{returnAddress, jdbcType=VARCHAR}, #{courier, jdbcType=VARCHAR}, #{accumulated, jdbcType=INTEGER}, 0, #{artistno}, #{artDetail, jdbcType=VARCHAR},0)
 	</insert>
+<!-- 장바구니에서 작품보기 -->
+	<select id="list" resultType="art">
+		select artno, art_name artName, price,main_img mainImg from art 
+	</select>
 	
+	<select id="findArtByUsername" resultType="art">
+		select artno, art_name artName, price,main_img mainImg from art where artistno=#{artistno} 
+	</select>
 	<!-- 작품 내역보기/최신순-->
 		<select id="findAll" resultType="art">
 	<![CDATA[
@@ -24,6 +31,11 @@
 		]]>
 	</select>
 	
+	
+	<select id="findAllByArtno" resultType="art">
+		select artno, category, main_img mainImg, art_name artName, price
+		from art where artno = #{artno}
+	</select>
 	<!-- 작품 삭제 -->
 	<delete id="delete">
 		delete from art where artno=#{artno} and rownum=1
@@ -50,6 +62,8 @@
 			<if test="returnAddress!=null">return_address=#{returnAddress},</if>
 			<if test="courier!=null">courier=#{courier},</if>
 			<if test="readCnt!=null">read_cnt=read_cnt+1,</if>
+			<if test="reviewCnt!=null">review_cnt=review_cnt+1,</if>
+			<if test="artCommentCnt!=null">art_comment_cnt=art_comment_cnt+1,</if>
 			<if test="accumulated!=null">accumulated=#{accumulated},</if>
 			<if test="favorite!=null">favorite=#{favorite},</if>
 			<if test="artDetail!=null">art_detail=#{artDetail},</if>
@@ -65,43 +79,53 @@
 	
 	<!-- 회원 사용 -->
 	
-	 <!-- 검색어(일단 작품이름)로 작품 검색 -->
-	<select id="searchByArt" resultType="art">
-	      select B.art_name, B.main_img, B.price
+	<!-- 작품 리스트(최신순) / 작품이름으로 검색 리스트-->
+	<select id="findAllFromUser" resultType="art">
+		select B.art_name artName, B.main_img mainImg, B.price
 	      from
 	         (select /*+ index_desc(art art_pk_artno) */ rownum rnum, A.art_name, A.main_img, A.price
 	         from (
 	            select art_name, main_img, price
 	            from art
-	       		where art_name like '%'|| #{keyWord} || '%' 
+	            <trim prefix="WHERE" prefixOverrides="AND">
+	            	<if test="artName!=null and artName != '' ">
+	            		AND art_name like '%'|| #{artName} || '%' 
+	            	</if>
+	            </trim>
 	       		order by art_name) A
 	         where rownum&lt;= #{endRowNum})B
 	      where B.rnum&gt;= #{startRowNum}
 	</select>
+
+	<!-- 작품이름으로 검색한 작품 수 -->
+	<select id="countSearchByArtName" resultType="int">
+	   	select count(*)
+	   	from art 
+	   	<where>
+	   		<if test="artName!=null">and art_name like '%'|| #{artName} || '%'</if>
+	   	</where> 	
+	</select> 
 	
-	<!-- 작품 리스트/최신순-->
-		<select id="findAllFromUser" resultType="art">
-	<![CDATA[
-		select*from
-			(select rownum as rnum, a.*from
-				(select /*+ index_desc(art art_pk_artno) */ artno, main_img mainImg, art_name artName, favorite
-				from art ) a
-			where rownum <=#{endRowNum}) 
-		where rnum>=#{startRowNum}
-		]]>
+	<!-- 작품 리스트(일단 리뷰가 5이상인 작품 모음) -->
+	<select id="reviewManyByArt" resultType="art">
+	      select B.art_name artName, B.main_img mainImg, B.price
+	      from
+	         (select /*+ index_desc(art art_pk_artno) */ rownum rnum, A.art_name, A.main_img, A.price
+	         from (
+	            select art_name, main_img, price
+	            from art
+	       		where review_cnt>=5
+	       		order by art_name) A
+	         where rownum&lt;= #{endRowNum})B
+	      where B.rnum&gt;= #{startRowNum}
 	</select>
-	
-	<!-- 작품 정렬(리뷰순) -->
-	<select id="findAllByReview" resultType="art">
-	<![CDATA[
-		select*from
-			(select rownum as rnum, b.*from
-				(select /*+ index_desc(art art_pk_artno) */ artno, category, main_img mainImg, art_name artName, price
-				from art ) b
-			where rownum <=#{endRowNum}) 
-		where rnum>=#{startRowNum}
-		]]>
-	</select>
+
+	<!-- 일단 리뷰 5이상인 작품 수 -->
+	<select id="countReviewByArt" resultType="int">
+	   	select count(*)
+	   	from art 
+	   	where review_cnt>=5
+	</select> 
 	
 	<!-- 작품 상세 보기 -->
 	<select id="findByArtFromUser" resultType="art">
@@ -111,17 +135,5 @@
 		from art
 		where artno=#{artno} and rownum=1
 	</select>
-	
-	
-	<!-- 검색어에 맞는 작품 갯수 -->
-	<!--    <select id="countSearch" resultType="int">
-	   		select count(artno)
-	   		from art
-	   		<include refid="search"></include>
-	   		<![CDATA[
-	   		and artno>0
-	   		]]>
-	   </select> -->
-	   
 	
  </mapper>

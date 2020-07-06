@@ -1,5 +1,4 @@
 package com.icia.adaco.dto;
-
 import java.time.*;
 import java.util.*;
 
@@ -42,7 +41,8 @@ public class ArtDto {
 		private String optionValue;
 		private Integer optionStock;
 		private Integer optionPrice;
-		
+		private Integer reviewCnt;
+		//
 	}
 	
 	@Data
@@ -117,7 +117,32 @@ public class ArtDto {
 		private String optionValue;
 		private Integer optionStock;
 		private Integer optionPrice;
+		private List<ArtComment> artComments;
+		private List<Review> reviews;
 		
+	}
+	
+	
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Builder
+	@Accessors(chain=true)
+	// 작품 리뷰 리스트 (회원용)
+	public static class DtoForReviewList{
+		private Integer rno;
+		private star star;
+		private String content;
+		private String image;
+		private LocalDateTime writeDate;
+		private String username;
+	}
+	 
+	public static class DtoForBag{
+		private String artName;
+		private Integer price;
+		private String mainImg;
+		private Integer stock;
 	}
 
 }

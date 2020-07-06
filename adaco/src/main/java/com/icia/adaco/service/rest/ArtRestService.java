@@ -1,15 +1,19 @@
 package com.icia.adaco.service.rest;
 
+import java.time.*;
 import java.time.format.*;
+import java.util.*;
 
 import javax.validation.constraints.*;
 
+import org.apache.ibatis.session.*;
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.multipart.*;
 
 import com.fasterxml.jackson.databind.*;
+
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.dto.ArtDto.*;
@@ -26,17 +30,20 @@ public class ArtRestService {
 	private ArtistDao artistDao;
 	@Autowired
 	private OptionDao optionDao;
+	@Autowired
+	private ReviewDao reviewDao;
+	@Autowired
+	private ArtCommentDao artCommemtDao;
 	@Value("d:/upload/artfile")
 	private String artfileFolder;
 	@Value("http://localhost:8081/artfile/")
 	private String artfilePath;
 
-	//작품 업데이트
+	// 작품 업데이트
 	public void updateArt(ArtDto.DtoForUpdate dto, MultipartFile artSajin) {
 		Art art = artDao.readByArt(dto.getArtno());
-		System.out.println("아트처음이야" + art);
-		Option option = optionDao.readByOption(dto.getArtno());
-		System.out.println("옵션이 나올까"+ option);
+		dto.setArtistNo(art.getArtistno());
+		Option option = optionDao.readByOption(dto.getOptno());
 		Artist artist = artistDao.findByid(dto.getArtistNo());
 		if(art==null)
 			throw new ArtNotFoundException();
@@ -47,8 +54,6 @@ public class ArtRestService {
 		option.setArtno(art.getArtno());
 		optionDao.updateByOption(option);
 		artDao.updateByArt(art);
-		System.out.println(art);
-		
 	}
 
 	// 작품 상세보기 옵션 포함(작가용)
@@ -87,6 +92,9 @@ public class ArtRestService {
 			dto.setOptionPrice(option.getOptionPrice());
 		if(username!=null)
 			artDao.updateByArt(Art.builder().artno(artno).readCnt(1).build());
+		if(art.getArtCommentCnt()>0)
+			dto.setArtComments(artCommemtDao.listByCommentOfArt(dto.getArtno()));
+		System.out.println("디티오"+dto);
 		return dto;
 	}
 
@@ -96,8 +104,8 @@ public class ArtRestService {
 		return art.getArtImg();
 	}
 
-	//작품 삭제
-	public void deleteArt(Integer artno, String username, Integer artistno, Integer optno) {
+	// 작품 삭제
+	public boolean deleteArt(Integer artno, String username, Integer artistno, Integer optno) {
 		Art art = artDao.readByArt(artno);
 		Option option = optionDao.readByOption(optno);
 		String artWriter = artistDao.findByid(artistno).getUsername();
@@ -106,13 +114,43 @@ public class ArtRestService {
 		if(username.equals(artWriter)==false)
 			throw new IllegalJobException();
 		option.setArtno(art.getArtno());
-		optionDao.updateByOption(option);
-		artDao.deleteByArt(artno);
-		
+		optionDao.deleteByOption(optno);
+		return artDao.deleteByArt(artno)==1;
 	}
 	
+	// 작품 댓글 작성하기
+	public List<ArtComment> writeCommentOfArt(ArtComment artcomment){
+		System.out.println("==========================");
+		artcomment.setWriteDate(LocalDateTime.now());
+		String reviewStr = artcomment.getContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
+		artcomment.setContent(reviewStr);
+		artCommemtDao.writeByCommentOfArt(artcomment);
+		System.out.println(artcomment.getArtno()+"--------------------");
+		artDao.updateByArt(Art.builder().artno(artcomment.getArtno()).artCommentCnt(1).build());
+		return artCommemtDao.listByCommentOfArt(artcomment.getArtno());
+	}
+	
+	// 작품 댓글 삭제하기
+	public List<ArtComment> deleteCommentOfArt(Integer cno, Integer artno, String username){
+		ArtComment artcomment = artCommemtDao.readByCommentOfArt(cno);
+		if(username.equals(artcomment.getUsername())==false)
+			throw new JobFailException("댓글을 삭제할 수 없습니다");
+		artCommemtDao.deleteByCommentOfArt(cno);
+		return artCommemtDao.listByCommentOfArt(cno);
+	}
+	
+	// 작품 댓글 신고 
+/*	public int report(int cno, String username, boolean isReport) {
+		ArtComment artcomment = artCommemtDao.readByCommentOfArt(cno);
+		if(artcomment==null)
+			throw new ArtCommentNotFoundException();
+		if(
+	}*/
+	
+	// 작품 리뷰 작성 하기
+	
+	// 작품 리뷰 삭제 하기
 	
 	
-
 	
 }
