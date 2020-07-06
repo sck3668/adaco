@@ -180,7 +180,7 @@ $(function() {
 						_csrf:"${_csrf.token}",
 						artno:$(this).attr("data-artno"),
 						isIncrese:"0"
-				}/////
+				}////ㅇㄴㄹ/
 				console.log(params);
 				return $.ajax({
 					url:"/adaco/bag/change",
