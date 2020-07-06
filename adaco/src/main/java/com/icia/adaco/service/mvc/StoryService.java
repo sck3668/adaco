@@ -1,6 +1,7 @@
 package com.icia.adaco.service.mvc;
 
 import java.io.*;
+import java.time.*;
 import java.time.format.*;
 import java.util.*;
 
@@ -28,16 +29,26 @@ public class StoryService {
 
 	public int storyWrite(StoryBoardDto.DtoForWrite dtoWrite,MultipartFile sajin)throws IOException {
 		Story story = modelMapper.map(dtoWrite, Story.class);
+		System.out.println("1111111111111");
+		System.out.println(story);
+		System.out.println(sajin);
 		if (sajin != null && sajin.isEmpty() == false) {
-			if (sajin.getContentType().toLowerCase().startsWith("image/")) {
+			if (sajin.getContentType().toLowerCase().startsWith("image/")==true) {
+				System.out.println("222222222222");
+				System.out.println(story);
+				System.out.println(sajin);
 				int lastIndexOfDot = sajin.getOriginalFilename().lastIndexOf(".");
 				String extension = sajin.getOriginalFilename().substring(lastIndexOfDot + 1);
+				
 				File storyFile = new File(profileFolder, story.getWriter() + "." + extension);
-
 				sajin.transferTo(storyFile);
 				story.setImage(profilePath + storyFile.getName());
 			}
 		}
+		System.out.println("3333333333333");
+		System.out.println(story);
+		System.out.println(sajin);
+		story.setWriteDate(LocalDateTime.now());
 		storyDao.insert(story);
 		return story.getStoryno();
 	}
@@ -45,8 +56,8 @@ public class StoryService {
 	public Page storyList(int pageno) {
 		int countOfBoard = storyDao.count();
 		Page page = PagingUtil.getPage(pageno, countOfBoard);
-		int srn = page.getStartPage();
-		int ern = page.getEndPage();
+		int srn = page.getStartRowNum();
+		int ern = page.getEndRowNum();
 		List<Story> storyList = null;
 		storyList = storyDao.findAllStory(srn, ern);
 		List<StoryBoardDto.DtoForList> storydtoList = new ArrayList<StoryBoardDto.DtoForList>();

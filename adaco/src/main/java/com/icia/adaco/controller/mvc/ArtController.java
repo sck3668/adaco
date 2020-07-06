@@ -5,17 +5,22 @@ import java.io.*;
 import java.security.*;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.*;
+import org.springframework.lang.*;
 import org.springframework.stereotype.*;
+import org.springframework.ui.*;
 import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.*;
 import org.springframework.web.servlet.*;
 
 import com.icia.adaco.dto.*;
+import com.icia.adaco.dto.ArtDto.*;
 import com.icia.adaco.service.mvc.*;
 import com.icia.adaco.service.rest.*;
 
 import lombok.*;
+import lombok.NonNull;
 
 @Controller
 public class ArtController {
@@ -27,19 +32,25 @@ public class ArtController {
 	// 작품 리스트 (작가용)
 	@GetMapping("/art/list")
 	public ModelAndView artList(@RequestParam(defaultValue = "1") int pageno) {
-		return new ModelAndView("main").addObject("viewName","art/list.jsp").addObject("artPage",artservice.list(pageno));
+		return new ModelAndView("main").addObject("viewName","user/section.jsp").addObject("artPage",artservice.list(pageno));
 	}
 	
-	// 작품 리스트 (회원용)
+	// 작품 리스트(최신순) + 작품 이름으로 작품 검색(회원용)
 	@GetMapping("/art/list2")
-	public ModelAndView artListFromUser(@RequestParam(defaultValue = "1") int pageno) {
-		return new ModelAndView("main").addObject("viewName","user/section.jsp").addObject("artPage",artservice.listFromUser(3));
+	public ModelAndView artListFromUser(@RequestParam(defaultValue = "1") int pageno, @Nullable String artname) {
+		return new ModelAndView("main").addObject("viewName","user/section.jsp").addObject("artPage",artservice.listFromUser(pageno, artname));
+	}
+	
+	// 작품 리스트 (일단 리뷰5이상인) (회원용)
+	@GetMapping("/art/list3")
+	public ModelAndView listReviewManyArt(@RequestParam(defaultValue = "1") int pageno, @Nullable String artname) {
+		return new ModelAndView("main").addObject("viewName","user/section2.jsp").addObject("artReviewPage",artservice.listManyReview(pageno));
 	}
 	
 	// 작품 상세보기 (작가용)
 	@GetMapping("/art/read2")
 	public ModelAndView read(@NonNull Integer artno) {
-		return new ModelAndView("main").addObject("viewName","art/read.jsp");
+		return new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPage",service.readArt(58, 88, "spring123"));
 	}
 	
 	// 작품 상세보기 (회원용)
@@ -70,6 +81,4 @@ public class ArtController {
 		}
 		return "redirect:/art/list";
 	}
-	
-	
 }

@@ -17,18 +17,22 @@ public class OrderService {
 	private OrderDao orderDao;
 	@Autowired
 	private UserDao userDao;
+	private BagDao bagDao;
+	private ArtDao artDao;
 	@Autowired
 	private ModelMapper modelMapper;
 	
 		// 주문 하기    
-		public void Ordering(String username,int shippingCharge,Order order) {
-			order.setUsername(username);
-			order.setShippingCharge(shippingCharge);
+		public void Ordering(Order order,int artno) {
+			artDao.readByArt(artno);
 			orderDao.Ordering(order);
+			
 		}
 		
 		// 장바구니에 담긴 상품 주문하기
-//		public void BagOrder(BagDto.DtoForWrite Dto,  )
+		public void BagOrder(BagDto.DtoForWrite Dto,Bag bag  ) {
+			bagDao.insertByBag(bag);
+		}
 		
 		
 		// 주문 내역 보기

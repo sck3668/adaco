@@ -93,4 +93,15 @@ public class AdminBoardDto {
 		
 	}
 	
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Builder
+	public static class DtoForIndex{
+		private Integer countByQuestion;
+		private Integer countByNoAnswerQuestion;
+		private Integer countByUser;
+		private Integer countByArtist;
+	}
+	
 }

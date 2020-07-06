@@ -31,6 +31,12 @@ public class AdminBoardController {
 	@Autowired
 	ObjectMapper objectMapper;
 	
+	
+	@GetMapping("/admin/")
+	public ModelAndView adminIndex() {
+		return new ModelAndView("admin/index").addObject("index", service.indexRead());
+	}
+	
 //	@PreAuthorize("isAuthenticated()")
 //	@Secured("ROLE_ADMIN")
 	@GetMapping("/admin/report_list")
@@ -53,7 +59,8 @@ public class AdminBoardController {
 //	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/admin/question_list")
 	public ModelAndView questionList(@RequestParam(defaultValue = "1")int pageno, @Nullable String writer, @Nullable State searchType) {
-		return new ModelAndView("admin/question/list").addObject("questionPage", service.questionList(pageno, writer, searchType));
+		return new ModelAndView("admin/question/list"
+				+ "").addObject("questionPage", service.questionList(pageno, writer, searchType));
 	}
 	
 //	@Secured("ROLE_ADMIN")

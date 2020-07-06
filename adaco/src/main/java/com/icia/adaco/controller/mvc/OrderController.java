@@ -1,8 +1,11 @@
 package com.icia.adaco.controller.mvc;
 
+
+
 import java.security.*;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
@@ -21,6 +24,11 @@ public class OrderController {
 	@GetMapping("/order/ordering")
 	public ModelAndView Ordering(Principal principal) {
 		return new ModelAndView("main").addObject("viewName","order/ordering.jsp");
+	}
+	
+	@PostMapping("/order/ordering")
+	public ResponseEntity<?> ordering(Order order,String username){
+		return ResponseEntity.ok(orderService.Ordering(username, order));
 	}
 	
 	// 주문 내역 보기

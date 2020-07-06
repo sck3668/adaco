@@ -47,7 +47,7 @@
 </script>
 </head>
 <body>
-<h3>유저 목록</h3>
+<h3>주문 목록</h3>
 	<div>
 	<input type="text" id="username" name="username" placeholder="사용자 검색">
 	<button type = "button" id = "search">검색</button>
