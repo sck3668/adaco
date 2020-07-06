@@ -7,9 +7,9 @@ import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
 
+import com.icia.adaco.dto.*;
+import com.icia.adaco.entity.*;
 import com.icia.adaco.service.mvc.*;
-
-import oracle.jdbc.proxy.annotation.*;
 
 @Controller
 public class OrderController {
@@ -24,14 +24,21 @@ public class OrderController {
 	}
 	
 	// 주문 내역 보기
-	@GetMapping("/user/order_list")
+	@GetMapping("/order/list")
 	public ModelAndView findAllByOrder() {
-		return new ModelAndView("main").addObject("viewName","user/order_list.jsp");
+		return new ModelAndView("main").addObject("viewName","order/list.jsp");
 	}
 
 	// 주문 상세 보기
-	@GetMapping("/user/order_read")
+	@GetMapping("/order/read")
 	public ModelAndView findByOrder() {
-		return new ModelAndView("main").addObject("viewName", "user/order_read");
+		return new ModelAndView("main").addObject("viewName", "order/read");
 	}
+	
+	// 장바구니에서 주문
+//			@GetMapping("/order/carByorder")
+//			public ModelAndView orderDetail2(OrderDetailDto.DtoForOrdering Dto,Order order,String username,Integer shippingCharge ) {
+//				orderService.Ordering(username, shippingCharge, order);
+//				return new ModelAndView("main").addObject("viewName", "order/carByorder");
+//			}
 }

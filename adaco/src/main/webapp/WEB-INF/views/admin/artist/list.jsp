@@ -92,8 +92,8 @@
 	</table>
  	<div style="text-align:center;">
 		<ul class="pagination">
-			<c:if test="${artist.prev==true}">
-				<li><a href="/adaco/admin/artist_list?pageno=${artist.startPage-1}">이전</a></li>
+			<c:if test="${artistPage.prev==true}">
+				<li><a href="/adaco/admin/artist_list?pageno=${artistPage.startPage-1}">이전</a></li>
 			</c:if>
 			<c:forEach begin="${artistPage.startPage}" end="${artistPage.endPage}" var="i">
 				<c:choose>

@@ -6,12 +6,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>FAQ 목록</title>
+<title>공지사항</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
-      table {
+     table {
         width: 100%;
       }
       table, th, td {
@@ -41,6 +41,7 @@
 <div>
 		<table class="table table-hover">
 			<colgroup>
+				<col width="5%">
 				<col width="10%">
 				<col width="40%">
 				<col width="30%">
@@ -48,6 +49,7 @@
 			</colgroup>
 			<thead>
 				<tr>
+					<th>비고</th>
 					<th>번호</th>
 					<th>제목</th>
 					<th>날짜</th>
@@ -57,8 +59,14 @@
 			<tbody id="list">
 			<c:forEach items="${noticePage.adminNoticeList}" var="notice">
 				<tr>
-					<td>${notice.noticeno}</td>
-					<td><a href="/adaco/admin/read?bno=${board.bno}">${notice.title }</a></td>
+					<td><c:choose>
+							<c:when test="${notice.important==true }">공지 
+							</c:when>
+							<c:otherwise></c:otherwise>
+						</c:choose>
+					</td>
+					<td>${notice.noticeno }</td>
+					<td><a href="/adaco/admin/notice_read?noticeno=${notice.noticeno}">${notice.title }</a></td>
 					<td>${notice.writeDateStr }</td>
 					<td>${notice.writer}</td>
 				</tr>
@@ -68,24 +76,24 @@
 	</div>
 	<div style="text-align:center;">
 		<ul class="pagination">
-			<c:if test="${page.prev==true}">
-				<li><a href="/aboard/board/list?pageno=${page.startPage-1}">이전</a></li>
+			<c:if test="${noticePage.prev==true}">
+				<li><a href="/adaco/admin/notice_list?pageno=${noticePage.startPage-1}">이전</a></li>
 			</c:if>
-			<c:forEach begin="${page.startPage}" end="${page.endPage}" var="i">
+			<c:forEach begin="${noticePage.startPage}" end="${noticePage.endPage}" var="i">
 				<c:choose>
-					<c:when test="${page.pageno eq i }">
+					<c:when test="${noticePage.pageno eq i }">
 						<li class="active">
-							<a href="/aboard/board/list?pageno=${i}">${i}</a>
+							<a href="/adaco/admin/notice_list?pageno=${i}">${i}</a>
 						</li>
 					</c:when>
 					<c:otherwise>
-						<li><a href="/aboard/board/list?pageno=${i}">${i}</a></li>
+						<li><a href="/adaco/admin/notice_list?pageno=${i}">${i}</a></li>
 					</c:otherwise>
 				</c:choose>
 				
 			</c:forEach>
-			<c:if test="${page.next==true}">
-				<li><a href="/aboard/board/list?pageno=${page.endPage+1}">다음</a></li>
+			<c:if test="${noticePage.next==true}">
+				<li><a href="/adaco/admin/notice_list?pageno=${noticePage.endPage+1}">다음</a></li>
 			</c:if>
 		</ul>
 	</div>

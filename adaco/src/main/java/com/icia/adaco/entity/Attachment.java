@@ -9,12 +9,12 @@ import lombok.experimental.*;
 @Accessors(chain=true)
 public class Attachment {
 	private Integer ano;
-	private String originalName;
+	private String originalFileName;
 	private String writer;
-	private String saveFimeName;
-	private String length;
+	private String saveFileName;
+	private Integer length;
 	private Integer storyno;
 	private boolean isImage;
 	private String artno;
-	
+	private Integer noticeno;
 }

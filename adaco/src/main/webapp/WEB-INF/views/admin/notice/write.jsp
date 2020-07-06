@@ -1,13 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항 읽기</title>
-<style>
+<style type="text/css">
 @-moz-keyframes borderscale {
   50% {
     box-shadow: 0 0 0 2px #999;
@@ -41,19 +38,18 @@ body {
   background: #2d2d2d;
 }
 
-#section {
+form {
   background: #fff;
   border-radius: 20px;
   box-shadow: 5px 5px 15px rgba(107, 173, 182, 0.6);
   padding: 1rem 2rem;
-  min-width: 90vw;
-  height: 900px;
+  min-width: 30vw;
 }
-#section li {
+form li {
   margin: 0.3rem 0;
 }
-#section div {
-  margin: 0.5rem 0;
+form div {
+  margin: 1.5rem 0;
 }
 
 ul {
@@ -183,12 +179,6 @@ input[type="text"]:focus {
 input[type="text"]:focus, input[type="text"]:hover {
   border-color: #999;
 }
-
-#content_div {
-	overflow: auto;
-}
-#section {
-}
 /* IE 10/11+ - This hides native dropdown button arrow so it will have the custom appearance, IE 9 and earlier get a native select - targeting media query hack via http://browserhacks.com/#hack-28f493d247a12ab654f6c3637f6978d5 - looking for better ways to achieve this targeting */
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
   select::-ms-expand {
@@ -212,114 +202,67 @@ input[type="text"]:focus, input[type="text"]:hover {
   		padding-top: 50px;
 	}
 	#title {
-		width: 1400px;
+		width: 800px;
 	}
 	.form-group {
-		width: 1400px;
+		width: 800px;
 	}
-	#title.form-control {
-		margin: 0 auto;
-		margin-bottom: 20px; 
-	}
-	#content.form-control {
-		height: auto;
-		width: 1400px;
-	}
-	#content {
-		text-align: center;
-		min-height: 600px;
-	}
-	#content-disabled{
-   		background-color:#FFF !important;
-	}
+	
 </style>
+<title>글쓰기</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="/adaco/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
-	var notice = ${notice};
-	console.log(notice);
-	function printAttachment(attachments) {
-		console.log(attachments);
-		var $ul = $("#attachment");
-		$ul.empty();
-		$.each(attachments, function(i, attachment){
-			var $li = $("<li>").appendTo($ul);
-			if(attachment.image == true)
-				$("<i class = 'fa fa-file-image-o'></i>").appendTo($li);			
-			else 
-				$("<i class = 'fa fa-paperclip'></i>").appendTo($li);
-			// 첨부파일에 대한 링크를 아이콘 뒤에 추가
-			$("<a href='/adaco/attachment/view?ano=" + attachment.ano + "'>" + attachment.originalFileName + "</a>").appendTo($li);
-			
-			// 첨부파일을 삭제하기 위한 <span></span> 출력
-			// <span class = '' data-ano = '20' data-bno = '129'>
-			if(isLogin == true && board.writer == loginId) {
-				var str = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" 
-				str += "<span class = 'delete_attachment' data-ano='";
-				str += attachment.ano;
-				str += "' data-bno='";
-				str += attachment.bno;
-				str += "' >X</span>"
-				$li.append(str);
-				$(".delete_attachment").css("cursor", "pointer").attr("title", "삭제하기");
-			}
-		});
-	}
-	var isLogin = false;
-	
 	$(function(){
-		if(isLogin == true)
-			var ck = CKEDITOR.replace("content", {filebrowserUploadUrl:"http://localhost:8081/adaco/admin/notice/ckupload"})
-		$("#title").val(notice.title);
-		$("#write_date").text(notice.writeDateStr);
-		$("#content").html(notice.content);
-		printAttachment(notice.attachments);
-		
-		
-		
-		
+		var ck = CKEDITOR.replace("content", {
+			height: 600,
+			filebrowserUploadUrl:"http://localhost:8081/adaco/admin/notice/ckupload"
+		})
+		var idx = 0;
+		$("#add").on("click", function(){
+			var $input = $("<input>").attr("type", "file").attr("class", "form-control-file").attr("name", "attachments[" + idx + "]");
+			idx++;
+			$input.appendTo($("#attachment_div"));
+			
+		});
+		/* form 을 넘기기 전 값 확인 */
+		$("#write").on("click", function(){
+			
+			if($("input:checkbox[name=checkbox]").is(":checked") == true) {
+				$("#isImportant").val("1");
+			}
+			console.log($("#wrFrm").serialize());
+			$("#wrFrm").submit();
+		});
 	})
 </script>
 </head>
 <body>
 	<form action="/adaco/admin/notice_write" method="post" id = "wrFrm" enctype="multipart/form-data">
-		<div id = "section">
-			<div class = "form-group">
-				<label for = "title">▣</label>
-				<input type = "text" class = "form-control" id = "title" name = "title">
-			</div>
-			<div class = "form-group">
-				<ul id = "attachment">
-				</ul>
-			</div>
-			<div class = "form-group" id ="content_div">
-				<div class = "form-group">
-					<div class = "form-control" id = "content" name = "content" cols="50" rows="10" readonly="readonly" style="background-color: white;"></div>
-				</div>
-			</div>
-			<sec:authorize access="hasRole('ROLE_ADMIN')">
-			<div class = "form-grop">
-				<button type = "button" class = "btn btn-success" id = "write">작성</button>
-				<button type = "button" id = "add">첨부파일 추가</button>
-				<div id = "attachment_div">
-				</div>
-				<div id = "check_div">
-					<input type = "hidden"id = "isImportant" name = "isImportant" value="0">
-				</div>
-				<div>
-		       		<ul>
-		            	<li>
-		            		<input id="checkbox1" id= "checkbox" name="checkbox" type="checkbox"> <label for="checkbox1">중요 공지</label>
-	            		</li>
-		            </ul>
-	            </div>
-	        </div>
-			</sec:authorize>
-			<a href="/adaco/admin/notice_list" class = "btn btn-primary">뒤로가기</a>			
-			<input type = "hidden" name = "_csrf" value = "${_csrf.token }">
+		<div class = "form-group">
+			<label for = "title">제목:</label>
+			<input type = "text" class = "form-control" id = "title" name = "title">
 		</div>
+		<div class = "form-group">
+			<textarea class = "form-control" id = "content" name = "content" cols="50" rows="10"></textarea>
+			<button type = "button" class = "btn btn-success" id = "write">작성</button>
+			<button type = "button" id = "add">첨부파일 추가</button>
+			<div id = "attachment_div">
+			</div>
+			<div id = "check_div">
+				<input type = "hidden"id = "isImportant" name = "isImportant" value="0">
+			</div>
+        </div>
+			<div>
+	       		<ul>
+	            	<li>
+	            		<input id="checkbox1" id= "checkbox" name="checkbox" type="checkbox"> <label for="checkbox1">중요 공지</label>
+            		</li>
+	            </ul>
+            </div>
+		<input type = "hidden" name = "_csrf" value = "${_csrf.token }">
 	</form>
 </body>
 </html>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
 import com.icia.adaco.dao.*;
+import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
 
 @Service
@@ -27,6 +28,8 @@ public class OrderService {
 		}
 		
 		// 장바구니에 담긴 상품 주문하기
+//		public void BagOrder(BagDto.DtoForWrite Dto,  )
+		
 		
 		// 주문 내역 보기
 		public List<Order> findAllByOrder(){

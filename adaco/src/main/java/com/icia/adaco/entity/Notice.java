@@ -17,5 +17,7 @@ public class Notice {
 	private LocalDateTime writeDate;
 	private String writer;
 	private Boolean isImportant;
+	private Integer deleteCommentCnt;
+	private Integer attachmentCnt;
 }
 

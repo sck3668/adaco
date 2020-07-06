@@ -43,6 +43,8 @@ th {
 </style>
 </head>
 <body>
+${user }dsdada
+${order }sadasd
 	<div id="content" class="content" data-page="shoppingBag"
 		data-page-type="direct">
 		<!-- 개인결제 여부 -->

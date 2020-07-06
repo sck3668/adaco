@@ -80,6 +80,17 @@
       <url-pattern>/*</url-pattern>
    </filter-mapping>
 
+	<!-- 네이버 루시 필터 -->
+	<filter>
+		<filter-name>xssEscapeServletFilter</filter-name>
+		<filter-class>com.navercorp.lucy.security.xss.servletfilter.XssEscapeServletFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>xssEscapeServletFilter</filter-name>
+		<url-pattern>/comment/write</url-pattern>
+		<url-pattern>/board/write</url-pattern>
+	</filter-mapping>
+	
    <!-- csrf 처리를 위한 MultipartFilter 설정 -->
    <filter>
       <display-name>springMultipartFilter</display-name>
