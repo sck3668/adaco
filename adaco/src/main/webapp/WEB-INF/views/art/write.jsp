@@ -63,7 +63,7 @@
 			</div>
 			<div class="inputArea">
 				<label for="artDetail">작품소개</label>
-				<textarea rows="5" cols="50" id="artDetail" name="artDetail">${art.artDetail}</textarea>
+				<textarea rows="5" cols="50" id="artDetail" name="artDetail"></textarea>
 			</div>
 			옵션여부
 			<input type="radio" name="optionox" value="yes" checked="checked" /> 예
