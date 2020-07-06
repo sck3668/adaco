@@ -72,7 +72,6 @@ public class ArtRestService {
 			dto.setOptionPrice(option.getOptionPrice());
 		String str = art.getArtDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일"));
 		dto.setArtDate(str);
-		System.out.println("작가상세" + dto);
 		return dto;
 	}
 	
@@ -92,8 +91,14 @@ public class ArtRestService {
 			dto.setOptionPrice(option.getOptionPrice());
 		if(username!=null)
 			artDao.updateByArt(Art.builder().artno(artno).readCnt(1).build());
+	
+		System.out.println("여기야여기"+ dto);
+		System.out.println(art+"==========");
 		if(art.getArtCommentCnt()>0)
 			dto.setArtComments(artCommemtDao.listByCommentOfArt(dto.getArtno()));
+		System.out.println(dto.setArtComments(artCommemtDao.listByCommentOfArt(dto.getArtno()))+"ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ");
+		
+		System.out.println("댓글수"+ art.getArtCommentCnt());
 		System.out.println("디티오"+dto);
 		return dto;
 	}

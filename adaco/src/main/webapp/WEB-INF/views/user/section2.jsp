@@ -57,7 +57,7 @@ ${artReviewPage.artList }
                 <h4 class="card-title">
                   <sec:authorize access="hasRole('ROLE_USER')">
                   <a href="/adaco/art/readByUser?artno=${art.artno}">
-                  <img alt="상품 사진" src="${artReviewPage.mainImg }"></a>
+                  <img alt="상품 사진" src="${art.mainImg }"></a>
             	</sec:authorize>
                 </h4>
                 <h5>${art.artName}</h5>

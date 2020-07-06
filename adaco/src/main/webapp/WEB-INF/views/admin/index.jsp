@@ -34,17 +34,11 @@
   		$("#noanswer_per_id").css({
   			width: per+"%",
   		})
-  		console.log(per);
-  		console.log($countByQuestion);
-  		console.log($countByNoAnswerQuestion);
-  		console.log($countByUser);
-  		console.log($countByArtist);
   	})
   </script>
 </head>
 
 <body id="page-top">
-	${index }
   <!-- Page Wrapper -->
   <div id="wrapper">
 
@@ -102,14 +96,14 @@
 
             <!-- 신고글 관리 -->
             <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-success shadow h-100 py-2">
+              <div class="card border-left-danger shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">신고글 관리</div>
-                      <div class="card border-0 bg-light text-center hov-p" style="height: 210px; padding: 75px;">
-              				<h5 class="text-dark font-weight-bold m-2">
-	              				<a class="nav-link" href="신고글 관리리스트" style="color: #1cc88a;">
+                      <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">신고글 관리</div>
+                      <div class="card border-0 bg-light text-center hov-p">
+              				<h5 class="text-dark font-weight-bold m-2" style="height: 200px;">
+	              				<a class="nav-link" href="/adaco/admin/report_list" style="color: #e74a3b; display: inline-block; padding-top: 85px;">
 	              					신고글 관리
 	              				</a>
               				</h5>
@@ -132,7 +126,7 @@
 	              				<span id = "question_cnt" style="padding-top: 10px; display: inline-block;">
               						${index.countByUser}
               					</span>
-	              				<a class="nav-link" href="일반 회원" style="color: #36b9cc;">
+	              				<a class="nav-link" href="/adaco/admin/user_list" style="color: #36b9cc;">
 	              					전체 회원
 	              				</a>
               				</h5>
@@ -142,7 +136,7 @@
               				<span id = "question_cnt">
               						${index.countByArtist}
               					</span>
-              					<a class="nav-link" href="작가 회원" style="color: #36b9cc;">
+              					<a class="nav-link" href="/adaco/admin/artist_list" style="color: #36b9cc;">
               					작가 회원
               				</a></h5>
               				</div>
@@ -162,13 +156,13 @@
                       <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">고객 안내</div>
                       <div class="card border-0 bg-light text-center hov-p">
               				<h5 class="text-dark font-weight-bold m-2">
-	              				<a class="nav-link" href="공지사항 관리" style="height: 72px; padding: 35px; color: #f6c23e;">
+	              				<a class="nav-link" href="/adaco/admin/notice_list" style="height: 72px; padding: 35px; color: #f6c23e;">
 	              					공지사항
 	              				</a>
               				</h5>
               		        <div class="card border-0 bg-light text-center hov-p">
               				<hr>
-              				<h5 class="text-dark font-weight-bold m-2"><a class="nav-link" href="FAQ" style="height: 72px; padding: 15px; color: #f6c23e;">
+              				<h5 class="text-dark font-weight-bold m-2"><a class="nav-link" href="/adaco/user/faq_list" style="height: 72px; padding: 15px; color: #f6c23e;">
               					FAQ
               				</a></h5>
               				</div>
@@ -197,9 +191,9 @@
                   <div class="progress mb-4">
                     <div class="progress-bar bg-info" role="progressbar" id = "noanswer_per_id" style="width: 20%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
-                  <h4 class="small font-weight-bold">삭제 된 댓글수 <span class="float-right">40%</span></h4>
+                  <h4 class="small font-weight-bold">의욕<span class="float-right">10%</span></h4>
                   <div class="progress mb-4">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: 10%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </div>
               </div>
@@ -336,15 +330,15 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-body">로그아웃 하시면 관리자 계정에서 로그아웃 처리 된 후 <br>메인 페이지로 이동합니다. 로그아웃 하시겠습니까?</div>
         <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+          <a class="btn btn-primary" href="/adaco/user/logout">로그아웃</a>
         </div>
       </div>
     </div>

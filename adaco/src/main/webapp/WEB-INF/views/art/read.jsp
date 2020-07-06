@@ -7,14 +7,14 @@
 <title>상품 상세 페이지</title>
 </head>
 <body>	
-${artPage }
+${artPageByUser}
 	<div id="wrap">
 	<section id="img-section" class="prd-dateil-section">
 	<div class="image-preview ui-slider">
 		<div class="outer-frame">
 			<ul class="img-view inner-frame">
 				<li class="ui-slide-img slide-img" style="width: 0px;">
-				 <img src=" ${artPage.mainImg } " alt="작품 이미지" ><!-- 스타일 적용 안됨 style="margin-left: -440.5px; margin-top: -440.5px;"  -->
+				 <img src=" ${artPageByUser.mainImg } " alt="작품 이미지" ><!-- 스타일 적용 안됨 style="margin-left: -440.5px; margin-top: -440.5px;"  -->
 				</li>
 				<li class="ui-slide-img slide-img" style="width: 0px;">
 <!-- 		이미지 링크2 <img src=" img.jpg " alt style="margin-left: -440.5px; -->
@@ -38,14 +38,14 @@ ${artPage }
 		
 		<div class="">
 			<div class="">
-				상점명 : ${artPage.shopName} + ${artPage.username} &emsp;&emsp;&emsp; 작품 번호 : ${artPage.artno}  &emsp;&emsp;&emsp; 조회수 : ${artPage.readCnt}
+				상점명 : ${artPageByUser.shopName} + ${artPageByUser.username} &emsp;&emsp;&emsp; 작품 번호 : ${artPageByUser.artno}  &emsp;&emsp;&emsp; 조회수 : ${artPageByUser.readCnt}
 			</div>
 		</div>
 		
-		<h2 class="sticky_aside_title">${artPage.artName}
+		<h2 class="sticky_aside_title">${artPageByUser.artName}
 		</h2>
 		<span class="price_tag_strong">
-		<strong class=price>${artPage.price}</strong>
+		<strong class=price>${artPageByUser.price}</strong>
 		</span>
 		<div class="product-define-info">
 			<div class="data-row">
@@ -98,7 +98,7 @@ ${artPage }
 			<div class="">
 				<table>
 					<tr>
-						<td class="">재고 : ${artPage.stock}</td>
+						<td class="">재고 : ${artPageByUser.stock}</td>
 						<td class="">
 							제작 시기 : <span>주문시 제작</span>
 						</td>
@@ -111,16 +111,16 @@ ${artPage }
 					<form class="">
 						<div class="">
 							<select>
-								<strong class=option>${artPage.optionName}</strong>
+								<strong class=option>${artPageByUser.optionName}</strong>
 								<option>옵션명 선택</option>
-								<option>${artPage.optionName}</option>
+								<option>${artPageByUser.optionName}</option>
 								<option>2</option>
 								<option>3</option>
 							</select>
 							<select>
-								<strong class=option>${artPage.optionValue}</strong>
+								<strong class=option>${artPageByUser.optionValue}</strong>
 								<option>옵션값 선택</option>
-								<option>${artPage.optionValue}</option>
+								<option>${artPageByUser.optionValue}</option>
 								<option>2</option>
 								<option>3</option>
 							</select>

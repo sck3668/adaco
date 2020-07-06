@@ -47,7 +47,7 @@
             <a class="collapse-item" href="/adaco/admin/report_list">신고글 관리</a>
             <a class="collapse-item" href="/adaco/admin/question_list">문의 관리</a>
             <a class="collapse-item" href="/adaco/admin/notice_list">공지사항 관리</a>
-            <a class="collapse-item" href="/adadco/admin/faq_list">FAQ 관리</a>
+            <a class="collapse-item" href="/adaco/user/faq_list">FAQ 관리</a>
           </div>
         </div>
       </li>
@@ -61,8 +61,8 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">유저 관련</h6>
-            <a class="collapse-item" href="buttons.html">유저 관리</a>
-            <a class="collapse-item" href="cards.html">작가 관리</a>
+            <a class="collapse-item" href="/adaco/admin/user_list">유저 관리</a>
+            <a class="collapse-item" href="/adaco/admin/artist_list">작가 관리</a>
           </div>
         </div>
       </li>
@@ -85,9 +85,9 @@
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+        <a class="nav-link" href="/adaco/">
           <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span></a>
+          <span>메인 페이지</span></a>
       </li>
 
       <!-- Divider -->
