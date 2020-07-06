@@ -144,6 +144,13 @@ public class ArtDto {
 		private String mainImg;
 		private Integer stock;
 	}
-
+	
+	public static class DtoForOrder{
+		private Integer artno;
+		private String artName;
+		private Integer price;
+		private String mainImg;
+		private Integer stock;
+		private Integer couriPrice;
+	}
 }
-

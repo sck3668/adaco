@@ -71,6 +71,7 @@
                                 <div style="width:300px; height:30px; background-color: white; text-align: center; border: 1px solid black;">
                                 	<a id="findIdPwd" href="/adaco/user/findIdPwd" class="btn btn-link">아이디/비밀번호 찾기</a>
                             	</div>
+                            	<input type="hidden" value="${_csrf.token}">
                             </div>
                     </form>
                     </div>

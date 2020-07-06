@@ -23,14 +23,44 @@ public class OrderService {
 	private ModelMapper modelMapper;
 	
 		// 주문 하기    
-		public void Ordering(String username, Integer shippingCharge, Order order,int artno) {
+		public void insertByOrder(String username, Integer shippingCharge, Order order,int artno) {
 			artDao.readByArt(artno);
 			orderDao.Ordering(order);
 			
 		}
 		
-		public List<OrderDetailDto.DtoForOrdering> payment(String username){
+		// 상품 상세에서 주문
+		public int insertByOrder(Order order,ArtDto.DtoForOrder Dto) {
+			int artno = order.getOrderno();
+			Art art = artDao.findAllByUsername();
 			
+		}
+		
+		public int insertOrder2(Order order, ArtDto.DtoForOrder Dto,String username) {
+			int artno = order.getOrderno();
+			Art art = artDao.findAllByUsername(username);
+			
+		}
+		
+		// 장바구니에서 주문
+		
+		// 주문 내역
+		public List<OrderDetailDto.DtoForOrdering> BagByOrder(String username,int orderno){
+			OrderDetailDto.DtoForOrdering orderdto = new OrderDetailDto.DtoForOrdering();
+			List<Order> OrderList = (List<Order>) orderDao.findByOrder(orderno);	
+			List<OrderDetailDto.DtoForOrdering> dtolist = new ArrayList<>();
+		for(Order order:OrderList) {
+//			int orderno = order.getOrderno();
+//			Order order = orderDao.findByOrder(orderno);
+//			Art art = artDao.readByArt(artno);
+//			List<Option> option = optio]
+//			OrderDetailDto.DtoForOrdering dtoorder = modelMapper.map(oorderno,OrderDetailDto.DtoForOrderin.classg);
+//			dtoOrder.setArt(art);
+//			dtoOrder.setOption(option);
+//			dtoList.add(dtoOrder);
+		}
+		return dtolist;
+				
 		}
 		
 		// 장바구니에 담긴 상품 주문하기

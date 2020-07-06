@@ -1,5 +1,7 @@
 package com.icia.adaco.service.mvc;
 
+import java.util.*;
+
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.access.prepost.*;
@@ -19,17 +21,19 @@ public class OrderDetailService {
 	
 	// 주문하기
 	@PreAuthorize("isAuthenticated()")
-	public int Ordering(OrderDetailDto.DtoForOrdering dto,Order order) {
+	public int Ordering(String username,OrderDetailDto.DtoForOrdering dto,Order order) {
 		OrderDetail orderdetail = modelMapper.map(dto, OrderDetail.class);
 		orderDetailDao.Payment(orderdetail);
 	return orderdetail.getOrderno();
 	}
+	
 	
 	// 주문 상세 보기
 	public void OrderDetail(Integer orderno) {
 		orderDetailDao.OrderDetail(orderno);
 	}
 
+	
 	
 	// 모든 주문 내역 보기
 	
@@ -41,6 +45,4 @@ public class OrderDetailService {
 //		return orderDetailDao.OrderByAll(startRowNum, endRowNum);
 //		
 //	}
-	
-	
 }

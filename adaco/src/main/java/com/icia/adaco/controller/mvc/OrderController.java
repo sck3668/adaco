@@ -25,7 +25,6 @@ public class OrderController {
 		return new ModelAndView("main").addObject("viewName","order/ordering.jsp");
 	}
 	
-	
 	// 주문 내역 보기
 	@GetMapping("/order/list")
 	public ModelAndView findAllByOrder() {

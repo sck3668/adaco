@@ -2,15 +2,11 @@ package com.icia.adaco.controller.mvc;
 
 
 
-import java.security.*;
-
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
 
-import com.icia.adaco.dto.*;
-import com.icia.adaco.entity.*;
 import com.icia.adaco.service.mvc.*;
 
 @Controller
@@ -40,7 +36,8 @@ public class OrderDetailController {
 		@GetMapping("/orderdetail/payment")
 		public ModelAndView Payment() {
 			
-			return new ModelAndView("main").addObject("viewName", "order_detail/payment.jsp").addObject("order",service.Ordering(dto.forRead,orderservice));
+			return new ModelAndView("main").addObject("viewName", "order_detail/payment.jsp");
+//					.addObject("order",service.Ordering(dto.forRead,orderservice));
 		}
 		
 		// 주문 내역 상세 
@@ -49,4 +46,9 @@ public class OrderDetailController {
 			return new ModelAndView("main").addObject("viewName", "order_detail/orderdetail.jsp");
 		}
 		
+		// 결제 성공창 
+		@GetMapping("/orderdetail/after")
+		public ModelAndView after(){
+			return new ModelAndView("main").addObject("viewName", "order_detail/after.jsp");
+		}
 }

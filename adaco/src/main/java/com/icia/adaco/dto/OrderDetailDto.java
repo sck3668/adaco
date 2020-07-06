@@ -1,5 +1,8 @@
 package com.icia.adaco.dto;
 
+import java.util.*;
+
+import com.icia.adaco.entity.*;
 
 import lombok.*;
 import lombok.experimental.*;
@@ -56,5 +59,6 @@ public class OrderDetailDto {
 		private Integer addPoint;
 		private String postalcode;
 		private String refundAccount;
+		private Option Option;
 	}
 }
