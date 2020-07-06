@@ -60,7 +60,7 @@
 				method:"post"
 			}).done((r)=>{console.log(r)})
 			  .fail((r)=>{console.log(r)})
-		})//ㄴㄴ
+		})//ㄴㄴㄴㄴ
 	})
 </script>
 </head>
