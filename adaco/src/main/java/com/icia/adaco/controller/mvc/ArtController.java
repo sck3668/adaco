@@ -28,7 +28,7 @@ public class ArtController {
 	private ArtService artservice;
 	@Autowired
 	private ArtRestService service;
-	
+	//
 	// 작품 리스트 (작가용)
 	@GetMapping("/art/listByArtist")
 	public ModelAndView artList(@RequestParam(defaultValue = "1") int pageno) {
