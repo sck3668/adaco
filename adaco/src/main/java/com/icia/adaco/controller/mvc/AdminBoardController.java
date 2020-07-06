@@ -128,7 +128,7 @@ public class AdminBoardController {
 	
 	@GetMapping("/user/faq_list")
 	public ModelAndView faqList() {
-		return new ModelAndView("admin/faq/list").addObject(service.faqList());
+		return new ModelAndView("admin/faq/list").addObject("faqList", service.faqList());
 	}
 	
 //	@PreAuthorize("isAuthenticated()")
