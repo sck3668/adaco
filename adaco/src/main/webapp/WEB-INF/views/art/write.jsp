@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>상품 등록 페이지</title>
 <script>
-// 1.작품 이미지 출력
+// 1.작품 이미지 출력..
 	function loadImage() {
 		var file = $("#artImg")[0].files[0];	
 		var maxSize = 1024*1024;
