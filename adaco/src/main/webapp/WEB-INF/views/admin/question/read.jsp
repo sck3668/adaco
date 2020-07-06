@@ -127,7 +127,7 @@ function checkState() {
 		
 		<form action="/nor/QnAUpdate" method="post" >
 			<div class="form-group">
-            	<label type="text" class="form-control" id="title" readonly="readonly"></label> 
+            	<label type="text" class="form-control" id="title" readonly="readonly" style="background-color: white;"></label> 
          	</div>
          	<ul id = "lower_left">
 					<li>[문의번호] <span id = "qno"></span></li>
@@ -138,11 +138,11 @@ function checkState() {
 			</ul>
 			<div class="form-group">
 	         	Question: 
-	            <textarea class="form-control" cols="50" rows="10" id="content" name="qnaQuestion" readonly="readonly"></textarea>
+	            <textarea class="form-control" cols="50" rows="10" id="content" name="qnaQuestion"readonly="readonly" style="background-color: white;"></textarea>
 	         </div>
 	         <div class="form-group">
 	         	Answer:
-	            <textarea class="form-control" cols="50" rows="10" id="answer_content" name="answer_content"></textarea>
+	            <textarea class="form-control" cols="50" rows="10" id="answer_content" name="answer_content" readonly="readonly" style="background-color: white;"></textarea>
 	         </div>
 			<div>
 				<div class = "form-group">
@@ -151,6 +151,7 @@ function checkState() {
 				</div>
 			</div>
 			<button type="button" id="answer" class="btn btn-info">등록</button>
+			<a href = "/adaco/admin/question_list" class="btn btn-success">뒤로가기</a>
 		</form>
 	</div>
 	
