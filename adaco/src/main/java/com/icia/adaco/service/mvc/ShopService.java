@@ -24,9 +24,11 @@ public class ShopService {
 	private String profileFolder;
 	@Value("http://localhost:8081/profile/")
 	private String profilePath;
+	@Autowired
+	private ArtistDao artistDao;
 	
-	
-	public void shopMade(ShopDto.DtoForMade dtoMade, MultipartFile sajin) throws IllegalStateException, IOException {
+	public void shopMade(ShopDto.DtoForMade dtoMade, String username,MultipartFile sajin) throws IllegalStateException, IOException {
+		dtoMade.setArtistno(artistDao.findArtistnoByUsername(username));
 		Shop shop = modelMapper.map(dtoMade, Shop.class);
 			if(sajin.getContentType().toLowerCase().startsWith("image/")) {
 				int lastIndexOfDot = sajin.getOriginalFilename().lastIndexOf(".");

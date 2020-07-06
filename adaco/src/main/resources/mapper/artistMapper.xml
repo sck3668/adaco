@@ -12,6 +12,12 @@
 		select artistno,artist_intro
 		artistIntro,profile,username,shopno from artist where artistno=#{artistno}
 	</select>
+	
+	<select id="findArtistnoByUsername" resultType="artist">
+		select artistno from artist where username=#{username}
+	</select>
+	
+	
 	<update id="update">
 		update artist
 		<trim suffixOverrides="," prefix="set">

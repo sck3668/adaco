@@ -1,6 +1,7 @@
 package com.icia.adaco.controller.mvc;
 
 import java.io.*;
+import java.security.*;
 
 import javax.inject.*;
 
@@ -30,8 +31,8 @@ public class ShopController {
 	
 	//상점개설 처리
 	@PostMapping("/artist/shopMade")
-	public String shopMade(ShopDto.DtoForMade shopMadeDto, @Nullable MultipartFile sajin, RedirectAttributes ra) throws IllegalStateException, IOException {
-			shopService.shopMade(shopMadeDto, sajin);
+	public String shopMade(ShopDto.DtoForMade shopMadeDto, @Nullable MultipartFile sajin, RedirectAttributes ra, String username) throws IllegalStateException, IOException {
+			shopService.shopMade(shopMadeDto, username, sajin);
 			return "redirect:/";
 	}
 	
