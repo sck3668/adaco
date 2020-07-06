@@ -96,7 +96,7 @@
 			</tr>
 		</table>
 		</form>
-		<div class="inputArea">
+		<div class="inputArea" align="center">
 			<button type="submit" id="update_Btn" class="btn btn-primary">수정</button>
 			<button type="submit" id="back_Btn" class="btn btn-warning">취소</button>
 		</div>
