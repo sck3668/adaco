@@ -6,48 +6,55 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<script>
-	function randomInput(){
-		 }
-			
-	}
-	$(function(){
-		randomInput();
-	})	
-</script>
 <body>
+<script>
+$(function(){
+	var a = "${irum}"
+	console.log()
+		$("#button").on("click",function(){
+			if($(this)==a){
+				console.log($("#findId2Form").serialize());
+				$("#findId2Form").submit();
+				
+		}
+	})
+})
+</script>
+
+	
 <!-- irum값 랜덤으로 출력
 	체크한 값만 controller로 넘겨서 확인
+
 	
  -->
  
-	<form id="findId2Form" method="post">
+	<form id="findId2Form" method="post" action="/adaco/user/findId2">
 	<div>
 		<hr><h1>질문</h1><hr>
 		<h3>가입하신 이름을 선택하세요</h3>
 	</div>
 		<div>
 			<div>
-				<input type="radio" name=irum id="irum1" value="aaaa">aaaa<br>
+				<input type="radio">
+			</div>
+				<span id="first" name="first">gg</span>
+			<div>
+				<span id="first" name="first">hh</span>
 			</div>
 			<div>
-				<input type="radio" name=irum id="irum1" value="성철훈">성철훈<br>
+				<span id="first" name="first">jj</span>
 			</div>
 			<div>
-				<input type="radio" name="irum" id="irum1" value="송철훈">송철훈<br>
+				<span id="first" name="first">qq</span>
 			</div>
 			<div>
-				<input type="radio" name="irum" id="irum1" value="icia">icia<br>
 			</div>
 			<div>
-				<input type="radio" name="irum" id="irum1" value="송찬권">송찬권<br>
-			</div>
-			<div>
-				<!-- <input type="radio" name="irum" id="irum5" value= -->
+			 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }"><br>
 			</div>
 			<br>
 			<div>
-			 <input type="button" value="인증하기" onclick="radio_chk();"/>
+			 <button type="button" id="button">인증하기</button>
 			</div>	
 		</div>
 	</form>

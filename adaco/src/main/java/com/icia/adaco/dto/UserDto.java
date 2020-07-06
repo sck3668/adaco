@@ -42,6 +42,7 @@ public class UserDto {
 	@AllArgsConstructor
 	@NoArgsConstructor
 	@Builder
+	@Accessors(chain=true)
 	public static class DtoForUpdate {
 		@Pattern(regexp="^[A-Za-z][A-Za-z0-9]{7,9}$", message="아이디는 영숫자 8~10자입니다" )
 		private String username;

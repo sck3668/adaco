@@ -30,6 +30,8 @@ public class ReviewDao {
 	public int deleteByReviewOfArt(int rno) {
 		return tpl.delete("reviewMapper.delete",rno);
 	}
-	
+	public List<Art> listByReviewOfusername(String username){
+		return tpl.selectList("reviewMapper.listByReviewOfusername",username);
+	}
 
-}
+}	

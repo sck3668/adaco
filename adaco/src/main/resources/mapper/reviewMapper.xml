@@ -31,5 +31,7 @@
 	<select id="count" resultType="int">
 		select count(*)	from review where artno=#{artno}
 	</select>
-	
+	<select id="listByReviewOfusername" resultType="user">
+		select rno,star,content,image,write_date writeDate,artno,username from user where username=#{username}
+	</select>
  </mapper>

@@ -72,9 +72,9 @@ public class userDaoT {
 			Favorite.builder().artno(5).username("spring232").build());
 		}
 	}
-	//@Test
+	@Test
 	public void findAllFavorite() {
-		System.out.println(userDao.findAllFavorite());
+		System.out.println(userDao.findAllFavorite()+"gggg");
 	}
 	//@Test
 	public void deleteT() {
@@ -84,4 +84,5 @@ public class userDaoT {
 	public void deleteFavorite() {
 		System.out.println(userDao.deleteFavorite(2));
 	}
+		
 }

@@ -3,6 +3,7 @@ package com.icia.adaco.service.mvc;
 import java.io.*;
 import java.time.*;
 import java.time.format.*;
+import java.util.*;
 
 import javax.mail.*;
 import javax.validation.constraints.*;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.*;
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
+import com.icia.adaco.exception.*;
 import com.icia.adaco.service.exception.*;
 import com.icia.adaco.util.*;
 
@@ -36,6 +38,8 @@ public class UserService {
 	private String profileFolder;
 	@Value("http://localhost:8081/profile/")
 	private String profilePath;
+	@Autowired
+	private ReviewDao reviewDao;
 	
 	public void join(UserDto.DtoForJoin dto, MultipartFile sajin) throws IllegalStateException, IOException, MessagingException {
 		User user = modelMapper.map(dto, User.class);
@@ -46,7 +50,7 @@ public class UserService {
 				File profile = new File(profileFolder, user.getUsername() + "." + extension);
 				sajin.transferTo(profile);
 				user.setProfile(profilePath + profile.getName());
-				System.out.println(user.getProfile()+"ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ");
+				
 			} else {
 				// 프사라고 올린 파일이 사진이 아닌 경우 -> anony.jpg
 				user.setProfile(profilePath + "anony.jpg");
@@ -58,9 +62,7 @@ public class UserService {
 		//비밀 번호 암호화
 		String password = user.getPassword();
 		String encodedPassword = pwdEncoder.encode(password);
-		System.out.println(encodedPassword+"gggggggggg 인코디드팻으워드");
 		user.setPassword(encodedPassword);
-		System.out.println(user.getPassword()+"ggggggg이게 겟패스워드");
 		//권한주기 
 		String authority= dto.getAuthority();
 		//violated - parent key not found
@@ -85,24 +87,21 @@ public class UserService {
 				.receiver(user.getEmail()).title("회원가입 안내")
 				.content(msg).build();
 		mailUtil.sendMail(mail);
-		
 	}
 	
 	public UserDto.DtoForRead read(String username) {
-		System.out.println("ggggggg리드좀 보자 시발");
 		User user = userDao.findByid(username);
 		if(user==null)
 			throw new UserNotFoundException();
 		user.getProfile();
-		System.out.println(user.getProfile()+"ggg이게 겟 프로필이다");
 		//생일
 		UserDto.DtoForRead dto = modelMapper.map(user,UserDto.DtoForRead.class);
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
 		dto.setBirthDateStr(user.getBirthDate().format(dtf));
-		System.out.println(dto+"gggg");
+		System.out.println(dto.getProfile()+"사진 프로필 사진");
+		
 		return dto;
 	}
-	
 	public String findByTel(String tel) {
 		return userDao.findidByCheckTel(tel);
 	}
@@ -118,7 +117,15 @@ public class UserService {
 	}
 	
 	public String findByIrum(String irum) {
+		String username = userDao.findidByCheckName(irum);
+		System.out.println(username+"이거에 유저네임은 뭐야 시발");
+		if(username==null)
+			throw new JobFailException("이름이 달라달라4달라");
+		
 		return userDao.findidByCheckName(irum);
+		
+		
+		
 	}
 	
 	public void joinCheck(@NotNull String checkCode) {
@@ -128,5 +135,22 @@ public class UserService {
 			 */
 			User u = User.builder().enabled(true).checkCode(checkCode).username(username).build();
 			userDao.update(u);
+	}
+	//포인트 리스트
+	public List<Point> pointList(String username) {
+		return userDao.findAllByPoint(username);
+	}
+	//페이보릿즐찾리스트
+	public List<Favorite> favoriteList(){
+		System.out.println(userDao.findAllFavorite()+"파인드올");
+		return userDao.findAllFavorite();
+				
+	}
+	//유저리뷰함
+	public List<Review> reviewList(){
+		
+		List<Review> review = userDao.listByReviewUser();
+		return userDao.listByReviewUser();
+				
 	}
 }

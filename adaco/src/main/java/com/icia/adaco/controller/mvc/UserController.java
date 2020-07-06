@@ -5,12 +5,14 @@ import java.security.*;
 import java.time.*;
 
 import javax.mail.*;
+import javax.servlet.http.*;
 import javax.validation.*;
 import javax.validation.constraints.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.lang.*;
+import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
 import org.springframework.validation.*;
 import org.springframework.web.bind.*;
@@ -21,7 +23,6 @@ import org.springframework.web.servlet.mvc.support.*;
 
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
-import com.icia.adaco.exception.*;
 import com.icia.adaco.service.mvc.*;
 import com.icia.adaco.util.editor.*;
 
@@ -45,7 +46,6 @@ public class UserController {
 	//@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/read")
 	public ModelAndView read(Principal principal) {
-		System.out.println("ggg리드좀 보자 시발ㅎㅎ홓ㄴㅇㅎㅇㄶㅁㅇㄴㅁㅇㅁㄴㅇㅁㄴㅇ");
 		  return new ModelAndView("main")
 				  .addObject("viewName","user/read.jsp")
 				  .addObject("user",userService.read(principal.getName()));
@@ -83,6 +83,7 @@ public class UserController {
 	@GetMapping("/user/findIdPwd")
 	public ModelAndView findIdPwd() {
 		return new ModelAndView("main").addObject("viewName","user/find_id_pwd.jsp");
+										
 	}
 	
 	// 아이디찾기 인지 비밀번호 찾기인지 라디오값 확인후 각각의 화면으로 이동
@@ -90,11 +91,12 @@ public class UserController {
 	// 입력한 핸드폰번호로 찾은 username이 존재하면 2단계 인증으로
 	// false면 비밀번호 찾기므로 비밀번호 찾기로 이동
 	@PostMapping("/user/findIdPwd")
-	public ResponseEntity<String> findIdPwd(String findIdPwd,String tel) {
+	public ResponseEntity<String> findIdPwd(String findIdPwd,String tel,HttpSession session) {
 		if(findIdPwd.equals("findId")==true) {
-			String username = userService.findByTel(tel);
-			System.out.println(username);
-			if(username!=null) {
+			
+			String irum = userService.findByTel(tel);
+			session.setAttribute("irum",irum);
+			if(irum!=null) {
 				return ResponseEntity.ok("1");
 			} else {
 				return ResponseEntity.ok("2");
@@ -106,19 +108,27 @@ public class UserController {
 	
 	// 아이디찾기 2단계 화면
 	@GetMapping("/user/findId2")
-	public ModelAndView findId2() {
+	public ModelAndView findId2(HttpSession session) {
+		String irum = (String) session.getAttribute("irum");
+		session.removeAttribute("irum");
+		System.out.println(irum+"ㅎㅎㅎㅎㅎ");
 		return new ModelAndView("main")
-				.addObject("viewName","user/find_id2.jsp");
+				.addObject("viewName","user/find_id2.jsp")
+				.addObject("irum",irum);
+		
+				
 	}
 	
 	// 아이디찾기 2단계는 이름확인
 	// 핸드폰 인증한 회원의 이름이 존재하는 아이디면 username출력하고 로그인버튼
 	@PostMapping("/user/findId2")
-	public String findId2(String irum) {
-		if(irum.equals(userService.exsitsUsername(irum))==true) {
-			String username = userService.findByIrum(irum);
-		};
-		return "redirect:/user/findId3";
+	public String findId2(String irum,RedirectAttributes ra) {
+		String username = userService.findByIrum(irum);
+		
+		System.out.println(username+"ggggggggggggg");	
+		ra.addAttribute("msg","당신의아이디"+username);
+		System.out.println(username+"ggggggggggggg");	
+		return "redirect:/user/login";
 	}
 	//비밀번호변경
 	@GetMapping("/user/resetPwd")
@@ -132,8 +142,40 @@ public class UserController {
 		return "redirect:/user/login";
 	}
 	//마이페이지 화면
+	/* @PreAuthorize("isAuthenticated()") */
 	@GetMapping("/user/mypage")
 	public ModelAndView userRead() {
 		return new ModelAndView("main").addObject("viewName","user/mypage.jsp");
 	}
+	//포인트 메인화면
+	//@PreAuthorize("isAuthenticated()")
+	@GetMapping("/user/pointList")
+	public ModelAndView userPoint(Principal principal) {
+		System.out.println(userService.pointList(principal.getName()));
+		return new ModelAndView("main").addObject("viewName","user/point.jsp")
+				.addObject("point",userService.pointList(principal.getName()));
+	}
+	//리뷰 리스트
+	//@PreAuthorize("isAuthenticated()")
+	@GetMapping("/user/reviewList")
+	public ModelAndView userReview(Principal principal) {
+		return new ModelAndView("main")
+				.addObject("viewName","user/reviewList.jsp")
+				.addObject("Review",userService.reviewList());
+	}
+	//즐겨찾기 화면 리스트
+	//@PreAuthorize("isAuthenticated()")
+	@GetMapping("/user/favoriteList")
+	public ModelAndView favoriteList() {
+		System.out.println(userService.favoriteList()+"컨트롤러");
+		return new ModelAndView("main")
+				.addObject("viewName","user/favoriteList.jsp")
+				.addObject("favorite",userService.favoriteList());
+	}
+	//@PreAuthorize("isAuthenticated()")
+	@GetMapping("/user/messageList")
+	public ModelAndView messageList() {
+		return new ModelAndView("main").addObject("viewName","user/messageList.jsp");
+	}
+
 }

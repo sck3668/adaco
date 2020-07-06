@@ -266,6 +266,7 @@ $(function() {
 			if($agree!=="on"){
 				alert("동의눌러")
 			}
+			
 		var result = r1 && r2 && r3 && r4 && r5 && r6 && r7;
 		console.log($("#joinForm").serialize());
 		

@@ -8,6 +8,11 @@
 <title>Insert title here</title>
 </head>
 <style>
+	#tel1, #tel2, #tel3 {
+	
+		width: 125px;
+		
+	}
 	#aside {
 		width:200px;
 		height:500px;
@@ -50,12 +55,9 @@
 		height: 25px;
 	}
 	
-	#tel1, #tel2, #tel3 {
-		width: 125px;
-	}
 	
 	.first {
-		width:100px;
+		width:250px;
 		text-align: center;
 	}
 	.first1{
@@ -71,12 +73,77 @@
 	}
 </style>
 <script>
+
+function makePage(){
+	// 비밀번호 변경 div를 보이지않도록 변경
+	$("#passwordArea").hide();
+	
+	// 전화번호와 이메일 출력
+	var email = "${user.email}";	
+	// 이메일을 읽어와 @를 기준으로 분리
+	var indexOfAt = email.indexOf('@');
+	var email1 = email.substr(0, indexOfAt);
+	var email2 = email.substr(indexOfAt+1);
+	$("#email1").val(email1);
+	$("#email2").val(email2);
+	
+	// #selectEmail에서 선택한 이메일 서버와 email2에 출력되는 서버를 동기화한다
+	var $select = $("#selectEmail").find("option");
+	$select.each(function(idx, option) {
+		if($(option).text()==email2) {
+			$($select[idx]).prop("selected", true);
+		}
+	});
+	
+	// 전화번호를 10자, 11자인 경우 각각 분리해서 출력
+}
+function loadImage() {
+	
+	var file = $("#sajin")[0].files[0];
+	var maxSize = 1024*1024; // 1MB
+	if(file.size>maxSize) {
+		Swal.fire({
+			icon: 'error',
+		  	title: '크기 오류',
+			text: '파일크기는 1MB를 넘을 수 없습니다'
+		});
+		$("#sajin").val("");
+		return false;
+	}
+	var reader = new FileReader();
+	reader.onload = function(e) {
+		$("#show_profile").attr("src", e.target.result);
+	}
+	reader.readAsDataURL(file);
+	return true;
+}
 function page(){
 	$("#passwordArea").hide();
-}
+	}
+
 
 $(function(){
+	makePage();
 	page();
+	
+	$("#selectEmail").on("change",function(){
+		var choice = $("#selectEmail").val();
+	     if(choice!="직접 입력") {
+	        $("#email2").val(choice);
+	        $("#email2").prop("disabled", true);
+	     }
+	     if(choice=="직접 입력") {
+	        // input 상자의 내용이 없어야 placeholder가 출력된다
+	        $("#email2").val("");
+	        $("#email2").attr("placeholder", choice);
+	        $("#email2").prop("disabled", false);
+	     }
+		
+		$email1 = $("#email1").val();
+		$email2 = $("#email2").val();
+	})
+
+	$("#sajin").on("change", loadImage);
 	//토글 
 	$("#pwdbtn").on("click",function(){	
 		$("#passwordArea").toggle();
@@ -91,40 +158,49 @@ $(function(){
 		var parmas = {
 			_method:"put",
 			_csrf:"${_csrf.token}",
-			password : $password,
-			newPassword : $newPassword
+			password:$password,
+			newPassword:$newPassword
 		};
 		console.log(parmas)
 		$.ajax({
 			data:parmas,
 			method:"post",
 			url:"/adaco/user/update"
-		}).done(()=>{toastr.info("비밀번호 변경 성공")})
-		  .fail(()=>{toastr.info("비밀번호 변경 실패")})
+		}).done(()=>{alert("비밀번호 변경 성공")})
+		  .fail(()=>{alert("비밀번호 변경 실패")})
 	})
+	
 	$("#update").on("click",function(){
-		var formData = new FormData();
-		console.log(formData);
+		var $password = $("#password").val();
+		var $newPassword=$("#newPassword").val();
+		var $newPassword2=$("#newPassword2").val();
+		var $sajin = $("#sajin").val();
 		if($("#password").val()!=="")
-			formData.append("password", $("#password").val());
+				console.log("이건 나만 봐야지")
 		if($("#newPassword").val()===$("#newPassword2"))
-			formData.append("newPassword",$("#newPassword"));
+				console.log("비밀번호 틀렷다..")
+		var params = {
+				_method:"put",
+				_csrf:"${_csrf.token}",
+				sajin:$sajin,
+				tel:${user.tel},
+				email:"${user.email}"
+		}
+		
+		console.log(params)
 		$.ajax({
 			url:"/adaco/user/update",
-			data:formData,
-			method:"post",
-			processData:false,
-			contentType:false
-		}).done(()=>{toastr.info("변경성공")})
-		.fail(()=>{toastr.info("변경실패")});
+			data:params,
+			method:"post"
+		}).done((r)=>{alert("변경성공")})
+		  .fail(()=>{alert("변경실패")});
 	})
 });
 
 </script>
-
-
 </head>
 <body>
+<form> 
 <div>
  <aside id="asideMain">
 	<div id="aside">
@@ -134,20 +210,19 @@ $(function(){
 			<ul>
 				<li><a href="/adaco/user/read">내정보보기</a></li>
 				<li><a href="#">주문내역</a></li>
-				<li><a href="#">내리뷰보기</a></li>
-				<li><a href="#">즐겨찾기목록</a></li>
-				<li><a href="#"> </a>
+				<li><a href="/adaco/user/reviewList">내리뷰보기</a></li>
+				<li><a href="/adaco/user/favoriteList">즐겨찾기목록</a></li>
+				<li><a href="/adaco/user/pointList">포인트함 </a>
 			</ul>
 		</div>
 	</div>
 	</aside>
-	
 	<section id="section">
 		<div>
 			<img id ="show_profile" height="200px;"src="${user.profile }">
 		</div>
 		<div>
-			<input type="file">
+			<input type="file" name="sajin" id="sajin">
 		</div>
 		<table class="table table-hover" id="user">
 			<tr>
@@ -175,18 +250,26 @@ $(function(){
 			</tr>
 			<tr>
 			<td class="first">이메일</td>
-			<td><span id="email"value="${user.email }">${user.email }</span>
+			<td colspan="2">
+				<input type="text" name="email1" id="email1">&nbsp;@&nbsp;<input type="text" name="email2" id="email2">&nbsp;&nbsp;
+				<select id="selectEmail">
+					<option selected="selected">직접 입력</option>
+					<option value="naver.com">naver.com</option>
+					<option value="daum.net">daum.net</option>
+					<option value="gmail.com">gmail.com</option>
+				</select>
 			</tr>
-			<tr>
-				<td class="first">연락처</td>
-				<td><span id="password" value="${user.tel}">${user.tel }</span></td>
+			<tr><td class="first">연락처</td>
+			<td colspan="2">
+				<input type="text" name="tel1" id="tel1" maxlength="3">&nbsp;
+				<input type="text" name="tel2" id="tel2" maxlength="4">&nbsp;
+				<input type="text" name="tel3" id="tel3" maxlength="4">&nbsp;
+			</td>
 			</tr>
 		</table>	
-		<button class="btn btn-info" id="update">변경하자</button>
+		<button type="button" class="btn btn-info" id="update">변경하자</button>
 	</section>
 	</div>
-		
-<body>
-		
+</form>
 </body>
 </html>

@@ -3,17 +3,16 @@ package com.icia.adaco.controller.rest;
 import java.io.*;
 import java.security.*;
 
-import javax.validation.*;
 import javax.validation.constraints.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
-import org.springframework.security.access.prepost.*;
 import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.*;
 
 import com.icia.adaco.dto.*;
+import com.icia.adaco.entity.*;
 import com.icia.adaco.service.rest.*;
 
 @RestController
@@ -30,14 +29,12 @@ public class UserRestController {
 	public ResponseEntity<Boolean> checkEmail(@RequestParam @NotNull String email) {
 		return ResponseEntity.ok(userRestService.checkEmail(email));
 	}
-
+	
 	//@PreAuthorize("isAuthenticated()")
 	@PutMapping("/user/update")
 	public ResponseEntity<Void> update(UserDto.DtoForUpdate dto, BindingResult results, MultipartFile sajin, Principal principal) throws BindException {
-		System.out.println("컨트롤러 맨위에");
 		if(results.hasErrors())
 			throw new BindException(results);
-		System.out.println("서비스 바로 위에");
 		dto.setUsername(principal.getName());
 		
 		try {
@@ -46,6 +43,10 @@ public class UserRestController {
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
 		}
+		return ResponseEntity.ok(null);
+	}
+	@PutMapping("/user/favoriteDelete")
+	public ResponseEntity<?> delete(Principal principal,int favno){
 		return ResponseEntity.ok(null);
 	}
 //	@PostMapping("/user/findId2")
