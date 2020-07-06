@@ -116,7 +116,7 @@ public class ArtServiceTest {
 	//작품 상세보기 테스트(작가용) ok
 	//@Test
 	public void readFromArtistTest() {
-		DtoForRead art = service.readArt(58, 88, "spring123");
+		DtoForRead art = service.readArt(58, "spring123");
 		assertThat(art.getOptionName(), is("색상"));
 	}
 	
