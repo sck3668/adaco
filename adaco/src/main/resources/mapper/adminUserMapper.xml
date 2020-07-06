@@ -81,8 +81,8 @@
 		<selectKey keyProperty="artistno" resultType="int" order="BEFORE">
 			select artist_seq.nextval from dual
 		</selectKey>
-		insert into artist(artistno,artist_intro,profile,username,shopno)
-		values(#{artistno},#{artistIntro},#{profile},#{username},#{shopno})
+		insert into artist(artistno,username)
+		values(#{artistno},#{username})
 	</insert>
 	
  </mapper>

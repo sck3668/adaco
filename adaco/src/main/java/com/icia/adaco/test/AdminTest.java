@@ -41,7 +41,12 @@ public class AdminTest {
 	AdminBoardService adminBoardService;
 	@Autowired
 	AdminBoardRestService adminBoardRestService;
+	@Autowired
+	UserService userService;
 
+	
+	public void joinTest() {
+	}
 //	@Test
 	public void noticeInsertTest() {
 		adminBoardDao.insertByNotice(
