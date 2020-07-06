@@ -1,7 +1,6 @@
 package com.icia.adaco.entity;
 
 import lombok.*;
-import lombok.experimental.*;
 
 @Data
 @AllArgsConstructor
@@ -11,4 +10,6 @@ public class Favorite {
 	private Integer favno;
 	private Integer artno;
 	private String username;
+	private String artName;
+	private String price;
 }

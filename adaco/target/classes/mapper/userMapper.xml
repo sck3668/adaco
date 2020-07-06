@@ -9,13 +9,13 @@
 	</select>
 	<insert id="insert" parameterType="user">
 	insert into users(username,email,irum,join_date,birth_date,tel,password,profile,address,enabled,check_code)
-	values(#{username},#{email},#{irum},sysdate,sysdate,#{tel},#{password},#{profile},#{address},0,#{checkCode})
+	values(#{username},#{email},#{irum},sysdate,#{birthDate},#{tel},#{password},#{profile},#{address,jdbcType=VARCHAR},0,#{checkCode,jdbcType=VARCHAR})
 	</insert>
 	<select id="findidByCheckTel" resultType="string">
-		select username from users where tel=#{tel} and rownum=1
+		select irum from users where tel=#{tel} and rownum=1
 	</select>
-	<select id="findidByCheckName" resultType="string">
-		select username from users where irum=#{irum} and rownum=1		
+	<select id="findidByCheckNameandtel" resultType="string">
+		select username from users where irum=#{irum} rownum=1		
 	</select>
 	<select id="findidByCheckEmail" resultType="string">
 		select username from users where email=#{email} and rownum=1
@@ -27,19 +27,19 @@
 	<update id="update">
 		update users
 		<trim suffixOverrides="," prefix="set" >
-			<if test="password!=null">password=#{password},</if>
+			<if test="password!=null">password=#{password},</if>	
 			<if test="email!=null">email=#{email},</if>
 			<if test="profile!=null">profile=#{profile},</if>
 			<if test="address!=null">address=#{address},</if>
 			<if test="tel!=null">tel=#{tel},</if>
 			<if test="enabled!=null">enabled=#{enabled},</if>
-			<if test="checkCode!=null">check_code=#{checkCode}</if>
+			<if test="checkCode!=null">check_code=null</if>
 		</trim>
 		where username=#{username} and rownum=1
 	</update>
 	<select id="findAllByPoint" resultType="point">
 		select point,start_date startDate
-		,end_date endDate,username from point
+		,end_date endDate,username from point where username=#{username}
 	</select>
 	<insert id="insertpoint">
 		insert into point(point,start_date,end_date,username)
@@ -49,14 +49,20 @@
 		select username from users where check_code=#{checkCode} and rownum=1
 	</select>
 	<select id="findAllFavorite" resultType="favorite">
-		select favno,artno,username from favorite
+		select favno,artno,username,price,art_name artName from favorite
 	</select>
 	<insert id="insertFavorite">
 		<selectKey keyProperty="favno" resultType="int" order="BEFORE">
 			select favorite_seq.nextval from dual
 		</selectKey>
-		insert into favorite(favno,artno,username)values(#{favno},#{artno},#{username})
+		insert into favorite(favno,artno,username,price,art_name)values(#{favno},#{artno},#{username},#{price},#{artName});
 	</insert>
+	<select id = "listByReviewUser" resultType="review">
+		select rno,content,artno,username from review
+	</select>
+	<select id="findByFavoriteId" resultType="favorite">
+		select favno,artno,username,art_name artName,price from favno = #{favno}
+	</select>
 	<delete id="deleteFavorite">
 		delete from favorite where favno=#{favno}
 	</delete>

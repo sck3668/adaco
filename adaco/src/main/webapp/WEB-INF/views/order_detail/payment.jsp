@@ -55,6 +55,11 @@ $(function(){
 			$("<input>").attr("type", "hidden").attr("name", "_csrf").val("${_csrf.token}").appendTo($form);
 			$form.appendTo($("body")).submit();
 		}
+	$ajax
+		url:	
+		data:int shippingCharge
+		success:
+			
 	})
 })
 

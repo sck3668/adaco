@@ -4,6 +4,7 @@ import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
+import org.springframework.web.bind.annotation.*;
 
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
@@ -21,9 +22,9 @@ public class OrderDetailService {
 	public int Ordering(OrderDetailDto.DtoForOrdering dto,Order order) {
 		OrderDetail orderdetail = modelMapper.map(dto, OrderDetail.class);
 		orderDetailDao.Payment(orderdetail);
-		return orderdetail.getOrderno();
+	return orderdetail.getOrderno();
 	}
-		
+	
 	// 주문 상세 보기
 	public void OrderDetail(Integer orderno) {
 		orderDetailDao.OrderDetail(orderno);

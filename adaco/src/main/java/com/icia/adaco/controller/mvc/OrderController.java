@@ -1,11 +1,8 @@
 package com.icia.adaco.controller.mvc;
 
-
-
 import java.security.*;
 
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.http.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
@@ -22,14 +19,12 @@ public class OrderController {
 	
 	//주문 하기
 	@GetMapping("/order/ordering")
-	public ModelAndView Ordering(Principal principal) {
+	public ModelAndView Ordering(Principal principal,Order order,int artno) {
+		orderService.Ordering(order, artno);
 		return new ModelAndView("main").addObject("viewName","order/ordering.jsp");
 	}
 	
-	@PostMapping("/order/ordering")
-	public ResponseEntity<?> ordering(Order order,String username){
-		return ResponseEntity.ok(orderService.Ordering(username, order));
-	}
+//	@PostMapping("/order/ordering")x
 	
 	// 주문 내역 보기
 	@GetMapping("/order/list")
@@ -43,10 +38,11 @@ public class OrderController {
 		return new ModelAndView("main").addObject("viewName", "order/read");
 	}
 	
+	
 	// 장바구니에서 주문
-//			@GetMapping("/order/carByorder")
-//			public ModelAndView orderDetail2(OrderDetailDto.DtoForOrdering Dto,Order order,String username,Integer shippingCharge ) {
-//				orderService.Ordering(username, shippingCharge, order);
-//				return new ModelAndView("main").addObject("viewName", "order/carByorder");
-//			}
+			@GetMapping("/order/carByorder")
+			public ModelAndView orderDetail2(OrderDetailDto.DtoForOrdering Dto,Order order,String username,Integer shippingCharge ) {
+				orderService.Ordering(username, shippingCharge, order);
+				return new ModelAndView("main").addObject("viewName", "order/carByorder");
+			} 
 }

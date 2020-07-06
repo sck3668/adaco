@@ -29,8 +29,12 @@ public class OrderService {
 			
 		}
 		
+		public List<OrderDetailDto.DtoForDeleteOrderDetail> payment(){
+			
+		}
+		
 		// 장바구니에 담긴 상품 주문하기
-		public void BagOrder(BagDto.DtoForWrite Dto,Bag bag  ) {
+		public void BagOrder(BagDto.DtoForWrite Dto,Bag bag,  String username, Integer shippingCharge, Order order) {
 			bagDao.insertByBag(bag);
 		}
 		
@@ -43,5 +47,15 @@ public class OrderService {
 		// 주문 상세 내역 보기
 		public void findByOrder(Integer orderno) {
 			orderDao.findByOrder(orderno);
+		}
+
+		public void Ordering(String username, Integer shippingCharge, Order order) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void Ordering(String username, Integer shippingCharge, Order order) {
+			// TODO Auto-generated method stub
+			
 		}
 }
