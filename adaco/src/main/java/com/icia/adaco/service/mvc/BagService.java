@@ -175,7 +175,4 @@ public class BagService {
 	public void findByArtno(Integer artno) {
 		bagdao.findByArtno(artno);
 	}
-
-
-	
 }

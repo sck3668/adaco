@@ -20,28 +20,33 @@ public class OrderDaoTest {
 	@Autowired
 	private OrderDao orderdao;
 	
-	//@Test
+	@Test
 	public void insertByOrderTest() {
-		Order order = Order.builder().orderDate(LocalDateTime.now())
-				.username("spring232").shippingCharge(100).build();
-		assertThat(orderdao.insertByOrder(order), is(notNullValue()));
+		Order order = Order.builder()
+				.username("spring131")
+				.orderDate(LocalDateTime.now())
+				.shippingCharge(3000)
+				.build();
+		assertThat(orderdao.Ordering(order), is(1));
+		System.out.println(order);
 	}
-	//@Test
-	public void updateByOrderTest() {
-		Order order = Order.builder().orderno(8).shippingCharge(10).build();
-		assertThat(orderdao.updateByOrder(order), is(1));
-	}
+//	//@Test
+//	public void updateByOrderTest() {
+//		Order order = Order.builder().orderno(8).shippingCharge(10).build();
+//		assertThat(orderdao.updateByOrder(order), is(1));
+//	}
+	
 	//@Test
 	public void deleteByOrderTest() {
-		assertThat(orderdao.deleteByOrder(8), is(notNullValue()));
+		assertThat(orderdao.deleteByOrder(5), is(notNullValue()));
 	}
 	//@Test
-	public void findByOrdernoTest() {
-		orderdao.findByOrderno(9);
-		System.out.println(orderdao.findByOrderno(9));
+	public void findByOrderTest() {
+		orderdao.findByOrder(1);
+		System.out.println(orderdao.findByOrder(9));
 	}
-	@Test
-	public void findAllByOrderTest() {
-		orderdao.findAllByOrder();
-	}
+//	@Test
+//	public void findAllByOrderTest() {
+//		orderdao.findAllByOrder(1);
+//	}
 }

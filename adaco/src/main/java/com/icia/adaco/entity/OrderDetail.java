@@ -8,6 +8,7 @@ import lombok.experimental.*;
 @NoArgsConstructor
 @Accessors(chain=true)
 @Builder
+
 public class OrderDetail {
 	private Integer orderno;
 	private Integer optno;

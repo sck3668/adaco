@@ -39,15 +39,15 @@
 	<tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager"/>
 	
 	<!-- 인터셉터 등록 -->
-	<beans:bean id="authenticationInterceptor" class="com.icia.adaco.util.interceptor.AuthenticationInterceptor"/>
-	<interceptors>
-		<interceptor>
-			<mapping path="/user/login"/>
-			<mapping path="/user/find_id"/>
-			<mapping path="/user/find_pwd"/>
-			<beans:ref bean="authenticationInterceptor"/>
-		</interceptor>
-	</interceptors>
+<!-- 	<beans:bean id="authenticationInterceptor" class="com.icia.aboard.util.interceptor.AuthenticationInterceptor"/> -->
+<!-- 	<interceptors> -->
+<!-- 		<interceptor> -->
+<!-- 			<mapping path="/user/login"/> -->
+<!-- 			<mapping path="/user/find_id"/> -->
+<!-- 			<mapping path="/user/find_pwd"/> -->
+<!-- 			<beans:ref bean="authenticationInterceptor"/> -->
+<!-- 		</interceptor> -->
+<!-- 	</interceptors> -->
 	
 	<!-- <resources location="/css/" mapping="/css/**"></resources> -->
 </beans:beans>

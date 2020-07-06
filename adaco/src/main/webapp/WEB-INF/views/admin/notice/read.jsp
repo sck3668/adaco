@@ -65,6 +65,10 @@
 		$("#write_date").text(notice.writeDateStr);
 		$("#content").html(notice.content);
 		printAttachment(notice.attachments);
+		
+		
+		
+		
 	})
 </script>
 </head>
