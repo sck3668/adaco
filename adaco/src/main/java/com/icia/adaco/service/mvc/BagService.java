@@ -26,13 +26,7 @@ public class BagService {
 	@Autowired
 	private ArtistDao artistDao;
 	
-	
-	
-	public int insert(Shop shop,String username,File sajin) {
-		int artistno = artistDao.findArtistNoByUsername(username);
-		shop.setArtino(artistno);
-		System.out.println(shop);
-	}
+
 	
 	
 	
