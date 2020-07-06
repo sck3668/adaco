@@ -46,6 +46,12 @@ public class BagController {
 		}
 		
 		@GetMapping("/bag/list1")
+		public ModelAndView findAllBagByUsername1(String username) {
+			return new ModelAndView("main").addObject("viewName", "bag/read.jsp").addObject("bagList",bagService.findAllBagByUsername(username));
+		}
+		
+		
+		@GetMapping("/bag/list2")
 		public ResponseEntity<?> read(String username) {
 			return ResponseEntity.ok(bagService.findAllBagByUsername(username));
 		}
@@ -101,4 +107,9 @@ public class BagController {
 		//System.out.println(bagList+"controller CartList");
 		//return ResponseEntity.ok(bagList);
 	//}
+		
+		
+		
+		
+		
 }

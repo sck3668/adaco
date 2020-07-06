@@ -23,6 +23,17 @@ public class BagService {
 	private OptionDao optionDao;
 	@Autowired
 	private ModelMapper modelMapper;
+	@Autowired
+	private ArtistDao artistDao;
+	
+	
+	
+	public int insert(Shop shop,String username,File sajin) {
+		int artistno = artistDao.findArtistNoByUsername(username);
+		shop.setArtino(artistno);
+		System.out.println(shop);
+	}
+	
 	
 	
 	// 장바구니 추가
@@ -76,12 +87,17 @@ public class BagService {
 	// 개수 증감
 	public Bag change(int artno, boolean isIncrese) {
 		Bag bag = bagdao.findByArtno(artno);
+		Art art = artdao.readByArt(artno);
 		if(isIncrese==true) {
+			
 			bag.setAmount(bag.getAmount()+1);
 			bagdao.increaseByAmount(artno);
+			
 		} else {
+			if(bag.getAmount()>1) {
 			bag.setAmount(bag.getAmount()-1);
 			bagdao.decreaseByAmount(artno);
+			}
 		}
 		return bag;
 	}
