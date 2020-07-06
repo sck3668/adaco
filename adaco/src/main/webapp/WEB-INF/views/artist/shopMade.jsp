@@ -314,7 +314,7 @@
 					<button type="button" id=businessno>확인</button>
 					<span id="businessno_msg"></span>
 					</div>
-					<!-- 계좌번호 입력 -->
+<!-- 					계좌번호 입력 -->
 					<div class="form-group">
 					<label for="account">계좌번호</label> 
 					<input type="text" class="form-control" id="account" name="account"

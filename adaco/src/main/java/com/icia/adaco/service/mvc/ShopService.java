@@ -27,7 +27,7 @@ public class ShopService {
 	@Autowired
 	private ArtistDao artistDao;
 	
-	public void shopMade(ShopDto.DtoForMade dtoMade, String username,MultipartFile sajin) throws IllegalStateException, IOException {
+	public void shopMade(ShopDto.DtoForMade dtoMade, MultipartFile sajin, String username) throws IllegalStateException, IOException {
 		dtoMade.setArtistno(artistDao.findArtistnoByUsername(username));
 		Shop shop = modelMapper.map(dtoMade, Shop.class);
 			if(sajin.getContentType().toLowerCase().startsWith("image/")) {

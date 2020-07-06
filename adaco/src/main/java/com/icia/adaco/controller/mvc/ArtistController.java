@@ -8,16 +8,19 @@ import org.springframework.web.servlet.*;
 public class ArtistController {
 	
 	//마이페이지 화면
+	//	@PreAuthorize("isAuthenticated()")
 		@GetMapping("/artist/artistpage")
 		public ModelAndView artistRead() {
 			return new ModelAndView("main").addObject("viewName","artist/artistpage.jsp");
 		}
 	//주문, 배송 관리
+//		@PreAuthorize("isAuthenticated()")
 		@GetMapping("/artist/orderAdmin")
 		public ModelAndView orderAdmin() {
 			return new ModelAndView("main").addObject("viewName","artist/orderAdmin.jsp");
 		}
 	//매출관리
+//		@PreAuthorize("isAuthenticated()")
 		@GetMapping("/artist/sales")
 		public ModelAndView sales() {
 			return new ModelAndView("main").addObject("viewName", "artist/sales.jsp");
