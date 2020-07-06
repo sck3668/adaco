@@ -54,7 +54,7 @@ ${artPage.artList }
               <a href="#"><img class="card-img-top" src="image/art1.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">
+                  <a href="/adaco/art/read?artno=${art.artno}">
                   <img alt="상품 사진" src="${art.mainImg }"></a>
                 </h4>
                 <h5>${art.artName}</h5>

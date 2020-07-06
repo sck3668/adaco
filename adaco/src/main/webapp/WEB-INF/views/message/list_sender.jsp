@@ -34,6 +34,7 @@
 			</c:forEach>
 		</table>
 	</div>
+	<input type="hidden" value="${_csrf.token}">
 	<button id="delete">체크한 메모 삭제</button>
 </div>
 </body>

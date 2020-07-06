@@ -1,6 +1,9 @@
 package com.icia.adaco.dto;
 
 import java.time.*;
+import java.util.*;
+
+import com.icia.adaco.entity.*;
 
 import lombok.*;
 import lombok.experimental.*;
@@ -15,12 +18,31 @@ public class BagDto {
 	@Builder
 	@Accessors(chain=true)
 	public static class DtoForWrite{
-		private Integer artno;
+		private int artno;
 		private String artName;
 		private Integer price;
-		private String artImg;
+		private String mainImg;
 		private LocalDateTime artDate;
-		private String stock;
-		private Integer couriPrice;
+		private int totalPrice;
+		private Integer amount;		//수량
+		private Integer couriPrice;	//배송비
+		private String optionName;
+		private String optionValue;
 	}
+	
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Builder
+	@Accessors(chain=true)
+	public static class DtoForList{
+		private String username;
+		private int artno;
+		private int totalPrice;
+		private Integer amount;		//수량
+		private List<Option> option;
+		private Art art;
+	}
+	
+	
 }
