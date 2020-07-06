@@ -1,14 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>스토리 리스트</title>
+<style>
+	#storyList {
+		border: 1px solid gray;
+		width:250px;
+		height:300px;
+		display: inline-block;
+	}
+	
+</style>
 </head>
 <body>
-		<div>
+	<h1>스토리</h1>
+	<hr>
+	<c:forEach items="${story.storyList}" var="story">
+	<div id="storyList">
+		<a href="/adaco/story/readStory?storyno=${story.storyno }">
+			<div id="textArea">
+				<div class="title">${story.writer }</div>
+				<div class="writeDate">${story.writeDateStr }</div>
+			</div>
+			<div id="imageArea">
+				<div class="image">
+					<img alt="art" src="${story.image }">
+				</div>
+			</div>
+		</a>
+	</div>
+</c:forEach>
+
+	<%-- <div>
 		<table class="table table-hover">
 			<colgroup>
 				<col width="10%">
@@ -27,13 +55,13 @@
 				</tr>
 			</thead>
 			<tbody id="list">
-			<c:forEach items="${page.list}" var="board">
+			<c:forEach items="" var="board">
 				<tr>
-					<td>${board.bno}</td>
-					<td><a href="/adaco/story/read?bno=${story.storyno}">${story.image }</a></td>
-					<td class='writer' data-writer="${board.writer }">${board.writer }</td>
-					<td>${board.writeTimeStr}</td>
-					<td>${board.readCnt }</td>
+					<td></td>
+					<td><a href="/adaco/story/read?bno="></a></td>
+					<td class='writer' data-writer=""></td>
+					<td></td>
+					<td></td>
 				</tr>
 			</c:forEach>
 			</tbody>
@@ -41,29 +69,30 @@
 	</div>
 	<div style="text-align:center;">
 		<ul class="pagination">
-			<c:if test="${page.prev==true}">
-				<li><a href="/adaco/story/list?pageno=${page.startPage-1}">이전</a></li>
+			<c:if test="">
+				<li><a href="/adaco/story/list?pageno=">이전</a></li>
 			</c:if>
-			<c:forEach begin="${page.startPage}" end="${page.endPage}" var="i">
+			<c:forEach begin="" end="" var="i">
 				<c:choose>
-					<c:when test="${page.pageno eq i }">
+					<c:when test="">
 						<li class="active">
-							<a href="/adaco/story/list?pageno=${i}">${i}</a>
+							<a href="/adaco/story/list?pageno="></a>
 						</li>
 					</c:when>
 					<c:otherwise>
-						<li><a href="/adaco/story/list?pageno=${i}">${i}</a></li>
+						<li><a href="/adaco/story/list?pageno="></a></li>
 					</c:otherwise>
 				</c:choose>
-				
 			</c:forEach>
-			<c:if test="${page.next==true}">
-				<li><a href="/adaco/story/list?pageno=${page.endPage+1}">다음</a></li>
+			<c:if test="">
+				<li><a href="/adaco/story/list?pageno=">다음</a></li>
 			</c:if>
 		</ul>
-	</div>
+	</div> --%>
+	<sec:authorize access="hasRole('ROLE_SELLER')">
 	<div class="form-group">
-		<button type="button" id="writer" class="btn btn-info">글쓰기</button>
+		<a href="/adaco/story/writeStory">글쓰기</a>
 	</div>
+	</sec:authorize>
 </body>
 </html>

@@ -137,7 +137,13 @@ public class ArtDto {
 		private LocalDateTime writeDate;
 		private String username;
 	}
-	
+	 
+	public static class DtoForBag{
+		private String artName;
+		private Integer price;
+		private String mainImg;
+		private Integer stock;
+	}
 
 }
 
