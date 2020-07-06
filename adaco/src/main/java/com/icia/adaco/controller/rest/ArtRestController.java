@@ -44,11 +44,10 @@ public class ArtRestController {
 	
 	// 작품 상세보기 (회원용)
 	@PostMapping("/art/read")
-	public ResponseEntity<?>readArtFromUser(@RequestParam @NotNull Integer artno, Principal principal, Integer optno) throws JsonProcessingException {
+	public ResponseEntity<?>readArtFromUser(@RequestParam @NotNull Integer artno, Principal principal) throws JsonProcessingException {
 		System.out.println(artno);
-		System.out.println(optno);
 		String username = principal!=null? principal.getName():null;
-		ArtDto.DtoForRead dto = service.readArtFromUser(artno, optno,username);
+		ArtDto.DtoForRead dto = service.readArtFromUser(artno, username);
 		return ResponseEntity.ok(dto);
 	}
 	

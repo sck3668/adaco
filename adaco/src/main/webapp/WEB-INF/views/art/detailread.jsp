@@ -63,12 +63,12 @@
 			<tr>
 			<td class="first">옵션</td>
 				<td colspan="2">
-					<div id="OptionArea">
+					<div id="optionArea">
 						<span class="key">옵션명 </span><input type="text" id="optionname" ><br>
 						<span class="key">옵션값 </span><input type="text" id="optionvalue"><br>
 						<span class="key">옵션 추가가격 </span><input type="text" id="optionprice"><br>
 						<span class="key">옵션재고 </span><input type="text" id="optionstock">
-		  				<button type="button" class="btn btn-info" id="summitOption">저장</button>
+		  				<button type="button" class="btn btn-primary" id="summitOption">저장</button>
 					</div>
 				</td>
 			</tr> 

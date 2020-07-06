@@ -123,7 +123,7 @@ public class ArtServiceTest {
 	// 작품 상세 보기 테스트(회원용) ok
 	//@Test
 	public void readArtFromUserTest() {
-		DtoForRead art = service.readArtFromUser(58, 88, "spring123");
+		DtoForRead art = service.readArtFromUser(58,"spring123");
 		assertThat(art, is(notNullValue()));
 	}
 	

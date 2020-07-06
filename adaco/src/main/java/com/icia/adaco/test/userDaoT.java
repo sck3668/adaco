@@ -39,11 +39,10 @@ public class userDaoT {
 	}
 	//@Test
 	public void insertT() {
-		 for(int i=0;i<11;i++) {
-				userDao.insert(User.builder().username("spring2323"+i).password("1234")
-				.email("tj@na").irum("d").profile("aaa.jpg").birthDate(LocalDateTime.now()).checkCode("1111")
-				.address("용현동산다").tel("01024262394").build());
-		}
+				userDao.insert(User.builder().username("tjdcjfkd").password("1234")
+				.email("tj@na@@dasfsa").irum("d").profile("aaa.jpg").birthDate(LocalDateTime.now()).checkCode("1111")
+				.tel("01024262394").build());
+		
 	}
 	//@Test
 	public void updateT() {
@@ -73,9 +72,9 @@ public class userDaoT {
 			Favorite.builder().artno(5).username("spring232").build());
 		}
 	}
-	//@Test
+	@Test
 	public void findAllFavorite() {
-		System.out.println(userDao.findAllFavorite());
+		System.out.println(userDao.findAllFavorite()+"gggg");
 	}
 	//@Test
 	public void deleteT() {
@@ -85,4 +84,5 @@ public class userDaoT {
 	public void deleteFavorite() {
 		System.out.println(userDao.deleteFavorite(2));
 	}
+		
 }

@@ -2,6 +2,8 @@ package com.icia.adaco.service.mvc;
 
 import java.io.*;
 import java.time.*;
+import java.time.format.*;
+import java.util.*;
 
 import javax.mail.*;
 import javax.validation.constraints.*;
@@ -16,6 +18,8 @@ import org.springframework.web.multipart.*;
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
+import com.icia.adaco.exception.*;
+import com.icia.adaco.service.exception.*;
 import com.icia.adaco.util.*;
 
 @Service
@@ -30,22 +34,23 @@ public class UserService {
 	private ModelMapper modelMapper;
 	@Autowired
 	private MailUtil mailUtil;
-	@Value("${profileFolder}")
+	@Value("d:/upload/profile")
 	private String profileFolder;
-	@Value("${profilePath}")
+	@Value("http://localhost:8081/profile/")
 	private String profilePath;
+	@Autowired
+	private ReviewDao reviewDao;
 	
 	public void join(UserDto.DtoForJoin dto, MultipartFile sajin) throws IllegalStateException, IOException, MessagingException {
-		System.out.println("uservice=============");
 		User user = modelMapper.map(dto, User.class);
 		if(sajin!=null && sajin.isEmpty()==false) {
 			if(sajin.getContentType().toLowerCase().startsWith("image/")==true) {
 				int lastIndexOfDot = sajin.getOriginalFilename().lastIndexOf('.');
 				String extension = sajin.getOriginalFilename().substring(lastIndexOfDot+1);
 				File profile = new File(profileFolder, user.getUsername() + "." + extension);
-			
 				sajin.transferTo(profile);
 				user.setProfile(profilePath + profile.getName());
+				
 			} else {
 				// 프사라고 올린 파일이 사진이 아닌 경우 -> anony.jpg
 				user.setProfile(profilePath + "anony.jpg");
@@ -54,23 +59,19 @@ public class UserService {
 			// 프사를 안올린 경우 -> anony.jpg
 			user.setProfile(profilePath + "anony.jpg");
 		}
+		//비밀 번호 암호화
 		String password = user.getPassword();
 		String encodedPassword = pwdEncoder.encode(password);
-		System.out.println("encodedPassword====="+encodedPassword);
-		System.out.println("encodedPassword====="+password);
 		user.setPassword(encodedPassword);
-		
-		//integrity constraint (ADACO.FK_USERS_TO_AUTHORITIES)
+		//권한주기 
+		String authority= dto.getAuthority();
 		//violated - parent key not found
-		
+		user.getCheckCode();
 		String checkCode = RandomStringUtils.randomAlphanumeric(10);
 		user.setCheckCode(checkCode);
 		user.setJoinDate(LocalDateTime.now());
-		user.setAddress("인천");
-		user.setBirthDate(LocalDateTime.now());
-		System.out.println("user============"+user);
 		userDao.insert(user);
-		
+
 		/* List<String> authorities = dto.getAuthorities(); */
 		/* for(String authority:authorities) */ 
 			authorityDao.insert(user.getUsername(), "ROLE_USER");
@@ -86,12 +87,21 @@ public class UserService {
 				.receiver(user.getEmail()).title("회원가입 안내")
 				.content(msg).build();
 		mailUtil.sendMail(mail);
-		
-	}
-	public User findById(String username) {
-		return userDao.findByid(username);
 	}
 	
+	public UserDto.DtoForRead read(String username) {
+		User user = userDao.findByid(username);
+		if(user==null)
+			throw new UserNotFoundException();
+		user.getProfile();
+		//생일
+		UserDto.DtoForRead dto = modelMapper.map(user,UserDto.DtoForRead.class);
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
+		dto.setBirthDateStr(user.getBirthDate().format(dtf));
+		System.out.println(dto.getProfile()+"사진 프로필 사진");
+		
+		return dto;
+	}
 	public String findByTel(String tel) {
 		return userDao.findidByCheckTel(tel);
 	}
@@ -99,9 +109,23 @@ public class UserService {
 	public boolean exsitsUsername(String irum) {
 		return userDao.existsUsername(irum);
 	}
+	public boolean existsEmail(String email) {
+		return userDao.existsEmail(email);
+	}
+	public String findByEmail(String email) {
+		return userDao.findidByCheckEmail(email);
+	}
 	
 	public String findByIrum(String irum) {
+		String username = userDao.findidByCheckName(irum);
+		System.out.println(username+"이거에 유저네임은 뭐야 시발");
+		if(username==null)
+			throw new JobFailException("이름이 달라달라4달라");
+		
 		return userDao.findidByCheckName(irum);
+		
+		
+		
 	}
 	
 	public void joinCheck(@NotNull String checkCode) {
@@ -111,6 +135,22 @@ public class UserService {
 			 */
 			User u = User.builder().enabled(true).checkCode(checkCode).username(username).build();
 			userDao.update(u);
+	}
+	//포인트 리스트
+	public List<Point> pointList(String username) {
+		return userDao.findAllByPoint(username);
+	}
+	//페이보릿즐찾리스트
+	public List<Favorite> favoriteList(){
+		System.out.println(userDao.findAllFavorite()+"파인드올");
+		return userDao.findAllFavorite();
+				
+	}
+	//유저리뷰함
+	public List<Review> reviewList(){
 		
+		List<Review> review = userDao.listByReviewUser();
+		return userDao.listByReviewUser();
+				
 	}
 }

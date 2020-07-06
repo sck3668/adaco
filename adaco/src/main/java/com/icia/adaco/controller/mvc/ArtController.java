@@ -49,15 +49,15 @@ public class ArtController {
 	}
 	
 	// 작품 상세보기 (작가용)
-	@GetMapping("/art/detailread")
+	@GetMapping("/art/readByArtist")
 	public ModelAndView read(@NonNull Integer artno, @Nullable String username) {
 		return new ModelAndView("main").addObject("viewName","art/detailread.jsp").addObject("artDetailPage",service.readArt(artno, username));
 	}
 	
 	// 작품 상세보기 (회원용)
 	@GetMapping("/art/readByUser")
-	public ModelAndView readFromUser(@NonNull int artno , Integer optno, String username) {
-		return new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPage",service.readArtFromUser(58, 88, "spring123"));
+	public ModelAndView readFromUser(@NonNull int artno , String username) {
+		return new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPage",service.readArtFromUser(artno, username));
 	}
 
 	// 작품 등록
