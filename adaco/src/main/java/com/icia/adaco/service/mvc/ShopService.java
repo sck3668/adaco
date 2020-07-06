@@ -11,6 +11,7 @@ import org.springframework.web.multipart.*;
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
+import com.icia.adaco.exception.*;
 
 @Service
 public class ShopService {
@@ -19,42 +20,34 @@ public class ShopService {
 	private ModelMapper modelMapper;
 	@Autowired
 	private ShopDao shopDao;
-	@Value("${profileFolder}")
+	@Value("d:/upload/profile")
 	private String profileFolder;
-	@Value("${profilePath}")
+	@Value("http://localhost:8081/profile/")
 	private String profilePath;
 	
 	
-	public void shopMade(Shop shop) {
+	public void shopMade(ShopDto.DtoForMade dtoMade, MultipartFile sajin) throws IllegalStateException, IOException {
+		Shop shop = modelMapper.map(dtoMade, Shop.class);
+			if(sajin.getContentType().toLowerCase().startsWith("image/")) {
+				int lastIndexOfDot = sajin.getOriginalFilename().lastIndexOf(".");
+				String extension = sajin.getOriginalFilename().substring(lastIndexOfDot + 1);
+				File shopFile = new File(profileFolder, shop.getShopName() +"." +extension);
+				sajin.transferTo(shopFile);
+				shop.setImage(profilePath + shopFile.getName());
+			} else  {
+				throw new JobFailException("사진을 등록하세요");
+			}
+		
 		shopDao.writeByShop(shop);
 	}
 	
 	
-//	public int shopMade(ShopDto.DtoForMade dtoMade, MultipartFile sajin) throws IllegalStateException, IOException {
-//		Shop shop = modelMapper.map(dtoMade, Shop.class);
-//		if (sajin != null && sajin.isEmpty() == false) {
-//			if(sajin.getContentType().toLowerCase().startsWith("image/")) {
-//				int lastIndexOfDot = sajin.getOriginalFilename().lastIndexOf(".");
-//				String extension = sajin.getOriginalFilename().substring(lastIndexOfDot + 1);
-//				File shopFile = new File(profileFolder, shop.getShopName() +"." +extension);
-//				sajin.transferTo(shopFile);
-//				shop.setImage(profilePath + shopFile.getName());
-//			}
-//		}
-//		shopDao.writeByShop(shop);
-//		return shop.getShopno();
-//	}
 	
-//	public Shop readByShop(int shopno) {
-//		return shopDao.readByShop(shopno);
-//	}
-//	
-//	public int updateByShop(Shop shop) {
-//		return shopDao.updateByShop(shop);
-//	}
-//	
-//	public int deleteByArt(int shopno) {
-//		return shopDao.deleteByArt(shopno);
-//	}
-//	
+	public void delete(int shopNo) {
+		shopDao.deleteByShop(shopNo);
+	}
+	
+	
+	
+	
 }

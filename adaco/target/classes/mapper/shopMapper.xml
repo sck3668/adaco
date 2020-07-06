@@ -5,14 +5,16 @@
 		<selectKey keyProperty="shopno" resultType="int" order="BEFORE">
 			select shop_seq.nextval from dual
 		</selectKey>
-		insert into shop(shopno,shop_name,shop_intro, businessno,account,image, forwarding, back)
-			values(#{shopno},#{shopName},#{shopIntro},#{businessno},#{account},#{image},#{forwarding},#{back})
+		insert into shop(shopno,shop_name,shop_intro, businessno,account,image, forwarding, back, artistno)
+			values(#{shopno},#{shopName},#{shopIntro},#{businessno},#{account},#{image},#{forwarding},#{back},#{artistno})
 	</insert>
 	
 	<select id="findByShopno" resultType="shop">
 		select shopno,shop_name shopName, shop_intro shopIntro, businessno, account
 		from shop where shopno=#{shopno}
 	</select>
+
+	
 	
 	<update id="update">
 		update shop

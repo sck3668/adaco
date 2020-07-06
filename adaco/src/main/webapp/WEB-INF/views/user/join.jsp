@@ -209,7 +209,6 @@ $(function() {
 			).done(()=>{ $("#joinForm").submit(); })
 		}
 	})	
-	
 });
 </script>
 </head>

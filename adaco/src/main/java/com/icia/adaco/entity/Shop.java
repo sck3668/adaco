@@ -10,9 +10,10 @@ import lombok.experimental.*;
 @Builder
 public class Shop {
 	private Integer shopno;
+	private Integer artistno;
 	private String shopName;
 	private String shopIntro;
-	private String  businessno;
+	private String businessno;
 	private String account;
 	private String image;
 	private String forwarding;

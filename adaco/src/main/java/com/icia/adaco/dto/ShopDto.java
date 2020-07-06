@@ -15,6 +15,8 @@ public class ShopDto {
 	@Accessors(chain=true)
 	@Builder
 	public static class DtoForMade {
+		private Integer artistno;
+		private String shopno;
 		private String shopName;
 		private String shopIntro;
 		private String businessno;
