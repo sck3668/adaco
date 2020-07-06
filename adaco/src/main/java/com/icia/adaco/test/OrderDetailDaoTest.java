@@ -18,25 +18,46 @@ public class OrderDetailDaoTest {
 	@Autowired
 	private OrderDetailDao orderDetaildao;
 	
+	//@Test
+	public void Payment() {
+		OrderDetail orderdetail = OrderDetail.builder()
+				.orderno(1)
+				.optno(88)
+				.artno(58)
+				.artistno(14)
+				.artname("변경신상")
+				.optionName("테스트옵션")
+				.optionValue("얍얍")
+				.amount(5)
+				.price(8000)
+				.address("학익동1")
+				.recipient("나다1")
+				.tel("03121")
+				.email("asdas@da.com1")
+				.request("안녕하3")
+				.addPoint(2000)
+				.postalcode("qwe1")
+				.refundAccount("123121")
+				.state("배송중").build();
+			assertThat(orderDetaildao.Payment(orderdetail), is(notNullValue())); 
+			System.out.println(orderdetail);
+	}
+	
 	@Test
-	public void insertByOrderTest() {
-		OrderDetail orderdetail = OrderDetail.builder().optno(2).artno(21).
-				artistno(12).artname("ㅂㅁㅂ").optionName("검정").optionValue("2")
-				.amount(3).price(123).address("학익동").recipient("나다").tel("0312").email("asdas@da.com")
-					.request("안녕하").addPoint(3000).postalcode("qwe").refundAccount("12312").state("qwe").build();
-			assertThat(orderDetaildao.insertByOrderDetail(orderdetail), is(notNullValue()));
+	public void OrderDetailTest() {
+		orderDetaildao.OrderDetail(1);
 	}
 	//@Test
-	public void deleteByOrderDetailTest() {
-		assertThat(orderDetaildao.deleteByOrderDetail(2), is(notNullValue()));
-	}
+//	public void deleteByOrderDetailTest() {
+//		assertThat(orderDetaildao.deleteByOrderDetail(2), is(notNullValue()));
+//	}
 	//@Test
-	public void OrderByAll() {
-		orderDetaildao.OrderByAll(1,0);
-		System.out.println(orderDetaildao.OrderByAll(9, 0));
-	}
+//	public void OrderByAll() {
+//		orderDetaildao.OrderByAll(1,0);
+//		System.out.println(orderDetaildao.OrderByAll(9, 0));
+//	}
 	//@Test
-	public void findOrderByDetail() {
-		orderDetaildao.findOrderByDetail(3);
-	}
+//	public void findOrderByDetail() {
+//		orderDetaildao.findOrderByDetail(3);
+//	}
 }

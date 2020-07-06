@@ -3,7 +3,6 @@ package com.icia.adaco.controller.mvc;
 
 import java.io.*;
 import java.security.*;
-import java.util.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
@@ -82,5 +81,4 @@ public class ArtController {
 		}
 		return "redirect:/art/list";
 	}
-	
 }

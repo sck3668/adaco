@@ -59,6 +59,10 @@ public class BagDao {
 	public List<Bag> findAllByBag(){
 		return tpl.selectList("bagMapper.findAllByBag");
 	}
+<<<<<<< HEAD
+}
+=======
 	
 	
 }
+>>>>>>> branch 'master' of https://github.com/sck3668/adaco.git

@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="orderMapper">
-
-	<select id = "findAllByOrder" resultType="order">
-		select orderno, order_date orderDate, username, shipping_charge shippingCharge
-		from orders
-	</select>
-	 
-	<select id = "findByOrder" resultType="order">
-		select orderno, order_date orderDate, username, shipping_charge
-		shippingCharge from orders where orderno=#{orderno} and rownum=1
-	</select>
 	
-	<insert id="insertByOrderno">
+	<!-- 주문 하기 -->
+	<insert id="Ordering">
 		<selectKey keyProperty="orderno" resultType="int" order="BEFORE">
 			select orders_seq.nextval from dual
 		</selectKey>
@@ -20,14 +11,28 @@
 		values(#{orderno},sysdate,#{username},#{shippingCharge})
 	</insert>
 	
-	<update id ="updateByOrder">
-		update orders
-		<trim suffixOverrides="," prefix="set">
-			<if test="shippingCharge!=null">shipping_charge=#{shippingCharge}</if>
-		</trim>
-		where orderno=#{orderno} and rownum=1
-	</update>
+<!-- 	주문 내역  -->
+	<select id = "findAllByOrder" resultType="order">
+		select orderno, order_date orderDate, username, shipping_charge shippingCharge
+		from orders
+	</select>
+	 
+<!-- 	 주문 상세 내역  -->
+	<select id = "findByOrder" resultType="order">
+		select orderno, order_date orderDate, username, shipping_charge
+		shippingCharge from orders where orderno=#{orderno} and rownum=1
+	</select>
 	
+	
+<!-- 	<update id ="updateByOrder"> -->
+<!-- 		update orders -->
+<!-- 		<trim suffixOverrides="," prefix="set"> -->
+<!-- 			<if test="shippingCharge!=null">shipping_charge=#{shippingCharge}</if> -->
+<!-- 		</trim> -->
+<!-- 		where orderno=#{orderno} and rownum=1 -->
+<!-- 	</update> -->
+	
+	<!-- 주문 취소 -->
 	<delete id ="deleteByOrder">
 		delete from orders where orderno=#{orderno} and rownum=1
 	</delete>
