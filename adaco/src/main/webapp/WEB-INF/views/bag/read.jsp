@@ -188,8 +188,6 @@ $(function() {
 					method:"post"
 				})
 			}).then((bag)=>{
-				$(this).prev().val("");
-				var amount = bag.amount;
 				$(this).prev().text(bag.amount);
 			}).fail(()=>{
 				alert("실팽");
@@ -247,7 +245,6 @@ $(function() {
 </script>
 </head>
 <body>
-${bagList }
 	<table style="width:800px;">
 	<colgroup>
       		<col width="5%">
