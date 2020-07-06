@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>작가전용 작품 상세 페이지.</title>
+<title>작가전용 작품 상세 페이지</title>
 </head>
 <body>	
 	<h2>상세 정보 조회 및 수정</h2><br>
