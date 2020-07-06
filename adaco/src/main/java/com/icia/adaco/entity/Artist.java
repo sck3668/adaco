@@ -13,5 +13,5 @@ public class Artist {
 	private String artistIntro;
 	private String profile;
 	private String username;
-	private Integer shopno;
+	
 }

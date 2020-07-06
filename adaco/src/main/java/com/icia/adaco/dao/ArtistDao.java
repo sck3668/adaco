@@ -23,7 +23,7 @@ public class ArtistDao {
 		return sql.delete("artistMapper.delete",artistno);
 	}
 	
-	public String findArtistnoByUsername(String username) {
+	public int findArtistnoByUsername(String username) {
 		return sql.selectOne("artistMapper.findArtistnoByUsername",username);
 	}
 }

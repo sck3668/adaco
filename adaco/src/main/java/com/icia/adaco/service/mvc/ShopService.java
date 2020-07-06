@@ -40,6 +40,9 @@ public class ShopService {
 				throw new JobFailException("사진을 등록하세요");
 			}
 		
+			int artistno = artistDao.findArtistnoByUsername(username);
+			shop.setArtistno(artistno);
+			System.out.println("shop===================="+shop);
 		shopDao.writeByShop(shop);
 	}
 	

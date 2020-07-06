@@ -16,7 +16,7 @@ public class ShopDto {
 	@Builder
 	public static class DtoForMade {
 		private Integer artistno;
-		private String shopno;
+		private Integer shopno;
 		private String shopName;
 		private String shopIntro;
 		private String businessno;
