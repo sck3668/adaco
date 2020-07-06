@@ -23,13 +23,13 @@ public class OrderService {
 	private ModelMapper modelMapper;
 	
 		// 주문 하기    
-		public void Ordering(Order order,int artno) {
+		public void Ordering(String username, Integer shippingCharge, Order order,int artno) {
 			artDao.readByArt(artno);
 			orderDao.Ordering(order);
 			
 		}
 		
-		public List<OrderDetailDto.DtoForOrdering> payment(){
+		public List<OrderDetailDto.DtoForOrdering> payment(String username){
 			
 		}
 		
@@ -48,4 +48,5 @@ public class OrderService {
 		public void findByOrder(Integer orderno) {
 			orderDao.findByOrder(orderno);
 		}
+
 }

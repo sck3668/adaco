@@ -19,12 +19,12 @@ public class OrderController {
 	
 	//주문 하기
 	@GetMapping("/order/ordering")
-	public ModelAndView Ordering(Principal principal,Order order,int artno) {
-		orderService.Ordering(order, artno);
+	public ModelAndView Ordering(Principal principal,Order order,int artno,String username) {
+		orderService.Ordering(null, artno, order, artno);
+		String   user = username(principal.getName());
 		return new ModelAndView("main").addObject("viewName","order/ordering.jsp");
 	}
 	
-//	@PostMapping("/order/ordering")x
 	
 	// 주문 내역 보기
 	@GetMapping("/order/list")
