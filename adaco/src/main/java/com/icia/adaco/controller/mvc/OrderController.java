@@ -42,7 +42,7 @@ public class OrderController {
 	// 장바구니에서 주문
 			@GetMapping("/order/carByorder")
 			public ModelAndView orderDetail2(OrderDetailDto.DtoForOrdering Dto,Order order,String username,Integer shippingCharge ) {
-				orderService.Ordering(username, shippingCharge, order);
+				orderService.Ordering(username, shippingCharge, order, shippingCharge);
 				return new ModelAndView("main").addObject("viewName", "order/carByorder");
 			} 
 }
