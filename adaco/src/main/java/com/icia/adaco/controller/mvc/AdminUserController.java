@@ -28,4 +28,9 @@ public class AdminUserController {
 		return new ModelAndView("admin/artist/list").addObject("artistPage", service.artistList(pageno, username));
 	}
 	
+	@GetMapping("/admin/user_read")
+	public ModelAndView userRead(String username) {
+		return new ModelAndView("admin/user/read").addObject("user", service.userRead(username));
+	}
+	
 }

@@ -92,7 +92,7 @@ $(function() {
 <!-- 관리자 nav -->
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li class="nav-item">
-         		   <a class="nav-link" href="#">관리</a>
+         		   <a class="nav-link" href="/adaco/admin/">관리</a>
          		</li>
          		<li class="nav-item">
          		   <a class="nav-link" href="/adaco/user/logout">로그아웃</a>
