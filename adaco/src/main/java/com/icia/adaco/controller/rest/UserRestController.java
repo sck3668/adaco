@@ -46,7 +46,9 @@ public class UserRestController {
 		return ResponseEntity.ok(null);
 	}
 	@PutMapping("/user/favoriteDelete")
-	public ResponseEntity<?> delete(Principal principal,int favno){
+	public ResponseEntity<?> delete(int favno){
+		System.out.println(favno);
+		userRestService.delete(favno);
 		return ResponseEntity.ok(null);
 	}
 //	@PostMapping("/user/findId2")

@@ -40,12 +40,7 @@ public class UserRestService {
 		return true;
 	}
 	
-	public void delete(String username,int favno) {
-		Favorite favorite = userDao.findByFavoriteId(favno);
-		if(favorite.getUsername().equals(username)==false)
-			throw new JobFailException("유저가 다르다");
-		System.out.println(favorite+"페이보릿 레스트");
-		
+	public void delete(int favno) {
 			userDao.deleteFavorite(favno);
 	}
 	public void update(DtoForUpdate dto, MultipartFile sajin) throws IllegalStateException, IOException {

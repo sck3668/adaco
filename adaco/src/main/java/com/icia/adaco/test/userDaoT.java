@@ -80,7 +80,7 @@ public class userDaoT {
 	public void deleteT() {
 		userDao.delete("spring22");
 	}
-	//@Test
+	@Test
 	public void deleteFavorite() {
 		System.out.println(userDao.deleteFavorite(2));
 	}

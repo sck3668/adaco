@@ -44,13 +44,16 @@
 </style>
 <script>
 	$(function(){
-		console.log(${favorite})
-		console.log($favno)
+		   console.log($( "#tr").children().first().val());
+	})
+	$(function(){
+		
 		$("#delete").on("click",function(){
+
 			var params={
 					_method:"put",
-					_csrf:"${_csrf.token}",
-					favno : 1
+					_csrf:"${_csrf.token}",	
+					favno :1
 			}
 			
 			console.log(params)
@@ -96,7 +99,7 @@
          </thead>
          <tbody>
          <c:forEach items="${favorite }" var="list">
-      		<tr> 
+      		<tr id="tr"> 
                   <td>${list.favno }</td>
                   <td>${list.artno }</td>
                   <td>${list.artName }</td>               
