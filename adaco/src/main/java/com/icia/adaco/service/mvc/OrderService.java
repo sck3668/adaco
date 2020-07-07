@@ -2,6 +2,7 @@ package com.icia.adaco.service.mvc;
 
 import java.util.*;
 
+import org.apache.jasper.tagplugins.jstl.core.Set;
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
@@ -23,32 +24,32 @@ public class OrderService {
 	private ModelMapper modelMapper;
 	
 		// 주문 하기    
-		public void insertByOrder(String username, Integer shippingCharge, Order order,int artno) {
+		public void Ordering(String username, Order order,int artno,OrderDto.DtoForOrdering Dto) {
 			artDao.readByArt(artno);
 			orderDao.Ordering(order);
 			
 		}
-		
-		// 상품 상세에서 주문
-		public int insertByOrder(Order order,ArtDto.DtoForOrder Dto) {
-			int artno = order.getOrderno();
-			Art art = artDao.findAllByUsername();
-			
-		}
-		
-		public int insertOrder2(Order order, ArtDto.DtoForOrder Dto,String username) {
-			int artno = order.getOrderno();
-			Art art = artDao.findAllByUsername(username);
-			
-		}
+//		
+//		// 상품 상세에서 주문
+//		public int insertByOrder(Order order,ArtDto.DtoForOrder Dto) {
+//			int artno = order.getOrderno();
+//			Art art = artDao.findAllByUsername();
+//			
+//		}
+//		
+//		public int insertOrder2(Order order, ArtDto.DtoForOrder Dto,String username) {
+//			int artno = order.getOrderno();
+//			Art art = artDao.findAllByUsername(username);
+//			
+//		}
 		
 		// 장바구니에서 주문
 		
 		// 주문 내역
-		public List<OrderDetailDto.DtoForOrdering> BagByOrder(String username,int orderno){
-			OrderDetailDto.DtoForOrdering orderdto = new OrderDetailDto.DtoForOrdering();
+		public List<OrderDto.DtoForOrdering> BagByOrder(String username,int orderno){
+			OrderDto.DtoForOrdering orderdto = new OrderDto.DtoForOrdering();
 			List<Order> OrderList = (List<Order>) orderDao.findByOrder(orderno);	
-			List<OrderDetailDto.DtoForOrdering> dtolist = new ArrayList<>();
+			List<OrderDto.DtoForOrdering> dtolist = new ArrayList<>();
 		for(Order order:OrderList) {
 //			int orderno = order.getOrderno();
 //			Order order = orderDao.findByOrder(orderno);
@@ -64,11 +65,18 @@ public class OrderService {
 		}
 		
 		// 장바구니에 담긴 상품 주문하기
-		public void BagOrder(BagDto.DtoForWrite Dto,Bag bag,  String username, Integer shippingCharge, Order order) {
-			bagDao.insertByBag(bag);
+//		public void BagByOrder(BagDto.DtoForWrite Dto,Bag bag,  String username, Integer shippingCharge, Order order,ModelMapper modelMapper) {
+//			Order order = bagDao.insertByBag(bag);
+//			modelMapper.addConverter(order.getOrderno());
+//			orderDao.Ordering(order);
+//		}
+		
+		// 장바구니에 담긴 상품 주문하기
+		public void BagByOrder(String username,OrderDto.DtoForOrdering Dto) {
+			Order order = modelMapper.map(Dto,Order.class);
+			Bag bag = modelMapper.map(Dto,Bag.class);
+			orderDao.Ordering(order);
 		}
-		
-		
 		// 주문 내역 보기
 		public List<Order> findAllByOrder(){
 			return orderDao.findAllByOrder();
@@ -78,5 +86,4 @@ public class OrderService {
 		public void findByOrder(Integer orderno) {
 			orderDao.findByOrder(orderno);
 		}
-
 }

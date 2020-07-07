@@ -6,9 +6,9 @@ import com.icia.adaco.entity.*;
 import lombok.*;
 import lombok.experimental.*;
 
-public class OrderDetailDto {
+public class OrderDto {
 
-	private OrderDetailDto() {}
+	private OrderDto() {}
 		
 	
 	// 결제 취소

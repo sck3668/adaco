@@ -467,6 +467,7 @@ $(function(){
                                                                         <label>수량 :
                                         <input class="prd-count"
                                             type="number"
+                 
                                             value="1"
                                             data-product-price="3000"
                                             data-option-price="0"
@@ -495,7 +496,7 @@ $(function(){
         </tr>
                         
                                 <tr class="static-row">
-                    <th>배송비</th>
+                    <th>배송비 ${orderdetail.shippingCharge}</th>
                     <td>
                         <!-- <div data-freeship="true">
                             <input
@@ -732,8 +733,8 @@ $(function(){
                             <div class="segment--nospacing scroll-detector" data-ui="sticky">
                                 <div class="mfixed">
                                     <button id="btn-submit" class="ui_btn--red--large" data-ui="btn-label">
-                                        <a href="/order_detail/after/"><span data-label="total"></span>
-                                        <span data-label="type">결제하기</span></a>
+                                        <a href="/adaco/order/after"><span data-label="total"></span>
+                                        <span data-label="type"> <a href="/adaco/order/after">결제하기</a></span></a>
                                         <p class="point" data-label="point">예상적립금 : <em>0</em>P</p>
                                     </button>
                                 </div>

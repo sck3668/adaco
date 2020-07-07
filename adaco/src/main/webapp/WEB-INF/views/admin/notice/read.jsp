@@ -8,8 +8,19 @@
 <meta charset="UTF-8">
 <title>공지사항 읽기</title>
 <style>
+
+	body {
+		padding-left: 320px;
+	}
+	
 	#content {overflow: auto; width:1200px; min-height: 800px; margin-left: 50px; border-radius: 20px; box-shadow: 5px 5px 5px gray;}
 	#title {width: 1200px; margin-left: 50px; border-radius: 20px; box-shadow: 5px 5px 5px gray;}
+	::-webkit-scrollbar{width: 16px;}
+		::-webkit-scrollbar-track {background-color:#4C4C4C;}
+		::-webkit-scrollbar-thumb {background-color:#6799FF;border-radius: 10px;}
+		::-webkit-scrollbar-thumb:hover {background: #555;}
+		::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+		width:16px;height:16px;background:#4C4C4C;}
 </style>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

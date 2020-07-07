@@ -129,7 +129,7 @@
 	</insert>
 	
 	<select id="findAllByFAQ" resultType="faq">
-		select faqno, title from faq
+		select faqno, title, content from faq
 	</select>
 	
 	<select id="findFAQById" resultType="faq">

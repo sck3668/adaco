@@ -1,7 +1,6 @@
 package com.icia.adaco.controller.mvc;
 
 
-
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +13,9 @@ public class OrderDetailController {
 
 		@Autowired
 		private OrderDetailService service;
-	
 		
 //		@GetMapping("/orderdetail/overview")
-//		public ModelAndView OrderDetail(Principal principal,Model model) {
+//		public ModelAndView OrderDetail(Principal principal,Model model, @RequestParam(vla)) {
 //			String id = principal.getName();
 //			model.addAttribute("orderlist", (id,orderDetail()));
 //			model.addAttribute("viewName", "order_detail.jsp");
@@ -32,23 +30,10 @@ public class OrderDetailController {
 //			//	return new ModelAndView("main").addObjectw("viewName", "order_detail/ordering.jsp");
 //		}
 		
-		// 결제하기
-		@GetMapping("/orderdetail/payment")
-		public ModelAndView Payment() {
-			
-			return new ModelAndView("main").addObject("viewName", "order_detail/payment.jsp");
-//					.addObject("order",service.Ordering(dto.forRead,orderservice));
-		}
-		
 		// 주문 내역 상세 
 		@GetMapping("/orderdetail/orderdetail")
 		public ModelAndView orderDetail( ) {
 			return new ModelAndView("main").addObject("viewName", "order_detail/orderdetail.jsp");
 		}
 		
-		// 결제 성공창 
-		@GetMapping("/orderdetail/after")
-		public ModelAndView after(){
-			return new ModelAndView("main").addObject("viewName", "order_detail/after.jsp");
-		}
 }

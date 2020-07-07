@@ -177,6 +177,10 @@ public class AdminBoardService {
 		return dto;
 	}
 
+	public void faqDelete(Integer faqno) {
+		dao.deleteByFAQ(faqno);
+	}
+
 
 
 	/* 유저 파트 일단 보류

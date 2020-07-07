@@ -255,7 +255,7 @@ $(function() {
 	<div id="bagArea">
 	</div>
 	<div id="button_area">
-		<input type="checkbox" id="checkAll">전체 선택 
+		<input type="	" id="checkAll">전체 선택 
 		<button id="choiseDelete">선택삭제</button>
 		<button type="button" id="buy_all">주문하기</button>
 	</div>
