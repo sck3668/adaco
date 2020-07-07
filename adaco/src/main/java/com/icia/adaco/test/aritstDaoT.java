@@ -20,7 +20,7 @@ public class aritstDaoT {
 	
 	//@Test
 	public void insertT() {
-	Artist artist = Artist.builder().artistIntro("안녕하세요").profile("aa.jpg").username("하이요").shopno(3).build();
+	Artist artist = Artist.builder().artistIntro("안녕하세요").profile("aa.jpg").username("하이요").build();
 	assertThat(artistDao.insert(artist),is(1));
 	}
 	//@Test
@@ -31,5 +31,10 @@ public class aritstDaoT {
 	//@Test
 	public void deleteT() {
 		System.out.println(artistDao.delete(4));
+	}
+	
+	@Test
+	public void artT() {
+		artistDao.findArtistnoByUsername("gurwl123");
 	}
 }

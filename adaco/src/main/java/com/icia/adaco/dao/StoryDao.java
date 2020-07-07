@@ -5,18 +5,20 @@ import java.util.*;
 import javax.inject.*;
 
 import org.mybatis.spring.*;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
 import com.icia.adaco.entity.*;
 @Repository
 public class StoryDao {
-	@Inject
+	@Autowired
 	private SqlSessionTemplate tpl;
 	
 	//스토리 목록보기
 	public int count () {
 		return tpl.selectOne("storyMapper.count");
 	}
+	
 	public List<Story> findAllStory(int startRowNum, int endRowNum){
 		Map<String,Integer> map = new HashMap<>();
 		map.put("startRowNum", startRowNum);

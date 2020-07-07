@@ -10,16 +10,27 @@ import com.icia.adaco.entity.*;
 public class ShopDao {
 	@Autowired
 	private SqlSessionTemplate sql;
+	
 	//상점등록
 	public int writeByShop (Shop shop) {
 		return sql.insert("shopMapper.insert",shop);
 	}
 	
 	
-	//상점 보기
+	
+	
 	public Shop readByShop(int shopno) {
-		return sql.selectOne("shopMapper.findByShopno",shopno);
+		return sql.selectOne("shopMapper.readByShop", shopno);
 	}
+	
+	
+//	//상점 보기 혁지가 한거 아니에요
+//	public Shop readByShop(int shopno) {
+//		return sql.selectOne("shopMapper.findByShopno",shopno);
+//	}
+	
+	
+	
 	//상점 수정
 	public int updateByShop(Shop shop) {
 		return sql.update("shopMapper.update",shop);

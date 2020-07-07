@@ -162,8 +162,7 @@
 	    		return printErrorMsg($("#shopName_msg"),"상점의 이름은 필수 입니다.")
 	    	if(patt.test($irum)==false)
 	    		return printErrorMsg($("#shopName_msg"),"이름은 최소 2글자 최대 10자로 정해주세요.")
-	    	if(patt.test($irum)==true)
-	    		return printSuccessMsg($("#shopName_msg"),"멋진 상점 이름이네요.")
+	    	return true;
 	    }
 	    
 	    
@@ -176,8 +175,7 @@
 	    		return printErrorMsg($("#shopIntro_msg"),"상점에 대해 안알려주실려구요???")
 	    	if(patt.test($intro)==false)
 	    		return printErrorMsg($("#shopIntro_msg"),"대충하지말구 정확하게 2글자이상 입력해주세요")
-	    	if(patt.test($intro)==true)
-	    		return printSuccessMsg($("#shopIntro_msg"),"잘했어요")
+	    	return true;
 	    }
 	    
 	  //사업자 번호 체크
@@ -187,14 +185,13 @@
 			const businessno2 = $("#businessno2").val();
 			const businessno3 = $("#businessno3").val();
 	  		const businessno = businessno1 + businessno2 + businessno3
-	  		$('<input>').attr('type','hidden').attr('name','businessno').val(businessno).appendTo($("#joinForm"));
+	  		//$('<input>').attr('type','hidden').attr('name','businessno').val(businessno).appendTo($("#joinForm"));
 	 		const patt = /^[0-9]{10}$/;
 	 		if(businessno.lengh==0)
 	 			return printErrorMsg($("#businessno_msg"),"사업자 등록번호는 필수입니다.")
 	 		if(patt.test(businessno)==false)
 	 			return printErrorMsg($("#businessno_msg"),"사업자 번호는 숫자 10자 입니다.")
-	 		if(patt.test(businessno)==true)
-	 			return printSuccessMsg($("#businessno_msg"),"잘했어요")
+	 		return true;
 	  }
 	    //우편 주소 DB에 상세내용까지 작성
 	   function addStartAddress() {
@@ -203,19 +200,17 @@
 	    	const startAddress2	= $("#forwarding_detailAddress").val();
 	    	const startAddress3 = $("#forwarding_extraAddress").val();
 	    	const forwarding = startAddress1 + startAddress2 + startAddress3
-	    	$('<input>').attr('type','hidden').attr('name','forwarding').val(businessno).appendTo($("#joinForm"));
+	    	//$('<input>').attr('type','hidden').attr('name','forwarding').val(forwarding).appendTo($("#joinForm"));
 	    	if(forwarding.length==0)
 	    		return printErrorMsg($("#f_msg"),"주소는 공백으로 할 수 없어요")
+	    	return true;
 	    }
 	    
 	    function addBackAddress() {
-	    	const backAddress1 = $("#back_address").val();
-	    	const backAddress2 = $("#back_detailAddress").val();
-	    	const backAddress3 = $("#back_extraAddress").val();
-	    	const back = backAddress1 + backAddress2 + backAddress3
-	    	$('<input>').attr('type','hidden').attr('name','back').val(businessno).appendTo($("#joinForm"));
+	    	//$('<input>').attr('type','hidden').attr('name','back').val(back).appendTo($("#joinForm"));
 	    	if(back.length==0)
 	    		return printErrorMsg($("#b_msg"), "주소는 공백으로 할 수 없어요")
+	    	return true;
 	    }
 	    
 	  
@@ -228,8 +223,7 @@
 			  return printErrorMsg($("#account_msg"),"계좌번호는 필수로 입력입니다.")
 		  if(patt. test($account)==false)
 			  return printErrorMsg($("#account_msg"),"계좌번호는 숫자 13~16자 이하입니다.")
-		  if(patt. test($account)==true)
-			  return printSuccessMsg($("#account_msg"),"잘했어요")
+		 	return true;
 
 		  
 	  }
@@ -245,17 +239,28 @@
 	    	$("#forwarding_extraAddress").on("blur",addStartAddress);
 	    	$("#back_detailAddress").on("blur", addBackAddress);
 	    	$("#back_extraAddress").on("blur", addBackAddress);
-	    	
 	    	$("#join").on("click",function() {
-	    		
-	    		console.log($("#joinForm").serialize());
-    			alert("");
+	    		const startAddress1 = $("#forwarding_address").val();
+		    	const startAddress2	= $("#forwarding_detailAddress").val();
+		    	const startAddress3 = $("#forwarding_extraAddress").val();
+		    	const forwarding = startAddress1 + startAddress2 + startAddress3
+		    	$('<input>').attr('type','hidden').attr('name','forwarding').val(forwarding).appendTo($("#joinForm"));
+		    	
+		    	const backAddress1 = $("#back_address").val();
+		    	const backAddress2 = $("#back_detailAddress").val();
+		    	const backAddress3 = $("#back_extraAddress").val();
+		    	const back = backAddress1 + backAddress2 + backAddress3
+		    	$('<input>').attr('type','hidden').attr('name','back').val(back).appendTo($("#joinForm"));
+		    	console.log($("#joinForm").serialize());
+		    	
+		    	
+		    	
 	    		var formData = new FormData(document.getElementById("joinForm"));
+	    		console.log(formData);
 	    		for(var key of formData.keys())
 	    			console.log(key);
 	    		for(var value of formData.values())
 	    			console.log(value);
-	    		
 	    		var r1 = checkshopName();
 	    		var r2=  checkShopIntro();
 	    		var r3=  checkBusinessno();
@@ -263,17 +268,24 @@
 	    		var r5=  addStartAddress();
 	    		var r6 = addBackAddress();
 	    		var result = r1 && r2 && r3 && r4 && r5 && r6;
+// 	    		console.log(result)
+	    		console.log(r1)
+	    		console.log(r2)
+	    		console.log(r3)
+	    		console.log(r4)
+	    		console.log(r5)
+	    		console.log(r6)
+	    		console.log($("#joinForm").serialize());
 	    		if(result==true) {
-					done(()=>{$("#joinForm").submit(); })
+	    			alert("성공")
+	    			console.log("success============");
+	    			$("#joinForm").submit();
+	    		}else {
+	    			console.log("fail==========");
 	    		}
-	    			
-	    	});
-	    });
-	    
-	    
-	    
-	    
-	</script>
+	    		})
+	    })
+</script>
 </head>
 <body>
 	<article class="container">
@@ -334,10 +346,6 @@
 					<input type="text" id="forwarding_extraAddress" placeholder="참고항목 ex)서창동,만수동" class="form-control" ><br>
 					<span id="f_msg"></span>
 					</div>
-				
-				
-				
-				
 				</div>
 				<!-- 반품지 해야할것 -->
 				<div class="form-group" id="back_ss">
@@ -355,7 +363,7 @@
 				</div>
 				
 				<div class="form-group text-center">
-					<button type="submit" id="join" class="btn btn-primary">
+					<button type="button" id="join" class="btn btn-primary">
 					개설하기<i class="fa fa-check spaceLeft"></i>
 					</button>
 					<button type="submit" class="btn btn-warning">

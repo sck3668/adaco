@@ -40,9 +40,18 @@
 	}
 </style>
 
+
+
+
+
+
+
+
+
 </head>
 <body>
 <div>
+
 <aside id="asideMain">
 	<div id="aside">
 		<div id="profile">
@@ -50,7 +59,7 @@
 		<div>
 			<ul>
 			<li class="list"><a href="/adaco/message/listReceiver">쪽지함</a></li>
-				<li class="list"><a href="#">상점 정보보기</a></li>
+				<li class="list"><a href="/adaco/artist/shopRead">상점 정보보기</a></li>
 				<li class="list"><a href="#">스토리</a></li>
 			</ul>
 		</div>
@@ -65,7 +74,31 @@
 				<li><a href="/adaco/artist/orderAdmin">주문 배송관리</a></li>
 				<li><a href="/adaco/artist/sales">매출 관리</a></li>
 				<li><a href="/adaco/artist/shopMade">상점 개설</a></li>
+				<li><a href="/adaco/artist/#">정보변경</a></li>
 			</ul>
+			
+			
+			<!--  -->
+			
+			<div>
+		<img id="show_profile" height="200px;" src="${user.profile }">
+	</div>
+	<div>
+	</div>
+	<table class="table table-hover" id="user">
+		<tr>
+			<td class="first">이름</td>
+			<td>&nbsp;</td>
+			<td><img width="120px" id="profile">
+			</td>
+		</tr>
+		<tr>
+			<td class="first">상점 이름</td><td colspan="2"><span id="username">${user.username }</span></td>
+		</tr>
+		<tr>
+			<td class="first" >상점소개</td><td colspan="2"><span id="shopIntro" >${user.birthDateStr }</span></td>
+		</tr>
+		</table>
 		</div>
 	</section>
 	</div>
