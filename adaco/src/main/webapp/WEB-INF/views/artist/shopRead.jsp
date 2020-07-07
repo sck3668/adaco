@@ -59,6 +59,7 @@
 		<tr>
 			<td class="first">생년월일</td><td colspan="2"><span id="birthDate">${user.birthDateStr }</span></td>
 		</tr>
+		
 		<tr>
 			<td class="first">가입일</td><td colspan="2"><span id="joinDate">${user.joinDateStr }</span></td>
 		</tr>
