@@ -203,9 +203,6 @@ $(function(){
 				sajin:$sajin,
 				tel:$tel,
 				email:$email,
-				password:$password,
-				newPassword:$newPassword,
-				profile : "${user.profile}"
 		}
 		console.log(params)
 		$.ajax({

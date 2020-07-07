@@ -49,7 +49,8 @@ public class UserRestService {
 			User user = userDao.findByid(dto.getUsername());
 			if(user==null)
 				throw new UserNotFoundException();
-			
+			dto.setProfile(user.getProfile());
+			System.out.println(dto.getProfile()+"야매다이것이");
 			String encodedPassword = user.getPassword();
 			if(pwdEncoder.matches(dto.getPassword(), encodedPassword)==false)
 				throw new JobFailException("비밀번호를 확인할 수 없습니다");

@@ -101,6 +101,7 @@ public class UserService {
 		System.out.println(dto.getProfile()+"사진 프로필 사진");
 		
 		return dto;
+		
 	}
 	public String findByTel(String tel) {
 		System.out.println(userDao.findidByCheckTel(tel)+"=======");

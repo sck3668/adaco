@@ -31,6 +31,26 @@
 	</script>
 </sec:authorize>
 <script>
+function printComment(comments){
+	var $comments = $("#comments");
+	$comments.empty();
+	$.each(comments, function(i, comment) {
+		var $comment = $("<div>").appendTo($comments);
+		var $upper_div = $("<div>").appendTo($comment);
+		var $center_div = $("<div>").appendTo($comment);
+		var $lower_div = $("<div>").appendTo($comment);
+		$("<span></span>").text(comment.writer).appendTo($upper_div);
+		console.log(comment.writer)
+		$("<span>").html(comment.content).appendTo($center_div);
+		
+		if(comment.writer==loginId){
+			var btn = $("<button>").attr("class", "delete_comment").attr("data-cno", comment.cno).attr("data-writer", comment.writer).text("삭제").appendTo($center_div)
+			btn.css("float", "right");
+		}
+		
+		$("<hr>").appendTo($comment);
+	});
+}
 	$(function(){
 		var story = ${story};
 		console.log(story);
@@ -44,12 +64,13 @@
 			$("#content").prop("disabled",false)
 			$("#comment_textarea").prop("disabled",false)
 			$("#comment_write").prop("disabled",false)
+			$("#title").prop("readonly",false)
 		}
 		else if(isLogin==true && story.writer!==loginId){
 			$("#content").prop("disabled",true)
 			$("#comment_textarea").prop("disabled",false)
 			$("#comment_write").prop("disabled",false)
-			$("#title").prop("disabled",true)
+			$("#title").prop("readonly",true)
 		}
 		$("#comment_write").on("click",function(){
 			if(isLogin==false)
@@ -58,9 +79,7 @@
 					_method:"put",
 					_csrf:"${_csrf.token}",
 					storyno : story.storyno,
-					content:story.content,
-					writer : story.writer,
-					writeDateStr:story.writeDateStr		
+					content:$("#comment_textarea").val(),
 			}
 			
 			console.log(params)
@@ -69,7 +88,7 @@
 					data:params,
 					method:"post"
 					
-				}).done((r)=>{console.log(r)})
+				}).done((comments)=>{printComment(comments)})
 				  .fail((r)=>{console.log(r)})
 		})
 		
@@ -81,7 +100,7 @@ ${story }
 <div id="wrap">
 	<div>
 		<div class = "form-group">
-				제목<input type = "text" class = "form-control" id = "title" name = "title">
+				제목<input type = "text" class = "form-control" id = "title" name = "title" readonly="readonly" style="background-color: white;" >
 			</div>
 			<div class = "form-group">
 				<ul id = "attachment">

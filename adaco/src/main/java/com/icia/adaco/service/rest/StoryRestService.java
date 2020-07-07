@@ -44,6 +44,7 @@ public class StoryRestService {
 		if (story.getWriter().equals(principal.getName()) == false)
 			throw new JobFailException("아이디가틀려");
 		story = modelMapper.map(updateDto, Story.class);
+		
 		storyDao.update(story);
 		
 	}
@@ -89,6 +90,8 @@ public class StoryRestService {
 		}
 		page.setStoryCommentList(storyCommentDtoList);
 		storyComment.setUsername(username);
+		storyComment.setWriter(username);
+		System.out.println(storyComment.getWriter()+"ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ");
 		storyCommentDao.insertByCommentOfStory(storyComment);
 		
 		return page;
