@@ -3,7 +3,6 @@ package com.icia.adaco.dto;
 import javax.validation.constraints.*;
 
 import lombok.*;
-import lombok.experimental.*;
 
 public class ShopDto {
 	private ShopDto() {
@@ -25,12 +24,18 @@ public class ShopDto {
 		private String back;
 	}
 	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
 	@Builder
 	public static class DtoForRead {
-		private int shopno;
+		private Integer shopno;
 		private String shopName;
 		private String shopIntro;
 		private String image;
+		private String businessno;
+		private String account;
+		private String forwarding;
+		private String back;
 		
 	}
 	@Data
@@ -38,9 +43,13 @@ public class ShopDto {
 	@AllArgsConstructor
 	@NoArgsConstructor
 	public static class DtoForUpdate {
-		@NotNull
-		private int shopno;
+		private Integer shopno;
 		private String shopName;
 		private String shopIntro;
+		private String image;
+		private String businessno;
+		private String account;
+		private String forwarding;
+		private String back;
 	}
 }
