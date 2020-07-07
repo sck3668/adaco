@@ -34,9 +34,9 @@ public class artCommentDaoTest {
 	
 	//댓글 목록 보기 테스트 ok
 	//@Test
-	public void listByReviewOfArt() {
-		assertThat(artcommentdao, is(notNullValue()));
-		
+	public void listByCommentOfArt() {
+		assertThat(artcommentdao.listByCommentOfArt(183), is(notNullValue()));
+
 	}
 	
 	//댓글 상세 보기 테스트 ok

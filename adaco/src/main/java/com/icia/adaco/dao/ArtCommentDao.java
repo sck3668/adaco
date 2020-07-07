@@ -23,8 +23,8 @@ public class ArtCommentDao {
 	}
 	
 	//댓글 목록 보기
-	public List<ArtComment> listByCommentOfArt(int cno){
-		return tpl.selectList("artCommentMapper.findAll", cno); 
+	public List<ArtComment> listByCommentOfArt(int artno){
+		return tpl.selectList("artCommentMapper.findAll", artno); 
 	}
 	
 	//댓글 상세보기

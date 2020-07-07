@@ -41,7 +41,8 @@ public class ArtDto {
 		private String optionValue;
 		private Integer optionStock;
 		private Integer optionPrice;
-		private Integer reviewCnt;
+		private String artDetail;
+	
 		//
 	}
 	
@@ -75,7 +76,7 @@ public class ArtDto {
 		private String artImg;
 		private Integer stock;
 		private String tag;
-		private String couriPrice;
+		private Integer couriPrice;
 		private String returnAddress;
 		private String courier;
 		private Integer artistNo;
@@ -87,6 +88,10 @@ public class ArtDto {
 		private Integer optionPrice;
 		private boolean favorite;
 		private Integer readCnt;
+		private String artDetail;
+		private Integer reviewCnt;
+		
+	
 	}
 	
 	
@@ -119,6 +124,9 @@ public class ArtDto {
 		private Integer optionPrice;
 		private List<ArtComment> artComments;
 		private List<Review> reviews;
+		private String artDetail;
+		private Integer artCommentCnt;
+		
 		
 	}
 	
@@ -136,6 +144,7 @@ public class ArtDto {
 		private String image;
 		private LocalDateTime writeDate;
 		private String username;
+		private boolean favorite;
 	}
 	 
 	public static class DtoForBag{
