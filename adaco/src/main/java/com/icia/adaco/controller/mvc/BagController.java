@@ -32,6 +32,7 @@ public class BagController {
 	// 장바구니  추가--------------------------
 		@PostMapping("/bag/add")
 		public ResponseEntity<?> insert(Bag bag,Principal principal) {
+			System.out.println("bag============"+bag);
 			System.out.println("controller=================");
 			return ResponseEntity.ok(bagService.insertByBag(bag));
 		}
