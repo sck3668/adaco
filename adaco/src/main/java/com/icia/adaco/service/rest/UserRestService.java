@@ -9,6 +9,7 @@ import org.springframework.stereotype.*;
 import org.springframework.web.multipart.*;
 
 import com.icia.adaco.dao.*;
+import com.icia.adaco.dto.*;
 import com.icia.adaco.dto.UserDto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.exception.*;
@@ -27,6 +28,7 @@ public class UserRestService {
 	private String profilePath;
 	@Autowired
 	private ArtDao artDao;
+	private ArtistDao artistDao;
 	
 	public boolean checkId(String username) throws UsernameExistException {
 		if(userDao.existsUsername(username)==true)
@@ -79,4 +81,14 @@ public class UserRestService {
 		userDao.update(user);
 	}
 	
+	public int favoriteAdd(String username,int artno) {
+		Art art = artDao.readByArt(artno);
+		System.out.println("art=============="+art);
+		Favorite favorite = Favorite.builder().artno(artno)
+				.artName(art.getArtName()).price(art.getPrice()).username(username).build();
+		System.out.println("art============"+art);
+		System.out.println("favorite==========="+favorite);
+		artDao.updateByArt(Art.builder().artno(artno).favorite(true).build());
+		return userDao.insertFavorite(favorite);
+	}
 }

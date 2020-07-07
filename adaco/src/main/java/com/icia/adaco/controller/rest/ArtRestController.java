@@ -27,6 +27,7 @@ public class ArtRestController {
 	//@PreAuthorize("isAuthenticated()")
 	@PutMapping("/art/update")
 	public ResponseEntity<Void> updateArt(ArtDto.DtoForUpdate dto, BindingResult results, Principal principal, MultipartFile artSajin ) throws BindException{
+		System.out.println("dto===============+"+dto);
 		if(results.hasErrors())
 			throw new BindException(results);
 		dto.setUsername(principal.getName());

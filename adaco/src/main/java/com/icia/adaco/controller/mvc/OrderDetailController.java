@@ -2,13 +2,19 @@ package com.icia.adaco.controller.mvc;
 
 
 
+import java.io.*;
 import java.security.*;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
 
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.core.type.*;
+import com.fasterxml.jackson.databind.*;
+import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.service.mvc.*;
@@ -18,7 +24,10 @@ public class OrderDetailController {
 
 		@Autowired
 		private OrderDetailService service;
-	
+		@Autowired
+		private OrderService orderService;
+		@Autowired
+		private ObjectMapper objectMapper = new ObjectMapper();
 		
 //		@GetMapping("/orderdetail/overview")
 //		public ModelAndView OrderDetail(Principal principal,Model model) {
@@ -38,9 +47,11 @@ public class OrderDetailController {
 		
 		// 결제하기
 		@GetMapping("/orderdetail/payment")
-		public ModelAndView Payment() {
-			
-			return new ModelAndView("main").addObject("viewName", "order_detail/payment.jsp").addObject("order",service.Ordering(dto.forRead,orderservice));
+		public ModelAndView Payment(String json,Principal principal) throws JsonParseException, JsonMappingException, IOException {
+			System.out.println("json=========="+json.getBytes());
+			orderService.Ordering(order, artno);
+			Order order = objectMapper.readValue(json, new TypeReference<List<Order>>() {});
+			return new ModelAndView("main").addObject("viewName", "order_detail/payment.jsp").addObject("order", objectMapper.readValue(json, new TypeReference<List<Order>>() {}));
 		}
 		
 		// 주문 내역 상세 
@@ -49,4 +60,11 @@ public class OrderDetailController {
 			return new ModelAndView("main").addObject("viewName", "order_detail/orderdetail.jsp");
 		}
 		
+
+		@PostMapping("/orderdetail/payment")
+		public String buyAll(String json,Principal principal) throws JsonParseException, JsonMappingException, IOException {
+			List<Order> list = objectMapper.readValue(json, new TypeReference<List<Order>>() {});
+			System.out.println(list);
+			return null;
+		}
 }

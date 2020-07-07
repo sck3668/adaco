@@ -7,7 +7,7 @@
 		select options_seq.nextval from dual
 	</selectKey>
 		insert into options(optno, artno, option_name, option_value, option_price, option_stock)
-		values(#{optno, jdbcType=INTEGER}, #{artno}, #{optionName}, #{optionValue}, #{optionPrice, jdbcType=INTEGER}, #{optionStock, jdbcType=INTEGER})
+		values(#{optno}, #{artno}, #{optionName}, #{optionValue}, #{optionPrice, jdbcType=INTEGER}, #{optionStock, jdbcType=INTEGER})
 	</insert>
 	
 	<!-- 옵션 변경 -->

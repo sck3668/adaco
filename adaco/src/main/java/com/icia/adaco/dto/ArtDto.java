@@ -77,7 +77,6 @@ public class ArtDto {
 		private Integer stock;
 		private String tag;
 		private Integer couriPrice;
-		private String returnAddress;
 		private String courier;
 		private Integer artistNo;
 		private String username;

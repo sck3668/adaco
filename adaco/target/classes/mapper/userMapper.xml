@@ -55,7 +55,8 @@
 		<selectKey keyProperty="favno" resultType="int" order="BEFORE">
 			select favorite_seq.nextval from dual
 		</selectKey>
-		insert into favorite(favno,artno,username,price,art_name)values(#{favno},#{artno},#{username},#{price},#{artName});
+		insert into favorite(favno,artno,username,price,art_name)
+		values(#{favno},#{artno},#{username},#{price},#{artName})
 	</insert>
 	<select id = "listByReviewUser" resultType="review">
 		select rno,content,artno,username from review

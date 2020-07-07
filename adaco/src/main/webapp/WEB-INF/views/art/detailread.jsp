@@ -12,21 +12,46 @@
 
 <script>
 $(function() {
+	// select box에 택배사 값 받아오기
+	var $courier = $("#courier").val(); 
+	var $select = $("#Courier").find("option");
+	$select.each(function(idx, option) {
+	if($(option).text()==$courier) {
+	$($select[idx]).prop("selected", true);
+	}
+	});
+	
+	// select box값으로 택배사 변경
+	$("#Courier").on("change", function() {
+		var choice = $("#Courier").val();
+		if(choice!="택배사 선택") {
+		$("#courier").val(choice);
+		$("#courier").prop("disabled", true);
+		}
+		if(choice=="택배사 선택") {
+		alert("택배사를 선택해주세요");
+		}
+		})
+		
+	// '저장'버튼으로 옵션만 수정
 	$("#updateOption").on("click", function() {
 		var $optionName = $("#optionName").val();
 		var $optionValue = $("#optionValue").val();
 		var $optionPrice = $("#optionPrice").val();
 		var $optionStock = $("#optionStock").val();
-		console.log($("#optionName").val());
 		
 		var params = {
 			_method: "put",
 			_csrf: "${_csrf.token}",
+			artno : ${artDetailPage.artno},
 			optionName: $optionName,
 			optionValue: $optionValue,
 			optionPrice: $optionPrice,
-			optionStock: $optionStock
+			optionStock: $optionStock,
+			optno:${artDetailPage.optno}
 		};
+		//console.log(params);
+		//alert("SS");
 		$.ajax({
 			url: "/adaco/art/update",
 			method: "post",
@@ -35,16 +60,38 @@ $(function() {
 		.fail(()=>{alert("옵션 수정이 실패했습니다.");});
 	});
 	
-	
+	// '수정'버튼으로 선택적으로 수정
 	$("#update_Btn").on("click", function() { 
 		var $artName = $("#artName").val();
-		console.log("아트네임"+$("#artName"));
+		var $price = $("#artPrice").val();
+		var $stock = $("#artStock").val();
+		var $tag = $("#artTag").val();
+		var $couriPrice = $("#artCouriPrice").val();
+		var $courier = $("#courier").val();
+		var $artDetail = $("#artDetail").val();
+		var $optionName = $("#optionName").val();
+		var $optionValue = $("#optionValue").val();
+		var $optionPrice = $("#optionPrice").val();
+		var $optionStock = $("#optionStock").val();
+		
 		var params={
 				_method:"put",
 				_csrf:"${_csrf.token}",
-				artName:$artName
+				artno : ${artDetailPage.artno},
+				optno:${artDetailPage.optno},
+				artName: $artName,
+				price : $price,
+				stock : $stock,
+				tag : $tag,
+				couriPrice : $couriPrice,
+				courier : $courier,
+				artDetail : $artDetail,
+				optionName: $optionName,
+				optionValue: $optionValue,
+				optionPrice: $optionPrice,
+				optionStock: $optionStock
 		}
-	
+		//console.log(params);
 		$.ajax({
 			url: "/adaco/art/update",
 			data: params,
@@ -53,8 +100,30 @@ $(function() {
 		.fail(()=>{alert("작품 수정이 실패했습니다.");})
 	})
 	
+	function loadImage() {
+	
+	var file = $("#artImg")[0].files[0];
+	var maxSize = 1024*1024; // 1MB
+	if(file.size>maxSize) {
+		Swal.fire({
+			icon: 'error',
+		  	title: '크기 오류',
+			text: '파일크기는 1MB를 넘을 수 없습니다'
+		});
+		$("#artImg").val("");
+		return false;
+	}
+	var reader = new FileReader();
+	reader.onload = function(e) {
+		$("#show_artfile").attr("src", e.target.result);
+	}
+	reader.readAsDataURL(file);
+	return true;
+	}
+	
 	
 });
+
 </script>
 </head>
 <body>	
@@ -106,13 +175,6 @@ ${artDetailPage}
 				</td>
 			</tr>
 			<tr>
-				<td class="first">옵션여부</td>
-				<td colspan="2">
-				<input type="radio" name="optionox" value="yes" checked="checked" /> 예
-				<input type="radio" name="optionox" value="no"  /> 아니오
-				</td>
-			</tr>
-			<tr>
 			<td class="first">옵션</td>
 				<td colspan="2">
 					<div id="optionArea">
@@ -137,12 +199,13 @@ ${artDetailPage}
 			<tr>
 				<td class="first">택배사</td>
 				<td colspan="2">
-				<select class="Courier">
+				<select id="Courier">
 					<option selected="selected">택배사 선택</option>
 					<option>대한통운</option>
 					<option>로젠택배</option>
 					<option>한진택배</option>
 				</select> 
+				<input type="hidden" id="courier" name="courier" value="${artDetailPage.courier}" />
 				</td>
 			</tr>
 			<tr>
