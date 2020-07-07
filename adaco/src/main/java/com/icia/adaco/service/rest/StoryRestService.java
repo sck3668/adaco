@@ -86,6 +86,7 @@ public class StoryRestService {
 			StoryCommentDto.DtoForList SCList = modelMapper.map(storyComment1,StoryCommentDto.DtoForList.class);
 			SCList.setWriteDateStr(storyComment1.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
 			storyCommentDtoList.add(SCList);
+			System.out.println(storyCommentDtoList.add(SCList)+"햐ㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑ");
 			System.out.println(SCList+"포문");
 		}
 		page.setStoryCommentList(storyCommentDtoList);

@@ -34,24 +34,22 @@
 function printComment(comments){
 	var $comments = $("#comments");
 	$comments.empty();
-	$.each(comments, function(i, comment) {
+	$.each(comments, function(i/* index */, comment /* key */) {
+	// 객체를 전달받으면 index는 객체의 key(property)를 가리키고 
+	// item은 키의 값을 가져옵니다.
 		var $comment = $("<div>").appendTo($comments);
 		var $upper_div = $("<div>").appendTo($comment);
 		var $center_div = $("<div>").appendTo($comment);
 		var $lower_div = $("<div>").appendTo($comment);
 		$("<span></span>").text(comment.writer).appendTo($upper_div);
-		console.log(comment.writer)
+		console.log($upper_div)
 		$("<span>").html(comment.content).appendTo($center_div);
-		
-		if(comment.writer==loginId){
-			var btn = $("<button>").attr("class", "delete_comment").attr("data-cno", comment.cno).attr("data-writer", comment.writer).text("삭제").appendTo($center_div)
-			btn.css("float", "right");
-		}
 		
 		$("<hr>").appendTo($comment);
 	});
 }
 	$(function(){
+	/* 	printComment(story.comments) */
 		var story = ${story};
 		console.log(story);
 		$("#title").val(story.title);
@@ -77,7 +75,7 @@ function printComment(comments){
 				return
 			var params = {
 					_method:"put",
-					_csrf:"${_csrf.token}",
+					_csrf:"${_csrf.	token}",
 					storyno : story.storyno,
 					content:$("#comment_textarea").val(),
 			}
@@ -96,7 +94,10 @@ function printComment(comments){
 </script>
 </head>
 <body>
-${story }
+ <%-- <c:forEach items="${story}" var="story">
+	<input type="text" value="${story.comments.cno}">
+</c:forEach> --%> 
+${story}
 <div id="wrap">
 	<div>
 		<div class = "form-group">

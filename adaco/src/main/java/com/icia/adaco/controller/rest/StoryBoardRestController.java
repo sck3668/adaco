@@ -40,8 +40,11 @@ public class StoryBoardRestController {
 	public ResponseEntity<?>ListComment(@RequestParam(defaultValue = "1")int pageno,StoryComment storyComment,Principal principal){
 		System.out.println(storyComment+"==========");
 		System.out.println(principal.getName()+"ㅎㅎㅎㅎ");
+		System.out.println("commentList==============="+restService.ListComment(pageno,storyComment, principal.getName()));
 	return ResponseEntity.ok(restService.ListComment(pageno,storyComment, principal.getName()));
 	}
+	
+	
 	
 	
 }

@@ -16,8 +16,10 @@ import org.springframework.web.servlet.*;
 
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
+import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.service.mvc.*;
+import com.icia.adaco.service.rest.*;
 
 @Controller
 public class StoryController {
@@ -25,6 +27,8 @@ public class StoryController {
 	private StoryService storyService;
 	@Autowired
 	ObjectMapper objectMapper;
+	@Autowired
+	private StoryRestService storyRestService;
 
 	@GetMapping("/story/listStory")
 	public ModelAndView listStory(@RequestParam(defaultValue = "1") int pageno) {
@@ -46,11 +50,13 @@ public class StoryController {
 		return "redirect:/story/readStory?storyno="+storyService.storyWrite(writeDto, sajin);
 	}
 	@GetMapping("/story/readStory")
-	public ModelAndView readStory(Integer storyno) throws JsonProcessingException {
-		ModelAndView mav = new ModelAndView("main").addObject("viewName","artist/story/read.jsp");		
-		StoryBoardDto.DtoForRead dto = storyService.storyRead(storyno);
+	public ModelAndView readStory(Integer storyno,@RequestParam(defaultValue ="1")int pageno) throws JsonProcessingException {
+		ModelAndView mav = new ModelAndView("main").addObject("viewName","artist/story/read.jsp");
+		StoryBoardDto.DtoForRead dto = storyService.storyRead(storyno,pageno);
+		System.out.println(dto);
 		String json = objectMapper.writeValueAsString(dto);
 		mav.addObject("story", json);
+		System.out.println("mav============="+mav);
 		return mav;
 	}
 	
