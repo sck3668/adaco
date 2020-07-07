@@ -80,7 +80,8 @@
 		<selectKey keyProperty="qno" resultType="int" order="BEFORE">
 			select question_seq.nextval from dual
 		</selectKey>
-		insert into question(qno, writer, content, title, write_date, state) values(#{qno}, #{writer}, #{content}, #{title}, #{writeDate}, ${state})
+		insert into question(qno, writer, content, title, write_date, state)
+		values(#{qno}, #{writer}, #{content}, #{title}, #{writeDate}, #{state} )
 	</insert>
 	
 	<select id="findAllByNotice" resultType="notice">

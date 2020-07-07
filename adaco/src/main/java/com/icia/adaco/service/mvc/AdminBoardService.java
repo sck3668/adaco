@@ -184,9 +184,8 @@ public class AdminBoardService {
 
 	public int questionWrite(Question question, String username) {
 		System.out.println("넘어오는 값?" + question);
-		question.setWriter(username).setWriteDate(LocalDateTime.now());
+		question.setWriter(username).setWriteDate(LocalDateTime.now()).setState(State.답변대기);
 		dao.insertByQuestion(question);
-		AdminBoardDto.DtoForQuestionWrite dto = modelMapper.map(question, AdminBoardDto.DtoForQuestionWrite.class);
 		System.out.println("다시찍힌 값" + question);
 		return question.getQno();
 	}

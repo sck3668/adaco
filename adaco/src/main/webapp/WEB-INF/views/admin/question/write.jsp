@@ -216,10 +216,6 @@ input[type="text"]:focus, input[type="text"]:hover {
 <script src="/adaco/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
 	$(function(){
-		var ck = CKEDITOR.replace("content", {
-			height: 600,
-			filebrowserUploadUrl:"http://localhost:8081/adaco/admin/notice/ckupload"
-		})
 		
 		/* form 을 넘기기 전 값 확인 */
 		$("#write").on("click", function(){
@@ -237,7 +233,7 @@ input[type="text"]:focus, input[type="text"]:hover {
 			<input type = "text" class = "form-control" id = "title" name = "title">
 		</div>
 		<div class = "form-group">
-			<textarea class = "form-control" id = "content" name = "content" cols="50" rows="10"></textarea>
+			<textarea class = "form-control" id = "content" name = "content" cols="50" rows="10" style="min-height: 600px;"></textarea>
 			<button type = "button" class = "btn btn-success" id = "write">작성</button>
         </div>
 		<input type = "hidden" name = "_csrf" value = "${_csrf.token }">

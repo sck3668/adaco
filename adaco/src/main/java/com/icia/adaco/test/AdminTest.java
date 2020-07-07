@@ -185,7 +185,7 @@ public class AdminTest {
 		adminBoardDao.findNoticeById(3);
 	}
 	
-	@Test
+//	@Test
 	public void insertByQuestionTest22() {
 		Question question = Question.builder().writer("spring123").content("내용").title("제목").writeDate(LocalDateTime.now()).state(State.답변대기).build();
 		adminBoardDao.insertByQuestion(question);
