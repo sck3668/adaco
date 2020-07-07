@@ -9,15 +9,15 @@
 			values(#{shopno},#{shopName},#{shopIntro},#{businessno},#{account},#{image},#{forwarding},#{back},#{artistno})
 	</insert>
 	
-<!-- 	<select id="readByShop" resultType="shop"> -->
-<!-- 		select shopno,shop_name shopName, shop_intro shopIntro, businessno, account -->
-<!-- 		from shop where shopno=#{shopno} -->
-<!-- 	</select> -->
+ 	<select id="readByShop" resultType="shop">
+		select shopno,shop_name shopName, shop_intro shopIntro, businessno, account
+		from shop where shopno=#{shopno}
+ 	</select> 
 
 
-	<select id="readByShop" resultType="shop"> 
+	<select id="readShopByArtistno" resultType="shop"> 
  		select shopno,shop_name shopName, shop_intro shopIntro , businessno, account, image, forwarding, back, artistno
-		from shop where shopno=#{shopno} 
+		from shop where artistno=#{artistno} 
 	</select>
 	
 	

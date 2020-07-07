@@ -39,7 +39,9 @@
 		border: 1px solid red;
 	}
 </style>
+<script>
 
+</script>
 
 
 
@@ -87,16 +89,14 @@
 	</div>
 	<table class="table table-hover" id="user">
 		<tr>
-			<td class="first">이름</td>
-			<td>&nbsp;</td>
 			<td><img width="120px" id="profile">
 			</td>
 		</tr>
 		<tr>
-			<td class="first">상점 이름</td><td colspan="2"><span id="username">${user.username }</span></td>
+			<td class="first">상점 이름</td><td colspan="2"><span id="shopName">${shop.shopName }</span></td>
 		</tr>
 		<tr>
-			<td class="first" >상점소개</td><td colspan="2"><span id="shopIntro" >${user.birthDateStr }</span></td>
+			<td class="first" >상점소개</td><td colspan="2"><span id="shopIntro" >${shop.shopIntro }</span></td>
 		</tr>
 		</table>
 		</div>

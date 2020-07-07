@@ -50,8 +50,9 @@ public class ShopService {
 	public ShopDto.DtoForRead shopRead(int shopno){
 		Shop shop = shopDao.readByShop(shopno);
 		shop.getImage();
-		System.out.println("=========샵 이미지 읽어와라" + shop);
 		ShopDto.DtoForRead shopReadDto = modelMapper.map(shop,ShopDto.DtoForRead.class);
+		System.out.println("=========샵 이미지 읽어와라" + shop);
+		System.out.println("=========디티오야 나와" + shopReadDto);
 		return shopReadDto;
 		
 		}

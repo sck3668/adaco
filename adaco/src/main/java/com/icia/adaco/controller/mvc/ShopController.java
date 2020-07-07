@@ -42,6 +42,7 @@ public class ShopController {
 	public ModelAndView shopRead(int shopno) {
 		return new ModelAndView("main").addObject("viewName","artist/shopRead.jsp")
 				.addObject("shop",shopService.shopRead(shopno));
+				
 	}
 	
 	
