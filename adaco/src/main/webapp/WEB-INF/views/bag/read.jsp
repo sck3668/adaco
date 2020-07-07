@@ -244,13 +244,13 @@ $(function() {
 				ar.push($(this).data("orderno"));
 			}
 		})
-		alert("찍자");
+		alert("찍어보자~");
 		var params = {
 				_csrf:"${_csrf.token}",
 				_method:"get",
 				orders:JSON.stringify(ar)
 		}
-		alert("찍어보자");
+		alert("또 찍어봐");
 		$.ajax({
 			url:"/adaco/order/ordering",
 			data:params,
@@ -260,7 +260,7 @@ $(function() {
 			orderList = result;
 			printOrderList();
 		})
-		alert("실패??")
+		alert("End")
 	})
 	
 	
