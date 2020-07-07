@@ -56,12 +56,14 @@ ${artPage.artList }
               <a href="#"><img class="card-img-top" src="image/art1.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                <sec:authorize access="hasRole('ROLE_SELLER')">
-                  <a href="/adaco/art/readByArtist?artno=${art.artno}">
-                  <img alt="상품 사진" src="${art.mainImg }"></a>
+                <sec:authorize access="hasRole('ROLE_USER')">
+            		<a href="/adaco/art/readByUser?artno=${art.artno}">
+                  	<img alt="작품 사진" src="${art.mainImg }"></a>
             	</sec:authorize>
+                <sec:authorize access="hasRole('ROLE_SELLER')">
             		<a href="/adaco/art/readByArtist?artno=${art.artno}">
-                  <img alt="상품 사진" src="${art.mainImg }"></a>
+                  	<img alt="작품 사진" src="${art.mainImg }"></a>
+                 </sec:authorize>
                 </h4>
                 <h5>${art.artName}</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>

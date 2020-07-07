@@ -72,7 +72,6 @@ public class ArtRestService {
 			dto.setOptionPrice(option.getOptionPrice());
 		String str = art.getArtDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일"));
 		dto.setArtDate(str);
-		System.out.println("작가상세" + dto);
 		return dto;
 	}
 	
@@ -120,13 +119,12 @@ public class ArtRestService {
 	
 	// 작품 댓글 작성하기
 	public List<ArtComment> writeCommentOfArt(ArtComment artcomment){
-		System.out.println("==========================");
 		artcomment.setWriteDate(LocalDateTime.now());
-		String reviewStr = artcomment.getContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
-		artcomment.setContent(reviewStr);
+		String commentStr = artcomment.getContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
+		artcomment.setContent(commentStr);
 		artCommemtDao.writeByCommentOfArt(artcomment);
-		System.out.println(artcomment.getArtno()+"--------------------");
 		artDao.updateByArt(Art.builder().artno(artcomment.getArtno()).artCommentCnt(1).build());
+		//System.out.println("댓글이 나오려나"  +artcomment);
 		return artCommemtDao.listByCommentOfArt(artcomment.getArtno());
 	}
 	

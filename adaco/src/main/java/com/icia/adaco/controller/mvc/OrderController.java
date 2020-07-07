@@ -26,16 +26,17 @@ public class OrderController {
 //		String user = username(principal.getName());
 		return new ModelAndView("main").addObject("viewName", "order/ordering.jsp");
 	}
+	
+	// 주문하기
 	@PostMapping("/order/ordering")
 	public ResponseEntity<?> Ordering(Order order, Principal principal){
-		return ResponseEntity.ok(orderService.Ordering(username, order, artno, Dto);)
+		return ResponseEntity.ok(orderService.Ordering(order));
 	}
 		
 	// 결제하기
-	@GetMapping("/orderdetail/payment")
+	@GetMapping("/order/payment")
 	public ModelAndView Payment() {
-
-		return new ModelAndView("main").addObject("viewName", "order_detail/payment.jsp");
+		return new ModelAndView("main").addObject("viewName", "order/payment.jsp");
 //		.addObject("order",service.Ordering(dto.forRead,orderservice));
 	}
 

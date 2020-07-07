@@ -235,6 +235,35 @@ $(function() {
 		})
 		alert("마지막");
 	})
+	
+	// 주문하기
+	$("#order").on("click",function() {
+		var ar=[];
+		$(".check").each(function(idx) {
+			if($(this).prop("checked")) {
+				ar.push($(this).data("orderno"));
+			}
+		})
+		alert("찍자");
+		var params = {
+				_csrf:"${_csrf.token}",
+				_method:"get",
+				orders:JSON.stringify(ar)
+		}
+		alert("찍어보자");
+		$.ajax({
+			url:"/adaco/order/ordering",
+			data:params,
+			method:"get"
+		}).done((result)=>{
+			alert("OK");
+			orderList = result;
+			printOrderList();
+		})
+		alert("실패??")
+	})
+	
+	
 })
 </script>
 </head>
@@ -257,7 +286,7 @@ $(function() {
 	<div id="button_area">
 		<input type="	" id="checkAll">전체 선택 
 		<button id="choiseDelete">선택삭제</button>
-		<button type="button" id="buy_all">주문하기</button>
+		<button type="button" id="order"><a href="/adaco/order/payment">주문하기</a></button>
 	</div>
   <%--  <div>
    <h1>장바구니</h1>
