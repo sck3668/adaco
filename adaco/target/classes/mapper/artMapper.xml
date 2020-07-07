@@ -131,7 +131,7 @@
 	<select id="findByArtFromUser" resultType="art">
 		select artno, art_name artName, price, main_img mainImg , art_img artImg , stock, tag, category, shopno, 
 		couri_price couriPrice, return_address returnAddress, courier, read_cnt readCnt, accumulated, favorite, 
-		artistno, art_detail artDetail
+		artistno, art_detail artDetail, art_comment_cnt artCommentCnt
 		from art
 		where artno=#{artno} and rownum=1
 	</select>

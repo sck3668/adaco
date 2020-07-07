@@ -57,7 +57,7 @@ public class ArtServiceTest {
 	public ArtDto.DtoForWrite getDtoForWrite() {
 		ArtDto.DtoForWrite dto = new DtoForWrite();
 		dto.setArtDate(LocalDateTime.now());
-		dto.setArtName("테스트상품16");
+		dto.setArtName("테스트상품17");
 		dto.setCategory("카테고리다2");
 		dto.setCourier("로젠택배");
 		dto.setTag("검색태그");
@@ -80,7 +80,7 @@ public class ArtServiceTest {
 	
 	
 	// 작품 등록 테스트 (작가용) ok
-	//@Test
+	@Test
 	public void writeWithSajinTest() throws IllegalStateException, IOException, MessagingException {
 		ArtDto.DtoForWrite dto = getDtoForWrite();
 		File targetFile = new File("d:/test5.jpg");
@@ -118,7 +118,7 @@ public class ArtServiceTest {
 	// 작품 상세 보기 테스트(회원용) ok
 	//@Test
 	public void readArtFromUserTest() {
-		DtoForRead art = service.readArtFromUser(58,"spring123");
+		DtoForRead art = service.readArtFromUser(147,"spring123");
 		assertThat(art, is(notNullValue()));
 	}
 	

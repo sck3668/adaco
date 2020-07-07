@@ -28,7 +28,7 @@ public class ArtController {
 	private ArtService artservice;
 	@Autowired
 	private ArtRestService service;
-	//
+	
 	// 작품 리스트 (작가용)
 	@GetMapping("/art/listByArtist")
 	public ModelAndView artList(@RequestParam(defaultValue = "1") int pageno) {
@@ -56,8 +56,7 @@ public class ArtController {
 	// 작품 상세보기 (회원용)
 	@GetMapping("/art/readByUser")
 	public ModelAndView readFromUser(@NonNull int artno ,@Nullable String username) {
-			System.out.println(username+"==============");
-		return new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPageByUser",service.readArtFromUser(artno, username));
+		return new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPageByUser", service.readArtFromUser(artno, username));
 	}
 	
 	// 작품 등록

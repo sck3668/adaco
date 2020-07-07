@@ -125,6 +125,8 @@ public class ArtDto {
 		private List<ArtComment> artComments;
 		private List<Review> reviews;
 		private String artDetail;
+		private Integer artCommentCnt;
+		
 		
 	}
 	
