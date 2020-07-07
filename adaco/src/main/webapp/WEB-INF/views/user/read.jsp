@@ -240,7 +240,7 @@ $(function(){
 	</aside>
 	<section id="section">
 		<div>
-			<img id ="show_profile" height="200px;"src="${user.profile }">
+			<img id ="show_profile" height="200px;" src="${user.profile }">
 		</div>
 		<div>
 			<input type="file" name="sajin" id="sajin">

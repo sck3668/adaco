@@ -26,8 +26,8 @@ public class StoryCommentDao {
 	}
 	
 	//스토리 댓글 작성
-	public int insertByCommentOfStory(StoryComment storycomment) {
-		return tpl.insert("storyCommentMapper.insertByCommentOfStory", storycomment);
+	public int insertByCommentOfStory(StoryComment storyComment) {
+		return tpl.insert("storyCommentMapper.insertByCommentOfStory",storyComment);
 	}
 	
 	//스토리 댓글 삭제 (댓글 단 사람만 삭제 가능한지는 서비스에서 확인)

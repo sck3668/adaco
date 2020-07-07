@@ -21,19 +21,63 @@
 		var loginId = undefined;
 	</script>
 </sec:authorize>
+<sec:authorize access="hasRole('ROLE_SELLER')">
+	<script>
+	$(function(){
+		var ck = CKEDITOR.replace("content", {
+			filebrowserUploadUrl:'http://localhost:8081/adaco/story/ckupload'
+		})
+	})
+	</script>
+</sec:authorize>
 <script>
 	$(function(){
 		var story = ${story};
 		console.log(story);
-		var ck = CKEDITOR.replace("content", {
-			filebrowserUploadUrl:'http://localhost:8081/adaco/story/ckupload'
-		})
 		$("#title").val(story.title);
-		$("#content").html(story.content);	
+		$("#writer").text(story.writer);
+		$("#storyno").text(story.storyno)
+		$("#content").text(story.content)
+		console.log(story.writer)	
+		console.log(story.storyno)
+		if(isLogin==true && story.writer==loginId){
+			$("#content").prop("disabled",false)
+			$("#comment_textarea").prop("disabled",false)
+			$("#comment_write").prop("disabled",false)
+		}
+		else if(isLogin==true && story.writer!==loginId){
+			$("#content").prop("disabled",true)
+			$("#comment_textarea").prop("disabled",false)
+			$("#comment_write").prop("disabled",false)
+			$("#title").prop("disabled",true)
+		}
+		$("#comment_write").on("click",function(){
+			if(isLogin==false)
+				return
+			var params = {
+					_method:"put",
+					_csrf:"${_csrf.token}",
+					storyno : story.storyno,
+					content:story.content,
+					writer : story.writer,
+					writeDateStr:story.writeDateStr		
+			}
+			
+			console.log(params)
+				$.ajax({
+					url:"/adaco/story/commentWrite",
+					data:params,
+					method:"post"
+					
+				}).done((r)=>{console.log(r)})
+				  .fail((r)=>{console.log(r)})
+		})
+		
 	});
 </script>
 </head>
 <body>
+${story }
 <div id="wrap">
 	<div>
 		<div class = "form-group">

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.*;
 
 import com.icia.adaco.dto.*;
+import com.icia.adaco.entity.*;
 import com.icia.adaco.service.rest.*;
 
 @RestController
@@ -34,4 +35,13 @@ public class StoryBoardRestController {
 		restService.ckupload(upload);
 		return ResponseEntity.ok(restService.ckupload(upload));
 	}
+	//@PreAuthorize("isAuthenticated()")
+	@PutMapping("/story/commentWrite")
+	public ResponseEntity<?>ListComment(@RequestParam(defaultValue = "1")int pageno,StoryComment storyComment,Principal principal){
+		System.out.println(storyComment+"==========");
+		System.out.println(principal.getName()+"ㅎㅎㅎㅎ");
+	return ResponseEntity.ok(restService.ListComment(pageno,storyComment, principal.getName()));
+	}
+	
+	
 }

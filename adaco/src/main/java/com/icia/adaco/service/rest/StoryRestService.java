@@ -1,8 +1,11 @@
 
 package com.icia.adaco.service.rest;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
+
 import java.io.*;
 import java.security.*;
+import java.time.format.*;
 import java.util.*;
 
 import org.modelmapper.*;
@@ -16,15 +19,19 @@ import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.exception.*;
+import com.icia.adaco.util.*;
 
 @Service
 public class StoryRestService {
+	private static final List<StoryComment> StoryCommentDao = null;
 	@Autowired
 	private StoryDao storyDao;
 	@Autowired
 	private ModelMapper modelMapper;
 	@Autowired
 	private ObjectMapper objectMapper;
+	@Autowired
+	private StoryCommentDao storyCommentDao;
 	@Value("${imageFolder}")
 	private String imageFolder;
 	@Value("${imagePath}")
@@ -38,6 +45,7 @@ public class StoryRestService {
 			throw new JobFailException("아이디가틀려");
 		story = modelMapper.map(updateDto, Story.class);
 		storyDao.update(story);
+		
 	}
 
 	public void deleteStory(Principal principal, Integer storyno) {
@@ -62,5 +70,28 @@ public class StoryRestService {
 			}
 			return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
 		}return null;
+	}
+	public Page ListComment(int pageno,StoryComment storyComment,String username) {
+		int countOfBoard = storyCommentDao.count();
+		Page page = PagingUtil.getPage(pageno, countOfBoard);
+		int srn = page.getStartRowNum();
+		int ern = page.getEndRowNum();
+		List<StoryComment> storyCommentList = null;
+		storyCommentList = storyCommentDao.findAllByCno(srn,ern);
+		List<StoryCommentDto.DtoForList> storyCommentDtoList=new ArrayList<StoryCommentDto.DtoForList>();
+		
+		for(StoryComment storyComment1 :storyCommentList ) {
+			//스토리 커멘트 리스트 :SCList
+			StoryCommentDto.DtoForList SCList = modelMapper.map(storyComment1,StoryCommentDto.DtoForList.class);
+			SCList.setWriteDateStr(storyComment1.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
+			storyCommentDtoList.add(SCList);
+			System.out.println(SCList+"포문");
+		}
+		page.setStoryCommentList(storyCommentDtoList);
+		storyComment.setUsername(username);
+		storyCommentDao.insertByCommentOfStory(storyComment);
+		
+		return page;
+		
 	}
 }
