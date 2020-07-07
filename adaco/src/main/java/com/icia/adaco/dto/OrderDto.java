@@ -1,5 +1,6 @@
 package com.icia.adaco.dto;
 
+import java.time.*;
 
 import com.icia.adaco.entity.*;
 
@@ -7,35 +8,22 @@ import lombok.*;
 import lombok.experimental.*;
 
 public class OrderDto {
-
-	private OrderDto() {}
-		
-	
-	// 결제 취소
-	@Data
-	@AllArgsConstructor
-	@NoArgsConstructor
-	@Accessors(chain=true)
-	@Builder
-	public  static class DtoForDeleteOrder{
-		private Integer orderno;
-		private Integer optno;
-		private Integer artno;
-		private String artname;
-		private String optionName; //옵션명
-		private String optionValue; // 옵션값
-		private Integer amount; 
-		private Integer price;
-		private String address;  // 배송지
-		private String recipient; // 수령인
-		private String tel;
-		private Integer addPoint;
-		private String postalcode;
-		private String refundAccount;
-		
-	}
-	
-	// 결제 페이지
+   private OrderDto() {
+   }
+   
+   @Data
+   @AllArgsConstructor
+   @NoArgsConstructor
+   @Builder
+   @Accessors(chain=true)
+   private static class DtoForWrite{
+      private int orderno;
+      private LocalDateTime orderDate;
+      private String username;
+      private int shippingCharge;
+   }
+   
+// 결제 페이지
 	@Data
 	@AllArgsConstructor
 	@NoArgsConstructor

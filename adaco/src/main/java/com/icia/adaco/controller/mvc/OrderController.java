@@ -22,7 +22,7 @@ public class OrderController {
 	@GetMapping("/order/ordering")
 	public ModelAndView Ordering(Principal principal, Order order, int artno, String username, int orderno) {
 		String id = principal.getName();
-		orderService.Ordering(username, order, artno);
+		orderService.Ordering(order);
 //		String user = username(principal.getName());
 		return new ModelAndView("main").addObject("viewName", "order/ordering.jsp");
 	}
@@ -52,7 +52,7 @@ public class OrderController {
 		return new ModelAndView("main").addObject("viewName", "order/read");
 	}
 
-	// 결제 성공
+	// 결제 완료
 	@GetMapping("/order/after")
 	public ModelAndView after() {
 		return new ModelAndView("main").addObject("viewName", "order/after.jsp");

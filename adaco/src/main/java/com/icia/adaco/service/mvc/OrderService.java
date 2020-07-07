@@ -31,11 +31,10 @@ public class OrderService {
 			
 		}
 	
-//		public void Ordering(Order order) {
-//			int artno = order.getOrderno();
-//			Art art = artDao.readByArt(artno);
-//			order.setOrderno(orderno)
-//		}
+		public void Ordering(Order order) {
+			int artno = order.getOrderno();
+			Art art = artDao.readByArt(artno);
+		}
 
 //		
 //		// 상품 상세에서 주문

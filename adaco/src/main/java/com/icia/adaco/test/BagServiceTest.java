@@ -27,7 +27,7 @@ public class BagServiceTest {
 	private OptionDao optionDao;
 	//장바구니 추가 서비스 테스트
 	
-	@Test
+	//@Test
 	public void insertTest() {
 		Bag bag = Bag.builder().username("sck3668").artno(4).totalPrice(30000).amount(3).optionName("색상").optionValue("red").optionStock(10).optionPrice(3000).build();
 		assertThat(bagservice.insertByBag(bag), is(1));
@@ -39,7 +39,7 @@ public class BagServiceTest {
 	}
 	
 	
-	//@Test
+	@Test
 	public void inserByBagTest() {
 		Art art = artDao.readByArt(58);
 		Option option = optionDao.readOptionByArtno(58);
@@ -90,7 +90,7 @@ public class BagServiceTest {
 	}
 	
 	//@Test
-	public void deleteByBagTest() {
-		bagservice.deleteByBag(33);
-	}
+//	public void deleteByBagTest() {
+//		bagservice.deleteByBag(33);
+//	}
 }
