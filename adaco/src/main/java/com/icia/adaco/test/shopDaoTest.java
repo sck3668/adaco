@@ -31,12 +31,17 @@ public class shopDaoTest {
 		Shop shop = Shop.builder().shopno(2).shopName("bb").shopIntro("bbbb").businessno("aa").account("aaa").build();
 		assertThat(shopDao.updateByShop(shop), is(1));
 	}
-	//@Test
-	public void findByShopnoTest() {
-		assertThat(shopDao.readByShop(2), is(notNullValue()));
-	}
-	//@Test
-	public void deleteTest() {
-		assertThat(shopDao.deleteByArt(3), is(1));
+//	//@Test
+//	public void findByShopnoTest() {
+//		assertThat(shopDao.readByShop(2), is(notNullValue()));
+//	}
+//	//@Test
+//	public void deleteTest() {
+//		assertThat(shopDao.deleteByArt(3), is(1));
+//	}
+	
+	@Test
+	public void readT() {
+		assertThat(shopDao.readByShop(169), is(notNullValue()));
 	}
 }
