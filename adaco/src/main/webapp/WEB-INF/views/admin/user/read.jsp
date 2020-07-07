@@ -35,7 +35,8 @@
 			var params = {
 				_method : "put",
 				username : $("#username").text(),
-				authority: $("#category").val(),
+				authority: $("#authority").val(),
+				enabled: $("#enabled").val(),
 				_csrf: "${_csrf.token}"
 			}
 			if($("#category").val() != "선택") {
@@ -46,7 +47,24 @@
 				}).done(()=>alert("정보가 갱신되었습니다.")).fail((f)=>alert("정보를 변경하지 못하였습니다. 사유:" +f));
 			}
 		});
-	})
+		
+		$("#block").on("click", function(){
+			if($("#enabled").val()==false)
+				$("#enabled").val(true)
+			var params = {
+					_method : "put",
+					username : $("#username").text(),
+					authority: $("#authority").val(),
+					enabled: $("#enabled").val(),
+					_csrf: "${_csrf.token}"
+				}
+				$.ajax({
+					url: "/adaco/admin/user_update",
+					method: "post",
+					data: params
+				}).done(()=>alert("정보가 갱신되었습니다.")).fail((f)=>alert("정보를 변경하지 못하였습니다. 사유:" +f));
+		});
+	});
 </script>
 </head>
 <body>
@@ -109,15 +127,23 @@
 			<td colspan="2"><span id = "tel">${user.tel }</span></td>
 		</tr>
 	</table>
+	<input type="hidden" id = "enabled" value="${user.enabled }">
 	<div style=" width:130px; display: inline-block; margin-left: 5px; margin-top: 20px;">
-		<select id = "category" class="custom-select">
-				<option value="선택">권한 선택</option>
-				<option value="ROLE_USER">일반 회원</option>
-				<option value="ROLE_SELLER">작가</option>
+		<select id = "authority">
+			<c:forEach items="${authorityType}" var="at">
+				<c:choose>
+					<c:when test="${at == user.authority }">
+						<option value = "${at}" selected="selected">${user.authority}</option> .
+					</c:when>
+					<c:otherwise>
+						<option value = "${at }">${at}</option>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
 		</select>
 	</div>
 	<button type="button" class="btn btn-success" id="update">변경하기</button>
-	<button type="button" class="btn btn-danger">회원 블락</button>
+	<button type="button" class="btn btn-danger" id = "block">회원 블락</button>
     
         
     	</div>

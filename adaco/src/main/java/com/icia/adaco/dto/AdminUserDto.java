@@ -42,6 +42,8 @@ public class AdminUserDto {
 		private String address;
 		private String joinDateStr;
 		private String birthDateStr;
+		private String authority;
+		private Boolean enabled;
 		private long days;
 	}
 }

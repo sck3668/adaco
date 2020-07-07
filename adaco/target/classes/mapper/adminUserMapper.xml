@@ -55,7 +55,7 @@
 	</select>
 		
 	<select id="findById" resultType="user">
-		select username,password,email,irum,tel,profile,address,join_date joinDate,birth_date birthDate
+		select username,password,email,irum,tel,profile,address,join_date joinDate,birth_date birthDate, enabled
 		from users where username=#{username} and rownum=1
 	</select>
 	
@@ -77,6 +77,10 @@
 		select count(*) from artist where username = #{username} and rownum = 1
 	</select>
 	
+	<select id="findAuthorityById" resultType="authorities">
+		select username, authority from authorities where username = #{username}
+	</select>
+	
 	<insert id="insertByArtist">
 		<selectKey keyProperty="artistno" resultType="int" order="BEFORE">
 			select artist_seq.nextval from dual
@@ -85,4 +89,15 @@
 		values(#{artistno},#{username})
 	</insert>
 	
+	<select id="findAuthority" resultType="string">
+		select distinct authority from authorities
+	</select>
+	
+	<select id="findByArtist" resultType="artist">
+		select artistno, username from artist where username = #{username}
+	</select>
+	
+	<delete id="deleteByArtist">
+		delete from artist where artistno = #{artistno} and rownum = 1
+	</delete>
  </mapper>
