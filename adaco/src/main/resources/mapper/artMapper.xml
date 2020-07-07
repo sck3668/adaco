@@ -8,8 +8,8 @@
 	<selectKey keyProperty="artno" resultType="int" order="BEFORE">
 		select art_seq.nextval from dual
 	</selectKey>
-		insert into art(artno, art_name, price, main_img, art_img, stock, tag, art_date, category, shopno, couri_price, return_address, courier, accumulated, favorite, artistno, art_detail, read_cnt )
-		values(#{artno},#{artName},#{price},#{mainImg},#{artImg, jdbcType=VARCHAR},#{stock, jdbcType=VARCHAR}, #{tag}, sysdate, #{category}, #{shopno}, #{couriPrice, jdbcType=INTEGER}, #{returnAddress, jdbcType=VARCHAR}, #{courier, jdbcType=VARCHAR}, #{accumulated, jdbcType=INTEGER}, 0, #{artistno}, #{artDetail, jdbcType=VARCHAR},0)
+		insert into art(artno, art_name, price, main_img, art_img, stock, tag, art_date, category, shopno, couri_price, return_address, courier, accumulated, favorite, artistno, art_detail, read_cnt, review_cnt, art_comment_cnt )
+		values(#{artno},#{artName},#{price},#{mainImg},#{artImg, jdbcType=VARCHAR},#{stock, jdbcType=VARCHAR}, #{tag}, sysdate, #{category}, #{shopno}, #{couriPrice, jdbcType=INTEGER}, #{returnAddress, jdbcType=VARCHAR}, #{courier, jdbcType=VARCHAR}, #{accumulated, jdbcType=INTEGER}, 0, #{artistno}, #{artDetail, jdbcType=VARCHAR},0,0,0)
 	</insert>
 <!-- 장바구니에서 작품보기 -->
 	<select id="list" resultType="art">
@@ -43,7 +43,7 @@
 	
 	<!-- 작품 상세 보기 -->
 	<select id="findById" resultType="art">
-		select artno, art_name artName, price, main_img mainImg , art_img artImg , stock, tag, art_date artDate, category, shopno, couri_price couriPrice, return_address returnAddress, courier, read_cnt readCnt, accumulated, favorite, artistno
+		select artno, art_name artName, price, main_img mainImg , art_img artImg , stock, tag, art_date artDate, category, shopno, couri_price couriPrice, return_address returnAddress, courier, read_cnt readCnt, accumulated, favorite, artistno, art_detail artDetail
 		from art
 		where artno=#{artno} and rownum=1
 	</select>
@@ -81,11 +81,11 @@
 	
 	<!-- 작품 리스트(최신순) / 작품이름으로 검색 리스트-->
 	<select id="findAllFromUser" resultType="art">
-		select B.art_name artName, B.main_img mainImg, B.price
+		select B.artno, B.art_name artName, B.main_img mainImg, B.price, B.favorite
 	      from
-	         (select /*+ index_desc(art art_pk_artno) */ rownum rnum, A.art_name, A.main_img, A.price
+	         (select /*+ index_desc(art art_pk_artno) */ rownum rnum, A.artno, A.art_name, A.main_img, A.price, A.favorite
 	         from (
-	            select art_name, main_img, price
+	            select artno, art_name, main_img, price, favorite
 	            from art
 	            <trim prefix="WHERE" prefixOverrides="AND">
 	            	<if test="artName!=null and artName != '' ">
@@ -108,11 +108,11 @@
 	
 	<!-- 작품 리스트(일단 리뷰가 5이상인 작품 모음) -->
 	<select id="reviewManyByArt" resultType="art">
-	      select B.art_name artName, B.main_img mainImg, B.price
+	      select B.artno, B.art_name artName, B.main_img mainImg, B.price, B.favorite
 	      from
-	         (select /*+ index_desc(art art_pk_artno) */ rownum rnum, A.art_name, A.main_img, A.price
+	         (select /*+ index_desc(art art_pk_artno) */ rownum rnum, A.artno, A.art_name, A.main_img, A.price, A.favorite
 	         from (
-	            select art_name, main_img, price
+	            select artno, art_name, main_img, price, favorite
 	            from art
 	       		where review_cnt>=5
 	       		order by art_name) A
@@ -131,7 +131,7 @@
 	<select id="findByArtFromUser" resultType="art">
 		select artno, art_name artName, price, main_img mainImg , art_img artImg , stock, tag, category, shopno, 
 		couri_price couriPrice, return_address returnAddress, courier, read_cnt readCnt, accumulated, favorite, 
-		artistno, art_detail artDetail
+		artistno, art_detail artDetail, art_comment_cnt artCommentCnt
 		from art
 		where artno=#{artno} and rownum=1
 	</select>

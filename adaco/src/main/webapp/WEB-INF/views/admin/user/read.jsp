@@ -30,7 +30,16 @@
 <meta charset="UTF-8">
 <title>회원 상세</title>
 <script type="text/javascript">
+function checkEnabled() {
+	var enabled = ${user.enabled}
+	if(enabled == true) 
+		$("#block").attr("class", "btn btn-danger").text("계정 블락");
+	else 
+		$("#block").attr("class", "btn btn-primary").text("계정 활성화");
+	
+}
 	$(function(){
+		checkEnabled();
 		$("#update").on("click", function(){
 			var params = {
 				_method : "put",
@@ -49,20 +58,27 @@
 		});
 		
 		$("#block").on("click", function(){
-			if($("#enabled").val()==false)
-				$("#enabled").val(true)
+			if($("#enabled").val()=="false") 
+				$("#enabled").val(true);
+			else
+				$("#enabled").val(false)
+			
 			var params = {
 					_method : "put",
 					username : $("#username").text(),
-					authority: $("#authority").val(),
 					enabled: $("#enabled").val(),
 					_csrf: "${_csrf.token}"
 				}
+			 
 				$.ajax({
 					url: "/adaco/admin/user_update",
 					method: "post",
 					data: params
-				}).done(()=>alert("정보가 갱신되었습니다.")).fail((f)=>alert("정보를 변경하지 못하였습니다. 사유:" +f));
+				}).done(()=>{
+				   alert("정보가 갱신되었습니다.");
+				   location.reload(true);
+				}).fail((f)=>alert("정보를 변경하지 못하였습니다. 사유:" +f));
+				
 		});
 	});
 </script>
@@ -129,7 +145,7 @@
 	</table>
 	<input type="hidden" id = "enabled" value="${user.enabled }">
 	<div style=" width:130px; display: inline-block; margin-left: 5px; margin-top: 20px;">
-		<select id = "authority">
+		<select id = "authority" class = "custom-select">
 			<c:forEach items="${authorityType}" var="at">
 				<c:choose>
 					<c:when test="${at == user.authority }">

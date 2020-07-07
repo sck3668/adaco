@@ -12,13 +12,14 @@
 
 	<!-- 작품 댓글 목록보기 -->
 	<select id="findAll" resultType="artComment">
-		select cno, username, write_date writeDate, profile, content, report_cnt reportCnt
-		from art_comments order by cno desc
+		select cno, artno, username, write_date writeDate, profile, content, report_cnt reportCnt
+		from art_comments 
+		where artno=#{artno} order by cno desc
 	</select>
 
 	<!-- 작품 댓글 상세보기 -->
 	<select id="findById" resultType="artComment">
-		select cno, username, write_date writeDate, profile, content, report_cnt reportCnt
+		select cno, artno, username, write_date writeDate, profile, content, report_cnt reportCnt
 		from art_comments
 		where cno=#{cno} and rownum=1
 	</select>

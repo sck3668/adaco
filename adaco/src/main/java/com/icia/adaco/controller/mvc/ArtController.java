@@ -55,10 +55,10 @@ public class ArtController {
 	
 	// 작품 상세보기 (회원용)
 	@GetMapping("/art/readByUser")
-	public ModelAndView readFromUser(@NonNull int artno , String username) {
-		return new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPage",service.readArtFromUser(artno, username));
+	public ModelAndView readFromUser(@NonNull int artno ,@Nullable String username) {
+		return new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPageByUser", service.readArtFromUser(artno, username));
 	}
-
+	
 	// 작품 등록
 	//@PreAuthorize("isAuthenticated()")
 	@GetMapping("/art/write")

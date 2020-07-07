@@ -57,6 +57,17 @@ public class AdminBoardController {
 		return "redirect:/admin/report_list";
 	}
 	
+	@GetMapping("/admin/question_write")
+	public ModelAndView questionWrite() {
+		return new ModelAndView("admin/question/write");
+	}
+	
+	@PostMapping("/admin/question_write")
+	public String questionWrite(Question question, Principal principal) {
+		String username = principal.getName();
+		return "redirect: /adaco/admin/question_read?qno="+service.questionWrite(question, username);
+	}
+	
 //	@Secured("ROLE_ADMIN")
 //	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/admin/question_list")

@@ -1,6 +1,7 @@
 package com.icia.adaco.service.mvc;
 
 import java.io.*;
+import java.time.*;
 import java.time.format.*;
 import java.util.*;
 
@@ -179,6 +180,15 @@ public class AdminBoardService {
 
 	public void faqDelete(Integer faqno) {
 		dao.deleteByFAQ(faqno);
+	}
+
+	public int questionWrite(Question question, String username) {
+		System.out.println("넘어오는 값?" + question);
+		question.setWriter(username).setWriteDate(LocalDateTime.now());
+		dao.insertByQuestion(question);
+		AdminBoardDto.DtoForQuestionWrite dto = modelMapper.map(question, AdminBoardDto.DtoForQuestionWrite.class);
+		System.out.println("다시찍힌 값" + question);
+		return question.getQno();
 	}
 
 
