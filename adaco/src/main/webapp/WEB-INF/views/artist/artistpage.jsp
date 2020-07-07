@@ -42,14 +42,6 @@
 <script>
 
 </script>
-
-
-
-
-
-
-
-
 </head>
 <body>
 <div>
@@ -83,7 +75,7 @@
 			<!--  -->
 			
 			<div>
-		<img id="show_profile" height="200px;" src="${user.profile }">
+		<img id="show_profile" height="200px;" src="${shop.image }">
 	</div>
 	<div>
 	</div>

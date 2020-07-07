@@ -10,7 +10,7 @@
 	</insert>
 	
  	<select id="readByShop" resultType="shop">
-		select shopno,shop_name shopName, shop_intro shopIntro, businessno, account
+		select shopno,shop_name shopName, shop_intro shopIntro, businessno, account, image, forwarding, back
 		from shop where shopno=#{shopno}
  	</select> 
 
@@ -21,11 +21,16 @@
 	</select>
 	
 	
-	<update id="update">
+	<update id="updateByShop">
 		update shop
 		<trim suffixOverrides="," prefix="set">
 			<if test="shopName!=null">shop_name=#{shopName},</if>
 			<if test="shopIntro!=null">shop_intro=#{shopIntro},</if>
+			<if test="image!=null">image=#{image},</if>
+			<if test="businessno!=null">businessno=#{businessno},</if>
+			<if test="account!=null">account=#{account},</if>
+			<if test="back!=null">back=#{back},</if>
+			<if test="forwarding!=null">forwarding=#{forwarding},</if>
 		</trim>
 		where shopno=#{shopno} and rownum=1
 	</update>

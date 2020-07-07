@@ -33,11 +33,9 @@ public class ShopDao {
 //		return sql.selectOne("shopMapper.findByShopno",shopno);
 //	}
 	
-	
-	
 	//상점 수정
 	public int updateByShop(Shop shop) {
-		return sql.update("shopMapper.update",shop);
+		return sql.update("shopMapper.updateByShop",shop);
 	}
 	//상점 삭제
 	public int deleteByShop(int shopno) {

@@ -43,9 +43,13 @@ public class ShopDto {
 	@AllArgsConstructor
 	@NoArgsConstructor
 	public static class DtoForUpdate {
-		@NotNull
-		private int shopno;
+		private Integer shopno;
 		private String shopName;
 		private String shopIntro;
+		private String image;
+		private String businessno;
+		private String account;
+		private String forwarding;
+		private String back;
 	}
 }
