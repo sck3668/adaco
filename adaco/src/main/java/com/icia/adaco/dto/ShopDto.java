@@ -12,7 +12,6 @@ public class ShopDto {
 	@Data
 	@AllArgsConstructor
 	@NoArgsConstructor
-	@Accessors(chain=true)
 	@Builder
 	public static class DtoForMade {
 		private Integer artistno;
@@ -26,7 +25,7 @@ public class ShopDto {
 		private String back;
 	}
 	@Data
-	@Accessors(chain = true )
+	@Builder
 	public static class DtoForRead {
 		private int shopno;
 		private String shopName;

@@ -1,5 +1,6 @@
 package com.icia.adaco.entity;
 
+
 import lombok.*;
 import lombok.experimental.*;
 
@@ -13,5 +14,4 @@ public class Artist {
 	private String artistIntro;
 	private String profile;
 	private String username;
-	
 }

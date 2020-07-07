@@ -10,6 +10,7 @@ import com.icia.adaco.entity.*;
 public class ArtistDao {
 	@Autowired
 	private SqlSessionTemplate sql;
+	
 	public Artist findByid(int artistno) {
 		return sql.selectOne("artistMapper.findById",artistno);
 	}
