@@ -83,6 +83,7 @@ public class UserRestService {
 	
 	public int favoriteAdd(String username,int artno) {
 		Art art = artDao.readByArt(artno);
+		System.out.println("art=============="+art);
 		Favorite favorite = Favorite.builder().artno(artno)
 				.artName(art.getArtName()).price(art.getPrice()).username(username).build();
 		System.out.println("art============"+art);

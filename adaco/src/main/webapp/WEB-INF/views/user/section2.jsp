@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,13 +29,13 @@ ${artReviewPage.artList }
           </ol>
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
-              <img class="d-block img-fluid" src="image/main1.jpg" alt="First slide">
+              <img class="d-block img-fluid" src="${pageContext.request.contextPath}/image/main1.jpg" alt="First slide">
             </div>
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="image/main2.jpg" alt="Second slide">
+              <img class="d-block img-fluid" src="${pageContext.request.contextPath}/image/main2.jpg" alt="Second slide">
             </div>
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="image/main1.jpg" alt="Third slide">
+              <img class="d-block img-fluid" src="${pageContext.request.contextPath}/image/main1.jpg" alt="Third slide">
             </div>
           </div>
           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -54,8 +55,10 @@ ${artReviewPage.artList }
               <a href="#"><img class="card-img-top" src="image/art1.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">
+                  <sec:authorize access="hasRole('ROLE_USER')">
+                  <a href="/adaco/art/readByUser?artno=${art.artno}">
                   <img alt="상품 사진" src="${art.mainImg }"></a>
+            	</sec:authorize>
                 </h4>
                 <h5>${art.artName}</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>

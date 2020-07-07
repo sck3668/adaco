@@ -9,20 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
-	$(function() {
-		$(".favorite").on("click",function() {
-			var params ={
-					_csrf:"${_csrf.token}",
-					artno: $(this).prev().val(),
-			}
-			console.log($(this).prev().val());
-			$.ajax({
-				url:"/adaco/user/favoriteAdd",
-				method:"post",
-				data:params,
-			})
-		})
-	})
+
 </script>
 </head>
 <body>
@@ -46,13 +33,13 @@ ${artPage.artList }
           </ol>
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
-              <img class="d-block img-fluid" src="image/main1.jpg" alt="First slide">
+              <img class="d-block img-fluid" src="${pageContext.request.contextPath}/image/main1.jpg" alt="First slide">
             </div>
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="image/main2.jpg" alt="Second slide">
+              <img class="d-block img-fluid" src="${pageContext.request.contextPath}/image/main2.jpg" alt="Second slide">
             </div>
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="image/main1.jpg" alt="Third slide">
+              <img class="d-block img-fluid" src="${pageContext.request.contextPath}/image/main1.jpg" alt="Third slide">
             </div>
           </div>
           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -69,15 +56,17 @@ ${artPage.artList }
 <c:forEach items="${artPage.artList }" var="art">
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="image/art1.jpg" alt=""></a>
+              <a href="#"><img class="card-img-top" src="${pageContext.request.contextPath}image/art1.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                <sec:authorize access="hasRole('ROLE_SELLER')">
-                  <a href="/adaco/art/readByArtist?artno=${art.artno}">
-                  <img alt="상품 사진" src="${art.mainImg }"></a>
+                <sec:authorize access="hasRole('ROLE_USER')">
+            		<a href="/adaco/art/readByUser?artno=${art.artno}">
+                  	<img alt="작품 사진" src="${art.mainImg }"></a>
             	</sec:authorize>
+                <sec:authorize access="hasRole('ROLE_SELLER')">
             		<a href="/adaco/art/readByArtist?artno=${art.artno}">
-                  <img alt="상품 사진" src="${art.mainImg }"></a>
+                  	<img alt="작품 사진" src="${art.mainImg }"></a>
+                 </sec:authorize>
                 </h4>
                 <h5>${art.artName}</h5>
                 <p class="card-text">${art }</p>
