@@ -21,7 +21,7 @@ public class AdminUserRestController {
 //	@PreAuthorize("isAuthenticated()")
 //	@Secured("ROLE_ADMIN")
 	@PutMapping("/admin/user_update")
-	public ResponseEntity<Void> update(String username, @Nullable String authority, @Nullable boolean enabled) {
+	public ResponseEntity<Void> update(String username, @Nullable String authority, @Nullable Boolean enabled) {
 		service.update(username, authority, enabled);
 		return ResponseEntity.ok(null);
 	}

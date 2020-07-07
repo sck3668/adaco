@@ -115,6 +115,13 @@
 				<li class = "page-item" style="width: 60px;"><a style = "width: 60px;" class = "page-link" href="/adaco/admin/notice_list?pageno=${noticePage.endPage+1}">다음</a></li>
 			</c:if>
 		</ul>
+		 <a href="/adaco/admin/notice_write" id = "write" class = "btn btn-primary btn-icon-split">
+       		<span class="icon text-white-50">
+       			<i class = "fas fa-arrow-right">
+       			</i>
+       		</span>
+       		<span class ="text">공지 작성</span>
+		 </a>
 	  </div>
    </div>
   </div>
