@@ -5,15 +5,15 @@
 		<selectKey keyProperty="artistno" resultType="int" order="BEFORE">
 			select artist_seq.nextval from dual
 		</selectKey>
-		insert into artist(artistno,artist_intro,profile,username,shopno)
-		values(#{artistno},#{artistIntro},#{profile},#{username},#{shopno})
+		insert into artist(artistno,artist_intro,profile,username)
+		values(#{artistno},#{artistIntro},#{profile},#{username})
 	</insert>
 	<select id="findById" resultType="artist">
 		select artistno,artist_intro
-		artistIntro,profile,username,shopno from artist where artistno=#{artistno}
+		artistIntro,profile,usernamefrom artist where artistno=#{artistno}
 	</select>
 	
-	<select id="findArtistnoByUsername" resultType="artist">
+	<select id="findArtistnoByUsername" resultType="int">
 		select artistno from artist where username=#{username}
 	</select>
 	

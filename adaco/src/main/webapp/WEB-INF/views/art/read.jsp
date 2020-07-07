@@ -36,6 +36,7 @@
 </style>
 <script>
 $(function() {
+	//즐겨찾기 추가
 	$("#favorite").on("click",function() {
 		var params ={
 				_csrf:"${_csrf.token}",
@@ -49,7 +50,45 @@ $(function() {
 			data:params,
 		})
 	})
+	
+	//장바구니 추가
+	$("#addBag").on("click",function() {
+			var params = {
+					_csrf : "${_csrf.token}",
+					username: "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}",
+					artno:${artPageByUser.artno},
+					totalPrice:${artPageByUser.price},
+					amount:1,
+					optionName:'${artPageByUser.optionName}',
+					optionValue:'${artPageByUser.optionValue}',
+					optionStock:${artPageByUser.optionStock},
+					optioncPrice:${artPageByUser.optionPrice},
+			};
+			console.log(params);
+			alert("sss");
+			$.ajax({
+				url:"/adaco/bag/add",
+				method:"post",
+				data:params,
+				success:function(result){
+					alert("tjdrhd");
+					if(result=="1")
+						alert("성공");
+					else
+						alert("실패");
+				},error:function() {
+					alert("실패실패");
+				}
+			})
+					
+		})
+	
 })
+
+
+$(function() {
+		
+	})
 </script>
 </head>
 <body>	
@@ -147,7 +186,7 @@ ${artPageByUser}
 		</div>
 	</div>
 	<div id="button">
-		<button type="button" id="bagAdd">장바구니</button>
+		<button type="button" id="addBag">장바구니</button>
 		<button type="button" id="payment">구매하기</button>
 		<button type="button" id="favorite">즐겨찾기</button>
 	</div>
