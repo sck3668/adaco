@@ -75,7 +75,7 @@ $(function() {
 <!-- 작가 nav -->
 			<sec:authorize access="hasRole('ROLE_SELLER')">
 				<li class="nav-item">
-         		   <a class="nav-link" href="/adaco/user/login">로그아웃</a>
+         		   <a class="nav-link" href="/adaco/user/logout">로그아웃</a>
          		</li>
          		<li class="nav-item">
          		   <a class="nav-link" href="/adaco/artist/artistpage">작가페이지</a>
