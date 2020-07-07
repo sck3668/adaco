@@ -58,6 +58,7 @@
          <property name="maxUploadSize" value="1048576" />
 	</bean>
 	
+	
 	<mybatis-spring:scan base-package="com.icia.adaco.dao"/>
 	
 </beans>

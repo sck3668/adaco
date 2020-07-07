@@ -3,8 +3,7 @@ package com.icia.adaco.controller.mvc;
 import java.io.*;
 import java.security.*;
 
-import javax.inject.*;
-
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.lang.*;
 import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
@@ -18,9 +17,7 @@ import com.icia.adaco.service.mvc.*;
 
 @Controller
 public class ShopController {
-
-	
-	@Inject
+	@Autowired
 	private ShopService shopService;
 	
 	//상점개설 화면
@@ -32,11 +29,19 @@ public class ShopController {
 	
 	
 	//상점개설 처리
-//	@PreAuthorize("isAuthenticated()")
+	//@PreAuthorize("isAuthenticated()")
 	@PostMapping("/artist/shopMade")
-	public String shopMade(ShopDto.DtoForMade shopMadeDto, @Nullable MultipartFile sajin, RedirectAttributes ra, String username) throws IllegalStateException, IOException {
-			shopService.shopMade(shopMadeDto, sajin, username);
-			return "redirect:/";
+	public String shopMade(ShopDto.DtoForMade shopMadeDto, @Nullable MultipartFile sajin, RedirectAttributes ra, Principal principal) throws IllegalStateException, IOException  {
+			shopService.shopMade(shopMadeDto, sajin, principal.getName());
+			return "redirect:/artist/shopRead";
+	}
+	
+	//상점보기 화면
+	//@PreAuthorize("isAuthenticated()")
+	@GetMapping("/artist/shopRead")
+	public ModelAndView shopRead(int shopno) {
+		return new ModelAndView("main").addObject("viewName","artist/shopRead.jsp")
+				.addObject("shop",shopService.shopRead(shopno));
 	}
 	
 	
