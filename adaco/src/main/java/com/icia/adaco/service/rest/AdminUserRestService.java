@@ -3,6 +3,7 @@ package com.icia.adaco.service.rest;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.lang.*;
 import org.springframework.stereotype.*;
 
 import com.icia.adaco.dao.*;
@@ -16,32 +17,52 @@ public class AdminUserRestService {
 	@Autowired
 	AuthorityDao authorityDao;
 	
-	public void update(String username, String authority, boolean enabled) {
-		if(authority.equals("ROLE_SELLER")) {
+	public void update(String username, String authority, Boolean enabled) {
+		
+		
+		if(authority != null && authority.equals("ROLE_SELLER")) {
+			if(dao.existsByArtist(username) == true)
+				throw new JobFailException("동일한 권한을 부여할 수 없습니다.");
 			Artist artist = Artist.builder().username(username).build();
 			dao.insertByArtist(artist);
+			authorityDao.update(username, authority);
 		}
 		
-		if(dao.existsByArtist(username)==true) {
-			if(enabled == false || authority != "ROLE_ADMIN") {
+		if(authority != null && authority.equals("ROLE_USER")) {
+			if(dao.existsByArtist(username)==true) {
 				List<String> list = dao.findSellById(username);
 				for(String state:list) {
+					if(state.equals("구매확정") == false)
+						throw new JobFailException("진행 중인 거래가 있어 정보를 수정할 수 없습니다.");
+				}
+				Artist artist = dao.findByArtist(username);
+				int artistno = artist.getArtistno();
+				dao.deleteByArtist(artistno);
+				authorityDao.update(username, authority);
+			}
+		}
+		
+		if(enabled == false) {
+			if(dao.existsByArtist(username) == true) {
+				List<String> list = dao.findSellById(username);
+				for(String state:list) {
+					if(state.equals("구매확정") == false)
+						throw new JobFailException("진행 중인 거래가 있어 정보를 수정할 수 없습니다.");
+				}
+			} else {
+				List<String> list = dao.findOrderById(username);
+				for(String state:list) {			
 					if(state.equals("구매 확정") == false)
 					throw new JobFailException("진행 중인 거래가 있어 정보를 수정 할 수 없습니다.");
 				}
 			}
+			dao.updateByUser(User.builder().enabled(enabled).username(username).build());
+			return;
+		} 
+		if (enabled == true) {
+			dao.updateByUser(User.builder().enabled(enabled).username(username).build());
+			return;
 		}
-		
-		if(enabled == false) {			
-			List<String> list = dao.findOrderById(username);
-			for(String state:list) {			
-				if(state.equals("구매 확정") == false)
-				throw new JobFailException("진행 중인 거래가 있어 정보를 수정 할 수 없습니다.");
-			}
-		}
-		
-		dao.updateByUser(User.builder().enabled(enabled).username(username).build());
-		authorityDao.update(username, authority);
 	}
 
 }

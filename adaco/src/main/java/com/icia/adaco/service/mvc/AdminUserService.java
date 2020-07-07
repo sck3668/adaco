@@ -5,6 +5,8 @@ import java.time.format.*;
 import java.time.temporal.*;
 import java.util.*;
 
+import javax.annotation.*;
+
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
@@ -15,6 +17,8 @@ import com.icia.adaco.entity.*;
 import com.icia.adaco.exception.*;
 import com.icia.adaco.util.*;
 
+import lombok.*;
+
 @Service
 public class AdminUserService {
 	@Autowired
@@ -23,7 +27,14 @@ public class AdminUserService {
 	AuthorityDao authorityDao;
 	@Autowired
 	ModelMapper modelMapper;
-
+	@Getter
+	List<String> authorityType;
+	
+	@PostConstruct
+	public void init() {
+		authorityType = dao.findAuthority();
+	}
+	
 	public Page userList(int pageno, String username) {
 		int countOfBoard = dao.countByUser(username);
 		Page page = PagingUtil.getPage(pageno, countOfBoard);
@@ -71,6 +82,8 @@ public class AdminUserService {
 		if(user == null)
 			throw new JobFailException("유저를 찾을 수 없습니다.");
 		AdminUserDto.DtoForUserRead dto = modelMapper.map(user, AdminUserDto.DtoForUserRead.class);
+		Authorities authority = dao.findAuthorityById(username);
+		dto.setAuthority(authority.getAuthority());
 		dto.setJoinDateStr(user.getJoinDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
 		dto.setBirthDateStr(user.getBirthDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
 		LocalDate joinDate = user.getJoinDate().toLocalDate();
