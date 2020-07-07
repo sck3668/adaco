@@ -18,7 +18,6 @@
 			<if test="optionValue!=null">option_value=#{optionValue},</if>
 			<if test="optionStock!=null">option_stock=#{optionStock},</if>
 			<if test="optionPrice!=null">option_price=#{optionPrice},</if>
-			
 		</trim>
 		where optno=#{optno} and rownum=1
 	</update>

@@ -94,7 +94,10 @@ public class ArtServiceTest {
 		ArtDto.DtoForUpdate dto = new DtoForUpdate();
 		dto.setArtno(186);
 		dto.setArtistNo(150);
+		dto.setUsername("leehj8462");
 		dto.setArtDetail("작품이에유");
+		dto.setOptno(105);
+		dto.setOptionName("사이즈");
 		return dto;
 	}
 	
