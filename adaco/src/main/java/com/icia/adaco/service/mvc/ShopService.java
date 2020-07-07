@@ -28,7 +28,8 @@ public class ShopService {
 	private ArtistDao artistDao;
 	
 	public void shopMade(ShopDto.DtoForMade dtoMade, MultipartFile sajin, String username) throws IllegalStateException, IOException {
-		dtoMade.setArtistno(artistDao.findArtistnoByUsername(username));
+		System.out.println("=========username"+ username);
+		//dtoMade.setArtistno(artistDao.findArtistnoByUsername(username));
 		Shop shop = modelMapper.map(dtoMade, Shop.class);
 			if(sajin.getContentType().toLowerCase().startsWith("image/")) {
 				int lastIndexOfDot = sajin.getOriginalFilename().lastIndexOf(".");
@@ -40,10 +41,20 @@ public class ShopService {
 				throw new JobFailException("사진을 등록하세요");
 			}
 		
+			int artistno = artistDao.findArtistnoByUsername(username);
+			shop.setArtistno(artistno);
+			System.out.println("shop===================="+shop);
 		shopDao.writeByShop(shop);
 	}
 	
-	
+	public ShopDto.DtoForRead shopRead(int shopno){
+		Shop shop = shopDao.readByShop(shopno);
+		shop.getImage();
+		System.out.println("=========샵 이미지 읽어와라" + shop);
+		ShopDto.DtoForRead shopReadDto = modelMapper.map(shop,ShopDto.DtoForRead.class);
+		return shopReadDto;
+		
+		}
 	
 	public void delete(int shopNo) {
 		shopDao.deleteByShop(shopNo);
