@@ -90,6 +90,7 @@ public class ArtDto {
 		private Integer readCnt;
 		private String artDetail;
 		private Integer reviewCnt;
+		private Integer shopno;
 		
 	
 	}

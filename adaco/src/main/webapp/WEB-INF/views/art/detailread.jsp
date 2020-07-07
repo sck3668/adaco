@@ -1,10 +1,61 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>작가전용 작품 상세 페이지</title>
+<!--<sec:authorize access="hasRole('ROLE_SELLER')">
+	
+</sec:authorize>-->
+
+<script>
+$(function() {
+	$("#updateOption").on("click", function() {
+		var $optionName = $("#optionName").val();
+		var $optionValue = $("#optionValue").val();
+		var $optionPrice = $("#optionPrice").val();
+		var $optionStock = $("#optionStock").val();
+		console.log($("#optionName").val());
+		
+		var params = {
+			_method: "put",
+			_csrf: "${_csrf.token}",
+			optionName: $optionName,
+			optionValue: $optionValue,
+			optionPrice: $optionPrice,
+			optionStock: $optionStock
+		};
+		$.ajax({
+			url: "/adaco/art/update",
+			method: "post",
+			data: params
+		}).done(()=>{alert("옵션이 수정되었습니다.");})
+		.fail(()=>{alert("옵션 수정이 실패했습니다.");});
+	});
+	
+	
+	$("#update_Btn").on("click", function() { 
+		var $artName = $("#artName").val();
+		console.log("아트네임"+$("#artName"));
+		var params={
+				_method:"put",
+				_csrf:"${_csrf.token}",
+				artName:$artName
+		}
+	
+		$.ajax({
+			url: "/adaco/art/update",
+			data: params,
+			method: "post",
+		}).done(()=>{alert("작품이 수정되었습니다.");})
+		.fail(()=>{alert("작품 수정이 실패했습니다.");})
+	})
+	
+	
+});
+</script>
 </head>
 <body>	
 ${artDetailPage}
@@ -65,11 +116,11 @@ ${artDetailPage}
 			<td class="first">옵션</td>
 				<td colspan="2">
 					<div id="optionArea">
-						<span class="key">옵션명 </span><input type="text" id="optionname" value="${artDetailPage.optionName}"><br>
-						<span class="key">옵션값 </span><input type="text" id="optionvalue" value="${artDetailPage.optionValue}"><br>
-						<span class="key">옵션 추가가격 </span><input type="text" id="optionprice" value="${artDetailPage.optionPrice}"><br>
-						<span class="key">옵션재고 </span><input type="text" id="optionstock" value="${artDetailPage.optionStock}">
-		  				<button type="button" class="btn btn-primary" id="summitOption">저장</button>
+						<span class="key">옵션명 </span><input type="text" id="optionName" value="${artDetailPage.optionName}"><br>
+						<span class="key">옵션값 </span><input type="text" id="optionValue" value="${artDetailPage.optionValue}"><br>
+						<span class="key">옵션 추가가격 </span><input type="text" id="optionPrice" value="${artDetailPage.optionPrice}"><br>
+						<span class="key">옵션재고 </span><input type="text" id="optionStock" value="${artDetailPage.optionStock}">
+		  				<button type="button" class="btn btn-primary" id="updateOption">저장</button>
 					</div>
 				</td>
 			</tr> 
