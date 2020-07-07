@@ -122,7 +122,7 @@ public class ArtDao {
 			return tpl.selectList("artMapper.list",artno);
 		}
 		
-		public List<Art> findAllByUsername(String username) {
+		public List<Art> findArtByUsername(String username) {
 			return tpl.selectList("artMapper.findArtByUsername",username);
 		}
 
