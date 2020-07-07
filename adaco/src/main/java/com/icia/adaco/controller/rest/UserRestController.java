@@ -56,4 +56,11 @@ public class UserRestController {
 //		return ResponseEntity.ok(null);
 //	}
 //	
+	
+	@PostMapping("/user/favoriteAdd")
+	public ResponseEntity<?> add(Principal principal,int artno) {
+		return ResponseEntity.ok(userRestService.favoriteAdd(principal.getName(), artno));
+		}
+
+	
 }

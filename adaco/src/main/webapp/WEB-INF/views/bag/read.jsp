@@ -73,7 +73,7 @@ function printBag(bag,dest) {
 	$.each(optionList,function(idx,option) {
 		printOption(option,$optionArea);
 	})
-	printOptionList();
+	printOptionList()
 	
 	
 	// 5번째 td에는 <button> 2개를 붙일 것임. 따라서 var $td로 저장
@@ -109,7 +109,6 @@ function printOption(option,dest) {
 	$("<span>").text(option.optionName).appendTo(dest);
 	$("<span>").text(":").appendTo(dest);
 	$("<span>").text(option.optionValue).appendTo(dest);
-
 }
 
 function printOptionList() {

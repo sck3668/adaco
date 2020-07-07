@@ -11,5 +11,5 @@ public class Favorite {
 	private Integer artno;
 	private String username;
 	private String artName;
-	private String price;
+	private Integer price;
 }

@@ -10,9 +10,16 @@
 <title>Insert title here</title>
 <script>
 	$(function() {
-		$(".text-muted").on("click",function() {
+		$(".favorite").on("click",function() {
+			var params ={
+					_csrf:"${_csrf.token}",
+					artno: $(this).prev().val(),
+			}
+			console.log($(this).prev().val());
 			$.ajax({
-				
+				url:"/adaco/user/favoriteAdd",
+				method:"post",
+				data:params,
 			})
 		})
 	})
@@ -78,10 +85,16 @@ ${artPage.artList }
               <div class="card-footer">
               <c:choose>
               <c:when test="${art.favorite==false}">
-                <small class="text-muted"> &#9734;</small>
+              <input type="text" value="${art.artno }">
+                <button type="button" class="favorite">
+                	<small class="text-muted"> &#9734;</small>
+                </button>
               </c:when>
               <c:otherwise>
+              <input type="hidden" value="${art.artno }">
+               <button type="button" class="favorite">
               	<small class="text-muted"> &#9733;</small>
+              	</button>
               </c:otherwise>
               </c:choose> 
               </div>
