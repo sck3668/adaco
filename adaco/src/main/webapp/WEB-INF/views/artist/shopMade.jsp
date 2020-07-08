@@ -196,10 +196,10 @@
 	    //우편 주소 DB에 상세내용까지 작성
 	   function addStartAddress() {
 	    	$("#f_msg").text("");
-	    	const startAddress1 = $("#forwarding_address").val();
-	    	const startAddress2	= $("#forwarding_detailAddress").val();
-	    	const startAddress3 = $("#forwarding_extraAddress").val();
-	    	const forwarding = startAddress1 + startAddress2 + startAddress3
+// 	    	const startAddress1 = $("#forwarding_address").val();
+// 	    	const startAddress2	= $("#forwarding_detailAddress").val();
+// 	    	const startAddress3 = $("#forwarding_extraAddress").val();
+// 	    	const forwarding = startAddress1 + startAddress2 + startAddress3
 	    	//$('<input>').attr('type','hidden').attr('name','forwarding').val(forwarding).appendTo($("#joinForm"));
 	    	if(forwarding.length==0)
 	    		return printErrorMsg($("#f_msg"),"주소는 공백으로 할 수 없어요")

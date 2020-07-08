@@ -63,7 +63,7 @@ $(function() {
 					optionValue:'${artPageByUser.optionValue}',
 					optionStock:${artPageByUser.optionStock},
 					optionPrice:'${artPageByUser.optionPrice}',
-			};
+			});
 			console.log(params);
 			alert("sss");
 			$.ajax({
@@ -83,7 +83,7 @@ $(function() {
 					
 		})
 	
-})
+});
 
 
 $(function() {
@@ -148,7 +148,7 @@ ${artPageByUser}
 <%-- 								</c:otherwise> --%>
 <%-- 								</c:choose> --%>
 							<td>3000원</td>
-						</tr>
+						 </tr>
 					</table>
 					<table>
 						<colgroup>
