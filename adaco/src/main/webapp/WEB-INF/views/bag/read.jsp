@@ -117,7 +117,6 @@ function printOptionList() {
 	var $optionArea = $("#optionArea");
 	var optionList = option;
 	console.log(optionList);
-	alert("옵션");
 	$.each(optionList,function(idx,option) {
 		printOption(option[idx],$optionArea);
 	})
