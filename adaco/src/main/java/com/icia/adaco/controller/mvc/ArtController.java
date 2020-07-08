@@ -4,6 +4,8 @@ package com.icia.adaco.controller.mvc;
 import java.io.*;
 import java.security.*;
 
+import javax.validation.*;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.lang.*;
@@ -71,7 +73,7 @@ public class ArtController {
 	//@CacheEvict(value="findAllCachce", allEntries = true)
 	//@PreAuthorize("isAuthenticated()")
 	@PostMapping("/art/write")
-	public String write(ArtDto.DtoForWrite dto, BindingResult results,MultipartFile artSajin, Principal principal) throws BindException {
+	public String write(@Valid ArtDto.DtoForWrite dto, BindingResult results,MultipartFile artSajin, Principal principal) throws BindException {
 		if(results.hasErrors())
 			throw new BindException(results);
 		dto.setUsername(principal.getName());
@@ -80,6 +82,6 @@ public class ArtController {
 		} catch(IllegalStateException | IOException e) {
 			e.printStackTrace();
 		}
-		return "redirect:/art/list";
+		return "redirect:/art/listByArtist";
 	}
 }
