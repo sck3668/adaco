@@ -61,7 +61,7 @@
 	                    	AND state = #{searchType}
 	                    </if>   
            			</trim>
-		            order by write_date asc ) A
+		            order by write_date desc ) A
 		         where rownum&lt;= #{endRowNum})B
 		      where B.rnum&gt;= #{startRowNum}
 	</select>
