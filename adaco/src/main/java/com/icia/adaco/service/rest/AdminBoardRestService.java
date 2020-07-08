@@ -5,6 +5,7 @@ import java.util.*;
 import java.util.regex.*;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.config.annotation.authentication.configurers.userdetails.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.multipart.*;
 
@@ -56,6 +57,8 @@ public class AdminBoardRestService {
 			if(file.exists()==true)
 				file.delete();
 		}
+		adminBoardDao.deleteByNotice(noticeno);
+		attachmentDao.deleteAllNoticeByNoticeno(noticeno);
 	}
 
 	public int updateFaq(FAQ faq) {

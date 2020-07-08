@@ -70,7 +70,7 @@ public class AdminBoardRestController {
 	@DeleteMapping("/admin/notice_delete")
 	public ResponseEntity<?> noticeDelete(Integer noticeno) {
 		service.deleteNoitce(noticeno);
-		return ResponseEntity.ok("/adaco/admin");
+		return ResponseEntity.ok("/adaco/admin/notice_list");
 	}
 	
 	@PatchMapping("/admin/faq_update")

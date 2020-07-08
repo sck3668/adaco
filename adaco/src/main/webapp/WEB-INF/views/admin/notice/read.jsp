@@ -161,6 +161,11 @@ input[type="text"]:focus, input[type="text"]:hover {
 		var loginId = "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}"
 	</script>
 </sec:authorize>
+<sec:authorize access="isAnonymous()">
+	<script type="text/javascript">
+		var isAdmin = false;
+	</script>
+</sec:authorize>
 
 <script type="text/javascript">
 	var notice = ${notice};
@@ -192,7 +197,6 @@ input[type="text"]:focus, input[type="text"]:hover {
 			}
 		});
 	}
-	var isLogin = false;
 	
 	$(function(){
 		if(notice.isImportant == true) {
@@ -261,7 +265,7 @@ input[type="text"]:focus, input[type="text"]:hover {
 					_csrf: "${_csrf.token}"
 			}
 			$.ajax({
-				url: "/adaco/admin/notice)delete",
+				url: "/adaco/admin/notice_delete",
 				method: "post",
 				data: params
 			}).done((r)=>location.href = r).fail((r)=>console.log(r));
