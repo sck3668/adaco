@@ -22,4 +22,5 @@ public class User {
 	private LocalDateTime birthDate;
 	private Boolean enabled;
 	private String checkCode;
+	private int loginFailureCnt;
 }

@@ -7,6 +7,7 @@ import javax.validation.constraints.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
+import org.springframework.security.access.prepost.*;
 import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.*;
@@ -30,7 +31,7 @@ public class UserRestController {
 		return ResponseEntity.ok(userRestService.checkEmail(email));
 	}
 	
-	//@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated()")
 	@PutMapping("/user/update")
 	public ResponseEntity<Void> update(UserDto.DtoForUpdate dto, BindingResult results, MultipartFile sajin, Principal principal) throws BindException {
 		if(results.hasErrors())

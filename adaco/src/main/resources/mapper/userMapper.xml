@@ -8,8 +8,8 @@
 		select email from users where email=#{email} and rownum=1
 	</select>
 	<insert id="insert" parameterType="user">
-	insert into users(username,email,irum,join_date,birth_date,tel,password,profile,address,enabled,check_code)
-	values(#{username},#{email},#{irum},sysdate,#{birthDate},#{tel},#{password},#{profile},#{address,jdbcType=VARCHAR},0,#{checkCode,jdbcType=VARCHAR})
+	insert into users(username,email,irum,join_date,birth_date,tel,password,profile,address,enabled,check_code,login_failure_cnt)
+	values(#{username},#{email},#{irum},sysdate,#{birthDate},#{tel},#{password},#{profile},#{address,jdbcType=VARCHAR},0,#{checkCode,jdbcType=VARCHAR},0)
 	</insert>
 	<select id="findidByCheckTel" resultType="string">
 		select irum from users where tel=#{tel} and rownum=1
