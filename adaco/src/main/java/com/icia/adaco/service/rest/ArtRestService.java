@@ -60,6 +60,7 @@ public class ArtRestService {
 				int lastIndexOfDot = artSajin.getOriginalFilename().lastIndexOf('.');
 				String extension = artSajin.getOriginalFilename().substring(lastIndexOfDot + 1);
 				File artfile = new File(artfileFolder, art.getArtName() + "." + extension);
+				System.out.println("아트네임확인" + art.getArtName());
 				artSajin.transferTo(artfile);
 				art.setMainImg(artfilePath + artfile.getName());
 			} else {

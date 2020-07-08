@@ -105,7 +105,7 @@ public class ArtServiceTest {
 	@Test
 	public void updateTest() throws FileNotFoundException, IOException {
 		ArtDto.DtoForUpdate dto = getDtoForUpdate();
-		File targetFile = new File("d:/test1.jpg");
+		File targetFile = new File("d:/test9.jpg");
 		MockMultipartFile file = new MockMultipartFile("artSajin", targetFile.getName(), "image/jpeg", new FileInputStream(targetFile));
 		service.updateArt(dto, file);
 		
