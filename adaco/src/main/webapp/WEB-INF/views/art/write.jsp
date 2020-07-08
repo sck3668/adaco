@@ -5,13 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>상품 등록 페이지</title>
-<script src="/aboard/script/artValid.js"></script>
+<script src="/adaco/script/artValid.js"></script>
 <script>
 // 1.작품 이미지 출력 //	사진출력이 안됨
 	function loadImage() {
 		var file = $("#artImg")[0].files[0];	
 		var maxSize = 1024*1024;
-		
 		if(file.size>maxSize) {
 			Swal.fire({
 				icon: 'error',
@@ -29,15 +28,47 @@
 		return true;
 	}
 	
+//$("#category option:selected").val();
 	$(function() {
+		$("#artName").on("blur", checkIrum);
+		$("#artImg").on("change", loadImage);
+		$("#artPrice").on("blur", checkPrice);
+		$("#artStock").on("blur", checkStock);
+		$("#artDetail").on("blur", checkArtDetail);
+		$("#optionName").on("blur", checkOptionIrum);
+		$("#optionValue").on("blur", checkOptionValue);
+		$("#optionPrice").on("blur", checkOptionPrice);
+		$("#optionStock").on("blur", checkOptionStock);
+		$("#artTag").on("blur", checkArtTag);
+		$("#artCouriPrice").on("blur", checkCouriPrice);
+		
 		// form을 넘기기전에 값 확인
 		$("#insert_Btn").on("click", function() {
-			console.log($("#insert_art").serialize());
-			//$("#insert_art").submit();
-		});
+		var formData = new FormData(document.getElementById("insert_art"));
+		for(var key of formData.keys())
+			console.log(key);
+		for(var value of formData.values())
+			console.log(value);
+		//console.log("카테고리얌" + r1);
+		var r1 = checkIrum();
+		var r2 = checkPrice();
+		var r3 = checkStock();
+		var r4 = checkArtDetail();
+		var r5 = checkOptionIrum();
+		var r6 = checkOptionValue();
+		var r7 = checkOptionPrice();
+		var r8 = checkOptionStock();
+		var r9 = checkArtTag();
+		var r10 = checkCouriPrice();
+		var result = r1 && r2 && r3 && r4 && r5 && r6 && r7 && r8 && r9 && r10;
+		if(result===true) {
+			 $("#insert_art").submit();
+			 alert("SS");
+		}
 	});
+});
 	
-	// '취소' 클릭 시 상품목록으로 이동 -> 에러남
+	// '취소'클릭 시 상품목록으로 이동 
 	$(function() {
 		$("#back_Btn").on("click", function() {
 			location.href="/adaco/art/listByArtist";
@@ -49,11 +80,10 @@
 <body>	
 	<div id="wrap">
 		<form id="insert_art" action="/adaco/art/write" method="post" enctype="multipart/form-data">
-			<!-- <input type="hidden" name="artNum" value="${art.artNum}" /> -->
 			작품 기본정보 입력
 			<hr>
 			<div class="inputArea">
-				<label>카테고리</label> <select class="category">
+				<label>카테고리</label> <select id="category" name="category">
 					<option value="카테고리 선택" selected="selected">카테고리 선택</option>
 					<option value="가방,파우치">가방,파우치</option>
 					<option value="공예품">공예품</option>
@@ -68,9 +98,10 @@
 			<div class="inputArea">
 				<label for="artImg">작품 이미지</label> 
 				<input type="file" id="artImg" name="artImg" accept=".jpg,.jpeg,.png,.gif,.bmp"/>
-			<div>
-				<img id="show_artfile" height="200px;">
 			</div>
+			<div>
+				<img id="show_artfile" height="240px;">
+				<input type="hidden" name="_csrf" value="${_csrf.token }">
 			</div>
 			<div class="inputArea">
 				<label for="artPrice">작품가격</label> 
@@ -81,26 +112,22 @@
 				<label for="artStock">작품수량</label> 
 				<input type="text" id="artStock" name="artStock" />
 				<span id="artStock_msg"></span>
-				
 			</div>
 			<div class="inputArea">
 				<label for="artDetail">작품소개</label>
 				<textarea rows="5" cols="50" id="artDetail" name="artDetail"></textarea>
 				<span id="artDetail_msg"></span>
 			</div>
-			옵션여부
-			<input type="radio" name="optionox" value="yes" checked="checked" /> 예
-			<input type="radio" name="optionox" value="no"  /> 아니오
 			<div class="inputArea">
-			<label for="artPrice">옵션</label> 
+			<label for="artOption">옵션</label> 
 				<div id="optionArea">
-					<span class="key">옵션명 </span><input type="text" id="optionName" >
+					<span class="key">옵션명 </span><input type="text" id="optionName" name="optionName" >
 					<span id="optionName_msg"></span><br>
-					<span class="key">옵션값 </span><input type="text" id="optionValue">
+					<span class="key">옵션값 </span><input type="text" id="optionValue" name="optionValue">
 					<span id="optionValue_msg"></span><br>
-					<span class="key">옵션 추가가격 </span><input type="text" id="optionPrice">
+					<span class="key">옵션 추가가격 </span><input type="text" id="optionPrice" name="optionPrice">
 					<span id="optionPrice_msg"></span>원<br>
-					<span class="key">옵션수량 </span><input type="text" id="optionStock">
+					<span class="key">옵션수량 </span><input type="text" id="optionStock" name="optionStock">
 					<span id="optionStock_msg"></span>
 				</div>
 			</div>
@@ -114,7 +141,7 @@
 			<hr>
 			<div class="inputArea">
 				<label for="artCourier">택배사</label> 
-				<select class="Courier">
+				<select id="Courier" name="Courier">
 					<option value="택배사" selected="selected">택배사</option>
 					<option value="대한통운">대한통운</option>
 					<option value="로젠택배">로젠택배</option>
@@ -128,7 +155,7 @@
 			</div>
 			<div class="inputArea" align="center">
 				<button type="button" id="insert_Btn" class="btn btn-primary">저장</button>
-				<button type="submit" id="back_Btn" class="btn btn-warning">취소</button>
+				<button type="button" id="back_Btn" class="btn btn-warning">취소</button>
 			</div>
 		</form>
 	</div>
