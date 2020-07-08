@@ -51,6 +51,9 @@ public class ArtRestService {
 			throw new JobFailException("상품 수정 권한이 없습니다");
 		art = modelMapper.map(dto, Art.class);
 		option = modelMapper.map(dto,Option.class);
+		if(artSajin!=null && !artSajin.isEmpty()) {
+			throw new JobFailException("등록된 사진이 없습니다");
+		} 
 		option.setArtno(art.getArtno());
 		optionDao.updateByOption(option);
 		artDao.updateByArt(art);

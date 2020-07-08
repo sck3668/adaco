@@ -59,7 +59,6 @@
 			<if test="stock!=null">stock=#{stock},</if>
 			<if test="tag!=null">tag=#{tag},</if>
 			<if test="couriPrice!=null">couri_price=#{couriPrice},</if>
-			<if test="returnAddress!=null">return_address=#{returnAddress},</if>
 			<if test="courier!=null">courier=#{courier},</if>
 			<if test="readCnt!=null">read_cnt=read_cnt+1,</if>
 			<if test="reviewCnt!=null">review_cnt=review_cnt+1,</if>

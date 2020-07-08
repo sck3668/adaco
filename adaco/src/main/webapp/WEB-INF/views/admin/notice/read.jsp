@@ -253,10 +253,7 @@ input[type="text"]:focus, input[type="text"]:hover {
 				</div>
 				<div>
 		        	<input id="checkbox1" id= "checkbox" name="checkbox" type="checkbox"> <label for="checkbox1">중요 공지</label>
-					<button type = "button" id = "add">첨부파일 추가</button>
 	            </div>
-				<div id = "attachment_div">
-				</div>
 				<button type = "button" class = "btn btn-success" id = "write">작성</button>
 	        </div>
 			</sec:authorize>
