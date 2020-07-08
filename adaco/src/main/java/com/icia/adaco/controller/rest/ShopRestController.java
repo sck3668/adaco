@@ -18,8 +18,10 @@ public class ShopRestController {
 	@Autowired
 	private ArtistDao artistDao;
 	
+	@PutMapping("/artist/updateByShop")
 	public ResponseEntity<?> updateShop(ShopDto.DtoForUpdate updateDto,  MultipartFile sajin , Principal principal) {
 //		int artistno =	artistDao.findArtistnoByUsername(principal.getName());
+		System.out.println(updateDto+"ggggggggggg");
 		shopRestService.updateByShop(principal.getName(), sajin, updateDto);
 		return ResponseEntity.ok(null);
 	}

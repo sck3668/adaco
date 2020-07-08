@@ -1,16 +1,11 @@
 package com.icia.adaco.service.rest;
 
-import java.security.*;
-
-import javax.print.attribute.standard.*;
-
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.multipart.*;
 
 import com.icia.adaco.dao.*;
-import com.icia.adaco.dto.*;
 import com.icia.adaco.dto.ShopDto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.exception.*;
@@ -46,16 +41,31 @@ public class ShopRestService {
 //	}
 
 	public void updateByShop(String username, MultipartFile sajin, DtoForUpdate updateDto) {
-		System.out.println("업데이트=======" + updateDto );
-		System.out.println("업데이트 사진 ============" + sajin);
+//		System.out.println("업데이트=======" + updateDto );
+//		System.out.println("업데이트 사진 ============" + sajin);
 		int artistno = artistDao.findArtistnoByUsername(username);
 		Shop shop = shopDao.readByShop(updateDto.getShopno());
-		if( shop == null)
-			 throw new JobFailException("넌 상점 없음");
-		if(shop.getArtistno().equals(username)==false)
-			throw new JobFailException("작가만 수정");
+		/*
+		 * System.out.println(shop+"ggggggsadasx");
+		 * System.out.println(artistno+"ggggggggggqweqw");
+		 */
 		shop = modelMapper.map(updateDto, Shop.class);
+		System.out.println(modelMapper.map(updateDto, Shop.class)+"이게 위에꺼");
+		shop.setArtistno(artistno);
+		System.out.println(shop.getArtistno()+"ggggggssqwe");
+		if(shop == null)
+			 throw new JobFailException("넌 상점 없음");
+		if(shop.getArtistno()!=artistno)
+			throw new JobFailException("작가만 수정");
+		/*
+		 * System.out.println(artistno+"ggggggggggqweqw");
+		 * System.out.println(shop.getArtistno()+"ggggggssqwe");
+		 */
+		System.out.println(modelMapper.map(updateDto, Shop.class)+"익");
+		
 		shopDao.updateByShop(shop);
+		
+		System.out.println(shopDao.updateByShop(shop)+"ggggg");
 		
 	}
 
