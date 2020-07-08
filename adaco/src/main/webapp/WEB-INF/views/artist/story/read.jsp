@@ -42,22 +42,16 @@ function printComment(comments){
 		var $center_div = $("<div>").appendTo($comment);
 		var $lower_div = $("<div>").appendTo($comment);
 		$("<span></span>").text(comment.writer).appendTo($upper_div);
-		console.log($upper_div)
-		$("<span>").html(comment.content).appendTo($center_div);
+		console.log(comment.writer)
+		$("<span>").text(comment.content).appendTo($center_div);
 		
 		$("<hr>").appendTo($comment);
 	});
 }
 	$(function(){
-	/* 	printComment(story.comments) */
-		var story = ${story};
-		console.log(story);
-		$("#title").val(story.title);
-		$("#writer").text(story.writer);
-		$("#storyno").text(story.storyno)
-		$("#content").text(story.content)
-		console.log(story.writer)	
-		console.log(story.storyno)
+		/* printComment(comments); */
+		var story = "${story}";
+		
 		if(isLogin==true && story.writer==loginId){
 			$("#content").prop("disabled",false)
 			$("#comment_textarea").prop("disabled",false)
@@ -71,15 +65,16 @@ function printComment(comments){
 			$("#title").prop("readonly",true)
 		}
 		$("#comment_write").on("click",function(){
+			$comments=$("#textarea").val();
+			console.log($comments)
 			if(isLogin==false)
 				return
 			var params = {
 					_method:"put",
 					_csrf:"${_csrf.	token}",
-					storyno : story.storyno,
-					content:$("#comment_textarea").val(),
+					storyno:$("#storyno").val(),
+					content:$comments
 			}
-			
 			console.log(params)
 				$.ajax({
 					url:"/adaco/story/commentWrite",
@@ -93,15 +88,15 @@ function printComment(comments){
 	});
 </script>
 </head>
-<body>
- <%-- <c:forEach items="${story}" var="story">
-	<input type="text" value="${story.comments.cno}">
-</c:forEach> --%> 
-${story}
-<div id="wrap">
+<body>	
+<%-- ${story.comments[].cno} --%>
+ <c:forEach items="${story.comments }" var="comments1" >
+ 	<input type="text" value="${comments1.content}"> 
+ </c:forEach> 
+ <div id="wrap">
 	<div>
 		<div class = "form-group">
-				제목<input type = "text" class = "form-control" id = "title" name = "title" readonly="readonly" style="background-color: white;" >
+				제목<input type = "text" class = "form-control" id = "title" name = "title" readonly="readonly" style="background-color: white;" value="${story.title }" >
 			</div>
 			<div class = "form-group">
 				<ul id = "attachment">
@@ -109,7 +104,7 @@ ${story}
 			</div>
 			<div class = "form-group" id ="content_div">
 				<div class = "form-group">
-					<div class = "form-control" id = "content" name = "content" cols="50" rows="10" readonly="readonly" style="background-color: white;"></div>
+					<p class = "form-control" id = "content" name = "content" cols="50" rows="10" readonly="readonly" style="background-color: white;" value="${story.content }">${story.content }
 				</div>
 			</div>
 			
@@ -142,6 +137,8 @@ ${story}
 			<div class="form-group">
 				<label for="comment_textarea">댓글을 입력하세요</label>
 				<textarea class="form-control" rows="5"	id="comment_textarea" placeholder="욕설이나 모욕적인 댓글은 삭제될 수 있습니다" disabled="disabled"></textarea>
+				<input type="hidden" value="${story.comments}" id="textarea">
+				<input type="hidden" value="${story.storyno }" id="storyno">
 			</div>
 			<button type="button" class="btn btn-info" 
 				id="comment_write" disabled="disabled">댓글 작성</button>

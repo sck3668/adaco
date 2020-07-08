@@ -29,6 +29,19 @@ public class AdminBoardDto {
 	@AllArgsConstructor
 	@NoArgsConstructor
 	@Builder
+	@Accessors(chain = true)
+	public static class DtoForQuestionWrite{
+		private Integer qno;
+		private String writer;
+		private String content;
+		private String title;
+		private State state;
+		private String writeDateStr; 
+	}
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Builder
 	public static class DtoForQuestionList{
 		private Integer qno;
 		private String writer;

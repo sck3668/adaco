@@ -114,7 +114,7 @@ $(function(){
 		<c:forEach items = "${artistPage.adminArtist}" var = "artist">
 			<tr style="text-align: center;">
 				<td>${artist.artistno}</td>
-				<td><a href="/adaco/admin/artist_read?username=${artist.username}">${artist.username}</a></td>
+				<td><a href="/adaco/admin/user_read?username=${artist.username}">${artist.username}</a></td>
 				<td>${artist.irum }</td>
 				<td>${artist.email}</td>
 				<td>${artist.joinDateStr}</td>

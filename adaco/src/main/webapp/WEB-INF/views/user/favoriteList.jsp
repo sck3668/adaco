@@ -44,7 +44,6 @@
 </style>
 <script>
 	$(function(){
-		
 		$("#delete").on("click",function(){
 			console.log($(this).next().val());
 			var params={

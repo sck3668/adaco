@@ -74,4 +74,23 @@ public class AdminUserDao {
 	public boolean existsByArtist(String username) {
 		return tpl.selectOne("adminUserMapper.existsByArtist", username);
 	}
+	
+//	권한 읽어오기
+	public Authorities findAuthorityById(String username) {
+		return tpl.selectOne("adminUserMapper.findAuthorityById", username);
+	}
+	
+	public List<String> findAuthority() {
+		return tpl.selectList("adminUserMapper.findAuthority");
+	}
+
+	public Artist findByArtist(String username) {
+		return tpl.selectOne("adminUserMapper.findByArtist", username);
+	}
+
+	public int deleteByArtist(int artistno) {
+		return tpl.delete("adminUserMapper.deleteByArtist", artistno);
+	}
+	
+	
 }

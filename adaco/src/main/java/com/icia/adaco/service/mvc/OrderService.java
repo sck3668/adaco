@@ -19,19 +19,18 @@ public class OrderService {
 	private UserDao userDao;
 	private BagDao bagDao;
 	private ArtDao artDao;
+	private OrderDetailDao orderDDao;
 	@Autowired
 	private ModelMapper modelMapper;
 	
 		// 주문 하기    
-		public void Ordering(Order order,int artno) {
-			artDao.readByArt(artno);
+		public void Ordering(Order order) {
+			int orderno = order.getOrderno();
+			OrderDetail OrderD = orderDDao.
 			orderDao.Ordering(order);
-			
 		}
 		
-		public List<OrderDetailDto.DtoForOrdering> payment(){
-			
-		}
+		
 		
 		// 장바구니에 담긴 상품 주문하기
 		public void BagOrder(BagDto.DtoForWrite Dto,Bag bag,  String username, Integer shippingCharge, Order order) {

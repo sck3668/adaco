@@ -14,6 +14,8 @@
 <script>
 	$(function() {
 		$("#login").on("click", function() {
+			console.log($("#loginForm").serialize());
+			alert("DD");
 			$("#loginForm").submit();
 		});
 	})
@@ -60,8 +62,8 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-md-6 offset-md-4">
+                              	<input type="hidden" name="_csrf" value="${_csrf.token}">
                                 <button type="button" class="btn btn-primary" id="login">
                            		         로그인
                                 </button>
@@ -71,7 +73,7 @@
                                 <div style="width:300px; height:30px; background-color: white; text-align: center; border: 1px solid black;">
                                 	<a id="findIdPwd" href="/adaco/user/findIdPwd" class="btn btn-link">아이디/비밀번호 찾기</a>
                             	</div>
-                            	<input type="hidden" value="${_csrf.token}">
+                            	
                             </div>
                     </form>
                     </div>
