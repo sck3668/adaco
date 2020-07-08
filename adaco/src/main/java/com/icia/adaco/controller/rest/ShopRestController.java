@@ -9,7 +9,6 @@ import org.springframework.web.multipart.*;
 
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
-import com.icia.adaco.entity.*;
 import com.icia.adaco.service.rest.*;
 
 @RestController
