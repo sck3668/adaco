@@ -19,6 +19,8 @@ public class AdminBoardRestService {
 	AdminBoardDao adminBoardDao;
 	@Autowired
 	ObjectMapper objectMapper;
+	@Autowired
+	AttachmentDao attachmentDao;
 	@Value("http://localhost:8081/ckimage/")
 	private String ckUrl;
 	@Value("${imageFolder}")
@@ -89,4 +91,18 @@ public class AdminBoardRestService {
 		return null;
 	}
 
+	public Attachment readAttachment(Integer ano) {
+		return attachmentDao.findById(ano);
+	}
+
+	public List<Attachment> deleteAttachment(Integer ano, Integer noticeno) {
+		Attachment attachment = attachmentDao.findById(ano);
+		if(attachment != null) {
+			File file = new File("d:/upload/attachment", attachment.getSaveFileName());
+			if(file.exists()==true)
+				file.delete();
+			attachmentDao.deleteById(ano);
+		}
+		return attachmentDao.findAllNoticeByNoticeno(noticeno);
+	}
 }
