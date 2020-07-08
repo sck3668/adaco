@@ -30,30 +30,7 @@
    </context-param>
 	<!-- The definition of the Root Spring Container shared by all Servlets 
 		and Filters -->
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>
-			/WEB-INF/spring/root-context.xml
-			/WEB-INF/spring/security-context.xml
-		</param-value>
-		<context-param>
-			<param-name>profileFolder</param-name>
-			<param-value>d:/upload/profile</param-value>
-		</context-param>
-		<context-param>
-			<param-name>profilePath</param-name>
-			<param-value>http://localhost:8081/profile/</param-value>
-		</context-param>
-		<context-param>
-			<param-name>imageFolder</param-name>
-			<param-value>d:/upload/ckimage</param-value>
-		</context-param>
-		<context-param>
-			<param-name>imagePath</param-name>
-			<param-value>http://localhost:8081/ckimage/</param-value>
-		</context-param>
-	</context-param>
-
+	
 
    <!-- Creates the Spring Container shared by all Servlets and Filters -->
    <listener>
@@ -63,8 +40,7 @@
    <!-- utf-8 인코딩 필터 설정 -->
    <filter>
       <filter-name>encodingFilter</filter-name>
-      <filter-class>
-         org.springframework.web.filter.CharacterEncodingFilter
+      <filter-class>org.springframework.web.filter.CharacterEncodingFilter
       </filter-class>
       <init-param>
          <param-name>encoding</param-name>
@@ -80,7 +56,7 @@
       <url-pattern>/*</url-pattern>
    </filter-mapping>
 
-	<!-- 네이버 루시 필터 -->
+<!-- 	
 	<filter>
 		<filter-name>xssEscapeServletFilter</filter-name>
 		<filter-class>com.navercorp.lucy.security.xss.servletfilter.XssEscapeServletFilter</filter-class>
@@ -89,7 +65,7 @@
 		<filter-name>xssEscapeServletFilter</filter-name>
 		<url-pattern>/comment/write</url-pattern>
 		<url-pattern>/board/write</url-pattern>
-	</filter-mapping>
+	</filter-mapping> -->
 	
    <!-- csrf 처리를 위한 MultipartFilter 설정 -->
    <filter>

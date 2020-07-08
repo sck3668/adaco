@@ -13,6 +13,12 @@
 </style>
 <script>
 	$(function() {
+		var msg = "${msg}";
+		if(msg!="") {
+			$("#alert").text(msg);
+			$("#msg").show();
+		}
+		
 		$("#login").on("click", function() {
 			$("#loginForm").submit();
 		});
@@ -34,7 +40,7 @@
                     <div class="card-body">
                         <form action="/adaco/user/login" method="post" id="loginForm">
                             <div class="form-group row">
-                                <span for="email_address" class="col-md-4 col-form-label text-md-right">
+                                <span for="username" class="col-md-4 col-form-label text-md-right">
                                 	username
                                 </span>
                                 <div class="col-md-6">

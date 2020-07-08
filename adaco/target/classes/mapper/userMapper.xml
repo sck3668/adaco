@@ -34,7 +34,7 @@
 			<if test="tel!=null">tel=#{tel},</if>
 			<if test="enabled!=null">enabled=#{enabled},</if>
 			<if test="checkCode!=null">check_code=null,</if>
-			<if test="loginFailureCnt!=null">login_failure_cnt=loginFailureCnt</if>
+			<if test="loginFailureCnt!=null">login_failure_cnt=#{loginFailureCnt}</if>
 		</trim>
 		where username=#{username} and rownum=1
 	</update>

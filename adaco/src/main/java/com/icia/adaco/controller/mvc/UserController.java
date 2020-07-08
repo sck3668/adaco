@@ -184,4 +184,18 @@ public class UserController {
 			System.out.println(principal.getName()+"로그인한아이디");
 		return userService.delete(principal.getName());
 	}
+	
+	//@PreAuthorize("isAuthenticated()")
+	@GetMapping("/user/changePwd")
+	public ModelAndView changePwd() {
+		return new ModelAndView("main").addObject("viewName","user/changePwd.jsp");
+	}
+	
+	//@PreAuthorize("isAuthenticated()")
+	@PostMapping("/user/changePwd")
+	public String changePwd(@RequestParam @NotNull String password, @RequestParam @NotNull String newPassword, Principal principal, RedirectAttributes ra) {
+		userService.changePwd(password, newPassword, principal.getName());
+		ra.addFlashAttribute("msg", "비밀번호를 변경했습니다");
+		return "redirect:/";
+	}
 }
