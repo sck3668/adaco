@@ -203,7 +203,7 @@
                 <div class="col-lg-6 mb-4">
                   <div class="card bg-primary text-white shadow">
                     <div class="card-body">
-                      Primary
+                 	     불완전할 수 있다는 것을 받아들여라.
                       <div class="text-white-50 small">#4e73df</div>
                     </div>
                   </div>
@@ -211,7 +211,7 @@
                 <div class="col-lg-6 mb-4">
                   <div class="card bg-success text-white shadow">
                     <div class="card-body">
-                      Success
+            	           네 리듬을 찾아라.
                       <div class="text-white-50 small">#1cc88a</div>
                     </div>
                   </div>
@@ -219,7 +219,7 @@
                 <div class="col-lg-6 mb-4">
                   <div class="card bg-info text-white shadow">
                     <div class="card-body">
-                      Info
+             	        작은 일에 기운 빼지 말라.
                       <div class="text-white-50 small">#36b9cc</div>
                     </div>
                   </div>
@@ -227,7 +227,7 @@
                 <div class="col-lg-6 mb-4">
                   <div class="card bg-warning text-white shadow">
                     <div class="card-body">
-                      Warning
+                 	     몇 개 정도는 미루자.
                       <div class="text-white-50 small">#f6c23e</div>
                     </div>
                   </div>
@@ -235,7 +235,7 @@
                 <div class="col-lg-6 mb-4">
                   <div class="card bg-danger text-white shadow">
                     <div class="card-body">
-                      Danger
+            	          시간에 허덕이지 말기.
                       <div class="text-white-50 small">#e74a3b</div>
                     </div>
                   </div>
@@ -243,7 +243,7 @@
                 <div class="col-lg-6 mb-4">
                   <div class="card bg-secondary text-white shadow">
                     <div class="card-body">
-                      Secondary
+                      10분간 아무것도 하지 않기.
                       <div class="text-white-50 small">#858796</div>
                     </div>
                   </div>
@@ -251,7 +251,7 @@
                 <div class="col-lg-6 mb-4">
                   <div class="card bg-light text-black shadow">
                     <div class="card-body">
-                      Light
+                 	     반드시 해야 할 일 5가지 정하기.
                       <div class="text-black-50 small">#f8f9fc</div>
                     </div>
                   </div>
@@ -259,7 +259,7 @@
               <div class="col-lg-6 mb-4">
                 <div class="card bg-dark text-white shadow">
                   <div class="card-body">
-                      Dark
+              	        바쁘다는 허풍은 그만.
                       <div class="text-white-50 small">#5a5c69</div>
                   </div>
                 </div>
@@ -269,6 +269,20 @@
             </div>
 
             <div class="col-lg-6 mb-4">
+              <!-- Approach -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">핸드스토리 소개</h6>
+                </div>
+                <div class="card-body">
+                  <div class ="text-center">
+                  	 <img class = "img-fluid px-3 px-sm-4 mt-3 mb-4" alt="" src="../image/hanstory.png" style="width: 30rem;">
+                  </div>
+                  <p>핸드스토리는 기존 판매자와 구매자 사이를 넘어서 작가의 스토리를 통한 이야기들을 공유하고 ,</p>
+                  <p class="mb-0">어딘가 내가 모르는 공장에서 찍어내린 상품이 아닌 내가 보고 들은 작가의 핸드메이드 작품을 구매하는 </p>
+                  <p class="mb-1" style="margin-top: 15px;">작가와 구매자 사이의 양방향 소통을 지양하는 핸드메이드 쇼핑몰입니다. </p>
+                </div>
+              </div>
 
               <!-- 일러스트 참고 -->
               <div class="card shadow mb-4">
@@ -279,21 +293,11 @@
                   <div class="text-center">
                     <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="../image/undraw_posting_photo.svg" alt="">
                   </div>
-                  <p>본 페이지는 BootStrap4 SB Admin2 템플릿 및 <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, svg 일러스트레이션 사이트 Undraw를 참고하여 작성하였습니다. </p>
+                  <p>본 페이지는 BootStrap4 SB Admin2 템플릿 및 일러스트 레이션 사이트 <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a> 를 참고하여 <br> 작성하였습니다. </p>
                   <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on unDraw &rarr;</a>
                 </div>
               </div>
 
-              <!-- Approach -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">핸드스토리 소개</h6>
-                </div>
-                <div class="card-body">
-                  <p>핸드스토리는 작가가 만든 작품을 판매하는 핸드메이드 쇼핑몰입니다.</p>
-                  <p class="mb-0">일반 소비자와 구매자 사이를 넘어서 작가와 소비자가 소통하는 쇼핑몰이다.</p>
-                </div>
-              </div>
 
             </div>
           </div>

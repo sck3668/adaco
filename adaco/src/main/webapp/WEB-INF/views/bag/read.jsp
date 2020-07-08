@@ -257,7 +257,7 @@ $(function() {
 				_csrf:"${_csrf.token}",
 				username: "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}",
 // 				totalPrice: ${orders.price},
-				orderno:${}
+// 				orderno:${}
 				_method: "get",
 				orders:JSON.stringify(ar)
 // 				console.log(ㅁㅁㅁㅁㅁㅁㅁ ar)
@@ -265,8 +265,8 @@ $(function() {
 		alert("또 찍어봐");
 		$.ajax({
 			url:"/adaco/order/payment",
-			data: params,
-			method:"get"
+			data:params,
+			method:"post"
 		}).done((result)=>{
 			alert("OK");
 			orders = result;
@@ -275,8 +275,6 @@ $(function() {
 		alert("End")
 	})
 
-		
-	
 	// 선택한 상품 구매
 	$("#buyAll").on("click",function() {
 		var ar = [];

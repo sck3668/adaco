@@ -11,7 +11,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>공지사항</title>
+  <title>공지사항 목록</title>
 
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
