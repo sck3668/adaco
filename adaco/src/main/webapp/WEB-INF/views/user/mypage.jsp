@@ -45,7 +45,6 @@
 </head>
 
 <body>
-${myPage }
 <div>
  <aside id="asideMain">
 	<div id="aside">
