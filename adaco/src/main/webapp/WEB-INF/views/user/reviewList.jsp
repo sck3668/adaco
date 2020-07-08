@@ -42,7 +42,22 @@
 	}
 </style>
 <script>
-
+$(function(){
+	$("#delete").on("click",function(){
+	var parmas={
+			_method : "put",
+			_csrf:"${_csrf.token}",
+			rno:$(this).next().val()
+	}
+		console.log(parmas)
+	$.ajax({
+		url:"/adaco/user/reviewDelete",
+		method:"post",
+		data:parmas
+	}).done((r)=>{console.log(r)})
+	  .fail((r)=>{console.log(r)})
+	})
+})
 
 </script>
 </head>
@@ -55,10 +70,11 @@
 		<div>
 			<ul>
 				<li><a href="/adaco/user/read">내정보보기</a></li>
-				<li><a href="/adaco/user/">주문내역</a></li>
+				<li><a href="">주문내역</a></li>
 				<li><a href="/adaco/user/reviewList">내리뷰보기</a></li>
 				<li><a href="/adaco/user/favoriteList">즐겨찾기목록</a></li>
-				<li><a href="/adaco/user/messageList">메세지함</a></li>
+				<li><a href="/adaco/user/pointList">포인트함 </a>
+				<li><a href="/adaco/user/messageList">메세지함</a>
 			</ul>
 		</div>
 	</div>
@@ -78,6 +94,9 @@
                   <td>${list.rno }</td>
                   <td>${list.artno }</td>
                   <td>${list.content }</td>
+                  <td><button type="button" id="delete">삭제</button>
+                  	  <input type="hidden" value="${list.rno }">
+                  </td>
            </tr>
           </c:forEach>
          </tbody>

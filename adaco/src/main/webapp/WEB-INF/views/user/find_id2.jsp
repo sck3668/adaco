@@ -8,17 +8,7 @@
 </head>
 <body>
 <script>
-$(function(){
-	var a = "${irum}"
-	console.log()
-		$("#button").on("click",function(){
-			if($(this)==a){
-				console.log($("#findId2Form").serialize());
-				$("#findId2Form").submit();
-				
-		}
-	})
-})
+
 </script>
 
 	
@@ -27,7 +17,9 @@ $(function(){
 
 	
  -->
- 
+<head>
+<body>
+ ${irum }
 	<form id="findId2Form" method="post" action="/adaco/user/findId2">
 	<div>
 		<hr><h1>질문</h1><hr>
@@ -37,15 +29,15 @@ $(function(){
 			<div>
 				<input type="radio">
 			</div>
-				<span id="first" name="first">gg</span>
+				<span id="first" name="first" value="${irum}">${irum}</span>
 			<div>
-				<span id="first" name="first">hh</span>
+				<span id="first" name="first"></span>
 			</div>
 			<div>
-				<span id="first" name="first">jj</span>
+				<span id="first" name="first"></span>
 			</div>
 			<div>
-				<span id="first" name="first">qq</span>
+				<span id="first" name="first"></span>
 			</div>
 			<div>
 			</div>

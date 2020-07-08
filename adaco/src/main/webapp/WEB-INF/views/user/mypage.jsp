@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+	
 	#aside {
 		width:200px;
 		height:500px;
@@ -42,7 +43,9 @@
 </style>
 
 </head>
+
 <body>
+${myPage }
 <div>
  <aside id="asideMain">
 	<div id="aside">
@@ -51,14 +54,16 @@
 		<div>
 			<ul>
 				<li><a href="/adaco/user/read">내정보보기</a></li>
-				<li><a href="#">주문내역</a></li>
+				<li><a href="">주문내역</a></li>
 				<li><a href="/adaco/user/reviewList">내리뷰보기</a></li>
 				<li><a href="/adaco/user/favoriteList">즐겨찾기목록</a></li>
 				<li><a href="/adaco/user/pointList">포인트함 </a>
+				<li><a href="/adaco/user/messageList">메세지함</a>
 			</ul>
 		</div>
 	</div>
 	</aside>
+	
 	<section id="section">
 		<div id="myInfo">
 			<div id="my">
