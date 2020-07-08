@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="storyCommentMapper">
-	
+	<select id="count" resultType="int">
+		select count(*) from story_comments
+	</select>
 	<!-- 스토리 댓글 작성하기 -->
 	<insert id="insertByCommentOfStory">
 	<selectKey keyProperty="cno" resultType="int" order="BEFORE">
 		select story_comments_seq.nextval from dual
 	</selectKey>
-		insert into story_comments(cno,write_date,writer,content,profile,storyno,username)
-		values(#{cno},#{writeDate},#{writer},#{content},#{profile},#{storyno},#{username})
+		insert into story_comments(cno,write_date,writer,content,storyno,username)
+		values(#{cno},sysdate,#{writer},#{content},#{storyno},#{username})
 	</insert>
 	
 	<!-- 스토리 댓글 목록 보기 -->
@@ -16,7 +18,7 @@
 		<![CDATA[
 		 select * from
 	    	(select b.* , rownum as rnum  from
-			   (select /*+ index_desc(storyComment story_comments_pk_storyno) */ cno, write_date writeDate, writer, content, profile, storyno, username from story_comments) b 
+			   (select /*+ index_desc(storyComment story_comments_pk_storyno) */ cno, write_date writeDate, writer, content,  storyno, username from story_comments) b 
 			where rownum<=#{endRowNum})
     where rnum>=#{startRowNum}
 		]]>

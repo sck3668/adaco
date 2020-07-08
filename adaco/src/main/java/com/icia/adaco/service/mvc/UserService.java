@@ -24,6 +24,7 @@ import com.icia.adaco.util.*;
 
 @Service
 public class UserService {
+	private static final MyPageDto MyPageDto = null;
 	@Autowired
 	private UserDao userDao;
 	@Autowired
@@ -101,8 +102,10 @@ public class UserService {
 		System.out.println(dto.getProfile()+"사진 프로필 사진");
 		
 		return dto;
+		
 	}
 	public String findByTel(String tel) {
+		System.out.println(userDao.findidByCheckTel(tel)+"=======");
 		return userDao.findidByCheckTel(tel);
 	}
 	
@@ -138,19 +141,27 @@ public class UserService {
 	}
 	//포인트 리스트
 	public List<Point> pointList(String username) {
+		List<Point> point = userDao.findAllByPoint(username);
+		System.out.println(point+"===========");
+		
 		return userDao.findAllByPoint(username);
 	}
 	//페이보릿즐찾리스트
-	public List<Favorite> favoriteList(){
-		System.out.println(userDao.findAllFavorite()+"파인드올");
-		return userDao.findAllFavorite();
-				
+	public List<Favorite> favoriteList(String username){
+		System.out.println(username+"gggg");
+		return userDao.findAllFavorite(username);
 	}
 	//유저리뷰함
-	public List<Review> reviewList(){
+	public List<Review> reviewList(String username){
+		return userDao.listByReviewUser(username);
+	}
 		
-		List<Review> review = userDao.listByReviewUser();
-		return userDao.listByReviewUser();
-				
+	public int delete(String username) {
+		User user = userDao.findByid(username);
+		System.out.println(user+"유저");
+		if(user.getUsername().equals(username)==false)
+			throw new JobFailException("유저가다름");
+		return userDao.delete(username);
+		
 	}
 }

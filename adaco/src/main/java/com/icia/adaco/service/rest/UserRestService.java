@@ -42,12 +42,7 @@ public class UserRestService {
 		return true;
 	}
 	
-	public void delete(String username,int favno) {
-		Favorite favorite = userDao.findByFavoriteId(favno);
-		if(favorite.getUsername().equals(username)==false)
-			throw new JobFailException("유저가 다르다");
-		System.out.println(favorite+"페이보릿 레스트");
-		
+	public void delete(int favno) {
 			userDao.deleteFavorite(favno);
 	}
 	public void update(DtoForUpdate dto, MultipartFile sajin) throws IllegalStateException, IOException {
@@ -56,7 +51,8 @@ public class UserRestService {
 			User user = userDao.findByid(dto.getUsername());
 			if(user==null)
 				throw new UserNotFoundException();
-			
+			dto.setProfile(user.getProfile());
+			System.out.println(dto.getProfile()+"야매다이것이");
 			String encodedPassword = user.getPassword();
 			if(pwdEncoder.matches(dto.getPassword(), encodedPassword)==false)
 				throw new JobFailException("비밀번호를 확인할 수 없습니다");
@@ -79,6 +75,11 @@ public class UserRestService {
 		}
 		System.out.println(sajin+"이것은 사진서비스쪽 아래꺼");
 		userDao.update(user);
+	}
+
+	public void reviewDelete(int rno) {
+		System.out.println(rno+"여기 글");
+		userDao.reviewDelete(rno);
 	}
 	
 	public int favoriteAdd(String username,int artno) {

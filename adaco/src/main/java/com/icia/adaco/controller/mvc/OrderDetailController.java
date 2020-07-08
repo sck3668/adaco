@@ -37,18 +37,18 @@ public class OrderDetailController {
 //		public String findbyOrderDetail(Principal principal,String username,Integer orderno) {
 //			String id = principal.getName();
 //			service.OrderDetail(principal, username, orderdetail, orderno);
-//			return "redirect:/";
+//			return "redirect:/";		
 //			//	return new ModelAndView("main").addObjectw("viewName", "order_detail/ordering.jsp");
 //		}
 		
 		// 결제하기
-		@GetMapping("/orderdetail/payment")
-		public ModelAndView Payment(String json,Principal principal,Order order) throws JsonParseException, JsonMappingException, IOException {
-			System.out.println("json=========="+json.getBytes());
-			orderService.Ordering(order);
-			Order order = objectMapper.readValue(json, new TypeReference<List<Order>>() {});
-			return new ModelAndView("main").addObject("viewName", "order_detail/payment.jsp").addObject("order", objectMapper.readValue(json, new TypeReference<List<Order>>() {}));
-		}
+//		@GetMapping("/orderdetail/payment")
+//		public ModelAndView Payment(String json,Principal principal,Order order) throws JsonParseException, JsonMappingException, IOException {
+//			System.out.println("json=========="+json.getBytes());
+//			orderService.Ordering(order);
+//			Order order = objectMapper.readValue(json, new TypeReference<List<Order>>() {});
+//			return new ModelAndView("main").addObject("viewName", "order_detail/payment.jsp").addObject("order", objectMapper.readValue(json, new TypeReference<List<Order>>() {}));
+//		}
 		
 		// 주문 내역 상세 
 		@GetMapping("/orderdetail/orderdetail")

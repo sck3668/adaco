@@ -20,7 +20,7 @@ public class OrderController {
 
 	// 주문 하기
 	@GetMapping("/order/ordering")
-	public ModelAndView Ordering(Principal principal, Order order, int artno, String username, int orderno) {
+	public ModelAndView Ordering(Principal principal, Order order, DtoForOrdering artno, String username, int orderno) {
 		String id = principal.getName();
 		orderService.Ordering(id, order, orderno, artno);
 //		String user = username(principal.getName());
@@ -36,7 +36,7 @@ public class OrderController {
 	// 결제하기
 	@GetMapping("/order/payment")
 	public ModelAndView Payment(String username,Order order,Integer artno,OrderDto.DtoForOrdering Dto ) {
-		return new ModelAndView("main").addObject("viewName", "order/payment.jsp").addObject("order",orderService.Ordering(username, order, artno, Dto));
+		return new ModelAndView("main").addObject("viewName", "order/payment.jsp").addObject("orders",orderService.Ordering(username, order, artno, Dto));
 	}
 
 	// 주문 내역 보기

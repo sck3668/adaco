@@ -242,7 +242,7 @@ $(function() {
 			printBagList();
 		})
 		alert("마지막");
-	})#")
+	})
 	// 주문하기
 	$("#order").on("click",function() {
 		var ar=[];
@@ -264,7 +264,7 @@ $(function() {
 			method:"get"
 		}).done((result)=>{
 			alert("OK");
-			orderList = result;
+			orders = result;
 			printOrderList();
 		})
 		alert("End")
@@ -313,7 +313,7 @@ $(function() {
 	<div id="button_area">
 		<input type="checkbox" id="checkAll">전체 선택 
 		<button id="choiseDelete">선택삭제</button>
-		<button type="button" id="order"><a href="/adaco/order/payment">주문하기</a></button>
+		<button type="button" id="order">주문하기</button>
 	</div>
   <%--  <div>
    <h1>장바구니</h1>

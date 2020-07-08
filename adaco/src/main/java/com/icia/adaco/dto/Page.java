@@ -20,14 +20,13 @@ public class Page {
 	private boolean isNext;
 	private State state;
 	private String search;
-		
 	List<AdminBoardDto.DtoForReportList> adminReportList;
 	List<AdminBoardDto.DtoForQuestionList> adminQuestionList;
 	List<AdminBoardDto.DtoForNoticeList> adminNoticeList;
 	List<AdminUserDto.DtoForUserList> adminUserList;
 	List<AdminUserDto.DtoForArtistList> adminArtist;
-
 	List<ArtDto.DtoForList> artList;
 	List<ArtDto.DtoForReviewList> artReviewList;
 	List<StoryBoardDto.DtoForList> storyList;
+	List<StoryCommentDto.DtoForList>storyCommentList;
 }
