@@ -1,5 +1,6 @@
 package com.icia.adaco.controller.rest;
 
+import java.io.*;
 import java.security.*;
 
 import javax.validation.*;
@@ -26,7 +27,7 @@ public class ArtRestController {
 	// 작품 업데이트(수정)
 	//@PreAuthorize("isAuthenticated()")
 	@PutMapping("/art/update")
-	public ResponseEntity<Void> updateArt(ArtDto.DtoForUpdate dto, BindingResult results, Principal principal, MultipartFile artSajin ) throws BindException{
+	public ResponseEntity<Void> updateArt(ArtDto.DtoForUpdate dto, BindingResult results, Principal principal, MultipartFile artSajin ) throws BindException, IllegalStateException, IOException{
 		System.out.println("dto===============+"+dto);
 		if(results.hasErrors())
 			throw new BindException(results);

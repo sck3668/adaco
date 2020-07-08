@@ -1,5 +1,6 @@
 package com.icia.adaco.service.rest;
 
+import java.io.*;
 import java.time.*;
 import java.time.format.*;
 import java.util.*;
@@ -40,7 +41,7 @@ public class ArtRestService {
 	private String artfilePath;
 
 	// 작품 업데이트
-	public void updateArt(ArtDto.DtoForUpdate dto, MultipartFile artSajin) {
+	public void updateArt(ArtDto.DtoForUpdate dto, MultipartFile artSajin) throws IllegalStateException, IOException {
 		Art art = artDao.readByArt(dto.getArtno());
 		dto.setArtistNo(art.getArtistno());
 		Option option = optionDao.readByOption(dto.getOptno());
@@ -51,9 +52,20 @@ public class ArtRestService {
 			throw new JobFailException("상품 수정 권한이 없습니다");
 		art = modelMapper.map(dto, Art.class);
 		option = modelMapper.map(dto,Option.class);
-		if(artSajin!=null && !artSajin.isEmpty()) {
+		if(artSajin!=null && artSajin.isEmpty()==false) {
+			if (artSajin.getContentType().toLowerCase().startsWith("image/") == true) {
+				int lastIndexOfDot = artSajin.getOriginalFilename().lastIndexOf('.');
+				String extension = artSajin.getOriginalFilename().substring(lastIndexOfDot + 1);
+				File artfile = new File(artfileFolder, art.getArtName() + "." + extension);
+				System.out.println("아트네임확인" + art.getArtName());
+				artSajin.transferTo(artfile);
+				art.setMainImg(artfilePath + artfile.getName());
+			} else {
+				throw new JobFailException("파일 확장자를 확인해주세요");
+			}
+		} else {
 			throw new JobFailException("등록된 사진이 없습니다");
-		} 
+		}
 		option.setArtno(art.getArtno());
 		optionDao.updateByOption(option);
 		artDao.updateByArt(art);
