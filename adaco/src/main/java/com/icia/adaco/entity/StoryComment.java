@@ -15,7 +15,6 @@ public class StoryComment {
 	private LocalDateTime writeDate;
 	private String writer;
 	private String content;
-	private String profile;
 	private Integer storyno;
 	private String username;
 }

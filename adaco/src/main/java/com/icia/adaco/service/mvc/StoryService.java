@@ -21,6 +21,8 @@ public class StoryService {
 	@Autowired
 	private StoryDao storyDao;
 	@Autowired
+	private StoryCommentDao storyCommentDao;
+	@Autowired
 	private ModelMapper modelMapper;
 	@Value("${profileFolder}")
 	private String profileFolder;
@@ -69,13 +71,22 @@ public class StoryService {
 		page.setStoryList(storydtoList);
 		return page;
 	}
-	public StoryBoardDto.DtoForRead storyRead(int storyno) {
+	public StoryBoardDto.DtoForRead storyRead(int storyno,int pageno) {
 		Story story = storyDao.findByStory(storyno);
+		System.out.println(story+"스토리임다");
 		if(story==null)
 			throw new JobFailException("보드가없다");
 		StoryBoardDto.DtoForRead readDto = modelMapper.map(story,StoryBoardDto.DtoForRead.class);
+		System.out.println(readDto+"============");
+		int countOfBoard = storyCommentDao.count();
+		Page page = PagingUtil.getPage(pageno, countOfBoard);
+		int srn = page.getStartRowNum();
+		int ern = page.getEndRowNum();
+		System.out.println(readDto.setComments(storyCommentDao.findAllByCno(srn,ern))+"ㅎㅎㅎㅎㅎㅎㅎㅎㅎ");
 		String str = story.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일"));
 		readDto.setWriteDateStr(str);
+		
+		System.out.println(readDto+"리드디티오");
 		return readDto;
 	}
 }

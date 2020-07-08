@@ -7,6 +7,10 @@ import javax.validation.constraints.*;
 
 import org.springframework.web.multipart.*;
 
+import com.icia.aboard.entity.*;
+import com.icia.adaco.entity.*;
+import com.nhncorp.lucy.security.xss.markup.*;
+
 import lombok.*;
 import lombok.experimental.*;
 
@@ -34,6 +38,7 @@ public class StoryBoardDto {
 		private String content;
 		private String writer;
 		private String writeDateStr;
+		private List<StoryComment> comments;
 	}
 
 	@Data
