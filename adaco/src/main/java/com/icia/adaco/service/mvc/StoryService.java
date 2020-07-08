@@ -74,15 +74,14 @@ public class StoryService {
 	public StoryBoardDto.DtoForRead storyRead(int storyno,int pageno) {
 		Story story = storyDao.findByStory(storyno);
 		System.out.println(story+"스토리임다");
-		
 		if(story==null)
 			throw new JobFailException("보드가없다");
 		StoryBoardDto.DtoForRead readDto = modelMapper.map(story,StoryBoardDto.DtoForRead.class);
+		System.out.println(readDto+"============");
 		int countOfBoard = storyCommentDao.count();
 		Page page = PagingUtil.getPage(pageno, countOfBoard);
 		int srn = page.getStartRowNum();
 		int ern = page.getEndRowNum();
-		readDto.setComments(storyCommentDao.findAllByCno(srn,ern));
 		System.out.println(readDto.setComments(storyCommentDao.findAllByCno(srn,ern))+"ㅎㅎㅎㅎㅎㅎㅎㅎㅎ");
 		String str = story.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일"));
 		readDto.setWriteDateStr(str);

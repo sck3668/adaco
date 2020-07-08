@@ -68,6 +68,9 @@
       <table class="table table-hover">
          <thead>
          <tr>
+         	<th>총금액</th>
+         </tr>
+         <tr>
             <th>적립일</th><th>적립금</th><th>적립만료일</th>
          </tr>
          </thead>

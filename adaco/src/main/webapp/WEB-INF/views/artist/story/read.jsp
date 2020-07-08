@@ -66,7 +66,6 @@ function printComment(comments){
 		}
 		$("#comment_write").on("click",function(){
 			$comments=$("#textarea").val();
-			console.log($comments)
 			if(isLogin==false)
 				return
 			var params = {
@@ -91,7 +90,7 @@ function printComment(comments){
 <body>	
 <%-- ${story.comments[].cno} --%>
  <c:forEach items="${story.comments }" var="comments1" >
- 	<input type="text" value="${comments1.content}"> 
+ 	<input type="text">${comments1.content } 
  </c:forEach> 
  <div id="wrap">
 	<div>
@@ -137,7 +136,7 @@ function printComment(comments){
 			<div class="form-group">
 				<label for="comment_textarea">댓글을 입력하세요</label>
 				<textarea class="form-control" rows="5"	id="comment_textarea" placeholder="욕설이나 모욕적인 댓글은 삭제될 수 있습니다" disabled="disabled"></textarea>
-				<input type="hidden" value="${story.comments}" id="textarea">
+				<input type="hidden" value="${comments1.content}" id="textarea">
 				<input type="hidden" value="${story.storyno }" id="storyno">
 			</div>
 			<button type="button" class="btn btn-info" 

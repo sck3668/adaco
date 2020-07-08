@@ -24,6 +24,7 @@ import com.icia.adaco.util.*;
 
 @Service
 public class UserService {
+	private static final MyPageDto MyPageDto = null;
 	@Autowired
 	private UserDao userDao;
 	@Autowired

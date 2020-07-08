@@ -12,6 +12,7 @@ import javax.validation.constraints.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.lang.*;
+import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
 import org.springframework.validation.*;
 import org.springframework.web.bind.*;
@@ -142,11 +143,12 @@ public class UserController {
 		return "redirect:/user/login";
 	}
 	//마이페이지 화면
-	/* @PreAuthorize("isAuthenticated()") */
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/mypage")
 	public ModelAndView userRead() {
 		return new ModelAndView("main").addObject("viewName","user/mypage.jsp");
 	}
+		
 	//포인트 메인화면
 	//@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/pointList")

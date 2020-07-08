@@ -43,7 +43,9 @@
 </style>
 
 </head>
+
 <body>
+${myPage }
 <div>
  <aside id="asideMain">
 	<div id="aside">
@@ -61,6 +63,7 @@
 		</div>
 	</div>
 	</aside>
+	
 	<section id="section">
 		<div id="myInfo">
 			<div id="my">

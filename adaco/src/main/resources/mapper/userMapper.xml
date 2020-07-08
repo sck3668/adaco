@@ -38,12 +38,12 @@
 		where username=#{username} and rownum=1
 	</update>
 	<select id="findAllByPoint" resultType="point">
-		select point,start_date startDate
+		select point,start_date startDate, total_point totalPoint
 		,end_date endDate,username from point where username=#{username}
 	</select>
 	<insert id="insertpoint">
-		insert into point(point,start_date,end_date,username)
-		values(#{point},sysdate,#{endDate},#{username})
+		insert into point(point,start_date,end_date,username,total_point)
+		values(#{point},sysdate,#{endDate},#{username},#{totalPoint})
 	</insert>	
 	<select id="findJoinCheckCode" resultType="string">
 		select username from users where check_code=#{checkCode} and rownum=1

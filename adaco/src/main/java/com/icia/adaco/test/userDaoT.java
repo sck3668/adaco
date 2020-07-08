@@ -63,7 +63,7 @@ public class userDaoT {
 	}
 	//@Test
 	public void findAllByPoint () {
-		System.out.println(userDao.findAllFavorite("tjdcjfgns3"));
+		System.out.println(userDao.findAllByPoint("tjdcjfgns3"));
 	}
 	//@Test
 	public void insertFavorite() {
@@ -89,7 +89,7 @@ public class userDaoT {
 	public void deletereview() {
 		System.out.println(userDao.reviewDelete(81));
 	}
-	@Test
+	//@Test
 	public void reviewList() {
 		System.out.println(userDao.listByReviewUser("tjdcjfgns3"));
 	}
