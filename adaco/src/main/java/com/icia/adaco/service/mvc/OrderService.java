@@ -24,18 +24,14 @@ public class OrderService {
 	private ModelMapper modelMapper;
 	
 		// 주문 하기    
-		public void Ordering(String username, Order order,int artno,OrderDto.DtoForOrdering Dto) {
-			Order order = modelMapper.map(Dto, Order.class);
-			artDao.readByArt(artno);
-			orderDao.Ordering(order);
+		public int Ordering(String username, Order order,int artno,OrderDto.DtoForOrdering Dto) {
+			int orderno = order.getOrderno();
+			modelMapper.map(Dto, Order.class);
+			Art art = artDao.readByArt(artno);
+			return orderDao.Ordering(order);
 			
 		}
 	
-		public void Ordering(Order order) {
-			int artno = order.getOrderno();
-			Art art = artDao.readByArt(artno);
-		}
-
 //		
 //		// 상품 상세에서 주문
 //		public int insertByOrder(Order order,ArtDto.DtoForOrder Dto) {
@@ -49,8 +45,6 @@ public class OrderService {
 //			Art art = artDao.findAllByUsername(username);
 //			
 //		}
-		
-		// 장바구니에서 주문
 		
 		// 주문 내역
 		public List<OrderDto.DtoForOrdering> BagByOrder(String username,int orderno){
@@ -79,11 +73,11 @@ public class OrderService {
 //		}
 		
 		// 장바구니에 담긴 상품 주문하기
-//		public void BagByOrder(String username,OrderDto.DtoForOrdering Dto) {
-//			Order order = modelMapper.map(Dto,Order.class);
-//			Bag bag = modelMapper.map(Dto,Bag.class);
-//			orderDao.Ordering(order);
-//		}
+		public void BagByOrder(String username,OrderDto.DtoForOrdering Dto) {
+			Order order = modelMapper.map(Dto,Order.class);
+			Bag bag = modelMapper.map(Dto,Bag.class);
+			orderDao.Ordering(order);
+		}
 		// 주문 내역 보기
 		public List<Order> findAllByOrder(){
 			return orderDao.findAllByOrder();

@@ -242,8 +242,7 @@ $(function() {
 			printBagList();
 		})
 		alert("마지막");
-	})
-	
+	})#")
 	// 주문하기
 	$("#order").on("click",function() {
 		var ar=[];
