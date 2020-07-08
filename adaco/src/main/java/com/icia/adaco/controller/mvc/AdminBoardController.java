@@ -133,7 +133,7 @@ public class AdminBoardController {
 	@PostMapping("/admin/notice_update")
 	public String noticeUpdate(Notice notice) {
 		service.noticeUpdate(notice);
-		return "redirect:/admin/notice_read?qno="+notice.getNoticeno();
+		return "redirect:/admin/notice_read?noticeno="+notice.getNoticeno();
 	}
 
 	

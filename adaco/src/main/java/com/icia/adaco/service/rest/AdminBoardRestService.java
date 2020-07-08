@@ -5,6 +5,7 @@ import java.util.*;
 import java.util.regex.*;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.config.annotation.authentication.configurers.userdetails.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.multipart.*;
 
@@ -19,6 +20,8 @@ public class AdminBoardRestService {
 	AdminBoardDao adminBoardDao;
 	@Autowired
 	ObjectMapper objectMapper;
+	@Autowired
+	AttachmentDao attachmentDao;
 	@Value("http://localhost:8081/ckimage/")
 	private String ckUrl;
 	@Value("${imageFolder}")
@@ -54,6 +57,8 @@ public class AdminBoardRestService {
 			if(file.exists()==true)
 				file.delete();
 		}
+		adminBoardDao.deleteByNotice(noticeno);
+		attachmentDao.deleteAllNoticeByNoticeno(noticeno);
 	}
 
 	public int updateFaq(FAQ faq) {
@@ -89,4 +94,19 @@ public class AdminBoardRestService {
 		return null;
 	}
 
+	public Attachment readAttachment(Integer ano) {
+		return attachmentDao.findById(ano);
+	}
+
+	public List<Attachment> deleteAttachment(Integer ano, Integer noticeno) {
+		Attachment attachment = attachmentDao.findById(ano);
+		if(attachment != null) {
+			File file = new File("d:/upload/attachment", attachment.getSaveFileName());
+			if(file.exists()==true)
+				file.delete();
+			attachmentDao.deleteById(ano);
+		}
+		return attachmentDao.findAllNoticeByNoticeno(noticeno);
+	}
 }
+ 

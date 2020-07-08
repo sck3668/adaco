@@ -75,11 +75,6 @@
 		select count(*) from art
 	</select>
 	
-	<!-- 작품 사진 삭제 -->
-	<delete id="deleteSajin">
-		delete main_img from art where artno=#{artno} and rownum=1
-	</delete>
-	
 	<!-- 회원 사용 -->
 	
 	<!-- 작품 리스트(최신순) / 작품이름으로 검색 리스트-->

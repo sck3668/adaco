@@ -80,11 +80,6 @@ public class ArtDao {
 	public int countByArt() {
 		return tpl.selectOne("artMapper.count");
 	}
-
-	//작품 이미지 삭제
-	public int deleteSajinByArtno(int artno) {
-		return tpl.delete("artMapper.deleteSajin",artno);
-	}
 	
 	////////////////////// 회원 전용 ///////////////////////////
 	
