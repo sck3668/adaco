@@ -80,6 +80,7 @@
          	      <td>${list.startDate }</td>
                   <td>${list.point }</td>
            	      <td>${list.endDate }</td>
+           	      <td>${list.totalPoint}</td>
            </tr> 
 			 </c:forEach>
          </tbody>

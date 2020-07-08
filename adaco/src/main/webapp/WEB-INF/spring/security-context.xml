@@ -36,11 +36,7 @@
 	 -->
 	 
 	<sec:http auto-config="true">
-<<<<<<< HEAD
-	<sec:csrf disabled="true"/>  
-=======
 <!-- 	<sec:csrf disabled="true"/>  -->
->>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 		<sec:form-login
 			username-parameter="username"
 			password-parameter="password"
