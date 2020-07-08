@@ -9,4 +9,7 @@ public interface AuthorityDao {
 	
 	@Update("update authorities set authority = #{authority} where username = #{username}")
 	void update(@Param("username")String username, @Param("authority")String authority);
+
+	@Select("select username,authority from authorities where username=#{username}")
+	public String findByUsername(@Param("username") String username);
 }

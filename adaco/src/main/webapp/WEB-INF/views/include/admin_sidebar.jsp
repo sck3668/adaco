@@ -12,10 +12,10 @@
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/adaco/admin/">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+        <div class="sidebar-brand-icon">
+          <img class="img-profile rounded-circle" src="../image/hanstory.png" style="width: 4rem;">
         </div>
-        <div class="sidebar-brand-text mx-3">Hand Story <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">Hand Story <sup></sup></div>
       </a>
       <!-- Divider -->
       <hr class="sidebar-divider my-0">

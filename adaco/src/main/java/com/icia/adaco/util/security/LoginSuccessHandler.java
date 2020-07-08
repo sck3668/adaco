@@ -21,7 +21,8 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 	private UserDao userDao;
 	@Autowired
 	private MessageDao messageDao;
-	
+	@Autowired
+	private AuthorityDao authorityDao;
 	// 사용자가 가려던 목적지를 저장하는 객체
 	private RequestCache cache = new HttpSessionRequestCache();
 	// 리다이렉트 해주는 객체
@@ -36,6 +37,8 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 		
 		String username = authentication.getName();
 		String password = request.getParameter("password");
+		if(authorityDao.findByUsername(username).equals(anObject))
+		
 		
 		HttpSession session = request.getSession();
 		

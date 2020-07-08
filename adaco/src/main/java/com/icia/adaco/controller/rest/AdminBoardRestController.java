@@ -56,8 +56,7 @@ public class AdminBoardRestController {
 		return ResponseEntity.ok(service.deleteAttachment(ano, noticeno));
 	}
 		
-//	@PreAuthorize("isAuthenticated()")
-//	@Secured("ROLE_ADMIN")
+	@Secured("ROLE_ADMIN")
 	@DeleteMapping("/admin/delete_art")
 	public ResponseEntity<?> artDelete(Integer artno) {
 		service.deleteArt(artno);
@@ -65,26 +64,26 @@ public class AdminBoardRestController {
 	}
 	
 	
-//	@PreAuthorize("isAuthenticated()")
-//	@Secured("ROLE_ADMIN")
+	@Secured("ROLE_ADMIN")
 	@DeleteMapping("/admin/notice_delete")
 	public ResponseEntity<?> noticeDelete(Integer noticeno) {
 		service.deleteNoitce(noticeno);
 		return ResponseEntity.ok("/adaco/admin/notice_list");
 	}
-	
+
+	@Secured("ROLE_ADMIN")
 	@PatchMapping("/admin/faq_update")
 	public ResponseEntity<?> faqUpdate(FAQ faq) {
 		return ResponseEntity.ok(service.updateFaq(faq));
 	}
 	
-//	@PreAuthorize("isAuthenticated()")
-//	@Secured("ROLE_ADMIN")
+	@Secured("ROLE_ADMIN")
 	@DeleteMapping("/admin/faq_delete")
 	public ResponseEntity<?> faqDelete(Integer faqno) {
 		return ResponseEntity.ok(service.deleteFaq(faqno));
 	}
-	
+
+	@Secured("ROLE_ADMIN")
 	@PostMapping("/admin/notice/ckupload")
 	public ResponseEntity<?> ckUpload(MultipartFile upload) {
 		return ResponseEntity.ok(service.saveCkImage(upload));
