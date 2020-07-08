@@ -28,6 +28,7 @@ public class OrderService {
 			int orderno = order.getOrderno();
 			modelMapper.map(Dto, Order.class);
 			Art art = artDao.readByArt(artno);
+		//  OrderDto orderdto = OrderDto.DtoForOrdering(order.setOrderno(orderno));
 			return orderDao.Ordering(order);
 			
 		}

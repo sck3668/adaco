@@ -68,8 +68,8 @@ public class ArtServiceTest {
 		dto.setOptionPrice(2000);
 		dto.setOptionStock(20);
 		dto.setOptionValue("레드");
-		dto.setArtistno(14);
-		dto.setShopno(108);
+		dto.setArtistno(150);
+		dto.setShopno(5);
 		dto.setArtDetail("작품입니다");
 		dto.setCouriPrice(2500);
 	
@@ -80,7 +80,7 @@ public class ArtServiceTest {
 	
 	
 	// 작품 등록 테스트 (작가용) ok
-	@Test
+	//@Test
 	public void writeWithSajinTest() throws IllegalStateException, IOException, MessagingException {
 		ArtDto.DtoForWrite dto = getDtoForWrite();
 		File targetFile = new File("d:/test5.jpg");
@@ -92,14 +92,17 @@ public class ArtServiceTest {
 	//작품 업데이트 테스트 메소드
 	public ArtDto.DtoForUpdate getDtoForUpdate() {
 		ArtDto.DtoForUpdate dto = new DtoForUpdate();
-		dto.setArtno(180);
-		dto.setArtistNo(14);
-		dto.setReviewCnt(5);
+		dto.setArtno(186);
+		dto.setArtistNo(150);
+		dto.setUsername("leehj8462");
+		dto.setArtDetail("작품이야아아");
+		dto.setOptno(105);
+		dto.setOptionName("사이즈");
 		return dto;
 	}
 	
 	//작품 업데이트 테스트  ok
-	//@Test
+	@Test
 	public void updateTest() throws FileNotFoundException, IOException {
 		ArtDto.DtoForUpdate dto = getDtoForUpdate();
 		File targetFile = new File("d:/test1.jpg");

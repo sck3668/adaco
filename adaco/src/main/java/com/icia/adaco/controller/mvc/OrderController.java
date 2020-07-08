@@ -3,12 +3,12 @@ package com.icia.adaco.controller.mvc;
 import java.security.*;
 
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.http.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
 
 import com.icia.adaco.dto.*;
+import com.icia.adaco.dto.OrderDto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.service.mvc.*;
 
@@ -22,22 +22,21 @@ public class OrderController {
 	@GetMapping("/order/ordering")
 	public ModelAndView Ordering(Principal principal, Order order, int artno, String username, int orderno) {
 		String id = principal.getName();
-		orderService.Ordering(order);
+		orderService.Ordering(id, order, orderno, artno);
 //		String user = username(principal.getName());
 		return new ModelAndView("main").addObject("viewName", "order/ordering.jsp");
 	}
 	
 	// 주문하기
-	@PostMapping("/order/ordering")
-	public ResponseEntity<?> Ordering(Order order, Principal principal){
-		return ResponseEntity.ok(orderService.Ordering(order));
-	}
+//	@PostMapping("/order/ordering")
+//	public ResponseEntity<?> Ordering(Order order, Principal principal){
+//		return ResponseEntity.ok(orderService.Ordering(order));
+//	}
 		
 	// 결제하기
 	@GetMapping("/order/payment")
-	public ModelAndView Payment() {
-		return new ModelAndView("main").addObject("viewName", "order/payment.jsp");
-//		.addObject("order",service.Ordering(dto.forRead,orderservice));
+	public ModelAndView Payment(String username,Order order,Integer artno,OrderDto.DtoForOrdering Dto ) {
+		return new ModelAndView("main").addObject("viewName", "order/payment.jsp").addObject("order",orderService.Ordering(username, order, artno, Dto));
 	}
 
 	// 주문 내역 보기

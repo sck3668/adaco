@@ -10,7 +10,7 @@
 	</insert>
 	<select id="findById" resultType="artist">
 		select artistno,artist_intro
-		artistIntro,profile,usernamefrom artist where artistno=#{artistno}
+		artistIntro,profile,username from artist where artistno=#{artistno}
 	</select>
 	
 	<select id="findArtistnoByUsername" resultType="int">
