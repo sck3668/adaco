@@ -57,16 +57,13 @@ public class ShopRestService {
 			 throw new JobFailException("넌 상점 없음");
 		if(shop.getArtistno()!=artistno)
 			throw new JobFailException("작가만 수정");
-		/*
+		/*ffff
 		 * System.out.println(artistno+"ggggggggggqweqw");
 		 * System.out.println(shop.getArtistno()+"ggggggssqwe");
 		 */
 		System.out.println(modelMapper.map(updateDto, Shop.class)+"익");
-		
 		shopDao.updateByShop(shop);
-		
 		System.out.println(shopDao.updateByShop(shop)+"ggggg");
-		
 	}
 
 }

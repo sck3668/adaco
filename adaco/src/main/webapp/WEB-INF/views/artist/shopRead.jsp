@@ -17,7 +17,6 @@
 		
 	})
 }) */
-
 $(function(){
 	$("#update").on("click",function(){
 		var $shopName = $("#shopName").val();
