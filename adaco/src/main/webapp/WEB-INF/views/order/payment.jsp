@@ -50,7 +50,7 @@ $(function(){
 			}).doen(()=>{location.reload(); })
 			.fail((xhr)=>{console.log(xhr)})
 			
-			var $form = $("<form>").attr("action", "/adaco/order_detail/payment").attr("method", "post")
+			var $form = $("<form>").attr("action", "/adaco/order_detail/payment").attr("method", "get")
 			$("<input>").attr("type", "hidden").attr("name", "cnos").val(ar).appendTo($form);
 			$("<input>").attr("type", "hidden").attr("name", "_csrf").val("${_csrf.token}").appendTo($form);
 			$form.appendTo($("body")).submit();

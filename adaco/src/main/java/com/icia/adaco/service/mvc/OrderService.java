@@ -7,8 +7,10 @@ import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
+import com.fasterxml.jackson.annotation.ObjectIdGenerators.*;
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
+import com.icia.adaco.dto.OrderDto.*;
 import com.icia.adaco.entity.*;
 
 @Service
@@ -20,19 +22,36 @@ public class OrderService {
 	private UserDao userDao;
 	private BagDao bagDao;
 	private ArtDao artDao;
+	private OptionDao optionDao;
+	private OrderDetailDao orderDetailDao;
 	@Autowired
 	private ModelMapper modelMapper;
 	
 		// 주문 하기    
-		public int Ordering(String username, Order order,int artno,OrderDto.DtoForOrdering Dto) {
-			int orderno = order.getOrderno();
-			modelMapper.map(Dto, Order.class);
-			Art art = artDao.readByArt(artno);
-		//  OrderDto orderdto = OrderDto.DtoForOrdering(order.setOrderno(orderno));
-			return orderDao.Ordering(order);
-			
+//		public int Ordering(String username, Order order,OrderDto.DtoForOrdering Dto) {
+//			int orderno = order.getOrderno();
+//			modelMapper.map(Dto, Order.class);
+//			Art art = artDao.readByArt(orderno);
+//		//  OrderDto orderdto = OrderDto.DtoForOrdering(order.setOrderno(orderno));
+//			return orderDao.Ordering(order);
+//			
+//		}
+		
+		// 2
+		public int Ordering(Integer orderno) {
+			Art art = artDao.readByArt(orderno);
+			Option option = optionDao.readByArtno(orderno);
+			OrderDetail orderDetail = orderDetailDao.OrderDetail(orderno);
+			return orderno;
 		}
-	
+		// 3
+		public int Ordering2(Integer orderno) {
+			Art art = artDao.readByArt(orderno);
+			Option option = optionDao.readByArtno(orderno);
+			OrderDetail orderDetail = orderDetailDao.OrderDetail(orderno);
+			OrderDto.DtoForOrdering dto = modelMapper.map(art, OrderDto.DtoForOrdering.class);
+			return orderno;
+		}
 //		
 //		// 상품 상세에서 주문
 //		public int insertByOrder(Order order,ArtDto.DtoForOrder Dto) {
@@ -87,5 +106,9 @@ public class OrderService {
 		// 주문 상세 내역 보기
 		public void findByOrder(Integer orderno) {
 			orderDao.findByOrder(orderno);
+		}
+		public Object Payment(String username, Order order, Integer artno, DtoForOrdering dto) {
+			// TODO Auto-generated method stub
+			return null;
 		}
 }

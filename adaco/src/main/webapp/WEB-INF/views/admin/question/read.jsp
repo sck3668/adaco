@@ -144,13 +144,15 @@ function checkState() {
 	         	Answer:
 	            <textarea class="form-control" cols="50" rows="10" id="answer_content" name="answer_content" readonly="readonly" style="background-color: white;"></textarea>
 	         </div>
-			<div>
-				<div class = "form-group">
-					<label for = "answer_textarea">답변을 입력하세요.</label>
-					<textarea class = "form-control" rows="5" id ="answer_textarea" placeholder = "서비스 규정을 참고하여 작성해주시기 바랍니다."></textarea>
+	        <sec:authorize access="hasRole('ROLE_ADMIN')">
+				<div>
+					<div class = "form-group">
+						<label for = "answer_textarea">답변을 입력하세요.</label>
+						<textarea class = "form-control" rows="5" id ="answer_textarea" placeholder = "서비스 규정을 참고하여 작성해주시기 바랍니다."></textarea>
+					</div>
 				</div>
-			</div>
-			<button type="button" id="answer" class="btn btn-info">등록</button>
+				<button type="button" id="answer" class="btn btn-info">등록</button>
+	        </sec:authorize>
 			<a href = "/adaco/admin/question_list" class="btn btn-success">뒤로가기</a>
 		</form>
 	</div>
