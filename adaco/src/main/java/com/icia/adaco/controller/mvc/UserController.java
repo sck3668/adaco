@@ -154,6 +154,7 @@ public class UserController {
 	@GetMapping("/user/pointList")
 	public ModelAndView userPoint(Principal principal) {
 		System.out.println(userService.pointList(principal.getName()));
+		
 		return new ModelAndView("main").addObject("viewName","user/point.jsp")
 				.addObject("point",userService.pointList(principal.getName()));
 	}

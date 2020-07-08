@@ -142,8 +142,11 @@ public class UserService {
 	//포인트 리스트
 	public List<Point> pointList(String username) {
 		List<Point> point = userDao.findAllByPoint(username);
-		System.out.println(point+"===========");
-		
+		for(Point point1:point) {
+			
+		}
+			
+		System.out.println(point+"=======");
 		return userDao.findAllByPoint(username);
 	}
 	//페이보릿즐찾리스트
