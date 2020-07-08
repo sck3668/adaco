@@ -99,6 +99,7 @@ $(function() {
 		}).done(()=>{alert("작품이 수정되었습니다.");})
 		.fail(()=>{alert("작품 수정이 실패했습니다.");})
 	})
+});
 	
 	function loadImage() {
 	
@@ -119,10 +120,12 @@ $(function() {
 	}
 	reader.readAsDataURL(file);
 	return true;
+	
+	$("#artImg").on("change", loadImage);
 	}
 	
 	
-});
+
 
 </script>
 </head>
