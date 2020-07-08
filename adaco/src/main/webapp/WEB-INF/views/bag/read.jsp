@@ -259,7 +259,7 @@ $(function() {
 		}
 		alert("또 찍어봐");
 		$.ajax({
-			url:"/adaco/order/ordering",
+			url:"/adaco/order/payment",
 			data:params,
 			method:"get"
 		}).done((result)=>{
@@ -269,6 +269,16 @@ $(function() {
 		})
 		alert("End")
 	})
+		$ajax({
+			url=:"/adaco/order/payment]"
+			data:params,
+			method:"get",
+		}).doen((result)=>{
+			aflert("얼ㄹㄹㄹ럿")
+		orsers = result;
+			printOrders();
+		})
+		})
 	
 	
 	// 선택한 상품 구매

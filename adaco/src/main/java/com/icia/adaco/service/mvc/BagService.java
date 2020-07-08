@@ -33,7 +33,10 @@ public class BagService {
 	// 장바구니 추가
 	public int insertByBag(Bag bag) {
 		int artno = bag.getArtno();
+		System.out.println("artno==========="+artno);
+		System.out.println("art============"+artdao.readByArt(artno));
 		Art art = artdao.readByArt(artno);
+		
 		bag.setTotalPrice(bag.getAmount()*art.getPrice());
 		return bagdao.insertByBag(bag);
 	}
@@ -66,7 +69,7 @@ public class BagService {
 			dtoBag.setOption(option);
 			dtoList.add(dtoBag);
 		}
-	//	System.out.println("00000000000"+dtoList+"============dtoList");
+		System.out.println("00000000000"+dtoList+"============dtoList");
 		
 		return dtoList;
 	}
@@ -89,12 +92,15 @@ public class BagService {
 			bag.setAmount(bag.getAmount()+1);
 			bag.setTotalPrice(bag.getAmount()*art.getPrice());
 			bagdao.increaseByAmount(artno);
-			
+			bagdao.updateByBag(Bag.builder().artno(artno)
+					.totalPrice(bag.getAmount()*art.getPrice()).build());
 		} else {
 			if(bag.getAmount()>1) {
 			bag.setAmount(bag.getAmount()-1);
 			bag.setTotalPrice(bag.getAmount()*art.getPrice());
 			bagdao.decreaseByAmount(artno);
+			bagdao.updateByBag(Bag.builder().artno(artno)
+					.totalPrice(bag.getAmount()*art.getPrice()).build());
 			}
 		}
 		return bag;

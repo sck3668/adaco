@@ -49,6 +49,9 @@
 		::-webkit-scrollbar-thumb:hover {background: #555;}
 		::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
 		width:16px;height:16px;background:#4C4C4C;} 
+	$(function){
+				alert;
+	}
 </style>
 </head>
 <body>
