@@ -9,7 +9,7 @@
 <script>
 // 1.작품 이미지 출력 //	사진출력이 안됨
 	function loadImage() {
-		var file = $("#artImg")[0].files[0];	
+		var file = $("#artSajin")[0].files[0];	
 		var maxSize = 1024*1024;
 		if(file.size>maxSize) {
 			Swal.fire({
@@ -17,7 +17,7 @@
 			  	title: '크기 오류',
 				text: '파일크기는 1MB를 넘을 수 없습니다'
 			});
-			$("#artImg").val("");
+			$("#artSajin").val("");
 			return false;
 		}
 		var reader = new FileReader();
@@ -31,8 +31,8 @@
 //$("#category option:selected").val();
 	$(function() {
 		$("#artName").on("blur", checkIrum);
-		$("#artImg").on("change", loadImage);
-		$("#artPrice").on("blur", checkPrice);
+		$("#artSajin").on("change", loadImage);
+		$("#price").on("blur", checkPrice);
 		$("#artStock").on("blur", checkStock);
 		$("#artDetail").on("blur", checkArtDetail);
 		$("#optionName").on("blur", checkOptionIrum);
@@ -88,6 +88,7 @@
 					<option value="가방,파우치">가방,파우치</option>
 					<option value="공예품">공예품</option>
 					<option value="악세서리">악세서리</option>
+					<option value="카테고리다">카테고리다</option>
 				</select> 
 			</div>
 			<div class="inputArea">
@@ -96,21 +97,21 @@
 				<span id="artName_msg"></span>
 			</div>
 			<div class="inputArea">
-				<label for="artImg">작품 이미지</label> 
-				<input type="file" id="artImg" name="artImg" accept=".jpg,.jpeg,.png,.gif,.bmp"/>
+				<label for="artSajin">작품 이미지</label> 
+				<input type="file" id="artSajin" name="artSajin" accept=".jpg,.jpeg,.png,.gif,.bmp"/>
 			</div>
 			<div>
 				<img id="show_artfile" height="240px;">
 				<input type="hidden" name="_csrf" value="${_csrf.token }">
 			</div>
 			<div class="inputArea">
-				<label for="artPrice">작품가격</label> 
-				<input type="text" id="artPrice" name="artPrice" />원
+				<label for="price">작품가격</label> 
+				<input type="text" id="price" name="price" />원
 				<span id="artPrice_msg"></span>
 			</div>
 			<div class="inputArea">
-				<label for="artStock">작품수량</label> 
-				<input type="text" id="artStock" name="artStock" />
+				<label for="stock">작품수량</label> 
+				<input type="text" id="stock" name="stock" />
 				<span id="artStock_msg"></span>
 			</div>
 			<div class="inputArea">
@@ -132,8 +133,8 @@
 				</div>
 			</div>
 			<div class="inputArea">
-				<label for="artTag">검색태그</label> 
-				<input type="text" id="artTag" name="artTag" />
+				<label for="tag">검색태그</label> 
+				<input type="text" id="tag" name="tag" />
 				<span id="artTag_msg"></span>
 			</div>
 			<br>
