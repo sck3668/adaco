@@ -36,9 +36,6 @@ th {
 
 </style>
 
-
-
-
 <script>
 $(function(){
 	$("#userinfo").on("click", function(){
@@ -57,10 +54,7 @@ $(function(){
 		}
 })
 
-
 </script>
-
-
 
 </head>
 <body>
