@@ -36,7 +36,7 @@
 	 -->
 	 
 	<sec:http auto-config="true">
- 	<sec:csrf disabled="false"/> 
+	<sec:csrf disabled="false"/>
 		<sec:form-login
 			username-parameter="username"
 			password-parameter="password"
