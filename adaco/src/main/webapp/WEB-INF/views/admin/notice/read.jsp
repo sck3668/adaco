@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항 읽기</title>
+<title>공지사항</title>
 <style>
 input[type="checkbox"],
 input[type="radio"] {

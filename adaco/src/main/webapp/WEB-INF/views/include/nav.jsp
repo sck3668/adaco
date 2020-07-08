@@ -15,6 +15,20 @@ $(function() {
 	$("#gogak").on("click",function() {
 		$("#gogak-d").toggle();
 		}); 
+	
+	$(".logout").on("click", function(){
+		var param = {
+			_csrf : "${_csrf.token}"						
+		}
+		$.ajax({
+			url: "/adaco/user/logout",
+			method: "post",
+			data: param,
+			success: function(){
+				location.href = "/adaco";
+			}
+		});
+	});
 	}) 
 </script>
 </head>
@@ -54,7 +68,7 @@ $(function() {
 <!-- 일반회원  nav -->          
 			<sec:authorize access="hasRole('ROLE_USER')">
 				<li class="nav-item">
-         		   <a class="nav-link" href="/adaco/user/logout">로그아웃</a>
+         		   <a class="nav-link logout" href="#">로그아웃</a>
          		</li>
          		<li class="nav-item">
 					<a class="nav-link" href="/adaco/bag/view">장바구니</a>
@@ -75,7 +89,7 @@ $(function() {
 <!-- 작가 nav -->
 			<sec:authorize access="hasRole('ROLE_SELLER')">
 				<li class="nav-item">
-         		   <a class="nav-link" href="/adaco/user/logout">로그아웃</a>
+         		   <a class="nav-link logout" href="#">로그아웃</a>
          		</li>
          		<li class="nav-item">
          		   <a class="nav-link" href="/adaco/artist/artistpage">작가페이지</a>
@@ -95,7 +109,7 @@ $(function() {
          		   <a class="nav-link" href="/adaco/admin/">관리</a>
          		</li>
          		<li class="nav-item">
-         		   <a class="nav-link" href="/adaco/user/logout">로그아웃</a>
+         		   <a class="nav-link logout" href="#">로그아웃</a>
          		</li>
 			</sec:authorize>
 <!--  -->

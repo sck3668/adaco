@@ -37,7 +37,8 @@
 <header class="cd-header flex flex-column flex-center">
   <div class="text-component text-center">
     <h1>FAQ 자주 묻는 질문</h1>
-    <p>👈 <a class="cd-article-link" href="/adaco/admin/question_write">질문이 해결되지 않으셨나요? (1:1문의로 이동하기)</a></p>
+    <p>👈 <a class="cd-article-link" href="/adaco/admin/question_write">궁금한게 해결되지 않으셨나요? (1:1문의로 이동하기)</a></p>
+    <p>🏠<a class="cd-article-link" href="/adaco/">메인으로 돌아갈래요!</a></p>
   </div>
 </header>
 
@@ -73,7 +74,6 @@
 		
 		<!-- 어드민 권한 나중에 ㅇㅇ -->
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
-		</sec:authorize>
 		<ul id="mobile" class="cd-faq__group">
 			<li class="cd-faq__title"><h2>관리자</h2></li>
 			<li class="cd-faq__item">
@@ -106,6 +106,7 @@
 				</div>
 			</li>
 		</ul>
+		</sec:authorize>
 
 		<!-- 
 		<ul id="account" class="cd-faq__group">
