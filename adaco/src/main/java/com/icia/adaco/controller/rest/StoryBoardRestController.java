@@ -16,7 +16,7 @@ import com.icia.adaco.service.rest.*;
 public class StoryBoardRestController {
 	@Autowired
 	private StoryRestService restService;
-
+ 
 	//@PreAuthorize("isAuthenticated()")
 	@PatchMapping("/story/update")
 	public ResponseEntity<?> updateStory(Principal principal, StoryBoardDto.DtoforUpdate updateDto) {
