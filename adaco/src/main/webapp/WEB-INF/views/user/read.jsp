@@ -182,7 +182,7 @@ $(function(){
 		}).done(()=>{alert("비밀번호 변경 성공")})
 		  .fail(()=>{alert("비밀번호 변경 실패")})
 	})
-		$("#sajin").on("change", loadImage);
+	$("#sajin").on("change", loadImage);
 	$("#update").on("click",function(){
 		var $email1 = $("#email1").val();
 		var $email2 = $("#email2").val();
