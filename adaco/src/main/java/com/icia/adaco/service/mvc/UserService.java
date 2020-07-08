@@ -155,7 +155,7 @@ public class UserService {
 	public List<Review> reviewList(String username){
 		return userDao.listByReviewUser(username);
 	}
-
+		
 	public int delete(String username) {
 		User user = userDao.findByid(username);
 		System.out.println(user+"유저");
