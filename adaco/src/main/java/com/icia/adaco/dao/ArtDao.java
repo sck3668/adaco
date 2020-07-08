@@ -80,6 +80,7 @@ public class ArtDao {
 	public int countByArt() {
 		return tpl.selectOne("artMapper.count");
 	}
+
 	
 	////////////////////// 회원 전용 ///////////////////////////
 	

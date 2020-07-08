@@ -53,7 +53,7 @@ public class ArtRestService {
 		art = modelMapper.map(dto, Art.class);
 		option = modelMapper.map(dto,Option.class);
 		if(artSajin!=null && artSajin.isEmpty()==false) {
-			File file = new File("d:/upload/artfile",artSajin.getName());
+			File file = new File("d:/upload/artfile",artSajin.getOriginalFilename());
 			if (file.exists() == true)
 				file.delete();
 			if (artSajin.getContentType().toLowerCase().startsWith("image/") == true) {

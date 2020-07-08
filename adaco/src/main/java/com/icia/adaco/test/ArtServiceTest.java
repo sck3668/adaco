@@ -57,7 +57,7 @@ public class ArtServiceTest {
 	public ArtDto.DtoForWrite getDtoForWrite() {
 		ArtDto.DtoForWrite dto = new DtoForWrite();
 		dto.setArtDate(LocalDateTime.now());
-		dto.setArtName("테스트상품17");
+		dto.setArtName("테스트상품18");
 		dto.setCategory("카테고리다2");
 		dto.setCourier("로젠택배");
 		dto.setTag("검색태그");
@@ -83,7 +83,7 @@ public class ArtServiceTest {
 	//@Test
 	public void writeWithSajinTest() throws IllegalStateException, IOException, MessagingException {
 		ArtDto.DtoForWrite dto = getDtoForWrite();
-		File targetFile = new File("d:/test5.jpg");
+		File targetFile = new File("d:/test1.jpg");
 		MockMultipartFile file = new MockMultipartFile("artSajin", targetFile.getName(), "image/jpeg", new FileInputStream(targetFile));
 		artservice.write(dto, file);
 		
@@ -92,11 +92,11 @@ public class ArtServiceTest {
 	//작품 업데이트 테스트 메소드
 	public ArtDto.DtoForUpdate getDtoForUpdate() {
 		ArtDto.DtoForUpdate dto = new DtoForUpdate();
-		dto.setArtno(186);
+		dto.setArtno(221);
 		dto.setArtistNo(150);
 		dto.setUsername("leehj8462");
 		dto.setArtDetail("작품이야아아");
-		dto.setOptno(105);
+		dto.setOptno(121);
 		dto.setOptionName("사이즈");
 		return dto;
 	}
@@ -105,7 +105,7 @@ public class ArtServiceTest {
 	@Test
 	public void updateTest() throws FileNotFoundException, IOException {
 		ArtDto.DtoForUpdate dto = getDtoForUpdate();
-		File targetFile = new File("d:/test9.jpg");
+		File targetFile = new File("d:/test2.jpg");
 		MockMultipartFile file = new MockMultipartFile("artSajin", targetFile.getName(), "image/jpeg", new FileInputStream(targetFile));
 		service.updateArt(dto, file);
 		
