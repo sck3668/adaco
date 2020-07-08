@@ -31,7 +31,10 @@ public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler{
 		    	  User user =dao.findByid(username);
 		    	  if(user==null)
 		    		  session.setAttribute("msg", "아이디를 찾을수없습니다둥");
-		    	  rs.sendRedirect(request, response, "/user/login");
+		    	  
 		      }
+		      
+		      
+		      rs.sendRedirect(request, response, "/user/login");
 	}
 }
