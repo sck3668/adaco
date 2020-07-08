@@ -195,6 +195,10 @@ input[type="text"]:focus, input[type="text"]:hover {
 	var isLogin = false;
 	
 	$(function(){
+		if(notice.isImportant == true) {
+			$("input:checkbox[name=checkbox]").prop("checked", true);
+			console.log("진입테스트");			
+		}
 		if(isAdmin == true) {			
 			var ck = CKEDITOR.replace("content", {
 				height: 600,
@@ -224,6 +228,44 @@ input[type="text"]:focus, input[type="text"]:hover {
 			}).done((r)=>printAttachment(r)).fail((r)=>console.log(r));
 		})
 		
+		// 글 변경
+		$("#update").on("click", function() {
+			if($("input:checkbox[name=checkbox]").is(":checked") == true) 
+				$("#isImportant").val("1");
+			else 
+				$("#isImportant").val("0");
+			
+			var params = {
+				noticeno: notice.noticeno,
+				title: $("#title").val(),
+				content: CKEDITOR.instances['content'].getData(),
+				isImportant: $("#isImportant").val(),
+				_csrf: "${_csrf.token}"
+			}
+			
+			
+			$.ajax({
+				url: "/adaco/admin/notice_update",
+				method: "post",
+				data: params
+			})
+			.done((result)=>{ location.reload(); })
+			.fail((result)=>{console.log(result)});
+		});
+		
+		// 글 삭제
+		$("#delete").on("click", function(){
+			var params = {
+					noticeno: notice.noticeno,
+					_method: "delete",
+					_csrf: "${_csrf.token}"
+			}
+			$.ajax({
+				url: "/adaco/admin/notice)delete",
+				method: "post",
+				data: params
+			}).done((r)=>location.href = r).fail((r)=>console.log(r));
+		});
 		
 	})
 </script>
@@ -254,7 +296,8 @@ input[type="text"]:focus, input[type="text"]:hover {
 				<div>
 		        	<input id="checkbox1" id= "checkbox" name="checkbox" type="checkbox"> <label for="checkbox1">중요 공지</label>
 	            </div>
-				<button type = "button" class = "btn btn-success" id = "write">작성</button>
+				<button type = "button" class = "btn btn-success" id = "update">변경</button>
+				<button type="button" class="btn btn-danger" id = "delete">삭제</button>
 	        </div>
 			</sec:authorize>
 			<a style="margin-left: 50px;"href="/adaco/admin/notice_list" class = "btn btn-primary">뒤로가기</a>			
