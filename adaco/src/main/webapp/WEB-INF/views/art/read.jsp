@@ -62,7 +62,7 @@ $(function() {
 					optionName:'${artPageByUser.optionName}',
 					optionValue:'${artPageByUser.optionValue}',
 					optionStock:${artPageByUser.optionStock},
-					optioncPrice:${artPageByUser.optionPrice},
+					optionPrice:'${artPageByUser.optionPrice}',
 			};
 			console.log(params);
 			alert("sss");

@@ -57,6 +57,7 @@ public class ArtRestService {
 			if (file.exists() == true) {
 				System.out.println("파일이" + file);
 				file.delete();
+				
 			}
 			if (artSajin.getContentType().toLowerCase().startsWith("image/") == true) {
 				int lastIndexOfDot = artSajin.getOriginalFilename().lastIndexOf('.');

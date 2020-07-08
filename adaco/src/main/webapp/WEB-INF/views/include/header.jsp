@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>           
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,6 +43,7 @@ $(function() {
 </script>
 </head>
 <body>
+<sec:authorize access="hasRole('ROLE_USER')">
       <div class="full-w gnb-scroll ">
       <div class="inner-w container_gnb">
         <ul class="ui_gnb">
@@ -66,11 +69,9 @@ $(function() {
           <li class="ui_gnb__menu">
             <a href="/adaco/story/listStory">스토리</a>
           </li>
-       
-          
-          
         </ul>
       </div>
       </div>
+      </sec:authorize>
 </body>
 </html>
