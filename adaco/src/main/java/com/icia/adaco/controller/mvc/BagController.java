@@ -108,9 +108,4 @@ public class BagController {
 		//System.out.println(bagList+"controller CartList");
 		//return ResponseEntity.ok(bagList);
 	//}
-<<<<<<< HEAD
 }
-=======
-		
-}
->>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
