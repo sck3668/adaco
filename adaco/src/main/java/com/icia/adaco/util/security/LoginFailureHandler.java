@@ -15,7 +15,7 @@ import org.springframework.stereotype.*;
 import com.icia.adaco.dao.*;
 import com.icia.adaco.entity.*;
 
-@Component("LoginFailureHandler")
+@Component("loginFailureHandler")
 public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler{
 	@Autowired
 	private UserDao dao;
@@ -30,7 +30,7 @@ public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler{
 		      if(exception instanceof BadCredentialsException) {
 		    	  User user = dao.findByid(username);
 		    	  if(user==null) {
-		    		  session.setAttribute("msg", "아이디를 찾을수없습니다둥");
+		    		  session.setAttribute("msg", "아이디를 찾을수없습니다");
 		    	  } else {
 		    		  int loginFailureCnt = user.getLoginFailureCnt()+1;
 		    		  if(loginFailureCnt<5) {

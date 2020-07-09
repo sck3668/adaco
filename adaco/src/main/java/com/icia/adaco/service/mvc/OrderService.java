@@ -26,16 +26,24 @@ public class OrderService {
 	private OrderDao orderDao;
 	@Autowired
 	private UserDao userDao;
+	@Autowired
 	private BagDao bagDao;
+	@Autowired
 	private ArtDao artDao;
+<<<<<<< HEAD
 	private OptionDao optionDao;
 	private OrderDetailDao orderDetailDao;
 	@Autowired
 	private ObjectMapper objectMapper = new ObjectMapper();
+=======
+	@Autowired
+	private OrderDetailDao orderDDao;
+>>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 	@Autowired
 	private ModelMapper modelMapper;
 	
 		// 주문 하기    
+<<<<<<< HEAD
 //		public int Ordering(String username, Order order,OrderDto.DtoForOrdering Dto) {
 //			int orderno = order.getOrderno();
 //			modelMapper.map(Dto, Order.class);
@@ -59,6 +67,12 @@ public class OrderService {
 			OrderDetail orderDetail = orderDetailDao.OrderDetail(orderno);
 			OrderDto.DtoForOrdering dto = modelMapper.map(art, OrderDto.DtoForOrdering.class);
 			return orderno;
+=======
+		public void Ordering(Order order) {
+			int orderno = order.getOrderno();
+			OrderDetail OrderD = orderDDao.OrderDetail(orderno);
+			
+>>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 		}
 //		
 //		// 상품 상세에서 주문
