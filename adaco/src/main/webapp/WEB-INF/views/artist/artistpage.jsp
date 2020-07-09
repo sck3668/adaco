@@ -43,14 +43,8 @@
 }
 </style>
 <script>
-	function loadImage() {
-		var reader = new FileReader();
-		reader.onload = function(e) {
-			$("#show_profile").attr("src", e.target.result);
-		}
-		reader.readAsDataURL(file);
-		return true;
-	}
+	
+	
 </script>
 </head>
 <body>
@@ -67,16 +61,26 @@
 					</ul>
 				</div>
 			</div>
+			
 		</aside>
 		<section id="section">
 			<div id="myInfo">
 				<div id="my">
 					<h2>작가님의 정보</h2>
 				</div>
+			<ul class="dashboard-list">
+				<li><a href="/adaco/artist/orderAdmin">주문 배송관리</a></li>
+				<li><a href="/adaco/artist/sales">매출 관리</a></li>
+				<li><a href="/adaco/artist/shopMade">상점 개설</a></li>
+				<li><a href="/adaco/artist/#">정보변경</a></li>
+			</ul>
 				<div>
 					<img id="show_profile" height="200px;" src="${shop.image }">
+					<input type="hidden" value="${_csrf.token }">
+					 <div class="form-group">
+						<label for="sajin">상점사진</label>
+					</div>
 				</div>
-				<div></div>
 				<table class="table table-hover" id="user">
 					<tr>
 						<td><img width="120px" id="profile"></td>
@@ -90,7 +94,6 @@
 						<td colspan="2"><span id="shopIntro">${shop.shopIntro }</span></td>
 					</tr>
 				</table>
-					<input type="hidden" value="${_csrf.token }">
 			</div>
 		</section>
 	</div>
