@@ -3,13 +3,13 @@ package com.icia.adaco.service.rest;
 import java.io.*;
 
 import org.modelmapper.*;
+import org.omg.CORBA.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.crypto.password.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.multipart.*;
 
 import com.icia.adaco.dao.*;
-import com.icia.adaco.dto.*;
 import com.icia.adaco.dto.UserDto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.exception.*;
@@ -45,7 +45,7 @@ public class UserRestService {
 	public void delete(int favno) {
 			userDao.deleteFavorite(favno);
 	}
-	public void update(DtoForUpdate dto, MultipartFile sajin) throws IllegalStateException, IOException {
+	public void update(DtoForUpdate dto, MultipartFile sajin ) throws IllegalStateException, IOException {
 		// 비밀번호가 존재하는 경우 비밀번호 확인. 실패하면 작업 중지 
 		if(dto.getPassword()!=null) {
 			User user = userDao.findByid(dto.getUsername());
@@ -57,7 +57,7 @@ public class UserRestService {
 			if(pwdEncoder.matches(dto.getPassword(), encodedPassword)==false)
 				throw new JobFailException("비밀번호를 확인할 수 없습니다");
 			dto.setPassword(pwdEncoder.encode(dto.getNewPassword()));
-			System.out.println(dto+"서비스쪽 업데이트");
+			System.out.println(dto+"ㅎ");
 			
 		}
 		User user = modelMapper.map(dto, User.class);
@@ -91,5 +91,9 @@ public class UserRestService {
 		System.out.println("favorite==========="+favorite);
 		artDao.updateByArt(Art.builder().artno(artno).favorite(true).build());
 		return userDao.insertFavorite(favorite);
+	}
+	public void userDelete(String username) {
+		userDao.delete(username);
+		System.out.println(username);
 	}
 }
