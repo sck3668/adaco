@@ -85,8 +85,7 @@ public class StoryService {
 		System.out.println(readDto.setComments(storyCommentDao.findAllByCno(srn,ern))+"ㅎㅎㅎㅎㅎㅎㅎㅎㅎ");
 		String str = story.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일"));
 		readDto.setWriteDateStr(str);
-		
-		System.out.println(readDto+"리드디티오");
+		System.out.println(readDto+"gggggg");
 		return readDto;
 	}
 }

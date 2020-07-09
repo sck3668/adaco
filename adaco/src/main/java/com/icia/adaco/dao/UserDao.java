@@ -47,7 +47,6 @@ public class UserDao {
 		return sql.selectList("userMapper.findAllByPoint",username); 
 	}
 	
-	
 	public String findJoinCheckCode(String checkCode) {
 		return sql.selectOne("userMapper.findJoinCheckCode",checkCode);
 	}

@@ -68,7 +68,7 @@ public class UserService {
 		String authority= dto.getAuthority();
 		//violated - parent key not found
 		user.getCheckCode();
-		String checkCode = RandomStringUtils.randomAlphanumeric(10);
+		String checkCode = RandomStringUtils.randomAlphanumeric(20);
 		user.setCheckCode(checkCode);
 		user.setJoinDate(LocalDateTime.now());
 		userDao.insert(user);
@@ -140,12 +140,27 @@ public class UserService {
 			userDao.update(u);
 	}
 	//포인트 리스트
-	public List<Point> pointList(String username) {
-		List<Point> point = userDao.findAllByPoint(username);
-		System.out.println(point+"===========");
+	public List<Point> pointList(PointDto dto,String username) {
+			List<Point> point = userDao.findAllByPoint(username);
+			System.out.println(dto);
+			System.out.println(point+"========");
+			for(Point point1 : point) {
+				System.out.println(point1+"111111111111111111");
+				List<PointDto> list1 = new
+				PointDto dto1 = modelMapper.map(point,PointDto.class);
+				System.out.println("123123"+dto1+"==========");
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy년MM월dd일");
+				dto1.setEndDateStr(point1.getEndDate().format(dtf));
+				dto1.setStartDateStr(point1.getStartDate().format(dtf));
+				dto1.setUsername(point1.getUsername());
+				dto1.setPoint(point1.getPoint());
+				dto1.setTotalPoint(point1.getTotalPoint());
+				point.add(point1.getEndDate().format(dtf));
+			}
+			
+			return 	;
+		}
 		
-		return userDao.findAllByPoint(username);
-	}
 	//페이보릿즐찾리스트
 	public List<Favorite> favoriteList(String username){
 		System.out.println(username+"gggg");
@@ -178,6 +193,4 @@ public class UserService {
 			  }
 		return randomList;
 	}
-	
-	
 }

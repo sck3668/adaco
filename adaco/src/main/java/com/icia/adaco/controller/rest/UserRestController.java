@@ -3,6 +3,7 @@ package com.icia.adaco.controller.rest;
 import java.io.*;
 import java.security.*;
 
+import javax.validation.*;
 import javax.validation.constraints.*;
 
 import org.springframework.beans.factory.annotation.*;
@@ -33,7 +34,8 @@ public class UserRestController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@PutMapping("/user/update")
-	public ResponseEntity<Void> update(UserDto.DtoForUpdate dto, BindingResult results, MultipartFile sajin, Principal principal) throws BindException {
+	public ResponseEntity<Void> update(@Valid UserDto.DtoForUpdate dto, BindingResult results, MultipartFile sajin, Principal principal) throws BindException {
+		
 		if(results.hasErrors())
 			throw new BindException(results);
 		dto.setUsername(principal.getName());
@@ -65,11 +67,16 @@ public class UserRestController {
 //		return ResponseEntity.ok(null);
 //	}
 //	
-	
 	@PostMapping("/user/favoriteAdd")
 	public ResponseEntity<?> add(Principal principal,int artno) {
 		return ResponseEntity.ok(userRestService.favoriteAdd(principal.getName(), artno));
-		}
+	}
+	@PutMapping("/user/delete")
+	public ResponseEntity<?> delete(Principal principal) {
+		userRestService.userDelete(principal.getName());
+			System.out.println(principal.getName()+"로그인한아이디");
+		return ResponseEntity.ok(null);
+	}
 
 	
 }
