@@ -46,12 +46,14 @@
 </head>
 <body>
 <div>
+${point }
  <aside id="asideMain">
 	<div id="aside">
 		<div id="profile">
 		</div>
 		<div>
 			<ul>
+			
 				<li><a href="/adaco/user/read">내정보보기</a></li>
 				<li><a href="">주문내역</a></li>
 				<li><a href="/adaco/user/reviewList">내리뷰보기</a></li>
@@ -68,10 +70,7 @@
       <table class="table table-hover">
          <thead>
          <tr>
-         	<th>총금액</th>
-         </tr>
-         <tr>
-            <th>적립일</th><th>적립금</th><th>적립만료일</th>
+            <th>적립일</th><th>적립금</th><th>적립만료일</th><th>총금액</th>
          </tr>
          </thead>
          <tbody> 

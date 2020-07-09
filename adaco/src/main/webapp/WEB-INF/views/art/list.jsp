@@ -14,163 +14,64 @@
 </head>
 <body>
 ${artPage.artList }
-	<div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
-          <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-          </ol>
-          <div class="carousel-inner" role="listbox">
-            <div class="carousel-item active">
-              <img class="d-block img-fluid" src="${pageContext.request.contextPath}/image/main1.jpg" alt="First slide">
-            </div>
-            <div class="carousel-item">
-              <img class="d-block img-fluid" src="${pageContext.request.contextPath}/image/main2.jpg" alt="Second slide">
-            </div>
-            <div class="carousel-item">
-              <img class="d-block img-fluid" src="${pageContext.request.contextPath}/image/main1.jpg" alt="Third slide">
-            </div>
-          </div>
-          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
-        </div>
-
-        <div class="row">
-<c:forEach items="${artPage.artList }" var="art">
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="${pageContext.request.contextPath}image/art1.jpg" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                <sec:authorize access="isAnonymous()">
-               		<a href="/adaco/art/readByUser?artno=${art.artno}">
-                  	<img alt="작품 사진" src="${art.mainImg }"></a>
-                </sec:authorize>
-                <sec:authorize access="hasRole('ROLE_USER')">
-            		<a href="/adaco/art/readByUser?artno=${art.artno}">
-                  	<img alt="작품 사진" src="${art.mainImg }"></a>
-            	</sec:authorize>
-                <sec:authorize access="hasRole('ROLE_SELLER')">
-            		<a href="/adaco/art/readByArtist?artno=${art.artno}">
-                  	<img alt="작품 사진" src="${art.mainImg }"></a>
-                 </sec:authorize>
-                </h4>
-                <h5>${art.artName}</h5>
-                <p class="card-text">${art }</p>
-              </div>
-              <div class="card-footer">
-              <c:choose>
-              <c:when test="${art.favorite==false}">
-              <input type="text" value="${art.artno }">
-                <button type="button" class="favorite">
-                	<small class="text-muted"> &#9734;</small>
-                </button>
-              </c:when>
-              <c:otherwise>
-              <input type="hidden" value="${art.artno }">
-               <button type="button" class="favorite">
-              	<small class="text-muted"> &#9733;</small>
-              	</button>
-              </c:otherwise>
-              </c:choose> 
-              </div>
-            </div>
-          </div>
-</c:forEach>
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="image/art2.jpg" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item Two</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="image/art3.jpg" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item Three</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item Four</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item Five</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item Six</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- /.row -->
-      </div>
-      <!-- /.col-lg-9 -->
-    </div>
-    <!-- /.row -->
-  </div>
+	<div>
+		<table class="table table-hover">
+			<colgroup>
+				<col width="10%">
+				<col width="40%">
+				<col width="10%">
+				<col width="30%">
+				<col width="10%">
+			</colgroup>
+			<thead>
+				<tr>
+					<th>작품 번호</th>
+					<th>카테고리</th>
+					<th>작품이미지</th>
+					<th>작품명</th>
+					<th>가격</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+	<div style="text-align:center;">
+		<ul class="pagination">
+			<c:if test="${page.prev==true}">
+				<li><a href="/adaco/art/listByArtist?pageno=${page.startPage-1}">이전</a></li>
+			</c:if>
+			<c:forEach begin="${page.startPage}" end="${page.endPage}" var="i">
+				<c:choose>
+					<c:when test="${page.pageno eq i }">
+						<li class="active">
+							<a href="/adaco/art/listByArtist?pageno=${i}">${i}</a>
+						</li>
+					</c:when>
+					<c:otherwise>
+						<li><a href="/adaco/art/listByArtist?pageno=${i}">${i}</a></li>
+					</c:otherwise>
+				</c:choose>
+				
+			</c:forEach>
+			<c:if test="${page.next==true}">
+				<li><a href="/adaco/art/listByArtist?pageno=${page.endPage+1}">다음</a></li>
+			</c:if>
+		</ul>
+	</div>
+	<!--  <div class="form-group">
+		<a class="btn btn-info" href="/aboard/board/write">글쓰기</a>
+	</div>-->
+	
+	<div class="modal fade" id="myModal" role="dialog" style="top:40%;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body" >
+					<ul>
+						<li id="read_by_id" data-dismiss='modal'>게시물 보기</li>
+						<li id="find_joindate">가입일 보기</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
