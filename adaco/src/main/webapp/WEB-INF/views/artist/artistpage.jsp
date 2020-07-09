@@ -61,12 +61,19 @@
 					</ul>
 				</div>
 			</div>
+			
 		</aside>
 		<section id="section">
 			<div id="myInfo">
 				<div id="my">
 					<h2>작가님의 정보</h2>
 				</div>
+			<ul class="dashboard-list">
+				<li><a href="/adaco/artist/orderAdmin">주문 배송관리</a></li>
+				<li><a href="/adaco/artist/sales">매출 관리</a></li>
+				<li><a href="/adaco/artist/shopMade">상점 개설</a></li>
+				<li><a href="/adaco/artist/#">정보변경</a></li>
+			</ul>
 				<div>
 					<img id="show_profile" height="200px;" src="${shop.image }">
 					<input type="hidden" value="${_csrf.token }">

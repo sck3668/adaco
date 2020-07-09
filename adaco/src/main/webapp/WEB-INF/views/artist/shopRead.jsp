@@ -90,6 +90,7 @@ ${shop }
 	<form action="/adaco/artist/updateByShop" method="post"  id="joinForm" enctype="multipart/form-data">
 		<div>
 			<img id ="show_profile" height="200px;" src="${shop.image }">
+			
 			 <input type="hidden" name="_csrf" value="${_csrf.token }">
 			<button type="button" id="profileUpdate">프로필사진 업데이트</button>
 		</div>
