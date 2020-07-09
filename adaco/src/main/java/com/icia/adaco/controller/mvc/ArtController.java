@@ -35,7 +35,7 @@ public class ArtController {
 	@GetMapping("/art/listByArtist")
 	public ModelAndView artList(@RequestParam(defaultValue = "1") int pageno) {
 		System.out.println("controller");
-		return new ModelAndView("main").addObject("viewName","user/section.jsp").addObject("artPage",artservice.list(pageno));
+		return new ModelAndView("main").addObject("viewName","art/list.jsp").addObject("artPage",artservice.list(pageno));
 	}
 	//
 	// 작품 리스트(최신순) + 작품 이름으로 작품 검색(회원용)

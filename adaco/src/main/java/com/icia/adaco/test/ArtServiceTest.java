@@ -89,11 +89,11 @@ public class ArtServiceTest {
 	//작품 업데이트 테스트 메소드
 	public ArtDto.DtoForUpdate getDtoForUpdate() {
 		ArtDto.DtoForUpdate dto = new DtoForUpdate();
-		dto.setArtno(221);
+		dto.setArtno(271);
 		dto.setArtistNo(150);
 		dto.setUsername("leehj8462");
 		dto.setArtDetail("작품이야아아");
-		dto.setOptno(121);
+		dto.setOptno(127);
 		dto.setOptionName("사이즈");
 		return dto;
 	}
@@ -102,7 +102,7 @@ public class ArtServiceTest {
 	@Test
 	public void updateTest() throws FileNotFoundException, IOException {
 		ArtDto.DtoForUpdate dto = getDtoForUpdate();
-		File targetFile = new File("d:/test1.jpg");
+		File targetFile = new File("d:/test4.jpg");
 		MockMultipartFile file = new MockMultipartFile("artSajin", targetFile.getName(), "image/jpeg", new FileInputStream(targetFile));
 		service.updateArt(dto, file);
 		
