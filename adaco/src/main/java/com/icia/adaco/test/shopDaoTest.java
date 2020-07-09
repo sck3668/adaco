@@ -18,7 +18,7 @@ import com.icia.adaco.entity.*;
 public class shopDaoTest {
 	@Autowired
 	private ShopDao shopDao;
-
+  
 	//@Test
 	public void inserTest() {
 		Shop shop = Shop.builder().shopName("테스트").shopIntro("테스트해보기").
@@ -35,27 +35,22 @@ public class shopDaoTest {
 //	public void findByShopnoTest() {
 //		assertThat(shopDao.readByShop(2), is(notNullValue()));
 //	}
-//	//@Test
-//	public void deleteTest() {
-//		assertThat(shopDao.deleteByArt(3), is(1));
-//	}
+	//@Test
+	public void deleteTest() {
+		assertThat(shopDao.deleteByShop(227), is(notNullValue()));
+	}
 	
 	//@Test
 	public void readT() {
 		assertThat(shopDao.readByShop(169), is(notNullValue()));
 	}
 	
-	@Test
+	//@Test
 	public void updateByShopTest() {
 		Shop shop = Shop.builder().shopno(169).shopName("업데이트").shopIntro("dao에서").businessno("22222").account("33333").image("11").forwarding("인천일보")
 				.back("하하횟집").build();
 		assertThat(shopDao.updateByShop(shop), is(notNullValue()));
 	}
-	
-	
-	
-	
-	
 	
 	
 	

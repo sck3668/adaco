@@ -52,15 +52,6 @@ ${shop }
 	<div id="aside">
 		<div id="profile">
 		</div>
-		<div>
-			<ul>
-				<li><a href="/adaco/user/read">내정보보기</a></li>
-				<li><a href="#">주문내역</a></li>
-				<li><a href="/adaco/user/reviewList">내리뷰보기</a></li>
-				<li><a href="/adaco/user/favoriteList">즐겨찾기목록</a></li>
-				<li><a href="/adaco/user/pointList">포인트함 </a>
-			</ul>
-		</div>
 	</div>
 	</aside>
 	<section id="section">
