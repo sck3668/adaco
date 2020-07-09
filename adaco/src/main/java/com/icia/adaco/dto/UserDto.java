@@ -48,9 +48,9 @@ public class UserDto {
 		private String username;
 		@Pattern(regexp="^[가-힣]{2,5}$", message="이름은 한글 2~5자입니다")
 		private String irum;
-		@Pattern(regexp="(?=.*[!@#$%^&*])^[A-Za-z0-9!@#$%^&*]{8,10}$", message="비밀번호는 특수문자를 포함하는 영숫자 8~10자입니다")
+		@Pattern(regexp="(?=.*[!@#$%^&*])^[A-Za-z0-9!@#$%^&*]{8,12}$", message="비밀번호는 특수문자를 포함하는 영숫자 8~10자입니다")
 		private String password;
-		@Pattern(regexp="(?=.*[!@#$%^&*])^[A-Za-z0-9!@#$%^&*]{8,10}$", message="비밀번호는 특수문자를 포함하는 영숫자 8~10자입니다")
+		@Pattern(regexp="(?=.*[!@#$%^&*])^[A-Za-z0-9!@#$%^&*]{8,12}$", message="비밀번호는 특수문자를 포함하는 영숫자 8~10자입니다")
 		private String newPassword;
 		@Pattern(regexp="^[0-9]{9,11}$", message="전화번호는 숫자 9~11자입니다")
 		private String tel;
