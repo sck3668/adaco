@@ -25,7 +25,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.icia.adaco" />
+	<context:component-scan base-package="com.icia.adaco.controller" />
 	
 	<!-- 스프링 시큐리티 어노테이션 활성화 -->
 	<sec:global-method-security pre-post-annotations="enabled" secured-annotations="enabled" />
