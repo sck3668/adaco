@@ -85,7 +85,7 @@ public class ArtServiceTest {
 		artservice.write(dto, file);
 		
 	}
-	
+	//
 	//작품 업데이트 테스트 메소드
 	public ArtDto.DtoForUpdate getDtoForUpdate() {
 		ArtDto.DtoForUpdate dto = new DtoForUpdate();

@@ -52,7 +52,7 @@ public class ArtRestService {
 			throw new JobFailException("상품 수정 권한이 없습니다");
 		art = modelMapper.map(dto, Art.class);
 		option = modelMapper.map(dto,Option.class);
-		if(artSajin!=null && artSajin.isEmpty()==false) {
+		/*if(artSajin!=null && artSajin.isEmpty()==false) {
 			File file = new File("d:/upload/artfile",artSajin.getName());
 			if (file.exists() == true) {
 				System.out.println("파일이" + file);
@@ -70,7 +70,7 @@ public class ArtRestService {
 			}
 		} else {
 			throw new JobFailException("등록된 사진이 없습니다");
-		}
+		}*/
 		option.setArtno(art.getArtno());
 		optionDao.updateByOption(option);
 		artDao.updateByArt(art);
