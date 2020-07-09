@@ -28,10 +28,10 @@ public class OrderController {
 	}
 	
 	// 주문하기
-	@PostMapping("/order/ordering")
-	public ResponseEntity<?> Ordering(Integer orderno, Principal principal){
-		return ResponseEntity.ok(orderService.Ordering(orderno));
-	}
+//	@PostMapping("/order/ordering")
+//	public ResponseEntity<?> Ordering(Integer orderno, Principal principal){
+//		return ResponseEntity.ok(orderService.Ordering(orderno));
+//	}
 		
 	// 결제하기
 	@GetMapping("/order/payment")

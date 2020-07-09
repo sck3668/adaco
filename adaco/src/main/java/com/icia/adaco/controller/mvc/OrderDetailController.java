@@ -56,7 +56,7 @@ public class OrderDetailController {
 			return new ModelAndView("main").addObject("viewName", "order_detail/orderdetail.jsp");
 		}
 		
-
+		
 		@PostMapping("/orderdetail/payment")
 		public String buyAll(String json,Principal principal) throws JsonParseException, JsonMappingException, IOException {
 			List<Order> list = objectMapper.readValue(json, new TypeReference<List<Order>>() {});

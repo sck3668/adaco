@@ -93,10 +93,10 @@ public class OrderService {
 //		}
 		
 		// 장바구니에 담긴 상품 주문하기
-		public void BagByOrder(String username,OrderDto.DtoForOrdering Dto) {
+		public void BagByOrder(String username,OrderDto.DtoForOrdering Dto,Integer orderno) {
 			Order order = modelMapper.map(Dto,Order.class);
 			Bag bag = modelMapper.map(Dto,Bag.class);
-			orderDao.Ordering(order);
+			orderDao.Ordering(orderno);
 		}
 		// 주문 내역 보기
 		public List<Order> findAllByOrder(){
