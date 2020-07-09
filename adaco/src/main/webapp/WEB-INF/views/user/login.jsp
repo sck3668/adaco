@@ -14,8 +14,6 @@
 <script>
 	$(function() {
 		$("#login").on("click", function() {
-			console.log($("#loginForm").serialize());
-			alert("DD");
 			$("#loginForm").submit();
 		});
 	})

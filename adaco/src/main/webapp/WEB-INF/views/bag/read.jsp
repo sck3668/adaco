@@ -84,7 +84,9 @@ function printBag(bag,dest) {
 	$("<span>").text(bag.amount).appendTo($div);
 	$("<a href='#'>-</a>").attr("class","minus").attr("data-artno", bag.artno).appendTo($div);
 
-	$("<td class='six'>").text(bag.totalPrice).appendTo($tr);
+	$("<td class='six'>").text(bag.art.price).appendTo($tr);
+	
+	$("<span>").text(bag.art.price*bag.amount).appendTo($div);
 }
 
 //1-2. 장바구니 전체 출력함수 - printCart()를 호출해 각 장바구니를 출력
@@ -112,11 +114,12 @@ function printOption(option,dest) {
 }
 
 function printOptionList() {
-//	var $optionArea = $("#optionArea");
-//	var optionList = bag;
-//	$.each(optionList,function(idx,option) {
-//		printOption(option,$optionArea);
-//	})
+	var $optionArea = $("#optionArea");
+	var optionList = option;
+	console.log(optionList);
+	$.each(optionList,function(idx,option) {
+		printOption(option[idx],$optionArea);
+	})
 }
 
 
@@ -135,6 +138,7 @@ $(function() {
 		data:parmas
 	}).done((result)=>{ 
 		bagList = result;
+		option = bagList.option;
 		printBagList();
 		printOptionList();
 	})
@@ -257,7 +261,6 @@ $(function() {
 				};
 				ar.push(obj);
 			}
-			
 		});
 		var $form = $("<form>").attr("action","/adaco/orderdetail/payment").attr("method","get");
 		$("<input>").attr("type","hidden").attr("name","json").val(JSON.stringify(ar)).appendTo($form);

@@ -1,3 +1,4 @@
+
 package com.icia.adaco.entity;
 
 import lombok.*;

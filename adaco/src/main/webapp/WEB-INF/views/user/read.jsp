@@ -179,6 +179,7 @@ $(function(){
 			password:$password,
 			newPassword:$newPassword
 		};
+		console.log(parmas)
 		$.ajax({
 			data:parmas,
 			method:"post",
@@ -191,6 +192,7 @@ $(function(){
 	$("#update").on("click", function(){
 		var email = $("#email1").val()+"@"+$("#email2").val();
 		var tel = $("#tel").val();
+		console.log(tel)
 		var formData = new FormData();   //요소들이 없을수도 있을수도 있는상황이라 form이라는 전체로 바꾸는 객체는 사용할수없다
 		formData.append("email", email);
 		formData.append("tel", tel);
@@ -216,7 +218,6 @@ $(function(){
 				
 		});
 	/* $("#update").on("click",function(){
-		
 		var $email1 = $("#email1").val();
 		var $email2 = $("#email2").val();
 		console.log($email1)

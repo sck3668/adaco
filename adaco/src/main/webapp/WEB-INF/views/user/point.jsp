@@ -46,6 +46,7 @@
 </head>
 <body>
 <div>
+${point }
  <aside id="asideMain">
 	<div id="aside">
 		<div id="profile">

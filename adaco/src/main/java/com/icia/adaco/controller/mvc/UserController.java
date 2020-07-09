@@ -152,7 +152,11 @@ public class UserController {
 	//포인트 메인화면
 	//@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/pointList")
-	public ModelAndView userPoint(PointDto dto) {
+	public ModelAndView userPoint(PointDto dto,Principal principal) {
+		userService.pointList(dto, principal.getName());
+		System.out.println(userService.pointList(dto, principal.getName()+"ggggggggggggggg"));
+		return new ModelAndView("main").addObject("viewName","user/point.jsp")
+				.addObject("point",userService.pointList(dto, principal.getName()));
 	}
 	//리뷰 리스트
 	//@PreAuthorize("isAuthenticated()")

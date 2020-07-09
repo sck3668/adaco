@@ -29,6 +29,7 @@ public class ArtistController {
 	//	@PreAuthorize("isAuthenticated()")
 		@GetMapping("/artist/artistpage")
 		public ModelAndView artistRead(Principal principal) {
+			System.out.println("artistpage  name======="+principal.getName());
 			int artistno = artistDao.findArtistnoByUsername(principal.getName());
 			Shop shop = shopDao.readShopByArtistno(artistno);
 			int shopno = shop.getShopno();
