@@ -17,8 +17,11 @@ public class OrderService {
 	private OrderDao orderDao;
 	@Autowired
 	private UserDao userDao;
+	@Autowired
 	private BagDao bagDao;
+	@Autowired
 	private ArtDao artDao;
+	@Autowired
 	private OrderDetailDao orderDDao;
 	@Autowired
 	private ModelMapper modelMapper;
@@ -26,8 +29,8 @@ public class OrderService {
 		// 주문 하기    
 		public void Ordering(Order order) {
 			int orderno = order.getOrderno();
-			OrderDetail OrderD = orderDDao.
-			orderDao.Ordering(order);
+			OrderDetail OrderD = orderDDao.OrderDetail(orderno);
+			
 		}
 		
 		

@@ -170,4 +170,27 @@ public class UserService {
 	public List<Review> reviewList(String username){
 		return userDao.listByReviewUser(username);
 	}
+		
+	public int delete(String username) {
+		User user = userDao.findByid(username);
+		System.out.println(user+"유저");
+		if(user.getUsername().equals(username)==false)
+			throw new JobFailException("유저가다름");
+		return userDao.delete(username);
+		
+	}
+	// 2단계 아이디 찾기 시 랜덤 이름 값
+	public List<String> findAllIrum() {
+		List<String> list = new ArrayList<String>();
+		list.addAll(userDao.findAllIrum());
+		ArrayList<String> randomList = new ArrayList<String>();
+		Random ra = new Random();
+		int maxSize = userDao.findAllIrum().size();
+		  for(int i=0; i<maxSize ;i++){
+			   int rv = ra.nextInt(list.size());
+			   randomList.add(list.get(rv));
+			   list.remove(rv);
+			  }
+		return randomList;
+	}
 }

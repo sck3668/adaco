@@ -93,6 +93,8 @@ public class UserController {
 	// false면 비밀번호 찾기므로 비밀번호 찾기로 이동
 	@PostMapping("/user/findIdPwd")
 	public ResponseEntity<String> findIdPwd(String findIdPwd,String tel,HttpSession session) {
+		System.out.println("findIdPwd===="+findIdPwd);
+		System.out.println("tel========"+tel);
 		if(findIdPwd.equals("findId")==true) {
 			String irum = userService.findByTel(tel);
 			System.out.println(irum+"=======");
@@ -116,7 +118,7 @@ public class UserController {
 		session.removeAttribute("irum");
 		return new ModelAndView("main")
 				.addObject("viewName","user/find_id2.jsp")
-				.addObject("irum",irum);
+				.addObject("irum",irum).addObject("irumAll",userService.findAllIrum());
 				
 	}
 	
@@ -126,8 +128,7 @@ public class UserController {
 	public String findId2(String irum,RedirectAttributes ra) {
 		String username = userService.findByIrum(irum);
 		System.out.println(username);
-			
-		ra.addAttribute("msg","당신의아이디"+username);
+		ra.addFlashAttribute("msg","당신의아이디:"+username);
 		System.out.println(username+"ggggggggggggg");	
 		return "redirect:/user/login";
 	}
@@ -180,5 +181,23 @@ public class UserController {
 	public ModelAndView messageList(Principal principal) {
 		return new ModelAndView("main").addObject("viewName","user/messageList.jsp");
 	}
+	@PostMapping("/user/delete")
+	public int delete(Principal principal) {
+			System.out.println(principal.getName()+"로그인한아이디");
+		return userService.delete(principal.getName());
+	}
 	
+	//@PreAuthorize("isAuthenticated()")
+	@GetMapping("/user/changePwd")
+	public ModelAndView changePwd() {
+		return new ModelAndView("main").addObject("viewName","user/changePwd.jsp");
+	}
+	
+	//@PreAuthorize("isAuthenticated()")
+	@PostMapping("/user/changePwd")
+	public String changePwd(@RequestParam @NotNull String password, @RequestParam @NotNull String newPassword, Principal principal, RedirectAttributes ra) {
+		//userService.changePwd(password, newPassword, principal.getName());
+		ra.addFlashAttribute("msg", "비밀번호를 변경했습니다");
+		return "redirect:/";
+	}
 }
