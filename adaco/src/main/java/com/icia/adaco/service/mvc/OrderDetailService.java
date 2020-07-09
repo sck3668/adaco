@@ -19,7 +19,7 @@ public class OrderDetailService {
 	
 	// 주문하기
 	@PreAuthorize("isAuthenticated()")
-	public int Ordering(String username,OrderDetailDto.DtoForOrdering dto,Order order) {
+	public int payment(String username,OrderDetailDto.DtoForDeleteOrder dto) {
 		OrderDetail orderdetail = modelMapper.map(dto, OrderDetail.class);
 		orderDetailDao.Payment(orderdetail);
 	return orderdetail.getOrderno();

@@ -4,6 +4,8 @@ package com.icia.adaco.controller.mvc;
 import java.io.*;
 import java.security.*;
 
+import javax.validation.*;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.lang.*;
@@ -60,18 +62,18 @@ public class ArtController {
 		return new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPageByUser", service.readArtFromUser(artno, username));
 	}
 	//
-	// 작품 등록
+	// 작품 등록 + 등록시 필요한 artistno, shopno 받아오기
 	//@PreAuthorize("isAuthenticated()")
 	@GetMapping("/art/write")
-	public ModelAndView write() {
-		return new ModelAndView("main").addObject("viewName","art/write.jsp");
+	public ModelAndView write(Principal principal) {
+		return new ModelAndView("main").addObject("viewName","art/write.jsp").addObject("artInfo", artservice.infoRead(principal.getName()));
 	}
 	
 	//작품 등록
 	//@CacheEvict(value="findAllCachce", allEntries = true)
 	//@PreAuthorize("isAuthenticated()")
 	@PostMapping("/art/write")
-	public String write(ArtDto.DtoForWrite dto, BindingResult results,MultipartFile artSajin, Principal principal) throws BindException {
+	public String write(@Valid ArtDto.DtoForWrite dto, BindingResult results,MultipartFile artSajin, Principal principal) throws BindException {
 		if(results.hasErrors())
 			throw new BindException(results);
 		dto.setUsername(principal.getName());
@@ -80,6 +82,11 @@ public class ArtController {
 		} catch(IllegalStateException | IOException e) {
 			e.printStackTrace();
 		}
-		return "redirect:/art/list";
+		return "redirect:/art/listByArtist";
 	}
+	
+
+	
+	
+	
 }

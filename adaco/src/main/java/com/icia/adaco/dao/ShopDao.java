@@ -41,4 +41,10 @@ public class ShopDao {
 	public int deleteByShop(int shopno) {
 		return sql.delete("shopMapper.delete",shopno);
 	}
+	
+	
+	//작품 등록에 필요
+		public int readShopnoByArtistno(int artistno) {
+			return sql.selectOne("shopMapper.readShopnoByArtistno", artistno);
+		}
 }

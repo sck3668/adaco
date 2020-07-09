@@ -46,7 +46,6 @@ public class StoryRestService {
 		story = modelMapper.map(updateDto, Story.class);
 		
 		storyDao.update(story);
-		
 	}
 
 	public void deleteStory(Principal principal, Integer storyno) {

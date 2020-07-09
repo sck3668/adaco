@@ -1,13 +1,19 @@
 package com.icia.adaco.service.mvc;
 
+import java.io.*;
+import java.security.*;
 import java.util.*;
 
 import org.apache.jasper.tagplugins.jstl.core.Set;
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
+import org.springframework.web.bind.annotation.*;
 
 import com.fasterxml.jackson.annotation.ObjectIdGenerators.*;
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.core.type.*;
+import com.fasterxml.jackson.databind.*;
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.dto.OrderDto.*;
@@ -25,6 +31,8 @@ public class OrderService {
 	private OptionDao optionDao;
 	private OrderDetailDao orderDetailDao;
 	@Autowired
+	private ObjectMapper objectMapper = new ObjectMapper();
+	@Autowired
 	private ModelMapper modelMapper;
 	
 		// 주문 하기    
@@ -38,12 +46,12 @@ public class OrderService {
 //		}
 		
 		// 2
-		public int Ordering(Integer orderno) {
-			Art art = artDao.readByArt(orderno);
-			Option option = optionDao.readByArtno(orderno);
-			OrderDetail orderDetail = orderDetailDao.OrderDetail(orderno);
-			return orderno;
-		}
+//		public int Ordering(Integer orderno) {
+//			Art art = artDao.readByArt(orderno);
+//			Option option = optionDao.readByArtno(orderno);
+//			OrderDetail orderDetail = orderDetailDao.OrderDetail(orderno);
+//			return orderno;
+//		}
 		// 3
 		public int Ordering2(Integer orderno) {
 			Art art = artDao.readByArt(orderno);
@@ -93,10 +101,10 @@ public class OrderService {
 //		}
 		
 		// 장바구니에 담긴 상품 주문하기
-		public void BagByOrder(String username,OrderDto.DtoForOrdering Dto,Integer orderno) {
+		public void BagByOrder(String username,OrderDto.DtoForOrdering Dto) {
 			Order order = modelMapper.map(Dto,Order.class);
 			Bag bag = modelMapper.map(Dto,Bag.class);
-			orderDao.Ordering(orderno);
+			orderDao.Ordering(order);
 		}
 		// 주문 내역 보기
 		public List<Order> findAllByOrder(){
@@ -107,8 +115,10 @@ public class OrderService {
 		public void findByOrder(Integer orderno) {
 			orderDao.findByOrder(orderno);
 		}
-		public Object Payment(String username, Order order, Integer artno, DtoForOrdering dto) {
-			// TODO Auto-generated method stub
+
+		public Object Payment(String username, Order order, Integer artno) {
+			
 			return null;
 		}
+
 }

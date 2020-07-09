@@ -43,7 +43,7 @@ public class ShopDto {
 	@AllArgsConstructor
 	@NoArgsConstructor
 	public static class DtoForUpdate {
-		private Integer shopno;
+		private Integer shopno; 		
 		private String shopName;
 		private String shopIntro;
 		private String image;

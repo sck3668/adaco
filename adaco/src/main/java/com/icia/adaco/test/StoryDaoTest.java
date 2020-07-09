@@ -22,7 +22,7 @@ public class StoryDaoTest {
 	@Inject
 	private StoryDao storyDao;
 
-	 @Test
+	// @Test
 	public void insertTest() {
 		for (int i = 1; i < 11; i++) {
 			storyDao.insert(Story.builder().artistno(8).writeDate(LocalDateTime.now()).title("안녕" + i).content("하세요").writer("글쓴이")
@@ -36,9 +36,9 @@ public class StoryDaoTest {
 		storyDao.update(story);
 	}
 
-	// @Test
+	 @Test
 	public void deleteTest() {
-		assertThat(storyDao.delete(4), is(1));
+		assertThat(storyDao.delete(227), is(notNullValue()));
 	}
 
 	//@Test

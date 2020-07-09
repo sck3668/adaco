@@ -207,6 +207,10 @@
 	    }
 	    
 	    function addBackAddress() {
+	    	const backAddress1 = $("#back_address").val();
+	    	const backAddress2 = $("#back_detailAddress").val();
+	    	const backAddress3 = $("#back_extraAddress").val();
+	    	const back = backAddress1 + backAddress2 + backAddress3
 	    	//$('<input>').attr('type','hidden').attr('name','back').val(back).appendTo($("#joinForm"));
 	    	if(back.length==0)
 	    		return printErrorMsg($("#b_msg"), "주소는 공백으로 할 수 없어요")
@@ -240,6 +244,7 @@
 	    	$("#back_detailAddress").on("blur", addBackAddress);
 	    	$("#back_extraAddress").on("blur", addBackAddress);
 	    	$("#join").on("click",function() {
+	    		
 	    		const startAddress1 = $("#forwarding_address").val();
 		    	const startAddress2	= $("#forwarding_detailAddress").val();
 		    	const startAddress3 = $("#forwarding_extraAddress").val();
@@ -252,6 +257,13 @@
 		    	const back = backAddress1 + backAddress2 + backAddress3
 		    	$('<input>').attr('type','hidden').attr('name','back').val(back).appendTo($("#joinForm"));
 		    	console.log($("#joinForm").serialize());
+		    	
+		    	const businessno1 = $("#businessno1").val();
+				const businessno2 = $("#businessno2").val();
+				const businessno3 = $("#businessno3").val();
+		  		const businessno = businessno1 + businessno2 + businessno3
+		  		$('<input>').attr('type','hidden').attr('name','businessno').val(businessno).appendTo($("#joinForm"));
+		    	
 		    	
 		    	
 		    	
@@ -283,8 +295,8 @@
 	    		}else {
 	    			console.log("fail==========");
 	    		}
-	    		})
-	    })
+	    		});
+	    });
 </script>
 </head>
 <body>

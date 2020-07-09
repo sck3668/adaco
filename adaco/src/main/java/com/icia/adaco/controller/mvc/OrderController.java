@@ -1,13 +1,17 @@
 package com.icia.adaco.controller.mvc;
 
+import java.io.*;
 import java.security.*;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.http.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
 
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.core.type.*;
+import com.fasterxml.jackson.databind.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.service.mvc.*;
@@ -17,14 +21,18 @@ public class OrderController {
 
 	@Autowired
 	private OrderService orderService;
+	@Autowired
+	private ObjectMapper objectMapper = new ObjectMapper();
+
+	
 
 	// 주문 하기
 	@GetMapping("/order/ordering")
 	public ModelAndView Ordering(Principal principal,int orderno) {
 		String id = principal.getName();
-		orderService.Ordering( orderno);
+		orderService.Ordering2( orderno);
 //		String user = username(principal.getName());
-		return new ModelAndView("main").addObject("viewName", "order/ordering.jsp").addObject("Odering",orderService.Ordering(orderno));
+		return new ModelAndView("main").addObject("viewName", "order/ordering.jsp").addObject("Odering",orderService.Ordering2(orderno));
 	}
 	
 	// 주문하기
@@ -36,9 +44,15 @@ public class OrderController {
 	// 결제하기
 	@GetMapping("/order/payment")
 	public ModelAndView Payment(String username,Order order,Integer artno,OrderDto.DtoForOrdering Dto ) {
-		return new ModelAndView("main").addObject("viewName", "order/payment.jsp").addObject("orders",orderService.Payment(username, order, artno, Dto));
+		return new ModelAndView("main").addObject("viewName", "order/payment.jsp").addObject("orders",orderService.Payment(username, order, artno));
 	}
-
+//	@PostMapping("/orderdetail/payment")
+//	public String buyAll(String json,Principal principal) throws JsonParseException, JsonMappingException, IOException {
+//		List<Order> list = objectMapper.readValue(json, new TypeReference<List<Order>>() {});
+//		System.out.println(list);
+//		return null;
+//	}
+	
 	// 주문 내역 보기
 	@GetMapping("/order/list")
 	public ModelAndView findAllByOrder() {
@@ -51,6 +65,7 @@ public class OrderController {
 		return new ModelAndView("main").addObject("viewName", "order/read");
 	}
 
+	
 	// 결제 완료
 	@GetMapping("/order/after")
 	public ModelAndView after() {
@@ -65,4 +80,5 @@ public class OrderController {
 //		return new ModelAndView("main").addObject("viewName", "order/carByorder");
 //	}
 
+	
 }

@@ -44,7 +44,7 @@ public class ShopController {
 	//상점보기 화면
 	//@PreAuthorize("isAuthenticated()")
 	@GetMapping("/artist/shopRead")
-	public ModelAndView shopRead(Principal principal) {
+	public ModelAndView shopRead(Principal principal, @Nullable MultipartFile sajin) {
 		int artistno = artistDao.findArtistnoByUsername(principal.getName());
 		System.out.println("artisno======"+artistno);
 		Shop shop = shopDao.readShopByArtistno(artistno);

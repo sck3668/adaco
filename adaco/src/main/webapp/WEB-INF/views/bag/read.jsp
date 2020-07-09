@@ -255,6 +255,7 @@ $(function() {
 		alert("찍어보자~");
 		var params = {
 				_csrf:"${_csrf.token}",
+				orderno : $(this).attr("data-orderno"),
 				username: "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}",
 // 				totalPrice: ${orders.price},
 // 				orderno:${}
