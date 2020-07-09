@@ -59,4 +59,5 @@ public class UserDto {
 		private String profile;
 		private String birthDateStr;
 	}
+	
 }

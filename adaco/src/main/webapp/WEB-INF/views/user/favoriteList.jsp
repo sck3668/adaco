@@ -50,7 +50,6 @@
 					_method:"put",
 					_csrf:"${_csrf.token}",	
 					favno :$(this).next().val()
-					
 			}
 			console.log(params)
 			$.ajax({

@@ -31,25 +31,7 @@
 	</script>
 </sec:authorize>
 <script>
-function printComment(comments){
-	var $comments = $("#comments");
-	$comments.empty();
-	$.each(comments, function(i/* index */, comment /* key */) {
-	// 객체를 전달받으면 index는 객체의 key(property)를 가리키고 
-	// item은 키의 값을 가져옵니다.
-		var $comment = $("<div>").appendTo($comments);
-		var $upper_div = $("<div>").appendTo($comment);
-		var $center_div = $("<div>").appendTo($comment);
-		var $lower_div = $("<div>").appendTo($comment);
-		$("<span></span>").text(comment.writer).appendTo($upper_div);
-		console.log(comment.writer)
-		$("<span>").text(comment.content).appendTo($center_div);
-		
-		$("<hr>").appendTo($comment);
-	});
-}
 	$(function(){
-		/* printComment(comments); */
 		var story = "${story}";
 		
 		if(isLogin==true && story.writer==loginId){
@@ -66,13 +48,15 @@ function printComment(comments){
 		}
 		$("#comment_write").on("click",function(){
 			$comments=$("#textarea").val();
+			console.log($comments);
+			alert("DDDD");
 			if(isLogin==false)
 				return
 			var params = {
 					_method:"put",
 					_csrf:"${_csrf.	token}",
 					storyno:$("#storyno").val(),
-					content:$comments
+					content:$("#textarea").val()
 			}
 			console.log(params)
 				$.ajax({
@@ -80,7 +64,7 @@ function printComment(comments){
 					data:params,
 					method:"post"
 					
-				}).done((comments)=>{printComment(comments)})
+				}).done((r)=>{console.log(r)})
 				  .fail((r)=>{console.log(r)})
 		})
 		
@@ -89,9 +73,9 @@ function printComment(comments){
 </head>
 <body>	
 <%-- ${story.comments[].cno} --%>
- <c:forEach items="${story.comments }" var="comments1" >
- 	<input type="text">${comments1.content } 
- </c:forEach> 
+ <%-- <c:forEach items="${story.comments }" var="comments1" >
+ 	<input type="text" value="${comments1}">
+ </c:forEach>  --%>
  <div id="wrap">
 	<div>
 		<div class = "form-group">
@@ -103,7 +87,7 @@ function printComment(comments){
 			</div>
 			<div class = "form-group" id ="content_div">
 				<div class = "form-group">
-					<p class = "form-control" id = "content" name = "content" cols="50" rows="10" readonly="readonly" style="background-color: white;" value="${story.content }">${story.content }
+					<p class = "form-control" id = "content" name = "content" cols="50" rows="10" readonly="readonly" style="background-color: white;" >${story.content }
 				</div>
 			</div>
 			
@@ -135,15 +119,32 @@ function printComment(comments){
 		<div>
 			<div class="form-group">
 				<label for="comment_textarea">댓글을 입력하세요</label>
-				<textarea class="form-control" rows="5"	id="comment_textarea" placeholder="욕설이나 모욕적인 댓글은 삭제될 수 있습니다" disabled="disabled"></textarea>
-				<input type="hidden" value="${comments1.content}" id="textarea">
+				<textarea class="form-control" rows="5"	id="comment_textarea" placeholder="욕설이나 모욕적인 댓글은 삭제될 수 있습니다" disabled="disabled" ></textarea>
 				<input type="hidden" value="${story.storyno }" id="storyno">
+				<c:forEach begin="1" end="${story}" var="i">
+					<input type="text" value="${story.comments[i].cno}" id="textarea">
+				</c:forEach>
 			</div>
 			<button type="button" class="btn btn-info" 
 				id="comment_write" disabled="disabled">댓글 작성</button>
 		</div>
 		<hr>
 		<div id="comments">
+		<div>
+			<c:forEach items="${story.comments}" var ="comments">
+			
+			<div id="upper_div">
+				${comments.content }
+			</div>
+			<div id="center_div">
+				${comments.content }
+			</div>
+			<div id="lower_div">
+				${comments.content }
+			</div>
+			</c:forEach>
+		</div>
+		
 		</div>
 	</div>
 </body>
