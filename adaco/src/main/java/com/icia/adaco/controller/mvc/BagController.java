@@ -109,8 +109,4 @@ public class BagController {
 		//return ResponseEntity.ok(bagList);
 	//}
 		
-		
-		
-		
-		
 }

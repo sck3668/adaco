@@ -17,10 +17,10 @@
 				radio_btn_check++;
 				var params = {
 					findIdPwd : radio_btn[i].value,
-					tel : $("#tel").val()
+					tel : $("#tel").val(),
+					_csrf:'${_csrf.token}'
 					
 				};
-				alert("AA");
 				$.ajax({
 					url : "/adaco/user/findIdPwd",
 					data : params,
@@ -47,7 +47,6 @@
 </script>
 </head>
 <body>
-${tel }
 	<!--  핸드폰 인증api(rest)-->
 	<!-- <form action="/adaco/user/findIdPwd" method="post" id="findIdForm"> -->
 	<form id="findIdForm">
