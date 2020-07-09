@@ -44,5 +44,4 @@ public class BagDto {
 		private Art art;
 	}
 	
-	
 }

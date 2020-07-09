@@ -270,7 +270,9 @@ $(function() {
 })
 </script>
 </head>
+
 <body>
+${bag }
 	<table style="width:800px;">
 	<colgroup>
       		<col width="5%">

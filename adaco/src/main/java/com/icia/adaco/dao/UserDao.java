@@ -76,4 +76,9 @@ public class UserDao {
 	public int reviewDelete(int rno) {
 		return sql.delete("userMapper.reviewDelete",rno);
 	}
+	
+	// 유저 모든 이름 찾기
+	public List<String> findAllIrum() {
+		return sql.selectList("userMapper.findAllIrum");
+	}
 }
