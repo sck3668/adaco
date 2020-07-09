@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -72,6 +73,8 @@
 		display: inline-block;
 	}
 </style>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 <script>
 
 function makePage(){
@@ -80,18 +83,13 @@ function makePage(){
 	
 	// 전화번호와 이메일 출력
 	var email = "${user.email}";	
-	console.log(email)
 	// 이메일을 읽어와 @를 기준으로 분리
 	var indexOfAt = email.indexOf("@");
-	console.log(indexOfAt)
+	
 	var email1 = email.substr(0, indexOfAt);
-	console.log(email1)
 	var email2 = email.substr(indexOfAt+1);
-	console.log(email2)
 	$("#email1").val(email1);
 	$("#email2").val(email2);
-	console.log(email1)
-	console.log(email2)
 	// #selectEmail에서 선택한 이메일 서버와 email2에 출력되는 서버를 동기화한다
 	var $select = $("#selectEmail").find("option");
 	$select.each(function(idx, option) {
@@ -101,8 +99,9 @@ function makePage(){
 	});
 	
 	// 전화번호를 10자, 11자인 경우 각각 분리해서 출력
-	
 }
+
+
 function loadImage() {
 	
 	var file = $("#sajin")[0].files[0];
@@ -126,18 +125,24 @@ function loadImage() {
 function page(){
 	$("#passwordArea").hide();
 	}
+
 $(function(){
 	makePage();
 	page();
 	$("#delete").on("click",function(){
+		var parmas = {
+				_csrf:"${_csrf.token}",
+				_method:"put"
+				
+		}
+		console.log(parmas)
 		$.ajax({
-			data:"${user.username}",
-			url:"/adaco/user/delete",
-			method:"post"
-		}).done((r)=>{console.log(r),alert("삭제성공")})
-		  .fail((r)=>{console.log(r),alert("..ㅇㅅㅇ")})
-		
+			method:"post",
+			data:parmas
+		}).done((r)=>{console.log(r),location.href="/adaco/"})
+		  .fail((r)=>{console.log(r)})
 	})
+	
 	
 	$("#selectEmail").on("change",function(){
 		var choice = $("#selectEmail").val();
@@ -174,7 +179,6 @@ $(function(){
 			password:$password,
 			newPassword:$newPassword
 		};
-		console.log(parmas)
 		$.ajax({
 			data:parmas,
 			method:"post",
@@ -183,12 +187,41 @@ $(function(){
 		  .fail(()=>{alert("비밀번호 변경 실패")})
 	})
 		$("#sajin").on("change", loadImage);
-	$("#update").on("click",function(){
+	
+	$("#update").on("click", function(){
+		var email = $("#email1").val()+"@"+$("#email2").val();
+		var tel = $("#tel").val();
+		var formData = new FormData();   //요소들이 없을수도 있을수도 있는상황이라 form이라는 전체로 바꾸는 객체는 사용할수없다
+		formData.append("email", email);
+		formData.append("tel", tel);
+		if($("#sajin")[0].files[0]!=undefined)
+			formData.append("sajin", $("#sajin")[0].files[0]);
+		formData.append("_csrf", "${_csrf.token}");
+		formData.append("_method", "put");
+		
+		for (var key of formData.keys()) {
+			  console.log(key);
+			}
+		for (var value of formData.values()) {
+			  console.log(value);
+			}
+		$.ajax({
+				url:"/adaco/user/update",
+				data: formData,
+				method:"post",
+				processData:false,
+				contentType:false
+			}).done((r)=> {console.log(r)})
+			  .fail((r)=> {console.log(r)});
+				
+		});
+	/* $("#update").on("click",function(){
+		
 		var $email1 = $("#email1").val();
 		var $email2 = $("#email2").val();
 		console.log($email1)
 		console.log($email2)
-		var $email = $email1+$email2;
+		var $email = $email1+"@"+$email2;
 		console.log($email)
 		var $tel = $("#tel").val();
 		console.log($tel)
@@ -200,24 +233,25 @@ $(function(){
 		var params = {
 				_method:"put",
 				_csrf:"${_csrf.token}",
-				sajin:$sajin,
 				tel:$tel,
-				email:$email,
+				email:$email
 		}
 		console.log(params)
+		console.log(profile)
 		$.ajax({
 			url:"/adaco/user/update",	
 			data:params,
 			method:"post"
 		}).done((r)=>{console.log(r)})
 		  .fail((r)=>{console.log(r)});
-	})
+	}) */
 });
 
 </script>
 </head>
 <body>
-<form> 
+${user }
+
 <div>
  <aside id="asideMain">
 	<div id="aside">
@@ -239,6 +273,7 @@ $(function(){
 		<div>
 			<img id ="show_profile" height="200px;" src="${user.profile }">
 		</div>
+	
 		<div>
 			<input type="file" name="sajin" id="sajin">
 		</div>
@@ -283,10 +318,9 @@ $(function(){
 			</td>
 			</tr>
 		</table>	
-		<button type="button" class="btn btn-info" id="update">변경하자</button>
+		<button type="button" class="btn btn-info" id="update">변경</button>
 		<button type="button" class="btn btn-info" id="delete">탈퇴</button>
 	</section>
 	</div>
-</form>
 </body>
 </html>

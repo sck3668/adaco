@@ -68,7 +68,7 @@ public class UserService {
 		String authority= dto.getAuthority();
 		//violated - parent key not found
 		user.getCheckCode();
-		String checkCode = RandomStringUtils.randomAlphanumeric(10);
+		String checkCode = RandomStringUtils.randomAlphanumeric(20);
 		user.setCheckCode(checkCode);
 		user.setJoinDate(LocalDateTime.now());
 		userDao.insert(user);
@@ -140,15 +140,10 @@ public class UserService {
 			userDao.update(u);
 	}
 	//포인트 리스트
-	public List<Point> pointList(String username) {
-		List<Point> point = userDao.findAllByPoint(username);
-		for(Point point1:point) {
+	public List<Point> pointList(PointDto dto) {
 			
 		}
-			
-		System.out.println(point+"=======");
-		return userDao.findAllByPoint(username);
-	}
+		
 	//페이보릿즐찾리스트
 	public List<Favorite> favoriteList(String username){
 		System.out.println(username+"gggg");
@@ -157,14 +152,5 @@ public class UserService {
 	//유저리뷰함
 	public List<Review> reviewList(String username){
 		return userDao.listByReviewUser(username);
-	}
-		
-	public int delete(String username) {
-		User user = userDao.findByid(username);
-		System.out.println(user+"유저");
-		if(user.getUsername().equals(username)==false)
-			throw new JobFailException("유저가다름");
-		return userDao.delete(username);
-		
 	}
 }
