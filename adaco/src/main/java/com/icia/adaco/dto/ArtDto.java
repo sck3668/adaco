@@ -153,6 +153,16 @@ public class ArtDto {
 		private String mainImg;
 		private Integer stock;
 	}
+	
+	// 작품 등록시 유제네임으로 작가번호, 상점번호 받아오기
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Builder
+	public static class DtoForArtistnoAndShopno{
+		private Integer shopno;
+		private Integer artistno;
+	}
 
 }
 
