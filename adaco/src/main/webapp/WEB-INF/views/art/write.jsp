@@ -40,7 +40,7 @@
 		$("#optionPrice").on("blur", checkOptionPrice);
 		$("#optionStock").on("blur", checkOptionStock);
 		$("#artTag").on("blur", checkArtTag);
-		$("#artCouriPrice").on("blur", checkCouriPrice);
+		$("#couriPrice").on("blur", checkCouriPrice);
 		
 		// form을 넘기기전에 값 확인
 		$("#insert_Btn").on("click", function() {
@@ -63,7 +63,6 @@
 		var result = r1 && r2 && r3 && r4 && r5 && r6 && r7 && r8 && r9 && r10;
 		if(result===true) {
 			 $("#insert_art").submit();
-			 alert("SS");
 		}
 	});
 });
@@ -86,10 +85,12 @@
 				<label>카테고리</label> <select id="category" name="category">
 					<option value="카테고리 선택" selected="selected">카테고리 선택</option>
 					<option value="가방,파우치">가방,파우치</option>
-					<option value="공예품">공예품</option>
+					<option value="공예">공예</option>
 					<option value="악세서리">악세서리</option>
 					<option value="카테고리다">카테고리다</option>
 				</select> 
+				<input type="hidden" id="shopno" name="shopno" value="${artInfo.shopno}"/>
+				<input type="hidden" id="artistno" name="artistno" value="${artInfo.artistno}"/>
 			</div>
 			<div class="inputArea">
 				<label for="artName">작품명</label>
@@ -151,7 +152,7 @@
 			</div>
 			<div class="inputArea">
 				<label for="artCouriPrice">배송가격</label> 
-				<input type="text" id="artCouriPrice" name="artCouriPrice" />
+				<input type="text" id="couriPrice" name="couriPrice" />
 				<span id="artCouriPrice_msg"></span>
 			</div>
 			<div class="inputArea" align="center">

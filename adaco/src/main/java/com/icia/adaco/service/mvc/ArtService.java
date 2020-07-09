@@ -13,6 +13,7 @@ import org.springframework.web.multipart.*;
 
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
+import com.icia.adaco.dto.AdminBoardDto.DtoForIndex;
 import com.icia.adaco.dto.ArtDto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.exception.*;
@@ -26,6 +27,10 @@ public class ArtService {
 	private OptionDao optionDao;
 	@Autowired
 	private ModelMapper modelMapper;
+	@Autowired
+	private ArtistDao artistdao;
+	@Autowired
+	private ShopDao shopdao;
 	@Value("d:/upload/artfile")
 	private String artfileFolder;
 	@Value("http://localhost:8081/artfile/")
@@ -59,8 +64,17 @@ public class ArtService {
 			
 		}
 	}
-
-	// 작품 리스트 (작가용) /
+	
+	// 작품 등록 시 필요한 artistno와 shopno 받아오기
+	public ArtDto.DtoForArtistnoAndShopno infoRead(String username) {
+		Integer artistno = artistdao.findArtistnoByUsername(username);
+		ArtDto.DtoForArtistnoAndShopno dto = new DtoForArtistnoAndShopno();
+		dto.setArtistno(artistno);
+		dto.setShopno(shopdao.readShopnoByArtistno(artistno));
+		return dto;
+	}
+	
+	// 작품 리스트 (작가용) 
 	public Page list(int pageno) {
 		int countOfArt = artdao.countByArt();
 		Page page = PagingUtil.getPage(pageno, countOfArt);
@@ -84,13 +98,11 @@ public class ArtService {
 		int ern = page.getEndRowNum();
 		page.setSearch(artname);
 		List<Art> artList = artdao.listByArtFromUser(srn, ern, artname);
-		//System.out.println("artlist===="+artList);
 		List<ArtDto.DtoForList> dtoList = new ArrayList<ArtDto.DtoForList>();
 		for (Art art : artList) {
 			ArtDto.DtoForList dto = modelMapper.map(art, ArtDto.DtoForList.class);
 			dtoList.add(dto);
 		}
-		//System.out.println(dtoList+"===========야");
 		page.setArtList(dtoList);
 		return page;
 	}

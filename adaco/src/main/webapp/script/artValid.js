@@ -79,7 +79,7 @@ function checkCourier() {
 //배송 가격 확인
 function checkCouriPrice() {
 	var pattern = /^[0-9]{1,4}$/;
-	return check($("#artCouriPrice").val(), pattern, $("#artCouriPrice_msg"), "1~9,999까지 입력 가능합니다.")
+	return check($("#couriPrice").val(), pattern, $("#artCouriPrice_msg"), "1~9,999까지 입력 가능합니다.")
 }
 
 

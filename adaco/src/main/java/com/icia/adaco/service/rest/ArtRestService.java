@@ -53,6 +53,11 @@ public class ArtRestService {
 		art = modelMapper.map(dto, Art.class);
 		option = modelMapper.map(dto,Option.class);
 		if(artSajin!=null && artSajin.isEmpty()==false) {
+			File file = new File("d:/upload/artfile",artSajin.getName());
+			if (file.exists() == true) {
+				System.out.println("파일이" + file);
+				file.delete();
+			}
 			if (artSajin.getContentType().toLowerCase().startsWith("image/") == true) {
 				int lastIndexOfDot = artSajin.getOriginalFilename().lastIndexOf('.');
 				String extension = artSajin.getOriginalFilename().substring(lastIndexOfDot + 1);

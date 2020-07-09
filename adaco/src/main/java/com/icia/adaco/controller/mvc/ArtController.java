@@ -62,11 +62,11 @@ public class ArtController {
 		return new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPageByUser", service.readArtFromUser(artno, username));
 	}
 	//
-	// 작품 등록
+	// 작품 등록 + 등록시 필요한 artistno, shopno 받아오기
 	//@PreAuthorize("isAuthenticated()")
 	@GetMapping("/art/write")
-	public ModelAndView write() {
-		return new ModelAndView("main").addObject("viewName","art/write.jsp");
+	public ModelAndView write(Principal principal) {
+		return new ModelAndView("main").addObject("viewName","art/write.jsp").addObject("artInfo", artservice.infoRead(principal.getName()));
 	}
 	
 	//작품 등록
@@ -84,4 +84,9 @@ public class ArtController {
 		}
 		return "redirect:/art/listByArtist";
 	}
+	
+
+	
+	
+	
 }

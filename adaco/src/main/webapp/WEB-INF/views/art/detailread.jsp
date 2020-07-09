@@ -103,7 +103,7 @@ $(function() {
 	
 	function loadImage() {
 	
-	var file = $("#artImg")[0].files[0];
+	var file = $("#artSajin")[0].files[0];
 	var maxSize = 1024*1024; // 1MB
 	if(file.size>maxSize) {
 		Swal.fire({
@@ -111,7 +111,7 @@ $(function() {
 		  	title: '크기 오류',
 			text: '파일크기는 1MB를 넘을 수 없습니다'
 		});
-		$("#artImg").val("");
+		$("#artSajin").val("");
 		return false;
 	}
 	var reader = new FileReader();
@@ -121,8 +121,15 @@ $(function() {
 	reader.readAsDataURL(file);
 	return true;
 	
-	$("#artImg").on("change", loadImage);
+	$("#artSajin").on("change", loadImage);
 	}
+	
+	// '취소'클릭 시 상품목록으로 이동 
+	$(function() {
+		$("#back_Btn").on("click", function() {
+			location.href="/adaco/art/listByArtist";
+		});
+	});
 	
 	
 
@@ -156,7 +163,7 @@ ${artDetailPage}
 				<td class="first">작품 이미지</td>
 				<td colspan="2">
 				<img id="show_artfile" height="200px;" src="${artDetailPage.mainImg }" alt="상품 사진">
-				<input type="file" id="artImg" name="artImg" />
+				<input type="file" id="artSajin" name="artSajin" />
 				</td>
 			</tr>
 			<tr>
