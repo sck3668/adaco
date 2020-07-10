@@ -46,7 +46,6 @@
 </head>
 <body>
 <div>
-${point }
  <aside id="asideMain">
 	<div id="aside">
 		<div id="profile">
@@ -76,9 +75,9 @@ ${point }
          <tbody> 
          	<c:forEach items="${point}" var="list">
          	<tr>
-         	      <td>${list.startDate }</td>
+         	      <td>${list.startDateStr }</td>
                   <td>${list.point }</td>
-           	      <td>${list.endDate }</td>
+           	      <td>${list.endDateStr }</td>
            	      <td>${list.totalPoint}</td>
            </tr> 
 			 </c:forEach>

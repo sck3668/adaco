@@ -80,5 +80,9 @@
 	<select id="findAllIrum" resultType="string">
 		select irum from users
 	</select>
+	<select id="TotalPoint" resultType="string">
+		select TotalPoint 
+	</select>	
+	
 </mapper>
 

@@ -82,7 +82,6 @@ public class StoryService {
 		Page page = PagingUtil.getPage(pageno, countOfBoard);
 		int srn = page.getStartRowNum();
 		int ern = page.getEndRowNum();
-		System.out.println(readDto.setComments(storyCommentDao.findAllByCno(srn,ern))+"ㅎㅎㅎㅎㅎㅎㅎㅎㅎ");
 		String str = story.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일"));
 		readDto.setWriteDateStr(str);
 		System.out.println(readDto+"gggggg");
