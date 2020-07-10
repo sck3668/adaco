@@ -154,7 +154,6 @@ public class ArtDto {
 		private Integer stock;
 	}
 	
-<<<<<<< HEAD
 	public static class DtoForOrder{
 		private Integer artno;
 		private String artName;
@@ -164,7 +163,6 @@ public class ArtDto {
 		private Integer couriPrice;
 	}
 }
-=======
 	// 작품 등록시 유제네임으로 작가번호, 상점번호 받아오기
 	@Data
 	@AllArgsConstructor
@@ -174,7 +172,3 @@ public class ArtDto {
 		private Integer shopno;
 		private Integer artistno;
 	}
-
-}
-
->>>>>>> branch 'master' of https://github.com/sck3668/adaco.git

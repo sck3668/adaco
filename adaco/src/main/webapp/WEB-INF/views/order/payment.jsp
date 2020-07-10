@@ -41,23 +41,26 @@ $(function(){
 	$("#userinfo").on("click", function(){
 		var info = [];
 		ajax{
-			url:"adaco/admin/order_detail/orderdetail"
+			url:"adaco/order/orderdetail"
 			method: "get"
 			data: params,
 			}).doen(()=>{location.reload(); })
 			.fail((xhr)=>{console.log(xhr)})
 			
-			var $form = $("<form>").attr("action", "/adaco/order_detail/payment").attr("method", "get")
+			var $form = $("<form>").attr("action", "/adaco/order/payment").attr("method", "get")
 			$("<input>").attr("type", "hidden").attr("name", "cnos").val(ar).appendTo($form);
 			$("<input>").attr("type", "hidden").attr("name", "_csrf").val("${_csrf.token}").appendTo($form);
 			$form.appendTo($("body")).submit();
 		}
 })
-
 </script>
 
 </head>
 <body>
+${ordrs }
+${bag }
+${art }
+${user }
 <div id="content" class="content" data-page="payment" data-address-page="payment" style="padding-bottom:0">
     <form
         class="form-payment"
@@ -263,6 +266,7 @@ $(function(){
         element_wrap.style.display = 'block';
     }
 </script>
+
 <br><br><br><br><br><br><br>
                         <div class="address-section" data-address="root">
                             <div class="tab-style-btn">

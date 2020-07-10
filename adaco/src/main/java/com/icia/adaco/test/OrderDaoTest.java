@@ -23,7 +23,7 @@ public class OrderDaoTest {
 	@Test
 	public void insertByOrderTest() {
 		Order order = Order.builder()
-				.username("spring131")
+				.username("syi15931")
 				.orderDate(LocalDateTime.now())
 				.shippingCharge(3000)
 				.build();

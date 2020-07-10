@@ -51,6 +51,25 @@ $(function() {
 		})
 	})
 	
+	// 구매하기
+	$("#payment").on("click",function(){
+		var params  ={
+			_csrf: "${_csrf.token}",
+			username: "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}",
+			artno:${artPageByUser.artno},
+			totalPrice:${artPageByUser.price},
+			amount:1,
+			optionName:'${artPageByUser.optionName}',
+			optionValue:'${artPageByUser.optionValue}',
+			optionStock:${artPageByUser.optionStock},
+			optionPrice:'${artPageByUser.optionPrice}',
+		};
+		console.log(params);
+			alert("var");
+		$.ajax({
+		})
+	})
+	
 	//장바구니 추가
 	$("#addBag").on("click",function() {
 			var params = {
@@ -63,7 +82,7 @@ $(function() {
 					optionValue:'${artPageByUser.optionValue}',
 					optionStock:${artPageByUser.optionStock},
 					optionPrice:'${artPageByUser.optionPrice}',
-			});
+			};
 			console.log(params);
 			alert("sss");
 			$.ajax({
@@ -83,12 +102,11 @@ $(function() {
 					
 		})
 	
+	
+	
+	
 });
 
-
-$(function() {
-		
-	})
 </script>
 </head>
 <body>	

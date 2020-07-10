@@ -41,9 +41,9 @@ public class BagServiceTest {
 	
 	@Test
 	public void inserByBagTest() {
-		Art art = artDao.readByArt(58);
-		Option option = optionDao.readOptionByArtno(58);
-		BagDto.DtoForWrite dto = BagDto.DtoForWrite.builder().artno(58).artName(art.getArtName())
+		Art art = artDao.readByArt(280);
+		Option option = optionDao.readOptionByArtno(133);
+		BagDto.DtoForWrite dto = BagDto.DtoForWrite.builder().artno(280).artName(art.getArtName())
 				.price(art.getPrice()).mainImg(art.getMainImg())
 				.artDate(art.getArtDate()).amount(art.getStock())
 				.totalPrice(art.getPrice()).optionName(option.getOptionName())
@@ -59,7 +59,7 @@ public class BagServiceTest {
 		Bag bag = 
 				Bag.builder().username("spring23230")
 				.artno(33).totalPrice(2000).amount(8)
-				.optionName("사이즈").optionValue("24").build();
+				.optionName("사이즈").optionValue("24").build	();
 		int b = bagdao.insertByBag(bag);
 		assertThat(b, is(1));
 		

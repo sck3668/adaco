@@ -1,16 +1,12 @@
 package com.icia.adaco.controller.mvc;
 
-import java.io.*;
 import java.security.*;
-import java.util.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
 
-import com.fasterxml.jackson.core.*;
-import com.fasterxml.jackson.core.type.*;
 import com.fasterxml.jackson.databind.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
@@ -62,7 +58,7 @@ public class OrderController {
 	// 주문 상세 보기
 	@GetMapping("/order/read")
 	public ModelAndView findByOrder() {
-		return new ModelAndView("main").addObject("viewName", "order/read");
+		return new ModelAndView("main").addObject("viewName", "order/read.jsp");
 	}
 
 	

@@ -1,22 +1,15 @@
 package com.icia.adaco.service.mvc;
 
-import java.io.*;
-import java.security.*;
 import java.util.*;
 
-import org.apache.jasper.tagplugins.jstl.core.Set;
+import org.junit.jupiter.engine.discovery.predicates.*;
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
-import org.springframework.web.bind.annotation.*;
 
-import com.fasterxml.jackson.annotation.ObjectIdGenerators.*;
-import com.fasterxml.jackson.core.*;
-import com.fasterxml.jackson.core.type.*;
 import com.fasterxml.jackson.databind.*;
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
-import com.icia.adaco.dto.OrderDto.*;
 import com.icia.adaco.entity.*;
 
 @Service
@@ -58,6 +51,7 @@ public class OrderService {
 //		}
 		// 3
 		public int Ordering2(Integer orderno) {
+//			Art art = ModelMapper.map(dto, Art.class);
 			Art art = artDao.readByArt(orderno);
 			Option option = optionDao.readByArtno(orderno);
 			OrderDetail orderDetail = orderDetailDao.OrderDetail(orderno);
@@ -85,8 +79,11 @@ public class OrderService {
 		// 주문 내역
 		public List<OrderDto.DtoForOrdering> BagByOrder(String username,int orderno){
 			OrderDto.DtoForOrdering orderdto = new OrderDto.DtoForOrdering();
-			List<Order> OrderList = (List<Order>) orderDao.findByOrder(orderno);	
+			System.out.println("=======1111");
+			List<Order> OrderList = (List<Order>) orderDao.findByOrder(orderno);
+			System.out.println("======222");
 			List<OrderDto.DtoForOrdering> dtolist = new ArrayList<>();
+			System.out.println("===================333");
 		for(Order order:OrderList) {
 //			int orderno = order.getOrderno();
 //			Order order = orderDao.findByOrder(orderno);
@@ -128,5 +125,11 @@ public class OrderService {
 			
 			return null;
 		}
+		
+		// 주문 완료 후 장바구니 제거
+		
+		// 주문알람(유저용)
+		
+		// 주문-결제하면 이벤트 발생시키는 서비스
 
 }
