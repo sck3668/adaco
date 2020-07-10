@@ -46,9 +46,9 @@ public class ArtController {
 	}
 	
 	// 작품 리스트 (일단 리뷰5이상인) (회원용)
-	@GetMapping("/art/listByReview")
+	@GetMapping("/user/artListByReview")
 	public ModelAndView listReviewManyArt(@RequestParam(defaultValue = "1") int pageno, @Nullable String artname) {
-		return new ModelAndView("main").addObject("viewName","user/section2.jsp").addObject("artReviewPage",artservice.listManyReview(pageno));
+		return new ModelAndView("main").addObject("viewName","user/manyReview.jsp").addObject("artReviewPage",artservice.listManyReview(pageno));
 	}
 	
 	// 작품 상세보기 (작가용)

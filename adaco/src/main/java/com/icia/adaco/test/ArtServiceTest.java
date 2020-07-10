@@ -72,12 +72,13 @@ public class ArtServiceTest {
 		dto.setShopno(5);
 		dto.setArtDetail("작품입니다");
 		dto.setCouriPrice(2500);
+		dto.setReviewCnt(5);
 		return dto;
 	}
 	
 	
 	// 작품 등록 테스트 (작가용) ok
-	//@Test
+	@Test
 /*	public void writeWithSajinTest() throws IllegalStateException, IOException, MessagingException {
 		ArtDto.DtoForWrite dto = getDtoForWrite();
 		File targetFile = new File("d:/test2.jpg");
@@ -123,11 +124,11 @@ public class ArtServiceTest {
 	}
 	
 	// 작품 삭제 테스트 ok
-	@Test
+	/*@Test
 	public void deleteTest() {
 		boolean result = service.deleteArt(318, "leehj8462",177);
 		assertThat(result, is(true));	
-	}
+	}*/
 	
 	// 작품 댓글 작성 테스트 ok
 	//@Test

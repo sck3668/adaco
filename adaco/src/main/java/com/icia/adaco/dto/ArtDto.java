@@ -40,6 +40,7 @@ public class ArtDto {
 		private Integer optionStock;
 		private Integer optionPrice;
 		private String artDetail;
+		private Integer reviewCnt;
 	
 		//
 	}
@@ -154,6 +155,14 @@ public class ArtDto {
 		private Integer stock;
 	}
 	
+	public static class DtoForOrder{
+		private Integer artno;
+		private String artName;
+		private Integer price;
+		private String mainImg;
+		private Integer stock;
+		private Integer couriPrice;
+	}
 	// 작품 등록시 유제네임으로 작가번호, 상점번호 받아오기
 	@Data
 	@AllArgsConstructor
@@ -163,6 +172,4 @@ public class ArtDto {
 		private Integer shopno;
 		private Integer artistno;
 	}
-
 }
-

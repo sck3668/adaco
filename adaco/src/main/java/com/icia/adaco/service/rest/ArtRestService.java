@@ -132,8 +132,9 @@ public class ArtRestService {
 	}
 
 	// 작품 삭제
-	public boolean deleteArt(Integer artno, String username, Integer optno) {
+	public boolean deleteArt(Integer artno, String username) {
 		Art art = artDao.readByArt(artno);
+		int optno = optionDao.readByArtno(artno).getOptno();
 		Option option = optionDao.readByOption(optno);
 		Integer artistno = artistDao.findArtistnoByUsername(username);
 		String artWriter = artistDao.findByid(artistno).getUsername();

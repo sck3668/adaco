@@ -84,9 +84,7 @@ function printBag(bag,dest) {
 	$("<span>").text(bag.amount).appendTo($div);
 	$("<a href='#'>-</a>").attr("class","minus").attr("data-artno", bag.artno).appendTo($div);
 
-	$("<td class='six'>").text(bag.art.price).appendTo($tr);
-	
-	$("<span>").text(bag.art.price*bag.amount).appendTo($div);
+	$("<td class='six'>").text(bag.totalPrice).appendTo($tr);
 }
 
 //1-2. 장바구니 전체 출력함수 - printCart()를 호출해 각 장바구니를 출력
@@ -114,12 +112,11 @@ function printOption(option,dest) {
 }
 
 function printOptionList() {
-	var $optionArea = $("#optionArea");
-	var optionList = option;
-	console.log(optionList);
-	$.each(optionList,function(idx,option) {
-		printOption(option[idx],$optionArea);
-	})
+//	var $optionArea = $("#optionArea");
+//	var optionList = bag;
+//	$.each(optionList,function(idx,option) {
+//		printOption(option,$optionArea);
+//	})
 }
 
 
@@ -138,7 +135,6 @@ $(function() {
 		data:parmas
 	}).done((result)=>{ 
 		bagList = result;
-		option = bagList.option;
 		printBagList();
 		printOptionList();
 	})
@@ -248,6 +244,38 @@ $(function() {
 		alert("마지막");
 	})
 	
+	// 주문하기
+	$("#order").on("click",function() {
+		var ar=[];
+		$(".check").each(function(idx) {
+			if($(this).prop("checked")) {
+				ar.push($(this).data("orderno"));
+			}
+		})
+		alert("찍어보자~");
+		var params = {
+				_csrf:"${_csrf.token}",
+				orderno : $(this).attr("data-orderno"),
+				username: "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}",
+// 				totalPrice: ${orders.price},
+// 				orderno:${}
+				_method: "get",
+				orders:JSON.stringify(ar)
+// 				console.log(ㅁㅁㅁㅁㅁㅁㅁ ar)
+		}
+		alert("또 찍어봐");
+		$.ajax({
+			url:"/adaco/order/payment",
+			data:params,
+			method:"post"
+		}).done((result)=>{
+			alert("OK");
+			orders = result;
+			printOrderList();
+		})
+		alert("End")
+	})
+
 	// 선택한 상품 구매
 	$("#buyAll").on("click",function() {
 		var ar = [];
@@ -261,6 +289,7 @@ $(function() {
 				};
 				ar.push(obj);
 			}
+			
 		});
 		var $form = $("<form>").attr("action","/adaco/orderdetail/payment").attr("method","get");
 		$("<input>").attr("type","hidden").attr("name","json").val(JSON.stringify(ar)).appendTo($form);
@@ -291,7 +320,7 @@ ${bag }
 	<div id="button_area">
 		<input type="checkbox" id="checkAll">전체 선택 
 		<button id="choiseDelete">선택삭제</button>
-		<button type="button" id="buyAll">주문하기</button>
+		<button type="button" id="order">주문하기</button>
 	</div>
   <%--  <div>
    <h1>장바구니</h1>

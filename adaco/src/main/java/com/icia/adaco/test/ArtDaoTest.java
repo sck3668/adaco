@@ -21,9 +21,9 @@ public class ArtDaoTest {
 	//////////// 작가 전용 테스트 ////////////////////
 	
 	//상품 등록 테스트 ok
-	//@Test
+	@Test
 	public void insertTest() {
-		Art art = Art.builder().artName("새상품").price(1000).mainImg("aaa.jpg").artImg("bbb.jpg").stock(300).tag("검색").category("카테고리다").shopno(2).couriPrice(3000).returnAddress("배송지야").courier("대한통운").accumulated(500).artistno(6).artDetail("신상이에요").build();
+		Art art = Art.builder().artName("리뷰많은상품").price(1000).mainImg("aaa.jpg").artImg("bbb.jpg").stock(300).tag("검색").category("카테고리다").shopno(240).couriPrice(3000).courier("대한통운").accumulated(500).artistno(200).artDetail("신상이에요").reviewCnt(5).build();
 		assertThat(artdao.writeByArt(art), is(1));
 		/*for(int i=1; i<=10; i++) {
 			artdao.writeByArt(Art.builder().artName("신상").price(1000).mainImg("aaa.jpg").artImg("bbb.jpg").stock(300).tag("검색").category("카테고리다").shopno(1).couriPrice(3000).returnAddress("배송지야").courier("대한통운").accumulated(500).artistno(12).build());
