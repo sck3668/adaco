@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     
 <!DOCTYPE html>
 <html>
@@ -8,48 +8,71 @@
 <meta charset="UTF-8">
 <title>상품 상세 페이지</title>
 <style>
-	#main {
-		padding-left: 50px;
-		width:900px;
-		border: 1px solid black;
-	}
-	#image {
-		width: 400px;
-		height: 500px;
-		border : 1px solid gray;
-		display: inline-block;
-	}
-	img {
-		width:390px;
-		height:490px;
-	}
-	#content {
-		width: 400px;
-		height: 500px;
-		border : 1px solid gray;
-		float: right;
-	}
-	#button {
-		width:500px;
-		float: right;
+	.visual_img li {
+	position: relative;
+	display: inline;
+}
+
+	.visual_img img {
+		width: 500px;
+		height: 400px;	
 	}
 </style>
 <script>
+function checkFavorite() {
+	var favorite = ${artPageByUser.favorite}
+	if(favorite == true)
+		$("#favorite").text("★즐겨찾기");
+	else
+		$("#favorite").text("☆즐겨찾기");
+}
+
 $(function() {
+	checkFavorite();
+	var image_ul = document.querySelector(".visual_img");
+
+	var imgCnt = 0;
+	/* Animation: sliding setting */
+	image_ul.querySelectorAll("li").forEach(()=> {
+		imgCnt ++;
+	});
+	image_ul.style.width = (image_ul.offsetWidth * imgCnt) + "px";
+	
+	//console.log(imgCnt);
+	//console.log(image_ul.style.width);
+	slideShow(imgCnt);
+
+	/* Animation: sliding */
+	function slideShow(imgCnt) {
+		var curIndex = 0;
+		
+		setInterval( () => {
+			image_ul.style.transition = "transform 5s ease-out";
+			image_ul.style.transform = "translate3d(-" + 414*(curIndex+1)+"px, 0px, 0px)";
+			curIndex++;
+			
+			console.log(curIndex);
+			if( curIndex === imgCnt-1 ) {
+				curIndex = -1;
+			}
+		},5000);	
+	};
 	//즐겨찾기 추가
 	$("#favorite").on("click",function() {
+		$favorite = ${artPageByUser.favorite};
+		if($favorite==true)
+			console.log("이거됨?");
+		
 		var params ={
 				_csrf:"${_csrf.token}",
 				artno: ${artPageByUser.artno},
 		}
-		console.log(params);
-		alert("ㅇㅇ");
 		$.ajax({
-			url:"/adaco/user/favoriteAdd",
-			method:"post",
-			data:params,
+			//url:"/adaco/user/favoriteAdd",
+			//method:"post",
+			//data:params,
 		})
-	})
+	});
 	
 	//장바구니 추가
 	$("#addBag").on("click",function() {
@@ -62,8 +85,8 @@ $(function() {
 					optionName:'${artPageByUser.optionName}',
 					optionValue:'${artPageByUser.optionValue}',
 					optionStock:${artPageByUser.optionStock},
-					optionPrice:'${artPageByUser.optionPrice}',
-			});
+					optionPrice:'${artPageByUser.optionPrice}'
+			};
 			console.log(params);
 			alert("sss");
 			$.ajax({
@@ -81,86 +104,63 @@ $(function() {
 				}
 			})
 					
-		})
+		});
 	
 });
 
-
-$(function() {
-		
-	})
 </script>
 </head>
 <body>	
-${artPageByUser}
 <div>
 	<div id="main">
-		<div id="image">
-			<img alt="image" src="${pageContext.request.contextPath}/image/art1.jpg">
+		<div>
+		  <div class="container_visual">
+		    <!-- Promotion -->
+		    <!-- 슬라이딩기능: 이미지 (type = 'th')를 순차적(javascript) 으로 노출 -->
+		    <ul class="visual_img">
+		      <c:forEach items="${image}" var="image">
+		        <li><img src="${image.gyungro}"/></li>
+		      </c:forEach>
+		    </ul>
+		  </div>
+		  <span class="nxt_fix" style="display:none;"></span>
 		</div>
 		<div id="content">
-			<h3>${artPageByUser.artName }</h3><br>
+			<h3><strong>${artPageByUser.artName }</strong></h3><br>
 			<div id="content1">
+			<table class = "table table-hover" style="text-align: center;">
+				<tr>
+					<td class = "price">가격 </td>
+					<td>${artPageByUser.price } 원</td>
+				</tr>
+				<tr>
+					<td class = "price">적립금</td>
+					<td>${artPageByUser.price*0.01 } 원</td>
+				</tr>
+				<tr>
+					<td class = "price">배송사</td>
+					<td>${artPageByUser.courier }</td>
+				</tr>
+				<tr>
+					<td class = "couri">배송비</td>
+					<td>${artPageByUser.couriPrice } 원</td>
+				</tr>
+				<tr>
+					<td class = "stock">남은 수량</td>
+					<td>${artPageByUser.stock }</td>
+				</tr>
+				<tr>
+					<td class = "option">옵션 선택</td>
+					<td>
+						<select>
+						<option selected="selected">${artPageByUser.optionName }을 선택하세요</option>
+						<option value="optionName">${artPageByUser.optionValue }</option>
+						</select>
+					</td>
+				</tr>
+			</table>
 				<div>
-					<table>
-						<colgroup>
-							<col width="20%">
-							<col width="50%">
-						</colgroup>
-						<tr>
-							<td>가격:</td>
-							<td>${artPageByUser.price}원</td>
-						</tr>
-					</table>
-					<table>
-						<colgroup>
-							<col width="20%">
-							<col width="50%">
-						</colgroup>
-						<tr>
-							<td>적립금:</td>
-							<td>${artPageByUser.price*0.01}원</td>
-						</tr>
-					</table>
-					<table>
-						<colgroup>
-							<col width="20%">
-							<col width="50%">
-						</colgroup>
-						<tr>
-							<td>택배사:</td>
-							<td>${artPageByUser.courier}</td>
-						</tr>
-					</table>
-					<table>
-						<colgroup>
-							<col width="20%">
-							<col width="50%">
-						</colgroup>
-						<tr>
-							<td>배송비:</td>
-<%-- 								<c:choose> --%>
-<%-- 								<c:if test="${artPageByUser.price+artPageByUser.optionPrice>500}"> --%>
-<!-- 									<td>무료배송</td> -->
-<%-- 								</c:if> --%>
-<%-- 								<c:otherwise> --%>
-<!-- 									<td>3000원</td> -->
-<%-- 								</c:otherwise> --%>
-<%-- 								</c:choose> --%>
-							<td>3000원</td>
-						 </tr>
-					</table>
-					<table>
-						<colgroup>
-							<col width="20%">
-							<col width="50%">
-						</colgroup>
-						<tr>
-							<td>재고:</td>
-							<td>${artPageByUser.stock }</td>
-						</tr>
-					</table>
-					
+			       	 					
 <%-- 						<c:forEach items="${artPageByUser}" var="artPageByUser"> --%>
 <!-- 							<select>	 -->
 <%-- 								<strong class=option>${artPageByUser.optionName}</strong> --%>
@@ -173,188 +173,26 @@ ${artPageByUser}
 <%-- 								<option>${artPageByUser.optionValue}</option> --%>
 <!-- 							</select> -->
 <%-- 						</c:forEach> --%>
-					<select>
-						<option selected="selected">${artPageByUser.optionName }을 선택하세요</option>
-						<option value="optionName">${artPageByUser.optionValue }</option>
-					</select>
+					<br><br>
 					<div>
-						<span>총 작품금액</span>
+						<span>총 결제 금액</span>
 						<strong>${artPageByUser.price+artPageByUser.optionPrice}</strong>
 					</div>				
 				</div>
 			</div>
 		</div>
 	</div>
-	<div id="button">
-		<button type="button" id="addBag">장바구니</button>
-		<button type="button" id="payment">구매하기</button>
-		<button type="button" id="favorite">즐겨찾기</button>
+	<div id="button" style="text-align: center;">
+		<button type="button" class = "btn btn-success" id="addBag">장바구니</button>
+		<button type="button" class = "btn btn-primary" id="payment">구매하기</button>
+		<button type="button" class = "btn btn-warning" id="favorite">☆즐겨찾기</button>
 	</div>
+	<br><br><br><br>
+	<h3><strong>작품 소개</strong></h3>
+	<br>
+	<textarea style="width: 900px; min-height: 600px; text-align: center; border: none;" readonly="readonly">
+		${artPageByUser.artDetail }
+	</textarea>
 </div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<div id="wrap">
-	<section id="img-section" class="prd-dateil-section">
-	<div class="image-preview ui-slider">
-		<div class="outer-frame">
-			<ul class="img-view inner-frame">
-				<li class="ui-slide-img slide-img" style="width: 0px;">
-				 <img src=" ${artPageByUser.mainImg } " alt="작품 이미지" ><!-- 스타일 적용 안됨 style="margin-left: -440.5px; margin-top: -440.5px;"  -->
-				</li>
-				<li class="ui-slide-img slide-img" style="width: 0px;">
-<!-- 		이미지 링크2 <img src=" img.jpg " alt style="margin-left: -440.5px; -->
-<!-- 						margin-top: -440.5px;"> -->
-				</li>	
-				<li class="ui-slide-img slide-img" style="width: 0px;">
-<!-- 		이미지 링크3 <img src=" img.jpg " alt style="margin-left: -440.5px; -->
-<!-- 						margin-top: -440.5px;"> -->
-				</li>
-				<li class="ui-slide-img slide-img" style="width: 0px;">
-<!-- 		이미지 링크4 <img src=" img.jpg " alt style="margin-left: -440.5px; -->
-<!-- 						margin-top: -440.5px;"> -->
-				</li>	
-				<li class="ui-slide-img slide-img" style="width: 0px;">
-<!-- 		이미지 링크5 <img src=" img.jpg " alt style="margin-left: -440.5px; -->
-<!-- 						margin-top: -440.5px;"> -->
-				</li>	
-			</ul>
-		</div>
-		<aside class="sticky_aside" data-ui="sticky_aside" data-state data-offset="36">
-		
-		<div class="">
-			<div class="">
-				상점명 : ${artPageByUser.shopName} + ${artPageByUser.username} &emsp;&emsp;&emsp; 작품 번호 : ${artPageByUser.artno}  &emsp;&emsp;&emsp; 조회수 : ${artPageByUser.readCnt}
-			</div>
-		</div>
-		
-		<h2 class="sticky_aside_title">${artPageByUser.artName}
-		</h2>
-		<span class="price_tag_strong">
-		<strong class=price>${artPageByUser.price}</strong>
-		</span>
-		<div class="product-define-info">
-			<div class="data-row">
-				<table>
-					<tr>
-						<td class="data-row_title">적립금
-						</td>
-						<td class="data-row_content">
-							<span>
-								<!-- 구매금액의 n% 입력 -->
-							  <span class="bold-txt"> 495P</span>
-							</span>
-					</tr>
-				</table>
-			</div>
-			<div class="">
-				<table>
-					<tr>
-						<td class="">구매후기</td>
-						<td>&hearts;&hearts;&hearts;&hearts;&hearts;</td>
-						<td>(2)</td>
-					</tr>
-				</table>
-			</div>
-			<div class="">
-				<table>
-					<tr>
-						<td class="">배송비</td>
-						<td class="">
-							<span>
-								<span>3000원</span>
-								<span class="subcontent">(50,000원 이상 무료배송)</span>
-							</span>
-						</td>
-					</tr>
-				</table>
-			</div>
-			<div class="">
-				<table>
-					<tr>
-						<td class="">배송 시작</td>
-						<td class="">
-							<div class="">
-								최대 5일 이내
-							</div>
-						</td>
-					</tr>
-				</table>
-			</div>
-			<div class="">
-				<table>
-					<tr>
-						<td class="">재고 : ${artPageByUser.stock}</td>
-						<td class="">
-							제작 시기 : <span>주문시 제작</span>
-						</td>
-					</tr>
-				</table>
-			</div>
-			<!--작품 옵션 선택 -->
-			<div>
-				<div class="">
-					<form class="">
-						<div class="">
-							<select>
-								<strong class=option>${artPageByUser.optionName}</strong>
-								<option>옵션명 선택</option>
-								<option>${artPageByUser.optionName}</option>
-								<option>2</option>
-								<option>3</option>
-							</select>
-							<select>
-								<strong class=option>${artPageByUser.optionValue}</strong>
-								<option>옵션값 선택</option>
-								<option>${artPageByUser.optionValue}</option>
-								<option>2</option>
-								<option>3</option>
-							</select>
-						</div>
-					</form>				
-				</div>
-			</div>
-		</div>
-		</aside>
-<!-- 		<nav class="nav_hide"> -->
-		
-<!-- 		</nav> -->
-<!-- 	</div>	 -->
-<!-- 		<div id="title_div"> -->
-<!-- 			<div id="upper"> -->
-<!-- 				<input type="text" id="title" disabled="disabled"> -->
-<!-- 				<span id="writer"></span> -->
-<!-- 			</div> -->
-<!-- 			<div> -->
-<!-- 				<ul id="attachment"> -->
-<!-- 				</ul> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 		<div id="content_div"> -->
-<!-- 			<div class="form-group"> -->
-<!-- 				<div class="form-control" id="content"></div> -->
-<!-- 			</div> -->
-<!-- 			<div id="btn_area"> -->
-<!-- 				<button id="update" class="btn btn-info">변경</button> -->
-<!-- 				<button id="delete" class="btn btn-success">삭제</button> -->
-<!-- 			</div> -->
-		</div>
-			<fieldset class="">
-				<button type="submit" class="">장바구니</button>
-				<button>구매하기</button>
-			</fieldset>		
-	</section>
-</div>
+
 </html>
