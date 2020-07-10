@@ -124,10 +124,10 @@ public class ArtServiceTest {
 	
 	// 작품 삭제 테스트 ok
 	//@Test
-	public void deleteTest() {
-		boolean result = service.deleteArt(61, "spring123", 14, 91);
+	/*public void deleteTest() {
+		boolean result = service.deleteArt(200, "leehj8462",120);
 		assertThat(result, is(true));	
-	}
+	}*/
 	
 	// 작품 댓글 작성 테스트 ok
 	//@Test

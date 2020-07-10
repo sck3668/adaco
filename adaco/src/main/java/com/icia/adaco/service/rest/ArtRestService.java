@@ -125,14 +125,19 @@ public class ArtRestService {
 	}
 
 	// 작품 삭제
-	public boolean deleteArt(Integer artno, String username, Integer artistno, Integer optno) {
+	public boolean deleteArt(Integer artno, String username, Integer optno) {
 		Art art = artDao.readByArt(artno);
 		Option option = optionDao.readByOption(optno);
+		Integer artistno = artistDao.findArtistnoByUsername(username);
 		String artWriter = artistDao.findByid(artistno).getUsername();
+		System.out.println("글쓴 작가 이름"+artWriter);
 		if(art==null)
 			throw new ArtNotFoundException();
+		System.out.println("아트가 있을까" + art);
 		if(username.equals(artWriter)==false)
 			throw new IllegalJobException();
+		System.out.println("로그인이름 "+ username);
+		System.out.println("등록 작가이름 "+ artWriter);
 		option.setArtno(art.getArtno());
 		optionDao.deleteByOption(optno);
 		return artDao.deleteByArt(artno)==1;
