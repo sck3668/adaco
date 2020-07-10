@@ -36,42 +36,31 @@ th {
 
 </style>
 
-
-
-
 <script>
 $(function(){
 	$("#userinfo").on("click", function(){
 		var info = [];
 		ajax{
-			url:"adaco/admin/order_detail/orderdetail"
+			url:"adaco/order/orderdetail"
 			method: "get"
 			data: params,
 			}).doen(()=>{location.reload(); })
 			.fail((xhr)=>{console.log(xhr)})
 			
-			var $form = $("<form>").attr("action", "/adaco/order_detail/payment").attr("method", "post")
+			var $form = $("<form>").attr("action", "/adaco/order/payment").attr("method", "get")
 			$("<input>").attr("type", "hidden").attr("name", "cnos").val(ar).appendTo($form);
 			$("<input>").attr("type", "hidden").attr("name", "_csrf").val("${_csrf.token}").appendTo($form);
 			$form.appendTo($("body")).submit();
 		}
-	$ajax
-		url:	
-		data:int shippingCharge
-		success:
-			
-	})
 })
-
-
 </script>
-
-
 
 </head>
 <body>
- ${user}jjjjjjjjj
- ${order }dwdqqw		
+${ordrs }
+${bag }
+${art }
+${user }
 <div id="content" class="content" data-page="payment" data-address-page="payment" style="padding-bottom:0">
     <form
         class="form-payment"
@@ -277,6 +266,7 @@ $(function(){
         element_wrap.style.display = 'block';
     }
 </script>
+
 <br><br><br><br><br><br><br>
                         <div class="address-section" data-address="root">
                             <div class="tab-style-btn">
@@ -475,6 +465,7 @@ $(function(){
                                                                         <label>수량 :
                                         <input class="prd-count"
                                             type="number"
+                 
                                             value="1"
                                             data-product-price="3000"
                                             data-option-price="0"
@@ -503,7 +494,7 @@ $(function(){
         </tr>
                         
                                 <tr class="static-row">
-                    <th>배송비</th>
+                    <th>배송비 ${orderdetail.shippingCharge}</th>
                     <td>
                         <!-- <div data-freeship="true">
                             <input
@@ -740,8 +731,8 @@ $(function(){
                             <div class="segment--nospacing scroll-detector" data-ui="sticky">
                                 <div class="mfixed">
                                     <button id="btn-submit" class="ui_btn--red--large" data-ui="btn-label">
-                                        <span data-label="total"></span>
-                                        <span data-label="type">결제하기</span>
+                                        <a href="/adaco/order/after"><span data-label="total"></span>
+                                        <span data-label="type"> <a href="/adaco/order/after">결제하기</a></span></a>
                                         <p class="point" data-label="point">예상적립금 : <em>0</em>P</p>
                                     </button>
                                 </div>
