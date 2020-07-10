@@ -17,14 +17,24 @@ public class StoryCommentDao {
 	public int count() {
 		return tpl.selectOne("storyCommentMapper.count");
 	}
-	//스토리 댓글 목록보기
-	public List<StoryComment> findAllByCno(int startRowNum, int endRowNum){
+	//스토리 댓글 목록보기(페이징)
+	public List<StoryComment> findAllByCno(int startRowNum, int endRowNum,int storyno){
 		Map<String,Integer> map = new HashMap<>();
 		map.put("startRowNum", startRowNum);
 		map.put("endRowNum",endRowNum);
+		map.put("storyno", storyno);
 		return tpl.selectList("storyCommentMapper.findAllByCno",map);
 	}
 	
+	//스토리 댓글 목록
+	public List<StoryComment> findAllByStoryno(int storyno) {
+		return tpl.selectList("storyCommentMapper.findAllByStoryno",storyno);
+	}
+	
+	// 댓글번호로 댓글 찾기
+	public StoryComment findByCno(int cno) {
+		return tpl.selectOne("storyCommentMapper.findByCno",cno);
+	}
 	//스토리 댓글 작성
 	public int insertByCommentOfStory(StoryComment storyComment) {
 		return tpl.insert("storyCommentMapper.insertByCommentOfStory",storyComment);

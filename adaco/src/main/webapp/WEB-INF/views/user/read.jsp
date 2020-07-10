@@ -129,19 +129,19 @@ function page(){
 $(function(){
 	makePage();
 	page();
-	$("#delete").on("click",function(){
+	
+	/* $("#delete").on("click",function(){
 		var parmas = {
-				_csrf:"${_csrf.token}",
-				_method:"put"
-				
+				_csrf:"${_csrf.token}"
 		}
 		console.log(parmas)
 		$.ajax({
+			url:"/adaco/user/delete",
 			method:"post",
 			data:parmas
-		}).done((r)=>{console.log(r),location.href="/adaco/"})
-		  .fail((r)=>{console.log(r)})
-	})
+		}).done((r)=>{console.log(r)})
+		  .fail((r)=>{console.log(r),location.href="/adaco/"})
+	}) */
 	
 	
 	$("#selectEmail").on("change",function(){
@@ -259,7 +259,7 @@ $(function(){
 		<div>
 			<ul>
 				<li><a href="/adaco/user/read">내정보보기</a></li>
-				<li><a href="/adaco/user/"></a></li>
+				<li><a href="/adaco/order/read">주문내역</a></li>
 				<li><a href="/adaco/user/reviewList">내리뷰보기</a></li>
 				<li><a href="/adaco/user/favoriteList">즐겨찾기목록</a></li>
 				<li><a href="/adaco/user/pointList">포인트함 </a>
@@ -318,7 +318,10 @@ $(function(){
 			</tr>
 		</table>	
 		<button type="button" class="btn btn-info" id="update">변경</button>
+		<form action="/adaco/user/delete" method="post" >
 		<button type="button" class="btn btn-info" id="delete">탈퇴</button>
+		<input type="hidden" 
+		</form>
 	</section>
 	</div>
 </body>

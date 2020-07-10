@@ -31,22 +31,24 @@
 /*   } */
     </style>
 <script type="text/javascript">
-	$(function(){
-		$("#search").on("click", function(){
-			var username = $("#username").val();
-			location.href = "/adaco/admin/artist_list?username="+username	
-		});
-		$(".category").on("change", function(){
-			var $category = $(".category").val();
-			if($category == "유저")
-				location.href = "/adaco/admin/user_list"
-			if($category == "아티스트")
-				location.href = "/adaco/admin/artist_list"
-		});
-	});	
+$(function(){
+	$("#search").on("click", function(){
+		var username = $("#username").val();
+		location.href = "/adaco/admin/artist_list?username="+username	
+	});
+	$(".category").on("change", function(){
+		var $category = $(".category").val();
+		if($category == "유저")
+			location.href = "/adaco/admin/user_list"
+		if($category == "아티스트")
+			location.href = "/adaco/admin/artist_list"
+	});
+});	
+	
 </script>
 </head>
 <body>
+
 <h3>주문 목록</h3>
 	<div>
 	<input type="text" id="username" name="username" placeholder="사용자 검색">
@@ -63,28 +65,30 @@
 		<colgroup>
 				<col width="6%">
 				<col width="10%">
-				<col width="10%">
 				<col width="40%">
+				<col width="10%">
+				<col width="10%">
 				<col width="20%">
 			</colgroup>
-	 <caption><strong> <h3>판매자 목록</h3></strong></caption>
+	 <caption><strong> <h3>주문 목록</h3></strong></caption>
 		<thead>
 			<tr>
-				<th>작가번호</th>
-				<th>아이디</th>
-				<th>이름</th>
-				<th>이메일</th>
-				<th>가입일</th>
+				<th>번호</th>
+				<th>주문일자</th>
+				<th>작품명</th>
+				<th>금액</th>
+				<th>배송비</th>
+				<th>주문상태</th>
 			</tr>
 		</thead>
 		<tbody id = "list">
-		<c:forEach items="${artistPage.adminArtist}" var = "artist">
+		<c:forEach items="${order.orderno}" var = "artist">
 			<tr>
-				<td>${artist.artistno}</td>
-				<td><a href="/adaco/admin/artist_read?username=${artist.username}">${artist.username}</a></td>
-				<td>${artist.irum }</td>
-				<td>${artist.email}</td>
-				<td>${artist.joinDateStr}</td>
+				<td>${artist.orderDate}</td>
+				<td><a href="/adaco/order_read?artName=${art.artName}">${art.artName}</a></td>
+				<td>${art.price}</td>
+				<td>${art.couriPrice}</td>
+				<td>${orderdetail.state}</td>
 			</tr>					
 		</c:forEach>
 		</tbody>

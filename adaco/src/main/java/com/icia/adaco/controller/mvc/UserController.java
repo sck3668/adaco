@@ -194,9 +194,11 @@ public class UserController {
 	public ModelAndView messageList(Principal principal) {
 		return new ModelAndView("main").addObject("viewName","user/messageList.jsp");
 	}
+	//회원 삭제
 	@PostMapping("/user/delete")
 	public int delete(Principal principal) {
-			System.out.println(principal.getName()+"로그인한아이디");
+			userService.delete(principal.getName());
+		System.out.println(userService.delete(principal.getName())+"이거는 유저 삭제다");
 		return userService.delete(principal.getName());
 	}
 	

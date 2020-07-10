@@ -170,7 +170,7 @@ public class UserService {
 	public List<Review> reviewList(String username){
 		return userDao.listByReviewUser(username);
 	}
-		
+	//삭제리뷰함	
 	public int delete(String username) {
 		User user = userDao.findByid(username);
 		System.out.println(user+"유저");

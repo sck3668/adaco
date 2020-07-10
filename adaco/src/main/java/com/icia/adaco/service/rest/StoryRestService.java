@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 
 import java.io.*;
 import java.security.*;
+import java.time.*;
 import java.time.format.*;
 import java.util.*;
 
@@ -71,30 +72,116 @@ public class StoryRestService {
 			return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
 		}return null;
 	}
-	public Page ListComment(int pageno,StoryComment storyComment,String username) {
-		int countOfBoard = storyCommentDao.count();
-		Page page = PagingUtil.getPage(pageno, countOfBoard);
+//	public Page ListComment(int pageno,StoryComment storyComment,String username) {
+//		int countOfBoard = storyCommentDao.count();
+//		Page page = PagingUtil.getPage(pageno, countOfBoard);
+//		int srn = page.getStartRowNum();
+//		int ern = page.getEndRowNum();
+//		List<StoryComment> storyCommentList = null;
+//		storyCommentList = storyCommentDao.findAllByCno(srn,ern,storyno);
+//		List<StoryCommentDto.DtoForList> storyCommentDtoList=new ArrayList<StoryCommentDto.DtoForList>();
+//		
+//		for(StoryComment storyComment1 :storyCommentList ) {
+//			//스토리 커멘트 리스트 :SCList
+//			StoryCommentDto.DtoForList SCList = modelMapper.map(storyComment1,StoryCommentDto.DtoForList.class);
+//			SCList.setWriteDateStr(storyComment1.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
+//			storyCommentDtoList.add(SCList);
+//			System.out.println(storyCommentDtoList.add(SCList)+"햐ㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑ");
+//			System.out.println(SCList+"포문");
+//		}
+//		page.setStoryCommentList(storyCommentDtoList);
+//		storyComment.setUsername(username);
+//		storyComment.setWriter(username);
+//		System.out.println(storyComment.getWriter()+"ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ");
+//		storyCommentDao.insertByCommentOfStory(storyComment);
+//		
+//		return page;
+//		
+//	}
+// 스토리 댓글 입력
+	public Page commentWrtie(int pageno,StoryComment storyComment,String username) {
+//		System.out.println("storyComment======="+storyComment);
+//		System.out.println("username===="+username);
+//		int countOfStory = storyDao.count();
+//		Page page = PagingUtil.getPage(pageno, countOfStory);
+//		int srn = page.getStartRowNum();
+//		int ern = page.getEndRowNum();
+//		List<StoryComment> storyCommentList = storyCommentDao.findAllByCno(srn, ern); 
+//		System.out.println("srotyCommentList======"+storyCommentList);
+//		List<StoryCommentDto.DtoForList> dtoList = new ArrayList<StoryCommentDto.DtoForList>();
+//		for(StoryComment storyComment1:storyCommentList) {
+//			StoryCommentDto.DtoForList dto = modelMapper.map(storyComment1,StoryCommentDto.DtoForList.class);
+//			System.out.println("dto=========="+dto);
+//			dtoList.add(dto);
+//		}
+//		System.out.println("dtoList===="+dtoList);
+//		page.setStoryCommentList(dtoList);
+//		System.out.println("page===="+page);
+//		return page;
+		
+		int storyno = storyComment.getStoryno();
+		int countOfStory = storyDao.count();
+		Page page = PagingUtil.getPage(pageno, countOfStory);
 		int srn = page.getStartRowNum();
 		int ern = page.getEndRowNum();
-		List<StoryComment> storyCommentList = null;
-		storyCommentList = storyCommentDao.findAllByCno(srn,ern);
-		List<StoryCommentDto.DtoForList> storyCommentDtoList=new ArrayList<StoryCommentDto.DtoForList>();
-		
-		for(StoryComment storyComment1 :storyCommentList ) {
-			//스토리 커멘트 리스트 :SCList
-			StoryCommentDto.DtoForList SCList = modelMapper.map(storyComment1,StoryCommentDto.DtoForList.class);
-			SCList.setWriteDateStr(storyComment1.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
-			storyCommentDtoList.add(SCList);
-			System.out.println(storyCommentDtoList.add(SCList)+"햐ㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑ");
-			System.out.println(SCList+"포문");
-		}
-		page.setStoryCommentList(storyCommentDtoList);
-		storyComment.setUsername(username);
-		storyComment.setWriter(username);
-		System.out.println(storyComment.getWriter()+"ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ");
-		storyCommentDao.insertByCommentOfStory(storyComment);
-		
-		return page;
-		
+		 storyComment.setWriteDate(LocalDateTime.now()); String commentStr =
+		 storyComment.getContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
+		 storyComment.setContent(commentStr);
+		 storyComment.setUsername(username);
+		 storyCommentDao.insertByCommentOfStory(storyComment);
+		 
+		 List<StoryComment> storyCommentList = storyCommentDao.findAllByCno(srn, ern,storyno); 
+			System.out.println("srotyCommentList======"+storyCommentList);
+			List<StoryCommentDto.DtoForList> dtoList = new ArrayList<StoryCommentDto.DtoForList>();
+			for(StoryComment storyComment1:storyCommentList) {
+				StoryCommentDto.DtoForList dto = modelMapper.map(storyComment1,StoryCommentDto.DtoForList.class);
+				String str = storyComment.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
+				dto.setWriteDateStr(str);
+				System.out.println("dto=========="+dto);
+				dtoList.add(dto);
+			}
+			System.out.println("dtoList===="+dtoList);
+			page.setStoryCommentList(dtoList);
+			System.out.println("page===="+page);
+			return page;
+		 
 	}
+	//스토리 댓글 목록 출력
+	public List<StoryComment> writeComment(StoryComment storyComment,String username) {
+		storyComment.setWriteDate(LocalDateTime.now());
+		String commentStr = storyComment.getContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
+		storyComment.setContent(commentStr);
+		storyComment.setWriteDate(LocalDateTime.now()); 
+		storyComment.setUsername(username);
+		storyCommentDao.insertByCommentOfStory(storyComment);
+		return storyCommentDao.findAllByStoryno(storyComment.getStoryno());
+	}
+	// 스토리 읽기 할시 댓글 읽어오기
+	public List<StoryCommentDto.DtoForList> writeComment1(int storyno,String username) {
+		System.out.println("restService storyno===="+storyno);
+		List<StoryComment> commentList = storyCommentDao.findAllByStoryno(storyno);
+		List<StoryCommentDto.DtoForList> dtoList = new ArrayList<StoryCommentDto.DtoForList>();
+		for(StoryComment storyComment:commentList) {
+			StoryCommentDto.DtoForList dto = modelMapper.map(storyComment,StoryCommentDto.DtoForList.class);
+			dto.setWriteDateStr(storyComment.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
+			dtoList.add(dto);
+		}
+		commentList
+		
+		
+		
+		storyCommentDao.findAllByStoryno(storyno);
+		
+		return storyCommentDao.findAllByStoryno(storyno);
+	}
+	
+	//댓글 삭제
+	public List<StoryComment> deleteComment(int storyno, int cno, String writer) {
+		StoryComment storyComment = storyCommentDao.findByCno(cno);
+		if(writer.equals(storyComment.getWriter())==false)
+			throw new JobFailException("댓글을 삭제할 수 없습니다");
+		storyCommentDao.deleteByCommentOfStory(cno);
+		return storyCommentDao.findAllByStoryno(storyno);
+	}
+	
 }

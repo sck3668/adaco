@@ -23,7 +23,6 @@ public class OrderDetailDao {
 		return tpl.selectOne("orderDetailMapper.OrderDetail", orderno);
 	}
 	
-	
 //	// 결제 취소
 //	public int deleteByOrderDetail(int orderno) {
 //	return tpl.delete("orderDetailMapper.delete", orderno);
