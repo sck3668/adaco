@@ -8,7 +8,7 @@ import javax.validation.constraints.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
-
+import org.springframework.security.access.prepost.*;
 import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.*;
@@ -61,10 +61,10 @@ public class ArtRestController {
 	}
 	
 	// 작품 삭제
-	//@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated()")
 	@DeleteMapping("/art/delete")
-	public ResponseEntity<?> deleteArt(Integer artno, Principal principal, Integer artistno, Integer optno){
-		service.deleteArt(artno, principal.getName(), artistno, optno);
+	public ResponseEntity<?> deleteArt(Integer artno, Principal principal, Integer optno){
+		service.deleteArt(artno, principal.getName(), optno);
 		return ResponseEntity.ok("/adaco/art/list");
 	}
 	

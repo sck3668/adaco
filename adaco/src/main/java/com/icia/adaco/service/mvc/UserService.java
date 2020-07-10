@@ -213,11 +213,15 @@ public class UserService {
 		if(user==null)
 			throw new UserNotFoundException();
 		String encodedPassword = user.getPassword();
+		if(pwdEncoder.matches(password, encodedPassword)==true) {
 		System.out.println(encodedPassword+"이것이 유저다");
 		System.out.println(password+"이것은 패스워드");
 		System.out.println(newPassword);
 			String newEncodedPassword = pwdEncoder.encode(newPassword);
-			
 			userDao.update(User.builder().password(newEncodedPassword).username(username).build());
+		}
+		else
+			throw new JobFailException("잘못된 비밀번호 입니다");
+		
 	}
 }

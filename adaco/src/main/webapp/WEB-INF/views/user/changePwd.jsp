@@ -5,6 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+$(function(){
+	
+	
+})
+</script>
 </head>
 <body>
 		<form action="/adaco/user/changePwd" method="post">

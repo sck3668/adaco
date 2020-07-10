@@ -59,6 +59,8 @@ public class ArtDto {
 		private String artName;
 		private Integer price;
 		private boolean favorite;
+		private LocalDate artDate;
+		private String username;
 	}
 	
 	@Data

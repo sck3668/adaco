@@ -38,9 +38,9 @@
 	
 	<!-- 작품 등록에 필요 -->
 	<!-- 아티스트번호로 상점번호 받아오기 -->
-	<select id="readShopnoByArtistno" resultType="int"> 
- 		select shopno
-		from shop where artistno=#{artistno} 
+	<select id="readShopnoByArtistno" resultType="int"> 
+ 		select shopno
+		from shop where artistno=#{artistno} 
 	</select>
 	
 	
