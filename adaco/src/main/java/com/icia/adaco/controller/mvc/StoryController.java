@@ -5,10 +5,12 @@ import java.net.*;
 import java.security.*;
 
 import javax.servlet.http.*;
+import javax.validation.constraints.*;
 
 import org.apache.tomcat.jni.*;
 import org.apache.tomcat.util.http.fileupload.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.*;
@@ -29,6 +31,8 @@ public class StoryController {
 	ObjectMapper objectMapper;
 	@Autowired
 	private StoryRestService storyRestService;
+	@Autowired
+	private StoryRestService restService;
 
 	@GetMapping("/story/listStory")
 	public ModelAndView listStory(@RequestParam(defaultValue = "1") int pageno) {
@@ -62,6 +66,14 @@ public class StoryController {
 		 */
 		System.out.println("mav============"+mav);
 		return mav;
+	}
+	
+	@PostMapping("/story/readStory")
+	public ResponseEntity<?> read(@RequestParam @NotNull Integer storyno, Principal principal) throws JsonProcessingException {
+		System.out.println(storyno);
+		System.out.println("readStory================");
+		System.out.println(restService.writeComment1(storyno, principal.getName()));
+		return ResponseEntity.ok(restService.writeComment1(storyno, principal.getName()));
 	}
 	
 	
