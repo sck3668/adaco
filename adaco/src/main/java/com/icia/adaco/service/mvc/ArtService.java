@@ -37,31 +37,38 @@ public class ArtService {
 	private String artfilePath;
 
 	// 작품 등록
-	public void write(ArtDto.DtoForWrite dto, MultipartFile artSajin) throws IllegalStateException, IOException {
+	public void write(ArtDto.DtoForWrite dto, List<MultipartFile> artSajin) throws IllegalStateException, IOException {
 		Art art = modelMapper.map(dto, Art.class);
 		Option option = modelMapper.map(dto, Option.class);
+		List<String> list = new ArrayList<String>();
 		if (artSajin!= null && artSajin.isEmpty()==false) {
-			if (artSajin.getContentType().toLowerCase().startsWith("image/") == true) {
-				int lastIndexOfDot = artSajin.getOriginalFilename().lastIndexOf('.');
-				String extension = artSajin.getOriginalFilename().substring(lastIndexOfDot + 1);
-				File artfile = new File(artfileFolder, art.getArtName() + "." + extension);
-				artSajin.transferTo(artfile);
-				art.setMainImg(artfilePath + artfile.getName());
-
-			} else {
-				throw new JobFailException("파일 확장자를 확인해주세요.");
+			int i = 0;
+			for(MultipartFile sajin:artSajin) {
+				if (sajin.getContentType().toLowerCase().startsWith("image/") == true) {
+					long time = System.currentTimeMillis();
+					int lastIndexOfDot = sajin.getOriginalFilename().lastIndexOf('.');
+					String extension = sajin.getOriginalFilename().substring(lastIndexOfDot + 1);
+					File artfile = new File(artfileFolder, time+i +"." + extension);
+					sajin.transferTo(artfile);
+					String gyungro = artfilePath+artfile.getName();
+					art.setMainImg(gyungro);
+					list.add(gyungro);
+				} else {
+					throw new JobFailException("파일 확장자를 확인해주세요.");
+				}	
 			}
+			if (option!=null) {
+				artdao.writeByArt(art);
+				option.setArtno(art.getArtno());
+				optionDao.writeByOption(option);
+				for(String gyungroem:list) 
+					artdao.insertArtImg(ArtImg.builder().gyungro(gyungroem).artno(art.getArtno()).build());
+			} else {
+				throw new JobFailException("옵션을 등록해주세요.");
+			} 
+		
 		} else {
-			throw new JobFailException("작품 사진을 등록해주세요");
-		}
-		if (option!=null) {
-			artdao.writeByArt(art);
-			option.setArtno(art.getArtno());
-			optionDao.writeByOption(option);
-			art.setArtno(option.getOptno());
-	
-		} else {
-			
+		throw new JobFailException("작품 사진을 등록해주세요");
 		}
 	}
 	

@@ -7,31 +7,18 @@
 <title>상품 등록 페이지</title>
 <script src="/adaco/script/artValid.js"></script>
 <script>
-// 1.작품 이미지 출력 //	사진출력이 안됨
-	function loadImage() {
-		var file = $("#artSajin")[0].files[0];	
-		var maxSize = 1024*1024;
-		if(file.size>maxSize) {
-			Swal.fire({
-				icon: 'error',
-			  	title: '크기 오류',
-				text: '파일크기는 1MB를 넘을 수 없습니다'
-			});
-			$("#artSajin").val("");
-			return false;
-		}
-		var reader = new FileReader();
-		reader.onload = function(e) {
-			$("#show_artfile").attr("src", e.target.result);
-		}
-		reader.readAsDataURL(file);
-		return true;
-	}
 	
 //$("#category option:selected").val();
 	$(function() {
+
+		var idx = 0;
+		$("#add").on("click", function(){
+			var $input = $("<input>").attr("type", "file").attr("name", "artSajin").attr("id", "artSajin").attr("accept", ".jpg,.jpeg,.png,.gif,.bmp");
+			idx++;
+			$input.appendTo($("#artSajin"));
+		});
+		
 		$("#artName").on("blur", checkIrum);
-		$("#artSajin").on("change", loadImage);
 		$("#price").on("blur", checkPrice);
 		$("#artStock").on("blur", checkStock);
 		$("#artDetail").on("blur", checkArtDetail);
@@ -98,12 +85,8 @@
 				<span id="artName_msg"></span>
 			</div>
 			<div class="inputArea">
-				<label for="artSajin">작품 이미지</label> 
-				<input type="file" id="artSajin" name="artSajin" accept=".jpg,.jpeg,.png,.gif,.bmp"/>
-			</div>
-			<div>
-				<img id="show_artfile" height="240px;">
-				<input type="hidden" name="_csrf" value="${_csrf.token }">
+				<div id = "artSajin"></div>				
+				<button type = "button" id = "add">작품 이미지 추가</button>
 			</div>
 			<div class="inputArea">
 				<label for="price">작품가격</label> 
@@ -159,6 +142,7 @@
 				<button type="button" id="insert_Btn" class="btn btn-primary">저장</button>
 				<button type="button" id="back_Btn" class="btn btn-warning">취소</button>
 			</div>
+			<input type="hidden" name = "_csrf" value="${_csrf.token }">
 		</form>
 	</div>
 </body>

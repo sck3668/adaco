@@ -24,8 +24,6 @@ public class ArtDto {
 		private int artno;
 		private String artName;
 		private Integer price;
-		private String mainImg;
-		private String artImg;
 		private Integer stock;
 		private String tag;
 		private LocalDateTime artDate;
