@@ -7,7 +7,6 @@ import javax.validation.constraints.*;
 
 import org.springframework.web.multipart.*;
 
-import com.icia.aboard.entity.*;
 import com.icia.adaco.entity.*;
 import com.nhncorp.lucy.security.xss.markup.*;
 

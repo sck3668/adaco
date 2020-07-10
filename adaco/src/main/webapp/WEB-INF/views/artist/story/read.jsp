@@ -33,7 +33,45 @@
 <script>
 	$(function(){
 		var story = "${story}";
+		function printComment(comments) {
+			var $comments = $("#comments");
+			$comments.empty();
+			$.each(comments, function(i, comment) {
+				var $comment = $("<div>").appendTo($comments);
+				var $upper_div = $("<div>").appendTo($comment);
+				var $center_div = $("<div>").appendTo($comment);
+				var $lower_div = $("<div>").appendTo($comment);
+				console.log(comment);
+				$("<span></span>").text(comment.writer).appendTo($upper_div);
+// 				$("<img>").attr("src", comment.content).css("width","40px").appendTo($center_div);
+				$("<span>").text(comment.writeDateStr).appendTo($lower_div);
+				$("<div>").html(comment.content).appendTo($center_div);  
+				
+				if(comment.writer===loginId) {
+					var btn = $("<button>").attr("class","delete_comment").attr("data-cno",comment.cno).attr("data-writer", comment.writer)
+						.text("삭제").appendTo($center_div).css("float","right");
+				}
+				$("<hr>").appendTo($comment);
+			});
+		}
 		
+	//댓글 목록 출력	
+		var bno = location.search.substr(5);
+		var params = {
+				_csrf:"${_csrf.token}",
+				storyno:$("#storyno").val()
+		}
+		$.ajax({
+			url:"/adaco/story/readStory",
+			data: params,
+			method:"post"
+		}).done((result)=>{
+			story = result;
+			printComment(story);
+		});
+		
+		
+		//댓글 입력
 		if(isLogin==true && story.writer==loginId){
 			$("#content").prop("disabled",false)
 			$("#comment_textarea").prop("disabled",false)
@@ -46,15 +84,57 @@
 			$("#comment_write").prop("disabled",false)
 			$("#title").prop("readonly",true)
 		}
-		$("#comment_write").on("click",function(){
+		$("#comment_write").on("click", function() {
+			var params = {
+				storyno : $("#storyno").val(),
+				content : $("#comment_textarea").val(),
+				_csrf: "${_csrf.token}"
+			}
+			$.ajax({
+				url: "/adaco/comment/write",
+				method: "post",
+				data: params
+			})
+			.done((result)=>{ 
+				story = result;
+				printComment(story); 
+				})
+			.fail((result)=>{console.log(result)});
+		})
+		
+		
+		//댓글 삭제
+		$("#comments").on("click", ".delete_comment", function() {
+		// data-ano 속성의 값을 꺼낼 때 
+		// data("ano") -> 넣은 값의 타입 그대로
+		// attr("data-ano") -> 문자열
+		var params = {
+			cno: $(this).data("cno"),
+			storyno: $("#storyno").val(),
+			writer: $(this).data("writer"),
+			_method: "delete",
+			_csrf: "${_csrf.token}"
+		}
+		console.log(params)
+		$.ajax({
+			url: "/adaco/story/commentDelete",
+			method: "post",
+			data: params
+		})
+		.done((result)=>{ printComment(result); })
+		.fail((result)=>{console.log(result)});
+	});
+		
+
+		
+		/* $("#comment_write").on("click",function(){
 			$comments=$("#textarea").val();
 			console.log($comments);
 			alert("DDDD");
 			if(isLogin==false)
 				return
 			var params = {
-					_method:"put",
-					_csrf:"${_csrf.	token}",
+					_csrf:"${_csrf.token}",
 					storyno:$("#storyno").val(),
 					content:$("#textarea").val()
 			}
@@ -66,12 +146,15 @@
 					
 				}).done((r)=>{console.log(r)})
 				  .fail((r)=>{console.log(r)})
-		})
+		}) */
 		
 	});
 </script>
 </head>
 <body>	
+${story}
+${story.comments[0].writer}
+
 <%-- ${story.comments[].cno} --%>
  <%-- <c:forEach items="${story.comments }" var="comments1" >
  	<input type="text" value="${comments1}">
@@ -121,16 +204,16 @@
 				<label for="comment_textarea">댓글을 입력하세요</label>
 				<textarea class="form-control" rows="5"	id="comment_textarea" placeholder="욕설이나 모욕적인 댓글은 삭제될 수 있습니다" disabled="disabled" ></textarea>
 				<input type="hidden" value="${story.storyno }" id="storyno">
-				<c:forEach begin="1" end="${story}" var="i">
+				<%-- <c:forEach begin="1" end="10" var="i">
 					<input type="text" value="${story.comments[i].cno}" id="textarea">
-				</c:forEach>
+				</c:forEach> --%>
 			</div>
 			<button type="button" class="btn btn-info" 
 				id="comment_write" disabled="disabled">댓글 작성</button>
 		</div>
 		<hr>
 		<div id="comments">
-		<div>
+	<%-- 	<div>
 			<c:forEach items="${story.comments}" var ="comments">
 			
 			<div id="upper_div">
@@ -143,8 +226,7 @@
 				${comments.content }
 			</div>
 			</c:forEach>
-		</div>
-		
+		</div> --%>
 		</div>
 	</div>
 </body>
