@@ -108,5 +108,4 @@ public class BagController {
 		//System.out.println(bagList+"controller CartList");
 		//return ResponseEntity.ok(bagList);
 	//}
-		
 }

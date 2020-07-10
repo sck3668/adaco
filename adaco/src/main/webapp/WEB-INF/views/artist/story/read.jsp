@@ -98,7 +98,7 @@
 			.done((result)=>{ 
 				story = result;
 				printComment(story); 
-				})
+				},$("#comment_textarea").val(""))
 			.fail((result)=>{console.log(result)});
 		})
 		
