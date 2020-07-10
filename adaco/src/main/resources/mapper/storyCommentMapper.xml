@@ -18,12 +18,20 @@
 		<![CDATA[
 		 select * from
 	    	(select b.* , rownum as rnum  from
-			   (select /*+ index_desc(storyComment story_comments_pk_storyno) */ cno, write_date writeDate, writer, content,  storyno, username from story_comments) b 
+			   (select /*+ index_desc(storyComment story_comments_pk_storyno) */ cno, write_date writeDate, writer, content,  storyno, username from story_comments where storyno=#{storyno}) b 
 			where rownum<=#{endRowNum})
     where rnum>=#{startRowNum}
 		]]>
 		</select>
+	<select id="findAllByStoryno" resultType="storyComment">
+		select cno, write_date writeDate, writer, content, storyno, username 
+		from story_comments where storyno=#{storyno}
+	</select>
 	
+	<select id="findByCno" resultType="storyComment">
+		select cno,write_date writeDate, writer, content, storyno, username
+		from story_comments where cno=#{cno}
+	</select>
 	
 	<!-- 스토리 댓글 삭제하기 -->
 	<delete id="deleteByCommentOfStory">
