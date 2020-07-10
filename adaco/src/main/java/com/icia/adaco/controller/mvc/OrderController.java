@@ -3,6 +3,7 @@ package com.icia.adaco.controller.mvc;
 import java.security.*;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
@@ -30,17 +31,19 @@ public class OrderController {
 //		String user = username(principal.getName());
 		return new ModelAndView("main").addObject("viewName", "order/ordering.jsp").addObject("Odering",orderService.Ordering2(orderno));
 	}
+	@PostMapping("/order/ordering")
+	public ResponseEntity<?> insert
 	
 	// 주문하기
-//	@PostMapping("/order/ordering")
-//	public ResponseEntity<?> Ordering(Integer orderno, Principal principal){
-//		return ResponseEntity.ok(orderService.Ordering(orderno));
-//	}
+	@PostMapping("/order/ordering")
+	public ResponseEntity<?> Ordering(Integer orderno, Principal principal){
+		return ResponseEntity.ok(orderService.Ordering(orderno));
+	}
 		
 	// 결제하기
 	@GetMapping("/order/payment")
-	public ModelAndView Payment(String username,Order order,Integer artno,OrderDto.DtoForOrdering Dto ) {
-		return new ModelAndView("main").addObject("viewName", "order/payment.jsp").addObject("orders",orderService.Payment(username, order, artno));
+	public ModelAndView Payment(String username,Integer orderno,Integer artno,OrderDetailDto.DtoForDeleteOrder Dto ) {
+		return new ModelAndView("main").addObject("viewName", "order/payment.jsp").addObject("orders",orderService.Payment(username, orderno, artno));
 	}
 //	@PostMapping("/orderdetail/payment")
 //	public String buyAll(String json,Principal principal) throws JsonParseException, JsonMappingException, IOException {
