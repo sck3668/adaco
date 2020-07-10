@@ -113,17 +113,26 @@ public class ArtDao {
 	}
 		
 	// 작품 상세보기
-		public Art readByArtFromUser(Integer artno) {
-			return tpl.selectOne("artMapper.findByArtFromUser",artno);
-		}
+	public Art readByArtFromUser(Integer artno) {
+		return tpl.selectOne("artMapper.findByArtFromUser",artno);
+	}
 		
 	//작품목록
-		public List<Art> list(int artno) {
-			return tpl.selectList("artMapper.list",artno);
-		}
-		
-		public List<Art> findArtByUsername(String username) {
-			return tpl.selectList("artMapper.findArtByUsername",username);
-		}
-
+	public List<Art> list(int artno) {
+		return tpl.selectList("artMapper.list",artno);
+	}
+	
+	public List<Art> findArtByUsername(String username) {
+		return tpl.selectList("artMapper.findArtByUsername",username);
+	}
+	
+	// 작품 이미지 불러오기
+	public List<ArtImg> findAllArtImg(Integer artno) {
+		return tpl.selectList("artMapper.findAllArtImg", artno);
+	}
+	
+	// 작품 이미지 추가
+	public int insertArtImg(ArtImg artImg) {
+		return tpl.insert("artMapper.insertArtImg", artImg);
+	}
 }

@@ -15,7 +15,7 @@
 		
 	}
 	#aside {
-		width:200px;
+		width:110px;
 		height:500px;
 		background-color: white;
 		border: 1px solid red;
@@ -251,8 +251,6 @@ $(function(){
 </script>
 </head>
 <body>
-${user }
-
 <div>
  <aside id="asideMain">
 	<div id="aside">

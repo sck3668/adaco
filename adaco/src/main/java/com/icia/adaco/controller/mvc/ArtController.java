@@ -3,6 +3,7 @@ package com.icia.adaco.controller.mvc;
 
 import java.io.*;
 import java.security.*;
+import java.util.*;
 
 import javax.validation.*;
 
@@ -53,13 +54,13 @@ public class ArtController {
 	// 작품 상세보기 (작가용)
 	@GetMapping("/art/readByArtist")
 	public ModelAndView read(@NonNull Integer artno, @Nullable String username) {
-		return new ModelAndView("main").addObject("viewName","art/detailread.jsp").addObject("artDetailPage",service.readArt(artno, username));
+		return new ModelAndView("main").addObject("viewName","art/detailread.jsp").addObject("artDetailPage",service.readArt(artno, username)).addObject("image", service.readArtImage(artno));
 	}
 	
 	// 작품 상세보기 (회원용)
 	@GetMapping("/art/readByUser")
 	public ModelAndView readFromUser(@NonNull int artno ,@Nullable String username) {
-		return new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPageByUser", service.readArtFromUser(artno, username));
+		return new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPageByUser", service.readArtFromUser(artno, username)).addObject("image", service.readArtImage(artno));
 	}
 	//
 	// 작품 등록 + 등록시 필요한 artistno, shopno 받아오기
@@ -73,7 +74,7 @@ public class ArtController {
 	//@CacheEvict(value="findAllCachce", allEntries = true)
 	//@PreAuthorize("isAuthenticated()")
 	@PostMapping("/art/write")
-	public String write(@Valid ArtDto.DtoForWrite dto, BindingResult results,MultipartFile artSajin, Principal principal) throws BindException {
+	public String write(@Valid ArtDto.DtoForWrite dto, BindingResult results, List<MultipartFile> artSajin, Principal principal) throws BindException {
 		if(results.hasErrors())
 			throw new BindException(results);
 		dto.setUsername(principal.getName());

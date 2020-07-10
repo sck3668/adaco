@@ -152,14 +152,15 @@ public class UserService {
 		dto.setEndDateStr(point1.getEndDate().format(dtf));
 		dto.setStartDateStr(point1.getStartDate().format(dtf));
 		dto.setUsername(point1.getUsername());
-		dto.setTotalPoint(point1.getTotalPoint());
 		dto.setPoint(point1.getPoint());
 		listPoint.add(dto);
-		
 	}
 		return listPoint;
 }
 		
+	public int totalpoint(String username) {
+		return userDao.TotalPoint(username);
+	}
 	//페이보릿즐찾리스트
 	public List<Favorite> favoriteList(String username){
 		System.out.println(username+"gggg");

@@ -2,14 +2,16 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	    
 <html>
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
+
 </head>
  <style>
 	#aside {
-		width:200px;
+		width:110px;
 		height:500px;
 		background-color: white;
 		border: 1px solid red;
@@ -42,9 +44,23 @@
 		border: 1px solid red;
 	}
 </style>
+<sec:authorize access="isAuthenticated()">
+	<script>
+		var isLogin = true;
+		var loginId = "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}"
+	</script>
+</sec:authorize>
+<sec:authorize access="isAnonymous()">
+	<script>
+		var isLogin = false;
+		var loginId = undefined;
+	</script>
+</sec:authorize>
 <script>
 	$(function(){
-		$("#delete").on("click",function(){
+		
+// 		if(isLogin==true && )
+	/* 	$("#delete").on("click",function(){
 			console.log($(this).next().val());
 			var params={
 					_method:"put",
@@ -58,7 +74,7 @@
 				method:"post"
 			}).done((r)=>{console.log(r)})
 			  .fail((r)=>{console.log(r)})
-		})
+		}) */
 	})
 </script>
 </head>

@@ -8,7 +8,7 @@
 </head>
 <style>
 	#aside {
-		width:200px;
+		width:110px;
 		height:500px;
 		background-color: white;
 		border: 1px solid red;

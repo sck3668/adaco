@@ -10,6 +10,7 @@ import javax.validation.constraints.*;
 import org.apache.ibatis.session.*;
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.*;
 import org.springframework.web.multipart.*;
 
@@ -20,6 +21,8 @@ import com.icia.adaco.dto.*;
 import com.icia.adaco.dto.ArtDto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.exception.*;
+
+import lombok.*;
 
 @Service
 public class ArtRestService {
@@ -118,6 +121,11 @@ public class ArtRestService {
 		return dto;
 	}
 
+	// 작품 이미지 불러오기
+	public List<ArtImg> readArtImage(@NonNull int artno) {
+		return artDao.findAllArtImg(artno);
+	}
+		
 	// 작품 이미지 찾기
 	public String findArtfile(Integer artno) {
 		Art art = artDao.readByArt(artno);

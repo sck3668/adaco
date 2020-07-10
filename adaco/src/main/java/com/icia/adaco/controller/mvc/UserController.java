@@ -138,7 +138,7 @@ public class UserController {
 		return new ModelAndView("main").addObject("viewName","user/reset_pwd.jsp");
 	}
 	
-	
+	//비밀변호변경
 	@PostMapping("/user/resetPwd")
 	public String resetPassword(String username,String email) {
 		System.out.println(username+"ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ");
@@ -169,6 +169,7 @@ public class UserController {
 		System.out.println(userService.pointList(principal.getName()));
 		return new ModelAndView("main")
 				.addObject("viewName","user/point.jsp")
+				.addObject("totalPoint",userService.totalpoint(principal.getName()))
 				.addObject("point",userService.pointList(principal.getName()));
 	}
 	//리뷰 리스트

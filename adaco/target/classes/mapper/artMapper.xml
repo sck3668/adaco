@@ -134,4 +134,16 @@
 		where artno=#{artno} and rownum=1
 	</select>
 	
+	<!-- 작품 이미지 출력 -->
+	<select id="findAllArtImg" resultType="com.icia.adaco.entity.ArtImg">
+		select imgno, artno, gyungro from art_image where artno = #{artno}
+	</select>
+	
+	<!-- 작품 이미지 추가 -->
+	<insert id="insertArtImg">
+		<selectKey keyProperty="imgno" resultType="int" order="BEFORE">
+			select art_image_seq.nextval from dual
+		</selectKey>
+		insert into art_image(imgno, artno, gyungro) values(#{imgno}, #{artno}, #{gyungro})
+	</insert>
  </mapper>

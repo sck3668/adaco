@@ -14,8 +14,7 @@ public class PointDto {
 		private int point;
 		private String startDateStr;
 		private String endDateStr;
-		private int totalPoint;
 		private String username;
+		private int totalPoint;
 	}
-	
 }

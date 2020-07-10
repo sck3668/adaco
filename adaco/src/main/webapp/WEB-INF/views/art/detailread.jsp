@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
@@ -9,7 +10,17 @@
 <!--<sec:authorize access="hasRole('ROLE_SELLER')">
 	
 </sec:authorize>-->
+<style type="text/css">
+.visual_img li {
+	position: relative;
+	display: inline;
+}
 
+.visual_img img {
+	width: 500px;
+	height: 400px;	
+}
+</style>
 <script>
 $(function() {
 	// select box에 택배사 값 받아오기
@@ -90,7 +101,8 @@ $(function() {
 				optionValue: $optionValue,
 				optionPrice: $optionPrice,
 				optionStock: $optionStock
-		}
+		};
+		
 		//console.log(params);
 		$.ajax({
 			url: "/adaco/art/update",
@@ -129,15 +141,41 @@ $(function() {
 		$("#back_Btn").on("click", function() {
 			location.href="/adaco/art/listByArtist";
 		});
+	
+	var image_ul = document.querySelector(".visual_img");
+
+	var imgCnt = 0;
+	/* Animation: sliding setting */
+	image_ul.querySelectorAll("li").forEach(()=> {
+		imgCnt ++;
 	});
+	image_ul.style.width = (image_ul.offsetWidth * imgCnt) + "px";
 	
-	
+	//console.log(imgCnt);
+	//console.log(image_ul.style.width);
+	slideShow(imgCnt);
+
+	/* Animation: sliding */
+	function slideShow(imgCnt) {
+		var curIndex = 0;
+		
+		setInterval( () => {
+			image_ul.style.transition = "transform 5s ease-out";
+			image_ul.style.transform = "translate3d(-" + 414*(curIndex+1)+"px, 0px, 0px)";
+			curIndex++;
+			
+			console.log(curIndex);
+			if( curIndex === imgCnt-1 ) {
+				curIndex = -1;
+			}
+		},5000);	
+	}
+	});
 
 
 </script>
 </head>
 <body>	
-${artDetailPage}
 	<h2>상세 정보 조회 및 수정</h2><br>
 	<form role="form" method="post" autocomplete="off">
 		<input type="hidden" name="artNum" value="${art.artNum}" />
@@ -160,11 +198,18 @@ ${artDetailPage}
 				</td>
 			</tr>
 			<tr>
-				<td class="first">작품 이미지</td>
-				<td colspan="2">
-				<img id="show_artfile" height="200px;" src="${artDetailPage.mainImg }" alt="상품 사진">
-				<input type="file" id="artSajin" name="artSajin" />
-				</td>
+				<div>
+				  <div class="container_visual">
+				    <!-- Promotion -->
+				    <!-- 슬라이딩기능: 이미지 (type = 'th')를 순차적(javascript) 으로 노출 -->
+				    <ul class="visual_img">
+				      <c:forEach items="${image}" var="image">
+				        <li><img src="${image.gyungro}"/></li>
+				      </c:forEach>
+				    </ul>
+				  </div>
+				  <span class="nxt_fix" style="display:none;"></span>
+				</div>
 			</tr>
 			<tr>
 				<td class="first">작품가격</td>
@@ -228,7 +273,7 @@ ${artDetailPage}
 		</form>
 		<div class="inputArea" align="center">
 			<button type="submit" id="update_Btn" class="btn btn-primary">수정</button>
-			<button type="button" id="back_Btn" class="btn btn-warning">취소</button>
+			<button type="submit" id="back_Btn" class="btn btn-warning">취소</button>
 		</div>
 </body>
 </html>
