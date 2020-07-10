@@ -107,7 +107,7 @@ public class ArtServiceTest {
 		service.updateArt(dto, file);
 		
 	}
-	
+	//
 	//작품 상세보기 테스트(작가용) ok
 	//@Test
 	public void readFromArtistTest() {
