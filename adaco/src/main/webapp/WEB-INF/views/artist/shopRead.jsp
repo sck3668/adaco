@@ -37,14 +37,32 @@ function loadImage() {
 	}
 
 $(function(){
-	$("#sajin").on("change", loadImage);
-	$("#profileUpdate").on("click", function(){
+		$("#sajin").on("change", loadImage);
+		$("#profileUpdate").on("click", function(){
+			var formData = new FormData();
+			if($("#sajin")[0].files[0]!=undefined)
+			formData.append("sajin", $("#sajin")[0].files[0]);
+			formData.append("_csrf", "${_csrf.token}");
+			formData.append("_method", "put");
+			formData.append("shopno",$("#shopno").val());
+			for (var key of formData.keys()) {
+				  console.log(key);
+				}
+			for (var value of formData.values()) {
+				  console.log(value);
+				}
+
+		$.ajax({
+			url:"/adaco/artist/update",
+			data: formData,
+			method:"post",
+			processData:false,
+			contentType:false
+		}).done((r)=> {console.log(r)})
+		  .fail((r)=> {console.log(r)});
+		});
 		
-	var formData = new FormData(document.getElementById("joinForm"));
-	console.log(formData)
-	$("#joinForm").submit();
 	});
-});
 
 
 
@@ -63,7 +81,7 @@ $(function(){
 				shopno:${shop.shopno},
 				account: $account
 		}
-		console.log(params)
+		
 		$.ajax({
 			url:"/adaco/artist/updateByShop",	
 			data:params,
@@ -72,6 +90,8 @@ $(function(){
 		  .fail((r)=>{console.log(r)});
 	});
 });
+
+
 
 </script>
 </head>
@@ -90,11 +110,11 @@ ${shop }
 	<form action="/adaco/artist/updateByShop" method="post"  id="joinForm" enctype="multipart/form-data">
 		<div>
 			<img id ="show_profile" height="200px;" src="${shop.image }">
-			
 			 <input type="hidden" name="_csrf" value="${_csrf.token }">
+			 <input type="hidden" id="shopno" value="${shop.shopno }">
 			<button type="button" id="profileUpdate">프로필사진 업데이트</button>
 		</div>
- 	</form> 
+  
 		<div>
 			<input type="file" name="sajin" id="sajin">
 		</div>
@@ -130,6 +150,7 @@ ${shop }
 			</tr>
 		</table>	
 		<button type="button" class="btn btn-info" id="update">변경하자</button>
+		</form>
 	</section>
 	</div>
 </body>
