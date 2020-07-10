@@ -54,8 +54,8 @@ $(function() {
 	// 구매하기
 	$("#payment").on("click",function(){
 		var params  ={
-			_csrf: "${_csrf.token}",
-			username: "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}",
+			_csrf: '${_csrf.token}',
+			username: '${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}',
 			artno:${artPageByUser.artno},
 			totalPrice:${artPageByUser.price},
 			amount:1,
@@ -67,6 +67,13 @@ $(function() {
 		console.log(params);
 			alert("var");
 		$.ajax({
+			url:"/adaco/order/payment",
+			method:"get",
+			data:params,
+			success: function(result){
+				alert("성공");
+			}
+			
 		})
 	})
 	

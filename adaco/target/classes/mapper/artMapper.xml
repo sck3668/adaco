@@ -24,7 +24,7 @@
 	<![CDATA[
 		select*from
 			(select rownum as rnum, a.*from
-				(select /*+ index_desc(art art_pk_artno) */ artno, category, main_img mainImg, art_name artName, price
+				(select /*+ index_desc(art art_pk_artno) */ artno, category, main_img mainImg, art_name artName, price, art_date artDate
 				from art ) a
 			where rownum <=#{endRowNum}) 
 		where rnum>=#{startRowNum}
