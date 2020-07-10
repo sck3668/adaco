@@ -68,8 +68,8 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 				rs.sendRedirect(request, response, "/art/listByArtist");
 			}
 			// 관리자로 로그인 시 메인화면
-			else if(authorityDao.findByUsername(username).equals("ROLE_AMIN")) {
-				rs.sendRedirect(request, response, "/admin");
+			else if(authorityDao.findByUsername(username).equals("ROLE_ADMIN")) {
+				rs.sendRedirect(request, response, "/admin/");
 			}
 		}
 	}
