@@ -81,7 +81,7 @@ public class UserDao {
 		return sql.selectList("userMapper.findAllIrum");
 	}
 	//포인트 더한값
-	public int TotalPoint(String username) {
+	public Integer TotalPoint(String username) {
 		return sql.selectOne("userMapper.TotalPoint",username);
 	}
 }

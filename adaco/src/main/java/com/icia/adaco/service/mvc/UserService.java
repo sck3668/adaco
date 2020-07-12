@@ -141,11 +141,15 @@ public class UserService {
 	}
 	//포인트 리스트
 	public List<PointDto.DtoForList> pointList(String username){
+		
+		
 		List<Point> point = userDao.findAllByPoint(username);
+		//null
 			System.out.println(point+"그냥포인트============");
 		List<PointDto.DtoForList> listPoint = new ArrayList<PointDto.DtoForList>();
 			System.out.println(listPoint+"리스트포인트위에꺼");
 		System.out.println(listPoint+"리스트포인트아래꺼");
+		if(point!=null) {
 		for(Point point1:point) {
 			PointDto.DtoForList dto = modelMapper.map(point,PointDto.DtoForList.class);
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy년MM월dd일");
@@ -154,11 +158,19 @@ public class UserService {
 		dto.setUsername(point1.getUsername());
 		dto.setPoint(point1.getPoint());
 		listPoint.add(dto);
-	}
+	    }
+}
+		else {
+			return listPoint;
+			
+		}
 		return listPoint;
 }
 		
-	public int totalpoint(String username) {
+	public Integer totalpoint(String username) {
+		if(userDao.TotalPoint(username)==null) {
+			return 0;
+		} 
 		return userDao.TotalPoint(username);
 	}
 	//페이보릿즐찾리스트
@@ -171,13 +183,8 @@ public class UserService {
 		return userDao.listByReviewUser(username);
 	}
 	//삭제리뷰함	
-	public int delete(String username) {
-		User user = userDao.findByid(username);
-		System.out.println(user+"유저");
-		if(user.getUsername().equals(username)==false)
-			throw new JobFailException("유저가다름");
-		return userDao.delete(username);
-		
+	public void delete(String username) {
+		userDao.delete(username);
 	}
 	// 2단계 아이디 찾기 시 랜덤 이름 값
 	public List<String> findAllIrum() {
