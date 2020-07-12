@@ -72,7 +72,6 @@ public class ArtServiceTest {
 		dto.setShopno(5);
 		dto.setArtDetail("작품입니다");
 		dto.setCouriPrice(2500);
-		dto.setReviewCnt(5);
 		return dto;
 	}
 	
