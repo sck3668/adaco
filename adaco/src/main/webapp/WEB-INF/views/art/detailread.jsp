@@ -100,7 +100,7 @@ $(function() {
 				optionName: $optionName,
 				optionValue: $optionValue,
 				optionPrice: $optionPrice,
-				optionStock: $optionStock,
+				optionStock: $optionStock
 				
 		};
 		

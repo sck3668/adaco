@@ -31,7 +31,7 @@ public class ArtRestController {
 	private ObjectMapper objectMapper = new ObjectMapper();
 	
 	// 작품 업데이트(수정)
-	//@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated()")
 	@PutMapping("/art/update")
 	public ResponseEntity<Void> updateArt(ArtDto.DtoForUpdate dto, BindingResult results, Principal principal, MultipartFile artSajin ) throws BindException, IllegalStateException, IOException{
 		System.out.println("dto===============+"+dto);
