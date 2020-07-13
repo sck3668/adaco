@@ -21,8 +21,6 @@ public class OrderController {
 	@Autowired
 	private ObjectMapper objectMapper = new ObjectMapper();
 
-	
-
 	// 주문 하기
 	@GetMapping("/order/ordering")
 	public ModelAndView Ordering(Principal principal,Order order,Bag bag) {
@@ -40,7 +38,7 @@ public class OrderController {
 		
 	// 결제하기
 	@GetMapping("/order/payment")
-	public ModelAndView Payment(String username,Integer orderno,Integer artno,OrderDetailDto.DtoForDeleteOrder Dto ) {
+	public ModelAndView Payment(String username,Integer orderno,Integer artno,OrderDto.DtoForOrdering Dto ) {
 		return new ModelAndView("main").addObject("viewName", "order/payment.jsp").addObject("orders",orderService.payment(username,Dto));
 	}
 //	@PostMapping("/orderdetail/payment")

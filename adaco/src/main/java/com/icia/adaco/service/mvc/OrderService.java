@@ -59,12 +59,12 @@ public class OrderService {
 		}
 		
 		// 결제하기
-//		@PreAuthorize("isAuthenticated()")
-//		public int payment(String username,OrderDetailDto.DtoForDeleteOrder dto) {
-//			OrderDetail orderdetail = modelMapper.map(dto, OrderDetail.class);
-//			orderDetailDao.Payment(orderdetail);
-//		return orderdetail.getOrderno();
-//		}
+		@PreAuthorize("isAuthenticated()")
+		public int payment(String username,OrderDto.DtoForOrdering dto) {
+			OrderDetail orderdetail = modelMapper.map(dto, OrderDetail.class);
+			orderDetailDao.Payment(orderdetail);
+		return orderdetail.getOrderno();
+		}
 		
 //		public int payByOrder(String username, OrderDetailDto.DtoForDeleteOrder Dto, Order order){
 //			int orderdetail = orderDao.Ordering(order);
