@@ -61,7 +61,7 @@ public class ArtRestController {
 	}
 	
 	// 작품 삭제
-	//@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated()")
 	@DeleteMapping("/art/delete")
 	public ResponseEntity<?> deleteArt(Integer artno, Principal principal){
 		System.out.println("dddddddddddddddddddd");

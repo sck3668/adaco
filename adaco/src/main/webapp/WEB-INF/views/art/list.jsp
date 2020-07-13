@@ -1,5 +1,3 @@
-list 원래 코드
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -43,39 +41,63 @@ list 원래 코드
 		$(".chBox").on("click",function(){
 			  $("#check_all").prop("checked", false);
 			 });
-		
-	// 선택한 작품 삭제
-// 	var uncheck = $(".chBox").prop("checked", false);
 	
-	$("#delete_Btn").click(function(){
-		
-	  	var confirm_val = confirm("정말 삭제하시겠습니까?");
+	// 삭제버튼을 클릭하면 해당 작품 삭제
+		$(".deleteOne").on("click", function() {
+			var confirm_val = confirm("정말 삭제하시겠습니까?");
 	  		if(confirm_val) {
-			  var ar = [];
-				$(".chBox").each(function(idx) {
-					if($(this).prop("checked")) {
-						ar.push($(this).data("artno"));
-					}
-				});
-				var params = {
-					_csrf: "${_csrf.token}",
-					_method: "delete",
-					artnos: JSON.stringify(ar)
-// 					artno: $(this).attr("data-artno"),
-// 					artnos: JSON.stringify(ar)
-				}
-				console.log(params)
-				$.ajax({
-					url:"/adaco/art/delete",
-					data: params,
-					method: "post",
-				}).done((result)=>{
-					alert("삭제처리 되었습니다.");
-					location.reload(true);
-		   });
+			var params = {
+				_csrf: "${_csrf.token}}",
+				_method: "delete",
+				artno: $(this).attr("data-artno")	
 			}
+			console.log(params);
+			$.ajax({
+				url:"/adaco/art/delete",
+				data: params,
+				method: "post"
+			}).done((result)=>{
+				alert("삭제처리 되었습니다.")
+				location.reload(true);
+			}).fail((result)=>alert("삭제실패"))
+		}else{
+			return;
+		}
+		})
 	
- 		});
+	
+	// 선택한 작품 삭제
+// // 	var uncheck = $(".chBox").prop("checked", false);
+	
+// 	$("#delete_Btn").click(function(){
+		
+// 	  	var confirm_val = confirm("정말 삭제하시겠습니까?");
+// 	  		if(confirm_val) {
+// 			  var ar = [];
+// 				$(".chBox").each(function(idx) {
+// 					if($(this).prop("checked")) {
+// 						ar.push($(this).data("artno"));
+// 					}
+// 				});
+// 				var params = {
+// 					_csrf: "${_csrf.token}",
+// 					_method: "delete",
+// 					artnos: JSON.stringify(ar)
+// // 					artno: $(this).attr("data-artno"),
+// // 					artnos: JSON.stringify(ar)
+// 				}
+// 				console.log(params)
+// 				$.ajax({
+// 					url:"/adaco/art/delete",
+// 					data: params,
+// 					method: "post",
+// 				}).done((result)=>{
+// 					alert("삭제처리 되었습니다.");
+// 					location.reload(true);
+// 		   });
+// 			}
+	
+//  		});
 	
 	});
 </script>
@@ -85,7 +107,7 @@ list 원래 코드
  	${artPage.artList } 
 	<div class="form-group">
 		<button type="button" id="delete_Btn" class="btn btn-primary" style="float:right;">
-			삭제
+			선택 삭제
 		</button>
 		<button type="button" id="write_Btn" class="btn btn-warning" >
 			작품 등록
@@ -120,6 +142,7 @@ list 원래 코드
 						<td style="vertical-align: middle;">${art.artName}</td>
 						<td style="vertical-align: middle;">${art.price}</td>
 						<td style="vertical-align: middle;"><input type="checkbox" name="chBox" class="chBox" data-artno="${art.artno}" /></td>
+						<td style="vertical-align: middle;"><input type="button" value="삭제" name="deleteOne" class="deleteOne" data-artno="${art.artno}" /></td>
 					</tr>
 				</c:forEach>
 			</tbody>

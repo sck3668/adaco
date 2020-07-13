@@ -36,7 +36,6 @@
 			console.log(key);
 		for(var value of formData.values())
 			console.log(value);
-		//console.log("카테고리얌" + r1);
 		var r1 = checkIrum();
 		var r2 = checkPrice();
 		var r3 = checkStock();
