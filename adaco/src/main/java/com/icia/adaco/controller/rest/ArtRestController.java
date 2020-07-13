@@ -2,7 +2,9 @@ package com.icia.adaco.controller.rest;
 
 import java.io.*;
 import java.security.*;
+import java.util.*;
 
+import javax.servlet.http.*;
 import javax.validation.*;
 import javax.validation.constraints.*;
 
@@ -15,6 +17,8 @@ import org.springframework.web.client.*;
 import org.springframework.web.multipart.*;
 
 import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.core.type.*;
+import com.fasterxml.jackson.databind.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.service.rest.*;
@@ -23,9 +27,11 @@ import com.icia.adaco.service.rest.*;
 public class ArtRestController {
 	@Autowired
 	private ArtRestService service;
+	@Autowired
+	private ObjectMapper objectMapper = new ObjectMapper();
 	
 	// 작품 업데이트(수정)
-	//@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated()")
 	@PutMapping("/art/update")
 	public ResponseEntity<Void> updateArt(ArtDto.DtoForUpdate dto, BindingResult results, Principal principal, MultipartFile artSajin ) throws BindException, IllegalStateException, IOException{
 		System.out.println("dto===============+"+dto);
@@ -37,7 +43,7 @@ public class ArtRestController {
 		return ResponseEntity.ok(null);
 		
 	}
-	// 작품 상세보기 (작가용)
+	// 작품 상세보기 (작가용)//
 	@PostMapping("/art/read2")
 	public ResponseEntity<?>readArt(@RequestParam @NotNull Integer artno, Principal principal) throws JsonProcessingException {
 		String username = principal!=null? principal.getName():null;
@@ -69,6 +75,15 @@ public class ArtRestController {
 		service.deleteArt(artno, principal.getName());
 		return ResponseEntity.ok("/adaco/art/list");
 	}
+	
+	//작품 선택 삭제
+	/*@PreAuthorize("isAuthenticated()")
+	@DeleteMapping("/art/multipleDelete")
+	public ResponseEntity<?> multipleDelete(Principal principal, String artnos) throws JsonParseException, JsonMappingException, IOException {
+		List<Integer> list = objectMapper.readValue(artnos, new TypeReference<List<Integer>>() {});
+		List<ArtDto.DtoForList> artList = service.multipleDelete(principal.getName(), list);
+		return ResponseEntity.ok(artList);
+	}*/
 	
 	// 작품 댓글 작성
 	//@PreAuthorize("isAuthenticated()")

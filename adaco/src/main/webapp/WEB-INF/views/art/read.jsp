@@ -87,17 +87,16 @@ $(function() {
 			optionPrice:'${artPageByUser.optionPrice}', 
 		
 		};
-		
+			
 		console.log(params);
 			alert("var");
-		/* $.ajax({
+			$.ajax({
 			url:"/adaco/order/payment",
 			method:"get",
 			data:params,
 		})
 				alert("성공");
-		}) */
-	})
+		}) 
 	
 	//장바구니 추가
 	$("#addBag").on("click",function() {
