@@ -20,11 +20,12 @@
 </style>
 <script>
 function checkFavorite() {
-	var favorite = ${artPageByUser.favorite}
-	if(favorite == true)
+	console.log(${artPageByUser})
+	/* var $isFavorite = ${artPageByUser.isFavorite}
+	if($isFavorite == true)
 		$("#favorite").text("★즐겨찾기");
 	else
-		$("#favorite").text("☆즐겨찾기");
+		$("#favorite").text("☆즐겨찾기"); */
 }
 
 $(function() {
@@ -59,19 +60,15 @@ $(function() {
 	};
 	//즐겨찾기 추가
 	$("#favorite").on("click",function() {
-		$favorite = ${artPageByUser.favorite};
-		if($favorite==true)
-			console.log("이거됨?");
-		
 		var params ={
 				_csrf:"${_csrf.token}",
 				artno: ${artPageByUser.artno},
 		}
 		$.ajax({
-			//url:"/adaco/user/favoriteAdd",
-			//method:"post",
-			//data:params,
-		})
+			url:"/adaco/user/favoriteUpdate",
+			method:"post",
+			data:params
+		}).done(()=>location.reload(true)).fail(()=>alert("알 수 없는 오류가 발생했습니다."))
 	});
 	
 	// 구매하기
