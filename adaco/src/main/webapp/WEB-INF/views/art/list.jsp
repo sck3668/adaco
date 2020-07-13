@@ -12,10 +12,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
 <!-- <style> -->
-/*  td { */
-/*     vertical-align: middle; */
-/*   } */
-<!-- </style> -->
+/*   td { */
+/*      vertical-align: middle; */
+<!--  </style>  -->
 <sec:authorize access="isAuthenticated()">
 	<script>
 		var isLogin = true;
@@ -29,7 +28,7 @@
 			location.href="/adaco/art/write";
 		});
 		
-	// 전체 체크박스 선택 및 선택해제	
+	// 전체 체크박스 선택 및 선택해제	//
 		$("#check_all").on("click", function(){
 		 var chk = $("#check_all").prop("checked");
 		 if(chk) {
@@ -78,6 +77,7 @@
 	
 	});
 </script>
+
 </head>
 <body>
  	${artPage.artList } 
