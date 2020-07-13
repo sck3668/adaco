@@ -3,6 +3,7 @@ package com.icia.adaco.controller.mvc;
 import java.security.*;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
@@ -24,23 +25,23 @@ public class OrderController {
 
 	// 주문 하기
 	@GetMapping("/order/ordering")
-	public ModelAndView Ordering(Principal principal,int orderno) {
+	public ModelAndView Ordering(Principal principal,Order order,Bag bag) {
 		String id = principal.getName();
-		orderService.Ordering2( orderno);
+		orderService.Ordering(order, bag);
 //		String user = username(principal.getName());
-		return new ModelAndView("main").addObject("viewName", "order/ordering.jsp").addObject("Odering",orderService.Ordering2(orderno));
+		return new ModelAndView("main").addObject("viewName", "order/ordering.jsp").addObject("Odering",orderService.Ordering(order,bag));
 	}
 	
 	// 주문하기
-//	@PostMapping("/order/ordering")
-//	public ResponseEntity<?> Ordering(Integer orderno, Principal principal){
-//		return ResponseEntity.ok(orderService.Ordering(orderno));
-//	}
+	@PostMapping("/order/ordering")
+	public ResponseEntity<?> Ordering(Order order, Principal principal,Bag bag){
+		return ResponseEntity.ok(orderService.Ordering(order,bag));
+	}
 		
 	// 결제하기
 	@GetMapping("/order/payment")
-	public ModelAndView Payment(String username,Order order,Integer artno,OrderDto.DtoForOrdering Dto ) {
-		return new ModelAndView("main").addObject("viewName", "order/payment.jsp").addObject("orders",orderService.Payment(username, order, artno));
+	public ModelAndView Payment(String username,Integer orderno,Integer artno,OrderDetailDto.DtoForDeleteOrder Dto ) {
+		return new ModelAndView("main").addObject("viewName", "order/payment.jsp").addObject("orders",orderService.payment(username,Dto));
 	}
 //	@PostMapping("/orderdetail/payment")
 //	public String buyAll(String json,Principal principal) throws JsonParseException, JsonMappingException, IOException {
@@ -68,6 +69,7 @@ public class OrderController {
 		return new ModelAndView("main").addObject("viewName", "order/after.jsp");
 	}
 
+	
 //	// 장바구니에서 주문
 //	@GetMapping("/order/carByorder")
 //	public ModelAndView orderDetail2(OrderDetailDto.DtoForOrdering Dto, Order order, String username,

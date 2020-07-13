@@ -25,20 +25,22 @@ public class MessageRestController {
 	// 보낸 사람 측에서 메모 삭제
 		@PatchMapping("/message/isSendMessage")
 		public ResponseEntity<String> disableBySender(@RequestParam @NotNull String mnos, Principal principal) throws JsonParseException, JsonMappingException, IOException  {
+			System.out.println("mons=="+mnos);
+			System.out.println("principal"+principal.getName());
 			List<Integer> list = new ArrayList<>();
 			String[] strings = mnos.split(",");
 			// NumberUtils.toInt는 변경에 실패하면 기본값이 0이다. 따라서 예외는 발생하지 않는다 
 			for(String str:strings)
 				list.add(NumberUtils.toInt(str));
 			msgRestService.disableBySender(list);
-			return ResponseEntity.ok("/adaco/message/send");
+			return ResponseEntity.ok("/adaco/message/list_sender");
 		}
 		
 		// 받은 사람 측에서 메모 삭제
 		@PatchMapping("/message/isReciverMessage")
-		public ResponseEntity<String> disableByReceiver(@RequestParam @NotNull  String mnos, Principal principal) throws JsonParseException, JsonMappingException, IOException {
+		public ResponseEntity<String> disableByReceiver(@RequestParam @NotNull String mnos, Principal principal) throws JsonParseException, JsonMappingException, IOException {
 			List<Integer> list = objectMapper.readValue(mnos, new TypeReference<List<Integer>>() {});
 			msgRestService.disableByReceiver(list);
-			return ResponseEntity.ok("/adaco/message/receive");
+			return ResponseEntity.ok("/adaco/message/list_receiver");
 		}
 }

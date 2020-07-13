@@ -1,5 +1,6 @@
 package com.icia.adaco.service.mvc;
 
+import java.time.*;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.*;
@@ -40,6 +41,10 @@ public class msgService {
 		User user = userDao.findByid(msg.getRecipientId());
 		if(user==null)
 			throw new JobFailException("받는 사용자를 확인하지 못했습니다");
+		System.out.println("msg==="+msg);
+		msg.setUsername(msg.getSendId());
+		msg.setWriteDate(LocalDateTime.now());
+		msg.setMsgCheck(false);
 		msgDao.insert(msg);
 		handler.sendMessage(msg.getSendId(), msg.getRecipientId(), msg.getTitle());
 	}

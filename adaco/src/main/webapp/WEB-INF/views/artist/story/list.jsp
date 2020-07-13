@@ -32,7 +32,7 @@
 		
 		// 1-2. 게시물 보기를 선택했을 때
 		$("#read_by_id").on("click", function() {
-			location.href = "/adaco/board/list?writer=" + $(this).data("writer");
+			location.href = "/adaco/art/listByUser?writer=" + $(this).data("writer");
 		});
 		
 		// 1-3. 모달 대화상자의 가입일 조회 클릭
