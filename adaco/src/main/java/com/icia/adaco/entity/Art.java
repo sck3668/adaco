@@ -25,7 +25,7 @@ public class Art {
 	private Integer readCnt;
 	private Integer accumulated; // 택배사
 	private Integer favoriteCnt;
-	private boolean isFavorite;
+	private Boolean isFavorite;
 	private String category;
 	private Integer artistno;
 	private Integer shopno;

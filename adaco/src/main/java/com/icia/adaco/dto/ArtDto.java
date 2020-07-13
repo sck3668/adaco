@@ -57,7 +57,7 @@ public class ArtDto {
 		private String artName;
 		private Integer price;
 		private Integer favoriteCnt;
-		private boolean isFavorite;
+		private Boolean isFavorite;
 		private LocalDate artDate;
 		private String username;
 	}
@@ -87,7 +87,7 @@ public class ArtDto {
 		private Integer optionStock;
 		private Integer optionPrice;
 		private Integer favoriteCnt;
-		private boolean isFavorite;
+		private Boolean isFavorite;
 		private Integer readCnt;
 		private String artDetail;
 		private Integer reviewCnt;
@@ -114,7 +114,7 @@ public class ArtDto {
 		private String courier;
 		private Integer accumulated;
 		private Integer favoriteCnt;
-		private boolean isFavorite;
+		private Boolean isFavorite;
 		private String category;
 		private Integer readCnt; 
 		private Integer artistno;
@@ -148,7 +148,7 @@ public class ArtDto {
 		private LocalDateTime writeDate;
 		private String username;
 		private Integer favoriteCnt;
-		private boolean isFavorite;
+		private Boolean isFavorite;
 	}
 	 
 	public static class DtoForBag{

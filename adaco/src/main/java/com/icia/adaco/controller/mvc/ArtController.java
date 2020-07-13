@@ -53,13 +53,15 @@ public class ArtController {
 	
 	// 작품 상세보기 (작가용)
 	@GetMapping("/art/readByArtist")
-	public ModelAndView read(@NonNull Integer artno, @Nullable String username) {
+	public ModelAndView read(@NonNull Integer artno, @Nullable Principal principal) {
+		String username = principal.getName();
 		return new ModelAndView("main").addObject("viewName","art/detailread.jsp").addObject("artDetailPage",service.readArt(artno, username)).addObject("image", service.readArtImage(artno));
 	}
 	
 	// 작품 상세보기 (회원용)
 	@GetMapping("/art/readByUser")
-	public ModelAndView readFromUser(@NonNull int artno ,@Nullable String username) {
+	public ModelAndView readFromUser(@NonNull int artno ,@Nullable Principal principal) {
+		String username = principal.getName();
 		return new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPageByUser", service.readArtFromUser(artno, username)).addObject("image", service.readArtImage(artno));
 	}
 	//
@@ -85,9 +87,4 @@ public class ArtController {
 		}
 		return "redirect:/art/listByArtist";
 	}
-	
-
-	
-	
-	
 }
