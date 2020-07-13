@@ -85,9 +85,4 @@ public class ArtController {
 		}
 		return "redirect:/art/listByArtist";
 	}
-	
-
-	
-	
-	
 }

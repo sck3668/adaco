@@ -6,6 +6,7 @@ import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
+import org.springframework.web.bind.annotation.*;
 
 import com.fasterxml.jackson.databind.*;
 import com.icia.adaco.dao.*;
@@ -48,10 +49,10 @@ public class OrderService {
 //			return orderno;
 //		}
 		// 3
-	
-		public void Ordering(Order order,) {
+		
+		public int Ordering(Order order,Bag bag) {
 			int artno = bag.getArtno();
-			Art art = artdao.readByArt(artno);
+			Art art = artDao.readByArt(artno);
 			bag.setTotalPrice(bag.getAmount()*art.getPrice());
 			return orderDao.Ordering(order);
 		}
@@ -124,7 +125,9 @@ public class OrderService {
 		}
 
 		// 주문 완료 후 장바구니 제거
-		
+		public int RemoveOrderByCart(String username) {	
+			Order order = orderDao.
+		}
 		// 주문알람(유저용)
 		
 		// 주문-결제하면 이벤트 발생시키는 서비스
