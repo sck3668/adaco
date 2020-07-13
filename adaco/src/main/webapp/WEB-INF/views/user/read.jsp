@@ -134,7 +134,6 @@ $(function(){
 				_csrf:"${_csrf.token}",
 				_method:"delete"
 		}
-		console.log(parmas)
 		$.ajax({
 			url:"/adaco/user/delete",
 			method:"post",

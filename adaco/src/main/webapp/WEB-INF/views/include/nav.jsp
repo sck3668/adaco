@@ -29,6 +29,27 @@ $(function() {
 			}
 		});
 	});
+	 
+	$("#artistPage").on("click",function() {
+		var  params = {
+				_csrf:'${_csrf.token}',
+		}
+		$.ajax({
+			url:"/adaco/artist/checkShop",
+			method:"post",
+			data:params,
+			success:function(result) {
+				if(result=="1"){
+					alert("상점이 이미 존재합니다")
+					location.href="/adaco/"
+				} else {
+					location.href="/adaco/artist/shopMade"
+				}
+			}
+		})
+	})
+	
+	
 	}) 
 </script>
 </head>
@@ -93,6 +114,9 @@ $(function() {
          		</li>
          		<li class="nav-item">
          		   <a class="nav-link" href="/adaco/artist/artistpage">작가페이지</a>
+         		</li>
+         		<li class="nav-item">
+         		   <a class="nav-link" href="/adaco/artist/shopMade" id="artistPage">상점 개설하기</a>
          		</li>
          		<li class="nav-btn ui-dropdown" id="aa">
 					<button type="button" class="btn-dropdown" id="gogak">고객센터</button>
