@@ -66,17 +66,14 @@
 		})
 	
 	
-	// 선택한 작품 삭제
-// 	var uncheck = $(".chBox").prop("checked", false);
+	// 선택한 작품 삭제, 선택작품 없을 시 "선택된 작품이 없습니다" 팝업 출력
 	
 	$("#delete_Btn").click(function(){
 		var cnt = $("input[name='chBox']:checked").length;
-		$("input[name='chBox']:checked").each(function() {
-            arr.push($(this).attr('id'));
-        });
         if(cnt == 0){
-            alert("선택된 글이 없습니다.");
-        }
+            alert("선택된 작품이 없습니다.");
+            return;
+        } else{
 	  	var confirm_val = confirm("정말 삭제하시겠습니까?");
 	  		if(confirm_val) {
 			  var ar = [];
@@ -102,7 +99,7 @@
 					location.reload(true);
 		   });
 			}
-	
+        	}
  		});
 	
 	});
