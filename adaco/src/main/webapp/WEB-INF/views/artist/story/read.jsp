@@ -195,7 +195,7 @@ ${story.writer}
 			</div>
 			<div class = "form-group" id ="content_div">
 				<div class = "form-group">
-					<input class = "form-control" id = "content" name = "content" cols="50" rows="10" readonly="readonly" style="background-color: white;" value="${story.content }">
+					<div class = "form-control" id = "content" name = "content" cols="50" rows="10" readonly="readonly" style="background-color: white;" >
 				</div>
 			</div>
 			<input type="hidden" value="${story.writer }" id="writer">
