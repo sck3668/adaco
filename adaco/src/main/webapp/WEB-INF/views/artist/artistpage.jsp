@@ -155,7 +155,8 @@
             <li><a href="/adaco/user/read" style="color: black;">내정보보기</a></li>
             <li><a href="/adaco/order/artistSellList"style="color: black;">판매내역</a></li>
             <li><a href="/adaco/artist/shopPage" style="color: black;">내상점보기</a></li>
-            <li><a href="/adaco/user/messageList" style="color: black;">메세지함</a>
+            <li><a href="/adaco/user/#" style="color: black;">메세지함</a></li>
+            <li><a href="/adaco/artist/sales" style="color: black;" >매출 관리</a></li>
          </ul>
       </div>
    </div>

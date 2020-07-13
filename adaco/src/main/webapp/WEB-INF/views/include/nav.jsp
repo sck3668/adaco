@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+
+</style>
 <script>
 function init() {
 	$("#gogak-d").hide();
@@ -48,8 +51,6 @@ $(function() {
 			}
 		})
 	})
-	
-	
 	}) 
 </script>
 </head>
