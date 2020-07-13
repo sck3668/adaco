@@ -11,9 +11,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
-      table, th, td {
+	
+	#aside {
+	width:110px;
+	height:500px;
+	background-color: gray;
+	float: left;
+  }
+    table, th, td {
         border: 1px solid #bcbcbc;
-      }   
+  }  
       table {
     width: 100%;
     border-top: 1px solid #444444;
@@ -26,11 +33,11 @@
   }
   th {
     background-color: #bbdefb;
-  }
-/*   td { */
-/*     background-color: #e3f2fd; */
-/*   } */
-    </style>
+  } 
+   td { 
+     background-color: #e3f2fd; 
+   } 
+   </style>
 <script type="text/javascript">
 $(function(){
 	$("#search").on("click", function(){
@@ -45,10 +52,25 @@ $(function(){
 			location.href = "/adaco/admin/artist_list"
 	});
 });	
-	
 </script>
 </head>
 <body>
+ <aside id="asideMain">
+	<div id="aside">
+		<div id="profile">
+		</div>
+		<div>
+			<ul>
+				<li><a href="/adaco/user/read" style="color: black;">내정보보기</a></li>
+				<li><a href="/adaco/order/read"style="color: black;">주문내역</a></li>
+				<li><a href="/adaco/user/reviewList" style="color: black;">내리뷰보기</a></li>
+				<li><a href="/adaco/user/favoriteList" style="color: black;">즐겨찾기목록</a></li>
+				<li><a href="/adaco/user/pointList" style="color: black;">포인트함 </a>
+				<li><a href="/adaco/user/messageList" style="color: black;">메세지함</a>
+			</ul>
+		</div>
+	</div>
+	</aside>
 	<h3>주문 내역</h3>
 	<div>
 	<input type="text" id="username" name="username" placeholder="사용자 검색">
@@ -78,7 +100,7 @@ $(function(){
 			</colgroup>
 	 <caption><strong> <h3>주문 내역</h3></strong></caption>
 		<thead>
-			<tr>
+			<tr id="thead">
 				<th>번호</th>
 				<th>주문일자</th>
 				<th>작품명</th>

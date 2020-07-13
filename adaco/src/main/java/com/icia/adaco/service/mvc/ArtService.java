@@ -31,7 +31,7 @@ public class ArtService {
 	private ArtistDao artistdao;
 	@Autowired
 	private ShopDao shopdao;
-	@Value("c:/upload/artfile")
+	@Value("d:/upload/artfile")
 	private String artfileFolder;
 	@Value("http://localhost:8081/artfile/")
 	private String artfilePath;
