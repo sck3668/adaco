@@ -1,6 +1,7 @@
 package com.icia.adaco.dto;
 
 import java.time.*;
+import java.util.*;
 
 import com.icia.adaco.entity.*;
 
@@ -23,8 +24,8 @@ public class OrderDto {
       private int shippingCharge;
       private String artName;
       private int artPrice;
-      private String state;
-   }
+      private State state;
+      }
    //
    @Data
    @AllArgsConstructor

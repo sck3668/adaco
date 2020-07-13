@@ -12,6 +12,14 @@ import com.icia.adaco.entity.*;
 public class OrderDao {
 	@Autowired
 	private SqlSessionTemplate tpl;
+	//유저네임으로 아트 찾기
+	/*
+	 * public String ArtNameByUsername(String username) { return
+	 * tpl.selectOne("orderMapper.ArtNameByUsername",username); } public String
+	 * ArtPriceByUsername(String username) { return
+	 * tpl.selectOne("orderMapper.ArtPriceByUsername",username); }
+	 */
+	
 	//유저네임으로 검색
 	public int count(String username) {
 		Map<String,String> map = new HashMap<String, String>();

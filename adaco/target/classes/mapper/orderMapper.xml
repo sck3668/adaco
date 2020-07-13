@@ -29,6 +29,9 @@
 		
 		
 	</select>
+	 <select id="ArtNameByUsername" resultType="Art">
+	 	select art_name from art where username=#{username}
+	 </select> 
 	 
 <!-- 	 주문 상세 내역  -->
 	<select id = "findByOrder" resultType="order">

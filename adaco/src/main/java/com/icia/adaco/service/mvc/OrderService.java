@@ -135,6 +135,8 @@ public class OrderService {
 			for(Order order:orderList) {
 				OrderDto.DtoForList dto = modelMapper.map(order,OrderDto.DtoForList.class);
 				dto.setOrderDateStr(order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
+				/* dto.setState(orderState.배송준비중); */
+				
 				dtoList.add(dto);
 			}
 			page.setOrderList(dtoList);
