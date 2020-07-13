@@ -16,7 +16,8 @@ public class StoryCommentDto {
 		private Integer storyno;
 		private String content;
 		private String writer;
-		private LocalDateTime writeDate;
+		private String writeDateStr;
+		private Integer cno;
 	}
 
 	
@@ -30,6 +31,7 @@ public class StoryCommentDto {
 		private String writer;
 		private String writeDateStr;
 		private String content;
+		private int cno;
 	}
 
 	@Data

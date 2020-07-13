@@ -1,5 +1,7 @@
 package com.icia.adaco.service.mvc;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 import java.io.*;
 import java.time.*;
 import java.time.format.*;
@@ -12,9 +14,11 @@ import org.springframework.web.multipart.*;
 
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
+import com.icia.adaco.dto.StoryCommentDto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.exception.*;
 import com.icia.adaco.util.*;
+import com.nhncorp.lucy.security.xss.markup.*;
 
 @Service
 public class StoryService {
@@ -73,19 +77,28 @@ public class StoryService {
 	}
 	public StoryBoardDto.DtoForRead storyRead(int storyno,int pageno) {
 		Story story = storyDao.findByStory(storyno);
-		System.out.println(story+"스토리임다");
+		//System.out.println(story+"스토리임다");
 		if(story==null)
 			throw new JobFailException("보드가없다");
 		StoryBoardDto.DtoForRead readDto = modelMapper.map(story,StoryBoardDto.DtoForRead.class);
-		System.out.println(readDto+"============");
+		//System.out.println(readDto+"============");
 		int countOfBoard = storyCommentDao.count();
 		Page page = PagingUtil.getPage(pageno, countOfBoard);
 		int srn = page.getStartRowNum();
 		int ern = page.getEndRowNum();
-		System.out.println(readDto.setComments(storyCommentDao.findAllByCno(srn,ern,storyno))+"ㅎㅎㅎㅎㅎㅎㅎㅎㅎ");
+		List<StoryComment> comments = storyCommentDao.findAllByCno(srn,ern,storyno);
+		List<StoryCommentDto.DtoForList> commentDto = new ArrayList<StoryCommentDto.DtoForList>(); 
+		//readDto.setComments(storyCommentDao.findAllByCno(srn,ern,storyno));
 		String str = story.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일"));
-		readDto.setWriteDateStr(str);
-		System.out.println(readDto+"gggggg");
+		//readDto.setWriteDateStr(str);
+		//System.out.println("===11"+comments);
+		for(StoryComment comment : comments) {
+			DtoForList dto1 = modelMapper.map(comment,StoryCommentDto.DtoForList.class);
+			dto1.setWriteDateStr(comment.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
+			commentDto.add(dto1);
+		}
+		readDto.setComments(commentDto);
+		//System.out.println(readDto+"gggggg");
 		return readDto;
 	}
 }
