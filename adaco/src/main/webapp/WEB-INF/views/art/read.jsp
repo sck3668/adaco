@@ -91,7 +91,7 @@ $(function() {
 		console.log(params);
 			alert("var");
 			$.ajax({
-			url:"/adaco/order/payment",
+			url:"/adaco/order/ordering",
 			method:"get",
 			data:params,
 		})
