@@ -178,9 +178,17 @@ public class UserService {
 		System.out.println(username+"gggg");
 		return userDao.findAllFavorite(username);
 	}
+	//페이보릿 유저네임으로 개수세기
+	public String FavoriteUsernameCount(String username) {
+		return userDao.Favoritecount(username);
+	}
 	//유저리뷰함
 	public List<Review> reviewList(String username){
 		return userDao.listByReviewUser(username);
+	}
+	//리뷰개수 유저네임으로세기
+	public String ReviewUsernameFind (String username) {
+		return userDao.ReviewcountUsername(username);
 	}
 	//삭제리뷰함	
 	public void delete(String username) {
@@ -216,6 +224,7 @@ public class UserService {
 	Mail mail = Mail.builder().sender("webmaster@icia.com").receiver(email).title("임시비밀번호 발급안내").content(text.toString()).build();
 		mailUtil.sendMail(mail);
 	}
+	//비밀번호 변경후로그인후 변경
 	public void changePwd(String password, String newPassword, String username) {
 		User user = userDao.findByid(username);
 		if(user==null)
@@ -230,6 +239,5 @@ public class UserService {
 		}
 		else
 			throw new JobFailException("잘못된 비밀번호 입니다");
-		
 	}
 }

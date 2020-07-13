@@ -58,12 +58,10 @@
 </sec:authorize>
 <script>
 	$(function(){
-		
-// 		if(isLogin==true && )
-	/* 	$("#delete").on("click",function(){
+		$("#delete").on("click",function(){
 			console.log($(this).next().val());
 			var params={
-					_method:"put",
+					_method:"delete",
 					_csrf:"${_csrf.token}",	
 					favno :$(this).next().val()
 			}
@@ -72,9 +70,9 @@
 				url:"/adaco/user/favoriteDelete",
 				data:params,
 				method:"post"
-			}).done((r)=>{console.log(r)})
+			}).done(()=>{confirm("삭제하시겟습니까"),location.href="/adaco/user/favoriteList"})
 			  .fail((r)=>{console.log(r)})
-		}) */
+		}) 
 	})
 </script>
 </head>
@@ -106,7 +104,7 @@
          <thead>
          <tr>
             <th>번호</th><th>상품번호</th><th>상품명</th><th>상품가격</th><th></th>
-            <td><a href="/aboard/board/read?bno=${board.bno}" onclick="openWin()">${board.title}</a></td>
+            <%-- <td><a href="/adaco/board/read?bno=${board.bno}" onclick="openWin()">${board.title}</a></td> --%>
          </tr>
          </thead>
          <tbody>

@@ -117,7 +117,6 @@ public class ArtRestService {
 			artDao.updateByArt(Art.builder().artno(artno).readCnt(1).build());
 		if(art.getArtCommentCnt()>0)
 			dto.setArtComments(artCommemtDao.listByCommentOfArt(dto.getArtno()));
-		System.out.println("디티오"+dto);
 		return dto;
 	}
 
@@ -133,8 +132,9 @@ public class ArtRestService {
 	}
 
 	// 작품 삭제
-	public boolean deleteArt(Integer artno, String username, Integer optno) {
+	public boolean deleteArt(Integer artno, String username) {
 		Art art = artDao.readByArt(artno);
+		int optno = optionDao.readByArtno(artno).getOptno();
 		Option option = optionDao.readByOption(optno);
 		Integer artistno = artistDao.findArtistnoByUsername(username);
 		String artWriter = artistDao.findByid(artistno).getUsername();
@@ -158,7 +158,6 @@ public class ArtRestService {
 		artcomment.setContent(commentStr);
 		artCommemtDao.writeByCommentOfArt(artcomment);
 		artDao.updateByArt(Art.builder().artno(artcomment.getArtno()).artCommentCnt(1).build());
-		//System.out.println("댓글이 나오려나"  +artcomment);
 		return artCommemtDao.listByCommentOfArt(artcomment.getArtno());
 	}
 	

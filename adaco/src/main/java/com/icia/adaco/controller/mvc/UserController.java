@@ -160,8 +160,13 @@ public class UserController {
 	//마이페이지 화면
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/mypage")
-	public ModelAndView userRead() {
-		return new ModelAndView("main").addObject("viewName","user/mypage.jsp");
+	public ModelAndView userRead(Principal principal ) {
+		return new ModelAndView("main")
+				.addObject("viewName","user/mypage.jsp")
+				.addObject("point",userService.totalpoint(principal.getName()))
+				.addObject("review",userService.ReviewUsernameFind(principal.getName()))
+				.addObject("favorite",userService.FavoriteUsernameCount(principal.getName()));
+				
 	}
 		
 	//포인트 메인화면

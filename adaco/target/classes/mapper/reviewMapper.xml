@@ -32,7 +32,7 @@
 		select count(*)	from review 
 	</select>
 	
-	<!-- 작품 리뷰 상세 보기 / 리뷰삭제 위한 -->
+ 	<!-- 작품 리뷰 상세 보기 / 리뷰삭제 위한 -->
 	<select id="findById" resultType="review">
 		select rno, artno, content, star, write_date writeDate, image, username
 		from review
