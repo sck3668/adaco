@@ -103,6 +103,7 @@ public class ArtRestService {
 	
 	// 작품 상세보기 옵션 포함(회원용)
 	public ArtDto.DtoForRead readArtFromUser(Integer artno, String username) {
+		System.out.println("=======글번호"+artno);
 		Art art = artDao.readByArtFromUser(artno);
 		Option option = optionDao.readByArtno(artno);
 		if(art==null)
@@ -124,7 +125,7 @@ public class ArtRestService {
 			dto.setArtComments(artCommemtDao.listByCommentOfArt(dto.getArtno()));
 		return dto;
 	}
-
+	
 	// 작품 이미지 불러오기
 	public List<ArtImg> readArtImage(@NonNull int artno) {
 		return artDao.findAllArtImg(artno);

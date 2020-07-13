@@ -82,7 +82,15 @@ $(function() {
 			optionValue:'${artPageByUser.optionValue}',
 			optionStock:${artPageByUser.optionStock},
 			optionPrice:'${artPageByUser.optionPrice}',
+			
+		orderno :${ordering.orderno},
+		orderDate: ${ordering.orderDate},
+		shippingCharge : ${ordering.shippingCharge}
 		};
+		
+		
+		
+		
 		console.log(params);
 			alert("var");
 		/* $.ajax({
