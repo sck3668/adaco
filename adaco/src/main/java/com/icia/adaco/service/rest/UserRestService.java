@@ -42,8 +42,9 @@ public class UserRestService {
 		return true;
 	}
 	
-	public void delete(int favno) {
-			userDao.deleteFavorite(favno);
+	public int favoriteDelete(int favno) {
+			Favorite favorite = userDao.findByFavoriteId(favno);
+		return	userDao.deleteFavorite(favno);
 	}
 	public void update(DtoForUpdate dto, MultipartFile sajin ) throws IllegalStateException, IOException {
 		// 비밀번호가 존재하는 경우 비밀번호 확인. 실패하면 작업 중지 

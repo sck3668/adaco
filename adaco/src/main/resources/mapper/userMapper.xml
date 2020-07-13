@@ -59,6 +59,9 @@
 		insert into favorite(favno,artno,username,price,art_name)
 		values(#{favno},#{artno},#{username},#{price},#{artName})
 	</insert>
+	<select id = "count" resultType="string">
+		select count(*) from favorite where username=#{username}	
+	</select>
 	<select id = "listByReviewUser" resultType="review">
 		select rno,content,artno,username from review where username=#{username}
 	</select>
@@ -77,6 +80,9 @@
 	<delete id="reviewDelete">
 		delete from review where rno=#{rno} and rownum=1
 	</delete>
+	<select id="countUsername" resultType="string">
+		select count(*) from review where username=#{username}
+	</select>
 	<select id="findAllIrum" resultType="string">
 		select irum from users
 	</select>
