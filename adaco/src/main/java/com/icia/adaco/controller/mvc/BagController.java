@@ -34,7 +34,7 @@ public class BagController {
 		public ResponseEntity<?> insert(Bag bag,Principal principal) {
 			System.out.println("bag============"+bag);
 			System.out.println("controller=================");
-			return ResponseEntity.ok(bagService.inse	rtByBag(bag));
+			return ResponseEntity.ok(bagService.insertByBag(bag));
 		}
 		
 		@GetMapping("/bag/list")

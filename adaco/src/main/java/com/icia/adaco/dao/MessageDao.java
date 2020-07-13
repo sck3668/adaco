@@ -44,7 +44,7 @@ public class MessageDao {
 	}
 	
 	public int setRead(Integer mno) {
-		return tpl.update("memoMapper.setRead", mno);
+		return tpl.update("messageMapper.setRead", mno);
 	}
 	
 	//쪽지 삭제하기
