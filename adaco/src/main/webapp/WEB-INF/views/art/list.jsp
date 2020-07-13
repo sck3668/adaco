@@ -75,7 +75,7 @@
 			var confirm_val = confirm("정말 삭제하시겠습니까?");
 	  		if(confirm_val) {
 			var params = {
-				_csrf: "${_csrf.token}}",
+				_csrf: "${_csrf.token}",
 				_method: "delete",
 				artno: $(this).attr("data-artno")	
 			}

@@ -38,13 +38,15 @@ public class ShopDao {
 		return sql.update("shopMapper.updateByShop",shop);
 	}
 	//상점 삭제
-	public int deleteByShop(int shopno) {
-		return sql.delete("shopMapper.delete",shopno);
+	public int deleteByShop(int artistno) {
+		return sql.delete("shopMapper.delete",artistno);
 	}
 	
 	
 	//작품 등록에 필요
-		public int readShopnoByArtistno(int artistno) {
+		public Integer readShopnoByArtistno(int artistno) {
 			return sql.selectOne("shopMapper.readShopnoByArtistno", artistno);
 		}
+
+
 }
