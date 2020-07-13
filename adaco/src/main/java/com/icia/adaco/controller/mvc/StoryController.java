@@ -11,6 +11,7 @@ import org.apache.tomcat.jni.*;
 import org.apache.tomcat.util.http.fileupload.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
+import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.*;
@@ -40,13 +41,13 @@ public class StoryController {
 		.addObject("viewName","artist/story/list.jsp").addObject("story",storyService.storyList(pageno));
 	}
  
-	//@PreAuthorize("isAuthenticated()")
+	//@PreAuthorize("hasRole('ROLE_SELLER')")
 	@GetMapping("/story/writeStory")
 	public ModelAndView writeStory() {
 		return new ModelAndView("main").addObject("viewName","artist/story/write.jsp");
 	}
 
-	//@PreAuthorize("isAuthenticated()")
+	//@PreAuthorize("hasRole('ROLE_SELLER')")
 	@PostMapping("/story/writeStory")
 	public String writeStory(StoryBoardDto.DtoForWrite writeDto, Principal principal, MultipartFile sajin) throws IOException {
 		System.out.println(sajin+"controllerc----------");

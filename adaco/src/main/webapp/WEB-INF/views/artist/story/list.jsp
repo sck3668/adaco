@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>스토리 리스트</title>
+
 <style>
 	#storyList {
 		border: 1px solid gray;
@@ -16,6 +17,39 @@
 	}
 	
 </style>
+<script>
+	$(function() {
+		//if("${memoMsg}"!=="")
+		//	toastr.info("새로운 메모가 있습니다");
+		
+		// 1. 아이디를 클릭하면 나타나는 가입일보기, 게시물보기, 메모보내기로 구성된 컨텍스트 메뉴에 대한 처리
+		// 1-1. 게시물보기, 메모보내기 기능을 실행하려면 사용자 아이디를 필요로 하므로 클릭한 아이디를 컨텍스트 메뉴로 복사
+		$(".writer").on("click", function() {
+			// 글쓴사람 아이디를 클릭하면 모달 메뉴를 출력
+			// 아이디는 td에 data-writer로 저장. 모달 메뉴를 띄우는 순간에 메뉴쪽에 복사	
+			$(".modal-body li").attr("data-writer", $(this).attr("data-writer"));
+		});
+		
+		// 1-2. 게시물 보기를 선택했을 때
+		$("#read_by_id").on("click", function() {
+			location.href = "/adaco/board/list?writer=" + $(this).data("writer");
+		});
+		
+		// 1-3. 모달 대화상자의 가입일 조회 클릭
+		$("#find_joindate").on("click", function() {
+			console.log("/adaco/user/joinDate?username=" + $(this).attr("data-writer"));
+			$.ajax({
+				url: "/adaco/user/joinDate?username=" + $(this).attr("data-writer"),
+				method: "get",
+			}).done((result)=>swal($(this).attr("data-writer") + "님의 가입일", result, "success")).fail(()=>swal("오류 발생!", $(this).attr("data-writer") + "님의 가입일", "warning"));
+		});
+		
+		// 1-5. 모달 대화상자의 메모 보내기
+		$("body").on("click", "#write_memo", function() {
+			location.href = "/adaco/message/write?recipientId=" + $(this).attr("data-writer")
+		});
+	})
+</script>
 </head>
 <body>
 ${story }
@@ -23,11 +57,17 @@ ${story }
 	<hr>
 	<c:forEach items="${story.storyList}" var="story">
 	<div id="storyList">
-		<a href="/adaco/story/readStory?storyno=${story.storyno }">
 			<div id="textArea">
-				<div class="title">${story.writer }</div>
-				<div class="writeDate">${story.writeDateStr }</div>
+				<table>
+					<tr>
+						<td class="writer" data-toggle="modal" data-target="#myModal" data-writer="${story.writer}">${story.writer }</td>
+					</tr>
+					<tr>
+						<td class="writeDate">${story.writeDateStr }</td>
+					</tr>
+				</table>
 			</div>
+			<a href="/adaco/story/readStory?storyno=${story.storyno }">
 			<div id="imageArea">
 				<div class="image">
 					<img alt="art" src="${story.image }">
@@ -44,7 +84,7 @@ ${story }
 	
 	<div style="text-align: center;">
 		<ul class="pagination">
-			<c:if test="${story.isPrev==true}">
+			<c:if test="${story.prev==true}">
 				<li><a
 					href="/adaco/story/listStory?pageno=${story.startPage-1}">이전</a></li>
 			</c:if>
@@ -60,11 +100,26 @@ ${story }
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
-			<c:if test="${story.isNext==true}">
+			<c:if test="${story.next==true}">
 				<li><a
 					href="/adaco/story/listStory?pageno=${story.endPage+1}">다음</a></li>
 			</c:if>
 		</ul>
+	</div>
+	<div class="modal fade" id="myModal" role="dialog" style="top:40%;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body" >
+					<ul>
+						<li id="read_by_id" data-dismiss='modal'>게시물 보기</li>
+						<li id="find_joindate">가입일 보기</li>
+						<sec:authorize access="hasRole('ROLE_USER')">
+							<li id="write_memo">메보 보내기</li>
+						</sec:authorize>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 	
 </body>
