@@ -215,7 +215,7 @@ $(function() {
 			</tr>
 			<tr>
 				<td class="first">작품가격</td>
-				<td colspan="2">
+				<td colspa4n="2">
 				<input type="text" id="artPrice" name="artPrice" value="${artDetailPage.price}" /> 원
 				</td>
 			</tr>

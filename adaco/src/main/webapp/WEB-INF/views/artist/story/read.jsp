@@ -31,8 +31,12 @@
 	</script>
 </sec:authorize>
 <script>
+var story = ${story};
 	$(function(){
-		var story = "${story}";
+		$("#title").val(story.title);
+		$("#content").html(story.content);
+		
+		
 		function printComment(comments) {
 			var $comments = $("#comments");
 			$comments.empty();
@@ -41,6 +45,7 @@
 				var $upper_div = $("<div>").appendTo($comment);
 				var $center_div = $("<div>").appendTo($comment);
 				var $lower_div = $("<div>").appendTo($comment);
+				console.log(comment);
 				$("<span></span>").text(comment.writer).appendTo($upper_div);
 // 				$("<img>").attr("src", comment.content).css("width","40px").appendTo($center_div);
 				$("<span>").text(comment.writeDateStr).appendTo($lower_div);
@@ -69,18 +74,15 @@
 			printComment(story);
 		});
 		
-	//	console.log(loginId);
-	//	console.log(story.writer);
-	//	console.log($("#writer").val());
 		
 		//댓글 입력
-		if(isLogin==true && $("#writer").val()==loginId){
+		if(isLogin==true && story.writer==loginId){
 			$("#content").prop("disabled",false)
 			$("#comment_textarea").prop("disabled",false)
 			$("#comment_write").prop("disabled",false)
 			$("#title").prop("readonly",false)
 		}
-		else if(isLogin==true && $("#writer").val()!==loginId){
+		else if(isLogin==true && story.writer!==loginId){
 			$("#content").prop("disabled",true)
 			$("#comment_textarea").prop("disabled",false)
 			$("#comment_write").prop("disabled",false)
@@ -117,27 +119,6 @@
 			_method: "delete",
 			_csrf: "${_csrf.token}"
 		}
-		$.ajax({
-			url: "/adaco/story/commentDelete",
-			method: "post",
-			data: params
-		})
-		.done((result)=>{ printComment(result); })
-		.fail((result)=>{console.log(result)});
-	});
-		
-		//
-		$(".delete_comment").on("click", function() {
-		// data-ano 속성의 값을 꺼낼 때 
-		// data("ano") -> 넣은 값의 타입 그대로
-		// attr("data-ano") -> 문자열
-		var params = {
-			cno: $(this).data("cno"),
-			storyno: $("#storyno").val(),
-			writer: $(this).data("writer"),
-			_method: "delete",
-			_csrf: "${_csrf.token}"
-		}
 		console.log(params)
 		$.ajax({
 			url: "/adaco/story/commentDelete",
@@ -147,8 +128,6 @@
 		.done((result)=>{ printComment(result); })
 		.fail((result)=>{console.log(result)});
 	});
-		
-		
 		
 
 		
@@ -178,8 +157,7 @@
 </head>
 <body>	
 ${story}
-${story.comments[0].writer}
-${story.writer}
+
 <%-- ${story.comments[].cno} --%>
  <%-- <c:forEach items="${story.comments }" var="comments1" >
  	<input type="text" value="${comments1}">
@@ -187,7 +165,7 @@ ${story.writer}
  <div id="wrap">
 	<div>
 		<div class = "form-group">
-				제목<input type = "text" class = "form-control" id = "title" name = "title" readonly="readonly" style="background-color: white;" value="${story.title }" >
+				제목<input type = "text" class = "form-control" id = "title" name = "title" readonly="readonly" style="background-color: white;" >
 			</div>
 			<div class = "form-group">
 				<ul id = "attachment">
@@ -195,26 +173,10 @@ ${story.writer}
 			</div>
 			<div class = "form-group" id ="content_div">
 				<div class = "form-group">
-					<div class = "form-control" id = "content" name = "content" cols="50" rows="10" readonly="readonly" style="background-color: white;" >
+					<div class = "form-control" id = "content" name = "content" cols="50" rows="10" readonly="readonly" style="background-color: white; min-height: 600px;" >
 				</div>
 			</div>
-			<input type="hidden" value="${story.writer }" id="writer">
 			
-		
-	<!-- 	<div id="title_div">
-			<div id="upper">
-			</div>
-			<div id="lower">
-			</div>
-			<div>
-				<ul id="attachment">
-				</ul>
-			</div>
-		</div>
-		<div id="content_div">
-			<div class="form-group">
-				<div class="form-control" id="content"></div>
-			</div>		 -->
 		<sec:authorize access="hasRole('ROLE_SELLER')">
 			<div id="btn_area">
 				<button id="update" class="btn btn-info">변경</button>
@@ -229,13 +191,9 @@ ${story.writer}
 			<div class="form-group">
 				<label for="comment_textarea">댓글을 입력하세요</label>
 				<textarea class="form-control" rows="5"	id="comment_textarea" placeholder="욕설이나 모욕적인 댓글은 삭제될 수 있습니다" disabled="disabled" ></textarea>
-				<input type="hidden" value="${story.storyno }" id="storyno">
-				<%-- <c:forEach begin="1" end="10" var="i">
-					<input type="text" value="${story.comments[i].cno}" id="textarea">
-				</c:forEach> --%>
+				<input type="hidden" id="storyno">
 			</div>
-			<button type="button" class="btn btn-info" 
-				id="comment_write" disabled="disabled">댓글 작성</button>
+			<button type="button" class="btn btn-info" id="comment_write" disabled="disabled">댓글 작성</button>
 		</div>
 		<hr>
 		<div id="comments">

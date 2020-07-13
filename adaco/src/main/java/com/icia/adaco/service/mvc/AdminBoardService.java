@@ -157,9 +157,7 @@ public class AdminBoardService {
 		Notice notice = dao.findNoticeById(noticeno);
 		if(notice == null)
 			throw new JobFailException("해당 글을 찾을 수 없습니다.");
-		System.out.println("A포인트"+notice);
 		AdminBoardDto.DtoForNoticeRead dto = modelMapper.map(notice, AdminBoardDto.DtoForNoticeRead.class);
-		System.out.println("B포인트"+dto);
 		String str = notice.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
 		dto.setWriteDateStr(str);
 		
@@ -183,11 +181,13 @@ public class AdminBoardService {
 	}
 
 	public int questionWrite(Question question, String username) {
-		System.out.println("넘어오는 값?" + question);
 		question.setWriter(username).setWriteDate(LocalDateTime.now()).setState(State.답변대기);
 		dao.insertByQuestion(question);
-		System.out.println("다시찍힌 값" + question);
 		return question.getQno();
+	}
+
+	public List<Category> categoryList() {
+		return dao.findAllByCategory();
 	}
 
 

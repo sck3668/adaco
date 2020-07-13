@@ -12,14 +12,14 @@
 	    	(select b.* , rownum as rnum  from
 			   (select /*+ index_desc(story story_pk_storyno) */ storyno, title, writer,write_date writeDate, artistno, image from story) b 
 			where rownum<=#{endRowNum})
-    where rnum>=#{startRowNum}
+  		  where rnum>=#{startRowNum}
 		]]>
 		</select>
 		
 		<!-- 작가의 스토리 정보보기 -->
 		<select id="findByStory" resultType="story">
-		select storyno, title, write_date writeDate,image,writer,
-		content, artistno from story where storyno=#{storyno} and rownum=1
+		select storyno, title, write_date writeDate,image,writer, content, artistno, comment_cnt commentCnt
+		from story where storyno=#{storyno} and rownum=1
 		</select>
 		
 		
@@ -27,14 +27,15 @@
 	 <selectKey keyProperty="storyno" order="BEFORE" resultType="int">
 	 		select story_seq.nextval from dual
 	 </selectKey>
- 		insert into story(storyno, title, write_date, writer,content,image) 
- 		values(#{storyno},#{title},sysdate,#{writer},#{content},#{image}) 
+ 		insert into story(storyno, title, write_date, writer,content,image, comment_cnt) 
+ 		values(#{storyno},#{title},sysdate,#{writer},#{content},#{image}, 0) 
  		</insert>
 		<update id="update">
 			update story
 			<trim suffixOverrides="," prefix="SET">
 				<if test="title!=null">title=#{title},</if>
 				<if test="image!=null">image=#{image},</if>
+				<if test="commentCnt!=null">comment_cnt = comment_cnt + 1,</if>
 				<if test="content!=null">content=#{content}</if>
 			</trim>
 			where storyno=#{storyno} and rownum=1

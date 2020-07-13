@@ -108,5 +108,13 @@ public class AdminBoardRestService {
 		}
 		return attachmentDao.findAllNoticeByNoticeno(noticeno);
 	}
+
+	public void writeCategory(Category category) {
+		adminBoardDao.insertByCategory(category);
+	}
+
+	public void deleteCategory(String category) {
+		adminBoardDao.deleteByCategory(category);
+	}
 }
  
