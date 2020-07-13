@@ -41,7 +41,6 @@
 				var $upper_div = $("<div>").appendTo($comment);
 				var $center_div = $("<div>").appendTo($comment);
 				var $lower_div = $("<div>").appendTo($comment);
-				console.log(comment);
 				$("<span></span>").text(comment.writer).appendTo($upper_div);
 // 				$("<img>").attr("src", comment.content).css("width","40px").appendTo($center_div);
 				$("<span>").text(comment.writeDateStr).appendTo($lower_div);
@@ -70,15 +69,18 @@
 			printComment(story);
 		});
 		
+	//	console.log(loginId);
+	//	console.log(story.writer);
+	//	console.log($("#writer").val());
 		
 		//댓글 입력
-		if(isLogin==true && story.writer==loginId){
+		if(isLogin==true && $("#writer").val()==loginId){
 			$("#content").prop("disabled",false)
 			$("#comment_textarea").prop("disabled",false)
 			$("#comment_write").prop("disabled",false)
 			$("#title").prop("readonly",false)
 		}
-		else if(isLogin==true && story.writer!==loginId){
+		else if(isLogin==true && $("#writer").val()!==loginId){
 			$("#content").prop("disabled",true)
 			$("#comment_textarea").prop("disabled",false)
 			$("#comment_write").prop("disabled",false)
@@ -115,6 +117,27 @@
 			_method: "delete",
 			_csrf: "${_csrf.token}"
 		}
+		$.ajax({
+			url: "/adaco/story/commentDelete",
+			method: "post",
+			data: params
+		})
+		.done((result)=>{ printComment(result); })
+		.fail((result)=>{console.log(result)});
+	});
+		
+		//
+		$(".delete_comment").on("click", function() {
+		// data-ano 속성의 값을 꺼낼 때 
+		// data("ano") -> 넣은 값의 타입 그대로
+		// attr("data-ano") -> 문자열
+		var params = {
+			cno: $(this).data("cno"),
+			storyno: $("#storyno").val(),
+			writer: $(this).data("writer"),
+			_method: "delete",
+			_csrf: "${_csrf.token}"
+		}
 		console.log(params)
 		$.ajax({
 			url: "/adaco/story/commentDelete",
@@ -124,6 +147,8 @@
 		.done((result)=>{ printComment(result); })
 		.fail((result)=>{console.log(result)});
 	});
+		
+		
 		
 
 		
@@ -154,7 +179,7 @@
 <body>	
 ${story}
 ${story.comments[0].writer}
-
+${story.writer}
 <%-- ${story.comments[].cno} --%>
  <%-- <c:forEach items="${story.comments }" var="comments1" >
  	<input type="text" value="${comments1}">
@@ -170,9 +195,10 @@ ${story.comments[0].writer}
 			</div>
 			<div class = "form-group" id ="content_div">
 				<div class = "form-group">
-					<p class = "form-control" id = "content" name = "content" cols="50" rows="10" readonly="readonly" style="background-color: white;" >${story.content }
+					<div class = "form-control" id = "content" name = "content" cols="50" rows="10" readonly="readonly" style="background-color: white;" >
 				</div>
 			</div>
+			<input type="hidden" value="${story.writer }" id="writer">
 			
 		
 	<!-- 	<div id="title_div">
@@ -213,20 +239,6 @@ ${story.comments[0].writer}
 		</div>
 		<hr>
 		<div id="comments">
-	<%-- 	<div>
-			<c:forEach items="${story.comments}" var ="comments">
-			
-			<div id="upper_div">
-				${comments.content }
-			</div>
-			<div id="center_div">
-				${comments.content }
-			</div>
-			<div id="lower_div">
-				${comments.content }
-			</div>
-			</c:forEach>
-		</div> --%>
 		</div>
 	</div>
 </body>

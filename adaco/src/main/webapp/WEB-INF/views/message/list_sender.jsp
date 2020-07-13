@@ -7,10 +7,40 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+$(function() {
+	$("#delete").on("click", function() {
+		var ar = "";
+		$(".mno").each(function(idx) {
+			if($(this).prop("checked")) {
+				ar = ar + ($(this).val()) + "," ;
+			}
+		});
+		
+		//if(ar.length==0)
+		//	return;
+		var params ={
+			_method: "patch",
+			mnos: ar,
+			_csrf:"${_csrf.token}"
+		}
+		console.log(params);
+		alert("dd");
+		$.ajax({
+			url:"/adaco/message/isSendMessage",
+			method:"post",
+			data: params,
+		}).done(()=>{location.reload(); })
+		.fail((xhr)=>{console.log(xhr)})
+	});
+})
+</script>
 </head>
 <body>
+${list}
 <div id="page">
 	<div id="main">
+	<h1>보낸쪽지함</h1>
 		<table id="list" class="table table-hover">
 			<colgroup>
 				<col width="20%"><col width="40%"><col width="20%"><col width="10%"><col width="10%">

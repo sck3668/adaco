@@ -50,6 +50,7 @@ public class WSUserService {
 	// 메시지 보내기 1: 보내는 사람, 받는 사람
 	public void sendMsg(String sendId, String recipientId, String msg) {
 		System.out.println("보내는 사람 : " + recipientId);
+		System.out.println("list=="+list);
 		for(WSUser user:list) {
 			System.out.println("리스트에 저장된 유저 : " + user);
 			if(user.getUsername().equals(recipientId)) {
