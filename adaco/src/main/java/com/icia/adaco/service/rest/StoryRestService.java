@@ -74,32 +74,6 @@ public class StoryRestService {
 			return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
 		}return null;
 	}
-//	public Page ListComment(int pageno,StoryComment storyComment,String username) {
-//		int countOfBoard = storyCommentDao.count();
-//		Page page = PagingUtil.getPage(pageno, countOfBoard);
-//		int srn = page.getStartRowNum();
-//		int ern = page.getEndRowNum();
-//		List<StoryComment> storyCommentList = null;
-//		storyCommentList = storyCommentDao.findAllByCno(srn,ern,storyno);
-//		List<StoryCommentDto.DtoForList> storyCommentDtoList=new ArrayList<StoryCommentDto.DtoForList>();
-//		
-//		for(StoryComment storyComment1 :storyCommentList ) {
-//			//스토리 커멘트 리스트 :SCList
-//			StoryCommentDto.DtoForList SCList = modelMapper.map(storyComment1,StoryCommentDto.DtoForList.class);
-//			SCList.setWriteDateStr(storyComment1.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
-//			storyCommentDtoList.add(SCList);
-//			System.out.println(storyCommentDtoList.add(SCList)+"햐ㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑ");
-//			System.out.println(SCList+"포문");
-//		}
-//		page.setStoryCommentList(storyCommentDtoList);
-//		storyComment.setUsername(username);
-//		storyComment.setWriter(username);
-//		System.out.println(storyComment.getWriter()+"ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ");
-//		storyCommentDao.insertByCommentOfStory(storyComment);
-//		
-//		return page;
-//		
-//	}
 	
 // 스토리 댓글 입력
 	public List<StoryComment> commentWrite(StoryComment storyComment,String username) {
@@ -113,28 +87,6 @@ public class StoryRestService {
 		 return storyCommentDao.findAllByStoryno(storyComment.getStoryno());
 	}
 	
-	//스토리 댓글 목록 출력
-	public List<StoryCommentDto.DtoForWrite> writeComment(StoryComment storyComment,String username) {
-		storyComment.setWriteDate(LocalDateTime.now());
-		String commentStr = storyComment.getContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
-		commentStr.replace("/&lt;p&gt;/", "");
-		storyComment.setContent(commentStr);
-		storyComment.setWriteDate(LocalDateTime.now()); 
-		storyComment.setUsername(username);
-		storyCommentDao.insertByCommentOfStory(storyComment);
-		
-		List<StoryComment> writeDto = storyCommentDao.findAllByStoryno(storyComment.getStoryno());
-		
-		//List<StoryCommentDto.DtoForWrite> writeDto = storyCommentDao.findAllByStoryno(storyComment.getStoryno());
-		List<StoryCommentDto.DtoForWrite> dtoWriteDto = new ArrayList<StoryCommentDto.DtoForWrite>();
-		for(StoryComment comment:writeDto) {
-			StoryCommentDto.DtoForWrite dto = modelMapper.map(comment,StoryCommentDto.DtoForWrite.class);
-			dto.setWriteDateStr(comment.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
-			dtoWriteDto.add(dto);
-		}
-		return dtoWriteDto;
-		//return storyCommentDao.findAllByStoryno(storyComment.getStoryno());
-	}
 	// 스토리 읽기 할 시 댓글 읽어오기
 	public List<StoryCommentDto.DtoForList> readComment(int storyno,String username) {
 		System.out.println("restService storyno===="+storyno);
