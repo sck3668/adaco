@@ -89,7 +89,7 @@ public class UserRestService {
 				.artName(art.getArtName()).price(art.getPrice()).username(username).build();
 		System.out.println("art============"+art);
 		System.out.println("favorite==========="+favorite);
-		artDao.updateByArt(Art.builder().artno(artno).favorite(true).build());
+		artDao.updateByArt(Art.builder().artno(artno).favoriteCnt(true).build());
 		return userDao.insertFavorite(favorite);
 	}
 	public void userDelete(String username) {
