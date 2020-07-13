@@ -53,6 +53,10 @@ public class UserDao {
 	public List<Favorite> findAllFavorite(String username)	{
 		return sql.selectList("userMapper.findAllFavorite",username);
 	}
+	//유저네임으로 페이보릿 개수 세기
+	public String Favoritecount(String username) {
+		return sql.selectOne("userMapper.count",username);
+	}
 	public int insertFavorite(Favorite favorite) {
 		return sql.insert("userMapper.insertFavorite",favorite);
 	}
@@ -66,6 +70,17 @@ public class UserDao {
 	//유저네임으로 페이보릿찾기
 	public Favorite findByusernameFavoriteId(String username) {
 			return sql.selectOne("userMapper.findByusernameFavoriteId",username);
+	}
+//	artno로 상품 찾아오기	
+	public Favorite findByArtnoFavoriteId(Integer artno) {
+		return sql.selectOne("userMapper.findByArtnoFavoriteId", artno);
+	}
+//	즐겨찾기 여부 체크
+	public Boolean existsByFavorite(Integer artno, String username) {
+		Map<String, Object> map = new HashMap<String, Object>(); 
+		map.put("artno", artno);
+		map.put("username", username);
+		return sql.selectOne("userMapper.existsByFavorite", map);
 	}
 	//유저 리뷰함
 	public List<Review> listByReviewUser(String username){
@@ -81,7 +96,11 @@ public class UserDao {
 		return sql.selectList("userMapper.findAllIrum");
 	}
 	//포인트 더한값
-	public int TotalPoint(String username) {
+	public Integer TotalPoint(String username) {
 		return sql.selectOne("userMapper.TotalPoint",username);
+	}
+	//리뷰 유저네임으로 총개수
+		public String ReviewcountUsername(String username) {
+		return sql.selectOne("userMapper.countUsername",username);
 	}
 }

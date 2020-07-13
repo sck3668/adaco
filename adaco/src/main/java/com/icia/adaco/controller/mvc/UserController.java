@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.lang.*;
 import org.springframework.security.access.prepost.*;
+import org.springframework.security.core.*;
+import org.springframework.security.web.authentication.logout.*;
 import org.springframework.stereotype.*;
 import org.springframework.validation.*;
 import org.springframework.web.bind.*;
@@ -158,8 +160,13 @@ public class UserController {
 	//마이페이지 화면
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/mypage")
-	public ModelAndView userRead() {
-		return new ModelAndView("main").addObject("viewName","user/mypage.jsp");
+	public ModelAndView userRead(Principal principal ) {
+		return new ModelAndView("main")
+				.addObject("viewName","user/mypage.jsp")
+				.addObject("point",userService.totalpoint(principal.getName()))
+				.addObject("review",userService.ReviewUsernameFind(principal.getName()))
+				.addObject("favorite",userService.FavoriteUsernameCount(principal.getName()));
+				
 	}
 		
 	//포인트 메인화면
@@ -195,11 +202,11 @@ public class UserController {
 		return new ModelAndView("main").addObject("viewName","user/messageList.jsp");
 	}
 	//회원 삭제
-	@PostMapping("/user/delete")
-	public int delete(Principal principal) {
-			userService.delete(principal.getName());
-		System.out.println(userService.delete(principal.getName())+"이거는 유저 삭제다");
-		return userService.delete(principal.getName());
+	@DeleteMapping("/user/delete")
+	public String delete(SecurityContextLogoutHandler handler, HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+		userService.delete(authentication.getName());
+		handler.logout(request, response, authentication);
+		return "redirect:/";
 	}
 	
 	//@PreAuthorize("isAuthenticated()")

@@ -42,8 +42,9 @@ public class UserRestService {
 		return true;
 	}
 	
-	public void delete(int favno) {
-			userDao.deleteFavorite(favno);
+	public int favoriteDelete(int favno) {
+			Favorite favorite = userDao.findByFavoriteId(favno);
+		return	userDao.deleteFavorite(favno);
 	}
 	public void update(DtoForUpdate dto, MultipartFile sajin ) throws IllegalStateException, IOException {
 		// 비밀번호가 존재하는 경우 비밀번호 확인. 실패하면 작업 중지 
@@ -81,16 +82,22 @@ public class UserRestService {
 		userDao.reviewDelete(rno);
 	}
 	
-	public int favoriteAdd(String username,int artno) {
+	public int favoriteUpdate(String username,int artno) {
 		Art art = artDao.readByArt(artno);
-		System.out.println("art=============="+art);
-		Favorite favorite = Favorite.builder().artno(artno)
-				.artName(art.getArtName()).price(art.getPrice()).username(username).build();
-		System.out.println("art============"+art);
-		System.out.println("favorite==========="+favorite);
-		artDao.updateByArt(Art.builder().artno(artno).favorite(true).build());
-		return userDao.insertFavorite(favorite);
+		if (art == null)
+			throw new JobFailException("작품 정보를 읽어올 수 없습니다.");
+		Boolean isFavorite = userDao.existsByFavorite(artno, username);
+		if(isFavorite == false) {
+			Favorite favorite = Favorite.builder().artno(artno).artName(art.getArtName()).price(art.getPrice()).username(username).build();
+			artDao.updateByArt(Art.builder().artno(artno).favoriteCnt(art.getFavoriteCnt()+1).build());
+			return userDao.insertFavorite(favorite);
+		} else {
+			Favorite favorite = userDao.findByArtnoFavoriteId(artno);
+			userDao.deleteFavorite(favorite.getFavno());
+			return artDao.updateByArt(Art.builder().artno(artno).favoriteCnt(art.getFavoriteCnt()-1).build());
+		}
 	}
+	
 	public void userDelete(String username) {
 		userDao.delete(username);
 		System.out.println(username);
