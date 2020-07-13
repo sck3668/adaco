@@ -12,13 +12,13 @@ function check(value, pattern, area, fail_msg) {
 
 //카테고리 확인
 function checkCategory() {
-	var pattern = /^[A-Za-z0-9가-힣]{1,30}$/;
+	var pattern = /^[A-Za-z0-9가-힣\s]{1,30}$/;
 	return check($("#category").val(), pattern, $("#category_msg"), "카테고리를 선택해주세요");
 }
 
 //작품명 확인
 function checkIrum() {
-	var pattern = /^[A-Za-z0-9가-힣]{1,30}$/;
+	var pattern = /^[A-Za-z0-9가-힣\s]{1,30}$/;
 	return check($("#artName").val(), pattern, $("#artName_msg"), "작품 이름은 1~30자입니다.");
 }
 
@@ -36,7 +36,7 @@ function checkStock() {
 
 //옵션명 확인
 function checkOptionIrum() {
-	var pattern = /^[A-Za-z0-9가-힣]{1,10}$/;
+	var pattern = /^[A-Za-z0-9가-힣\s]{1,10}$/;
 	return check($("#optionName").val(), pattern, $("#optionName_msg"), "옵션명은 1~10자입니다.");
 }
 
@@ -60,13 +60,13 @@ function checkOptionStock() {
 
 //작품 상세설명
 function checkArtDetail() {
-	var pattern = /^[A-Za-z0-9가-힣]{1,200}$/;
+	var pattern = /^[A-Za-z0-9가-힣\s]{1,200}$/;
 	return check($("#artDetail").val(), pattern, $("#artDetail_msg"), "200자 까지 입력 가능합니다.")
 }
 
 //검색 태그 확인
 function checkArtTag() {
-	var pattern = /^[A-Za-z0-9가-힣]{1,10}$/;
+	var pattern = /^[A-Za-z0-9가-힣\s]{1,10}$/;
 	return check($("#tag").val(), pattern, $("#artTag_msg"), "검색태그는 1~10자입니다.");
 }
 

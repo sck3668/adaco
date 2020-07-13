@@ -21,7 +21,7 @@ public class ArtDaoTest {
 	//////////// 작가 전용 테스트 ////////////////////
 	
 	//상품 등록 테스트 ok
-	@Test
+	//@Test
 	public void insertTest() {
 		Art art = Art.builder().artName("리뷰많은상품").price(1000).mainImg("aaa.jpg").artImg("bbb.jpg").stock(300).tag("검색").category("카테고리다").shopno(240).couriPrice(3000).courier("대한통운").accumulated(500).artistno(200).artDetail("신상이에요").reviewCnt(5).build();
 		assertThat(artdao.writeByArt(art), is(1));
@@ -34,14 +34,14 @@ public class ArtDaoTest {
 	//작품 수정 테스트 ok
 	//@Test 
 	public void updateTest() {
-		Art art = Art.builder().artno(45).artName("변경신상").price(2000).mainImg("ccc.jpg").artImg("ddd.jpg").stock(50).tag("태그얏").couriPrice(2500).returnAddress("배송지 업뎃").accumulated(1000).favorite(true).artDetail("상품설명 수정이얌").build();
+		Art art = Art.builder().artno(45).artName("변경신상").price(2000).mainImg("ccc.jpg").artImg("ddd.jpg").stock(50).tag("태그얏").couriPrice(2500).returnAddress("배송지 업뎃").accumulated(1000).favoriteCnt(2).artDetail("상품설명 수정이얌").build();
 		artdao.updateByArt(art);
 	}
 	
 	//작품 삭제 테스트 ok
-	//@Test
+	@Test
 	public void deleteTest() {
-		assertThat(artdao.deleteByArt(30), is(1));
+		assertThat(artdao.deleteByArt(336), is(1));
 	}
 	
 	//작품 상세보기 테스트 ok

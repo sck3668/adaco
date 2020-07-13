@@ -77,7 +77,7 @@ public class ArtServiceTest {
 	
 	
 	// 작품 등록 테스트 (작가용) ok
-	@Test
+	//@Test
 /*	public void writeWithSajinTest() throws IllegalStateException, IOException, MessagingException {
 		ArtDto.DtoForWrite dto = getDtoForWrite();
 		File targetFile = new File("d:/test2.jpg");
@@ -123,11 +123,11 @@ public class ArtServiceTest {
 	}
 	
 	// 작품 삭제 테스트 ok
-	/*@Test
+	//@Test
 	public void deleteTest() {
-		boolean result = service.deleteArt(318, "leehj8462",177);
+		boolean result = service.deleteArt(324, "leehj8462");
 		assertThat(result, is(true));	
-	}*/
+	}
 	
 	// 작품 댓글 작성 테스트 ok
 	//@Test

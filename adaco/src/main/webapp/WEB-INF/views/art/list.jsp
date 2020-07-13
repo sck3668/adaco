@@ -60,44 +60,50 @@
 				alert("삭제처리 되었습니다.")
 				location.reload(true);
 			}).fail((result)=>alert("삭제실패"))
-		}else{
 			return;
+		
 		}
 		})
 	
 	
 	// 선택한 작품 삭제
-// // 	var uncheck = $(".chBox").prop("checked", false);
+// 	var uncheck = $(".chBox").prop("checked", false);
 	
-// 	$("#delete_Btn").click(function(){
-		
-// 	  	var confirm_val = confirm("정말 삭제하시겠습니까?");
-// 	  		if(confirm_val) {
-// 			  var ar = [];
-// 				$(".chBox").each(function(idx) {
-// 					if($(this).prop("checked")) {
-// 						ar.push($(this).data("artno"));
-// 					}
-// 				});
-// 				var params = {
-// 					_csrf: "${_csrf.token}",
-// 					_method: "delete",
+	$("#delete_Btn").click(function(){
+		var cnt = $("input[name='chBox']:checked").length;
+		$("input[name='chBox']:checked").each(function() {
+            arr.push($(this).attr('id'));
+        });
+        if(cnt == 0){
+            alert("선택된 글이 없습니다.");
+        }
+	  	var confirm_val = confirm("정말 삭제하시겠습니까?");
+	  		if(confirm_val) {
+			  var ar = [];
+				$(".chBox").each(function(idx) {
+					if($(this).prop("checked")) {
+						ar.push($(this).data("artno"));
+					}
+				});
+				var params = {
+					_csrf: "${_csrf.token}",
+					_method: "delete",
+					artnos: JSON.stringify(ar)
+// 					artno: $(this).attr("data-artno"),
 // 					artnos: JSON.stringify(ar)
-// // 					artno: $(this).attr("data-artno"),
-// // 					artnos: JSON.stringify(ar)
-// 				}
-// 				console.log(params)
-// 				$.ajax({
-// 					url:"/adaco/art/delete",
-// 					data: params,
-// 					method: "post",
-// 				}).done((result)=>{
-// 					alert("삭제처리 되었습니다.");
-// 					location.reload(true);
-// 		   });
-// 			}
+				}
+				console.log(params)
+				$.ajax({
+					url:"/adaco/art/delete",
+					data: params,
+					method: "post",
+				}).done((result)=>{
+					alert("삭제처리 되었습니다.");
+					location.reload(true);
+		   });
+			}
 	
-//  		});
+ 		});
 	
 	});
 </script>
