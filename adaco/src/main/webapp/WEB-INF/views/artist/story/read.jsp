@@ -31,8 +31,12 @@
 	</script>
 </sec:authorize>
 <script>
+var story = ${story};
 	$(function(){
-		var story = "${story}";
+		$("#title").val(story.title);
+		$("#content").html(story.content);
+		
+		
 		function printComment(comments) {
 			var $comments = $("#comments");
 			$comments.empty();
@@ -153,7 +157,6 @@
 </head>
 <body>	
 ${story}
-${story.comments[0].writer}
 
 <%-- ${story.comments[].cno} --%>
  <%-- <c:forEach items="${story.comments }" var="comments1" >
@@ -162,7 +165,7 @@ ${story.comments[0].writer}
  <div id="wrap">
 	<div>
 		<div class = "form-group">
-				제목<input type = "text" class = "form-control" id = "title" name = "title" readonly="readonly" style="background-color: white;" value="${story.title }" >
+				제목<input type = "text" class = "form-control" id = "title" name = "title" readonly="readonly" style="background-color: white;" >
 			</div>
 			<div class = "form-group">
 				<ul id = "attachment">
@@ -170,25 +173,10 @@ ${story.comments[0].writer}
 			</div>
 			<div class = "form-group" id ="content_div">
 				<div class = "form-group">
-					<p class = "form-control" id = "content" name = "content" cols="50" rows="10" readonly="readonly" style="background-color: white;" >${story.content }
+					<div class = "form-control" id = "content" name = "content" cols="50" rows="10" readonly="readonly" style="background-color: white; min-height: 600px;" >
 				</div>
 			</div>
 			
-		
-	<!-- 	<div id="title_div">
-			<div id="upper">
-			</div>
-			<div id="lower">
-			</div>
-			<div>
-				<ul id="attachment">
-				</ul>
-			</div>
-		</div>
-		<div id="content_div">
-			<div class="form-group">
-				<div class="form-control" id="content"></div>
-			</div>		 -->
 		<sec:authorize access="hasRole('ROLE_SELLER')">
 			<div id="btn_area">
 				<button id="update" class="btn btn-info">변경</button>
@@ -203,30 +191,12 @@ ${story.comments[0].writer}
 			<div class="form-group">
 				<label for="comment_textarea">댓글을 입력하세요</label>
 				<textarea class="form-control" rows="5"	id="comment_textarea" placeholder="욕설이나 모욕적인 댓글은 삭제될 수 있습니다" disabled="disabled" ></textarea>
-				<input type="hidden" value="${story.storyno }" id="storyno">
-				<%-- <c:forEach begin="1" end="10" var="i">
-					<input type="text" value="${story.comments[i].cno}" id="textarea">
-				</c:forEach> --%>
+				<input type="hidden" id="storyno">
 			</div>
-			<button type="button" class="btn btn-info" 
-				id="comment_write" disabled="disabled">댓글 작성</button>
+			<button type="button" class="btn btn-info" id="comment_write" disabled="disabled">댓글 작성</button>
 		</div>
 		<hr>
 		<div id="comments">
-	<%-- 	<div>
-			<c:forEach items="${story.comments}" var ="comments">
-			
-			<div id="upper_div">
-				${comments.content }
-			</div>
-			<div id="center_div">
-				${comments.content }
-			</div>
-			<div id="lower_div">
-				${comments.content }
-			</div>
-			</c:forEach>
-		</div> --%>
 		</div>
 	</div>
 </body>

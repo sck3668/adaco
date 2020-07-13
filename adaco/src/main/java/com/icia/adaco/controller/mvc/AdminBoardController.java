@@ -75,8 +75,7 @@ public class AdminBoardController {
 	@Secured("ROLE_ADMIN")
 	@GetMapping("/admin/question_list")
 	public ModelAndView questionList(@RequestParam(defaultValue = "1")int pageno, @Nullable String writer, @Nullable State searchType) {
-		return new ModelAndView("admin/question/list"
-				+ "").addObject("questionPage", service.questionList(pageno, writer, searchType));
+		return new ModelAndView("admin/question/list").addObject("questionPage", service.questionList(pageno, writer, searchType));
 	}
 	
 //	@PreAuthorize("isAuthenticated()")
