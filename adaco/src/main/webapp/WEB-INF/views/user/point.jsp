@@ -8,8 +8,14 @@
 <title>Insert title here</title>
 </head>
 <style>
+	span{
+		font-size: xx-large;
+	}
+	strong{
+		font-size: xx-large;	
+	}
 	#aside {
-		width:200px;
+		width:110px;
 		height:500px;
 		background-color: white;
 		border: 1px solid red;
@@ -46,7 +52,6 @@
 </head>
 <body>
 <div>
-${point }
  <aside id="asideMain">
 	<div id="aside">
 		<div id="profile">
@@ -67,19 +72,21 @@ ${point }
 	<section id="section">
 	<div>
    <h1>포인트</h1>
+   
+   <strong>포인트 합계:</strong>&nbsp;&nbsp;<span>${totalPoint }</span>
+   
       <table class="table table-hover">
          <thead>
          <tr>
-            <th>적립일</th><th>적립금</th><th>적립만료일</th><th>총금액</th>
+            <th>적립일</th><th>적립금</th><th>적립만료일</th>
          </tr>
          </thead>
          <tbody> 
          	<c:forEach items="${point}" var="list">
          	<tr>
-         	      <td>${list.startDate }</td>
+         	      <td>${list.startDateStr }</td>
                   <td>${list.point }</td>
-           	      <td>${list.endDate }</td>
-           	      <td>${list.totalPoint}</td>
+           	      <td>${list.endDateStr }</td>
            </tr> 
 			 </c:forEach>
          </tbody>

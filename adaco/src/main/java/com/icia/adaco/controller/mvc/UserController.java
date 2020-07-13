@@ -132,10 +132,22 @@ public class UserController {
 		System.out.println(username+"ggggggggggggg");	
 		return "redirect:/user/login";
 	}
-	//비밀번호변경
+	//비밀번호변c
 	@GetMapping("/user/resetPwd")
 	public ModelAndView resetPassword() {
 		return new ModelAndView("main").addObject("viewName","user/reset_pwd.jsp");
+	}
+	
+	//비밀변호변경
+	@PostMapping("/user/resetPwd")
+	public String resetPassword(String username,String email) {
+		System.out.println(username+"ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ");
+		try {
+			userService.resetPassword(username, email);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		return "redirect:/user/login";
 	}
 	//회원가입 체크
 	@GetMapping("/user/join_check")
@@ -153,11 +165,12 @@ public class UserController {
 	//포인트 메인화면
 	//@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/pointList")
-	public ModelAndView userPoint(PointDto dto,Principal principal) {
-		userService.pointList(dto, principal.getName());
-		System.out.println(userService.pointList(dto, principal.getName()+"ggggggggggggggg"));
-		return new ModelAndView("main").addObject("viewName","user/point.jsp")
-				.addObject("point",userService.pointList(dto, principal.getName()));
+	public ModelAndView userPoint(Principal principal) {
+		System.out.println(userService.pointList(principal.getName()));
+		return new ModelAndView("main")
+				.addObject("viewName","user/point.jsp")
+				.addObject("totalPoint",userService.totalpoint(principal.getName()))
+				.addObject("point",userService.pointList(principal.getName()));
 	}
 	//리뷰 리스트
 	//@PreAuthorize("isAuthenticated()")
@@ -181,9 +194,11 @@ public class UserController {
 	public ModelAndView messageList(Principal principal) {
 		return new ModelAndView("main").addObject("viewName","user/messageList.jsp");
 	}
+	//회원 삭제
 	@PostMapping("/user/delete")
 	public int delete(Principal principal) {
-			System.out.println(principal.getName()+"로그인한아이디");
+			userService.delete(principal.getName());
+		System.out.println(userService.delete(principal.getName())+"이거는 유저 삭제다");
 		return userService.delete(principal.getName());
 	}
 	
@@ -195,8 +210,8 @@ public class UserController {
 	
 	//@PreAuthorize("isAuthenticated()")
 	@PostMapping("/user/changePwd")
-	public String changePwd(@RequestParam @NotNull String password, @RequestParam @NotNull String newPassword, Principal principal, RedirectAttributes ra) {
-		//userService.changePwd(password, newPassword, principal.getName());
+	public String changePwd(String password,String newPassword, Principal principal, RedirectAttributes ra) {
+		userService.changePwd(password,newPassword, principal.getName());
 		ra.addFlashAttribute("msg", "비밀번호를 변경했습니다");
 		return "redirect:/";
 	}

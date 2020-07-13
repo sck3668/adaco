@@ -36,7 +36,7 @@
  	
  	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="username" value="sckpsj3668@gmail.com" />
-		<property name="password" value="cks19079" />
+		<property name="password" value="da600425!@" />
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.smtp.starttls.enable">true</prop>
