@@ -38,8 +38,10 @@ public class OrderController {
 		
 	// 결제하기
 	@GetMapping("/order/payment")
-	public ModelAndView Payment(String username,Integer orderno,Integer artno,OrderDto.DtoForOrdering Dto ) {
-		return new ModelAndView("main").addObject("viewName", "order/payment.jsp").addObject("orders",orderService.payment(username,Dto));
+	public ModelAndView Payment(Principal principal, OrderDto.DtoForOrdering Dto ) {
+		System.out.println("========컨트롤러 Dto"+Dto); 
+		System.out.println("======유저"+principal.getName());
+		return new ModelAndView("main").addObject("viewName", "order/payment.jsp").addObject("orders",orderService.payment(principal.getName(),Dto));
 	}
 //	@PostMapping("/orderdetail/payment")
 //	public String buyAll(String json,Principal principal) throws JsonParseException, JsonMappingException, IOException {

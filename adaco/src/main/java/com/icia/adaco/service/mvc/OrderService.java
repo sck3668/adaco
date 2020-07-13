@@ -1,5 +1,6 @@
 package com.icia.adaco.service.mvc;
 
+import java.security.*;
 import java.util.*;
 
 import org.modelmapper.*;
@@ -61,8 +62,13 @@ public class OrderService {
 		// 결제하기
 		@PreAuthorize("isAuthenticated()")
 		public int payment(String username,OrderDto.DtoForOrdering dto) {
+			System.out.println(dto+"=============dto");
 			OrderDetail orderdetail = modelMapper.map(dto, OrderDetail.class);
+			System.out.println(orderdetail+"===============orderdetail");
+			Order order = modelMapper.map(dto, Order.class);
+			System.out.println(order+"========order???e.");
 			orderDetailDao.Payment(orderdetail);
+			
 		return orderdetail.getOrderno();
 		}
 		
@@ -133,7 +139,7 @@ public class OrderService {
 		}
 
 		// 주문 완료 후 장바구니에 담긴 상품 제거
-		public int RemoveCartByOrder(String username,Integer artno,Integer orderno) {	
+		public int RemoveCartByOrder(Principal principal,Integer artno,Integer orderno) {	
 			Bag bag = bagDao.findByArtno(artno);
 			Order order = orderDao.findByOrder(orderno);
 //			if(order.getUsername()==true);

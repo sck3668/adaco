@@ -114,7 +114,7 @@ $(function(){
               </div>
               <div class="card-footer">
               <c:choose>
-              <c:when test="${art.favorite==false}">
+              <c:when test="${art.isFavorite==false}">
               <input type="text" value="${art.artno }">
                 <button type="button" class="favorite">
                 	<small class="text-muted"> &#9734;</small>
