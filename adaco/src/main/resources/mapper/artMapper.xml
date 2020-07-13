@@ -90,7 +90,7 @@
 	            		AND art_name like '%'|| #{artName} || '%' 
 	            	</if>
 	            </trim>
-	       		order by art_name) A
+	       		order by artno ) A
 	         where rownum&lt;= #{endRowNum})B
 	      where B.rnum&gt;= #{startRowNum}
 	</select>
