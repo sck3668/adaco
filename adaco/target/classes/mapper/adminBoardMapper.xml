@@ -150,6 +150,10 @@
 		delete from faq where faqno = #{faqno} and rownum = 1
 	</delete>
 	
+	<select id="findAllByCategory" resultType="category">
+		select category from category
+	</select>
+	
 	<insert id = "insertByCategory">
 		insert into category(category) values(#{category})
 	</insert>

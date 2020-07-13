@@ -167,4 +167,7 @@ public class AdminBoardController {
 		return "redirect:/user/faq_list";
 	}
 
+	public ModelAndView categoryList() {
+		return new ModelAndView("admin/category/list").addObject("categoryList", service.categoryList());
+	}
 }
