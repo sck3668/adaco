@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.lang.*;
 import org.springframework.security.access.prepost.*;
+import org.springframework.security.core.*;
+import org.springframework.security.web.authentication.logout.*;
 import org.springframework.stereotype.*;
 import org.springframework.validation.*;
 import org.springframework.web.bind.*;
@@ -132,10 +134,22 @@ public class UserController {
 		System.out.println(username+"ggggggggggggg");	
 		return "redirect:/user/login";
 	}
-	//비밀번호변경
+	//비밀번호변c
 	@GetMapping("/user/resetPwd")
 	public ModelAndView resetPassword() {
 		return new ModelAndView("main").addObject("viewName","user/reset_pwd.jsp");
+	}
+	
+	//비밀변호변경
+	@PostMapping("/user/resetPwd")
+	public String resetPassword(String username,String email) {
+		System.out.println(username+"ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ");
+		try {
+			userService.resetPassword(username, email);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		return "redirect:/user/login";
 	}
 	//회원가입 체크
 	@GetMapping("/user/join_check")
@@ -146,18 +160,24 @@ public class UserController {
 	//마이페이지 화면
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/mypage")
-	public ModelAndView userRead() {
-		return new ModelAndView("main").addObject("viewName","user/mypage.jsp");
+	public ModelAndView userRead(Principal principal ) {
+		return new ModelAndView("main")
+				.addObject("viewName","user/mypage.jsp")
+				.addObject("point",userService.totalpoint(principal.getName()))
+				.addObject("review",userService.ReviewUsernameFind(principal.getName()))
+				.addObject("favorite",userService.FavoriteUsernameCount(principal.getName()));
+				
 	}
 		
 	//포인트 메인화면
 	//@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/pointList")
-	public ModelAndView userPoint(PointDto dto,Principal principal) {
-		userService.pointList(dto, principal.getName());
-		System.out.println(userService.pointList(dto, principal.getName()+"ggggggggggggggg"));
-		return new ModelAndView("main").addObject("viewName","user/point.jsp")
-				.addObject("point",userService.pointList(dto, principal.getName()));
+	public ModelAndView userPoint(Principal principal) {
+		System.out.println(userService.pointList(principal.getName()));
+		return new ModelAndView("main")
+				.addObject("viewName","user/point.jsp")
+				.addObject("totalPoint",userService.totalpoint(principal.getName()))
+				.addObject("point",userService.pointList(principal.getName()));
 	}
 	//리뷰 리스트
 	//@PreAuthorize("isAuthenticated()")
@@ -181,10 +201,12 @@ public class UserController {
 	public ModelAndView messageList(Principal principal) {
 		return new ModelAndView("main").addObject("viewName","user/messageList.jsp");
 	}
-	@PostMapping("/user/delete")
-	public int delete(Principal principal) {
-			System.out.println(principal.getName()+"로그인한아이디");
-		return userService.delete(principal.getName());
+	//회원 삭제
+	@DeleteMapping("/user/delete")
+	public String delete(SecurityContextLogoutHandler handler, HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+		userService.delete(authentication.getName());
+		handler.logout(request, response, authentication);
+		return "redirect:/";
 	}
 	
 	//@PreAuthorize("isAuthenticated()")
@@ -195,8 +217,8 @@ public class UserController {
 	
 	//@PreAuthorize("isAuthenticated()")
 	@PostMapping("/user/changePwd")
-	public String changePwd(@RequestParam @NotNull String password, @RequestParam @NotNull String newPassword, Principal principal, RedirectAttributes ra) {
-		//userService.changePwd(password, newPassword, principal.getName());
+	public String changePwd(String password,String newPassword, Principal principal, RedirectAttributes ra) {
+		userService.changePwd(password,newPassword, principal.getName());
 		ra.addFlashAttribute("msg", "비밀번호를 변경했습니다");
 		return "redirect:/";
 	}

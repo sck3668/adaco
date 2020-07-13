@@ -17,15 +17,6 @@ public class OrderDetailService {
 	@Autowired
 	private ModelMapper modelMapper; 
 	
-	// 주문하기
-	@PreAuthorize("isAuthenticated()")
-	public int payment(String username,OrderDetailDto.DtoForDeleteOrder dto) {
-		OrderDetail orderdetail = modelMapper.map(dto, OrderDetail.class);
-		orderDetailDao.Payment(orderdetail);
-	return orderdetail.getOrderno();
-	}
-	
-	
 	// 주문 상세 보기
 	public void OrderDetail(Integer orderno) {
 		orderDetailDao.OrderDetail(orderno);

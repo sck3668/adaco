@@ -14,11 +14,10 @@
 		width: 125px;
 		
 	}
-	#aside {
-		width:200px;
+		#aside {
+		width:110px;
 		height:500px;
-		background-color: white;
-		border: 1px solid red;
+		background-color: gray;
 		float: left;
 	}
 	#profile {
@@ -129,18 +128,19 @@ function page(){
 $(function(){
 	makePage();
 	page();
-	$("#delete").on("click",function(){
+	
+	 $("#delete").on("click",function(){
 		var parmas = {
 				_csrf:"${_csrf.token}",
-				_method:"put"
-				
+				_method:"delete"
 		}
 		$.ajax({
+			url:"/adaco/user/delete",
 			method:"post",
 			data:parmas
 		}).done((r)=>{console.log(r),location.href="/adaco/"})
 		  .fail((r)=>{console.log(r)})
-	})
+	}) 
 	
 	
 	$("#selectEmail").on("change",function(){
@@ -250,8 +250,6 @@ $(function(){
 </script>
 </head>
 <body>
-${user }
-
 <div>
  <aside id="asideMain">
 	<div id="aside">
@@ -259,12 +257,12 @@ ${user }
 		</div>
 		<div>
 			<ul>
-				<li><a href="/adaco/user/read">내정보보기</a></li>
-				<li><a href="/adaco/order/read">주문내역</a></li>
-				<li><a href="/adaco/user/reviewList">내리뷰보기</a></li>
-				<li><a href="/adaco/user/favoriteList">즐겨찾기목록</a></li>
-				<li><a href="/adaco/user/pointList">포인트함 </a>
-				<li><a href="/adaco/user/messageList">메세지함</a>
+				<li><a href="/adaco/user/read" style="color: black;">내정보보기</a></li>
+				<li><a href="/adaco/order/read"style="color: black;">주문내역</a></li>
+				<li><a href="/adaco/user/reviewList" style="color: black;">내리뷰보기</a></li>
+				<li><a href="/adaco/user/favoriteList" style="color: black;">즐겨찾기목록</a></li>
+				<li><a href="/adaco/user/pointList" style="color: black;">포인트함 </a>
+				<li><a href="/adaco/user/messageList" style="color: black;">메세지함</a>
 			</ul>
 		</div>
 	</div>

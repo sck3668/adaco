@@ -3,15 +3,18 @@ package com.icia.adaco.dto;
 import lombok.*;
 import lombok.experimental.*;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@Accessors(chain=true)
 public class PointDto {
-	private int point;
-	private String endDateStr;
-	private String startDateStr;
-	private int totalPoint;
-	private String username;
+	private PointDto() {}
+	@Data
+	@Builder
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Accessors(chain = true)
+	public static class DtoForList {
+		private int point;
+		private String startDateStr;
+		private String endDateStr;
+		private String username;
+		private int totalPoint;
+	}
 }

@@ -64,7 +64,7 @@ $(function() {
             <a href="#">최신작품</a>
           </li>
           <li class="ui_gnb__menu">
-            <a href="#">인기작품</a>
+            <a href="/adaco/user/artListByReview">인기작품</a>
           </li>
           <li class="ui_gnb__menu">
             <a href="/adaco/story/listStory">스토리</a>

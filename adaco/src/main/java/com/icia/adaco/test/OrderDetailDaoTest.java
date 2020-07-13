@@ -18,13 +18,13 @@ public class OrderDetailDaoTest {
 	@Autowired
 	private OrderDetailDao orderDetaildao;
 	
-	//@Test
+	@Test
 	public void Payment() {
 		OrderDetail orderdetail = OrderDetail.builder()
-				.orderno(1)
-				.optno(88)
-				.artno(58)
-				.artistno(14)
+				.orderno(203)
+				.optno(167)
+				.artno(307)
+				.artistno(200)
 				.artname("변경신상")
 				.optionName("테스트옵션")
 				.optionValue("얍얍")
@@ -43,7 +43,7 @@ public class OrderDetailDaoTest {
 			System.out.println(orderdetail);
 	}
 	
-	@Test
+	//@Test
 	public void OrderDetailTest() {
 		orderDetaildao.OrderDetail(1);
 	}

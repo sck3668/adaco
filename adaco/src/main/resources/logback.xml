@@ -9,7 +9,7 @@
 	<logger name="com.icia" level="debug" />
 	
 	<!--  3rd party 로깅 설정 -->
-	<logger name="org.springframework" level="debug" />
+	<logger name="org.springframework" level="info" />
 	<logger name="com.zaxxer.hikari" level="warn" />
 	<logger name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" level="info" />
 	

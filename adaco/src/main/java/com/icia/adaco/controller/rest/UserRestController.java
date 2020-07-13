@@ -49,11 +49,11 @@ public class UserRestController {
 		return ResponseEntity.ok(null);
 	}
 	//유저 즐찾삭제
-	@PutMapping("/user/favoriteDelete")
+	@DeleteMapping("/user/favoriteDelete")
 	public ResponseEntity<?> favoriteDelete(int favno){
 		System.out.println(favno);
-		userRestService.delete(favno);
-		return ResponseEntity.ok(null);
+		userRestService.favoriteDelete(favno);
+		return ResponseEntity.ok(userRestService.favoriteDelete(favno));
 	}
 	@PutMapping("/user/reviewDelete")
 	public ResponseEntity<?>reviewDelete(int rno){
@@ -67,9 +67,9 @@ public class UserRestController {
 //		return ResponseEntity.ok(null);
 //	}
 //	
-	@PostMapping("/user/favoriteAdd")
+	@PostMapping("/user/favoriteUpdate")
 	public ResponseEntity<?> add(Principal principal,int artno) {
-		return ResponseEntity.ok(userRestService.favoriteAdd(principal.getName(), artno));
+		return ResponseEntity.ok(userRestService.favoriteUpdate(principal.getName(), artno));
 	}
 	@PutMapping("/user/delete")
 	public ResponseEntity<?> delete(Principal principal) {

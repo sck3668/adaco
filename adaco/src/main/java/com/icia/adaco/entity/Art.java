@@ -24,7 +24,8 @@ public class Art {
 	private String courier;
 	private Integer readCnt;
 	private Integer accumulated; // 택배사
-	private boolean favorite;
+	private Integer favoriteCnt;
+	private Boolean isFavorite;
 	private String category;
 	private Integer artistno;
 	private Integer shopno;

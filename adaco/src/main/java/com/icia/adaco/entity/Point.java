@@ -15,5 +15,4 @@ public class Point {
 	private LocalDateTime startDate;
 	private LocalDateTime endDate;
 	private String username;
-	private Integer totalPoint;
 }

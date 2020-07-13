@@ -8,11 +8,16 @@
 <title>Insert title here</title>
 </head>
 <style>
-	#aside {
-		width:200px;
+	span{
+		font-size: xx-large;
+	}
+	strong{
+		font-size: xx-large;	
+	}
+		#aside {
+		width:110px;
 		height:500px;
-		background-color: white;
-		border: 1px solid red;
+		background-color: gray;
 		float: left;
 	}
 	#profile {
@@ -46,20 +51,18 @@
 </head>
 <body>
 <div>
-${point }
  <aside id="asideMain">
 	<div id="aside">
 		<div id="profile">
 		</div>
 		<div>
 			<ul>
-			
-				<li><a href="/adaco/user/read">내정보보기</a></li>
-				<li><a href="">주문내역</a></li>
-				<li><a href="/adaco/user/reviewList">내리뷰보기</a></li>
-				<li><a href="/adaco/user/favoriteList">즐겨찾기목록</a></li>
-				<li><a href="/adaco/user/pointList">포인트함 </a>
-				<li><a href="/adaco/user/messageList">메세지함</a>
+				<li><a href="/adaco/user/read" style="color: black;">내정보보기</a></li>
+				<li><a href="/adaco/order/read"style="color: black;">주문내역</a></li>
+				<li><a href="/adaco/user/reviewList" style="color: black;">내리뷰보기</a></li>
+				<li><a href="/adaco/user/favoriteList" style="color: black;">즐겨찾기목록</a></li>
+				<li><a href="/adaco/user/pointList" style="color: black;">포인트함 </a>
+				<li><a href="/adaco/user/messageList" style="color: black;">메세지함</a>
 			</ul>
 		</div>
 	</div>
@@ -67,19 +70,21 @@ ${point }
 	<section id="section">
 	<div>
    <h1>포인트</h1>
+   
+   <strong>포인트 합계:</strong>&nbsp;&nbsp;<span>${totalPoint }</span>
+   
       <table class="table table-hover">
          <thead>
          <tr>
-            <th>적립일</th><th>적립금</th><th>적립만료일</th><th>총금액</th>
+            <th>적립일</th><th>적립금</th><th>적립만료일</th>
          </tr>
          </thead>
          <tbody> 
          	<c:forEach items="${point}" var="list">
          	<tr>
-         	      <td>${list.startDate }</td>
+         	      <td>${list.startDateStr }</td>
                   <td>${list.point }</td>
-           	      <td>${list.endDate }</td>
-           	      <td>${list.totalPoint}</td>
+           	      <td>${list.endDateStr }</td>
            </tr> 
 			 </c:forEach>
          </tbody>

@@ -46,20 +46,22 @@ public class ArtController {
 	}
 	
 	// 작품 리스트 (일단 리뷰5이상인) (회원용)
-	@GetMapping("/art/listByReview")
+	@GetMapping("/user/artListByReview")
 	public ModelAndView listReviewManyArt(@RequestParam(defaultValue = "1") int pageno, @Nullable String artname) {
-		return new ModelAndView("main").addObject("viewName","user/section2.jsp").addObject("artReviewPage",artservice.listManyReview(pageno));
+		return new ModelAndView("main").addObject("viewName","user/manyReview.jsp").addObject("artReviewPage",artservice.listManyReview(pageno));
 	}
 	
 	// 작품 상세보기 (작가용)
 	@GetMapping("/art/readByArtist")
-	public ModelAndView read(@NonNull Integer artno, @Nullable String username) {
+	public ModelAndView read(@NonNull Integer artno, @Nullable Principal principal) {
+		String username = principal.getName();
 		return new ModelAndView("main").addObject("viewName","art/detailread.jsp").addObject("artDetailPage",service.readArt(artno, username)).addObject("image", service.readArtImage(artno));
 	}
 	
 	// 작품 상세보기 (회원용)
 	@GetMapping("/art/readByUser")
-	public ModelAndView readFromUser(@NonNull int artno ,@Nullable String username) {
+	public ModelAndView readFromUser(@NonNull int artno ,@Nullable Principal principal) {
+		String username = principal.getName();
 		return new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPageByUser", service.readArtFromUser(artno, username)).addObject("image", service.readArtImage(artno));
 	}
 	//
@@ -85,9 +87,4 @@ public class ArtController {
 		}
 		return "redirect:/art/listByArtist";
 	}
-	
-
-	
-	
-	
 }

@@ -2,17 +2,18 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	    
 <html>
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
+
 </head>
  <style>
-	#aside {
-		width:200px;
+		#aside {
+		width:110px;
 		height:500px;
-		background-color: white;
-		border: 1px solid red;
+		background-color: gray;
 		float: left;
 	}
 	#profile {
@@ -42,12 +43,24 @@
 		border: 1px solid red;
 	}
 </style>
+<sec:authorize access="isAuthenticated()">
+	<script>
+		var isLogin = true;
+		var loginId = "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}"
+	</script>
+</sec:authorize>
+<sec:authorize access="isAnonymous()">
+	<script>
+		var isLogin = false;
+		var loginId = undefined;
+	</script>
+</sec:authorize>
 <script>
 	$(function(){
-		$("#delete").on("click",function(){
+			$("#delete").on("click",function(){
 			console.log($(this).next().val());
 			var params={
-					_method:"put",
+					_method:"delete",
 					_csrf:"${_csrf.token}",	
 					favno :$(this).next().val()
 			}
@@ -56,9 +69,9 @@
 				url:"/adaco/user/favoriteDelete",
 				data:params,
 				method:"post"
-			}).done((r)=>{console.log(r)})
+			}).done((r)=>{console.log(r),location.href="/adaco/user/favoriteList"})
 			  .fail((r)=>{console.log(r)})
-		})
+		}) 
 	})
 </script>
 </head>
@@ -71,12 +84,12 @@
 		</div>
 		<div>
 			<ul>
-				<li><a href="/adaco/user/read">내정보보기</a></li>
-				<li><a href="/adaco/order/read">주문내역</a></li>
-				<li><a href="/adaco/user/reviewList">내리뷰보기</a></li>
-				<li><a href="/adaco/user/favoriteList">즐겨찾기목록</a></li>
-				<li><a href="/adaco/user/pointList">포인트함 </a>
-				<li><a href="/adaco/user/messageList">메세지함</a>
+				<li><a href="/adaco/user/read" style="color: black;">내정보보기</a></li>
+				<li><a href="/adaco/order/read"style="color: black;">주문내역</a></li>
+				<li><a href="/adaco/user/reviewList" style="color: black;">내리뷰보기</a></li>
+				<li><a href="/adaco/user/favoriteList" style="color: black;">즐겨찾기목록</a></li>
+				<li><a href="/adaco/user/pointList" style="color: black;">포인트함 </a>
+				<li><a href="/adaco/user/messageList" style="color: black;">메세지함</a>
 			</ul>
 		</div>
 	</div>
@@ -90,7 +103,7 @@
          <thead>
          <tr>
             <th>번호</th><th>상품번호</th><th>상품명</th><th>상품가격</th><th></th>
-            <td><a href="/aboard/board/read?bno=${board.bno}" onclick="openWin()">${board.title}</a></td>
+            <%-- <td><a href="/adaco/board/read?bno=${board.bno}" onclick="openWin()">${board.title}</a></td> --%>
          </tr>
          </thead>
          <tbody>
@@ -98,7 +111,7 @@
       		<tr class="tr"> 
                   <td>${list.favno }</td>
                   <td>${list.artno }</td>
-                  <td><a href="#">${list.artName }</a></td>               
+                  <td><a href="/adaco/art/readByUser?artno=${list.artno }">${list.artName }</a></td>               
                   <td>${list.price }</td>
             	<td>
             		<button type="button" id="delete" class="btn btn-info">삭제</button>
