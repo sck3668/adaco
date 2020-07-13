@@ -13,7 +13,14 @@
 	
 <!-- 	주문 내역  -->
 	<select id = "findAllByOrder" resultType="order">
-			
+		<![CDATA[
+	select * from		
+		(select rownum as rnum,o*from
+			(select /*+ index_desc(orders orders_pk_orderno)*/orderno,order_date orderDate,username,shipping_Charge shippingCharge from orders) o
+			where rownum <=#{endRowNum})
+	where rnum>=#{startRowNum}
+		]]>
+		
 		
 	</select>
 	 

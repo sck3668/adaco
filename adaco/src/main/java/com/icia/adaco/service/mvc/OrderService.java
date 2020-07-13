@@ -124,8 +124,8 @@ public class OrderService {
 			orderDao.Ordering(order);
 		}
 		// 주문 내역 보기
-		public List<Order> findAllByOrder(){
-			return orderDao.findAllByOrder();
+		public Page OrderList(int pageno,String username) {
+			
 		}
 		
 		// 주문 상세 내역 보기
