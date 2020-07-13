@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.*;
 import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import com.fasterxml.jackson.databind.*;
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
-import com.icia.adaco.entity.*;
+import com.icia.adaco.entity.*;import com.icia.adaco.exception.*;
 
 @Service
 public class OrderService {
@@ -63,6 +64,13 @@ public class OrderService {
 			OrderDetail orderdetail = modelMapper.map(dto, OrderDetail.class);
 			orderDetailDao.Payment(orderdetail);
 		return orderdetail.getOrderno();
+		}
+		
+		public int payByOrder(String username, OrderDetailDto.DtoForDeleteOrder Dto, Order order){
+			int orderdetail = orderDao.Ordering(order);
+			if(order.getUsername()==true);
+				artDao.
+			return order.getOrderno(); 
 		}
 		
 //		

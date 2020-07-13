@@ -69,9 +69,9 @@
 				<h2>MY정보</h2>
 			</div>
 			<ul class="dashboard-list">
-				<li class="list">적립금</li>
-				<li class="list">쪽지수</li>
-				<li class="list">취소환불</li>
+				<li class="list">포인트:<strong style="color: red;">${point }p</strong></li>
+				<li class="list">리뷰수:<strong style="color: red;">${review }개</strong></li>
+				<li class="list">즐겨찾기수:<strong style="color: red;">${favorite }개</strong></li>
 			</ul>
 		</div>
 	</section>

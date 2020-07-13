@@ -69,6 +69,7 @@ public class OrderController {
 		return new ModelAndView("main").addObject("viewName", "order/after.jsp");
 	}
 
+	
 //	// 장바구니에서 주문
 //	@GetMapping("/order/carByorder")
 //	public ModelAndView orderDetail2(OrderDetailDto.DtoForOrdering Dto, Order order, String username,
