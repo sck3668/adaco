@@ -167,6 +167,8 @@ public class AdminBoardController {
 		return "redirect:/user/faq_list";
 	}
 
+	@Secured("ROLE_ADMIN")
+	@GetMapping("/admin/category_list")
 	public ModelAndView categoryList() {
 		return new ModelAndView("admin/category/list").addObject("categoryList", service.categoryList());
 	}

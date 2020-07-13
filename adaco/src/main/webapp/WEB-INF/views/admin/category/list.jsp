@@ -74,21 +74,18 @@ $(function(){
             </div>
             <div class="card-body">
             
-            <div style=" width:130px; display: inline-block; margin-left: 5px; margin-top: 20px;">
+            <div style=" width:200px; display: inline-block; margin-left: 5px; margin-top: 20px;">
 			<select id = "authority" class = "custom-select">
-				<c:forEach items="${authorityType}" var="at">
-					<c:choose>
-						<c:when test="${at == user.authority }">
-							<option value = "${at}" selected="selected">${user.authority}</option> .
-						</c:when>
-						<c:otherwise>
-							<option value = "${at }">${at}</option>
-						</c:otherwise>
-					</c:choose>
+				<c:forEach items="${categoryList}" var="category">
+							<option value = "${category.category }">${category.category}</option>
 				</c:forEach>
 			</select>
-	</div>
-   </div>
+			</div>
+				<button type="button" class="btn btn-danger">삭제</button>
+			<div>
+				<input type="text">
+			</div>
+   			</div>
   </div>
   
  </div>
