@@ -133,7 +133,7 @@ public class OrderService {
 		}
 
 		// 주문 완료 후 장바구니에 담긴 상품 제거
-		public int RemoveOrderByCart(String username,Integer artno,Integer orderno) {	
+		public int RemoveCartByOrder(String username,Integer artno,Integer orderno) {	
 			Bag bag = bagDao.findByArtno(artno);
 			Order order = orderDao.findByOrder(orderno);
 //			if(order.getUsername()==true);

@@ -89,14 +89,9 @@ $(function() {
 			url:"/adaco/order/payment",
 			method:"get",
 			data:params,
-			success: location.href = "/adaco/order/payment" 
-<<<<<<< HEAD
 		})
 				alert("성공");
-=======
-				alert("성공");
 		}) */
->>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 	})
 	
 	//장바구니 추가

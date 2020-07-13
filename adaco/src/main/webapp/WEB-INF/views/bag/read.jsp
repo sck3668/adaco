@@ -261,7 +261,6 @@ $(function() {
 // 				orderno:${}
 				_method: "get",
 				orders:JSON.stringify(ar)
-// 				console.log(ㅁㅁㅁㅁㅁㅁㅁ ar)
 		}
 		alert("또 찍어봐");
 		$.ajax({
