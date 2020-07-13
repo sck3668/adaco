@@ -37,7 +37,7 @@ public class ArtistController {
 		int shopno = shop.getShopno();
 		return new ModelAndView("main").addObject("viewName","artist/artistpage.jsp").addObject("shop",shopSerivce.shopRead(shopno));
 	}
-	
+	 
 	
 	//판매목록화면
 	@PreAuthorize("isAuthenticated()")
