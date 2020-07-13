@@ -52,9 +52,10 @@ public class StoryBoardRestController {
 	//스토리 댓글 입력/출력
 	@PostMapping("/comment/write")
 	public ResponseEntity<?> writeComment(StoryComment storyComment, Principal principal) {
+		System.out.println("유저네임" + principal.getName());
 		storyComment.setWriter(principal.getName());
-		storyComment.setUsername(principal.getName());
-		return ResponseEntity.ok(restService.writeComment(storyComment,principal.getName()));	
+		System.out.println("스토리스토리스토리스토리"+storyComment);
+		return ResponseEntity.ok(restService.commentWrite(storyComment,principal.getName()));	
 	}
 	
 	
