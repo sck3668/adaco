@@ -111,7 +111,7 @@
       		<tr class="tr"> 
                   <td>${list.favno }</td>
                   <td>${list.artno }</td>
-                  <td><a href="/adaco/art/readByUser?artno=${list.artno }" onclick="openWin()">${list.artName }</a></td>               
+                  <td><a href="/adaco/art/readByUser?artno=${list.artno }">${list.artName }</a></td>               
                   <td>${list.price }</td>
             	<td>
             		<button type="button" id="delete" class="btn btn-info">삭제</button>
