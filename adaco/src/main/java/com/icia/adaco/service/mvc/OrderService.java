@@ -66,12 +66,12 @@ public class OrderService {
 		return orderdetail.getOrderno();
 		}
 		
-		public int payByOrder(String username, OrderDetailDto.DtoForDeleteOrder Dto, Order order){
-			int orderdetail = orderDao.Ordering(order);
-			if(order.getUsername()==true);
-				artDao.
-			return order.getOrderno(); 
-		}
+//		public int payByOrder(String username, OrderDetailDto.DtoForDeleteOrder Dto, Order order){
+//			int orderdetail = orderDao.Ordering(order);
+//			if(order.getUsername()===false);
+//				orderDao.Ordering(order);
+//			return order.getOrderno(); 
+//		}
 		
 //		
 //		// 상품 상세에서 주문
@@ -132,9 +132,14 @@ public class OrderService {
 			orderDao.findByOrder(orderno);
 		}
 
-		// 주문 완료 후 장바구니 제거
-		public int RemoveOrderByCart(String username) {	
-			Order order = orderDao.
+		// 주문 완료 후 장바구니에 담긴 상품 제거
+		public int RemoveOrderByCart(String username,Integer artno,Integer orderno) {	
+			Bag bag = bagDao.findByArtno(artno);
+			Order order = orderDao.findByOrder(orderno);
+			if(order.getUsername()==true);
+				bagDao.deleteByBag(artno);
+			return bagDao.deleteByBag(artno);
+			
 		}
 		// 주문알람(유저용)
 		

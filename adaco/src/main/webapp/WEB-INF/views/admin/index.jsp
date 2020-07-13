@@ -19,7 +19,6 @@
 	
   <!-- Custom styles for this template-->
   <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script type="text/javascript">
   	var $countByQuestion = ${index.countByQuestion };
@@ -27,6 +26,19 @@
   	var $countByUser = ${index.countByUser};
   	var $countByArtist = ${index.countByArtist};
   	$(function(){
+  		$("#logout").on("click", function(){
+  			var param = {
+  				_csrf : "${_csrf.token}"						
+  			}
+  			$.ajax({
+  				url: "/adaco/user/logout",
+  				method: "post",
+  				data: param,
+  				success: function(){
+  					location.href = "/adaco";
+  				}
+  			});
+  		});
   		var $countByAnswer = $countByQuestion - $countByNoAnswerQuestion;
   		var nanuge = $countByAnswer/$countByQuestion;
   		var per = Math.round(nanuge*100);
@@ -34,6 +46,8 @@
   		$("#noanswer_per_id").css({
   			width: per+"%",
   		})
+  		
+  	
   	})
   </script>
 </head>
@@ -342,7 +356,7 @@
         <div class="modal-body">로그아웃 하시면 관리자 계정에서 로그아웃 처리 된 후 <br>메인 페이지로 이동합니다. 로그아웃 하시겠습니까?</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-          <a class="btn btn-primary" href="/adaco/user/logout">로그아웃</a>
+          <a class="btn btn-primary" id = "logout" href="#">로그아웃</a>
         </div>
       </div>
     </div>

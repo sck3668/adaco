@@ -67,9 +67,9 @@ public class UserRestController {
 //		return ResponseEntity.ok(null);
 //	}
 //	
-	@PostMapping("/user/favoriteAdd")
+	@PostMapping("/user/favoriteUpdate")
 	public ResponseEntity<?> add(Principal principal,int artno) {
-		return ResponseEntity.ok(userRestService.favoriteAdd(principal.getName(), artno));
+		return ResponseEntity.ok(userRestService.favoriteUpdate(principal.getName(), artno));
 	}
 	@PutMapping("/user/delete")
 	public ResponseEntity<?> delete(Principal principal) {

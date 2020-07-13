@@ -71,6 +71,17 @@ public class UserDao {
 	public Favorite findByusernameFavoriteId(String username) {
 			return sql.selectOne("userMapper.findByusernameFavoriteId",username);
 	}
+//	artno로 상품 찾아오기	
+	public Favorite findByArtnoFavoriteId(Integer artno) {
+		return sql.selectOne("userMapper.findByArtnoFavoriteId", artno);
+	}
+//	즐겨찾기 여부 체크
+	public Boolean existsByFavorite(Integer artno, String username) {
+		Map<String, Object> map = new HashMap<String, Object>(); 
+		map.put("artno", artno);
+		map.put("username", username);
+		return sql.selectOne("userMapper.existsByFavorite", map);
+	}
 	//유저 리뷰함
 	public List<Review> listByReviewUser(String username){
 			return sql.selectList("userMapper.listByReviewUser",username);

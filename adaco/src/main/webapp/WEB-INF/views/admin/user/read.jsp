@@ -80,6 +80,21 @@ function checkEnabled() {
 				}).fail((f)=>alert("정보를 변경하지 못하였습니다. 사유:" +f));
 				
 		});
+		
+		$("#logout").on("click", function(){
+  			var param = {
+  				_csrf : "${_csrf.token}"						
+  			}
+  			$.ajax({
+  				url: "/adaco/user/logout",
+  				method: "post",
+  				data: param,
+  				success: function(){
+  					location.href = "/adaco";
+  				}
+  			});
+  		});
+		
 	});
 </script>
 </head>
@@ -199,7 +214,7 @@ function checkEnabled() {
         <div class="modal-body">로그아웃 하시면 관리자 계정에서 로그아웃 처리 된 후 <br>메인 페이지로 이동합니다. 로그아웃 하시겠습니까?</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-          <a class="btn btn-primary" href="/adaco/user/logout">로그아웃</a>
+          <a class="btn btn-primary" href="#" id = "logout">로그아웃</a>
         </div>
       </div>
     </div>
