@@ -39,7 +39,12 @@ public class ArtistController {
 	}
 	
 	
-	
+	//판매목록화면
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/order/artistSellList")
+	public ModelAndView artistSellList() {
+		return new ModelAndView("main").addObject("viewName","order/artistSellList.jsp");
+	}
 	
 	
 	
