@@ -48,4 +48,8 @@
 	<delete id="delete">
 		delete from shop where artistno=#{artistno}
 	</delete>
+	
+	<select id="existsShopByUsername" resultType="int">
+		select count(*) from shop where shopno=#{shopno}
+	</select>
 </mapper>

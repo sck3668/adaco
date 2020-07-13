@@ -25,13 +25,13 @@
       <p></p>
       <h3 class="my-3">Project Details</h3>
       <ul>
-        <li>주문 및 배송 관리</li>
-        <li>매출관리</li>
-        <li>쪽지함</li>
-        <li>상점 관리</li>
-        <li>스토리</li>
-        <li>작거페이지</li>
-      </ul>
+        <li><a style="text-decoration: none; color: black;" href="/adaco/artist/orderAdmin">주문 및 배송 관리</a></li>
+        <li><a style="text-decoration: none; color: black;" href="/adaco/artist/sales">매출관리</a></li>
+        <li><a style="text-decoration: none; color: black;" href="/adaco/artist/#">쪽지함</a></li>
+        <li><a style="text-decoration: none; color: black;" href="/adaco/artist/shopRead">상점 관리 및 변경</a></li>
+        <li><a style="text-decoration: none; color: black;" href="/adaco/artist/#">스토리</a></li>
+        <li><a style="text-decoration: none; color: black;" href="/adaco/artist/artistPage">작거페이지</a></li>
+      </ul> 
     </div>
   </div>
   <h3 class="my-4">또 다른 작품</h3>

@@ -35,9 +35,10 @@ public class shopDaoTest {
 //	public void findByShopnoTest() {
 //		assertThat(shopDao.readByShop(2), is(notNullValue()));
 //	}
+	
 	@Test
 	public void deleteTest() {
-		assertThat(shopDao.deleteByShop(169), is(notNullValue()));
+		assertThat(shopDao.deleteByShop(203), is(notNullValue()));
 	}
 	
 	//@Test

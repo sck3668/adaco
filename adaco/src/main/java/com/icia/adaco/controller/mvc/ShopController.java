@@ -3,7 +3,9 @@ package com.icia.adaco.controller.mvc;
 import java.io.*;
 import java.security.*;
 
+import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.*;
 import org.springframework.lang.*;
 import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.*;
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
+import com.icia.adaco.exception.*;
 import com.icia.adaco.service.mvc.*;
 
 @Controller
@@ -64,9 +67,17 @@ public class ShopController {
 		Shop shop = shopDao.readShopByArtistno(artistno);
 		int shopno = shop.getShopno();
 		if(shop.getShopno()==null) {
+			throw new JobFailException("상점을 먼저 만들어주세요");
 		}
 		return new ModelAndView("main").addObject("viewName","artist/shopPage.jsp").addObject("shop",shopService.shopRead(shopno));
 	}
 	
+	
+	
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/artist/checkShop")
+	public ResponseEntity<?> shopCheck(Principal principal) {
+		return ResponseEntity.ok(shopService.shopCheck(principal.getName()));
+	}
 	
 }

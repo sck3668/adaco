@@ -35,8 +35,6 @@ public class ArtistController {
 		int artistno = artistDao.findArtistnoByUsername(principal.getName());
 		Shop shop = shopDao.readShopByArtistno(artistno);
 		int shopno = shop.getShopno();
-		if(shop.getShopno()==null) {
-		}
 		return new ModelAndView("main").addObject("viewName","artist/artistpage.jsp").addObject("shop",shopSerivce.shopRead(shopno));
 	}
 	

@@ -97,13 +97,13 @@ $(function(){
 		var parmas = {
 				_csrf:"${_csrf.token}",
 				_method:"delete",
-				
 		}
+		console.log(parmas);
+		alert("ss");
 		$.ajax({
 			url:"/adaco/artist/delete",
 			data:parmas,
 			method:"post"
-			
 		}).done((r)=>{console.log(r),location.href="/adaco/"})
 		  .fail((r)=>{console.log(r)})
 	});

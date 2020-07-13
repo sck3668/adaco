@@ -70,6 +70,15 @@ $(function(){
 			</ul>
 		</div>
 	</div>
+	<div>
+		
+				<li>번호</li>
+				<li>주문일자</li>
+				<th>작품명</th>
+				<th>금액</th>
+				<th>배송비</th>
+				<th>주문상태</th>
+	</div>
 	</aside>
 	<h3>주문 내역</h3>
 	<div>
@@ -99,16 +108,16 @@ $(function(){
 				<col width="20%">
 			</colgroup>
 	 <caption><strong> <h3>주문 내역</h3></strong></caption>
-		<thead>
-			<tr id="thead">
-				<th>번호</th>
-				<th>주문일자</th>
-				<th>작품명</th>
-				<th>금액</th>
-				<th>배송비</th>
-				<th>주문상태</th>
-			</tr>
-		</thead>
+<!-- 		<thead> -->
+<!-- 			<tr id="thead"> -->
+<!-- 				<th>번호</th> -->
+<!-- 				<th>주문일자</th> -->
+<!-- 				<th>작품명</th> -->
+<!-- 				<th>금액</th> -->
+<!-- 				<th>배송비</th> -->
+<!-- 				<th>주문상태</th> -->
+<!-- 			</tr> -->
+<!-- 		</thead> -->
 		<tbody id = "list">
 		<c:forEach items="${order.orderno}" var = "artist">
 			<tr>
