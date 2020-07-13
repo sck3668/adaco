@@ -29,6 +29,8 @@ public class ArtRestService {
 	@Autowired
 	private ArtDao artDao;
 	@Autowired
+	private UserDao userDao;
+	@Autowired
 	private ModelMapper modelMapper;
 	@Autowired
 	private ArtistDao artistDao;
@@ -113,8 +115,11 @@ public class ArtRestService {
 			dto.setOptionValue(option.getOptionValue());
 			dto.setOptionStock(option.getOptionStock());
 			dto.setOptionPrice(option.getOptionPrice());
-		if(username!=null)
+		if(username!=null) {
+			Boolean isFavorite = userDao.existsByFavorite(artno, username);
+			dto.setIsFavorite(isFavorite);
 			artDao.updateByArt(Art.builder().artno(artno).readCnt(1).build());
+		}
 		if(art.getArtCommentCnt()>0)
 			dto.setArtComments(artCommemtDao.listByCommentOfArt(dto.getArtno()));
 		return dto;

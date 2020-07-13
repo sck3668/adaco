@@ -20,12 +20,11 @@
 </style>
 <script>
 function checkFavorite() {
-	console.log(${artPageByUser})
-	/* var $isFavorite = ${artPageByUser.isFavorite}
+	var $isFavorite = ${artPageByUser.isFavorite}
 	if($isFavorite == true)
 		$("#favorite").text("★즐겨찾기");
 	else
-		$("#favorite").text("☆즐겨찾기"); */
+		$("#favorite").text("☆즐겨찾기");
 }
 
 $(function() {
@@ -86,13 +85,13 @@ $(function() {
 		};
 		console.log(params);
 			alert("var");
-		$.ajax({
+		/* $.ajax({
 			url:"/adaco/order/payment",
 			method:"get",
 			data:params,
 			success: location.href = "/adaco/order/payment" 
 				alert("성공");
-		})
+		}) */
 	})
 	
 	//장바구니 추가
