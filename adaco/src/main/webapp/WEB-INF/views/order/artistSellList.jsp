@@ -109,7 +109,6 @@ $(function(){
 						<li><a href="/adaco/admin/artist_list?username=&pageno=${i}">${i}</a></li>
 					</c:otherwise>
 				</c:choose>
-				
 			</c:forEach>
 			<c:if test="${artistPage.next==true}">
 				<li><a href="/adaco/admin/artist_list?username=${artistPage.endPage+1}">다음</a></li>
