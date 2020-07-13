@@ -89,7 +89,7 @@ $(function() {
 			url:"/adaco/order/payment",
 			method:"get",
 			data:params,
-			success: location.href = "/adaco/order/payment" 
+		})
 				alert("성공");
 		}) */
 	})
@@ -97,16 +97,15 @@ $(function() {
 	//장바구니 추가
 	$("#addBag").on("click",function() {
 			var params = {
-					_csrf : "${_csrf.token}",
-					username: "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}",
-					artno:${artPageByUser.artno},
-					totalPrice:${artPageByUser.price},
-					amount:1,
-					optionName:'${artPageByUser.optionName}',
-					optionValue:'${artPageByUser.optionValue}',
-					optionStock:${artPageByUser.optionStock},
-					optionPrice:'${artPageByUser.optionPrice}',
-					optionPrice:'${artPageByUser.optionPrice}'
+				_csrf : "${_csrf.token}",
+				username: "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}",
+				artno:${artPageByUser.artno},
+				totalPrice:${artPageByUser.price},
+				amount:1,
+				optionName:'${artPageByUser.optionName}',		
+				optionValue:'${artPageByUser.optionValue}',
+				optionStock:${artPageByUser.optionStock},
+				optionPrice:'${artPageByUser.optionPrice}',
 			};
 			console.log(params);
 			alert("sss");
@@ -120,14 +119,13 @@ $(function() {
 						alert("성공");
 					else
 						alert("실패");
-				},error:function() {
+				},error:function(result) {
+					console.log(result);
 					alert("실패실패");
 				}
 			})
-					
-		});
+	});
 });
-
 </script>
 </head>
 <body>	
