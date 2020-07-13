@@ -289,7 +289,6 @@ $(function() {
 				};
 				ar.push(obj);
 			}
-			
 		});
 		var $form = $("<form>").attr("action","/adaco/orderdetail/payment").attr("method","get");
 		$("<input>").attr("type","hidden").attr("name","json").val(JSON.stringify(ar)).appendTo($form);

@@ -97,5 +97,9 @@ public class userDaoT {
 	public void findByusernameFavoriteId() {
 		System.out.println(userDao.findByusernameFavoriteId("tjdcjfgns3"));
 	}
+	//@Test
+	public void TotalPoint() {
+		System.out.println(userDao.TotalPoint("tjdcjfgns3")+"토탈포인튼");
+	}
 		
 }

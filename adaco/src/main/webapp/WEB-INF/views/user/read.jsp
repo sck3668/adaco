@@ -15,7 +15,7 @@
 		
 	}
 	#aside {
-		width:200px;
+		width:110px;
 		height:500px;
 		background-color: white;
 		border: 1px solid red;
@@ -129,19 +129,19 @@ function page(){
 $(function(){
 	makePage();
 	page();
-	$("#delete").on("click",function(){
+	
+	/* $("#delete").on("click",function(){
 		var parmas = {
-				_csrf:"${_csrf.token}",
-				_method:"put"
-				
+				_csrf:"${_csrf.token}"
 		}
 		console.log(parmas)
 		$.ajax({
+			url:"/adaco/user/delete",
 			method:"post",
 			data:parmas
-		}).done((r)=>{console.log(r),location.href="/adaco/"})
-		  .fail((r)=>{console.log(r)})
-	})
+		}).done((r)=>{console.log(r)})
+		  .fail((r)=>{console.log(r),location.href="/adaco/"})
+	}) */
 	
 	
 	$("#selectEmail").on("change",function(){
@@ -251,8 +251,6 @@ $(function(){
 </script>
 </head>
 <body>
-${user }
-
 <div>
  <aside id="asideMain">
 	<div id="aside">
@@ -320,7 +318,10 @@ ${user }
 			</tr>
 		</table>	
 		<button type="button" class="btn btn-info" id="update">변경</button>
+		<form action="/adaco/user/delete" method="post" >
 		<button type="button" class="btn btn-info" id="delete">탈퇴</button>
+		<input type="hidden" 
+		</form>
 	</section>
 	</div>
 </body>

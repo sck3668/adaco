@@ -11,7 +11,7 @@
     	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     	<strong>서버 메시지 </strong><span id="alert"></span>
   	</div>
-  	<form action="/abaco/user/find_pwd" method="post">
+  	<form action="/adaco/user/resetPwd" method="post">
 		<div class="form-group">
 			<label for="login_username">아이디</label>
 			<input id="login_username" type="text" name="username" class="form-control" >

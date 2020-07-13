@@ -78,13 +78,13 @@ public class ArtServiceTest {
 	
 	// 작품 등록 테스트 (작가용) ok
 	@Test
-	public void writeWithSajinTest() throws IllegalStateException, IOException, MessagingException {
+/*	public void writeWithSajinTest() throws IllegalStateException, IOException, MessagingException {
 		ArtDto.DtoForWrite dto = getDtoForWrite();
 		File targetFile = new File("d:/test2.jpg");
 		MockMultipartFile file = new MockMultipartFile("artSajin", targetFile.getName(), "image/jpeg", new FileInputStream(targetFile));
 		artservice.write(dto, file);
 		
-	}
+	}*/
 	//
 	//작품 업데이트 테스트 메소드
 	public ArtDto.DtoForUpdate getDtoForUpdate() {
@@ -99,7 +99,7 @@ public class ArtServiceTest {
 	}
 	
 	//작품 업데이트 테스트  ok
-	@Test
+	//@Test
 	public void updateTest() throws FileNotFoundException, IOException {
 		ArtDto.DtoForUpdate dto = getDtoForUpdate();
 		File targetFile = new File("d:/test4.jpg");
@@ -107,7 +107,7 @@ public class ArtServiceTest {
 		service.updateArt(dto, file);
 		
 	}
-	
+	//
 	//작품 상세보기 테스트(작가용) ok
 	//@Test
 	public void readFromArtistTest() {
@@ -123,9 +123,9 @@ public class ArtServiceTest {
 	}
 	
 	// 작품 삭제 테스트 ok
-	//@Test
-	/*public void deleteTest() {
-		boolean result = service.deleteArt(200, "leehj8462",120);
+	/*@Test
+	public void deleteTest() {
+		boolean result = service.deleteArt(318, "leehj8462",177);
 		assertThat(result, is(true));	
 	}*/
 	
