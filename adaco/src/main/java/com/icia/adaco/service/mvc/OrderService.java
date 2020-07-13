@@ -136,9 +136,9 @@ public class OrderService {
 		public int RemoveOrderByCart(String username,Integer artno,Integer orderno) {	
 			Bag bag = bagDao.findByArtno(artno);
 			Order order = orderDao.findByOrder(orderno);
-			if(order.getUsername()==true);
+//			if(order.getUsername()==true);
 				bagDao.deleteByBag(artno);
-			return bagDao.deleteByBag(artno);
+			return artno;
 			
 		}
 		// 주문알람(유저용)
