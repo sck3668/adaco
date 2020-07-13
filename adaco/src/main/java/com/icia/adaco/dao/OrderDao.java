@@ -16,7 +16,7 @@ public class OrderDao {
 	public int count(String username) {
 		Map<String,String> map = new HashMap<String, String>();
 		map.put("username",username);
-		return tpl.selectOne("orderMapper.count)
+		return tpl.selectOne("orderMapper.count",username);
 	}
 	
 	// 주문  하기

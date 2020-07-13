@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="orderMapper">
+	<select id="count" resultType="int">
+		select count(*) from orders
+		<where>
+			<if test="username!=null">and username=#{username}</if>
+		</where>
+	</select>
 	
 	<!-- 주문 하기 -->
 	<insert id="Ordering">
@@ -15,8 +21,8 @@
 	<select id = "findAllByOrder" resultType="order">
 		<![CDATA[
 	select * from		
-		(select rownum as rnum,o*from
-			(select /*+ index_desc(orders orders_pk_orderno)*/orderno,order_date orderDate,username,shipping_Charge shippingCharge from orders) o
+		(select rownum as rnum ,o.*from
+			(select /*+ index_desc(orders orders_pk_orderno)*/orderno,order_date orderDate,username,shipping_charge shippingCharge from orders) o
 			where rownum <=#{endRowNum})
 	where rnum>=#{startRowNum}
 		]]>

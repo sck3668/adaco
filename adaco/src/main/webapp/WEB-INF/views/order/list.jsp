@@ -48,7 +48,7 @@
 </script>
 </head>
 <body>
-
+${page.orderList }
 <h3>주문 목록</h3>
 	<div>
 	<input type="text" id="username" name="username" placeholder="사용자 검색">
@@ -82,18 +82,19 @@
 			</tr>
 		</thead>
 		<tbody id = "list">
-		<c:forEach items="${order.orderno}" var = "artist">
+		<c:forEach items="${page.orderList}" var = "order">
 			<tr>
-				<td>${artist.orderDate}</td>
-				<td><a href="/adaco/order_read?artName=${art.artName}">${art.artName}</a></td>
-				<td>${art.price}</td>
-				<td>${art.couriPrice}</td>
-				<td>${orderdetail.state}</td>
+				<td>${order.orderno }</td>
+				<td>${order.orderDateStr }</td>
+				<td>${order.artName }</td>
+				<td>${order.artPrice }</td>
+				<td>${order.shippingCharge }</td>
+				<td>${order.state }</td>
 			</tr>					
 		</c:forEach>
 		</tbody>
 	</table>
- 	<div style="text-align:center;">
+ 	<%-- <div style="text-align:center;">
 		<ul class="pagination">
 			<c:if test="${artistPage.prev==true}">
 				<li><a href="/adaco/admin/artist_list?pageno=${artistPage.startPage-1}">이전</a></li>
@@ -115,6 +116,6 @@
 				<li><a href="/adaco/admin/artist_list?username=${artistPage.endPage+1}">다음</a></li>
 			</c:if>
 		</ul>
-	</div>
+	</div> --%>
 </body>
 </html>

@@ -4,6 +4,7 @@ import java.security.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
+import org.springframework.lang.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
@@ -52,8 +53,10 @@ public class OrderController {
 	
 	// 주문 내역 보기
 	@GetMapping("/order/list")
-	public ModelAndView findAllByOrder() {
-		return new ModelAndView("main").addObject("viewName", "order/list.jsp");
+	public ModelAndView findAllByOrder(@RequestParam(defaultValue ="1")int pageno,@Nullable String username) {
+		return new ModelAndView("main")
+				.addObject("viewName", "order/list.jsp")
+				.addObject("page",orderService.OrderList(pageno,username));
 	}
 
 	// 주문 상세 보기

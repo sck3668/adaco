@@ -1,18 +1,18 @@
 package com.icia.adaco.service.mvc;
 
+import java.time.format.*;
 import java.util.*;
 
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.http.*;
 import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
-import org.springframework.web.bind.annotation.*;
 
 import com.fasterxml.jackson.databind.*;
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
-import com.icia.adaco.entity.*;import com.icia.adaco.exception.*;
+import com.icia.adaco.entity.*;
+import com.icia.adaco.util.*;
 
 @Service
 public class OrderService {
@@ -126,7 +126,19 @@ public class OrderService {
 		}
 		// 주문 내역 보기
 		public Page OrderList(int pageno,String username) {
-			
+			int countOfBoard = orderDao.count(username);
+			Page page = PagingUtil.getPage(pageno, countOfBoard);
+			int srn = page.getStartRowNum();
+			int ern = page.getEndRowNum();
+			List<Order> orderList = orderDao.findAllByOrder(srn, ern);
+			List<OrderDto.DtoForList> dtoList = new ArrayList<OrderDto.DtoForList>();
+			for(Order order:orderList) {
+				OrderDto.DtoForList dto = modelMapper.map(order,OrderDto.DtoForList.class);
+				dto.setOrderDateStr(order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
+				dtoList.add(dto);
+			}
+			page.setOrderList(dtoList);
+			return page;
 		}
 		
 		// 주문 상세 내역 보기
