@@ -11,6 +11,7 @@ import org.apache.tomcat.jni.*;
 import org.apache.tomcat.util.http.fileupload.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
+import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.*;
@@ -40,13 +41,13 @@ public class StoryController {
 		.addObject("viewName","artist/story/list.jsp").addObject("story",storyService.storyList(pageno));
 	}
  
-	//@PreAuthorize("isAuthenticated()")
+	//@PreAuthorize("hasRole('ROLE_SELLER')")
 	@GetMapping("/story/writeStory")
 	public ModelAndView writeStory() {
 		return new ModelAndView("main").addObject("viewName","artist/story/write.jsp");
 	}
 
-	//@PreAuthorize("isAuthenticated()")
+	//@PreAuthorize("hasRole('ROLE_SELLER')")
 	@PostMapping("/story/writeStory")
 	public String writeStory(StoryBoardDto.DtoForWrite writeDto, Principal principal, MultipartFile sajin) throws IOException {
 		System.out.println(sajin+"controllerc----------");
@@ -64,6 +65,7 @@ public class StoryController {
 		 * System.out.println(dto); String json = objectMapper.writeValueAsString(dto);
 		 * mav.addObject("story", json); System.out.println("mav============="+mav);
 		 */
+		
 		System.out.println("mav============"+mav);
 		return mav;
 	}
@@ -72,8 +74,8 @@ public class StoryController {
 	public ResponseEntity<?> read(@RequestParam @NotNull Integer storyno, Principal principal) throws JsonProcessingException {
 		System.out.println(storyno);
 		System.out.println("readStory================");
-		System.out.println(restService.writeComment1(storyno, principal.getName()));
-		return ResponseEntity.ok(restService.writeComment1(storyno, principal.getName()));
+		System.out.println(restService.readComment(storyno, principal.getName()));
+		return ResponseEntity.ok(restService.readComment(storyno, principal.getName()));
 	}
 	
 	
