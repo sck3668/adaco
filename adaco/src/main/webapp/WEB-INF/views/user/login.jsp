@@ -12,6 +12,27 @@
 	#a {text-decoration: none;}
 </style>
 <script>
+function checkUsername() {
+	$("#username_msg").text("");
+	$username = $("#username").val();
+	const patt = /^[A-Za-z0-9]{6,10}$/;
+	if($username.length==0)
+		return false;
+	if(patt.test($username)==false) 
+		return false
+	return true;
+}
+function checkPassword() {
+	$("#pwd_msg").text("");
+	$password = $("#password").val();
+	const patt = /(?=.*[!@#$%^&*])^[A-Za-z0-9!@#$%^&*]{8,10}$/;
+	if($password.length==0)
+		return false;
+	if(patt.test($password)==false)
+		return false;
+	return true;
+}
+
 	$(function() {
 		var msg = "${msg}";
 		if(msg!="") {
@@ -20,6 +41,20 @@
 		}
 		
 		$("#login").on("click", function() {
+			if(checkUsername()==false)
+				return;
+			if(checkPassword()==false)
+				return;
+			$("#loginForm").submit();
+		});
+		
+		$("#password").on("keypress", function(key) {
+			if(key.keyCode!=13)
+				return;
+			if(checkUsername()==false)
+				return;
+			if(checkPassword()==false)
+				return;
 			$("#loginForm").submit();
 		});
 	})
