@@ -9,8 +9,13 @@
 <head>
 <meta charset="UTF-8">
 <title>작가 작품 목록</title>
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">  -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
+<!-- <style> -->
+/*  td { */
+/*     vertical-align: middle; */
+/*   } */
+<!-- </style> -->
 <sec:authorize access="isAuthenticated()">
 	<script>
 		var isLogin = true;
@@ -39,26 +44,26 @@
 			 });
 		
 	// 선택한 작품 삭제
-	var uncheck = $(".chBox").prop("checked", false);
+// 	var uncheck = $(".chBox").prop("checked", false);
 	
 	$("#delete_Btn").click(function(){
-		/*if(uncheck){
-			alert("작품을 선택해주세요");
-		} else{*/
+		
 	  	var confirm_val = confirm("정말 삭제하시겠습니까?");
 	  		if(confirm_val) {
-			  /*var ar = [];
+			  var ar = [];
 				$(".chBox").each(function(idx) {
 					if($(this).prop("checked")) {
 						ar.push($(this).data("artno"));
 					}
-				});*/
+				});
 				var params = {
-					_csrf: "${_csrf.token}}",
+					_csrf: "${_csrf.token}",
 					_method: "delete",
-					artno: $(this).attr("data-artno")	
-					/*artnos: JSON.stringify(ar)*/
+					artnos: JSON.stringify(ar)
+// 					artno: $(this).attr("data-artno"),
+// 					artnos: JSON.stringify(ar)
 				}
+				console.log(params)
 				$.ajax({
 					url:"/adaco/art/delete",
 					data: params,
@@ -66,23 +71,23 @@
 				}).done((result)=>{
 					alert("삭제처리 되었습니다.");
 					location.reload(true);
-		    
 		   });
-		}
+			}
 	
- });
-	
+ 		});
 	
 	});
 </script>
 </head>
 <body>
-	${artPage.artList }
+ 	${artPage.artList } 
 	<div class="form-group">
-		<button type="button" id="delete_Btn" class="btn btn-primary"
-			data-artno="${art.artno}">삭제</button>
-		<button type="button" id="write_Btn" class="btn btn-warning">작품
-			등록</button>
+		<button type="button" id="delete_Btn" class="btn btn-primary" style="float:right;">
+			삭제
+		</button>
+		<button type="button" id="write_Btn" class="btn btn-warning" >
+			작품 등록
+		</button>
 	</div>
 	<div>
 		<table class="table table-hover">
@@ -107,12 +112,12 @@
 			<tbody id="list">
 				<c:forEach items="${artPage.artList}" var="art">
 					<tr>
-						<td><a href="/adaco/art/readByArtist?artno=${art.artno}">${art.artno}</a></td>
-						<td>${art.category}</td>
-						<td><img src="${art.mainImg }" width="120px" height="110px"></td>
-						<td>${art.artName}</td>
-						<td>${art.price}</td>
-						<td><input type="checkbox" name="chBox" class="chBox" data-artno="${art.artno}" /></td>
+						<td style="vertical-align: middle;">${art.artno}</td>
+						<td style="vertical-align: middle;">${art.category}</td>
+						<td style="vertical-align: middle;"><a href="/adaco/art/readByArtist?artno=${art.artno}"><img src="${art.mainImg }" width="100px" height="100px"></a></td>
+						<td style="vertical-align: middle;">${art.artName}</td>
+						<td style="vertical-align: middle;">${art.price}</td>
+						<td style="vertical-align: middle;"><input type="checkbox" name="chBox" class="chBox" data-artno="${art.artno}" /></td>
 					</tr>
 				</c:forEach>
 			</tbody>

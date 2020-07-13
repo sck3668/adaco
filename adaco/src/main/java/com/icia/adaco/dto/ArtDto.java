@@ -56,7 +56,8 @@ public class ArtDto {
 		private String mainImg;
 		private String artName;
 		private Integer price;
-		private boolean favorite;
+		private Integer favoriteCnt;
+		private boolean isFavorite;
 		private LocalDate artDate;
 		private String username;
 	}
@@ -85,7 +86,8 @@ public class ArtDto {
 		private String optionValue;
 		private Integer optionStock;
 		private Integer optionPrice;
-		private boolean favorite;
+		private Integer favoriteCnt;
+		private boolean isFavorite;
 		private Integer readCnt;
 		private String artDetail;
 		private Integer reviewCnt;
@@ -111,7 +113,8 @@ public class ArtDto {
 		private String returnAddress;
 		private String courier;
 		private Integer accumulated;
-		private boolean favorite;
+		private Integer favoriteCnt;
+		private boolean isFavorite;
 		private String category;
 		private Integer readCnt; 
 		private Integer artistno;
@@ -144,7 +147,8 @@ public class ArtDto {
 		private String image;
 		private LocalDateTime writeDate;
 		private String username;
-		private boolean favorite;
+		private Integer favoriteCnt;
+		private boolean isFavorite;
 	}
 	 
 	public static class DtoForBag{
@@ -162,7 +166,6 @@ public class ArtDto {
 		private Integer stock;
 		private Integer couriPrice;
 	}
-}
 	// 작품 등록시 유제네임으로 작가번호, 상점번호 받아오기
 	@Data
 	@AllArgsConstructor
@@ -172,3 +175,4 @@ public class ArtDto {
 		private Integer shopno;
 		private Integer artistno;
 	}
+}
