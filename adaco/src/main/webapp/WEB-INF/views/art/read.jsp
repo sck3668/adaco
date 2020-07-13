@@ -75,21 +75,18 @@ $(function() {
 		var params  ={
 			_csrf: '${_csrf.token}',
 			username: '${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}',
+// 			orderno :${ordering.orderno},
+// 			orderDate: ${ordering.orderDate},
+// 			shippingCharge : ${ordering.shippingCharge},
 			artno:${artPageByUser.artno},
 			totalPrice:${artPageByUser.price},
 			amount:1,
 			optionName:'${artPageByUser.optionName}',
 			optionValue:'${artPageByUser.optionValue}',
-			optionStock:${artPageByUser.optionStock},
-			optionPrice:'${artPageByUser.optionPrice}',
-			
-		orderno :${ordering.orderno},
-		orderDate: ${ordering.orderDate},
-		shippingCharge : ${ordering.shippingCharge}
+			optionStock:${artPageByUser.optionStock}, 
+			optionPrice:'${artPageByUser.optionPrice}', 
+		
 		};
-		
-		
-		
 		
 		console.log(params);
 			alert("var");
