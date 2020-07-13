@@ -32,7 +32,7 @@ function checkPassword() {
 		return false;
 	return true;
 }
-//
+
 	$(function() {
 		var msg = "${msg}";
 		if(msg!="") {
