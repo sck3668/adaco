@@ -43,7 +43,7 @@ public class ArtRestController {
 		return ResponseEntity.ok(null);
 		
 	}
-	// 작품 상세보기 (작가용)
+	// 작품 상세보기 (작가용)//
 	@PostMapping("/art/read2")
 	public ResponseEntity<?>readArt(@RequestParam @NotNull Integer artno, Principal principal) throws JsonProcessingException {
 		String username = principal!=null? principal.getName():null;
