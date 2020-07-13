@@ -9,7 +9,6 @@
 <title>Insert title here</title>
 </head>
 <style>
-
 	#tel1, #tel2, #tel3 {
 	
 		width: 125px;
