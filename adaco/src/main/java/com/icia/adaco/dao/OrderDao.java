@@ -22,8 +22,6 @@ public class OrderDao {
 	
 	//유저네임으로 검색
 	public int count(String username) {
-		Map<String,String> map = new HashMap<String, String>();
-		map.put("username",username);
 		return tpl.selectOne("orderMapper.count",username);
 	}
 	

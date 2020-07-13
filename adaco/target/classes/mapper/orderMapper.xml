@@ -2,10 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="orderMapper">
 	<select id="count" resultType="int">
-		select count(*) from orders
-		<where>
-			<if test="username!=null">and username=#{username}</if>
-		</where>
+		select count(*) from orders where username=#{username}
 	</select>
 	
 	<!-- 주문 하기 -->

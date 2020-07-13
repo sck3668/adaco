@@ -4,12 +4,12 @@ import java.security.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
-import org.springframework.lang.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
 
 import com.fasterxml.jackson.databind.*;
+import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.service.mvc.*;
@@ -21,7 +21,8 @@ public class OrderController {
 	private OrderService orderService;
 	@Autowired
 	private ObjectMapper objectMapper = new ObjectMapper();
-
+	@Autowired
+	private ArtDao artDao;
 	
 
 	// 주문 하기
@@ -53,10 +54,10 @@ public class OrderController {
 	
 	// 주문 내역 보기
 	@GetMapping("/order/list")
-	public ModelAndView findAllByOrder(@RequestParam(defaultValue ="1")int pageno,@Nullable String username) {
+	public ModelAndView findAllByOrder(@RequestParam(defaultValue ="1")int pageno,Principal principal) {
 		return new ModelAndView("main")
 				.addObject("viewName", "order/list.jsp")
-				.addObject("page",orderService.OrderList(pageno,username));
+				.addObject("page",orderService.OrderList(pageno,principal.getName()));
 	}
 
 	// 주문 상세 보기

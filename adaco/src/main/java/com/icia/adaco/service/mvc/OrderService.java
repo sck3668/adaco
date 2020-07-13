@@ -125,7 +125,9 @@ public class OrderService {
 			orderDao.Ordering(order);
 		}
 		// 주문 내역 보기
-		public Page OrderList(int pageno,String username) {
+		public Page OrderList(int pageno,String username,int artno) {
+			Art art = artDao.readByArt(artno);
+			String artName = art.getArtName();
 			int countOfBoard = orderDao.count(username);
 			Page page = PagingUtil.getPage(pageno, countOfBoard);
 			int srn = page.getStartRowNum();
@@ -135,11 +137,14 @@ public class OrderService {
 			for(Order order:orderList) {
 				OrderDto.DtoForList dto = modelMapper.map(order,OrderDto.DtoForList.class);
 				dto.setOrderDateStr(order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
-				/* dto.setState(orderState.배송준비중); */
-				
+				dto.setArtName(artName);
+				dto.setArtPrice(art.getPrice());
 				dtoList.add(dto);
+				System.out.println(dto);
 			}
+			
 			page.setOrderList(dtoList);
+			
 			return page;
 		}
 		
