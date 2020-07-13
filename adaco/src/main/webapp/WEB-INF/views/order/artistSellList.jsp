@@ -70,7 +70,7 @@ $(function(){
 				<col width="10%">
 				<col width="20%">
 			</colgroup>
-	 <caption><strong> <h3>주문 목록</h3></strong></caption>
+	 <caption><strong><h3>주문 목록</h3></strong></caption>
 		<thead>
 			<tr>
 				<th>번호</th>
