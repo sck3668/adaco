@@ -82,12 +82,13 @@ public class ArtService {
 	}
 	
 	// 작품 리스트 (작가용) 
-	public Page list(int pageno) {
+	public Page list(int pageno, @Nullable String category) {
 		int countOfArt = artdao.countByArt();
 		Page page = PagingUtil.getPage(pageno, countOfArt);
 		int srn = page.getStartRowNum();
 		int ern = page.getEndRowNum();
-		List<Art> artList = artdao.listByArt(srn, ern);
+		page.setSearch(category);
+		List<Art> artList = artdao.listByArt(srn, ern, category);
 		List<ArtDto.DtoForList> dtoList = new ArrayList<ArtDto.DtoForList>();
 		for (Art art : artList) {
 			ArtDto.DtoForList dto = modelMapper.map(art, ArtDto.DtoForList.class);

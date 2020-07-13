@@ -41,10 +41,9 @@ public class ArtServiceTest {
 	private ModelMapper modelMapper;
 
 	// 작품 리스트 테스트(작가입장) ok
-	// @Test
+	@Test
 	public void listTest() {
-		Page map = artservice.list(2);
-		System.out.println(map.getArtList());
+		artservice.list(1, null);
 	}
 
 	// 작품 리스트 테스트(회원입장) ok

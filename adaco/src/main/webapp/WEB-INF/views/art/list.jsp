@@ -9,12 +9,31 @@
 <head>
 <meta charset="UTF-8">
 <title>작가 작품 목록</title>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
-<!-- <style> -->
-/*   td { */
-/*      vertical-align: middle; */
-<!--  </style>  -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">  -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+<style>
+.input-group { 
+		border: 3px solid gold;
+		border-radius: 5px;
+ 		margin: auto;
+ 		position: relative; 
+ 		left : 700px;
+		} 
+		#search{
+		background-color: #FFFFFF;
+		border:0;
+		outline:0;
+		padding: 10px;
+		}
+		#category{
+		text-indent: 1em;
+		border:0;
+		outline:0;
+		background-color: #FFFFFF;
+		width:200px;
+		}
+ </style> 
 <sec:authorize access="isAuthenticated()">
 	<script>
 		var isLogin = true;
@@ -22,6 +41,14 @@
 	</script>
 </sec:authorize>
 <script>
+	// 카테고리로 작품 찾기
+	$(function(){
+		$("#search").on("click", function(){
+			var category = $("#category").val();
+			location.href = "/adaco/art/listByArtist?category="+category;
+		});
+	});	
+	
 	// '작품 등록'클릭 시 작품 등록 화면으로 이동
 	$(function() {
 		$("#write_Btn").on("click", function() {
@@ -37,6 +64,7 @@
 		  $(".chBox").prop("checked", false);
 		 }
 		});
+	
 	// 전체 체크박스 선택 후  개별 체크박스 선택 시 전체 체크박스 해제
 		$(".chBox").on("click",function(){
 			  $("#check_all").prop("checked", false);
@@ -67,7 +95,6 @@
 	
 	
 	// 선택한 작품 삭제, 선택작품 없을 시 "선택된 작품이 없습니다" 팝업 출력
-	
 	$("#delete_Btn").click(function(){
 		var cnt = $("input[name='chBox']:checked").length;
         if(cnt == 0){
@@ -107,7 +134,17 @@
 
 </head>
 <body>
- 	${artPage.artList } 
+<%--  	${artPage.artList }  --%>
+	<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+		<div class="input-group" >
+        	<input type="text"  placeholder="카테고리 검색" aria-label="Search" aria-describedby="basic-addon2" name = "category" id ="category" />
+              	<div class="input-group-append">
+	                <button type="button" id = "search">
+		                 <span style="color:gold"><i class="fas fa-search fa-lg"></i></span>
+	                </button>
+              </div>
+         </div>
+	</form>
 	<div class="form-group">
 		<button type="button" id="delete_Btn" class="btn btn-primary" style="float:right;">
 			선택 삭제
@@ -176,8 +213,5 @@
 			</c:if>
 		</ul>
 	</div>
-
-
-
 </body>
 </html>
