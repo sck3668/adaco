@@ -29,6 +29,7 @@ public class StoryCommentDto {
 		private int storyno;
 		private String writer;
 		private String writeDateStr;
+		private String content;
 	}
 
 	@Data

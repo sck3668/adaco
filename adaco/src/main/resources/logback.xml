@@ -14,7 +14,7 @@
 	<logger name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" level="info" />
 	
 	<!--  log4jdbc 로깅 설정 -->
-	<logger name="jdbc.resultsettable" level="debug"/>
+	<logger name="jdbc.resultsettable" level="info"/>
 	<logger name="jdbc.audit" level="warn"/>
 	<logger name="jdbc.sqltiming" level="info"/>
 	<logger name="jdbc.resultset" level="warn"/>

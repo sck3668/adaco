@@ -1,9 +1,9 @@
 package com.icia.adaco.service.rest;
 
 import java.io.*;
+import java.util.*;
 
 import org.modelmapper.*;
-import org.omg.CORBA.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.crypto.password.*;
 import org.springframework.stereotype.*;
@@ -58,7 +58,6 @@ public class UserRestService {
 				throw new JobFailException("비밀번호를 확인할 수 없습니다");
 			dto.setPassword(pwdEncoder.encode(dto.getNewPassword()));
 			System.out.println(dto+"ㅎ");
-			
 		}
 		User user = modelMapper.map(dto, User.class);
 		System.out.println(user+"이거는 유저다");
