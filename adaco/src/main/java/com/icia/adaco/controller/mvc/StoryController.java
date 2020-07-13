@@ -64,6 +64,7 @@ public class StoryController {
 		 * System.out.println(dto); String json = objectMapper.writeValueAsString(dto);
 		 * mav.addObject("story", json); System.out.println("mav============="+mav);
 		 */
+		
 		System.out.println("mav============"+mav);
 		return mav;
 	}
@@ -72,8 +73,8 @@ public class StoryController {
 	public ResponseEntity<?> read(@RequestParam @NotNull Integer storyno, Principal principal) throws JsonProcessingException {
 		System.out.println(storyno);
 		System.out.println("readStory================");
-		System.out.println(restService.writeComment1(storyno, principal.getName()));
-		return ResponseEntity.ok(restService.writeComment1(storyno, principal.getName()));
+		System.out.println(restService.readComment(storyno, principal.getName()));
+		return ResponseEntity.ok(restService.readComment(storyno, principal.getName()));
 	}
 	
 	

@@ -41,7 +41,7 @@ public class StoryBoardRestController {
 		return ResponseEntity.ok(restService.ckupload(upload));
 	}
 	//
-	@PostMapping("/story/commentWrtie")
+	//@PostMapping("/story/commentWrtie")
 	public ResponseEntity<?> commentWrite(@RequestParam(defaultValue="1") int pageno,StoryComment storyComment,Principal principal) {
 		storyComment.setWriter(principal.getName());
 		System.out.println("storyRestcontroller storyComment===="+storyComment);
@@ -59,12 +59,12 @@ public class StoryBoardRestController {
 	
 	
 	//@PreAuthorize("isAuthenticated()")
-	@PutMapping("/story/commentWrite")
+	//@PutMapping("/story/commentWrite")
 	public ResponseEntity<?>ListComment(@RequestParam(defaultValue = "1")int pageno,StoryComment storyComment,Principal principal){
 		System.out.println(storyComment+"==========");
 		System.out.println(principal.getName()+"ㅎㅎㅎㅎ");
-		System.out.println("commentList==============="+restService.ListComment(pageno,storyComment, principal.getName()));
-	return ResponseEntity.ok(restService.ListComment(pageno,storyComment, principal.getName()));
+		//System.out.println("commentList==============="+restService.ListComment(pageno,storyComment, principal.getName()));
+	return ResponseEntity.ok(restService.readComment(storyComment.getStoryno(), principal.getName()));
 	}
 	
 	
@@ -74,7 +74,4 @@ public class StoryBoardRestController {
 		System.out.println("commentDelete controller=============");
 		return ResponseEntity.ok(restService.deleteComment(storyno, cno, writer));
 	}
-	
-	
-	
 }
