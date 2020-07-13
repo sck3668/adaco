@@ -8,7 +8,7 @@
 <!-- 	recipient_id recipientId, msg_check msgCheck, is_send_message isSendMessage, is_reciver_message isReciverMessage -->
 <!-- 	from message  -->
 <!-- 	</select> -->
-<select id="findAllMessage" resultType="Message">
+<select id="findAllMessage" resultType="message">
 		<![CDATA[
 		 select * from
 	    	(select b.* , rownum as rnum  from
@@ -70,6 +70,6 @@
 	</delete>
 	
 	<select id="isUnreadMemoExist" resultType="boolean">
-		select count(*) from memo where msg_check=0 and recipient_id=#{username} and rownum=1
+		select count(*) from message where msg_check=0 and recipient_id=#{username} and rownum=1
 	</select>
 </mapper>
