@@ -29,6 +29,34 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script type="text/javascript">
 $(function(){
+	$("#delete").on("click", function(){
+		var param = {
+			_method: "delete",
+			_csrf : "${_csrf.token}",
+			category : $("#category").val()		
+		}
+		$.ajax({
+			url: "/adaco/admin/category_delete",
+			method: "post",
+			data: param
+		}).done(()=>{
+			alert("삭제처리 되었습니다.");
+			location.reload(true);
+			}).fail(()=>alert("실패"));
+	});
+	
+	$("#write").on("click", function(){
+		var param = {
+			_csrf : "${_csrf.token}",
+			category : $("#category_name").val()
+		}
+		$.ajax({
+			url: "/adaco/admin/category_write",
+			method: "post",
+			data: param
+		}).done(()=>alert("카테고리가 추가되었습니다.")).fail(()=>alert("실패"));		
+	});
+	
 	$("#logout").on("click", function(){
 			var param = {
 				_csrf : "${_csrf.token}"						
@@ -41,7 +69,7 @@ $(function(){
 					location.href = "/adaco";
 				}
 			});
-		});	
+	});	
 })
 </script>
 </head>
@@ -75,15 +103,33 @@ $(function(){
             <div class="card-body">
             
             <div style=" width:200px; display: inline-block; margin-left: 5px; margin-top: 20px;">
-			<select id = "authority" class = "custom-select">
+			<select id = "category" class = "custom-select">
 				<c:forEach items="${categoryList}" var="category">
 							<option value = "${category.category }">${category.category}</option>
 				</c:forEach>
 			</select>
 			</div>
-				<button type="button" class="btn btn-danger">삭제</button>
+				<button id = "delete" class = "btn btn-danger btn-icon-split">
+		       		<span class="icon text-white-50">
+		       			<i class = "fas fa-trash"></i>
+		       		</span>
+		       		<span class ="text">삭제</span>
+		       </button>
 			<div>
-				<input type="text">
+				<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" style="margin-left: 0rem!important;">
+		            <div class="input-group" style="margin-top: 10px;">
+		              <input type="text" class="form-control bg-light border-0 small" placeholder="추가할 카테고리 명.." aria-label="Search" aria-describedby="basic-addon2" name = "category_name" id ="category_name">
+		              <div class="input-group-append">
+		              </div>
+		            </div>
+		          </form>
+				<button type = "button" id = "write" class = "btn btn-primary btn-icon-split">
+		       		<span class="icon text-white-50">
+		       			<i class = "fas fa-arrow-right">
+		       			</i>
+		       		</span>
+		       		<span class ="text">추가</span>
+		 		</button>
 			</div>
    			</div>
   </div>

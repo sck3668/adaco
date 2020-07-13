@@ -163,7 +163,7 @@
 	</update>
 	
 	<delete id = "deleteByCategory">
-		delete category and category = #{category} and rownum = 1
+		delete from category where category = #{category} and rownum = 1
 	</delete>
 	
 </mapper>
