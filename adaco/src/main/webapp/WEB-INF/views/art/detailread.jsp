@@ -101,6 +101,7 @@ $(function() {
 				optionValue: $optionValue,
 				optionPrice: $optionPrice,
 				optionStock: $optionStock
+				
 		};
 		
 		//console.log(params);
@@ -208,6 +209,7 @@ $(function() {
 				      </c:forEach>
 				    </ul>
 				  </div>
+				  <input type="file" name="artSajin" id="artSajin" />
 				  <span class="nxt_fix" style="display:none;"></span>
 				</div>
 			</tr>

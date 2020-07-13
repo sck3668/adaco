@@ -15,7 +15,6 @@ import org.springframework.stereotype.*;
 import org.springframework.web.multipart.*;
 
 import com.fasterxml.jackson.databind.*;
-
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.dto.ArtDto.*;
@@ -58,12 +57,7 @@ public class ArtRestService {
 		art = modelMapper.map(dto, Art.class);
 		option = modelMapper.map(dto,Option.class);
 		System.out.println("여기여기"+artSajin.getName());
-		if(artSajin!=null && artSajin.isEmpty()==false) {
-			File file = new File("d:/upload/artfile",artSajin.getName());
-			if (file.exists() == true) {
-				System.out.println("파일이" + file);
-				file.delete();
-			}
+		if(artSajin!=null && !artSajin.isEmpty()) {
 			if (artSajin.getContentType().toLowerCase().startsWith("image/") == true) {
 				int lastIndexOfDot = artSajin.getOriginalFilename().lastIndexOf('.');
 				String extension = artSajin.getOriginalFilename().substring(lastIndexOfDot + 1);
@@ -143,19 +137,40 @@ public class ArtRestService {
 		Option option = optionDao.readByOption(optno);
 		Integer artistno = artistDao.findArtistnoByUsername(username);
 		String artWriter = artistDao.findByid(artistno).getUsername();
-		System.out.println("글쓴 작가 이름"+artWriter);
 		if(art==null)
 			throw new ArtNotFoundException();
-		System.out.println("아트가 있을까" + art);
 		if(username.equals(artWriter)==false)
 			throw new IllegalJobException();
-		System.out.println("로그인이름 "+ username);
-		System.out.println("등록 작가이름 "+ artWriter);
 		option.setArtno(art.getArtno());
 		optionDao.deleteByOption(optno);
 		return artDao.deleteByArt(artno)==1;
 	}
 	
+	// 작품 선택 삭제하기
+	/*public List<DtoForList> multipleDelete(String username, List<Integer> list) {
+		List<ArtDto.DtoForList> artList = findList(username);
+		List<Integer> deleteIndexList = new ArrayList<>();
+		for(int i=0; i<list.size(); i++) {
+			int idx = findCart(artList, list.get(i));
+			deleteIndexList.add(idx);
+		}
+		for(int i=deleteIndexList.size()-1; i>=0; i--) {
+			int idx = deleteIndexList.get(i);
+			artList.remove(idx);
+		}
+		session.setAttribute("cartList", cartList);
+		return artList;
+	}
+	
+	// username으로 작품 목록 가져오기
+	private List<DtoForList> findList(String username) {
+		Integer artistno = artistDao.findArtistnoByUsername(username);
+		Art art = artDao.findArtByUsername(artistno);
+		
+		// TODO Auto-generated method stub
+		return null;
+	}*/
+
 	// 작품 댓글 작성하기
 	public List<ArtComment> writeCommentOfArt(ArtComment artcomment){
 		artcomment.setWriteDate(LocalDateTime.now());
