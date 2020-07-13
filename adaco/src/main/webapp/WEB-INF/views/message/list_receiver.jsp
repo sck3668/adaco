@@ -6,26 +6,51 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+$(function() {
+	$("#delete").on("click", function() {
+		var ar = [];
+		$(".mno").each(function(idx) {
+			if($(this).prop("checked")) {
+				ar.push($(this).val());
+			}
+		});
+		if(ar.length==0)
+			return;
+		var params ={
+			mnos: JSON.stringify(ar),
+			_method: 'patch',
+			_csrf:"${_csrf.token}"
+		}
+		$.ajax({
+			url:"/adaco/message/isReciverMessage",
+			method:"post",
+			data: params,
+		}).done(()=>{location.reload(); })
+		.fail((xhr)=>{console.log(xhr)})
+	});
+})
+</script>
 </head>
 <body>
 	 <div>
-	<h1>보낸쪽지함</h1>
+	<h1>받은쪽지함</h1>
 		<table class="table table-hover">
 			<thead>
 			<tr>
-				<th>번호</th><th>받는사람</th><th>제목</th><th>보낸날짜</th><th>읽음여부</th><th></th>
+				<th>번호</th><th>보낸사람</th><th>제목</th><th>보낸날짜</th><th>읽음여부</th><th></th>
 			</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${list}" var="message">
 					<tr>
-						<td></td>
-						<td></td>
-						<td><a href="/adaco/message/read?mno="></a></td>
-						<td></td>					
+						<td>${message.mno }</td>
+						<td>${message.sendId }</td>
+						<td><a href="/adaco/message/read?mno=${message.mno }">${message.title}</a></td>
+						<td>${message.writeDate }</td>					
 						<td>
 							<c:choose>
-								<c:when test="">O</c:when>
+								<c:when test="${message.msgCheck==true }">O</c:when>
 								<c:otherwise>X</c:otherwise>
 							</c:choose>
 						</td>

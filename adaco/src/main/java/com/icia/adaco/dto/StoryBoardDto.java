@@ -24,9 +24,10 @@ public class StoryBoardDto {
 		private String title;
 		private String content;
 		private String writer;
-		private LocalDateTime writeDate;
+		private String writeDateStr;
 		private List<MultipartFile> attachments;
 		private String image;
+		private Integer cno;
 	}
 
 	@Data
@@ -37,7 +38,7 @@ public class StoryBoardDto {
 		private String content;
 		private String writer;
 		private String writeDateStr;
-		private List<StoryComment> comments;
+		private List<StoryCommentDto.DtoForList> comments;
 	}
 
 	@Data

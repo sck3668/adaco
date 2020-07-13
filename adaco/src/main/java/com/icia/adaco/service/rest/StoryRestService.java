@@ -9,6 +9,7 @@ import java.time.*;
 import java.time.format.*;
 import java.util.*;
 
+import org.jsoup.*;
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.*;
 import com.fasterxml.jackson.databind.*;
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
+import com.icia.adaco.dto.StoryCommentDto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.exception.*;
 import com.icia.adaco.util.*;
@@ -98,6 +100,7 @@ public class StoryRestService {
 //		return page;
 //		
 //	}
+	
 // 스토리 댓글 입력
 	public Page commentWrtie(int pageno,StoryComment storyComment,String username) {
 //		System.out.println("storyComment======="+storyComment);
@@ -146,42 +149,60 @@ public class StoryRestService {
 			return page;
 		 
 	}
+	
 	//스토리 댓글 목록 출력
-	public List<StoryComment> writeComment(StoryComment storyComment,String username) {
+	public List<StoryCommentDto.DtoForWrite> writeComment(StoryComment storyComment,String username) {
 		storyComment.setWriteDate(LocalDateTime.now());
 		String commentStr = storyComment.getContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
+		commentStr.replace("/&lt;p&gt;/", "");
 		storyComment.setContent(commentStr);
 		storyComment.setWriteDate(LocalDateTime.now()); 
 		storyComment.setUsername(username);
 		storyCommentDao.insertByCommentOfStory(storyComment);
-		return storyCommentDao.findAllByStoryno(storyComment.getStoryno());
+		
+		List<StoryComment> writeDto = storyCommentDao.findAllByStoryno(storyComment.getStoryno());
+		
+		//List<StoryCommentDto.DtoForWrite> writeDto = storyCommentDao.findAllByStoryno(storyComment.getStoryno());
+		List<StoryCommentDto.DtoForWrite> dtoWriteDto = new ArrayList<StoryCommentDto.DtoForWrite>();
+		for(StoryComment comment:writeDto) {
+			StoryCommentDto.DtoForWrite dto = modelMapper.map(comment,StoryCommentDto.DtoForWrite.class);
+			dto.setWriteDateStr(comment.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
+			dtoWriteDto.add(dto);
+		}
+		return dtoWriteDto;
+		//return storyCommentDao.findAllByStoryno(storyComment.getStoryno());
 	}
-	// 스토리 읽기 할시 댓글 읽어오기
-	public List<StoryCommentDto.DtoForList> writeComment1(int storyno,String username) {
+	// 스토리 읽기 할 시 댓글 읽어오기
+	public List<StoryCommentDto.DtoForList> readComment(int storyno,String username) {
 		System.out.println("restService storyno===="+storyno);
 		List<StoryComment> commentList = storyCommentDao.findAllByStoryno(storyno);
 		List<StoryCommentDto.DtoForList> dtoList = new ArrayList<StoryCommentDto.DtoForList>();
 		for(StoryComment storyComment:commentList) {
 			StoryCommentDto.DtoForList dto = modelMapper.map(storyComment,StoryCommentDto.DtoForList.class);
 			dto.setWriteDateStr(storyComment.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
+			dto.setCno(storyComment.getCno());
 			dtoList.add(dto);
 		}
-		commentList
-		
-		
-		
-		storyCommentDao.findAllByStoryno(storyno);
-		
-		return storyCommentDao.findAllByStoryno(storyno);
+		return dtoList;
 	}
 	
 	//댓글 삭제
-	public List<StoryComment> deleteComment(int storyno, int cno, String writer) {
-		StoryComment storyComment = storyCommentDao.findByCno(cno);
-		if(writer.equals(storyComment.getWriter())==false)
+	public List<StoryCommentDto.DtoForList> deleteComment(int storyno, int cno, String writer) {
+		StoryComment storyComment1 = storyCommentDao.findByCno(cno);
+		if(writer.equals(storyComment1.getWriter())==false)
 			throw new JobFailException("댓글을 삭제할 수 없습니다");
 		storyCommentDao.deleteByCommentOfStory(cno);
-		return storyCommentDao.findAllByStoryno(storyno);
+		
+		List<StoryComment> commentList = storyCommentDao.findAllByStoryno(storyno);
+		List<StoryCommentDto.DtoForList> dtoList = new ArrayList<StoryCommentDto.DtoForList>();
+		for(StoryComment storyComment:commentList) {
+			StoryCommentDto.DtoForList dto = modelMapper.map(storyComment,StoryCommentDto.DtoForList.class);
+			dto.setWriteDateStr(storyComment.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
+			dto.setCno(storyComment.getCno());
+			dtoList.add(dto);
+		}
+		return dtoList;
+		//return storyCommentDao.findAllByStoryno(storyno);
 	}
 	
 }

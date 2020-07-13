@@ -63,6 +63,7 @@ public class OrderService {
 		public int payment(String username,OrderDetailDto.DtoForDeleteOrder dto) {
 			OrderDetail orderdetail = modelMapper.map(dto, OrderDetail.class);
 			orderDetailDao.Payment(orderdetail);
+			
 		return orderdetail.getOrderno();
 		}
 		
