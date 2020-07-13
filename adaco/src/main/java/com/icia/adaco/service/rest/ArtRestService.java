@@ -20,6 +20,7 @@ import com.icia.adaco.dto.*;
 import com.icia.adaco.dto.ArtDto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.exception.*;
+import com.icia.adaco.util.*;
 
 import lombok.*;
 
@@ -144,6 +145,49 @@ public class ArtRestService {
 		option.setArtno(art.getArtno());
 		optionDao.deleteByOption(optno);
 		return artDao.deleteByArt(artno)==1;
+	}
+	
+	
+	//작품찾기-----
+	public int findArt(List<ArtDto.DtoForList> artList, int artno) {
+		for(int i=0; i<artList.size(); i++) {
+			if(artList.get(i).getArtno()==artno)
+				return i;
+		}
+		return -1;
+	}
+	// 회원아이디로 작품목록 불러오기-------
+	public List<ArtDto.DtoForList> findAllArtByUsername(String username,int pageno) {
+		ArtDto.DtoForList dto1 = new ArtDto.DtoForList();
+		int countOfArt = artDao.countByArt();
+		Page page = PagingUtil.getPage(pageno, countOfArt);
+		int srn = page.getStartRowNum();
+		int ern = page.getEndRowNum();
+		List<Art> artList = artDao.listByArt(srn, ern);
+		List<ArtDto.DtoForList> dtoList = new ArrayList<>();
+		for(Art art1:artList) {
+			ArtDto.DtoForList dto = modelMapper.map(art1,ArtDto.DtoForList.class);
+			dtoList.add(dto);
+		}
+		return dtoList;
+	}
+	
+	// 작품 삭제------
+	public List<DtoForList> deleteArt(List<Integer> list, int pageno,String username) {
+		System.out.println("artnos=="+list);
+		List<DtoForList> artList = findAllArtByUsername(username,pageno);
+		List<Integer> deleteList = new ArrayList<Integer>();
+		for(int i=0; i<list.size(); i++) {
+			int idx = findArt(artList,list.get(i));
+			deleteList.add(idx);
+		}
+		for(int i = deleteList.size()-1; i>=0; i--) {
+			int idx = deleteList.get(i);
+			artList.remove(idx);
+			artDao.deleteByArt(list.get(i));
+		}
+		return artList;
+		
 	}
 	
 	// 작품 선택 삭제하기
