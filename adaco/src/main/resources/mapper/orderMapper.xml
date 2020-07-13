@@ -13,8 +13,8 @@
 	
 <!-- 	주문 내역  -->
 	<select id = "findAllByOrder" resultType="order">
-		select orderno, order_date orderDate, username, shipping_charge shippingCharge
-		from orders
+			
+		
 	</select>
 	 
 <!-- 	 주문 상세 내역  -->
@@ -22,7 +22,6 @@
 		select orderno, order_date orderDate, username, shipping_charge
 		shippingCharge from orders where orderno=#{orderno} and rownum=1
 	</select>
-	
 	
 <!-- 	<update id ="updateByOrder"> -->
 <!-- 		update orders -->

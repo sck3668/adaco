@@ -19,8 +19,11 @@ public class OrderDao {
 	}
 	
 	// 주문 내역 보기
-	public List<Order> findAllByOrder() {
-		return tpl.selectList("orderMapper.findAllByOrder");
+	public List<Order> findAllByOrder(int startRowNum,int endRowNum) {
+		Map<String,Integer> map = new HashMap<String, Integer>();
+		map.put("startRowNum",startRowNum);
+		map.put("endRowNum", endRowNum);
+	return tpl.selectList("orderMapper.findAllByOrder",map);
 	}
 	
 	// 주문 상세 보기

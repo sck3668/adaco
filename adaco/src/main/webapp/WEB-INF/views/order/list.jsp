@@ -31,7 +31,7 @@
 /*   } */
     </style>
 <script type="text/javascript">
-$(function(){
+/* $(function(){
 	$("#search").on("click", function(){
 		var username = $("#username").val();
 		location.href = "/adaco/admin/artist_list?username="+username	
@@ -43,7 +43,7 @@ $(function(){
 		if($category == "아티스트")
 			location.href = "/adaco/admin/artist_list"
 	});
-});	
+});	 */
 	
 </script>
 </head>
