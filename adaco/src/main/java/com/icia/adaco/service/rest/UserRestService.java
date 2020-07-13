@@ -33,6 +33,7 @@ public class UserRestService {
 	public boolean checkId(String username) throws UsernameExistException {
 		if(userDao.existsUsername(username)==true)
 			throw new UsernameExistException();
+		System.out.println("=============eq???????????????????");
 		return true;	
 	}
 

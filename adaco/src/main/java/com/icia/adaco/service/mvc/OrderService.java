@@ -2,15 +2,17 @@ package com.icia.adaco.service.mvc;
 
 import java.util.*;
 
-import org.junit.jupiter.engine.discovery.predicates.*;
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.*;
+import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
+import org.springframework.web.bind.annotation.*;
 
 import com.fasterxml.jackson.databind.*;
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
-import com.icia.adaco.entity.*;
+import com.icia.adaco.entity.*;import com.icia.adaco.exception.*;
 
 @Service
 public class OrderService {
@@ -27,8 +29,6 @@ public class OrderService {
 	private OrderDetailDao orderDetailDao;
 	@Autowired
 	private ObjectMapper objectMapper = new ObjectMapper();
-	@Autowired
-	private OrderDetailDao orderDDao;
 	@Autowired
 	private ModelMapper modelMapper;
 	
@@ -50,18 +50,29 @@ public class OrderService {
 //			return orderno;
 //		}
 		// 3
-		public int Ordering2(Integer orderno) {
-//			Art art = ModelMapper.map(dto, Art.class);
-			Art art = artDao.readByArt(orderno);
-			Option option = optionDao.readByArtno(orderno);
-			OrderDetail orderDetail = orderDetailDao.OrderDetail(orderno);
-			OrderDto.DtoForOrdering dto = modelMapper.map(art, OrderDto.DtoForOrdering.class);
-			return orderno;
+		
+		public int Ordering(Order order,Bag bag) {
+			int artno = bag.getArtno();
+			Art art = artDao.readByArt(artno);
+			bag.setTotalPrice(bag.getAmount()*art.getPrice());
+			return orderDao.Ordering(order);
 		}
-		public void Ordering(Order order) {
-			int orderno = order.getOrderno();
-			OrderDetail OrderD = orderDDao.OrderDetail(orderno);
+		
+		// 결제하기
+		@PreAuthorize("isAuthenticated()")
+		public int payment(String username,OrderDetailDto.DtoForDeleteOrder dto) {
+			OrderDetail orderdetail = modelMapper.map(dto, OrderDetail.class);
+			orderDetailDao.Payment(orderdetail);
+		return orderdetail.getOrderno();
 		}
+		
+//		public int payByOrder(String username, OrderDetailDto.DtoForDeleteOrder Dto, Order order){
+//			int orderdetail = orderDao.Ordering(order);
+//			if(order.getUsername()===false);
+//				orderDao.Ordering(order);
+//			return order.getOrderno(); 
+//		}
+		
 //		
 //		// 상품 상세에서 주문
 //		public int insertByOrder(Order order,ArtDto.DtoForOrder Dto) {
@@ -88,7 +99,7 @@ public class OrderService {
 //			int orderno = order.getOrderno();
 //			Order order = orderDao.findByOrder(orderno);
 //			Art art = artDao.readByArt(artno);
-//			List<Option> option = optio]
+//			List<Option> option = option
 //			OrderDetailDto.DtoForOrdering dtoorder = modelMapper.map(oorderno,OrderDetailDto.DtoForOrderin.classg);
 //			dtoOrder.setArt(art);
 //			dtoOrder.setOption(option);
@@ -121,13 +132,15 @@ public class OrderService {
 			orderDao.findByOrder(orderno);
 		}
 
-		public Object Payment(String username, Order order, Integer artno) {
+		// 주문 완료 후 장바구니에 담긴 상품 제거
+		public int RemoveCartByOrder(String username,Integer artno,Integer orderno) {	
+			Bag bag = bagDao.findByArtno(artno);
+			Order order = orderDao.findByOrder(orderno);
+//			if(order.getUsername()==true);
+				bagDao.deleteByBag(artno);
+			return artno;
 			
-			return null;
 		}
-		
-		// 주문 완료 후 장바구니 제거
-		
 		// 주문알람(유저용)
 		
 		// 주문-결제하면 이벤트 발생시키는 서비스
