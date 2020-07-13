@@ -94,6 +94,9 @@ $(function() {
          		<li class="nav-item">
          		   <a class="nav-link" href="/adaco/artist/artistpage">작가페이지</a>
          		</li>
+         		<li class="nav-item">
+         		   <a class="nav-link" href="/adaco/artist/shopMade">상점 개설하기</a>
+         		</li>
          		<li class="nav-btn ui-dropdown" id="aa">
 					<button type="button" class="btn-dropdown" id="gogak">고객센터</button>
 					<ul class="menu-dropdown" id="gogak-d">

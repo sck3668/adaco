@@ -64,4 +64,10 @@ public class ShopRestService {
 		}
 		shopDao.updateByShop(shop);
 	}
+	
+	
+	public void shopDelete(int artistno) {
+		shopDao.deleteByShop(artistno);
+			
+	}
 }

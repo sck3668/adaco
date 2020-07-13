@@ -135,7 +135,6 @@ $(function(){
 				_method:"put"
 				
 		}
-		console.log(parmas)
 		$.ajax({
 			method:"post",
 			data:parmas

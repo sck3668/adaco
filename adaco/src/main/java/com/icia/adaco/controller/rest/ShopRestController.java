@@ -12,6 +12,7 @@ import org.springframework.web.multipart.*;
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.service.rest.*;
+import com.icia.adaco.test.*;
 
 @RestController
 public class ShopRestController {
@@ -34,6 +35,14 @@ public class ShopRestController {
 		shopRestService.update(principal.getName(), sajin, updateDto);
 		return ResponseEntity.ok(null);
 		}
+	
+	@PreAuthorize("isAuthenticated()")
+	@DeleteMapping("/artist/delete")
+	public ResponseEntity<?> delete(Principal principal) {
+		int artistno = artistDao.findArtistnoByUsername(principal.getName());
+		shopRestService.shopDelete(artistno);
+		return ResponseEntity.ok(null);
 	}
+}
 
 

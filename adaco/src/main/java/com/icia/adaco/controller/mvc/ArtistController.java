@@ -4,9 +4,11 @@ import java.security.*;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
+import org.springframework.web.servlet.mvc.support.*;
 
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
@@ -25,16 +27,24 @@ public class ArtistController {
 	@Autowired
 	private ObjectMapper objectMapper;
 	
+	
 	//마이페이지 화면
-	//	@PreAuthorize("isAuthenticated()")
-		@GetMapping("/artist/artistpage")
-		public ModelAndView artistRead(Principal principal) {
-			System.out.println("artistpage  name======="+principal.getName());
-			int artistno = artistDao.findArtistnoByUsername(principal.getName());
-			Shop shop = shopDao.readShopByArtistno(artistno);
-			int shopno = shop.getShopno();
-			return new ModelAndView("main").addObject("viewName","artist/artistpage.jsp").addObject("shop",shopSerivce.shopRead(shopno));
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/artist/artistpage")
+	public ModelAndView artistRead(Principal principal) {
+		int artistno = artistDao.findArtistnoByUsername(principal.getName());
+		Shop shop = shopDao.readShopByArtistno(artistno);
+		int shopno = shop.getShopno();
+		if(shop.getShopno()==null) {
 		}
+		return new ModelAndView("main").addObject("viewName","artist/artistpage.jsp").addObject("shop",shopSerivce.shopRead(shopno));
+	}
+	
+	
+	
+	
+	
+	
 	//주문, 배송 관리
 //		@PreAuthorize("isAuthenticated()")
 		@GetMapping("/artist/orderAdmin")

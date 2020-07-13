@@ -46,6 +46,6 @@
 	
 	
 	<delete id="delete">
-		delete from shop where shopno=#{shopno}
+		delete from shop where artistno=#{artistno}
 	</delete>
 </mapper>

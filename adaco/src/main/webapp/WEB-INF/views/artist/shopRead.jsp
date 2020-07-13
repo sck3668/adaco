@@ -92,6 +92,24 @@ $(function(){
 });
 
 
+$(function(){
+	$("#delete").on("click",function(){
+		var parmas = {
+				_csrf:"${_csrf.token}",
+				_method:"delete",
+				
+		}
+		$.ajax({
+			url:"/adaco/artist/delete",
+			data:parmas,
+			method:"post"
+			
+		}).done((r)=>{console.log(r),location.href="/adaco/"})
+		  .fail((r)=>{console.log(r)})
+	});
+});
+
+
 
 </script>
 </head>
@@ -150,6 +168,7 @@ ${shop }
 			</tr>
 		</table>	
 		<button type="button" class="btn btn-info" id="update">변경하자</button>
+		<button type="button" class="btn btn-info" id="delete">삭제하기</button>
 		</form>
 	</section>
 	</div>

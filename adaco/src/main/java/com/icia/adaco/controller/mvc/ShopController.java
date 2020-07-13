@@ -5,6 +5,7 @@ import java.security.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.lang.*;
+import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.*;
@@ -54,6 +55,17 @@ public class ShopController {
 		return new ModelAndView("main").addObject("viewName","artist/shopRead.jsp")
 				.addObject("shop",shopService.shopRead(shopno));
 				
+	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/artist/shopPage")
+	public ModelAndView shopPage(Principal principal) {
+		int artistno = artistDao.findArtistnoByUsername(principal.getName());
+		Shop shop = shopDao.readShopByArtistno(artistno);
+		int shopno = shop.getShopno();
+		if(shop.getShopno()==null) {
+		}
+		return new ModelAndView("main").addObject("viewName","artist/shopPage.jsp").addObject("shop",shopService.shopRead(shopno));
 	}
 	
 	

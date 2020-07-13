@@ -38,8 +38,8 @@ public class ShopDao {
 		return sql.update("shopMapper.updateByShop",shop);
 	}
 	//상점 삭제
-	public int deleteByShop(int shopno) {
-		return sql.delete("shopMapper.delete",shopno);
+	public int deleteByShop(int artistno) {
+		return sql.delete("shopMapper.delete",artistno);
 	}
 	
 	
