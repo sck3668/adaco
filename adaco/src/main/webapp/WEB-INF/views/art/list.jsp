@@ -99,7 +99,7 @@
 					location.reload(true);
 		   });
 			}
-        	}
+        }
  		});
 	
 	});

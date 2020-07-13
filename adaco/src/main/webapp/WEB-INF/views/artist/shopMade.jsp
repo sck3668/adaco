@@ -157,7 +157,7 @@
 	    function checkshopName() {
 	    	$("#shopName_msg").text("");
 	    	$irum = $("#shopName").val();
-	    	const patt = /^[가-힣]{2,10}$/;
+	    	const patt = /^[가-힣A-Za-z0-9]{2,10}$/;
 	    	if($irum.length==0)
 	    		return printErrorMsg($("#shopName_msg"),"상점의 이름은 필수 입니다.")
 	    	if(patt.test($irum)==false)
@@ -170,11 +170,8 @@
 	    function checkShopIntro(){
 	    	$("#shopIntro_msg").text("");
 	    	$intro = $("#shopIntro").val();
-	    	const patt = /^[가-힣]{2,100}$/;
 	    	if($intro.length==0)
 	    		return printErrorMsg($("#shopIntro_msg"),"상점에 대해 안알려주실려구요???")
-	    	if(patt.test($intro)==false)
-	    		return printErrorMsg($("#shopIntro_msg"),"대충하지말구 정확하게 2글자이상 입력해주세요")
 	    	return true;
 	    }
 	    

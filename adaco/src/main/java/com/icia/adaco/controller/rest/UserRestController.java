@@ -77,6 +77,5 @@ public class UserRestController {
 			System.out.println(principal.getName()+"로그인한아이디");
 		return ResponseEntity.ok(null);
 	}
-
 	
 }

@@ -12,6 +12,9 @@ import com.icia.adaco.entity.*;
 public class OrderDao {
 	@Autowired
 	private SqlSessionTemplate tpl;
+	public int orderFindByUsername(String username) {
+		return tpl.selectOne("orderMapper.orderFindByUsername",username);
+	}
 	//유저네임으로 아트 찾기
 	/*
 	 * public String ArtNameByUsername(String username) { return

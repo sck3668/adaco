@@ -4,7 +4,9 @@
 	<select id="count" resultType="int">
 		select count(*) from orders where username=#{username}
 	</select>
-	
+	<select id="orderFindByUsername" resultType="int">
+		select orderno from orders where username=#{username}	
+	</select>
 	<!-- 주문 하기 -->
 	<insert id="Ordering">
 		<selectKey keyProperty="orderno" resultType="int" order="BEFORE">

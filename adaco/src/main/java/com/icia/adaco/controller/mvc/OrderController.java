@@ -21,8 +21,6 @@ public class OrderController {
 	private OrderService orderService;
 	@Autowired
 	private ObjectMapper objectMapper = new ObjectMapper();
-	@Autowired
-	private ArtDao artDao;
 	
 
 	// 주문 하기

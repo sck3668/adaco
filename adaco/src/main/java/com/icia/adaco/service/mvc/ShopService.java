@@ -39,12 +39,12 @@ public class ShopService {
 				shop.setImage(profilePath + shopFile.getName());
 			} else  {
 				throw new JobFailException("사진을 등록하세요");
-			}
-		
+			} 
 			int artistno = artistDao.findArtistnoByUsername(username);
 			shop.setArtistno(artistno);
 			System.out.println("shop===================="+shop);
-		shopDao.writeByShop(shop);
+			shopDao.writeByShop(shop);
+			 System.out.println("*************"+shop.getShopno());
 	}
 	
 	public ShopDto.DtoForRead shopRead(int shopno){
@@ -58,6 +58,15 @@ public class ShopService {
 	
 	public void delete(int shopNo) {
 		shopDao.deleteByShop(shopNo);
+	}
+
+	public int shopCheck(String username) {
+		int artistno = artistDao.findArtistnoByUsername(username);
+		System.out.println("artistno==="+artistno);
+		if(shopDao.readShopnoByArtistno(artistno)==null) {
+			return 0;
+		}
+		return 1;
 	}
 	
 	

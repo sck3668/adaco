@@ -32,6 +32,7 @@ public class OrderService {
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	
 		// 주문 하기    
 //		public int Ordering(String username, Order order,OrderDto.DtoForOrdering Dto) {
 //			int orderno = order.getOrderno();
@@ -125,9 +126,10 @@ public class OrderService {
 			orderDao.Ordering(order);
 		}
 		// 주문 내역 보기
-		public Page OrderList(int pageno,String username,int artno) {
-			Art art = artDao.readByArt(artno);
-			String artName = art.getArtName();
+		public Page OrderList(int pageno,String username) {
+				int orderno = orderDao.orderFindByUsername(username);
+				OrderDetail detail = orderDetailDao.OrderDetail(orderno);
+			
 			int countOfBoard = orderDao.count(username);
 			Page page = PagingUtil.getPage(pageno, countOfBoard);
 			int srn = page.getStartRowNum();
@@ -137,8 +139,8 @@ public class OrderService {
 			for(Order order:orderList) {
 				OrderDto.DtoForList dto = modelMapper.map(order,OrderDto.DtoForList.class);
 				dto.setOrderDateStr(order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
-				dto.setArtName(artName);
-				dto.setArtPrice(art.getPrice());
+				dto.setArtName(detail.getArtname());
+				dto.setArtPrice(detail.getPrice());
 				dtoList.add(dto);
 				System.out.println(dto);
 			}
