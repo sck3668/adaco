@@ -12,10 +12,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
 <!-- <style> -->
-/*  td { */
-/*     vertical-align: middle; */
-/*   } */
-<!-- </style> -->
+/*   td { */
+/*      vertical-align: middle; */
+<!--  </style>  -->
 <sec:authorize access="isAuthenticated()">
 	<script>
 		var isLogin = true;
@@ -78,6 +77,7 @@
 	
 	});
 </script>
+
 </head>
 <body>
  	${artPage.artList } 
