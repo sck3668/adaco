@@ -1,7 +1,5 @@
 package com.icia.adaco.dto;
 
-import javax.validation.constraints.*;
-
 import lombok.*;
 
 public class ShopDto {

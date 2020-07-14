@@ -59,7 +59,7 @@ public class ShopController {
 				.addObject("shop",shopService.shopRead(shopno));
 				
 	}
-	
+	//작가가 보는 상점페이지
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/artist/shopPage")
 	public ModelAndView shopPage(Principal principal) {
@@ -77,6 +77,7 @@ public class ShopController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/artist/checkShop")
 	public ResponseEntity<?> shopCheck(Principal principal) {
+		System.out.println("shopService.shopCheck(principal.getName())"+shopService.shopCheck(principal.getName()));
 		return ResponseEntity.ok(shopService.shopCheck(principal.getName()));
 	}
 	

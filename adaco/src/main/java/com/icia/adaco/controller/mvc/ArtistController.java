@@ -26,16 +26,20 @@ public class ArtistController {
 	private ArtistDao artistDao;
 	@Autowired
 	private ObjectMapper objectMapper;
+	@Autowired
+	private UserService userService;
 	
 	
 	//마이페이지 화면
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/artist/artistpage")
-	public ModelAndView artistRead(Principal principal) {
-		int artistno = artistDao.findArtistnoByUsername(principal.getName());
-		Shop shop = shopDao.readShopByArtistno(artistno);
-		int shopno = shop.getShopno();
-		return new ModelAndView("main").addObject("viewName","artist/artistpage.jsp").addObject("shop",shopSerivce.shopRead(shopno));
+	public ModelAndView artistpage(Principal principal) {
+//		int artistno = artistDao.findArtistnoByUsername(principal.getName());
+//		Shop shop = shopDao.readShopByArtistno(artistno);
+//		int shopno = shop.getShopno();
+//		.addObject("shop",shopSerivce.shopRead(shopno))
+		return new ModelAndView("main").addObject("viewName","artist/artistpage.jsp")
+				.addObject("user",userService.read(principal.getName()));
 	}
 	 
 	
@@ -53,6 +57,13 @@ public class ArtistController {
 		@GetMapping("/artist/orderAdmin")
 		public ModelAndView orderAdmin() {
 			return new ModelAndView("main").addObject("viewName","artist/orderAdmin.jsp");
+		}
+//		작가 정보 수정
+		@PreAuthorize("isAuthenticated()")
+		@GetMapping("/artist/artistRead")
+		public ModelAndView artistRead(Principal principal) {
+			return new ModelAndView("main").addObject("viewName","artist/artistRead.jsp")
+					.addObject("user",userService.read(principal.getName()));
 		}
 	//매출관리
 //		@PreAuthorize("isAuthenticated()")

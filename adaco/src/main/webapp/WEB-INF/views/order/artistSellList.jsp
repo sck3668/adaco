@@ -10,6 +10,20 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
+ 	#aside { 
+ 		height:500px; 
+		float: left; 
+	} 
+	#section {
+	width: 850px;
+	padding: 5px;
+	float: right;
+	min-height: 600px;
+	}
+	#profile {
+      width:200px;
+      height:200px;
+   }
       table, th, td {
         border: 1px solid #bcbcbc;
       }   
@@ -29,6 +43,9 @@
 /*   td { */
 /*     background-color: #e3f2fd; */
 /*   } */
+#menu {
+	width: 180px;
+}
     </style>
 <script type="text/javascript">
 $(function(){
@@ -48,7 +65,33 @@ $(function(){
 </script>
 </head>
 <body>
-
+<aside id="asideMain">
+   <div id="aside">
+      <div id="profile">
+      </div>
+      <div class="col-sm-3">
+				<!-- side menu (link) -->
+				<h3>MY Menu</h3>
+				<ul class="list-group" id="menu">
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/artist/shopPage"
+						style="color: black; text-decoration: none;">상점 정보</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/artist/artistRead"
+						style="color: black; text-decoration: none;">내 정보 관리</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/order/artistSellList"
+						style="color: black; text-decoration: none;">판매내역</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="#" style="color: black; text-decoration: none;">메세지함</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/artist/sales"
+						style="color: black; text-decoration: none;">매출 관리</a></li>
+				</ul>
+			</div>
+   </div>
+   </aside>
+ <section id="section">
 <h3>주문 목록</h3>
 	<div>
 	<input type="text" id="username" name="username" placeholder="사용자 검색">
@@ -115,5 +158,6 @@ $(function(){
 			</c:if>
 		</ul>
 	</div>
+	</section>
 </body>
 </html>
