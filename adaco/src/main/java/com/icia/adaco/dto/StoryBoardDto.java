@@ -49,6 +49,7 @@ public class StoryBoardDto {
 	public static class DtoForList {
 		private int storyno;
 		private String writer;
+		private String title;
 		private String writeDateStr;
 		private String image;
 	}

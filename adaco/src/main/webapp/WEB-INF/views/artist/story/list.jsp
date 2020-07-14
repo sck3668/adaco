@@ -14,8 +14,23 @@
 		width:250px;
 		height:300px;
 		display: inline-block;
+		margin: 20px;
 	}
-	
+	.writeDate {
+		font-size: 0.75em;
+		text-align: right;
+	}
+	#textAreadown {
+		display: inline-block;
+	}
+	.image {
+		display:inline-block;
+		width:70px;
+		height:70px;
+	}
+	#textAreaUp {
+		height:70px;
+	}
 </style>
 <script>
 	$(function() {
@@ -58,18 +73,17 @@ ${story }
 	<c:forEach items="${story.storyList}" var="story">
 	<div id="storyList">
 			<div id="textArea">
-				<table>
-					<tr>
-						<td class="writer" data-toggle="modal" data-target="#myModal" data-writer="${story.writer}">${story.writer }</td>
-					</tr>
-					<tr>
-						<td class="writeDate">${story.writeDateStr }</td>
-					</tr>
-				</table>
+				<div id="textAreaUp">
+					<span class="image">${story.image }</span>
+					<div id="textAreadown">
+						<span class="writer1">${story.writer }</span><br>
+						<span class="writeDate1">${story.writeDateStr }</span>
+					</div>
+				</div>
 			</div>
 			<a href="/adaco/story/readStory?storyno=${story.storyno }">
 			<div id="imageArea">
-				<div class="image">
+				<div class="image1">
 					<img alt="art" src="${story.image }">
 				</div>
 			</div>
@@ -111,8 +125,7 @@ ${story }
 			<div class="modal-content">
 				<div class="modal-body" >
 					<ul>
-						<li id="read_by_id" data-dismiss='modal'>게시물 보기</li>
-						<li id="find_joindate">가입일 보기</li>
+						<li id="read_by_id" data-dismiss='modal'>작가 작품보기</li>
 						<sec:authorize access="hasRole('ROLE_USER')">
 							<li id="write_memo">메보 보내기</li>
 						</sec:authorize>
