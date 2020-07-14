@@ -77,6 +77,7 @@ public class ShopController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/artist/checkShop")
 	public ResponseEntity<?> shopCheck(Principal principal) {
+		System.out.println("shopService.shopCheck(principal.getName())"+shopService.shopCheck(principal.getName()));
 		return ResponseEntity.ok(shopService.shopCheck(principal.getName()));
 	}
 	

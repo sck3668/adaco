@@ -10,6 +10,22 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
+	#aside {
+		width:110px;
+		height:500px;
+		background-color: gray;
+		float: left;
+	}
+	#section {
+	width: 850px;
+	padding: 5px;
+	float: right;
+	min-height: 600px;
+	}
+	#profile {
+      width:200px;
+      height:200px;
+   }
       table, th, td {
         border: 1px solid #bcbcbc;
       }   
@@ -48,7 +64,23 @@ $(function(){
 </script>
 </head>
 <body>
-
+<aside id="asideMain">
+   <div id="aside">
+      <div id="profile">
+      </div>
+      <div>
+         <ul>
+            <li><a href="/adaco/order/artistSellList"style="color: black; text-decoration: none;">판매내역</a></li>
+            <li><a href="/adaco/artist/shopPage" style="color: black; text-decoration: none;">내상점보기</a></li>
+            <li><a href="/adaco/#" style="color: black; text-decoration: none;">메세지함</a></li>
+            <li><a href="/adaco/artist/sales" style="color: black; text-decoration: none;" >매출 관리</a></li>
+            <li><a href="/adaco/story/writeStory" style="color: black; text-decoration: none;" >스토리 작성</a></li>
+             <li><a href="/adaco/art/write" style="color: black; text-decoration: none;" >작품 등록</a></li>
+         </ul>
+      </div>
+   </div>
+   </aside>
+ <section id="section">
 <h3>주문 목록</h3>
 	<div>
 	<input type="text" id="username" name="username" placeholder="사용자 검색">
@@ -115,5 +147,6 @@ $(function(){
 			</c:if>
 		</ul>
 	</div>
+	</section>
 </body>
 </html>

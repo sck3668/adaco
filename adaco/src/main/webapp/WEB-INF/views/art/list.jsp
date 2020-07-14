@@ -9,11 +9,11 @@
 <head>
 <meta charset="UTF-8">
 <title>작가 작품 목록</title>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
 <!-- <style> -->
-/*   td { */
-/*      vertical-align: middle; */
+/*   td { */ 
+/*      vertical-align: middle; */ 
 <!--  </style>  -->
 <sec:authorize access="isAuthenticated()">
 	<script>
