@@ -3,6 +3,8 @@ package com.icia.adaco.service.mvc;
 import java.time.format.*;
 import java.util.*;
 
+import javax.servlet.http.*;
+
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.access.prepost.*;
@@ -66,7 +68,6 @@ public class OrderService {
 			OrderDetail orderdetail = modelMapper.map(dto, OrderDetail.class);
 			System.out.println(orderdetail+"===============orderdetail");
 			orderDetailDao.Payment(orderdetail);
-			if()
 		return orderdetail.getOrderno();
 		}
 		
@@ -128,15 +129,18 @@ public class OrderService {
 		}
 		
 		// 주문 내역 보기
-		public Page OrderList(int pageno,String username) {
+		public Page OrderList(int pageno,String username,HttpSession session) {
 			List<Integer> ordernoList = orderDao.orderFindByUsername(username);
 			System.out.println("=========="+ordernoList);
-			Bag bag = orderDao.BagFindUsernameArtno(username);
-			System.out.println(bag+"백백");
-				
-				System.out.println(bag.getArtno()+"아트엔오");
-				Art art = artDao.readByArt(bag.getArtno());
-				System.out.println(art+"아트");
+			List<Bag> bagList = orderDao.BagFindUsernameArtno(username);
+			
+			System.out.println(bagList+"백백");
+			for(Bag artno:bagList) {
+			Art art = artDao.readByArt(artno.getArtno());
+			session.setAttribute("artName",art.getArtName());
+			session.setAttribute("artPrice",art.getPrice());
+			System.out.println(art+"ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ");
+			}
 			/*
 			 * for(int orderno:ordernoList) { System.out.println(orderno+"오더엔오");
 			 * OrderDetail detail = orderDetailDao.OrderDetail(orderno);
@@ -145,24 +149,22 @@ public class OrderService {
 			 * detail1.setPrice(price); }
 			 */
 			int countOfBoard = orderDao.count(username);
-			System.out.println(username+"유저네임");
 			System.out.println(countOfBoard+"카운트오브 보드");
 			Page page = PagingUtil.getPage(pageno, countOfBoard);
+			System.out.println(page+"페이지");
 			int srn = page.getStartRowNum();
 			int ern = page.getEndRowNum();
-			
 			List<Order> orderList = orderDao.findAllByOrder(srn, ern, username);
-			
 			System.out.println(orderList+"오더리스트");
 			List<OrderDto.DtoForList> dtoList = new ArrayList<OrderDto.DtoForList>();
 			for(Order order:orderList) {
 				OrderDto.DtoForList dto = modelMapper.map(order,OrderDto.DtoForList.class);
 				System.out.println(dto+"디티오");
 				dto.setOrderDateStr(order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
-				dto.setArtName(art.getArtName());
-				dto.setArtPrice(art.getPrice());
+				dto.setArtName((String) session.getAttribute("artName"));
+				dto.setArtPrice((int) session.getAttribute("artPrice"));
 				dto.setState(State.답변대기);
-				System.out.println(dto+"디티오디티오");
+				System.out.println(dto+"ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ");
 				dtoList.add(dto);
 			}
 			page.setOrderList(dtoList);
