@@ -75,24 +75,29 @@ $(function() {
 		var params  ={
 			_csrf: '${_csrf.token}',
 			username: '${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}',
+// 			orderno : ${ordering.orderno},
+// 			orderDate: '${ordering.orderDate}',
+// 			shippingCharge : '${ordering.shippingCharge}',
+// 			artName : ${ordering.artName},
 			artno:${artPageByUser.artno},
 			totalPrice:${artPageByUser.price},
-			amount:1,
+			amount:1, 
 			optionName:'${artPageByUser.optionName}',
 			optionValue:'${artPageByUser.optionValue}',
-			optionStock:${artPageByUser.optionStock},
-			optionPrice:'${artPageByUser.optionPrice}',
+			optionStock:${artPageByUser.optionStock}, 
+			optionPrice:'${artPageByUser.optionPrice}', 
+		
 		};
+			
 		console.log(params);
 			alert("var");
-		/* $.ajax({
-			url:"/adaco/order/payment",
+			$.ajax({
+			url:"/adaco/order/ordering",
 			method:"get",
 			data:params,
 		})
-				alert("성공");
-		}) */
-	})
+				alert("성공");	
+		}) 
 	
 	//장바구니 추가
 	$("#addBag").on("click",function() {

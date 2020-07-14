@@ -18,7 +18,7 @@
 		border-radius: 5px;
  		margin: auto;
  		position: relative; 
- 		left : 700px;
+ 		left : 200px;
 		} 
 		#search{
 		background-color: #FFFFFF;
@@ -55,11 +55,23 @@
 <script>
 	// 카테고리로 작품 찾기
 	$(function(){
-		$("#search").on("click", function(){
+		$("#category").on("click", function(){
 			var category = $("#category").val();
 			location.href = "/adaco/art/listByArtist?category="+category;
 		});
 	});	
+	
+	// 카테고리 선택해서 작품 찾기
+	
+	$(function() {
+	 $("#category").on("change", function() {
+	     var choice = $("#category").val();
+	     if(choice!="직접 입력") {
+	        $("#categorytext").val(choice);
+	        $("#categorytext").prop("disabled", true);
+	     }
+	    
+	  })
 	
 	// '작품 등록'클릭 시 작품 등록 화면으로 이동
 	$(function() {
@@ -148,6 +160,21 @@
 </head>
 <body>
 <%--  	${artPage.artList }  --%>
+ 	<h5>작품 목록</h5>
+	<hr>
+	<div style=" width:130px; display: inline-block; margin-left: 20px; margin-top: 20px;">
+		<input type="text" id="categorytext"> 
+		<select id = "category" class="custom-select">
+			<option selected="selected">카테고리 선택</option>
+			<option value="가방,파우치">가방,파우치</option>
+			<option value="강아지, 동물">강아지, 동물</option>
+			<option value="공예">공예</option>
+			<option value="악세서리">악세서리</option>
+			<option value="카테고리다">카테고리다</option>
+			<option value="카테고리다2">카테고리다2</option>
+		</select>
+		<button id="cate" type="button">확인</button>
+	</div>
 	<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
 		<div class="input-group" >
         	<input type="text"  placeholder="카테고리 검색" aria-label="Search" aria-describedby="basic-addon2" name = "category" id ="category" />
@@ -158,6 +185,7 @@
               </div>
          </div>
 	</form>
+	
 	<div class="form-group">
 		<button type="button" id="delete_Btn" class="btn btn-primary" style="float:right;">
 			선택 삭제

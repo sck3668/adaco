@@ -91,7 +91,7 @@ public class ArtRestService {
 			dto.setOptionValue(option.getOptionValue());
 			dto.setOptionStock(option.getOptionStock());
 			dto.setOptionPrice(option.getOptionPrice());
-		String str = art.getArtDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일"));
+		String str = art.getArtDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
 		dto.setArtDate(str);
 		return dto;
 	}
@@ -119,7 +119,7 @@ public class ArtRestService {
 			dto.setArtComments(artCommemtDao.listByCommentOfArt(dto.getArtno()));
 		return dto;
 	}
-
+	
 	// 작품 이미지 불러오기
 	public List<ArtImg> readArtImage(@NonNull int artno) {
 		return artDao.findAllArtImg(artno);

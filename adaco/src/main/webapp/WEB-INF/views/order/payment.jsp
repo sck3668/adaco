@@ -41,7 +41,7 @@ $(function(){
 	$("#userinfo").on("click", function(){
 		var info = [];
 		ajax{
-			url:"adaco/order/orderdetail"
+			url:"adaco/order/payment"
 			method: "get"
 			data: params,
 			}).doen(()=>{location.reload(); })
