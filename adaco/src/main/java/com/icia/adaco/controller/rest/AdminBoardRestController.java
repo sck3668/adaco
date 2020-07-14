@@ -88,5 +88,18 @@ public class AdminBoardRestController {
 	public ResponseEntity<?> ckUpload(MultipartFile upload) {
 		return ResponseEntity.ok(service.saveCkImage(upload));
 	}
+	
+	@Secured("ROLE_ADMIN")
+	@DeleteMapping("/admin/category_delete")
+	public ResponseEntity<?> categoryDelete(String category) {
+		service.deleteCategory(category);
+		return null;
+	}
 
+	@Secured("ROLE_ADMIN")
+	@PostMapping("/admin/category_write")
+	public ResponseEntity<?> categoryWrite(Category category) {
+		service.writeCategory(category);
+		return null;
+	}
 }

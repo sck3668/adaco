@@ -18,4 +18,5 @@ public class Story {
 	private String content;
 	private Integer artistno;
 	private String writer;
+	private Integer commentCnt;
 }

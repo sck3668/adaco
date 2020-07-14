@@ -132,6 +132,11 @@ public class AdminBoardDao {
 		return tpl.delete("adminBoardMapper.deleteByFAQ", faqno);
 	}
 	
+//	카테고리 리스트
+	public List<Category> findAllByCategory() {
+		return tpl.selectList("adminBoardMapper.findAllByCategory");
+	}
+	
 //	카테고리 등록
 	public int insertByCategory(Category category) {
 		return tpl.insert("adminBoardMapper.insertByCategory", category);

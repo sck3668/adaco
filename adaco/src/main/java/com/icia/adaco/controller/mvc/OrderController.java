@@ -52,7 +52,7 @@ public class OrderController {
 	
 	// 주문 내역 보기
 	@GetMapping("/order/list")
-	public ModelAndView findAllByOrder(@RequestParam(defaultValue ="1")int pageno,Principal principal) {
+	public ModelAndView findAllByOrder(@RequestParam(defaultValue ="1")int pageno, Principal principal) {
 		return new ModelAndView("main")
 				.addObject("viewName", "order/list.jsp")
 				.addObject("page",orderService.OrderList(pageno,principal.getName()));

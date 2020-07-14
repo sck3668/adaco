@@ -125,11 +125,21 @@ public class OrderService {
 			Bag bag = modelMapper.map(Dto,Bag.class);
 			orderDao.Ordering(order);
 		}
+		
 		// 주문 내역 보기
 		public Page OrderList(int pageno,String username) {
-				int orderno = orderDao.orderFindByUsername(username);
+			List<Integer> ordernoList = orderDao.orderFindByUsername(username);
+			System.out.println("=========="+ordernoList);
+			OrderDetail detail1 = new OrderDetail();
+			for(int orderno:ordernoList) {
+				System.out.println(orderno+"오더엔오");
 				OrderDetail detail = orderDetailDao.OrderDetail(orderno);
-			
+				System.out.println(detail+"디테일");
+				String artName = detail.getArtname();
+				detail1.setArtname(artName);
+				int price = detail.getPrice();
+				detail1.setPrice(price);
+			}
 			int countOfBoard = orderDao.count(username);
 			Page page = PagingUtil.getPage(pageno, countOfBoard);
 			int srn = page.getStartRowNum();
@@ -139,14 +149,11 @@ public class OrderService {
 			for(Order order:orderList) {
 				OrderDto.DtoForList dto = modelMapper.map(order,OrderDto.DtoForList.class);
 				dto.setOrderDateStr(order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
-				dto.setArtName(detail.getArtname());
-				dto.setArtPrice(detail.getPrice());
+				dto.setArtName(detail1.getArtname());
+				dto.setArtPrice(detail1.getPrice());
 				dtoList.add(dto);
-				System.out.println(dto);
 			}
-			
 			page.setOrderList(dtoList);
-			
 			return page;
 		}
 		

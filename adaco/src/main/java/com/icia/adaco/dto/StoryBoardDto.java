@@ -38,7 +38,7 @@ public class StoryBoardDto {
 		private String content;
 		private String writer;
 		private String writeDateStr;
-		private List<StoryCommentDto.DtoForList> comments;
+		private List<StoryComment> comments;
 	}
 
 	@Data

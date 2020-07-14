@@ -78,9 +78,9 @@
 
       <!-- Nav Item - Charts -->
       <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="/adaco/admin/category_list">
           <i class="fas fa-fw fa-chart-area"></i>
-          <span>통계</span></a>
+          <span>카테고리 관리</span></a>
       </li>
 
       <!-- Nav Item - Tables -->

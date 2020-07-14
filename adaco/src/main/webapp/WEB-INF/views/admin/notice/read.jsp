@@ -161,6 +161,16 @@ input[type="text"]:focus, input[type="text"]:hover {
 		var loginId = "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}"
 	</script>
 </sec:authorize>
+<sec:authorize access="hasRole('ROLE_USER')">
+	<script type="text/javascript">
+		var isAdmin = false;
+	</script>
+</sec:authorize>
+<sec:authorize access="hasRole('ROLE_SELLER')">
+	<script type="text/javascript">
+		var isAdmin = false;
+	</script>
+</sec:authorize>
 <sec:authorize access="isAnonymous()">
 	<script type="text/javascript">
 		var isAdmin = false;
@@ -201,7 +211,6 @@ input[type="text"]:focus, input[type="text"]:hover {
 	$(function(){
 		if(notice.isImportant == true) {
 			$("input:checkbox[name=checkbox]").prop("checked", true);
-			console.log("진입테스트");			
 		}
 		if(isAdmin == true) {			
 			var ck = CKEDITOR.replace("content", {

@@ -75,30 +75,15 @@ public class StoryService {
 		page.setStoryList(storydtoList);
 		return page;
 	}
-	public StoryBoardDto.DtoForRead storyRead(int storyno,int pageno) {
+	public StoryBoardDto.DtoForRead storyRead(int storyno) {
 		Story story = storyDao.findByStory(storyno);
-		//System.out.println(story+"스토리임다");
 		if(story==null)
 			throw new JobFailException("보드가없다");
 		StoryBoardDto.DtoForRead readDto = modelMapper.map(story,StoryBoardDto.DtoForRead.class);
-		//System.out.println(readDto+"============");
-		int countOfBoard = storyCommentDao.count();
-		Page page = PagingUtil.getPage(pageno, countOfBoard);
-		int srn = page.getStartRowNum();
-		int ern = page.getEndRowNum();
-		List<StoryComment> comments = storyCommentDao.findAllByCno(srn,ern,storyno);
-		List<StoryCommentDto.DtoForList> commentDto = new ArrayList<StoryCommentDto.DtoForList>(); 
-		//readDto.setComments(storyCommentDao.findAllByCno(srn,ern,storyno));
-		String str = story.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일"));
-		//readDto.setWriteDateStr(str);
-		//System.out.println("===11"+comments);
-		for(StoryComment comment : comments) {
-			DtoForList dto1 = modelMapper.map(comment,StoryCommentDto.DtoForList.class);
-			dto1.setWriteDateStr(comment.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
-			commentDto.add(dto1);
-		}
-		readDto.setComments(commentDto);
-		//System.out.println(readDto+"gggggg");
+		String str = story.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
+		readDto.setWriteDateStr(str);
+		if(story.getCommentCnt()>0)
+			readDto.setComments(storyCommentDao.findAllByStoryno(readDto.getStoryno()));
 		return readDto;
 	}
 }
