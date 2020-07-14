@@ -5,6 +5,45 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style type="text/css">
+	#content_div {
+		overflow: auto;
+	}
+	
+	* {
+		margin : 0;
+		padding: 0;
+	}
+	#section {
+		padding: 20px;
+	}
+	#wrap {
+		width: 760px;
+		margin: 0 auto;
+	}
+	#content {
+		min-height: 600px;
+		border: none;
+	}
+	#wrap {
+		margin-top : 10px;
+	}
+	#wrap>div:first-of-type {	
+	/* #wrap의 자식 중 첫번째 div. 즉 #title_div, #content_div를 둘러싸고 있는 id없는 div */
+		border : 1px solid #ccc;
+	}
+	#content_div {
+		background-color: #f8f8f8;
+		border-top: 1px solid #ccc;
+	}
+	
+	#comments {
+		height: 500px;
+		overflow: auto;
+	}
+	
+
+</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/adaco/main/css">
@@ -34,9 +73,10 @@ var story = ${story};
 			console.log(comment);
 			$("<span></span>").text(comment.writer).appendTo($upper_div);
 			$("<img>").attr("src", comment.profile).css("width", "60px").css("height", "60px").appendTo($center_div);
+			$("<div>").html(comment.content).appendTo($center_div);
 			$("<span>").text(comment.writeDateStr).appendTo($lower_div);
-			$("<div>").html(comment.content).appendTo($center_div);  
-			
+			//var time = comment.writeDate.year + "" + comment.writeDate.month +"" + comment.writeDate.dayOfMonth;
+			//$("<span>").text(time).appendTo($lower_div);
 			if(comment.writer===loginId) {
 				var btn = $("<button>").attr("class","delete_comment").attr("data-cno",comment.cno).attr("data-writer", comment.writer)
 					.text("삭제").appendTo($center_div).css("float","right");
@@ -48,14 +88,14 @@ var story = ${story};
 		$("#title").val(story.title);
 		$("#content").html(story.content);
 		$("<input>").attr("type", "hidden").attr("value", story.storyno).attr("id", "storyno").appendTo(".form-group");
-		printComment(story.comments);
 		$("#btn_area").hide();
+		printComment(story.comments);
 		
 		
 		if(isLogin==true && story.writer==loginId){
 			var ck = CKEDITOR.replace("content", {
-				height: 400,
-				filebrowserUploadUrl:'http://localhost:8081/adaco/story/ckupload'
+				height: 600,
+				filebrowserUploadUrl:'http://localhost:8081/adaco/story/ckupload?${_csrf.parameterName}=${_csrf.token}'
 			})
 			$("#content").prop("disabled",false)
 			$("#comment_textarea").prop("disabled",false)
@@ -82,10 +122,7 @@ var story = ${story};
 				method: "post",
 				data: params
 			})
-			.done((result)=>{ 
-				story = result;
-				printComment(story); 
-				},$("#comment_textarea").val(""))
+			.done((result)=>{printComment(result);})
 			.fail((result)=>{console.log(result)});
 		})
 		
@@ -147,13 +184,6 @@ var story = ${story};
 </script>
 </head>
 <body>	
-${story}
-
-<%-- ${story.comments[].cno} --%>
- <%-- <c:forEach items="${story.comments }" var="comments1" >
- 	<input type="text" value="${comments1}">
- </c:forEach>  --%>
- <div id="wrap">
 	<div>
 		<div class = "form-group">
 				제목<input type = "text" class = "form-control" id = "title" name = "title" readonly="readonly" style="background-color: white;" >
@@ -164,15 +194,13 @@ ${story}
 			</div>
 			<div class = "form-group" id ="content_div">
 				<div class = "form-group">
-					<div class = "form-control" id = "content" name = "content" cols="50" rows="10"style="background-color: white; min-height: 600px;" >
+					<div class = "form-control" id = "content"></div>
+				</div>
+				<div id="btn_area">
+					<button id="update" class="btn btn-info">변경</button>
+					<button id="delete" class="btn btn-success">삭제</button>
 				</div>
 			</div>
-			
-			<div id="btn_area">
-				<button id="update" class="btn btn-info">변경</button>
-				<button id="delete" class="btn btn-success">삭제</button>
-			</div>
-		</div>
 		<div>
 			<a href="/adaco/story/listStory" id="list">목록으로</a>
 		</div>
@@ -185,8 +213,8 @@ ${story}
 			<button type="button" class="btn btn-info" id="comment_write" disabled="disabled">댓글 작성</button>
 		</div>
 		<hr>
-		<div id="comments">
-		</div>
+	</div>
+	<div id="comments">
 	</div>
 </body>
 </html>

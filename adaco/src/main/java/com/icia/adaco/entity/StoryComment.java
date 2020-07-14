@@ -2,6 +2,8 @@ package com.icia.adaco.entity;
 
 import java.time.*;
 
+import com.fasterxml.jackson.annotation.*;
+
 import lombok.*;
 import lombok.experimental.*;
 

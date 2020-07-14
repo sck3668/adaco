@@ -38,7 +38,6 @@ public class StoryBoardRestController {
 	
 	@PostMapping("/story/ckupload")
 	public ResponseEntity<?> ckupload(MultipartFile upload) throws IOException{
-		restService.ckupload(upload);
 		return ResponseEntity.ok(restService.ckupload(upload));
 	}
 	

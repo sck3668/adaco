@@ -190,21 +190,4 @@ public class AdminBoardService {
 		return dao.findAllByCategory();
 	}
 
-
-
-	/* 유저 파트 일단 보류
-	public DtoForNoticeRead noticeRead(@NonNull Integer noticeno) {
-		Notice notice = dao.findno(qno);
-		if(question == null)
-			throw new QuestionNotFoundException();
-		AdminBoardDto.DtoForQuestionRead dto = modelMapper.map(question, AdminBoardDto.DtoForQuestionRead.class);
-		String writeDateStr = question.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
-		if(question.getAnswerContent()!= null) {
-			String answerDateStr = question.getAnswerDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
-			dto.setAnswerDateStr(answerDateStr);			
-		}
-		dto.setWriteDateStr(writeDateStr);
-		return dto;
-	}
-	*/
 }
