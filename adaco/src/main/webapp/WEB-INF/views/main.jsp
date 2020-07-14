@@ -20,7 +20,7 @@
   	<header class="header" id="header">
 		<jsp:include page="include/header.jsp" />
 	</header>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+	<nav class="navbar navbar-expand-lg navbar-dark alert-danger fixed-top " >
 		<jsp:include page="include/nav.jsp"/>
 	</nav>
 	<div id="main">
@@ -31,7 +31,7 @@
 			<jsp:include page="${viewName}"/>
 		</section>
 	</div>
-  <footer class="py-5 bg-dark">
+  <footer class="page-footer font-small teal pt-4 alert-info">
     <jsp:include page="include/footer.jsp" />
   </footer>
 </div>
