@@ -48,8 +48,9 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 		
 		String username = authentication.getName();
 		String password = request.getParameter("password");
-		
+		System.out.println(password + " 패스워드요 ");
 		if(password.length()>=20) {
+			System.out.println(password+"패스워드");
 			session.setAttribute("msg","임시비밀번호로 로그인하셨습니다. 비밀번호를 변경해주세요");
 			rs.sendRedirect(request, response, "/user/changePwd");
 		} else {

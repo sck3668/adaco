@@ -103,4 +103,8 @@ public class UserDao {
 		public String ReviewcountUsername(String username) {
 		return sql.selectOne("userMapper.countUsername",username);
 	}
+	//비밀번호로 유저네임찾기
+		public String passwordFindUsername(String username) {
+			return sql.selectOne("userMapper.passwordFindUsername",username);
+		}
 }

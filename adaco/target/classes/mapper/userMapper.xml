@@ -95,6 +95,8 @@
 	<select id="existsByFavorite" resultType="boolean">
 		select count(*) from favorite where username = #{username} and artno = #{artno}
 	</select>
-	
+	<select id="passwordFindUsername" resultType="string">
+		select password from users where username=#{username}	
+	</select>
 </mapper>
 

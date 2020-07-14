@@ -142,10 +142,12 @@ public class UserController {
 	
 	//비밀변호변경
 	@PostMapping("/user/resetPwd")
-	public String resetPassword(String username,String email) {
+	public String resetPassword(String username,String email,RedirectAttributes ra) {
+		String password = userDao.passwordFindUsername(username);
 		System.out.println(username+"ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ");
 		try {
 			userService.resetPassword(username, email);
+			ra.addFlashAttribute("msg","당신의 임시비밀번호는 이메일에있다");
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
@@ -218,7 +220,7 @@ public class UserController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/user/changePwd")
 	public String changePwd(String password,String newPassword, Principal principal, RedirectAttributes ra) {
-		userService.changePwd(password,newPassword, principal.getName());
+		userService.changePwd (password,newPassword, principal.getName());
 		ra.addFlashAttribute("msg", "비밀번호를 변경했습니다");
 		return "redirect:/";
 	}
