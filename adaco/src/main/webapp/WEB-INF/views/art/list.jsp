@@ -13,25 +13,11 @@
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">  -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <style>
-.input-group { 
-		border: 3px solid gold;
-		border-radius: 5px;
- 		margin: auto;
- 		position: relative; 
- 		left : 200px;
-		} 
-		#search{
-		background-color: #FFFFFF;
-		border:0;
-		outline:0;
-		padding: 10px;
-		}
-		#category{
-		text-indent: 1em;
-		border:0;
-		outline:0;
-		background-color: #FFFFFF;
+		#categoryChoice{
 		width:200px;
+		}
+		.search-group{
+		left: 800px; 	
 		}
 		#deleteOne{
 		border:0;
@@ -52,26 +38,31 @@
 		var loginId = "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}"
 	</script>
 </sec:authorize>
+<sec:authorize access="isAnonymous()">
+	<script>
+		var isLogin = false;
+		var loginId = undefined;
+	</script>
+</sec:authorize>
 <script>
-	// 카테고리로 작품 찾기
+	//카테고리로 작품 찾기
 	$(function(){
-		$("#category").on("click", function(){
+		$("#search").on("click", function(){
 			var category = $("#category").val();
 			location.href = "/adaco/art/listByArtist?category="+category;
 		});
 	});	
 	
 	// 카테고리 선택해서 작품 찾기
-	
 	$(function() {
-	 $("#category").on("change", function() {
-	     var choice = $("#category").val();
+	 $("#categoryChoice").on("change", function() {
+	     var choice = $("#categoryChoice").val();
 	     if(choice!="직접 입력") {
-	        $("#categorytext").val(choice);
-	        $("#categorytext").prop("disabled", true);
-	     }
-	    
-	  })
+	        $("#category").val(choice);
+	        $("#category").prop("disabled", true);
+			 }
+	     })
+	  });
 	
 	// '작품 등록'클릭 시 작품 등록 화면으로 이동
 	$(function() {
@@ -79,7 +70,7 @@
 			location.href="/adaco/art/write";
 		});
 		
-	// 전체 체크박스 선택 및 선택해제	//
+	// 전체 체크박스 선택 및 선택해제	
 		$("#check_all").on("click", function(){
 		 var chk = $("#check_all").prop("checked");
 		 if(chk) {
@@ -113,7 +104,6 @@
 				location.reload(true);
 			}).fail((result)=>alert("삭제실패"))
 			return;
-		
 		}
 		})
 	
@@ -138,18 +128,20 @@
 					_method: "delete",
 					artnos: JSON.stringify(ar),
 					pageno:${artPage.pageno}
-// 					artno: $(this).attr("data-artno"),
-// 					artnos: JSON.stringify(ar)
 				}
-				console.log(params)
+// 				console.log(params)
 				$.ajax({
-					url:"/adaco/art/deleteChoise",
+					url:"/adaco/art/deleteChoice",
 					data: params,
 					method: "post",
 				}).done((result)=>{
 					alert("삭제처리 되었습니다.");
 					location.reload(true);
-		   });
+		   		}).fail((result)=>{
+		  			alert("삭제 실패")
+		   			location.reload(true);
+					return;
+		  		})
 			}
         }
  		});
@@ -160,34 +152,25 @@
 </head>
 <body>
 <%--  	${artPage.artList }  --%>
- 	<h5>작품 목록</h5>
-	<hr>
-	<div style=" width:130px; display: inline-block; margin-left: 20px; margin-top: 20px;">
-		<input type="text" id="categorytext"> 
-		<select id = "category" class="custom-select">
-			<option selected="selected">카테고리 선택</option>
-			<option value="가방,파우치">가방,파우치</option>
-			<option value="강아지, 동물">강아지, 동물</option>
-			<option value="공예">공예</option>
-			<option value="악세서리">악세서리</option>
-			<option value="카테고리다">카테고리다</option>
-			<option value="카테고리다2">카테고리다2</option>
-		</select>
-		<button id="cate" type="button">확인</button>
+ 	<h5>작품 목록</h5>	
+	<div>
+		<hr> 작품 검색&nbsp;
+			<input type="hidden" name = "category" id ="category"> 
+			<select id = "categoryChoice" class="custom-select">
+				<option selected="selected">카테고리 선택</option>
+				<option value="가방,파우치">가방,파우치</option>
+				<option value="강아지, 동물">강아지, 동물</option>
+				<option value="공예">공예</option>
+				<option value="악세서리">악세서리</option>
+				<option value="카테고리다">카테고리다</option>
+				<option value="카테고리다2">카테고리다2</option>
+			</select>
+			<button type="button" id="search" >검색</button>
+		<hr>
 	</div>
-	<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-		<div class="input-group" >
-        	<input type="text"  placeholder="카테고리 검색" aria-label="Search" aria-describedby="basic-addon2" name = "category" id ="category" />
-              	<div class="input-group-append">
-	                <button type="button" id = "search">
-		                 <span style="color:gold"><i class="fas fa-search fa-lg"></i></span>
-	                </button>
-              </div>
-         </div>
-	</form>
 	
 	<div class="form-group">
-		<button type="button" id="delete_Btn" class="btn btn-primary" style="float:right;">
+		<button type="button" id="delete_Btn" class="btn btn-primary" >
 			선택 삭제
 		</button>
 		<button type="button" id="write_Btn" class="btn btn-warning" >
@@ -212,7 +195,7 @@
 					<th>작품 이미지</th>
 					<th>작품명</th>
 					<th>가격</th>
-					<th >관리</th>
+					<th>관리</th>
 				</tr>
 			</thead>
 			<tbody id="list">
@@ -240,7 +223,7 @@
 		</table>
 	</div>
 	<div style="text-align: center;">
-		<ul class="pagination">
+		<ul class="pagination justify-content-center">
 			<c:if test="${artPage.prev==true}">
 				<li><a
 					href="/adaco/art/listByArtist?pageno=${artPage.startPage-1}">이전</a></li>

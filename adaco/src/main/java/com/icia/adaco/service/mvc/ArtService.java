@@ -82,7 +82,11 @@ public class ArtService {
 	}
 	
 	// 작품 리스트 (작가용) 
-	public Page list(int pageno, @Nullable String category) {
+	public Page list(int pageno, @Nullable String category, String username) {
+//		Integer artistno = artistdao.findArtistnoByUsername(username);
+//		String artWriter = artistdao.findByid(artistno).getUsername();
+//		if(username.equals(artWriter)==false) 
+//			throw new JobFailException("권한이 없습니다.");
 		int countOfArt = artdao.countByArt();
 		Page page = PagingUtil.getPage(pageno, countOfArt);
 		int srn = page.getStartRowNum();
@@ -96,6 +100,7 @@ public class ArtService {
 		}
 		page.setArtList(dtoList);
 		return page;
+		
 	}
 
 	// 작품 리스트 최신순 + 작품이름으로 작품 검색 (회원용)

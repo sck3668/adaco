@@ -10,6 +10,7 @@ import javax.validation.constraints.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
+import org.springframework.lang.*;
 import org.springframework.security.access.prepost.*;
 import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
@@ -34,12 +35,10 @@ public class ArtRestController {
 	@PreAuthorize("isAuthenticated()")
 	@PutMapping("/art/update")
 	public ResponseEntity<Void> updateArt(ArtDto.DtoForUpdate dto, BindingResult results, Principal principal, MultipartFile artSajin ) throws BindException, IllegalStateException, IOException{
-		System.out.println("dto===============+"+dto);
 		if(results.hasErrors())
 			throw new BindException(results);
 		dto.setUsername(principal.getName());
 		service.updateArt(dto,artSajin);
-		System.out.println("디티오야아아아" + dto);
 		return ResponseEntity.ok(null);
 		
 	}
@@ -54,7 +53,6 @@ public class ArtRestController {
 	// 작품 상세보기 (회원용)
 	@PostMapping("/art/read")
 	public ResponseEntity<?>readArtFromUser(@RequestParam @NotNull Integer artno, Principal principal) throws JsonProcessingException {
-		System.out.println(artno);
 		String username = principal!=null? principal.getName():null;
 		ArtDto.DtoForRead dto = service.readArtFromUser(artno, username);
 		return ResponseEntity.ok(dto);
@@ -78,10 +76,10 @@ public class ArtRestController {
 	
 	//작품 선택 삭제   -------------
 	@PreAuthorize("isAuthenticated()")
-	@DeleteMapping("/art/deleteChoise")
-	public ResponseEntity<?> deleteArt(String artnos, int pageno, Principal principal) throws JsonParseException, JsonMappingException, IOException {
+	@DeleteMapping("/art/deleteChoice")
+	public ResponseEntity<?> deleteArt(String artnos, int pageno, Principal principal, @Nullable String category) throws JsonParseException, JsonMappingException, IOException {
 		List<Integer> list = objectMapper.readValue(artnos,new TypeReference<List<Integer>>() {});
-		List<ArtDto.DtoForList> artList = service.deleteArt(list,pageno, principal.getName());
+		List<ArtDto.DtoForList> artList = service.deleteArt(list,pageno, principal.getName(), category);
 		return ResponseEntity.ok(artList);
 	}
 	

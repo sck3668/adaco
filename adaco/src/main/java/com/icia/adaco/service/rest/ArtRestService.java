@@ -11,6 +11,7 @@ import org.apache.ibatis.session.*;
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.lang.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.multipart.*;
 
@@ -23,6 +24,7 @@ import com.icia.adaco.exception.*;
 import com.icia.adaco.util.*;
 
 import lombok.*;
+import lombok.NonNull;
 
 @Service
 public class ArtRestService {
@@ -97,7 +99,8 @@ public class ArtRestService {
 	}
 	
 	// 작품 상세보기 옵션 포함(회원용)
-	public ArtDto.DtoForRead readArtFromUser(Integer artno, String username) {
+	public ArtDto.DtoForRead readArtFromUser(Integer artno, @Nullable String username) {
+		System.out.println("**********");
 		Art art = artDao.readByArtFromUser(artno);
 		Option option = optionDao.readByArtno(artno);
 		if(art==null)
@@ -157,13 +160,13 @@ public class ArtRestService {
 		return -1;
 	}
 	// 회원아이디로 작품목록 불러오기-------
-	public List<ArtDto.DtoForList> findAllArtByUsername(String username,int pageno) {
+	public List<ArtDto.DtoForList> findAllArtByUsername(String username,int pageno, @Nullable String category) {
 		ArtDto.DtoForList dto1 = new ArtDto.DtoForList();
 		int countOfArt = artDao.countByArt();
 		Page page = PagingUtil.getPage(pageno, countOfArt);
 		int srn = page.getStartRowNum();
 		int ern = page.getEndRowNum();
-		List<Art> artList = artDao.listByArt(srn, ern);
+		List<Art> artList = artDao.listByArt(srn, ern, category);
 		List<ArtDto.DtoForList> dtoList = new ArrayList<>();
 		for(Art art1:artList) {
 			ArtDto.DtoForList dto = modelMapper.map(art1,ArtDto.DtoForList.class);
@@ -173,9 +176,13 @@ public class ArtRestService {
 	}
 	
 	// 작품 삭제------
-	public List<DtoForList> deleteArt(List<Integer> list, int pageno,String username) {
+	public List<DtoForList> deleteArt(List<Integer> list, int pageno,String username, @Nullable String category) {
 		System.out.println("artnos=="+list);
-		List<DtoForList> artList = findAllArtByUsername(username,pageno);
+		Integer artistno = artistDao.findArtistnoByUsername(username);
+		String artWriter = artistDao.findByid(artistno).getUsername();
+		if(username.equals(artWriter)==false)
+			throw new IllegalJobException();
+		List<DtoForList> artList = findAllArtByUsername(username,pageno,category);
 		List<Integer> deleteList = new ArrayList<Integer>();
 		for(int i=0; i<list.size(); i++) {
 			int idx = findArt(artList,list.get(i));
