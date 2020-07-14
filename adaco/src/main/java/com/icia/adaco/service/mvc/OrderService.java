@@ -61,10 +61,12 @@ public class OrderService {
 		
 		// 결제하기
 		@PreAuthorize("isAuthenticated()")
-		public int payment(String username,OrderDetailDto.DtoForDeleteOrder dto) {
+		public int payment(String username,OrderDto.DtoForOrdering dto) {
+			System.out.println(dto+"=============dto");
 			OrderDetail orderdetail = modelMapper.map(dto, OrderDetail.class);
+			System.out.println(orderdetail+"===============orderdetail");
 			orderDetailDao.Payment(orderdetail);
-			
+			if()
 		return orderdetail.getOrderno();
 		}
 		
@@ -104,8 +106,7 @@ public class OrderService {
 //			List<Option> option = option
 //			OrderDetailDto.DtoForOrdering dtoorder = modelMapper.map(oorderno,OrderDetailDto.DtoForOrderin.classg);
 //			dtoOrder.setArt(art);
-//			dtoOrder.setOption(option)
-			;
+//			dtoOrder.setOption(option);
 //			dtoList.add(dtoOrder);
 		}
 		return dtolist;
@@ -174,7 +175,7 @@ public class OrderService {
 		}
 
 		// 주문 완료 후 장바구니에 담긴 상품 제거
-		public int RemoveCartByOrder(String username,Integer artno,Integer orderno) {	
+		public int RemoveCartByOrder(String  username,Integer artno,Integer orderno) {	
 			Bag bag = bagDao.findByArtno(artno);
 			Order order = orderDao.findByOrder(orderno);
 //			if(order.getUsername()==true);

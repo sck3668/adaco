@@ -119,7 +119,7 @@ public class ArtRestService {
 			dto.setArtComments(artCommemtDao.listByCommentOfArt(dto.getArtno()));
 		return dto;
 	}
-
+	
 	// 작품 이미지 불러오기
 	public List<ArtImg> readArtImage(@NonNull int artno) {
 		return artDao.findAllArtImg(artno);
