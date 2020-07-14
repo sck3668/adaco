@@ -230,7 +230,7 @@ public class UserService {
 		String encodedPassword = user.getPassword();
 		if(pwdEncoder.matches(password, encodedPassword)==true) {
 		System.out.println(encodedPassword+"이것이 유저다");
-		System.out.println(password+"이것은 패스워드");
+		System.out.println(password+"이것은 패스워드");	
 		System.out.println(newPassword);
 			String newEncodedPassword = pwdEncoder.encode(newPassword);
 			userDao.update(User.builder().password(newEncodedPassword).username(username).build());
