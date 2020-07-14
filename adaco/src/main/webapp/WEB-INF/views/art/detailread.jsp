@@ -85,33 +85,49 @@ $(function() {
 		var $optionPrice = $("#optionPrice").val();
 		var $optionStock = $("#optionStock").val();
 		
-		var params={
-				_method:"put",
-				_csrf:"${_csrf.token}",
-				artno : ${artDetailPage.artno},
-				optno:${artDetailPage.optno},
-				artName: $artName,
-				price : $price,
-				stock : $stock,
-				tag : $tag,
-				couriPrice : $couriPrice,
-				courier : $courier,
-				artDetail : $artDetail,
-				optionName: $optionName,
-				optionValue: $optionValue,
-				optionPrice: $optionPrice,
-				optionStock: $optionStock
-				
-		};
+	
 		
-		//console.log(params);
-		$.ajax({
-			url: "/adaco/art/update",
-			data: params,
-			method: "post",
-		}).done(()=>{alert("작품이 수정되었습니다.");})
-		.fail(()=>{alert("작품 수정이 실패했습니다.");})
-	})
+		var formData = new FormData();
+
+		formData.append("artno", ${artDetailPage.artno});
+		formData.append("optno", ${artDetailPage.optno});
+		formData.append("artName", $artName);
+		formData.append("price", $price);
+		formData.append("stock", $stock);
+		formData.append("tag", $tag);
+		formData.append("couriPrice", $couriPrice);
+		formData.append("courier", $courier);
+		formData.append("artDetail", $artDetail);
+		formData.append("optionName", $optionName);
+		formData.append("optionValue", $optionValue);
+		formData.append("optionPrice", $optionPrice);
+		formData.append("optionStock", $optionStock);
+
+		if($("#artSajin")[0].files[0]!=undefined)
+			formData.append("artSajin", $("#artSajin")[0].files[0]);
+			formData.append("_csrf", "${_csrf.token}");
+			formData.append("_method", "put");
+
+			for (var key of formData.keys()) {
+			console.log(key);
+			}
+			for (var value of formData.values()) {
+			console.log(value);
+			}
+
+		
+		//console.log(formData);
+			$.ajax({
+				url: "/adaco/art/update",
+				data: formData,
+				method: "post",
+				processData:false,
+				contentType:false
+				}).done(()=>{alert("작품이 수정되었습니다.");
+				location.href="/adaco/art/listByArtist";
+				})
+				.fail(()=>{alert("작품 수정이 실패했습니다.");})
+				})
 });
 	
 	function loadImage() {
@@ -171,12 +187,15 @@ $(function() {
 			}
 		},5000);	
 	}
+	
+	
 	});
 
 
 </script>
 </head>
 <body>	
+${artDetailPage} 
 	<h2>상세 정보 조회 및 수정</h2><br>
 	<form role="form" method="post" autocomplete="off">
 		<input type="hidden" name="artNum" value="${art.artNum}" />
@@ -191,6 +210,11 @@ $(function() {
 				<td class="first">카테고리</td>
 				<td colspan="2">
 				<span id="category">${artDetailPage.category}</span></td>
+			</tr>
+			<tr>
+				<td class="first">작품 등록일</td>
+				<td colspan="2">
+				<span id="artDate">${artDetailPage.artDate}</span></td>
 			</tr>
 			<tr>
 				<td class="first">작품명</td>

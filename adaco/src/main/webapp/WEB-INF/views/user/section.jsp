@@ -96,12 +96,12 @@ $(function(){
               <div class="card-body">
                 <h4 class="card-title">
                 <sec:authorize access="isAnonymous()">
-               		<a href="/adaco/art/readByUser?artno=${art.artno}">
-                  	<img alt="작품 사진" src="${art.mainImg }"></a>
+               		<a href="/adaco/art/readByUser?artno=${art.artno}" >
+                  	<img alt="작품 사진" src="${art.mainImg }" width="250px" height="200px"></a>
                 </sec:authorize>
                 <sec:authorize access="hasRole('ROLE_USER')">
-            		<a href="/adaco/art/readByUser?artno=${art.artno}">
-                  	<img alt="작품 사진" src="${art.mainImg }"></a>
+            		<a href="/adaco/art/readByUser?artno=${art.artno}" >
+                  	<img alt="작품 사진" src="${art.mainImg }" width="250px" height="200px"></a>
             	</sec:authorize>
                 <sec:authorize access="hasRole('ROLE_SELLER')">
             		<a href="/adaco/art/readByArtist?artno=${art.artno}">

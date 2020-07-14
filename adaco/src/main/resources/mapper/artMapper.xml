@@ -19,16 +19,23 @@
 	<select id="findArtByUsername" resultType="art">
 		select artno, art_name artName, price,main_img mainImg from art where artistno=#{artistno} 
 	</select>
-	<!-- 작품 내역보기/최신순-->
-		<select id="findAll" resultType="art">
-	<![CDATA[
-		select*from
-			(select rownum as rnum, a.*from
-				(select /*+ index_desc(art art_pk_artno) */ artno, category, main_img mainImg, art_name artName, price, art_date artDate
-				from art order by artno desc) a 
-			where rownum <=#{endRowNum}) 
-		where rnum>=#{startRowNum} 
-		]]>
+	
+	<!-- 작품 리스트(최신순) / 카테고리로 검색 리스트-->
+	<select id="findAll" resultType="art">
+		select B.artno, B.category, B.main_img mainImg, B.art_name artName, B.price, B.art_date artDate
+	      from
+	         (select /*+ index_desc(art art_pk_artno) */ rownum rnum, A.artno, A.category, A.main_img, A.art_name, A.price, A.art_date
+	         from (
+	            select artno, category, main_img, art_name, price, art_date
+	            from art
+	            <trim prefix="WHERE" prefixOverrides="AND">
+	            	<if test="category!=null and category != '' ">
+	            		AND category like '%'|| #{category} || '%' 
+	            	</if>
+	            </trim>
+	       		order by artno desc) A
+	         where rownum&lt;= #{endRowNum})B
+	      where B.rnum&gt;= #{startRowNum}
 	</select>
 	
 	

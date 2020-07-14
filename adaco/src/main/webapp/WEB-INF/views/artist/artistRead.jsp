@@ -251,7 +251,6 @@ $(function(){
 </head>
 <body>
 <div>
- 
 	<section id="section">
 		<div>
 			<img id ="show_profile" height="200px;" src="${user.profile }">
