@@ -31,6 +31,7 @@ public class StoryCommentDto {
 		private String writer;
 		private String writeDateStr;
 		private String content;
+		private String profile;
 		private int cno;
 	}
 

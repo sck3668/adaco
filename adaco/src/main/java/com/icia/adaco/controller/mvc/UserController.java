@@ -77,7 +77,7 @@ public class UserController {
 		return new ModelAndView("main").addObject("viewName","user/login.jsp");
 	}
 	//메인
-	@GetMapping("/")
+	//@GetMapping("/")
 	public ModelAndView main() {
 		return new ModelAndView("main").addObject("viewName","user/section.jsp");
 	}

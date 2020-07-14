@@ -17,4 +17,5 @@ public class StoryComment {
 	private String content;
 	private Integer storyno;
 	private String username;
+	private String profile;
 }

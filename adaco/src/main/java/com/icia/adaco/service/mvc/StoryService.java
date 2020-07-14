@@ -35,14 +35,8 @@ public class StoryService {
 
 	public int storyWrite(StoryBoardDto.DtoForWrite dtoWrite,MultipartFile sajin)throws IOException {
 		Story story = modelMapper.map(dtoWrite, Story.class);
-		System.out.println("1111111111111");
-		System.out.println(story);
-		System.out.println(sajin);
 		if (sajin != null && sajin.isEmpty() == false) {
 			if (sajin.getContentType().toLowerCase().startsWith("image/")==true) {
-				System.out.println("222222222222");
-				System.out.println(story);
-				System.out.println(sajin);
 				int lastIndexOfDot = sajin.getOriginalFilename().lastIndexOf(".");
 				String extension = sajin.getOriginalFilename().substring(lastIndexOfDot + 1);
 				
@@ -51,9 +45,6 @@ public class StoryService {
 				story.setImage(profilePath + storyFile.getName());
 			}
 		}
-		System.out.println("3333333333333");
-		System.out.println(story);
-		System.out.println(sajin);
 		story.setWriteDate(LocalDateTime.now());
 		storyDao.insert(story);
 		return story.getStoryno();

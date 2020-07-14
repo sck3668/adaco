@@ -21,66 +21,47 @@
 		var loginId = undefined;
 	</script>
 </sec:authorize>
-<sec:authorize access="hasRole('ROLE_SELLER')">
-	<script>
-	$(function(){
-		var ck = CKEDITOR.replace("content", {
-			filebrowserUploadUrl:'http://localhost:8081/adaco/story/ckupload'
-		})
-	})
-	</script>
-</sec:authorize>
 <script>
 var story = ${story};
+	function printComment(comments) {
+		var $comments = $("#comments");
+		$comments.empty();
+		$.each(comments, function(i, comment) {
+			var $comment = $("<div>").appendTo($comments);
+			var $upper_div = $("<div>").appendTo($comment);
+			var $center_div = $("<div>").appendTo($comment);
+			var $lower_div = $("<div>").appendTo($comment);
+			console.log(comment);
+			$("<span></span>").text(comment.writer).appendTo($upper_div);
+			$("<img>").attr("src", comment.profile).css("width", "60px").css("height", "60px").appendTo($center_div);
+			$("<span>").text(comment.writeDateStr).appendTo($lower_div);
+			$("<div>").html(comment.content).appendTo($center_div);  
+			
+			if(comment.writer===loginId) {
+				var btn = $("<button>").attr("class","delete_comment").attr("data-cno",comment.cno).attr("data-writer", comment.writer)
+					.text("삭제").appendTo($center_div).css("float","right");
+			}
+			$("<hr>").appendTo($comment);
+		});
+	}	
 	$(function(){
 		$("#title").val(story.title);
 		$("#content").html(story.content);
-		
-		
-		function printComment(comments) {
-			var $comments = $("#comments");
-			$comments.empty();
-			$.each(comments, function(i, comment) {
-				var $comment = $("<div>").appendTo($comments);
-				var $upper_div = $("<div>").appendTo($comment);
-				var $center_div = $("<div>").appendTo($comment);
-				var $lower_div = $("<div>").appendTo($comment);
-				console.log(comment);
-				$("<span></span>").text(comment.writer).appendTo($upper_div);
-// 				$("<img>").attr("src", comment.content).css("width","40px").appendTo($center_div);
-				$("<span>").text(comment.writeDateStr).appendTo($lower_div);
-				$("<div>").html(comment.content).appendTo($center_div);  
-				
-				if(comment.writer===loginId) {
-					var btn = $("<button>").attr("class","delete_comment").attr("data-cno",comment.cno).attr("data-writer", comment.writer)
-						.text("삭제").appendTo($center_div).css("float","right");
-				}
-				$("<hr>").appendTo($comment);
-			});
-		}
-		
-	//댓글 목록 출력	
-		var bno = location.search.substr(5);
-		var params = {
-				_csrf:"${_csrf.token}",
-				storyno:$("#storyno").val()
-		}
-		$.ajax({
-			url:"/adaco/story/readStory",
-			data: params,
-			method:"post"
-		}).done((result)=>{
-			story = result;
-			printComment(story);
-		});
-		
+		$("<input>").attr("type", "hidden").attr("value", story.storyno).attr("id", "storyno").appendTo(".form-group");
+		printComment(story.comments);
+		$("#btn_area").hide();
 		
 		//댓글 입력
 		if(isLogin==true && story.writer==loginId){
+			var ck = CKEDITOR.replace("content", {
+				height: 400,
+				filebrowserUploadUrl:'http://localhost:8081/adaco/story/ckupload'
+			})
 			$("#content").prop("disabled",false)
 			$("#comment_textarea").prop("disabled",false)
 			$("#comment_write").prop("disabled",false)
 			$("#title").prop("readonly",false)
+			$("#btn_area").show();
 		}
 		else if(isLogin==true && story.writer!==loginId){
 			$("#content").prop("disabled",true)
@@ -94,7 +75,7 @@ var story = ${story};
 				content : $("#comment_textarea").val(),
 				_csrf: "${_csrf.token}"
 			}
-			$.ajax({
+ 			$.ajax({
 				url: "/adaco/comment/write",
 				method: "post",
 				data: params
@@ -131,27 +112,6 @@ var story = ${story};
 		
 
 		
-		/* $("#comment_write").on("click",function(){
-			$comments=$("#textarea").val();
-			console.log($comments);
-			alert("DDDD");
-			if(isLogin==false)
-				return
-			var params = {
-					_csrf:"${_csrf.token}",
-					storyno:$("#storyno").val(),
-					content:$("#textarea").val()
-			}
-			console.log(params)
-				$.ajax({
-					url:"/adaco/story/commentWrite",
-					data:params,
-					method:"post"
-					
-				}).done((r)=>{console.log(r)})
-				  .fail((r)=>{console.log(r)})
-		}) */
-		
 	});
 </script>
 </head>
@@ -173,16 +133,14 @@ ${story}
 			</div>
 			<div class = "form-group" id ="content_div">
 				<div class = "form-group">
-					<div class = "form-control" id = "content" name = "content" cols="50" rows="10" readonly="readonly" style="background-color: white; min-height: 600px;" >
+					<div class = "form-control" id = "content" name = "content" cols="50" rows="10"style="background-color: white; min-height: 600px;" >
 				</div>
 			</div>
 			
-		<sec:authorize access="hasRole('ROLE_SELLER')">
 			<div id="btn_area">
 				<button id="update" class="btn btn-info">변경</button>
 				<button id="delete" class="btn btn-success">삭제</button>
 			</div>
-		</sec:authorize>
 		</div>
 		<div>
 			<a href="/adaco/story/listStory" id="list">목록으로</a>
