@@ -56,7 +56,7 @@ $(function() {
 </head>
 <body>
 	<div class="container">
-		<a class="navbar-brand" href="/adaco/" style="color: black">HandStory <!-- <img src="image/hanstory.png" style="width:25px; height:25px;" alt=""> -->
+		<a class="navbar-brand" href="/adaco/" style="color: black"><strong>HandStory</strong> <!-- <img src="image/hanstory.png" style="width:25px; height:25px;" alt=""> -->
 		</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarResponsive" aria-controls="navbarResponsive"
@@ -90,7 +90,7 @@ $(function() {
 					<!-- 						<li><a href="#">메일로 문의</a></li> -->
 					<!-- 					</ul> -->
 					<!-- 				</li> -->
-							<li id="navbar-page"><a href="/adaco/user/login" style="text-decoration: none;">
+							<li id="navbar-page"><a href="/adaco/user/login" style="text-decoration: none; color:#007BFF;">
 							<i class="fas fa-sign-in-alt"></i> 로그인</a></li>&emsp;
 							<li id="navbar-tag"><a href="/adaco/user/join" style="text-decoration: none;"><i
 									class="fas fa-user-plus"></i> 회원가입</a></li>&emsp;
@@ -100,7 +100,7 @@ $(function() {
 							<i class="fas fa-user"></i> 마이페이지</a></li>&emsp;
 									
 									
-									<li class="dropdown"><a href="#" class="dropdown-category" style="text-decoration: none;"
+									<li class="dropdown"><a href="#" class="dropdown-category" style="text-decoration: none; color: red;" 
 								id="dropdownCategoryMenu" data-toggle="dropdown"><i
 									class="fas fa-bell"></i> 고객센터 <i class="caret"></i></a>
 								<ul class="dropdown-menu" role="menu"
@@ -132,16 +132,15 @@ $(function() {
 <!-- 							<li><a href="#">메일로 문의</a></li> -->
 <!-- 						</ul> -->
 <!-- 					</li> -->
-							<li id="navbar-page"><a href="/adaco/user/logout" style="text-decoration: none;">
+							<li id="navbar-page"><a class="nav-link logout" href="#" style="text-decoration: none; color:#007BFF;" >
 							<i class="fas fa-lock-open"></i> 로그아웃</a></li>&emsp;
-							<li id="navbar-guestbook"><a href="/adaco/bag/view" style="text-decoration: none;">
+							<li id="navbar-guestbook" class="nav-link"><a href="/adaco/bag/view" style="text-decoration: none;" >
 							<i class="fas fa-shopping-bag"></i> 장바구니</a></li>&emsp;
-							<li id="navbar-guestbook"><a href=/adaco/user/mypage style="text-decoration: none;">
+							<li id="navbar-guestbook" class="nav-link"><a href=/adaco/user/mypage style="text-decoration: none;" >
 							<i class="fas fa-user"></i> 마이페이지</a></li>&emsp;
-									
-s									
-									<li class="dropdown"><a href="#" class="dropdown-category" style="text-decoration: none;"
-								id="dropdownCategoryMenu" data-toggle="dropdown"><i
+							
+									<li class="dropdown" ><a  class="nav-link" href="#" class="dropdown-category"  style="text-decoration: none; color: red;" 
+								id="dropdownCategoryMenu" data-toggle="dropdown"><i 
 									class="fas fa-bell"></i> 고객센터 <i class="caret"></i></a>
 								<ul class="dropdown-menu" role="menu"
 									aria-labelledby="dropdownCategoryMenu">
@@ -174,15 +173,14 @@ s
 <!-- 							<li><a href="mailto:support@idus.me">메일로 문의</a></li> -->
 <!-- 						</ul> -->
 <!-- 					</li> -->
-						<li id="navbar-page"><a href="#" style="text-decoration: none;">
+						<li id="navbar-page" class="nav-link logout"><a href="#" style="text-decoration: none; color:#007BFF;">
 							<i class="fas fa-lock-open"></i> 로그아웃</a></li>&emsp;
-							<li id="navbar-guestbook"><a href="/adaco/artist/artistpage" style="text-decoration: none;">
-							<i class="fas fa-user"></i> 작가페이지</a></li>&emsp;
-							<li id="navbar-guestbook"><a href=/adaco/artist/shopMade style="text-decoration: none;">
+							<li id="navbar-guestbook" class="nav-link"><a href="/adaco/artist/artistpage" style="text-decoration: none;">
+							<i class="fas fa-user" ></i> 작가페이지</a></li>&emsp;
+							<li id="navbar-guestbook"  class="nav-link"><a href=/adaco/artist/shopMade id="artistPage" style="text-decoration: none;">
 							<i class="fas fa-store"></i> 상점개설</a></li>&emsp;
-s									
-									<li class="dropdown"><a href="#" class="dropdown-category" style="text-decoration: none;"
-								id="dropdownCategoryMenu" data-toggle="dropdown"><i
+									<li class="dropdown" ><a class="nav-link" href="#" class="dropdown-category" 
+									style="text-decoration: none; color:red;" id="dropdownCategoryMenu" data-toggle="dropdown"><i
 									class="fas fa-bell"></i> 고객센터 <i class="caret"></i></a>
 								<ul class="dropdown-menu" role="menu"
 									aria-labelledby="dropdownCategoryMenu">
