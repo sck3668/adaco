@@ -51,7 +51,7 @@ var story = ${story};
 		printComment(story.comments);
 		$("#btn_area").hide();
 		
-		//댓글 입력
+		
 		if(isLogin==true && story.writer==loginId){
 			var ck = CKEDITOR.replace("content", {
 				height: 400,
@@ -69,13 +69,15 @@ var story = ${story};
 			$("#comment_write").prop("disabled",false)
 			$("#title").prop("readonly",true)
 		}
+		
+		//댓글 입력
 		$("#comment_write").on("click", function() {
 			var params = {
 				storyno : $("#storyno").val(),
 				content : $("#comment_textarea").val(),
 				_csrf: "${_csrf.token}"
 			}
- 			$.ajax({
+				$.ajax({
 				url: "/adaco/comment/write",
 				method: "post",
 				data: params
@@ -90,28 +92,57 @@ var story = ${story};
 		
 		//댓글 삭제
 		$("#comments").on("click", ".delete_comment", function() {
-		// data-ano 속성의 값을 꺼낼 때 
-		// data("ano") -> 넣은 값의 타입 그대로
-		// attr("data-ano") -> 문자열
-		var params = {
-			cno: $(this).data("cno"),
-			storyno: $("#storyno").val(),
-			writer: $(this).data("writer"),
-			_method: "delete",
-			_csrf: "${_csrf.token}"
-		}
-		console.log(params)
-		$.ajax({
-			url: "/adaco/story/commentDelete",
-			method: "post",
-			data: params
+			// data-ano 속성의 값을 꺼낼 때 
+			// data("ano") -> 넣은 값의 타입 그대로
+			// attr("data-ano") -> 문자열
+			var params = {
+				cno: $(this).data("cno"),
+				storyno: $("#storyno").val(),
+				writer: $(this).data("writer"),
+				_method: "delete",
+				_csrf: "${_csrf.token}"
+			}
+			console.log(params)
+			$.ajax({
+				url: "/adaco/story/commentDelete",
+				method: "post",
+				data: params
+			})
+			.done((result)=>{ printComment(result); })
+			.fail((result)=>{console.log(result)});
+		});
+		
+		
+		$("#delete").on("click", function(){
+			var params = {
+				storyno: story.storyno,
+				_method: "delete",
+				_csrf: "${_csrf.token}"
+			}
+			$.ajax({
+				url: "/adaco/story/delete",
+				method: "post",
+				data: params
+			}).done((r)=>location.href = r).fail((f)=>console.log(f));
+			
 		})
-		.done((result)=>{ printComment(result); })
-		.fail((result)=>{console.log(result)});
-	});
 		
-
-		
+		$("#update").on("click", function(){
+			var params = {
+				storyno: story.storyno,
+				title: $("#title").val(),
+				content: CKEDITOR.instances['content'].getData(),
+				_csrf: "${_csrf.token}",
+				_method: "patch"
+			}
+			
+			$.ajax({
+				url: "/adaco/story/update",
+				method: "post",
+				data: params
+			}).done(()=>location.reload(true)).fail((r)=>console.log(r));
+		});
+				
 	});
 </script>
 </head>

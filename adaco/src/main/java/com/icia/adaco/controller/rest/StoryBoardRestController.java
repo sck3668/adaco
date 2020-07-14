@@ -30,10 +30,10 @@ public class StoryBoardRestController {
 		return ResponseEntity.ok(null);
 	}
 	//@PreAuthorize("isAuthenticated()")
-	@PostMapping("/story/delete")
+	@DeleteMapping("/story/delete")
 	public ResponseEntity<?> deleteStory(Principal principal,Integer storyno){
 		restService.deleteStory(principal, storyno);
-		return ResponseEntity.ok("/adaco/story/list");
+		return ResponseEntity.ok("/adaco/story/listStory");
 	}
 	
 	@PostMapping("/story/ckupload")

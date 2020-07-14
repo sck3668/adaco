@@ -37,7 +37,7 @@ $(function(){
 	$("#sajin").on("change", loadImage);
 	var ck = CKEDITOR.replace("content", {
 		height: 600,
-		filebrowserUploadUrl:"http://localhost:8081/adaco/story/ckupload"
+		filebrowserUploadUrl:'http://localhost:8081/adaco/story/ckupload?${_csrf.parameterName}=${_csrf.token}'
 	})
 	var idx = 0;
 	$("#add").on("click", function(){
