@@ -33,6 +33,12 @@
 		background-color: #FFFFFF;
 		width:200px;
 		}
+		#deleteOne{
+		border:0;
+		outline:0;
+		background-color: #FFFFFF;
+		opacity: 0.5; 
+		}
  </style> 
 <sec:authorize access="isAuthenticated()">
 	<script>
@@ -156,33 +162,36 @@
 	<div>
 		<table class="table table-hover">
 			<colgroup>
+				<col width="5%">
 				<col width="15%">
 				<col width="20%">
 				<col width="20%">
 				<col width="20%">
 				<col width="10%">
-				<col width="10%">
 			</colgroup>
 			<thead>
 				<tr>
+					<th><input type="checkbox" name="check_all" id="check_all"></th>
 					<th>작품 번호</th>
 					<th>카테고리</th>
 					<th>작품 이미지</th>
 					<th>작품명</th>
 					<th>가격</th>
-					<th><input type="checkbox" name="check_all" id="check_all"></th>
+					<th>관리</th>
 				</tr>
 			</thead>
 			<tbody id="list">
 				<c:forEach items="${artPage.artList}" var="art">
 					<tr>
+						<td style="vertical-align: middle;"><input type="checkbox" name="chBox" class="chBox" data-artno="${art.artno}" /></td>
 						<td style="vertical-align: middle;">${art.artno}</td>
 						<td style="vertical-align: middle;">${art.category}</td>
 						<td style="vertical-align: middle;"><a href="/adaco/art/readByArtist?artno=${art.artno}"><img src="${art.mainImg }" width="100px" height="100px"></a></td>
 						<td style="vertical-align: middle;">${art.artName}</td>
 						<td style="vertical-align: middle;">${art.price}</td>
-						<td style="vertical-align: middle;"><input type="checkbox" name="chBox" class="chBox" data-artno="${art.artno}" /></td>
-						<td style="vertical-align: middle;"><input type="button" value="삭제" name="deleteOne" class="deleteOne" data-artno="${art.artno}" /></td>
+						<td style="vertical-align: middle;"><button type="button" class="deleteOne" id="deleteOne">
+						<i class="far fa-trash-alt"></i>
+						</button></td>
 					</tr>
 				</c:forEach>
 			</tbody>
