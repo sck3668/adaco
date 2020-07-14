@@ -55,7 +55,7 @@ public class ShopService {
 		System.out.println("=========디티오야 나와" + shopReadDto);
 		return shopReadDto;
 		}
-	
+	 
 	public void delete(int shopNo) {
 		shopDao.deleteByShop(shopNo);
 	}

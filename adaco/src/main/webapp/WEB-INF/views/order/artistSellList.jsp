@@ -10,12 +10,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
-	#aside {
-		width:110px;
-		height:500px;
-		background-color: gray;
-		float: left;
-	}
+ 	#aside { 
+ 		height:500px; 
+		float: left; 
+	} 
 	#section {
 	width: 850px;
 	padding: 5px;
@@ -45,6 +43,9 @@
 /*   td { */
 /*     background-color: #e3f2fd; */
 /*   } */
+#menu {
+	width: 180px;
+}
     </style>
 <script type="text/javascript">
 $(function(){
@@ -68,16 +69,26 @@ $(function(){
    <div id="aside">
       <div id="profile">
       </div>
-      <div>
-         <ul>
-            <li><a href="/adaco/order/artistSellList"style="color: black; text-decoration: none;">판매내역</a></li>
-            <li><a href="/adaco/artist/shopPage" style="color: black; text-decoration: none;">내상점보기</a></li>
-            <li><a href="/adaco/#" style="color: black; text-decoration: none;">메세지함</a></li>
-            <li><a href="/adaco/artist/sales" style="color: black; text-decoration: none;" >매출 관리</a></li>
-            <li><a href="/adaco/story/writeStory" style="color: black; text-decoration: none;" >스토리 작성</a></li>
-             <li><a href="/adaco/art/write" style="color: black; text-decoration: none;" >작품 등록</a></li>
-         </ul>
-      </div>
+      <div class="col-sm-3">
+				<!-- side menu (link) -->
+				<h3>MY Menu</h3>
+				<ul class="list-group" id="menu">
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/artist/shopPage"
+						style="color: black; text-decoration: none;">상점 정보</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/artist/artistRead"
+						style="color: black; text-decoration: none;">내 정보 관리</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/order/artistSellList"
+						style="color: black; text-decoration: none;">판매내역</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="#" style="color: black; text-decoration: none;">메세지함</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/artist/sales"
+						style="color: black; text-decoration: none;">매출 관리</a></li>
+				</ul>
+			</div>
    </div>
    </aside>
  <section id="section">

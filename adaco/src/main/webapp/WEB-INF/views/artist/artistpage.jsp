@@ -197,7 +197,7 @@
 						href="/adaco/order/artistSellList"
 						style="color: black; text-decoration: none;">판매내역</a></li>
 					<li class="list-group-item list-group-item-action"><a
-						href="/adaco/#" style="color: black; text-decoration: none;">메세지함</a></li>
+						href="#" style="color: black; text-decoration: none;">메세지함</a></li>
 					<li class="list-group-item list-group-item-action"><a
 						href="/adaco/artist/sales"
 						style="color: black; text-decoration: none;">매출 관리</a></li>
