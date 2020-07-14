@@ -79,12 +79,10 @@ public class AdminBoardRestService {
 				String imageName = UUID.randomUUID().toString()+".jpg";
 				try {
 					File file = new File("d:/upload/ckimage", imageName);
-					System.out.println("파일 업로드");
 				upload.transferTo(file);
 				map.put("uploaded", "1");
 				map.put("fileName", imageName);
 				map.put("url", ckUrl + imageName);
-				System.out.println("맵 추가"+map);
 				return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
 				} catch(Exception e) {
 					e.printStackTrace();

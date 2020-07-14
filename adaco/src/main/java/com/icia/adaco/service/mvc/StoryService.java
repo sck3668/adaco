@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.io.*;
 import java.time.*;
 import java.time.format.*;
+import java.time.temporal.*;
 import java.util.*;
 
 import org.modelmapper.*;
@@ -28,40 +29,17 @@ public class StoryService {
 	private StoryCommentDao storyCommentDao;
 	@Autowired
 	private ModelMapper modelMapper;
-	@Value("${profileFolder}")
-	private String profileFolder;
-	@Value("${profilePath}")
-	private String profilePath;
-
-	public int storyWrite(StoryBoardDto.DtoForWrite dtoWrite,MultipartFile sajin)throws IOException {
-		Story story = modelMapper.map(dtoWrite, Story.class);
-		System.out.println("1111111111111");
-		System.out.println(story);
-		System.out.println(sajin);
-		if (sajin != null && sajin.isEmpty() == false) {
-			if (sajin.getContentType().toLowerCase().startsWith("image/")==true) {
-				System.out.println("222222222222");
-				System.out.println(story);
-				System.out.println(sajin);
-				int lastIndexOfDot = sajin.getOriginalFilename().lastIndexOf(".");
-				String extension = sajin.getOriginalFilename().substring(lastIndexOfDot + 1);
-				
-				File storyFile = new File(profileFolder, story.getWriter() + "." + extension);
-				sajin.transferTo(storyFile);
-				story.setImage(profilePath + storyFile.getName());
-			}
-		}
-		System.out.println("3333333333333");
-		System.out.println(story);
-		System.out.println(sajin);
-		story.setWriteDate(LocalDateTime.now());
-		storyDao.insert(story);
-		return story.getStoryno();
-	}
-
+	@Value("d:/upload/story")
+	private String storyFolder;
+	@Value("http://localhost:8081/story/")
+	private String storyPath;
+	
+	@Autowired
+	private UserDao userDao;
+	
 	public Page storyList(int pageno) {
 		int countOfBoard = storyDao.count();
-		Page page = PagingUtil.storyPage(pageno, countOfBoard);
+		Page page = PagingUtil.getPage(pageno, countOfBoard);
 		int srn = page.getStartRowNum();
 		int ern = page.getEndRowNum();
 		List<Story> storyList = null;
@@ -69,12 +47,47 @@ public class StoryService {
 		List<StoryBoardDto.DtoForList> storydtoList = new ArrayList<StoryBoardDto.DtoForList>();
 		for (Story story : storyList) {
 			StoryBoardDto.DtoForList listDto = modelMapper.map(story, StoryBoardDto.DtoForList.class);
+			LocalDateTime writeDate = story.getWriteDate();
+			LocalDateTime today = LocalDateTime.now();
+			long isCheck = ChronoUnit.MINUTES.between(writeDate, today);
+			if(isCheck >= 1440) {
+				long times = ChronoUnit.DAYS.between(writeDate, today);
+				listDto.setTimes(times+" 일 전");
+			}
+			else if(isCheck >= 60) {
+				long times = ChronoUnit.HOURS.between(writeDate, today);
+				listDto.setTimes(times+" 시간 전");
+			} else {
+				long times = ChronoUnit.MINUTES.between(writeDate, today);
+				listDto.setTimes(times+" 분 전");
+			}
+			User user = userDao.findByid(story.getWriter());
+			listDto.setProfile(user.getProfile());
 			listDto.setWriteDateStr(story.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
 			storydtoList.add(listDto);
 		}
 		page.setStoryList(storydtoList);
 		return page;
 	}
+	
+	public int storyWrite(StoryBoardDto.DtoForWrite dtoWrite,MultipartFile sajin)throws IOException {
+		Story story = modelMapper.map(dtoWrite, Story.class);
+		if (sajin != null && sajin.isEmpty() == false) {
+			if (sajin.getContentType().toLowerCase().startsWith("image/")==true) {
+				long time = System.currentTimeMillis();
+				int lastIndexOfDot = sajin.getOriginalFilename().lastIndexOf(".");
+				String extension = sajin.getOriginalFilename().substring(lastIndexOfDot + 1);
+				
+				File storyFile = new File(storyFolder, time + "." + extension);
+				sajin.transferTo(storyFile);
+				story.setImage(storyPath + storyFile.getName());
+			}
+		}
+		story.setWriteDate(LocalDateTime.now());
+		storyDao.insert(story);
+		return story.getStoryno();
+	}
+
 	public StoryBoardDto.DtoForRead storyRead(int storyno) {
 		Story story = storyDao.findByStory(storyno);
 		if(story==null)
@@ -82,8 +95,17 @@ public class StoryService {
 		StoryBoardDto.DtoForRead readDto = modelMapper.map(story,StoryBoardDto.DtoForRead.class);
 		String str = story.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
 		readDto.setWriteDateStr(str);
-		if(story.getCommentCnt()>0)
-			readDto.setComments(storyCommentDao.findAllByStoryno(readDto.getStoryno()));
+		if(story.getCommentCnt()>0) {
+			List<StoryComment> commentList = storyCommentDao.findAllByStoryno(storyno);
+			List<StoryCommentDto.DtoForList> dtoList = new ArrayList<StoryCommentDto.DtoForList>();
+			for(StoryComment storyComment:commentList) {
+				StoryCommentDto.DtoForList dto = modelMapper.map(storyComment,StoryCommentDto.DtoForList.class);
+				dto.setWriteDateStr(storyComment.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
+				dto.setCno(storyComment.getCno());
+				dtoList.add(dto);
+			}
+			readDto.setComments(dtoList);
+		}
 		return readDto;
 	}
 }

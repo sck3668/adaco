@@ -30,49 +30,32 @@ public class StoryBoardRestController {
 		return ResponseEntity.ok(null);
 	}
 	//@PreAuthorize("isAuthenticated()")
-	@PostMapping("/story/delete")
+	@DeleteMapping("/story/delete")
 	public ResponseEntity<?> deleteStory(Principal principal,Integer storyno){
 		restService.deleteStory(principal, storyno);
-		return ResponseEntity.ok("/adaco/story/list");
+		return ResponseEntity.ok("/adaco/story/listStory");
 	}
+	
 	@PostMapping("/story/ckupload")
 	public ResponseEntity<?> ckupload(MultipartFile upload) throws IOException{
-		restService.ckupload(upload);
 		return ResponseEntity.ok(restService.ckupload(upload));
-	}
-	//
-	//@PostMapping("/story/commentWrtie")
-	public ResponseEntity<?> commentWrite(@RequestParam(defaultValue="1") int pageno,StoryComment storyComment,Principal principal) {
-		storyComment.setWriter(principal.getName());
-		System.out.println("storyRestcontroller storyComment===="+storyComment);
-		System.out.println(principal.getName()+"principal");
-		return ResponseEntity.ok(restService.commentWrtie(pageno, storyComment,principal.getName()));
 	}
 	
 	//스토리 댓글 입력/출력
 	@PostMapping("/comment/write")
 	public ResponseEntity<?> writeComment(StoryComment storyComment, Principal principal) {
-		System.out.println("유저네임" + principal.getName());
+		RestTemplate tpl = new RestTemplate();
+		String url = "http://localhost:8081/adaco/user/profile?username="+principal.getName();
+		ResponseEntity<String> result = tpl.getForEntity(url, String.class);
+		String profile = result.getBody();
+		storyComment.setProfile(profile);
 		storyComment.setWriter(principal.getName());
-		System.out.println("스토리스토리스토리스토리"+storyComment);
 		return ResponseEntity.ok(restService.commentWrite(storyComment,principal.getName()));	
 	}
-	
-	
-	//@PreAuthorize("isAuthenticated()")
-	//@PutMapping("/story/commentWrite")
-	public ResponseEntity<?>ListComment(@RequestParam(defaultValue = "1")int pageno,StoryComment storyComment,Principal principal){
-		System.out.println(storyComment+"==========");
-		System.out.println(principal.getName()+"ㅎㅎㅎㅎ");
-		//System.out.println("commentList==============="+restService.ListComment(pageno,storyComment, principal.getName()));
-	return ResponseEntity.ok(restService.readComment(storyComment.getStoryno(), principal.getName()));
-	}
-	
 	
 	//댓글 삭제
 	@DeleteMapping("/story/commentDelete")
 	public ResponseEntity<?> deleteComment(Integer cno, Integer storyno, String writer) {
-		System.out.println("commentDelete controller=============");
 		return ResponseEntity.ok(restService.deleteComment(storyno, cno, writer));
 	}
 }
