@@ -20,16 +20,15 @@ public class OrderController {
 	private OrderService orderService;
 	@Autowired
 	private ObjectMapper objectMapper = new ObjectMapper();
-
-	
+	private Principal principal;
 
 	// 주문 하기
 	@GetMapping("/order/ordering")
-	public ModelAndView Ordering(Principal principal,Order order,Bag bag) {
+	public ModelAndView Ordering(Order order,Bag bag) {
 		String id = principal.getName();
 		orderService.Ordering(order, bag);
 //		String user = username(principal.getName());
-		return new ModelAndView("main").addObject("viewName", "order/ordering.jsp").addObject("Odering",orderService.Ordering(order,bag));
+		return new ModelAndView("main").addObject("viewName", "order/ordering.jsp").addObject("ordering",orderService.Ordering(order,bag));
 	}
 	
 	// 주문하기
@@ -40,8 +39,11 @@ public class OrderController {
 		
 	// 결제하기
 	@GetMapping("/order/payment")
-	public ModelAndView Payment(String username,Integer orderno,Integer artno,OrderDetailDto.DtoForDeleteOrder Dto ) {
-		return new ModelAndView("main").addObject("viewName", "order/payment.jsp").addObject("orders",orderService.payment(username,Dto));
+	public ModelAndView Payment(Principal principal, OrderDto.DtoForOrdering Dto ) {
+		String username = principal.getName();
+		System.out.println("========컨트롤러 Dto"+Dto); 
+		System.out.println("======유저"+principal.getName());
+		return new ModelAndView("main").addObject("viewName", "order/payment.jsp").addObject("orders",orderService.payment(principal.getName(),Dto));
 	}
 //	@PostMapping("/orderdetail/payment")
 //	public String buyAll(String json,Principal principal) throws JsonParseException, JsonMappingException, IOException {

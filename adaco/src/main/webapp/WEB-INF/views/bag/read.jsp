@@ -258,7 +258,6 @@ $(function() {
 				orderno : $(this).attr("data-orderno"),
 				username: "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}",
 // 				totalPrice: ${orders.price},
-// 				orderno:${}
 				_method: "get",
 				orders:JSON.stringify(ar)
 		}
