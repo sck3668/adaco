@@ -35,7 +35,7 @@ var story = ${story};
 	$(function(){
 		$("#title").val(story.title);
 		$("#content").html(story.content);
-		
+		$("<input>").attr("type", "hidden").attr("value", story.storyno).attr("id", "storyno").appendTo(".form-group");
 		
 		function printComment(comments) {
 			var $comments = $("#comments");
@@ -94,6 +94,7 @@ var story = ${story};
 				content : $("#comment_textarea").val(),
 				_csrf: "${_csrf.token}"
 			}
+			console.log(params);
 			$.ajax({
 				url: "/adaco/comment/write",
 				method: "post",

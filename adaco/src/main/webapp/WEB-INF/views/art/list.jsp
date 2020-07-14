@@ -85,13 +85,14 @@
 				var params = {
 					_csrf: "${_csrf.token}",
 					_method: "delete",
-					artnos: JSON.stringify(ar)
+					artnos: JSON.stringify(ar),
+					pageno:${artPage.pageno}
 // 					artno: $(this).attr("data-artno"),
 // 					artnos: JSON.stringify(ar)
 				}
 				console.log(params)
 				$.ajax({
-					url:"/adaco/art/delete",
+					url:"/adaco/art/deleteChoise",
 					data: params,
 					method: "post",
 				}).done((result)=>{
