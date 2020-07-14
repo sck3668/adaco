@@ -130,6 +130,7 @@ public class ArtDto {
 		private List<Review> reviews;
 		private String artDetail;
 		private Integer artCommentCnt;
+		private Integer shopno;
 		
 		
 	}

@@ -209,6 +209,7 @@ $(function() {
 		<button type="button" class = "btn btn-success" id="addBag">장바구니</button>
 		<button type="button" class = "btn btn-primary" id="payment">구매하기</button>
 		<button type="button" class = "btn btn-warning" id="favorite">☆즐겨찾기</button>
+		<a href="http://localhost:8081/adaco/artist/shopPage"><button type="button" class = "btn btn-warning" id="shop">상점</button></a>
 	</div>
 	<br><br><br><br>
 	<h3><strong>작품 소개</strong></h3>
