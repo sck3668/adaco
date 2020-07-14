@@ -38,7 +38,7 @@ public class StoryBoardDto {
 		private String content;
 		private String writer;
 		private String writeDateStr;
-		private List<StoryComment> comments;
+		private List<StoryCommentDto.DtoForList> comments;
 	}
 
 	@Data
@@ -48,10 +48,14 @@ public class StoryBoardDto {
 	@Accessors(chain = true)
 	public static class DtoForList {
 		private int storyno;
+		private String title;
 		private String writer;
 		private String title;
 		private String writeDateStr;
 		private String image;
+		private String content;
+		private String profile;
+		private String times;
 	}
 
 	@Data

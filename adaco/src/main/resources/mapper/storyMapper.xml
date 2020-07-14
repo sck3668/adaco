@@ -10,7 +10,8 @@
 		<![CDATA[
 		 select * from
 	    	(select b.* , rownum as rnum  from
-			   (select /*+ index_desc(story story_pk_storyno) */ storyno, title, writer,write_date writeDate, artistno, image from story) b 
+			   (select /*+ index_desc(story story_pk_storyno) */ storyno, title, writer,write_date writeDate, artistno, image, content from story 
+			 order by write_date desc) b
 			where rownum<=#{endRowNum})
   		  where rnum>=#{startRowNum}
 		]]>

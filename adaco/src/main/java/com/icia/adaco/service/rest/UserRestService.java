@@ -103,4 +103,9 @@ public class UserRestService {
 		userDao.delete(username);
 		System.out.println(username);
 	}
+
+	public String findProfile(String username) {
+		User user = userDao.findByid(username);
+		return user.getProfile();
+	}
 }

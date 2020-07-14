@@ -35,6 +35,8 @@ public class StoryRestService {
 	private ObjectMapper objectMapper;
 	@Autowired
 	private StoryCommentDao storyCommentDao;
+	@Value("http://localhost:8081/ckimage/")
+	private String ckUrl;
 	@Value("${imageFolder}")
 	private String imageFolder;
 	@Value("${imagePath}")
@@ -59,48 +61,45 @@ public class StoryRestService {
 			storyDao.delete(storyno);
 	}
 
-	public String ckupload(MultipartFile upload) throws IOException {
+	public Object ckupload(MultipartFile upload) {
 		Map<String, Object> map = new HashMap<>();
 		if (upload != null) {
 			if (upload.getContentType().toLowerCase().startsWith("image/")) {
 				String imageName = UUID.randomUUID().toString() + ".jpg";
-				File file = new File(imageFolder, imageName);
-				FileCopyUtils.copy(upload.getBytes(), file);
-				String fileUrl = imagePath + imageName;
-				map.put("upload", "1");
+				try {					
+					File file = new File("d:/upload/ckimage", imageName);
+				upload.transferTo(file);
+				map.put("uploaded", "1");
 				map.put("fileName", imageName);
-				map.put("url", fileUrl);
+				map.put("url", ckUrl+imageName);
+				System.out.println("맵ㅂㅂㅂㅂㅂㅂㅂㅂㅂㅂㅂㅂㅂㅂㅂㅂ"+map);
+				return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
 			}
-			return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
-		}return null;
-	}
+		}
+		return null;
+	}	
 	
-// 스토리 댓글 입력
-	public List<StoryComment> commentWrite(StoryComment storyComment,String username) {
-		 System.out.println("진입테스트");
+	// 스토리 댓글 입력
+	public List<StoryCommentDto.DtoForList> commentWrite(StoryComment storyComment,String username) {
 		 storyComment.setWriteDate(LocalDateTime.now());
 		 String content = storyComment.getContent().replaceAll("\n", " ");
 		 storyComment.setContent(content);
-		 System.out.println(storyComment);
 		 storyCommentDao.insertByCommentOfStory(storyComment);
 		 storyDao.update(Story.builder().storyno(storyComment.getStoryno()).commentCnt(1).build());
-		 return storyCommentDao.findAllByStoryno(storyComment.getStoryno());
+		 List<StoryComment> commentList= storyCommentDao.findAllByStoryno(storyComment.getStoryno());
+		 List<StoryCommentDto.DtoForList> dtoList = new ArrayList<StoryCommentDto.DtoForList>();
+		 for(StoryComment storyComments:commentList) {
+			 StoryCommentDto.DtoForList dto = modelMapper.map(storyComments, StoryCommentDto.DtoForList.class);
+			 dto.setWriteDateStr(storyComments.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
+			 dto.setCno(storyComments.getCno());
+			 dtoList.add(dto);
+		 }
+		 return dtoList;
 	}
-	
-	// 스토리 읽기 할 시 댓글 읽어오기
-	public List<StoryCommentDto.DtoForList> readComment(int storyno,String username) {
-		System.out.println("restService storyno===="+storyno);
-		List<StoryComment> commentList = storyCommentDao.findAllByStoryno(storyno);
-		List<StoryCommentDto.DtoForList> dtoList = new ArrayList<StoryCommentDto.DtoForList>();
-		for(StoryComment storyComment:commentList) {
-			StoryCommentDto.DtoForList dto = modelMapper.map(storyComment,StoryCommentDto.DtoForList.class);
-			dto.setWriteDateStr(storyComment.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
-			dto.setCno(storyComment.getCno());
-			dtoList.add(dto);
-		}
-		return dtoList;
-	}
-	
+		
 	//댓글 삭제
 	public List<StoryCommentDto.DtoForList> deleteComment(int storyno, int cno, String writer) {
 		StoryComment storyComment1 = storyCommentDao.findByCno(cno);
@@ -117,7 +116,6 @@ public class StoryRestService {
 			dtoList.add(dto);
 		}
 		return dtoList;
-		//return storyCommentDao.findAllByStoryno(storyno);
 	}
 	
 }
