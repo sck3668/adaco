@@ -130,27 +130,38 @@ public class OrderService {
 		public Page OrderList(int pageno,String username) {
 			List<Integer> ordernoList = orderDao.orderFindByUsername(username);
 			System.out.println("=========="+ordernoList);
-			OrderDetail detail1 = new OrderDetail();
-			for(int orderno:ordernoList) {
-				System.out.println(orderno+"오더엔오");
-				OrderDetail detail = orderDetailDao.OrderDetail(orderno);
-				System.out.println(detail+"디테일");
-				String artName = detail.getArtname();
-				detail1.setArtname(artName);
-				int price = detail.getPrice();
-				detail1.setPrice(price);
-			}
+			Bag bag = orderDao.BagFindUsernameArtno(username);
+			System.out.println(bag+"백백");
+				
+				System.out.println(bag.getArtno()+"아트엔오");
+				Art art = artDao.readByArt(bag.getArtno());
+				System.out.println(art+"아트");
+			/*
+			 * for(int orderno:ordernoList) { System.out.println(orderno+"오더엔오");
+			 * OrderDetail detail = orderDetailDao.OrderDetail(orderno);
+			 * System.out.println(detail+"디테일"); String artName = detail.getArtname();
+			 * detail1.setArtname(artName); int price = detail.getPrice();
+			 * detail1.setPrice(price); }
+			 */
 			int countOfBoard = orderDao.count(username);
+			System.out.println(username+"유저네임");
+			System.out.println(countOfBoard+"카운트오브 보드");
 			Page page = PagingUtil.getPage(pageno, countOfBoard);
 			int srn = page.getStartRowNum();
 			int ern = page.getEndRowNum();
-			List<Order> orderList = orderDao.findAllByOrder(srn, ern);
+			
+			List<Order> orderList = orderDao.findAllByOrder(srn, ern, username);
+			
+			System.out.println(orderList+"오더리스트");
 			List<OrderDto.DtoForList> dtoList = new ArrayList<OrderDto.DtoForList>();
 			for(Order order:orderList) {
 				OrderDto.DtoForList dto = modelMapper.map(order,OrderDto.DtoForList.class);
+				System.out.println(dto+"디티오");
 				dto.setOrderDateStr(order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
-				dto.setArtName(detail1.getArtname());
-				dto.setArtPrice(detail1.getPrice());
+				dto.setArtName(art.getArtName());
+				dto.setArtPrice(art.getPrice());
+				dto.setState(State.답변대기);
+				System.out.println(dto+"디티오디티오");
 				dtoList.add(dto);
 			}
 			page.setOrderList(dtoList);

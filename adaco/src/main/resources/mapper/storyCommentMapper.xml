@@ -9,8 +9,8 @@
 	<selectKey keyProperty="cno" resultType="int" order="BEFORE">
 		select story_comments_seq.nextval from dual
 	</selectKey>
-		insert into story_comments(cno,write_date,writer,content,storyno,username)
-		values(#{cno},sysdate,#{writer},#{content},#{storyno},#{username})
+		insert into story_comments(cno,write_date,writer,content,storyno)
+		values(#{cno},sysdate,#{writer},#{content},#{storyno})
 	</insert>
 	
 	<!-- 스토리 댓글 목록 보기 -->

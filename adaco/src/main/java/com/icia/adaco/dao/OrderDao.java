@@ -15,6 +15,9 @@ public class OrderDao {
 	public List<Integer> orderFindByUsername(String username) {
 		return tpl.selectList("orderMapper.orderFindByUsername",username);
 	}
+	public Bag BagFindUsernameArtno(String username) {
+		return tpl.selectOne("orderMapper.BagFindUsernameArtno",username);
+	}
 	//유저네임으로 아트 찾기
 	/*
 	 * public String ArtNameByUsername(String username) { return
@@ -34,10 +37,11 @@ public class OrderDao {
 	}
 	
 	// 주문 내역 보기
-	public List<Order> findAllByOrder(int startRowNum,int endRowNum) {
-		Map<String,Integer> map = new HashMap<String, Integer>();
+	public List<Order> findAllByOrder(int startRowNum,int endRowNum,String username) {
+		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("startRowNum",startRowNum);
 		map.put("endRowNum", endRowNum);
+		map.put("username",username);
 	return tpl.selectList("orderMapper.findAllByOrder",map);
 	}
 	

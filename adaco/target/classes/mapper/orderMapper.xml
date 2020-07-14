@@ -5,7 +5,7 @@
 		select count(*) from orders where username=#{username}
 	</select>
 	<select id="orderFindByUsername" resultType="int">
-		select orderno from orders where username=#{username}	
+		select artno from bag where username=#{username}	
 	</select>
 	<!-- 주문 하기 -->
 	<insert id="Ordering">
@@ -15,6 +15,9 @@
 		insert into orders(orderno, order_date,username,shipping_charge)
 		values(#{orderno},sysdate,#{username},#{shippingCharge})
 	</insert>
+	<select id="BagFindUsernameArtno" resultType="bag">
+		select artno from bag where username =#{username}
+	</select>
 	
 <!-- 	주문 내역  -->
 	<select id = "findAllByOrder" resultType="order">
