@@ -2,6 +2,8 @@ package com.icia.adaco.entity;
 
 import java.time.*;
 
+import com.fasterxml.jackson.annotation.*;
+
 import lombok.*;
 import lombok.experimental.*;
 
@@ -17,4 +19,5 @@ public class StoryComment {
 	private String content;
 	private Integer storyno;
 	private String username;
+	private String profile;
 }

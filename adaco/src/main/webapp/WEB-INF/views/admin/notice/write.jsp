@@ -218,7 +218,7 @@ input[type="text"]:focus, input[type="text"]:hover {
 	$(function(){
 		var ck = CKEDITOR.replace("content", {
 			height: 600,
-			filebrowserUploadUrl:"http://localhost:8081/adaco/admin/notice/ckupload"
+			filebrowserUploadUrl: 'http://localhost:8081/adaco/admin/notice/ckupload?${_csrf.parameterName}=${_csrf.token}'
 		})
 		var idx = 0;
 		$("#add").on("click", function(){

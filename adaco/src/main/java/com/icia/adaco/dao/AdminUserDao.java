@@ -92,5 +92,8 @@ public class AdminUserDao {
 		return tpl.delete("adminUserMapper.deleteByArtist", artistno);
 	}
 	
+	public String findProfileByArtistno(int artistno) {
+		return tpl.selectOne("adminUserMapper.findProfileByArtistno", artistno);
+	}
 	
 }
