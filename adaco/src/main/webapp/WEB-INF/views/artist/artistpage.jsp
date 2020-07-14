@@ -152,10 +152,12 @@
       </div>
       <div>
          <ul>
-            <li><a href="/adaco/user/read" style="color: black;">내정보보기</a></li>
-            <li><a href="/adaco/order/artistSellList"style="color: black;">판매내역</a></li>
-            <li><a href="/adaco/artist/shopPage" style="color: black;">내상점보기</a></li>
-            <li><a href="/adaco/user/messageList" style="color: black;">메세지함</a>
+            <li><a href="/adaco/order/artistSellList"style="color: black; text-decoration: none;">판매내역</a></li>
+            <li><a href="/adaco/artist/shopPage" style="color: black; text-decoration: none;">내상점보기</a></li>
+            <li><a href="/adaco/#" style="color: black; text-decoration: none;">메세지함</a></li>
+            <li><a href="/adaco/artist/sales" style="color: black; text-decoration: none;" >매출 관리</a></li>
+            <li><a href="/adaco/story/writeStory" style="color: black; text-decoration: none;" >스토리 작성</a></li>
+             <li><a href="/adaco/art/write" style="color: black; text-decoration: none;" >작품 등록</a></li>
          </ul>
       </div>
    </div>
@@ -166,11 +168,6 @@
          <div id="my">
             <h2>작가 정보</h2>
          </div>
-         <ul class="dashboard-list">
-            <li class="list">포인트:<strong style="color: red;">${point }p</strong></li>
-            <li class="list">리뷰수:<strong style="color: red;">${review }개</strong></li>
-            <li class="list">즐겨찾기수:<strong style="color: red;">${favorite }개</strong></li>
-         </ul>
          <div class = "form-group">
             <label for="introduction">작가 한줄 소개</label>
             <input type = "text" class = "form-control" name = "introduction" id = "introduction">
