@@ -32,5 +32,6 @@ section {
 }
 
 #main {
+	width:1000px;
 	overflow: hidden;
 }

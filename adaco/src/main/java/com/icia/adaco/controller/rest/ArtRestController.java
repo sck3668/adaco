@@ -76,14 +76,14 @@ public class ArtRestController {
 		return ResponseEntity.ok("/adaco/art/list");
 	}
 	
-	//작품 선택 삭제
-	/*@PreAuthorize("isAuthenticated()")
-	@DeleteMapping("/art/multipleDelete")
-	public ResponseEntity<?> multipleDelete(Principal principal, String artnos) throws JsonParseException, JsonMappingException, IOException {
-		List<Integer> list = objectMapper.readValue(artnos, new TypeReference<List<Integer>>() {});
-		List<ArtDto.DtoForList> artList = service.multipleDelete(principal.getName(), list);
+	//작품 선택 삭제   -------------
+	@PreAuthorize("isAuthenticated()")
+	@DeleteMapping("/art/deleteChoise")
+	public ResponseEntity<?> deleteArt(String artnos, int pageno, Principal principal) throws JsonParseException, JsonMappingException, IOException {
+		List<Integer> list = objectMapper.readValue(artnos,new TypeReference<List<Integer>>() {});
+		List<ArtDto.DtoForList> artList = service.deleteArt(list,pageno, principal.getName());
 		return ResponseEntity.ok(artList);
-	}*/
+	}
 	
 	// 작품 댓글 작성
 	//@PreAuthorize("isAuthenticated()")

@@ -60,6 +60,7 @@ public class ArtDto {
 		private Boolean isFavorite;
 		private LocalDate artDate;
 		private String username;
+		List<Art> artList;
 	}
 	
 	@Data

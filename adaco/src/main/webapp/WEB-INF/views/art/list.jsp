@@ -39,6 +39,12 @@
 		background-color: #FFFFFF;
 		opacity: 0.5; 
 		}
+		#readArt{
+		border:0;
+		outline:0;
+		background-color: #FFFFFF;
+		opacity: 0.5; 
+		}
  </style> 
 <sec:authorize access="isAuthenticated()">
 	<script>
@@ -118,13 +124,14 @@
 				var params = {
 					_csrf: "${_csrf.token}",
 					_method: "delete",
-					artnos: JSON.stringify(ar)
+					artnos: JSON.stringify(ar),
+					pageno:${artPage.pageno}
 // 					artno: $(this).attr("data-artno"),
 // 					artnos: JSON.stringify(ar)
 				}
 				console.log(params)
 				$.ajax({
-					url:"/adaco/art/delete",
+					url:"/adaco/art/deleteChoise",
 					data: params,
 					method: "post",
 				}).done((result)=>{
@@ -177,7 +184,7 @@
 					<th>작품 이미지</th>
 					<th>작품명</th>
 					<th>가격</th>
-					<th>관리</th>
+					<th >관리</th>
 				</tr>
 			</thead>
 			<tbody id="list">
@@ -189,9 +196,16 @@
 						<td style="vertical-align: middle;"><a href="/adaco/art/readByArtist?artno=${art.artno}"><img src="${art.mainImg }" width="100px" height="100px"></a></td>
 						<td style="vertical-align: middle;">${art.artName}</td>
 						<td style="vertical-align: middle;">${art.price}</td>
-						<td style="vertical-align: middle;"><button type="button" class="deleteOne" id="deleteOne">
-						<i class="far fa-trash-alt"></i>
-						</button></td>
+						<td style="vertical-align: middle;">
+							<button type="button" class="deleteOne" id="deleteOne" data-artno="${art.artno}">
+								<i class="far fa-trash-alt"></i>
+							</button> /
+							<a href="/adaco/art/readByArtist?artno=${art.artno}">
+								<button type="button" id="readArt" data-artno="${art.artno}">
+									<i class="far fa-edit"></i>
+								</button>
+							</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

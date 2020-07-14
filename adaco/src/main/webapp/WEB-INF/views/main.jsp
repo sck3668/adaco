@@ -14,9 +14,7 @@
   <script src="${pageContext.request.contextPath}/vendor/jquery/jquery.min.js"></script>
   <script src="${pageContext.request.contextPath}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
 </head>
-
 <body>
  <div id="page">
   	<header class="header" id="header">
