@@ -49,7 +49,7 @@ public class ShopService {
 			shopDao.writeByShop(shop);
 			 System.out.println("*************"+shop.getShopno());
 	}
-	
+	 
 	public ShopDto.DtoForRead shopRead(int shopno){
 		Shop shop = shopDao.readByShop(shopno);
 		ShopDto.DtoForRead shopReadDto = modelMapper.map(shop,ShopDto.DtoForRead.class);
