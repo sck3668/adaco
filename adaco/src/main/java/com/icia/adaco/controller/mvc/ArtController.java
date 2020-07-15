@@ -63,11 +63,14 @@ public class ArtController {
 	@GetMapping("/art/readByUser")
 	public ModelAndView readFromUser(@NonNull int artno ,@Nullable Principal principal) {
 		System.out.println("상세" + artno);
+		String username;
 		if(principal!= null) {
-			String username =  principal.getName();
-		} 
-			String username = "isAnonymous()";
-		return new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPageByUser", service.readArtFromUser(artno, username)).addObject("image", service.readArtImage(artno));
+			username =  principal.getName();
+		} else {
+			username = "isAnonymous()";
+		}
+		return new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPageByUser", service.readArtFromUser(artno, username))
+				.addObject("image", service.readArtImage(artno));
 	}
 	
 	// 작품 등록 + 등록시 필요한 artistno, shopno 받아오기

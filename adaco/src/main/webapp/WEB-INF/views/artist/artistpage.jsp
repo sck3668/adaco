@@ -185,7 +185,7 @@
 			<!-- left content -->
 			<div class="col-sm-3">
 				<!-- side menu (link) -->
-				<h3>MY Menu</h3>
+				<h3><strong><a href="/adaco/artist/artistpage" style="text-decoration: none; color: black;" >MY Menu</a></strong></h3>
 				<ul class="list-group" id="menu">
 					<li class="list-group-item list-group-item-action"><a
 						href="/adaco/artist/shopPage"

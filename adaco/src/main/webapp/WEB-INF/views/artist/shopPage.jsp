@@ -7,53 +7,10 @@
 <title>Insert title here</title>
 </head>
 <style>
-/* 	#aside { */
-/* 		width:110px; */
-/* 		height:500px; */
-/* 		background-color: gray; */
-/* 		float: left; */
-/* 	} */
-	#section {
-	width: 850px;
-	padding: 5px;
-	float: right;
-	min-height: 600px;
-	}
-	#profile {
-		width:200px;
-		height:200px;
-	}
-	#menu {
-	width: 180px;
-}
+ 
 </style>
 <body>
-<aside id="asideMain">
-   <div id="aside">
-      <div id="profile">
-      </div>
-      <div class="col-sm-3">
-				<!-- side menu (link) -->
-				<h3>MY Menu</h3>
-				<ul class="list-group" id="menu">
-					<li class="list-group-item list-group-item-action"><a
-						href="/adaco/artist/shopPage"
-						style="color: black; text-decoration: none;">상점 정보</a></li>
-					<li class="list-group-item list-group-item-action"><a
-						href="/adaco/artist/artistRead"
-						style="color: black; text-decoration: none;">내 정보 관리</a></li>
-					<li class="list-group-item list-group-item-action"><a
-						href="/adaco/order/artistSellList"
-						style="color: black; text-decoration: none;">판매내역</a></li>
-					<li class="list-group-item list-group-item-action"><a
-						href="#" style="color: black; text-decoration: none;">메세지함</a></li>
-					<li class="list-group-item list-group-item-action"><a
-						href="/adaco/artist/sales"
-						style="color: black; text-decoration: none;">매출 관리</a></li>
-				</ul>
-			</div>
-   </div>
-   </aside>
+${art }
 <section id="section">
 <div class="container">
   <h1 class="my-4">상점 정보보기
@@ -65,12 +22,12 @@
       <img class="img-fluid" id="shop_profile" src="${shop.image }" alt="">
     </div>
     <div class="col-md-4">
-      <h3 class="my-3">상점 이름</h3>
+      <h3 class="my-3"><strong>상점 이름</strong></h3>
       <span id="shopName">${shop.shopName }</span>
-      <h3 class="my-3">상점 소개</h3>
+     <h3 class="my-3"> <strong>상점 소개</strong></h3>
       <span id="shopIntro">${shop.shopIntro }</span>
       <p></p>
-      <h3 class="my-3">Project Details</h3>
+      <h3><strong><a href="/adaco/artist/artistpage" style="text-decoration: none; color: black;" >MY Menu</a></strong></h3>
       <ul>
         <li><a style="text-decoration: none; color: black;" href="/adaco/artist/orderAdmin">주문 및 배송 관리</a></li>
         <li><a style="text-decoration: none; color: black;" href="/adaco/artist/sales">매출관리</a></li>
@@ -81,31 +38,30 @@
       </ul> 
     </div>
   </div>
-  <h3 class="my-4">또 다른 작품</h3>
+  <h3 class="my-4">작가 작품</h3>
 
   <div class="row">
 
     <div class="col-md-3 col-sm-6 mb-4">
       <a href="#">
-            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            <img class="img-fluid" src="${shop.image }" alt="">
+          </a>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-4">
+      <a href="/adaco/art/readByArtist?artno=">
+            <img class="img-fluid" src="${shop.img[1] }" alt="">
           </a>
     </div>
 
     <div class="col-md-3 col-sm-6 mb-4">
       <a href="#">
-            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            <img class="img-fluid" src="${shop.img[2] }" alt="">
           </a>
     </div>
 
     <div class="col-md-3 col-sm-6 mb-4">
       <a href="#">
-            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-          </a>
-    </div>
-
-    <div class="col-md-3 col-sm-6 mb-4">
-      <a href="#">
-            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            <img class="img-fluid" src="${shop.img[3] }" alt="">
           </a>
     </div>
 

@@ -13,6 +13,11 @@
 
 		var idx = 0;
 		$("#add").on("click", function(){
+			var cnt = $("input[name='artSajin']").length;
+			if(cnt>=5){
+				alert("최대 5개까지 업로드 가능합니다");
+			return;
+			}
 			var $input = $("<input>").attr("type", "file").attr("name", "artSajin").attr("id", "artSajin").attr("accept", ".jpg,.jpeg,.png,.gif,.bmp");
 			idx++;
 			$input.appendTo($("#artSajin"));
@@ -20,6 +25,7 @@
 		
 		$("#delete").on("click", function(){
 			  $("#artSajin").html("");
+			  document.getElementById("add").disabled = false;
 		});
 		
 		
@@ -75,10 +81,10 @@
 			<div class="inputArea">
 				<label>카테고리</label> <select id="category" name="category">
 					<option value="카테고리 선택" selected="selected">카테고리 선택</option>
-					<option value="가방,파우치">가방,파우치</option>
+					<option value="악세사리">악세사리</option>
+					<option value="인테리어">인테리어</option>
 					<option value="공예">공예</option>
-					<option value="악세서리">악세서리</option>
-					<option value="카테고리다">카테고리다</option>
+					<option value="기타">기타</option>
 				</select> 
 				<input type="hidden" id="shopno" name="shopno" value="${artInfo.shopno}"/>
 				<input type="hidden" id="artistno" name="artistno" value="${artInfo.artistno}"/>
@@ -90,8 +96,8 @@
 			</div>
 			<div class="inputArea" >
 				<div id = "artSajin"></div>				
-				<button type = "button" id = "add">작품 이미지 추가</button>
-				<button type = "button" id = "delete">취소</button>
+				<button type = "button" id = "add" name="add">작품 이미지 추가</button>
+				<button type = "button" id = "delete" >업로드 취소</button>
 			</div>
 			<div class="inputArea">
 				<label for="price">작품가격</label> 
