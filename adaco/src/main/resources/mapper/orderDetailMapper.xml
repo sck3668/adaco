@@ -10,7 +10,7 @@
 		insert into order_detail(orderno,optno, artno,artistno,art_name, option_name,
 		option_value, amount,price, address, recipient,tel,email,
 			request,add_point, postalcode,refund_account ,is_shipping , state)
-			values(#{orderno},#{optno}, #{artno},#{artistno}, #{artname},#{optionName},#{optionValue},#{amount},#{price},
+			values(#{orderno},#{optno}, #{artno},#{artistno}, #{artName},#{optionName},#{optionValue},#{amount},#{price},
 			#{address},#{recipient},#{tel},#{email},#{request},#{addPoint},#{postalcode},#{refundAccount},0,#{state})
 	</insert>
 	

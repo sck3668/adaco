@@ -14,7 +14,7 @@ public class OrderDetail {
 	private Integer optno;
 	private Integer artno;
 	private Integer artistno;
-	private String artname;
+	private String artName;
 	private String optionName; //옵션명
 	private String optionValue; // 옵션값
 	private Integer amount; 

@@ -11,6 +11,7 @@ import org.springframework.web.servlet.*;
 import com.fasterxml.jackson.databind.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
+import com.icia.adaco.exception.*;
 import com.icia.adaco.service.mvc.*;
 
 @Controller
@@ -29,6 +30,9 @@ public class OrderController {
 		public ResponseEntity<?> Ordering(Order order,Bag bag,Principal principal) {
 			System.out.println("order bag ==="+bag);
 			String username = principal.getName();
+			if(username==null) {
+				throw new JobFailException("로그인 필요합니다");
+			}
 //			String user = username(principal.getName());
 			return ResponseEntity.ok(orderService.Ordering(order, bag, username));
 		}
@@ -43,13 +47,15 @@ public class OrderController {
 					.addObject("order",orderService.OrderingD(principal.getName(),artno));
 		}
 		
-		
+		// 결제버튼 클릭 후 주문완료 창으로 이동
+		// 결제 버튼 클릭 후 orderDetail insert(payment)
+		// return은 orderDetail read(orderDetail)
 		@GetMapping("/order/after")
-		public ModelAndView after(Principal principal,OrderDetail orderDetail) {
-			System.out.println("orderDetail===="+orderDetail);
-			int orderno = orderDetail.getOrderno();
-			orderDService.payment(orderDetail);
-			return new ModelAndView("main").addObject("viewName","order/after.jsp").addObject("order",orderDService.OrderDetail(orderDetail.getOrderno()));
+		public ModelAndView after(Principal principal,OrderDto.DtoForAfter dto) {
+			System.out.println("after dto==="+dto);
+			int orderno = dto.getOrderno();
+			orderDService.payment(dto,principal.getName());
+			return new ModelAndView("main").addObject("viewName","order/after.jsp").addObject("order",orderDService.OrderDetail(dto,principal.getName()));
 		}
 	
 	

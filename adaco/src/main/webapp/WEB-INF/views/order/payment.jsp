@@ -45,6 +45,10 @@ th {
 ${order}
 <form action="/adaco/order/after">
 <div id="content" class="content" data-page="payment" data-address-page="payment" style="padding-bottom:0">
+        <input type="hidden" name="orderno" value="${order.orderno }">
+        <input type="hidden" name="artno" value="${order.art.artno }">
+        <input type="hidden" name="artistno" value="${order.art.artistno }">
+        <input type="hidden" name="optno" value="${order.option.optno }">
         <div class="inner-w800">
             <div class="title-style clf">
                 <h2 class="txt fl">주문 결제하기</h2>
@@ -80,7 +84,7 @@ ${order}
                             <tbody>
                             <tr>
                                 <th>주문자 정보</th>
-                                <td> ${order.user.irum }</td>
+                                <td>${order.user.irum }</td>
                             </tr>
                             <tr>
                                 <th><em class="asterisk red">&lowast;</em>전화</th>
@@ -190,14 +194,14 @@ ${order}
                                 <div class="address-info item">
                                 		<br>
                                         <em class="asterisk red">&lowast;</em>
-                                        <label for="receiver">받는분</label>
-                                        <input name="delivery_name" type="text" value="${order.user.irum }">
+                                        <label for="user">받는분</label>
+                                        <input name="recipient" type="text" value="${order.user.irum }">
                                 </div>
 
                                 <div class="address-info item">
                                         <em class="asterisk red">&lowast;</em>
                                         <label for="delivery_phone">전화번호</label>
-                                        <input name="delivery_phone" type="text" value="${order.user.tel }">
+                                        <input name="tel" type="text" value="${order.user.tel }">
                                 </div>
                         </div>
 					</div>
@@ -229,7 +233,11 @@ ${order}
           				      	<label>작품명</label>
             				</td>
             				<td class="area-txt">
-                    			<label class="title-txt bold" for="prd-name"><img src="${order.art.mainImg}">${order.art.artName }</label>
+                    			<label class="title-txt bold" for="prd-name">
+                    				<img src="${order.art.mainImg}">${order.art.artName }
+                    				<br><span>${order.bag.optionName }:</span>
+                    					<span>${order.bag.optionValue }</span>
+                    			</label>
 							</td>
         				</tr>
       				  <tr>
@@ -243,7 +251,7 @@ ${order}
                             </div>
                         </div>
                 		<div class="ui_field--onchange  hidden" data-uipack="textarea">
-                        	<textarea maxlength="500" placeholder="주문 요청사항을 입력해주세요"></textarea>
+                        	<textarea name="refundAccount" maxlength="500" placeholder="주문 요청사항을 입력해주세요"></textarea>
                			</div>
             			</td>
         			</tr>
@@ -274,7 +282,7 @@ ${order}
                                 <tr>
                                     <th>작품금액</th>
                                     <td>
-                                        <span
+                                        <span 
                                             data-payment="order"
                                         >${order.art.price }</span>원
                                     </td>
