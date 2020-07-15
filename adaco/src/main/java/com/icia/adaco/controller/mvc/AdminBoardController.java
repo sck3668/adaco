@@ -99,6 +99,8 @@ public class AdminBoardController {
 	@Secured("ROLE_ADMIN")
 	@PostMapping("/admin/question_answer")
 	public String questionAnswer(Question question, Principal principal) {
+		String answer = principal.getName();
+		question.setAnswer(answer);
 		service.questionAnswer(question);
 		return "redirect:/admin/question_read?qno="+question.getQno();
 	}

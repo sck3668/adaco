@@ -92,12 +92,15 @@ $(function() {
 		console.log(params);
 			alert("var");
 			$.ajax({
-			url:"/adaco/order/ordering",
-			method:"get",
-			data:params,
-		})
-				alert("성공");	
-		}) 
+				url:"/adaco/order/ordering",
+				method:"post",
+				data:params,
+				success:function(result) {
+					alert("구매하기");
+					location.href="/adaco/order/payment?artno="+result;
+				}
+			});
+		}) ;
 	
 	//장바구니 추가
 	$("#addBag").on("click",function() {

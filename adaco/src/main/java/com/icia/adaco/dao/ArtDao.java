@@ -144,4 +144,10 @@ public class ArtDao {
 	public List<String> findAllArtImgByShopno(int shopno) {
 		return tpl.selectList("artMapper.findAllArtImgByShopno",shopno);
 	}
+	
+	
+	
+	public int findArtistnoByArtno(int artno) {
+		return tpl.selectOne("artMapper.findArtistnoByArtno",artno);
+	}
 }

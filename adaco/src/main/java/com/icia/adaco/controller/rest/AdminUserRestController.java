@@ -1,5 +1,7 @@
 package com.icia.adaco.controller.rest;
 
+import java.security.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.*;
@@ -21,8 +23,9 @@ public class AdminUserRestController {
 //	@PreAuthorize("isAuthenticated()")
 //	@Secured("ROLE_ADMIN")
 	@PutMapping("/admin/user_update")
-	public ResponseEntity<Void> update(String username, @Nullable String authority, @Nullable Boolean enabled) {
-		service.update(username, authority, enabled);
+	public ResponseEntity<Void> update(String username, @Nullable String authority, @Nullable Boolean enabled, Principal principal) {
+		String sender = principal.getName();
+		service.update(username, authority, enabled, sender);
 		return ResponseEntity.ok(null);
 	}
 
