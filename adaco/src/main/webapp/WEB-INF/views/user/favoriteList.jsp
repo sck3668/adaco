@@ -16,16 +16,17 @@
 		background-color: gray;
 		float: left;
 	}
-	#profile {
-		width:200px;
-		height:200px;
-	}
 	#section {
 	width: 850px;
 	padding: 5px;
 	float: right;
 	min-height: 600px;
 	}
+	#profile {
+		width:200px;
+		height:200px;
+	}
+	
 	#my {
 		width:750px;
 		padding: 0px;

@@ -6,8 +6,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-
+<style>
+ 
+</style>
 <body>
+${art }
+<section id="section">
 <div class="container">
   <h1 class="my-4">상점 정보보기
     <small></small><!-- 글씨 쓸수 있는 칸 -->
@@ -18,47 +22,46 @@
       <img class="img-fluid" id="shop_profile" src="${shop.image }" alt="">
     </div>
     <div class="col-md-4">
-      <h3 class="my-3">상점 이름</h3>
+      <h3 class="my-3"><strong>상점 이름</strong></h3>
       <span id="shopName">${shop.shopName }</span>
-      <h3 class="my-3">상점 소개</h3>
+     <h3 class="my-3"> <strong>상점 소개</strong></h3>
       <span id="shopIntro">${shop.shopIntro }</span>
       <p></p>
-      <h3 class="my-3">Project Details</h3>
+      <h3><strong><a href="/adaco/artist/artistpage" style="text-decoration: none; color: black;" >MY Menu</a></strong></h3>
       <ul>
         <li><a style="text-decoration: none; color: black;" href="/adaco/artist/orderAdmin">주문 및 배송 관리</a></li>
         <li><a style="text-decoration: none; color: black;" href="/adaco/artist/sales">매출관리</a></li>
         <li><a style="text-decoration: none; color: black;" href="/adaco/artist/#">쪽지함</a></li>
         <li><a style="text-decoration: none; color: black;" href="/adaco/artist/shopRead">상점 관리 및 변경</a></li>
-        <li><a style="text-decoration: none; color: black;" href="/adaco/artist/#">스토리</a></li>
-        <li><a style="text-decoration: none; color: black;" href="/adaco/artist/artistPage">작거페이지</a></li>
+        <li><a style="text-decoration: none; color: black;" href="/adaco/artist/#">스토리보기</a></li>
+        <li><a style="text-decoration: none; color: black;" href="/adaco/artist/artistPage">작가페이지</a></li>
       </ul> 
     </div>
   </div>
-  <h3 class="my-4">또 다른 작품</h3>
+  <h3 class="my-4">작가 작품</h3>
 
   <div class="row">
 
     <div class="col-md-3 col-sm-6 mb-4">
       <a href="#">
-            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            <img class="img-fluid" src="${shop.image }" alt="">
+          </a>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-4">
+      <a href="/adaco/art/readByArtist?artno=">
+            <img class="img-fluid" src="${shop.img[1] }" alt="">
           </a>
     </div>
 
     <div class="col-md-3 col-sm-6 mb-4">
       <a href="#">
-            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            <img class="img-fluid" src="${shop.img[2] }" alt="">
           </a>
     </div>
 
     <div class="col-md-3 col-sm-6 mb-4">
       <a href="#">
-            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-          </a>
-    </div>
-
-    <div class="col-md-3 col-sm-6 mb-4">
-      <a href="#">
-            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            <img class="img-fluid" src="${shop.img[3] }" alt="">
           </a>
     </div>
 
@@ -66,6 +69,7 @@
   <!-- /.row -->
 
 </div>
+</section>
 <!-- /.container -->
 <!-- <div> -->
 

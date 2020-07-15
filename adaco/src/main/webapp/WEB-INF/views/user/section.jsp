@@ -39,6 +39,8 @@ $(function(){
 	$("#search").on("click", function(){
 		var artname = $("#artname").val();
 		location.href = "/adaco/art/listByUser?artname="+artname;
+// 		var artname = $("#artname").val();
+// 		location.href = "/adaco/art/listByUser?artname="+artname;
 		console.log(artname);
 	});
 	
@@ -96,12 +98,12 @@ $(function(){
               <div class="card-body">
                 <h4 class="card-title">
                 <sec:authorize access="isAnonymous()">
-               		<a href="/adaco/art/readByUser?artno=${art.artno}">
-                  	<img alt="작품 사진" src="${art.mainImg }"></a>
+               		<a href="/adaco/art/readByUser?artno=${art.artno}" >
+                  	<img alt="작품 사진" src="${art.mainImg }" width="250px" height="200px"></a>
                 </sec:authorize>
                 <sec:authorize access="hasRole('ROLE_USER')">
-            		<a href="/adaco/art/readByUser?artno=${art.artno}">
-                  	<img alt="작품 사진" src="${art.mainImg }"></a>
+            		<a href="/adaco/art/readByUser?artno=${art.artno}" >
+                  	<img alt="작품 사진" src="${art.mainImg }" width="250px" height="200px"></a>
             	</sec:authorize>
                 <sec:authorize access="hasRole('ROLE_SELLER')">
             		<a href="/adaco/art/readByArtist?artno=${art.artno}">
@@ -130,8 +132,34 @@ $(function(){
             </div>
           </div>
 </c:forEach>
+	
         </div>
         <!-- /.row -->
+        	<div style="text-align: center;">
+		<ul class="pagination justify-content-center">
+			<c:if test="${artPage.prev==true}">
+				<li><a
+					href="/adaco/art/listByUser?pageno=${artPage.startPage-1}">이전</a></li>
+			</c:if>
+			<c:forEach begin="${artPage.startPage}" end="${artPage.endPage}"
+				var="i">
+				<c:choose>
+					<c:when test="${artPage.pageno eq i }">
+						<li class="active"><a
+							href="/adaco/art/listByUser?pageno=${i}">${i}</a></li>
+					</c:when>
+					<c:otherwise>
+						<li><a href="/adaco/art/listByUser?pageno=${i}">${i}</a></li>
+					</c:otherwise>
+				</c:choose>
+
+			</c:forEach>
+			<c:if test="${artPage.next==true}">
+				<li><a
+					href="/adaco/art/listByUser?pageno=${artPage.endPage+1}">다음</a></li>
+			</c:if>
+		</ul>
+		</div>
       </div>
       <!-- /.col-lg-9 -->
     </div>

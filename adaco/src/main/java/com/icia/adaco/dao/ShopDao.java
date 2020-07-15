@@ -47,6 +47,7 @@ public class ShopDao {
 		public Integer readShopnoByArtistno(int artistno) {
 			return sql.selectOne("shopMapper.readShopnoByArtistno", artistno);
 		}
+		
 
 
 }

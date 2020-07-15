@@ -3,7 +3,6 @@ package com.icia.adaco.controller.mvc;
 import java.io.*;
 import java.security.*;
 
-import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.lang.*;
@@ -28,7 +27,8 @@ public class ShopController {
 	private ShopDao shopDao;
 	@Autowired
 	private ArtistDao artistDao;
-	
+	@Autowired
+	private ArtService artService;
 	//상점개설 화면
 //	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/artist/shopMade")
@@ -59,7 +59,7 @@ public class ShopController {
 				.addObject("shop",shopService.shopRead(shopno));
 				
 	}
-	
+	//작가가 보는 상점페이지
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/artist/shopPage")
 	public ModelAndView shopPage(Principal principal) {
@@ -77,6 +77,7 @@ public class ShopController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/artist/checkShop")
 	public ResponseEntity<?> shopCheck(Principal principal) {
+		System.out.println("shopService.shopCheck(principal.getName())"+shopService.shopCheck(principal.getName()));
 		return ResponseEntity.ok(shopService.shopCheck(principal.getName()));
 	}
 	

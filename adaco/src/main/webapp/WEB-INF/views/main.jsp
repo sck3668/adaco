@@ -31,7 +31,7 @@
 			<jsp:include page="${viewName}"/>
 		</section>
 	</div>
-  <footer class="page-footer font-small teal pt-4 alert-info">
+  <footer class="page-footer font-small teal pt-4">
     <jsp:include page="include/footer.jsp" />
   </footer>
 </div>
