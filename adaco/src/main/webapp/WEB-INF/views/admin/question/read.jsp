@@ -31,32 +31,16 @@
 		width: 50px;
 		text-align: center;
 		border: 1px solid black;
-		border-radius: 10px;
+		border-radius: 30px;
 	}
 	
 	.center {
 		text-align: center;
 	}
 	
-	body {
-  		padding-top: 56px;
-	}
 	
-	::-webkit-scrollbar{width: 16px;}
-		::-webkit-scrollbar-track {background-color:#4C4C4C;}
-		::-webkit-scrollbar-thumb {background-color:#6799FF;border-radius: 10px;}
-		::-webkit-scrollbar-thumb:hover {background: #555;}
-		::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
-		width:16px;height:16px;background:#4C4C4C;} 
 </style>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-<script	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>1:1 문의 </title>
 <script type="text/javascript">
 var question = ${question};
@@ -122,7 +106,7 @@ function checkState() {
 </head>
 <body>
 <!-- Page Content -->
-	<div class="container jumbotron my-4">
+	<div class="container jumbotron my-4" style="background-color: #dcdde1;">
 	<h4>QnA 상세</h4>
 		
 		<form action="/nor/QnAUpdate" method="post" >
@@ -152,8 +136,11 @@ function checkState() {
 					</div>
 				</div>
 				<button type="button" id="answer" class="btn btn-info">등록</button>
+				<a href = "/adaco/admin/question_list" class="btn btn-success">뒤로가기</a>
 	        </sec:authorize>
-			<a href = "/adaco/admin/question_list" class="btn btn-success">뒤로가기</a>
+	        <sec:authorize access="hasRole('ROLE_USER') or hasRole('ROLE_SELLER')">
+		        <a href = "javascript:history.back()" class = "btn btn-success">뒤로가기</a>
+	        </sec:authorize>
 		</form>
 	</div>
 	

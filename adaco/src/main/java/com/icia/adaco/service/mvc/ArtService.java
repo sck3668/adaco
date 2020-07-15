@@ -127,6 +127,8 @@ public class ArtService {
 		Page page = PagingUtil.getPage2(pageno, countOfArt);
 		int srn = page.getStartRowNum();
 		int ern = page.getEndRowNum();
+		page.setSearch(artname);
+		System.out.println("셋검색"+page);
 		List<Art> artList = artdao.listManyReviewByArt(srn, ern, artname);
 		List<ArtDto.DtoForList> dtoList = new ArrayList<ArtDto.DtoForList>();
 		for (Art art : artList) {

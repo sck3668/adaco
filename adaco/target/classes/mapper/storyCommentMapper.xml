@@ -25,7 +25,7 @@
 		</select>
 	<select id="findAllByStoryno" resultType="storyComment">
 		select cno, write_date writeDate, writer, content, storyno, username, profile 
-		from story_comments where storyno=#{storyno}
+		from story_comments where storyno=#{storyno} order by writeDate desc
 	</select>
 	
 	<select id="findByCno" resultType="storyComment">

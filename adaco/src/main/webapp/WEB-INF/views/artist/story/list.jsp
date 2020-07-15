@@ -101,8 +101,6 @@
 		height:70px;
 	}
 </style>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script>
 	$(function() {
 		//if("${memoMsg}"!=="")
@@ -140,36 +138,6 @@
 <body>
 	<h1>스토리</h1>
 	<hr>
-<<<<<<< HEAD
-	<c:forEach items="${story.storyList}" var="story">
-	<div id="storyList">
-			<div id="textArea">
-				<div id="textAreaUp">
-					<span class="image">${story.image }</span>
-					<div id="textAreadown">
-						<span class="writer1">${story.writer }</span><br>
-						<span class="writeDate1">${story.writeDateStr }</span>
-					</div>
-				</div>
-			</div>
-			<a href="/adaco/story/readStory?storyno=${story.storyno }">
-			<div id="imageArea">
-				<div class="image1">
-					<img alt="art" src="${story.image }">
-				</div>
-			</div>
-		</a>
-	</div>
-</c:forEach>
-	<sec:authorize access="hasRole('ROLE_SELLER')">
-	<div class="form-group">
-		<a href="/adaco/story/writeStory">글쓰기</a>
-	</div>
-	</sec:authorize>
-	
-	<div style="text-align: center;">
-		<ul class="pagination">
-=======
 	<section class="articles-v3">
 	  <div class="container max-width-adaptive-lg">
 	    <ul class="grid gap-lg">
@@ -185,7 +153,8 @@
 	                <p class="color-contrast-medium"><time>${story.writeDateStr }</time>, &mdash; ${story.times } </p>
 	              </div>
 	            </div>
-		        <div class="grid gap-md items-start">
+	            <hr style="border: 1.5px solid pink;">
+		        <div class="grid gap-md items-start" style="text-align: center;">
 		          <a href="/adaco/story/readStory?storyno=${story.storyno }" class="articles-v3__img col-6@md col-7@xl">
 		            <figure class="media-wrapper">
 		              <img src="${story.image }" alt="Image description">
@@ -195,6 +164,7 @@
 		          <div class="col-6@md col-5@xl" style="  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 90%; height: 250px;">
 		            <div class="text-component">
 		              <h2 class="articles-v3__headline"><a href="/adaco/story/readStory?storyno=${story.storyno }" style="color: #ff4757; font-weight: bold;">${story.title }</a></h2>
+		              <br><br><br>
 		              <p>${story.content }</p>
 		            </div>
 		    
@@ -206,7 +176,6 @@
 		</div>
 			<div style="text-align: center;">
 		<ul class="pagination" style="text-align: center; margin: 0 auto; width: 0px; text-align: center;">
->>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 			<c:if test="${story.prev==true}">
 				<li class = "page-item"><a
 					href="/adaco/story/listStory?pageno=${story.startPage-1}">이전</a></li>

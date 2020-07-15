@@ -116,13 +116,13 @@
 							class="fas fa-bell"></i> 고객센터 <i class="caret"></i></a>
 						<ul class="dropdown-menu" role="menu"
 							aria-labelledby="dropdownCategoryMenu">
-							<li><a href="#" style="text-decoration: none;"><i
+							<li><a href="/adaco/user/noticeList" style="text-decoration: none;"><i
 									class="fas fa-exclamation"></i> 공지사항</a></li>
 							<li class="#"></li>
-							<li><a href="#" style="text-decoration: none;"><i
+							<li><a href="/adaco/user/faqList" style="text-decoration: none;"><i
 									class="fas fa-question"></i> 자주 묻는 질문</a></li>
-							<li><a href="#" style="text-decoration: none;"><i
-									class="far fa-paper-plane"></i> 메일로 문의</a></li>
+							<li><a href="/adaco/user/questionWrite" style="text-decoration: none;"><i
+									class="far fa-paper-plane"></i> 1:1 문의</a></li>
 						</ul></li>
 				</sec:authorize>
 
@@ -166,13 +166,13 @@
 							class="fas fa-bell"></i> 고객센터 <i class="caret"></i></a>
 						<ul class="dropdown-menu" role="menu"
 							aria-labelledby="dropdownCategoryMenu">
-							<li><a href="#" style="text-decoration: none;"><i
+							<li><a href="/adaco/user/noticeList" style="text-decoration: none;"><i
 									class="fas fa-exclamation"></i> 공지사항</a></li>
 							<li class="#"></li>
-							<li><a href="#" style="text-decoration: none;"><i
+							<li><a href="/adaco/user/faqList" style="text-decoration: none;"><i
 									class="fas fa-question"></i> 자주 묻는 질문</a></li>
-							<li><a href="#" style="text-decoration: none;"><i
-									class="far fa-paper-plane"></i> 메일로 문의</a></li>
+							<li><a href="/adaco/user/questionWrite" style="text-decoration: none;"><i
+									class="far fa-paper-plane"></i> 1:1 문의</a></li>
 						</ul></li>
 
 
@@ -217,13 +217,13 @@
 							class="fas fa-bell"></i> 고객센터 <i class="caret"></i></a>
 						<ul class="dropdown-menu" role="menu"
 							aria-labelledby="dropdownCategoryMenu">
-							<li><a href="#" style="text-decoration: none;"><i
+							<li><a href="/adaco/user/noticeList" style="text-decoration: none;"><i
 									class="fas fa-exclamation"></i> 공지사항</a></li>
 							<li class="#"></li>
-							<li><a href="#" style="text-decoration: none;"><i
+							<li><a href="/adaco/user/faqList" style="text-decoration: none;"><i
 									class="fas fa-question"></i> 자주 묻는 질문</a></li>
-							<li><a href="#" style="text-decoration: none;"><i
-									class="far fa-paper-plane"></i> 메일로 문의</a></li>
+							<li><a href="/adaco/user/questionWrite" style="text-decoration: none;"><i
+									class="far fa-paper-plane"></i> 1:1 문의</a></li>
 						</ul></li>
 				</sec:authorize>
 				<!-- 관리자 nav -->

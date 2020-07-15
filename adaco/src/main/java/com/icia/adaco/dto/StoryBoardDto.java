@@ -50,7 +50,6 @@ public class StoryBoardDto {
 		private int storyno;
 		private String title;
 		private String writer;
-		private String title;
 		private String writeDateStr;
 		private String image;
 		private String content;

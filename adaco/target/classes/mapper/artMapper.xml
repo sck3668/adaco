@@ -119,11 +119,11 @@
 	
 	<!-- 작품 리스트(리뷰 많은 순 정렬) -->
 	<select id="reviewManyByArt" resultType="art">
-	      select B.artno, B.art_name artName, B.main_img mainImg, B.price, B.favorite_cnt favoriteCnt
+	      select B.artno, B.art_name artName, B.main_img mainImg, B.price, B.favorite_cnt favoriteCnt, B.review_cnt reviewCnt
 	      from
-	         (select /*+ index_desc(art art_pk_artno) */ rownum rnum, A.artno, A.art_name, A.main_img, A.price, A.favorite_cnt
+	         (select /*+ index_desc(art art_pk_artno) */ rownum rnum, A.artno, A.art_name, A.main_img, A.price, A.favorite_cnt, A.review_cnt
 	         from (
-	            select artno, art_name, main_img, price, favorite_cnt
+	            select artno, art_name, main_img, price, favorite_cnt, review_cnt
 	            from art
 	            <trim prefix="WHERE" prefixOverrides="AND">
 	            	<if test="artName!=null and artName != '' ">

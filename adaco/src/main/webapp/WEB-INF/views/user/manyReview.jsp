@@ -109,25 +109,28 @@ $(function(){
           </div>
 </c:forEach>
  	</div>
+<!--  	/adaco/user/artListByReview?artname= -->
+<!--  	artReviewPage -->
         <!-- /.row -->
         	<div style="text-align: center;">
 		<ul class="pagination justify-content-center">
 			<c:if test="${artReviewPage.prev==true}">
-				<li><a href="/adaco/user/artListByReview?artname=${artReviewPage.search}&pageno=${artReviewPage.startPage-1}">이전</a></li>
+				<li><a href="/adaco/user/artListByReview?artname=${artReviewPage.search }&pageno=${artReviewPage.startPage-1}">이전</a></li>
 			</c:if>
 			<c:forEach begin="${artReviewPage.startPage}" end="${artReviewPage.endPage}" var="i">
 				<c:choose>
 					<c:when test="${artReviewPage.pageno eq i }">
-						<li class="active"><a href="/adaco/user/artListByReview?artname=${artReviewPage.search}&pageno=${i}">${i}</a></li>
+						<li class="active">
+						<a href="/adaco/user/artListByReview?artname=${artReviewPage.search }&pageno=${i}">${i}</a></li>
 					</c:when>
 					<c:otherwise>
-						<li><a href="/adaco/user/artListByReview?artname=${artReviewPage.search}&pageno=${i}">${i}</a></li>
+						<li><a href="/adaco/user/artListByReview?artname=${artReviewPage.search }&pageno=${i}">${i}</a></li>
 					</c:otherwise>
 				</c:choose>
 
 			</c:forEach>
 			<c:if test="${artReviewPage.next==true}">
-				<li><a href="/adaco/user/artListByReview?artname=${artReviewPage.search}&pageno=${artReviewPage.endPage+1}">다음</a></li>
+				<li><a href="/adaco/user/artListByReview?artname=${artReviewPage.search }&pageno=${artReviewPage.endPage+1}">다음</a></li>
 			</c:if>
 		</ul>
      </div>
