@@ -15,9 +15,8 @@
 		
 	}
 		#aside {
-		width:110px;
+		width:100px;
 		height:500px;
-		background-color: gray;
 		float: left;
 	}
 	#profile {
@@ -25,7 +24,7 @@
 		height:200px;
 	}
 	#section {
-	width: 850px;
+	width: 750px;
 	padding: 5px;
 	float: right;
 	min-height: 600px;
@@ -71,6 +70,9 @@
 		width: 35%;
 		display: inline-block;
 	}
+	#menu {
+	width: 180px;
+}
 </style>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
@@ -251,6 +253,30 @@ $(function(){
 </head>
 <body>
 <div>
+ <aside id="asideMain">
+	<div id="aside">
+		<div class="col-sm-3">
+				<!-- side menu (link) -->
+				<h3><strong><a href="/adaco/artist/artistpage" style="text-decoration: none; color: black;" >MY Menu</a></strong></h3>
+				<ul class="list-group" id="menu">
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/artist/shopPage"
+						style="color: black; text-decoration: none;">상점 정보</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/artist/artistRead"
+						style="color: black; text-decoration: none;">내 정보 관리</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/order/artistSellList"
+						style="color: black; text-decoration: none;">판매내역</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="#" style="color: black; text-decoration: none;">메세지함</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/artist/sales"
+						style="color: black; text-decoration: none;">매출 관리</a></li>
+				</ul>
+			</div>
+	</div>
+	</aside>
 	<section id="section">
 		<div>
 			<img id ="show_profile" height="200px;" src="${user.profile }">

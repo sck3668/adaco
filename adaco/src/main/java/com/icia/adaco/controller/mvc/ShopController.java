@@ -3,7 +3,6 @@ package com.icia.adaco.controller.mvc;
 import java.io.*;
 import java.security.*;
 
-import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.lang.*;
@@ -28,7 +27,8 @@ public class ShopController {
 	private ShopDao shopDao;
 	@Autowired
 	private ArtistDao artistDao;
-	
+	@Autowired
+	private ArtService artService;
 	//상점개설 화면
 //	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/artist/shopMade")

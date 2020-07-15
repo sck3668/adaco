@@ -65,6 +65,10 @@ public class ArtistController {
 			return new ModelAndView("main").addObject("viewName","artist/artistRead.jsp")
 					.addObject("user",userService.read(principal.getName()));
 		}
+		
+		
+		
+		
 	//매출관리
 //		@PreAuthorize("isAuthenticated()")
 //		@GetMapping("/artist/sales")

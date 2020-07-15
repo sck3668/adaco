@@ -58,8 +58,10 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-4 footers-one">
 					<div class="footers-info mt-3">
-						<p> 핸드스토리는 통신판매중개자이며 통신판매의 당사자가 아닙니다. <br>
-						따라서 핸드스토리는 상품 거래정보 및 거래에 대하여 책임을 지지 않습니다.</p>
+						<p>
+							핸드스토리는 통신판매중개자이며 통신판매의 당사자가 아닙니다. <br> 따라서 핸드스토리는 상품 거래정보 및
+							거래에 대하여 책임을 지지 않습니다.
+						</p>
 					</div>
 					<div class="social-icons">
 						<a href="https://www.facebook.com/"><i id="social-fb"
@@ -106,6 +108,7 @@
 					<h5>Member</h5>
 					<ul class="list-unstyled">
 						<li><a href="maintenance.html">송찬권</a></li>
+						<li><a href="maintenance.html">권혁지</a></li>
 						<li><a href="about.html">김지용</a></li>
 						<li><a href="about.html">성철훈</a></li>
 						<li><a href="about.html">송영일</a></li>
@@ -119,24 +122,17 @@
 		<div class="container">
 			<div class="row ">
 				<div class="col-md-12">
-					<small> Disclaimer: Element Limited is only an intermediary
-						offering its platform to facilitate the transactions between
-						Seller and Customer/Buyer/User and is not and cannot be a party to
-						or control in any manner any transactions between the Seller and
-						the Customer/Buyer/User. All the offers and discounts on this
-						Website have been extended by various Builder(s)/Developer(s) who
-						have advertised their products. Element is only communicating the
-						offers and not selling or rendering any of those products or
-						services. It neither warrants nor is it making any representations
-						with respect to offer(s) made on the site. Element Limited shall
-						neither be responsible nor liable to mediate or resolve any
-						disputes or disagreements between the Customer/Buyer/User and the
-						Seller and both Seller and Customer/Buyer/User shall settle all
-						such disputes without involving Element Limited in any manner. </small>
+					<small>고지 사항: Element Limited는 판매자와 고객/구매자/사용자 간의 거래를 촉진하기
+						위한 플랫폼을 제공하는 중개자일 뿐이며, 판매자와 고객/구매자/사용자 간의 거래를 어떤 방식으로든 통제하거나 통제할 수
+						있는 당사자가 될 수 없으며, 그럴 수도 없다. 이 웹 사이트의 모든 제안과 할인은 자사 제품을 광고한 다양한
+						빌더/개발자에 의해 확장되었다. 엘리먼트는 제안사항을 전달하고 해당 제품이나 서비스를 판매하거나 렌더링하지 않는다.
+						그것은 사이트에 대한 제공에 대한 어떠한 진술도 보증하지 않는다. 요소 제한은 고객/구매자/사용자 및 판매자 간의
+						분쟁이나 의견 불일치를 조정하거나 해결할 책임이 없으며, 판매자와 고객/구매자/사용자는 어떠한 방식으로든 요소를
+						포함하지 않고 모든 분쟁을 해결하여야 한다. </small>
 				</div>
 			</div>
 		</div>
-		</section>
+	</section>
 </body>
 </html>
 <!-- 	<div class="container"> -->
