@@ -6,8 +6,55 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-
+<style>
+/* 	#aside { */
+/* 		width:110px; */
+/* 		height:500px; */
+/* 		background-color: gray; */
+/* 		float: left; */
+/* 	} */
+	#section {
+	width: 850px;
+	padding: 5px;
+	float: right;
+	min-height: 600px;
+	}
+	#profile {
+		width:200px;
+		height:200px;
+	}
+	#menu {
+	width: 180px;
+}
+</style>
 <body>
+<aside id="asideMain">
+   <div id="aside">
+      <div id="profile">
+      </div>
+      <div class="col-sm-3">
+				<!-- side menu (link) -->
+				<h3>MY Menu</h3>
+				<ul class="list-group" id="menu">
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/artist/shopPage"
+						style="color: black; text-decoration: none;">상점 정보</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/artist/artistRead"
+						style="color: black; text-decoration: none;">내 정보 관리</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/order/artistSellList"
+						style="color: black; text-decoration: none;">판매내역</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="#" style="color: black; text-decoration: none;">메세지함</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/artist/sales"
+						style="color: black; text-decoration: none;">매출 관리</a></li>
+				</ul>
+			</div>
+   </div>
+   </aside>
+<section id="section">
 <div class="container">
   <h1 class="my-4">상점 정보보기
     <small></small><!-- 글씨 쓸수 있는 칸 -->
@@ -29,8 +76,8 @@
         <li><a style="text-decoration: none; color: black;" href="/adaco/artist/sales">매출관리</a></li>
         <li><a style="text-decoration: none; color: black;" href="/adaco/artist/#">쪽지함</a></li>
         <li><a style="text-decoration: none; color: black;" href="/adaco/artist/shopRead">상점 관리 및 변경</a></li>
-        <li><a style="text-decoration: none; color: black;" href="/adaco/artist/#">스토리</a></li>
-        <li><a style="text-decoration: none; color: black;" href="/adaco/artist/artistPage">작거페이지</a></li>
+        <li><a style="text-decoration: none; color: black;" href="/adaco/artist/#">스토리보기</a></li>
+        <li><a style="text-decoration: none; color: black;" href="/adaco/artist/artistPage">작가페이지</a></li>
       </ul> 
     </div>
   </div>
@@ -66,6 +113,7 @@
   <!-- /.row -->
 
 </div>
+</section>
 <!-- /.container -->
 <!-- <div> -->
 
