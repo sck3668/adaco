@@ -18,6 +18,11 @@
 			$input.appendTo($("#artSajin"));
 		});
 		
+		$("#delete").on("click", function(){
+			  $("#artSajin").html("");
+		});
+		
+		
 		$("#artName").on("blur", checkIrum);
 		$("#price").on("blur", checkPrice);
 		$("#artStock").on("blur", checkStock);
@@ -83,9 +88,10 @@
 					<input type="text" id="artName" name="artName" />
 				<span id="artName_msg"></span>
 			</div>
-			<div class="inputArea">
+			<div class="inputArea" >
 				<div id = "artSajin"></div>				
 				<button type = "button" id = "add">작품 이미지 추가</button>
+				<button type = "button" id = "delete">취소</button>
 			</div>
 			<div class="inputArea">
 				<label for="price">작품가격</label> 

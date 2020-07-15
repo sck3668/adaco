@@ -39,9 +39,8 @@ $(function(){
 	$("#search").on("click", function(){
 		var artname = $("#artname").val();
 		location.href = "/adaco/art/listByUser?artname="+artname;
-// 		var artname = $("#artname").val();
-// 		location.href = "/adaco/art/listByUser?artname="+artname;
-		console.log(artname);
+// 		var tag = $(".tag").val();
+// 		location.href = "/adaco/art/listByUser?tag="+tag;
 	});
 	
 });	
@@ -53,7 +52,7 @@ $(function(){
     <div class="row">
 				<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
 		            <div class="input-group" >
-		              <input type="text"  placeholder="작품 이름 검색" aria-label="Search" aria-describedby="basic-addon2" name = "artname" id ="artname" />
+		              <input type="text"  placeholder="작품 이름 검색" aria-label="Search" aria-describedby="basic-addon2" name = "artname" id ="artname"/>
 		              <div class="input-group-append">
 		                <button type="button" id = "search">
 		                 <span style="color:gold"><i class="fas fa-search fa-lg"></i></span>

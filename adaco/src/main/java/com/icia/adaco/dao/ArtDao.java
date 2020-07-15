@@ -83,13 +83,12 @@ public class ArtDao {
 	////////////////////// 회원 전용 ///////////////////////////
 	
 	//작품 내역 보기(최신순) + 작품이름으로 검색 리스트
-	public List<Art> listByArtFromUser(int startRowNum, int endRowNum, @Nullable String artname, @Nullable String category, @Nullable String tag){
+	public List<Art> listByArtFromUser(int startRowNum, int endRowNum, @Nullable String artname, @Nullable String category){
 		Map<String, Object>map = new HashMap<String, Object>();
 		map.put("startRowNum", startRowNum);
 		map.put("endRowNum",endRowNum);
 		map.put("artName", artname);
 		map.put("category", category);
-		map.put("tag", tag);
 		return tpl.selectList("artMapper.findAllFromUser",map); 
 	}
 

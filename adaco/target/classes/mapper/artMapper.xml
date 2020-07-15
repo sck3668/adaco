@@ -99,9 +99,9 @@
 	            	<if test="category!=null and category != '' ">
 	            		AND category like '%'|| #{category} || '%'
 	            	</if>
-	            	<if test="tag!=null and tag != '' ">
-	            		AND tag like '%'|| #{tag} || '%'
-	            	</if>
+<!-- 	            	<if test="tag!=null and tag != '' "> -->
+<!-- 	            		AND tag like '%'|| #{tag} || '%' -->
+<!-- 	            	</if> -->
 	            </trim>
 	       		order by artno desc) A
 	         where rownum&lt;= #{endRowNum})B

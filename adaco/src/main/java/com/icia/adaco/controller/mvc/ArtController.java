@@ -41,8 +41,8 @@ public class ArtController {
 	
 	// 작품 리스트(최신순) + 작품 이름으로 작품 검색(회원용)
 	@GetMapping({"/art/listByUser","/"})
-	public ModelAndView artListFromUser(@RequestParam(defaultValue = "1") int pageno, @Nullable String artname, @Nullable String category, @Nullable String tag) {
-		return new ModelAndView("main").addObject("viewName","user/section.jsp").addObject("artPage",artservice.listFromUser(pageno, artname, category, tag));
+	public ModelAndView artListFromUser(@RequestParam(defaultValue = "1") int pageno, @Nullable String artname, @Nullable String category) {
+		return new ModelAndView("main").addObject("viewName","user/section.jsp").addObject("artPage",artservice.listFromUser(pageno, artname, category));
 	}
 	
 	// 작품 리스트 (리뷰순) + 작품 이름으로 작품 검색 (회원용)
