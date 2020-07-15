@@ -37,7 +37,7 @@
 <header class="cd-header flex flex-column flex-center">
   <div class="text-component text-center">
     <h1>FAQ 자주 묻는 질문</h1>
-    <p>👈 <a class="cd-article-link" href="/adaco/admin/question_write">궁금한게 해결되지 않으셨나요? (1:1문의로 이동하기)</a></p>
+    <p>👈 <a class="cd-article-link" href="/adaco/user/questionWrite">궁금한게 해결되지 않으셨나요? (1:1문의로 이동하기)</a></p>
     <p>🏠<a class="cd-article-link" href="/adaco/">메인으로 돌아갈래요!</a></p>
   </div>
 </header>
@@ -47,8 +47,8 @@
 		<li><a class="cd-faq__category cd-faq__category-selected truncate" href="#basics">FAQ 10선</a></li>
 		<!-- 어드민 권한 나중에 ㅇㅇ -->
 		<sec:authorize access="hasRole('ROLE_ADMIN')">	
-		</sec:authorize>
 		<li><a class="cd-faq__category truncate" href="#mobile">관리자</a></li>
+		</sec:authorize>
 		<!-- 
 		<li><a class="cd-faq__category truncate" href="#account">Account</a></li>
 		<li><a class="cd-faq__category truncate" href="#payments">Payments</a></li>
@@ -66,7 +66,9 @@
           <div class="text-component">
             <p>${faq.content }</p>
           </div>
+          	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		  		<button type="button" id = "delete" class="delete btn btn-danger" data-faqno="${faq.faqno }"style="margin-left: 650px; margin-bottom: 20px;">삭제하기</button>
+          	</sec:authorize>
 				</div> <!-- cd-faq__content -->
 		  </li>
 		</c:forEach>

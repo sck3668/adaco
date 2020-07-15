@@ -202,9 +202,9 @@ var story = ${story};
 				</div>
 			</div>
 		<div>
-			<a href="/adaco/story/listStory" id="list">목록으로</a>
+			<a href="/adaco/story/listStory" id="list" class="btn btn-primary">목록으로</a>
 		</div>
-		<div>
+		<div style="margin-top: 50px;">
 			<div class="form-group">
 				<label for="comment_textarea">댓글을 입력하세요</label>
 				<textarea class="form-control" rows="5"	id="comment_textarea" placeholder="욕설이나 모욕적인 댓글은 삭제될 수 있습니다" disabled="disabled" ></textarea>

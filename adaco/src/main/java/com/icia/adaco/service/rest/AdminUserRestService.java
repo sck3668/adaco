@@ -1,5 +1,6 @@
 package com.icia.adaco.service.rest;
 
+import java.time.format.*;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.*;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.*;
 import com.icia.adaco.dao.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.exception.*;
+import com.icia.adaco.service.mvc.*;
 
 @Service
 public class AdminUserRestService {
@@ -16,8 +18,10 @@ public class AdminUserRestService {
 	AdminUserDao dao;
 	@Autowired
 	AuthorityDao authorityDao;
+	@Autowired
+	msgService msgService;
 	
-	public void update(String username, String authority, Boolean enabled) {
+	public void update(String username, String authority, Boolean enabled, String sender) {
 		
 		
 		if(authority != null && authority.equals("ROLE_SELLER")) {
@@ -26,6 +30,16 @@ public class AdminUserRestService {
 			Artist artist = Artist.builder().username(username).build();
 			dao.insertByArtist(artist);
 			authorityDao.update(username, authority);
+//			메시지 보내기 파트
+			User user = dao.findByid(username);
+			if(user == null)
+				throw new JobFailException("받는 사용자를 확인하지 못했습니다.");
+			Message message = new Message();
+			message.setTitle("회원님의 작가 등록을 진심으로 환영합니다.<br>");
+			message.setContent("회원님의 작가 신청 심사 결과<br>작가 자격에 부족함이 없다 판단하여<br>본 핸드스토리의 정식작가로 등록되었음을 알려드립니다.<br>이후 상점을 등록하여 정상적인 작가 활동이 가능하오니 <br>향후 활발한 활동 부탁드립니다 감사합니다.");
+			message.setSendId(sender);
+			message.setRecipientId(username);
+			msgService.send(message);
 		}
 		
 		if(authority != null && authority.equals("ROLE_USER")) {

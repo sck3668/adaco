@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.math.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.lang.Nullable;
 import org.springframework.security.access.annotation.*;
 import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
@@ -60,9 +61,9 @@ public class AdminBoardController {
 	}
 	
 	@PreAuthorize("isAuthenticated()")
-	@GetMapping("/admin/question_write")
+	@GetMapping("/user/questionWrite")
 	public ModelAndView questionWrite() {
-		return new ModelAndView("admin/question/write");
+		return new ModelAndView("main").addObject("viewName", "admin/question/write.jsp");
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -78,11 +79,16 @@ public class AdminBoardController {
 		return new ModelAndView("admin/question/list").addObject("questionPage", service.questionList(pageno, writer, searchType));
 	}
 	
-//	@PreAuthorize("isAuthenticated()")
-	@Secured("ROLE_ADMIN")
+	@GetMapping("/user/questionList")
+	public ModelAndView userQuestionList(@RequestParam(defaultValue = "1")int pageno, Principal principal, @Nullable State searchType) {
+		String writer = principal.getName();
+		return new ModelAndView("main").addObject("viewName", "user/questionList.jsp").addObject("questionPage", service.questionList(pageno, writer, searchType));
+	}
+	
+	@PostAuthorize("isAuthenticated() or hasRole('ROLE_ADMIN')")
 	@GetMapping("/admin/question_read")
 	public ModelAndView qusetionRead(@RequestParam(value = "qno")@NonNull Integer qno) throws JsonProcessingException {
-		ModelAndView mav = new ModelAndView("admin/question/read");
+		ModelAndView mav = new ModelAndView("main").addObject("viewName", "admin/question/read.jsp");
 		AdminBoardDto.DtoForQuestionRead dto = service.questionRead(qno);
 		String json = objectMapper.writeValueAsString(dto); 
 		mav.addObject("question", json);
@@ -93,10 +99,18 @@ public class AdminBoardController {
 	@Secured("ROLE_ADMIN")
 	@PostMapping("/admin/question_answer")
 	public String questionAnswer(Question question, Principal principal) {
+		String answer = principal.getName();
+		question.setAnswer(answer);
 		service.questionAnswer(question);
 		return "redirect:/admin/question_read?qno="+question.getQno();
 	}
 
+	@GetMapping("/user/noticeList")
+	public ModelAndView userNoticeList(@RequestParam(defaultValue = "1")int pageno, @Nullable Boolean isImportant) {
+		return new ModelAndView("main").addObject("viewName","user/noticeList.jsp").addObject("noticePage", service.noticeList(pageno, isImportant));
+	}
+	
+	
 	@Secured("ROLE_ADMIN")
 	@GetMapping("/admin/notice_list")
 	public ModelAndView noticeList(@RequestParam(defaultValue = "1")int pageno, @Nullable Boolean isImportant) {
@@ -111,7 +125,7 @@ public class AdminBoardController {
 	
 	@GetMapping("/admin/notice_read")
 	public ModelAndView noticeRead(@NonNull Integer noticeno) throws JsonProcessingException {
-		ModelAndView mav = new ModelAndView("admin/notice/read");		
+		ModelAndView mav = new ModelAndView("main").addObject("viewName", "admin/notice/read.jsp");		
 		AdminBoardDto.DtoForNoticeRead dto = service.noticeRead(noticeno);
 		String json = objectMapper.writeValueAsString(dto);
 		mav.addObject("notice", json);
@@ -141,7 +155,7 @@ public class AdminBoardController {
 	}
 
 
-	@GetMapping("/user/faq_list")
+	@GetMapping("/user/faqList")
 	public ModelAndView faqList() {
 		return new ModelAndView("admin/faq/list").addObject("faqList", service.faqList());
 	}
