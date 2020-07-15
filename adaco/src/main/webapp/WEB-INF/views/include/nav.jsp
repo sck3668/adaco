@@ -127,6 +127,7 @@
 				</sec:authorize>
 
 				<!-- 일반회원  nav -->
+				
 				<sec:authorize access="hasRole('ROLE_USER')">
 					<!-- 					<li class="nav-item"><a class="nav-link logout" href="#">로그아웃</a> -->
 					<!-- 					</li> -->

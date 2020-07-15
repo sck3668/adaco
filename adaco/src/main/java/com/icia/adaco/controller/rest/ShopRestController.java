@@ -3,9 +3,12 @@ package com.icia.adaco.controller.rest;
 import java.io.*;
 import java.security.*;
 
+import javax.validation.*;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.security.access.prepost.*;
+import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.*;
 
@@ -31,7 +34,7 @@ public class ShopRestController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@PutMapping("/artist/update")
-	public ResponseEntity<Void> update(ShopDto.DtoForUpdate updateDto,  MultipartFile sajin , Principal principal) throws IllegalStateException, IOException {
+	public ResponseEntity<Void> update(@Valid ShopDto.DtoForUpdate updateDto,BindingResult results,  MultipartFile sajin , Principal principal) throws IllegalStateException, IOException {
 		shopRestService.update(principal.getName(), sajin, updateDto);
 		return ResponseEntity.ok(null);
 		}
