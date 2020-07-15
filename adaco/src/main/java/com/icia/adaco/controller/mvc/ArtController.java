@@ -8,22 +8,18 @@ import java.util.*;
 import javax.validation.*;
 
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.http.*;
 import org.springframework.lang.*;
 import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
-import org.springframework.ui.*;
 import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.*;
 import org.springframework.web.servlet.*;
 
 import com.icia.adaco.dto.*;
-import com.icia.adaco.dto.ArtDto.*;
 import com.icia.adaco.service.mvc.*;
 import com.icia.adaco.service.rest.*;
 
-import lombok.*;
 import lombok.NonNull;
 
 @Controller
@@ -70,7 +66,8 @@ public class ArtController {
 			String username =  principal.getName();
 		} 
 			String username = "isAnonymous()";
-		return new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPageByUser", service.readArtFromUser(artno, username)).addObject("image", service.readArtImage(artno));
+		return new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPageByUser", service.readArtFromUser(artno, username))
+				.addObject("image", service.readArtImage(artno));
 	}
 	
 	// 작품 등록 + 등록시 필요한 artistno, shopno 받아오기

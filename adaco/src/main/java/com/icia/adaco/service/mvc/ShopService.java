@@ -26,6 +26,8 @@ public class ShopService {
 	private String profilePath;
 	@Autowired
 	private ArtistDao artistDao;
+	@Autowired
+	private ArtDao artDao;
 	
 	public void shopMade(ShopDto.DtoForMade dtoMade, MultipartFile sajin, String username) throws IllegalStateException, IOException {
 		System.out.println("=========username"+ username);
@@ -49,10 +51,8 @@ public class ShopService {
 	
 	public ShopDto.DtoForRead shopRead(int shopno){
 		Shop shop = shopDao.readByShop(shopno);
-		System.out.println("=========샵 이미지 읽어와라" + shop);
 		ShopDto.DtoForRead shopReadDto = modelMapper.map(shop,ShopDto.DtoForRead.class);
-		System.out.println("=========샵 이미지 읽어와라" + shop);
-		System.out.println("=========디티오야 나와" + shopReadDto);
+		shopReadDto.setImg(artDao.findAllArtImgByShopno(shopno));
 		return shopReadDto;
 		}
 	 

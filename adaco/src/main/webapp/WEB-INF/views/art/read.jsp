@@ -149,7 +149,7 @@ $(function() {
 		  <span class="nxt_fix" style="display:none;"></span>
 		</div>
 		<div id="content">
-			<h3><strong>${artPageByUser.artName }</strong></h3><br>
+			<h3><strong>${artPageByUser.artName }</strong></h3><span id="user">${user.username }</span><br>
 			<div id="content1">
 			<table class = "table table-hover" style="text-align: center;">
 				<tr>
