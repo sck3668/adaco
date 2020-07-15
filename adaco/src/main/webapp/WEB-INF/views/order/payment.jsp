@@ -36,49 +36,12 @@ th {
 
 </style>
 
-<script>
-$(function(){
-	$("#userinfo").on("click", function(){
-		var info = [];
-		ajax{
-			url:"adaco/order/payment"
-			method: "get"
-			data: params,
-			}).doen(()=>{location.reload(); })
-			.fail((xhr)=>{console.log(xhr)})
-			
-			var $form = $("<form>").attr("action", "/adaco/order/payment").attr("method", "get")
-			$("<input>").attr("type", "hidden").attr("name", "cnos").val(ar).appendTo($form);
-			$("<input>").attr("type", "hidden").attr("name", "_csrf").val("${_csrf.token}").appendTo($form);
-			$form.appendTo($("body")).submit();
-		}
-	
-})
-</script>
+
 
 </head>
 <body>
-${ordrs }
-${bag }
-${art }
-${user }
+${order}
 <div id="content" class="content" data-page="payment" data-address-page="payment" style="padding-bottom:0">
-    <form
-        class="form-payment"
-        action="/w/payment/pay"
-        method="post">
-                <input type="hidden" name="point_type_bill" value="0.5">
-                <input type="hidden" name="point_type_vip" value="1">
-                <input type="hidden" name="is_personal_payment" value="">
-                <input type="hidden" name="bucket_cart_uuid[]"/>
-                <input type="hidden" name="is_remote" value="false" disabled />
-                <input type="hidden" name="is_membership" disabled value="" />
-                <input type="hidden" name="remote_price" value="0" disabled />
-                <input type="hidden" name="address_uuid" id="address_uuid" value="" />
-                <input type="hidden" name="user_grade" id="user_grade" value="2.0%" />
-                <input type="hidden" name="ga_client_id" id="ga_client_id" value="" />
-        
-        
         <div class="inner-w800">
             <div class="title-style clf">
                 <h2 class="txt fl">주문 결제하기</h2>
@@ -105,8 +68,7 @@ ${user }
                 <section data-ui="toggle-tab">
                     <!-- 주문고객 정보 -->
                         <div class="ui_title--sub tab" data-ui-id="order_user">
-                            <span class="ui_title__txt">주문고객${user.username }</span>
-                            <span class="ui_title__txtright--blue">영일(010-7184-5798) <i class="ui_icon--arrow-down"></i></span>
+                            <h4>주문고객정보</h4>
                         </div>
                         <table class="table-style-clear orderer-info" data-ui="tab-panel" data-panel-id="order_user">
                             <colgroup>
@@ -116,81 +78,36 @@ ${user }
                             <tbody>
                             <tr>
                                 <th>주문자 정보</th>
-                                <td>영일 ${user.irum }</td>
+                                <td> ${order.user.irum }</td>
                             </tr>
                             <tr>
                                 <th><em class="asterisk red">&lowast;</em>전화</th>
                                 <td>
                                     <div class="body">
-                                        <input
-                                            type="text"
-                                            name="cell_phone"
-                                            class="phonenumber"
-                                            data-auth="current-phone"
-                                            readonly
-                                            required
-                                            value="010-7184-5798"
-                                        >
-                                        <button
-                                            type="button"
-                                            class="ui_btn--redline--small"
-                                            data-modal-url="/w/me/cellphone"
-                                            data-modal-id="phonenumber"
-                                            data-modal-type="post"
-                                            data-modal-trigger="modal-link"
-                                        >변경하기</button>
+                                        <input type="text" name="tel" value="${order.user.tel }">
+                                        <button type="button" id="telChange">변경하기</button>
                                     </div>
                                 </td>
-                                
                             </tr>
                             <tr>
                                 <td></td>
                                 <td>주문, 배송시 등록된 번호로 SMS를 발송해 드립니다.</td>
                             </tr>
                             </tbody>
-                        </table>
-
-                                        <!-- 배송 정보 -->
+                        </table><br>
+<!-- 배송 정보 -->
                         <div class="ui_title--sub">
                             <span class="ui_title__txt">주소 (배송지)</span>
                         </div>
-<input type="button" id="naverPayBtn" value="네이버페이 결제 버튼">
-<script src="https://nsp.pay.naver.com/sdk/js/naverpay.min.js"></script>
-<script>
-    var oPay = Naver.Pay.create({
-          "mode" : "production", // development or production
-          "clientId": "u86j4ripEt8LRfPGzQ8" // clientId
-    });
-
-    //직접 만드신 네이버페이 결제버튼에 click Event를 할당하세요
-    var elNaverPayBtn = document.getElementById("naverPayBtn");
-
-    elNaverPayBtn.addEventListener("click", function() {
-        oPay.open({
-          "merchantUserKey": "가맹점 사용자 식별키",
-          "merchantPayKey": "53",
-          "productName": "피자",
-          "totalPayAmount": "1000",
-          "taxScopeAmount": "1000",
-          "taxExScopeAmount": "0",
-          "returnUrl": "사용자 결제 완료 후 결제 결과를 받을 URL"
-        });
-    });
-
-</script>					
-					
-			
-					
-<input type="text" id="sample3_postcode" placeholder="우편번호">
-<input type="button" onclick="sample3_execDaumPostcode()" value="주소 찾기"><br>
-<input type="text" id="sample3_address" placeholder="주소"><br>
-<input type="text" id="sample3_detailAddress" placeholder="상세주소">
-<input type="text" id="sample3_extraAddress" placeholder="참고항목">
-
-<div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
+							<input type="text" id="postcode" placeholder="우편번호">
+							<input type="button" onclick="execDaumPostcode()" value="주소 찾기"><br>
+							<input type="text" id="address" placeholder="주소"><br>
+							<input type="text" id="detailAddress" placeholder="상세주소">
+							<input type="text" id="extraAddress" placeholder="참고항목">
+                        
+                        <div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
 <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
 </div>
-
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
     // 우편번호 찾기 찾기 화면을 넣을 element
@@ -201,7 +118,7 @@ ${user }
         element_wrap.style.display = 'none';
     }
 
-    function sample3_execDaumPostcode() {
+    function execDaumPostcode() {
         // 현재 scroll 위치를 저장해놓는다.
         var currentScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
         new daum.Postcode({
@@ -236,17 +153,17 @@ ${user }
                         extraAddr = ' (' + extraAddr + ')';
                     }
                     // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("sample3_extraAddress").value = extraAddr;
+                    document.getElementById("extraAddress").value = extraAddr;
                 
                 } else {
-                    document.getElementById("sample3_extraAddress").value = '';
+                    document.getElementById("extraAddress").value = '';
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample3_postcode').value = data.zonecode;
-                document.getElementById("sample3_address").value = addr;
+                document.getElementById('postcode').value = data.zonecode;
+                document.getElementById("address").value = addr;
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("sample3_detailAddress").focus();
+                document.getElementById("detailAddress").focus();
 
                 // iframe을 넣은 element를 안보이게 한다.
                 // (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
@@ -266,405 +183,87 @@ ${user }
         // iframe을 넣은 element를 보이게 한다.
         element_wrap.style.display = 'block';
     }
-</script>
-
-<br><br><br><br><br><br><br>
+</script>                        
                         <div class="address-section" data-address="root">
-                            <div class="tab-style-btn">
-                                <div data-device="mobile">
-                                                                        <div class="tab-style-btn-item">
-                                        <button
-                                            class="btn active"
-                                            type="button"
-                                            data-address='{
-                                                "address_uuid": "e3820bbe-f34e-440a-b1ea-7e3deda56ea3",
-                                                "delivery_name": "",
-                                                "delivery_phone": "010-7184-5798",
-                                                "delivery_remote": "",
-                                                "delivery_zipcode": "",
-                                                "delivery_address1": "",
-                                                "delivery_address2": ""
-                                            }'
-                                        >1</button>
-                                    </div>
-                                                                        <div class="tab-style-btn-item">
-                                        <button
-                                            class="btn "
-                                            type="button"
-                                            data-address='{
-                                                "address_uuid": "8b63a2fe-a07b-4ff0-9e51-62eb1ebb6f98",
-                                                "delivery_name": "",
-                                                "delivery_phone": "",
-                                                "delivery_remote": "",
-                                                "delivery_zipcode": "",
-                                                "delivery_address1": "",
-                                                "delivery_address2": ""
-                                            }'
-                                        >2</button>
-                                    </div>
-                                                                        <div class="tab-style-btn-item">
-                                        <button
-                                            class="btn "
-                                            type="button"
-                                            data-address='{
-                                                "address_uuid": "118c2b3b-070e-43b6-bbdc-a5661032f79e",
-                                                "delivery_name": "",
-                                                "delivery_phone": "",
-                                                "delivery_remote": "",
-                                                "delivery_zipcode": "",
-                                                "delivery_address1": "",
-                                                "delivery_address2": ""
-                                            }'
-                                        >3</button>
-                                    </div>
-                                                                    </div>
-                            </div>
-
-                            <div class="address-info root">
                                 <div class="address-info item">
-                                    <div class="address-info head">
+                                		<br>
                                         <em class="asterisk red">&lowast;</em>
                                         <label for="receiver">받는분</label>
-                                    </div>
-                                    <div class="address-info body">
-                                        <div class="input-text">
-                                            <input
-                                                data-address="delivery_name"
-                                                name="delivery_name"
-                                                type="text"
-                                                placeholder=""
-                                                required
-                                                autocomplete="off"
-                                            >
-                                        </div>
-                                    </div>
+                                        <input name="delivery_name" type="text" value="${order.user.irum }">
                                 </div>
 
                                 <div class="address-info item">
-                                    <div class="address-info head">
                                         <em class="asterisk red">&lowast;</em>
-                                        <label for="receiver">전화번호</label>
-                                    </div>
-                                    <div class="address-info body">
-                                        <div class="input-text">
-                                            <input
-                                                data-address="delivery_phone"
-                                                data-phone-type="none"
-                                                name="delivery_phone"
-                                                type="text"
-                                                required
-                                                autocomplete="off"
-                                            >
-                                        </div>
-                                    </div>
+                                        <label for="delivery_phone">전화번호</label>
+                                        <input name="delivery_phone" type="text" value="${order.user.tel }">
                                 </div>
-
-                                <div class="address-info item">
-                                    <div class="address-info head">
-                                        <em class="asterisk red">&lowast;</em>
-                                        <label for="receiver">주소</label>
-                                    </div>
-                                        
-        <!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
-        <!-- <div
-            id="layer"
-            style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;"
-        > -->
-                            </div>
-
-                            <div class="extra-row">
-                                <label>
-                                    <input
-                                        id="safe-phone"
-                                        type="checkbox"
-                                        name="is_safe_phone"
-                                        class="bp"
-                                        checked
-                                    />
-                                    1회용 안심번호 사용
-                                </label>
-                            </div>
                         </div>
-                    </div>
+					</div>
+				</div>
                     
-                    <!-- 주문 작품 정보 -->
-                    <div class="segment--nospacing" data-ui="order-summary-label">
-                        <div class="ui_title--sub tab " data-ui-id="order_cart">
-                            <span class="ui_title__txt">주문 작품 정보</span>
-                            <span class="ui_title__txtright">
-                                <em class="hilight blue"></em>
-                                <i class="ui_icon--arrow-down"></i>
-                            </span>
-                        </div>
-                        <div data-ui="tab-panel" data-panel-id="order_cart" style="">
-                                                                <table
-            class="paymentCard"
-            data-ui="cart-card"
-            data-artist-uuid="e25a87ff-c30a-43ed-b061-e6ba54ddb988"
-            data-artist-name="위드르방"
-            data-delivery-style="0"
-            data-membership-allow="1"
-            data-delivery-style="0"
-            data-delivery-policy="100000"
-            data-delivery-charge="5000"
-            data-delivery-charge-remote="4000"
-            data-cost-discount-product="0"
-            data-cost-discount-delivery="0"
-        >
-            <colgroup>
-                <col width="120px">
-                <col width="*">
-            </colgroup>
-            <thead>
-                <tr>
-                    <th colspan="2">
-                        <input type="hidden" name="artist_order_price" disabled value="">
-                        <input type="hidden" name="shipping_type" disabled value="">
-                        <input type="hidden" name="shipping_coupon" disabled value="">
-                        <input type="hidden" name="delivery_charge" disabled value="5000">
-                        <div class="txt-group">
-                            <b class="bold">위드르방 작가님</b>
-                        </div>
-                                            </th>
-                </tr>
-            </thead>
-            <tbody>
-                                        <tr
-            class="list-item"
-            data-product-uuid='595dd6f5-5df3-4228-8aec-59f197076328'
-            data-status='1'>
-
-            <td class="area-img">
-                <div class="img-bg"
-                    style="background-image: url(https://image.idus.com/image/files/358815b73d854bdf829e54e182b747d3_512.jpg)"
-                ></div>
-            </td>
-
-            <td class="area-txt">
-                <div class="txt-group">
-                    <input type="hidden" name="product_order_price" disabled value="">
-                    <label class="title-txt bold" for="prd-name">❤3일할인❤[천연발효]초코초코빵</label>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" class="flexible">
-                <ul class="list-options">
-                                        <li
-                        data-artist-uuid=e25a87ff-c30a-43ed-b061-e6ba54ddb988                        data-option-status='1'
-                    >
-                        <input
-                            type="hidden"
-                            name="option_price"
-                            value="3000"
-                            disabled
-                        >
-
+<!-- 주문 작품 정보 -->
+				<div class="segment--nospacing" data-ui="order-summary-label">
+					<div class="ui_title--sub tab " data-ui-id="order_cart">
+						<h4>주문 작품 정보</h4>
+					</div>
+				<div data-ui="tab-panel" data-panel-id="order_cart" style="">
+				<table>
+					<colgroup>
+						<col width="120px">
+						<col width="*">
+            		</colgroup>
+         		   <thead>
+             		   <tr>
+							<th colspan="2">
+        		        		<div class="txt-group">
+                            		<b class="bold">${order.artistName }작가님</b>
+                        		</div>
+                            </th>
+              		  </tr>
+           			</thead>
+					<tbody>
+						<tr>
+				            <td class="area-img">
+          				      	<label>작품명</label>
+            				</td>
+            				<td class="area-txt">
+                    			<label class="title-txt bold" for="prd-name">${order.art.artName }</label>
+							</td>
+        				</tr>
+      				  <tr>
+        			    <td colspan="2" class="flexible">
                         <div class="table-layout">
                             <div class="split">
-                                <span class="option-txt">
-                                                                        <label>수량 :
-                                        <input class="prd-count"
-                                            type="number"
-                 
-                                            value="1"
-                                            data-product-price="3000"
-                                            data-option-price="0"
-                                            data-price="3000"
-                                            data-action="change_count"
-                                            data-status-value="1"
-                                            readonly
-                                        >개
-                                    </label>
-                                </span>
+                                <label>수량: ${order.bag.amount } 개 </label>
                             </div>
                             <div class="split">
-                                <strong><em class="cost-text">3,000</em>원</strong>
+                                <strong>가격 : ${order.art.price }원</strong>
                             </div>
                         </div>
-                    </li>
-                                </ul>
-                <div class="ui_field--onchange  hidden" data-uipack="textarea">
-                    <div class="ui_field__txtarea">
-                        <textarea name="cart[323e97f9-c1dd-4dad-8daf-941e4b6a7b48]" maxlength="500" placeholder="주문 요청사항을 입력해주세요"
-                        readonly                        ></textarea>
-                        <em class="ui_field__chars">500</em>
-                    </div>
-                </div>
-            </td>
-        </tr>
+                		<div class="ui_field--onchange  hidden" data-uipack="textarea">
+                        	<textarea maxlength="500" placeholder="주문 요청사항을 입력해주세요"></textarea>
+               			</div>
+            			</td>
+        			</tr>
                         
-                                <tr class="static-row">
-                    <th>배송비 ${orderdetail.shippingCharge}</th>
-                    <td>
-                        <!-- <div data-freeship="true">
-                            <input
-                                type="text"
-                                name="shipping_price"
-                                data-unformated="0"
-                                value="무료"
-                                readonly
-                                disabled
-                            >
-                        </div> -->
-                                                <div data-freeship="true" style="display: none">
-                            <input
-                                type="text"
-                                name="shipping_price"
-                                data-unformated="0"
-                                value="무료"
-                                readonly
-                                disabled
-                            >
-                            <input
-                                type="text"
-                                style="display: none"
-                                name="free_shipping_policy"
-                                data-unformated="100000"
-                                value="100,000원 이상"
-                                readonly
-                                disabled
-                            >
-                        </div>
-                        <div data-freeship="false">
-                                                        <input
-                                type="text"
-                                name="shipping_price"
-                                data-unformated="5000"
-                                value="5,000원"
-                                readonly
-                                disabled
-                            >
-                            <input
-                                style="display: none"
-                                type="text"
-                                name="free_shipping_policy"
-                                data-unformated="100000"
-                                value="100,000원 이상"
-                                readonly
-                                disabled
-                            >
-                        </div>
-                        <input
-                            type="hidden"
-                            name="remote_shipping_price"
-                            data-unformated="4000"
-                            value="4,000원"
-                            readonly
-                            disabled
-                        >
-                        <!-- <div data-vip="true" class="vipmark" style="display:none;">
-                            <span>VIP 클럽 적용</span>
-                            <span>- 5,000원</span>
-                        </div> -->
-                                            </td>
-                </tr>
-                
-                                <tr style="display:none">
-                    <td>
-                        <fieldset class="coupon-fieldset">
-                            <!-- data for coupon validation  -->
-                            <input type="hidden" name="artist_coupon_id_list[0]" data-name="coupon_id"  value="0">
-                            <input type="hidden" name="discounted_product_price" data-name="discounted_product_price" value="0" disabled>
-                            <input type="hidden" name="discounted_shipping_price" data-name="discounted_shipping_price" value="0" disabled>
-                        </fieldset>
-                    </td>
-                </tr>
-            </tbody>
-
-        </table>
-                                                            </div>
-                    </div>
-
-                    <!-- 선물하기 정보 -->
-                    
-                    <!-- 결제 수단 -->
+                    <tr class="static-row">
+                    	<th>배송비 </th>
+                    	<td>
+                    		<input type="text" name="shippingPrice" value="${order.art.couriPrice}원">
+                        </td>
+               	 	</tr>
+            	</tbody>
+        	</table>
+<!-- 결제 수단 -->
                     <div class="segment">
-                        <div class="ui_title--sub">
-                            <span class="ui_title__txt">결제 수단</span>
-                        </div>
-                        <div class="radiogroup" data-payment-type-btn="root">
-                                                        <label class="radio-item">
-                                <input
-                                    class="bp"
-                                    name="how_to_pay"
-                                    data-payment-type-btn="simple"
-                                    value="BILL"
-                                    type="radio"
-                                    required
-                                    checked
-                                >
-                            </label>
-                            <label class="radio-item">
-                                <input
-                                    class="bp"
-                                    name="how_to_pay"
-                                    value="CARD"
-                                    type="radio"
-                                    required
-                                >
-                                <span data-label="paymentbtn">복잡하게 카드 결제</span>
-                            </label>
-                            <script src="https://nsp.pay.naver.com/sdk/js/naverpay.min.js"
-   									 data-client-id="u86j4ripEt8LRfPGzQ8"
-    								 data-mode="production"
-    								 data-merchant-user-key="가맹점 사용자 식별키"
-    	 							 data-merchant-pay-key="가맹점 주문 번호"
-      								 data-product-name="상품명을 입력하세요"
-    								 data-total-pay-amount="1000"
-    	    						 data-tax-scope-amount="1000"
-    								 data-tax-ex-scope-amount="0"
-    								 data-return-url="사용자 결제 완료 후 결제 결과를 받을 URL">
-							</script>		
-                            <label class="radio-item">
-                                <input
-                                    class="bp"
-                                    name="how_to_pay"
-                                    value="VBANK"
-                                    type="radio"
-                                    required
-                                >
-                                <span data-label="paymentbtn">계좌이체</span>
-                            </label>
-                            <div data-payment-type-target="VBANK" class="payment-type vbank">
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        class="bp"
-                                        name="is_escrow"
-                                        value="1"
-                                    >
-                                    <span class="va-m">
-                                        에스크로
-                                    </span>
-                                </label>
-                            </div>
-                            <label class="radio-item">
-                                <input
-                                    class="bp"
-                                    name="how_to_pay"
-                                    value="CELLPHONE"
-                                    type="radio"
-                                    required
-                                >
-                                <span data-label="paymentbtn">휴대폰 결제</span>
-                            </label>
-                            <label class="radio-item">
-                                <input
-                                    class="bp"
-                                    name="how_to_pay"
-                                    value="TOSS"
-                                    type="radio"
-                                    required
-                                >
-                                <span data-label="paymentbtn" class="img_label">
-                                    <img src="/resources/dist/images/icon_payment_toss.png">
-                                </span>
-                                <span class="hidden" data-label="paymentbtn">토스</span>
-                            </label>
-                                                    </div>
+                        <h4>결제 수단</h4>
+                    </div>
+                    <div>
+                    	<input type="radio">
+                    	<input type="text" value="무통장입금">
                     </div>
                 </section>
+<!--  결제 정보 -->                
                 <section>
                     <div class="final-cost ui_sticky" data-ui="sticky">
                         <h3 class="table-header">결제 정보</h3>
@@ -676,7 +275,7 @@ ${user }
                                     <td>
                                         <span
                                             data-payment="order"
-                                        ></span>원
+                                        >${order.art.price }</span>원
                                     </td>
                                 </tr>
                                 <tr>
@@ -684,7 +283,7 @@ ${user }
                                     <td>
                                         <span
                                             data-payment="shipping"
-                                        >0</span>원
+                                        >${order.art.couriPrice }</span>원
                                     </td>
                                 </tr>
 	                                <!-- 분기처리 -->
@@ -697,7 +296,7 @@ ${user }
                                     <td class="hilight red">
                                         <span
                                             data-payment="total"
-                                        > </span><em>원</em>
+                                        > </span><em>${order.art.couriPrice+order.option.optionPrice }원</em>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -731,19 +330,17 @@ ${user }
                             
                             <div class="segment--nospacing scroll-detector" data-ui="sticky">
                                 <div class="mfixed">
-                                    <button id="btn-submit" class="ui_btn--red--large" data-ui="btn-label">
-                                        <a href="/adaco/order/after"><span data-label="total"></span>
-                                        <span data-label="type"> <a href="/adaco/order/after">결제하기</a></span></a>
-                                        <p class="point" data-label="point">예상적립금 : <em>0</em>P</p>
+                                    <button id="patment" class="ui_btn--red--large" >
+                                    	    결제하기
                                     </button>
                                 </div>
+                                <p class="point" data-label="point">예상적립금 : <em>${order.art.price*0.01 }</em>P</p>
                             </div>
                         </div>
                     </div>
                 </section>
             </div>
         </div>
-    </form>
 </div>
 </body>
 </html>

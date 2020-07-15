@@ -8,8 +8,44 @@ import lombok.*;
 import lombok.experimental.*;
 
 public class OrderDto {
-   private OrderDto() {
-   }
+	  private OrderDto() {
+	   }
+
+ //결제하기 화면 이동시 넘겨줄 값
+ 	@Data
+ 	@AllArgsConstructor
+ 	@NoArgsConstructor
+ 	@Builder
+ 	@Accessors(chain=true)
+ 	public static class DtoForPayment{
+ 		//Art
+// 		private String artName;
+// 		private int price;
+// 		private String artistName;
+// 		private int amount;
+// 		private int totalPrice;
+// 		private String optionName;
+// 		private String optionValue;
+// 		private Integer optionStock;
+// 		private Integer optionPrice;
+// 		private int couriPrice;
+// 		private int accumulated;
+// 		//User
+// 		private String username;
+// 		private int tel;
+// 		private String irum;
+// 		private String email;
+ 		private Art art;
+ 		private Option option;
+ 		private User user;
+ 		private Bag bag;
+ 		private String artistName;
+ 		// 외래키
+ 		private int artistno;
+ 		private int optno;
+ 		private int orderno;
+ 	}
+ 	//////////////////////////
    
    @Data
    @AllArgsConstructor

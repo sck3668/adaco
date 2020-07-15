@@ -18,8 +18,13 @@ public class OrderDetailService {
 	private ModelMapper modelMapper; 
 	
 	// 주문 상세 보기
-	public void OrderDetail(Integer orderno) {
-		orderDetailDao.OrderDetail(orderno);
+	public OrderDetail OrderDetail(Integer orderno) {
+		return orderDetailDao.OrderDetail(orderno);
+	}
+	
+
+	public int payment(OrderDetail orderDetail) {
+		return orderDetailDao.Payment(orderDetail);
 	}
 
 	

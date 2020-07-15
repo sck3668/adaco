@@ -7,11 +7,58 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+ <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+  />
+<style>
+.input-group { 
+		border: 3px solid gold;
+		border-radius: 5px;
+ 		margin: auto;
+ 		position: relative; 
+ 		left: 300px; 
+		} 
+		#search{
+		background-color: #FFFFFF;
+		border:0;
+		outline:0;
+		padding: 10px;
+		}
+		#artname{
+		text-indent: 1em;
+		border:0;
+		outline:0;
+		background-color: #FFFFFF;
+		width:300px;
+		}
+ </style> 
+<script type="text/javascript">
+$(function(){
+	$("#search").on("click", function(){
+		var artname = $("#artname").val();
+		location.href = "/adaco/art/listByUser?artname="+artname;
+		console.log(artname);
+	});
+	
+});	
+
+</script>
 </head>
 <body>
-${artReviewPage.artList }
+<%-- ${artReviewPage.artList } --%>
 	<div class="container">
     <div class="row">
+    	<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+			<div class="input-group" >
+              <input type="text"  placeholder="작품 이름 검색" aria-label="Search" aria-describedby="basic-addon2" name = "artname" id ="artname" />
+	              <div class="input-group-append">
+	                	<button type="button" id = "search">
+		                 <span style="color:gold"><i class="fas fa-search fa-lg"></i></span>
+		                </button>
+	              </div>
+            </div>
+		 </form>
       <div class="col-lg-12">
         <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
           <ol class="carousel-indicators">
@@ -49,7 +96,7 @@ ${artReviewPage.artList }
                 <h4 class="card-title">
                   <sec:authorize access="hasRole('ROLE_USER')">
                   <a href="/adaco/art/readByUser?artno=${art.artno}">
-                  <img alt="상품 사진" src="${art.mainImg }"></a>
+                  <img alt="상품 사진" src="${art.mainImg }" width="250px" height="200px"></a>
             	</sec:authorize>
                 </h4>
                 <h5>${art.artName}</h5>
@@ -61,8 +108,33 @@ ${artReviewPage.artList }
             </div>
           </div>
 </c:forEach>
-        </div>
+ 	</div>
         <!-- /.row -->
+        	<div style="text-align: center;">
+		<ul class="pagination justify-content-center">
+			<c:if test="${artReviewPage.prev==true}">
+				<li><a
+					href="/adaco/art/listByUser?pageno=${artReviewPage.startPage-1}">이전</a></li>
+			</c:if>
+			<c:forEach begin="${artReviewPage.startPage}" end="${artReviewPage.endPage}"
+				var="i">
+				<c:choose>
+					<c:when test="${artReviewPage.pageno eq i }">
+						<li class="active"><a
+							href="/adaco/art/listByUser?pageno=${i}">${i}</a></li>
+					</c:when>
+					<c:otherwise>
+						<li><a href="/adaco/art/listByUser?pageno=${i}">${i}</a></li>
+					</c:otherwise>
+				</c:choose>
+
+			</c:forEach>
+			<c:if test="${artReviewPage.next==true}">
+				<li><a
+					href="/adaco/art/listByUser?pageno=${artReviewPage.endPage+1}">다음</a></li>
+			</c:if>
+		</ul>
+     </div>
       </div>
       <!-- /.col-lg-9 -->
     </div>

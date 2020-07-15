@@ -29,6 +29,13 @@ a {text-decoration: none;}
 
 </style>
 <script>
+$(function(){
+	$("#search").on("click", function(){
+		var category = $("#category").val();
+		location.href = "/adaco/art/listByArtist?category="+category;
+	});
+});	
+
 function init() {
 	$("#dropdown-menu").hide();
 	}
@@ -52,12 +59,12 @@ $(function() {
           		<i class="fa fa-folder-open"></i> 카테고리 <i class="caret"></i>
           	</a>
           	<ul id="dropdown-menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownCategoryMenu"> 
-          		<li><a href="/category"><i class="fa fa-folder"></i> 전체보기</a></li> 
+          		<li><a href="/adaco/art/listByUser"><i class="fa fa-folder"></i> 전체보기</a></li> 
           		<li class="divider"></li> 
-          		<li><a href="/category/1"><i class="fa fa-folder"></i>악세사리</a></li> 
-          		<li><a href="/category/2"><i class="fa fa-folder"></i>인테리어</a></li> 
-          		<li><a href="/category/3"><i class="fa fa-folder"></i>공예</a></li> 
-          		<li><a href="/category/4"><i class="fa fa-folder"></i>기타</a></li> 
+          		<li><a href="http://localhost:8081/adaco/art/listByUser?category=악세사리"><i class="fa fa-folder"></i>악세사리</a></li> 
+          		<li><a href="http://localhost:8081/adaco/art/listByUser?category=인테리어"><i class="fa fa-folder"></i>인테리어</a></li> 
+          		<li><a href="http://localhost:8081/adaco/art/listByUser?category=공예"><i class="fa fa-folder"></i>공예</a></li> 
+          		<li><a href="http://localhost:8081/adaco/art/listByUser?category=기타"><i class="fa fa-folder"></i>기타</a></li> 
           	</ul> 
           </li>
           <li class="ui_gnb__menu">
