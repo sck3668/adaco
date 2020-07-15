@@ -41,10 +41,10 @@ public class ArtServiceTest {
 	private ModelMapper modelMapper;
 
 	// 작품 리스트 테스트(작가입장) ok
-	@Test
-	public void listTest() {
+	//@Test
+	/*public void listTest() {
 		artservice.list(1, null);
-	}
+	}*/
 
 	// 작품 리스트 테스트(회원입장) ok
 	//@Test

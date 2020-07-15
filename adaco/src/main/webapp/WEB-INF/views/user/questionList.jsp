@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
 <meta charset="EUC-KR">
@@ -48,24 +49,8 @@ $(function(){
 </head>
 <body>
 <div>
-<aside id="asideMain">
-	<div id="aside">
-		<div id="profile">
-		</div>
-		<div>
-			<ul>
-				<li><a href="/adaco/user/read" style="color: black;">내정보보기</a></li>
-				<li><a href="/adaco/order/read"style="color: black;">주문내역</a></li>
-				<li><a href="/adaco/user/reviewList" style="color: black;">내리뷰보기</a></li>
-				<li><a href="/adaco/user/favoriteList" style="color: black;">즐겨찾기목록</a></li>
-				<li><a href="/adaco/user/pointList" style="color: black;">포인트함 </a>
-				<li><a href="/adaco/user/messageList" style="color: black;">메세지함</a>
-			</ul>
-		</div>
-	</div>
-	</aside>
-	<section id="section">
-		 <div>
+<section id="section">
+  <div>
    <h1>1:1 문의목록</h1>
       <table class="table table-hover">
                 <colgroup>
@@ -96,6 +81,27 @@ $(function(){
 		</c:forEach>
 		</tbody>
        </table>
+       <ul class="pagination" style="text-align: center; margin: 0 auto; width: 0px; text-align: center;">
+			<c:if test="${questionPage.prev==true}">
+				<li class="page-item" style="width: 60px;"><a style = "width: 60px;" class = "page-link" href="/adaco/user/questionList?searchType=${questionPage.state}&writer=${questionPage.search }&pageno=${questionPage.startPage-1}">이전</a></li>
+			</c:if>
+			<c:forEach begin="${questionPage.startPage}" end="${questionPage.endPage}" var="i">
+				<c:choose>
+					<c:when test="${questionPage.pageno eq i }">
+						<li class="page-item active">
+							<a class = "page-link" href="/adaco/user/questionList?pageno=${i}">${i}</a>
+						</li>
+					</c:when>
+					<c:otherwise>
+						<li class = "page-item"><a class = "page-link" href="/adaco/user/questionList?searchType=${questionPage.state}&writer=${questionPage.search }&pageno=${i}">${i}</a></li>
+					</c:otherwise>
+				</c:choose>
+				
+			</c:forEach>
+			<c:if test="${questionPage.next==true}">
+				<li class = "page-item" style="width: 60px;"><a style = "width: 60px;" class = "page-link" href="/adaco/user/questionList?searchType=${questionPage.state}&writer=${questionPage.search }&pageno=${questionPage.endPage+1}">다음</a></li>
+			</c:if>
+		</ul>
       <br><br><br><br><br><br><br><br><br><br><br>
    </div>		
 			

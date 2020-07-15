@@ -63,7 +63,7 @@ public class AdminBoardController {
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/questionWrite")
 	public ModelAndView questionWrite() {
-		return new ModelAndView("admin/question/write");
+		return new ModelAndView("main").addObject("viewName", "admin/question/write.jsp");
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -88,7 +88,7 @@ public class AdminBoardController {
 	@PostAuthorize("isAuthenticated() or hasRole('ROLE_ADMIN')")
 	@GetMapping("/admin/question_read")
 	public ModelAndView qusetionRead(@RequestParam(value = "qno")@NonNull Integer qno) throws JsonProcessingException {
-		ModelAndView mav = new ModelAndView("admin/question/read");
+		ModelAndView mav = new ModelAndView("main").addObject("viewName", "admin/question/read.jsp");
 		AdminBoardDto.DtoForQuestionRead dto = service.questionRead(qno);
 		String json = objectMapper.writeValueAsString(dto); 
 		mav.addObject("question", json);
@@ -103,6 +103,12 @@ public class AdminBoardController {
 		return "redirect:/admin/question_read?qno="+question.getQno();
 	}
 
+	@GetMapping("/user/noticeList")
+	public ModelAndView userNoticeList(@RequestParam(defaultValue = "1")int pageno, @Nullable Boolean isImportant) {
+		return new ModelAndView("main").addObject("viewName","user/noticeList.jsp").addObject("noticePage", service.noticeList(pageno, isImportant));
+	}
+	
+	
 	@Secured("ROLE_ADMIN")
 	@GetMapping("/admin/notice_list")
 	public ModelAndView noticeList(@RequestParam(defaultValue = "1")int pageno, @Nullable Boolean isImportant) {
@@ -117,7 +123,7 @@ public class AdminBoardController {
 	
 	@GetMapping("/admin/notice_read")
 	public ModelAndView noticeRead(@NonNull Integer noticeno) throws JsonProcessingException {
-		ModelAndView mav = new ModelAndView("admin/notice/read");		
+		ModelAndView mav = new ModelAndView("main").addObject("viewName", "admin/notice/read.jsp");		
 		AdminBoardDto.DtoForNoticeRead dto = service.noticeRead(noticeno);
 		String json = objectMapper.writeValueAsString(dto);
 		mav.addObject("notice", json);

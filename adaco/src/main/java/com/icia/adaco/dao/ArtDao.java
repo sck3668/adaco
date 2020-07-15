@@ -75,8 +75,6 @@ public class ArtDao {
 		return tpl.update("artMapper.update",art);
 	}
 	
-
-	
 	//작품 갯수
 	public int countByArt() {
 		return tpl.selectOne("artMapper.count");
@@ -85,11 +83,13 @@ public class ArtDao {
 	////////////////////// 회원 전용 ///////////////////////////
 	
 	//작품 내역 보기(최신순) + 작품이름으로 검색 리스트
-	public List<Art> listByArtFromUser(int startRowNum, int endRowNum, @Nullable String artname){
+	public List<Art> listByArtFromUser(int startRowNum, int endRowNum, @Nullable String artname, @Nullable String category, @Nullable String tag){
 		Map<String, Object>map = new HashMap<String, Object>();
 		map.put("startRowNum", startRowNum);
 		map.put("endRowNum",endRowNum);
 		map.put("artName", artname);
+		map.put("category", category);
+		map.put("tag", tag);
 		return tpl.selectList("artMapper.findAllFromUser",map); 
 	}
 
@@ -100,18 +100,19 @@ public class ArtDao {
 		return tpl.selectOne("artMapper.countSearchByArtName",map);
 	}
 	
-	//일단 리뷰가 5이상인 작품 리스트
-	public List<Art> listManyReviewByArt(int startRowNum, int endRowNum){
-		Map<String, Integer>map = new HashMap<>();
+	//작품 내역보기(리뷰순) + 작품이름으로 검색 가능
+	public List<Art> listManyReviewByArt(int startRowNum, int endRowNum, @Nullable String artname){
+		Map<String, Object>map = new HashMap<>();
 		map.put("startRowNum", startRowNum);
 		map.put("endRowNum",endRowNum);
+		map.put("artName", artname);
 		return tpl.selectList("artMapper.reviewManyByArt",map); 
 	}
 	
 	//일단 리뷰가 5이상인 작품 수
-	public int countReviewByArt() {
+	/*public int countReviewByArt() {
 		return tpl.selectOne("artMapper.countReviewByArt");
-	}
+	}*/
 		
 	// 작품 상세보기
 	public Art readByArtFromUser(Integer artno) {
@@ -135,5 +136,12 @@ public class ArtDao {
 	// 작품 이미지 추가
 	public int insertArtImg(ArtImg artImg) {
 		return tpl.insert("artMapper.insertArtImg", artImg);
+	}
+	
+	////////////상점 사용///////////////
+	
+	//상점 정보에 이미지 보이기
+	public List<String> findAllArtImgByShopno(int shopno) {
+		return tpl.selectList("artMapper.findAllArtImgByShopno",shopno);
 	}
 }
