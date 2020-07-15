@@ -37,7 +37,7 @@ $(function(){
 	$("#sajin").on("change", loadImage);
 	var ck = CKEDITOR.replace("content", {
 		height: 600,
-		filebrowserUploadUrl:"http://localhost:8081/adaco/story/ckupload"
+		filebrowserUploadUrl:'http://localhost:8081/adaco/story/ckupload?${_csrf.parameterName}=${_csrf.token}'
 	})
 	var idx = 0;
 	$("#add").on("click", function(){
@@ -58,7 +58,7 @@ $(function(){
 <body>
 	<form action="/adaco/story/writeStory" method="post" id="writeForm"	enctype="multipart/form-data">
 		<div class="form-group">
-				<label for="sajin">프로필 사진</label>
+				<label for="sajin">대표 이미지 등록</label>
 				<input id="sajin" type="file" name="sajin" class="form-control"  accept=".jpg,.jpeg,.png,.gif,.bmp">
 			</div>
 		<div class="form-group">

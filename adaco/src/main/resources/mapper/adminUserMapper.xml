@@ -100,4 +100,10 @@
 	<delete id="deleteByArtist">
 		delete from artist where artistno = #{artistno} and rownum = 1
 	</delete>
+	
+	<select id="findProfileByArtistno" resultType="string">
+		select profile from users
+   		 where username = 
+    		(select username from artist where artistno = #{artistno})
+	</select>
  </mapper>

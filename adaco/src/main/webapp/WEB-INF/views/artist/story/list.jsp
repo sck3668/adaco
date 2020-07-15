@@ -9,6 +9,75 @@
 <title>스토리 리스트</title>
 
 <style>
+.articles-v3 {}
+
+.articles-v3__img {
+  display: block;
+  transition: opacity .3s;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+
+  img {
+    display: block;
+    width: 100%;
+  }
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+.articles-v3__headline {
+  font-size: var(--text-xl);
+
+  a {
+    color: var(--color-contrast-higher);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.articles-v3__author {
+  display: grid;
+  grid-template-columns: 3em 1fr;
+  grid-gap: var(--space-xs);
+  align-items: center;
+  margin-top: var(--space-md);
+}
+
+.articles-v3__author-img {
+  display: block;
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  overflow: hidden;
+  transition: transform .3s var(--ease-out-back);
+  
+  img {
+    display: block;
+    width: inherit;
+    height: inherit;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.articles-v3__author-name {
+  font-weight: bold;
+  color: var(--color-contrast-higher);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+	
+	
 	#storyList {
 		border: 1px solid gray;
 		width:250px;
@@ -17,6 +86,8 @@
 	}
 	
 </style>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script>
 	$(function() {
 		//if("${memoMsg}"!=="")
@@ -52,60 +123,76 @@
 </script>
 </head>
 <body>
-${story }
 	<h1>스토리</h1>
 	<hr>
-	<c:forEach items="${story.storyList}" var="story">
-	<div id="storyList">
-			<div id="textArea">
-				<table>
-					<tr>
-						<td class="writer" data-toggle="modal" data-target="#myModal" data-writer="${story.writer}">${story.writer }</td>
-					</tr>
-					<tr>
-						<td class="writeDate">${story.writeDateStr }</td>
-					</tr>
-				</table>
-			</div>
-			<a href="/adaco/story/readStory?storyno=${story.storyno }">
-			<div id="imageArea">
-				<div class="image">
-					<img alt="art" src="${story.image }">
-				</div>
-			</div>
-		</a>
-	</div>
-</c:forEach>
-	<sec:authorize access="hasRole('ROLE_SELLER')">
-	<div class="form-group">
-		<a href="/adaco/story/writeStory">글쓰기</a>
-	</div>
-	</sec:authorize>
-	
-	<div style="text-align: center;">
-		<ul class="pagination">
+	<section class="articles-v3">
+	  <div class="container max-width-adaptive-lg">
+	    <ul class="grid gap-lg">
+		<c:forEach items="${story.storyList}" var="story">
+		      <li style="margin-bottom: 10px; border: 3px solid pink;">
+	            <div class="articles-v3__author">
+	              <a href="#0" class="articles-v3__author-img">
+	                <img src="${story.profile}" alt="Author picture" style="width: 50px; height: 50px;">
+	              </a>
+	        
+	              <div class="text-component text-sm line-height-xs v-space-xs">
+	                <p><a href="#0" class="articles-v3__author-name" rel="author">${story.writer }</a></p>
+	                <p class="color-contrast-medium"><time>${story.writeDateStr }</time>, &mdash; ${story.times } </p>
+	              </div>
+	            </div>
+		        <div class="grid gap-md items-start">
+		          <a href="/adaco/story/readStory?storyno=${story.storyno }" class="articles-v3__img col-6@md col-7@xl">
+		            <figure class="media-wrapper">
+		              <img src="${story.image }" alt="Image description">
+		            </figure>
+		          </a>
+		    
+		          <div class="col-6@md col-5@xl" style="  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 90%; height: 250px;">
+		            <div class="text-component">
+		              <h2 class="articles-v3__headline"><a href="/adaco/story/readStory?storyno=${story.storyno }" style="color: #ff4757; font-weight: bold;">${story.title }</a></h2>
+		              <p>${story.content }</p>
+		            </div>
+		    
+		          </div>
+		        </div>
+		      </li>
+		</c:forEach>
+		</ul>
+		</div>
+			<div style="text-align: center;">
+		<ul class="pagination" style="text-align: center; margin: 0 auto; width: 0px; text-align: center;">
 			<c:if test="${story.prev==true}">
-				<li><a
+				<li class = "page-item"><a
 					href="/adaco/story/listStory?pageno=${story.startPage-1}">이전</a></li>
 			</c:if>
 			<c:forEach begin="${story.startPage}" end="${story.endPage}"
 				var="i">
 				<c:choose>
 					<c:when test="${story.pageno eq i }">
-						<li class="active"><a
-							href="/adaco/story/listStory?pageno=${i}">${i}</a></li>
+						<li class="page-item active"><a
+							class = "page-link" href="/adaco/story/listStory?pageno=${i}">${i}</a></li>
 					</c:when>
 					<c:otherwise>
-						<li><a href="/adaco/story/listStory?pageno=${i}">${i}</a></li>
+						<li class = "page-item"><a class = "page-link" href="/adaco/story/listStory?pageno=${i}">${i}</a></li>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 			<c:if test="${story.next==true}">
-				<li><a
+				<li class = "page-item"><a
 					href="/adaco/story/listStory?pageno=${story.endPage+1}">다음</a></li>
 			</c:if>
 		</ul>
 	</div>
+	</section>
+	
+	<sec:authorize access="hasRole('ROLE_SELLER')">
+		<div class="form-group">
+			<a href="/adaco/story/writeStory" class="btn btn-success">글쓰기</a>
+		</div>
+	</sec:authorize>
+	
+
+	
 	<div class="modal fade" id="myModal" role="dialog" style="top:40%;">
 		<div class="modal-dialog">
 			<div class="modal-content">

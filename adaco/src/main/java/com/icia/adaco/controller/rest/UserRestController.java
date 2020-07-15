@@ -78,4 +78,8 @@ public class UserRestController {
 		return ResponseEntity.ok(null);
 	}
 	
+	@GetMapping("/user/profile")
+	public ResponseEntity<String> findProfile(String username) {
+		return ResponseEntity.ok(userRestService.findProfile(username));
+	}
 }
