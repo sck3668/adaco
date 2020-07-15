@@ -39,6 +39,8 @@ $(function(){
 	$("#search").on("click", function(){
 		var artname = $("#artname").val();
 		location.href = "/adaco/art/listByUser?artname="+artname;
+// 		var artname = $("#artname").val();
+// 		location.href = "/adaco/art/listByUser?artname="+artname;
 		console.log(artname);
 	});
 	
@@ -130,8 +132,34 @@ $(function(){
             </div>
           </div>
 </c:forEach>
+	
         </div>
         <!-- /.row -->
+        	<div style="text-align: center;">
+		<ul class="pagination justify-content-center">
+			<c:if test="${artPage.prev==true}">
+				<li><a
+					href="/adaco/art/listByUser?pageno=${artPage.startPage-1}">이전</a></li>
+			</c:if>
+			<c:forEach begin="${artPage.startPage}" end="${artPage.endPage}"
+				var="i">
+				<c:choose>
+					<c:when test="${artPage.pageno eq i }">
+						<li class="active"><a
+							href="/adaco/art/listByUser?pageno=${i}">${i}</a></li>
+					</c:when>
+					<c:otherwise>
+						<li><a href="/adaco/art/listByUser?pageno=${i}">${i}</a></li>
+					</c:otherwise>
+				</c:choose>
+
+			</c:forEach>
+			<c:if test="${artPage.next==true}">
+				<li><a
+					href="/adaco/art/listByUser?pageno=${artPage.endPage+1}">다음</a></li>
+			</c:if>
+		</ul>
+		</div>
       </div>
       <!-- /.col-lg-9 -->
     </div>

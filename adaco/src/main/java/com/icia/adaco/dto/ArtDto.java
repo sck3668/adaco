@@ -40,8 +40,6 @@ public class ArtDto {
 		private Integer optionStock;
 		private Integer optionPrice;
 		private String artDetail;
-	
-		//
 	}
 	
 	@Data
@@ -60,6 +58,7 @@ public class ArtDto {
 		private Boolean isFavorite;
 		private LocalDate artDate;
 		private String username;
+		private String tag;
 		List<Art> artList;
 	}
 	
@@ -168,7 +167,7 @@ public class ArtDto {
 		private Integer stock;
 		private Integer couriPrice;
 	}
-	// 작품 등록시 유제네임으로 작가번호, 상점번호 받아오기
+	// 작품 등록시 유저네임으로 작가번호, 상점번호 받아오기
 	@Data
 	@AllArgsConstructor
 	@NoArgsConstructor
