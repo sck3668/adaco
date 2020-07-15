@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.math.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.lang.Nullable;
 import org.springframework.security.access.annotation.*;
 import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
@@ -60,7 +61,7 @@ public class AdminBoardController {
 	}
 	
 	@PreAuthorize("isAuthenticated()")
-	@GetMapping("/admin/question_write")
+	@GetMapping("/user/questionWrite")
 	public ModelAndView questionWrite() {
 		return new ModelAndView("admin/question/write");
 	}
@@ -78,8 +79,13 @@ public class AdminBoardController {
 		return new ModelAndView("admin/question/list").addObject("questionPage", service.questionList(pageno, writer, searchType));
 	}
 	
-//	@PreAuthorize("isAuthenticated()")
-	@Secured("ROLE_ADMIN")
+	@GetMapping("/user/questionList")
+	public ModelAndView userQuestionList(@RequestParam(defaultValue = "1")int pageno, Principal principal, @Nullable State searchType) {
+		String writer = principal.getName();
+		return new ModelAndView("main").addObject("viewName", "user/questionList.jsp").addObject("questionPage", service.questionList(pageno, writer, searchType));
+	}
+	
+	@PostAuthorize("isAuthenticated() or hasRole('ROLE_ADMIN')")
 	@GetMapping("/admin/question_read")
 	public ModelAndView qusetionRead(@RequestParam(value = "qno")@NonNull Integer qno) throws JsonProcessingException {
 		ModelAndView mav = new ModelAndView("admin/question/read");
@@ -141,7 +147,7 @@ public class AdminBoardController {
 	}
 
 
-	@GetMapping("/user/faq_list")
+	@GetMapping("/user/faqList")
 	public ModelAndView faqList() {
 		return new ModelAndView("admin/faq/list").addObject("faqList", service.faqList());
 	}

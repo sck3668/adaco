@@ -119,7 +119,7 @@
 							<li><a href="#" style="text-decoration: none;"><i
 									class="fas fa-exclamation"></i> 공지사항</a></li>
 							<li class="#"></li>
-							<li><a href="#" style="text-decoration: none;"><i
+							<li><a href="/adaco/user/faqList" style="text-decoration: none;"><i
 									class="fas fa-question"></i> 자주 묻는 질문</a></li>
 							<li><a href="#" style="text-decoration: none;"><i
 									class="far fa-paper-plane"></i> 메일로 문의</a></li>
@@ -168,7 +168,7 @@
 							<li><a href="#" style="text-decoration: none;"><i
 									class="fas fa-exclamation"></i> 공지사항</a></li>
 							<li class="#"></li>
-							<li><a href="#" style="text-decoration: none;"><i
+							<li><a href="/adaco/user/faqList" style="text-decoration: none;"><i
 									class="fas fa-question"></i> 자주 묻는 질문</a></li>
 							<li><a href="#" style="text-decoration: none;"><i
 									class="far fa-paper-plane"></i> 메일로 문의</a></li>
@@ -219,7 +219,7 @@
 							<li><a href="#" style="text-decoration: none;"><i
 									class="fas fa-exclamation"></i> 공지사항</a></li>
 							<li class="#"></li>
-							<li><a href="#" style="text-decoration: none;"><i
+							<li><a href="/adaco/user/faqList" style="text-decoration: none;"><i
 									class="fas fa-question"></i> 자주 묻는 질문</a></li>
 							<li><a href="#" style="text-decoration: none;"><i
 									class="far fa-paper-plane"></i> 메일로 문의</a></li>

@@ -140,7 +140,8 @@
 	                <p class="color-contrast-medium"><time>${story.writeDateStr }</time>, &mdash; ${story.times } </p>
 	              </div>
 	            </div>
-		        <div class="grid gap-md items-start">
+	            <hr style="border: 1.5px solid pink;">
+		        <div class="grid gap-md items-start" style="text-align: center;">
 		          <a href="/adaco/story/readStory?storyno=${story.storyno }" class="articles-v3__img col-6@md col-7@xl">
 		            <figure class="media-wrapper">
 		              <img src="${story.image }" alt="Image description">
@@ -150,6 +151,7 @@
 		          <div class="col-6@md col-5@xl" style="  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 90%; height: 250px;">
 		            <div class="text-component">
 		              <h2 class="articles-v3__headline"><a href="/adaco/story/readStory?storyno=${story.storyno }" style="color: #ff4757; font-weight: bold;">${story.title }</a></h2>
+		              <br><br><br>
 		              <p>${story.content }</p>
 		            </div>
 		    

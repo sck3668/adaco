@@ -152,8 +152,11 @@ function checkState() {
 					</div>
 				</div>
 				<button type="button" id="answer" class="btn btn-info">등록</button>
+				<a href = "/adaco/admin/question_list" class="btn btn-success">뒤로가기</a>
 	        </sec:authorize>
-			<a href = "/adaco/admin/question_list" class="btn btn-success">뒤로가기</a>
+	        <sec:authorize access="isAuthenticated()">
+		        <a href = "/adaco/" class = "btn btn-success">메인으로</a>
+	        </sec:authorize>
 		</form>
 	</div>
 	

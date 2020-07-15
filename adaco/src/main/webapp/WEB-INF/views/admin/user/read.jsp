@@ -175,6 +175,7 @@ function checkEnabled() {
 	</div>
 	<button type="button" class="btn btn-success" id="update">변경하기</button>
 	<button type="button" class="btn btn-danger" id = "block">회원 블락</button>
+	<a href = "/adaco/message/write?recipientId=${user.username }" class = "btn btn-warning">쪽지 발송</a> 
     
         
     	</div>
