@@ -169,7 +169,6 @@
 		select main_img mainImg from art where shopno=#{shopno}
 	</select>
 	
-	
 	<select id="findArtistnoByArtno" resultType="int">
 		select artistno from art where artno=#{artno}
 	</select>

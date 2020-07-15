@@ -35,9 +35,11 @@ th {
 /*   } */
 
 </style>
-
-
-
+<script>
+	$(function() {
+		
+	})
+</script>
 </head>
 <body>
 ${order}
@@ -65,7 +67,6 @@ ${order}
             </div>
 
             <div class="layout-split" data-layout-split="payment">
-                <section data-ui="toggle-tab">
                     <!-- 주문고객 정보 -->
                         <div class="ui_title--sub tab" data-ui-id="order_user">
                             <h4>주문고객정보</h4>
@@ -262,7 +263,6 @@ ${order}
                     	<input type="radio">
                     	<input type="text" value="무통장입금">
                     </div>
-                </section>
 <!--  결제 정보 -->                
                 <section>
                     <div class="final-cost ui_sticky" data-ui="sticky">
@@ -302,39 +302,8 @@ ${order}
                                 </tbody>
                             </table>
                         </div>
-                        <div class="segment-group" data-ui="toggle-tab">
-                            <div class="segment--nospacing">
-                                <div class="ui_title--sub tab" data-ui-id="info_personal1">
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            name="privacy_info"
-                                            autocomplete="off"
-                                            required
-                                            class="bp"
-                                        >
-                                        <i class="asterisk red">&lowast;</i>
-                                        개인정보 제3자 제공고지
-                                    </label>
-                                    <span class="ui_title__txtright--blue">더 보기<i class="ui_icon--arrow-down"></i></span>
-                                </div>
-                                <div class="scroll-txt" data-ui="tab-panel" data-panel-id="info_personal1">
-                                    ‣ 제공받는 자 : 위드르방<br>
-                                    ‣ 목적 : 판매자와 구매자 사이의 원활한 거래 진행, 상품의 배송을 위한 배송지 확인, 고객상담 및 불만처리 등<br>
-                                    ‣ 정보 : 별명, 이름, 전화, 주소<br>
-                                    ‣ 보유기간 : 발송완료 후 15일<br>
-                                    <br>
-                                </div>
-                            </div>
-                            
-                            <div class="segment--nospacing scroll-detector" data-ui="sticky">
-                                <div class="mfixed">
-                                    <button id="patment" class="ui_btn--red--large" >
-                                    	    결제하기
-                                    </button>
-                                </div>
-                                <p class="point" data-label="point">예상적립금 : <em>${order.art.price*0.01 }</em>P</p>
-                            </div>
+                        <div>
+                             <button id="payment">결제하기</button>
                         </div>
                     </div>
                 </section>
