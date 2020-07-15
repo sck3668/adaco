@@ -1,5 +1,6 @@
 package com.icia.adaco.service.mvc;
 
+import java.time.*;
 import java.util.*;
 
 import org.modelmapper.*;
@@ -25,13 +26,16 @@ public class OrderService {
 	private BagDao bagDao;
 	@Autowired
 	private ArtDao artDao;
+	@Autowired
 	private OptionDao optionDao;
+	@Autowired
+	private ArtistDao artistDao;
+	@Autowired
 	private OrderDetailDao orderDetailDao;
 	@Autowired
 	private ObjectMapper objectMapper = new ObjectMapper();
 	@Autowired
 	private ModelMapper modelMapper;
-	
 		// 주문 하기    
 //		public int Ordering(String username, Order order,OrderDto.DtoForOrdering Dto) {
 //			int orderno = order.getOrderno();
@@ -51,24 +55,72 @@ public class OrderService {
 //		}
 		// 3
 		
-		public int Ordering(Order order,Bag bag) {
-			int artno = bag.getArtno();
-			Art art = artDao.readByArt(artno);
-			bag.setTotalPrice(bag.getAmount()*art.getPrice());
-			return orderDao.Ordering(order);
-		}
+	
+	
+	// 주문하기
+			public int Ordering(Order order,Bag bag,String username) {
+				System.out.println("ordering service"+order+"//"+bag+"//"+username);
+				order.setOrderDate(LocalDateTime.now());
+				order.setUsername(username);
+				order.setShippingCharge(3000);
+				int artno = bag.getArtno();
+				Art art = artDao.readByArt(artno);
+				bag.setTotalPrice(bag.getAmount()*art.getPrice());
+				bagDao.insertByBag(bag);
+				orderDao.Ordering(order);
+				//artno
+				System.out.println(artno+"artno111");
+				return artno;
+			}
+			
+			
+			// 주문하기 후 결제창 이동시 넘겨줄 데이터
+			public OrderDto.DtoForPayment OrderingD(String username,int artno) {
+				Art art = artDao.readByArt(artno);
+				int artistno = artDao.findArtistnoByArtno(artno);
+				System.out.println("333");
+				int optno = optionDao.findOptnoByArtno(artno);
+				System.out.println("4444");
+				int orderno = orderDao.findOrdernoByUsername(username);
+				System.out.println("orderingD1==="+artistno+"//"+optno+"//"+orderno);
+				Option option = optionDao.readByArtno(artno);
+				System.out.println("option==="+option);
+				User user = userDao.findByid(username);
+				System.out.println("user====="+user);
+				System.out.println("art===="+art);
+				Bag bag = bagDao.findByArtno(artno);
+				System.out.println("bag===="+bag);
+				String artistUsername = artistDao.findByid(artistno).getUsername();
+				String artistName = userDao.findByid(artistUsername).getIrum();
+				OrderDto.DtoForPayment dto = new OrderDto.DtoForPayment();
+				dto.setArtistName(artistName).setArt(art).setOption(option).setUser(user).setBag(bag).setArtistno(artistno).setOrderno(orderno);
+				System.out.println("orderingD  Dto ==="+dto);
+				return dto;
+			}
+	
+	
+	
+	
+	
+	////////////////////////////////
+//		public int Ordering(Order order,Bag bag) {
+//			int artno = bag.getArtno();
+//			Art art = artDao.readByArt(artno);
+//			bag.setTotalPrice(bag.getAmount()*art.getPrice());
+//			return orderDao.Ordering(order);
+//		}
 		
 		// 결제하기
-		@PreAuthorize("isAuthenticated()")
-		public int payment(String username,OrderDto.DtoForOrdering dto) {
-			System.out.println(dto+"=============dto");
-			OrderDetail orderdetail = modelMapper.map(dto, OrderDetail.class);
-			System.out.println(orderdetail+"===============orderdetail");
-			orderDetailDao.Payment(orderdetail);
-			if()
-		return orderdetail.getOrderno();
-		}
-		
+//		@PreAuthorize("isAuthenticated()")
+//		public int payment(String username,OrderDto.DtoForOrdering dto) {
+//			System.out.println(dto+"=============dto");
+//			OrderDetail orderdetail = modelMapper.map(dto, OrderDetail.class);
+//			System.out.println(orderdetail+"===============orderdetail");
+//			orderDetailDao.Payment(orderdetail);
+//			if()
+//		return orderdetail.getOrderno();
+//		}
+//		
 //		public int payByOrder(String username, OrderDetailDto.DtoForDeleteOrder Dto, Order order){
 //			int orderdetail = orderDao.Ordering(order);
 //			if(order.getUsername()===false);

@@ -23,7 +23,7 @@ public class Art {
 	private String returnAddress;
 	private String courier;
 	private Integer readCnt;
-	private Integer accumulated; // 택배사
+	private Double accumulated; // 택배사
 	private Integer favoriteCnt;
 	private Boolean isFavorite;
 	private String category;

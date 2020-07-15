@@ -83,8 +83,23 @@
 		width:250px;
 		height:300px;
 		display: inline-block;
+		margin: 20px;
 	}
-	
+	.writeDate {
+		font-size: 0.75em;
+		text-align: right;
+	}
+	#textAreadown {
+		display: inline-block;
+	}
+	.image {
+		display:inline-block;
+		width:70px;
+		height:70px;
+	}
+	#textAreaUp {
+		height:70px;
+	}
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -125,6 +140,36 @@
 <body>
 	<h1>스토리</h1>
 	<hr>
+<<<<<<< HEAD
+	<c:forEach items="${story.storyList}" var="story">
+	<div id="storyList">
+			<div id="textArea">
+				<div id="textAreaUp">
+					<span class="image">${story.image }</span>
+					<div id="textAreadown">
+						<span class="writer1">${story.writer }</span><br>
+						<span class="writeDate1">${story.writeDateStr }</span>
+					</div>
+				</div>
+			</div>
+			<a href="/adaco/story/readStory?storyno=${story.storyno }">
+			<div id="imageArea">
+				<div class="image1">
+					<img alt="art" src="${story.image }">
+				</div>
+			</div>
+		</a>
+	</div>
+</c:forEach>
+	<sec:authorize access="hasRole('ROLE_SELLER')">
+	<div class="form-group">
+		<a href="/adaco/story/writeStory">글쓰기</a>
+	</div>
+	</sec:authorize>
+	
+	<div style="text-align: center;">
+		<ul class="pagination">
+=======
 	<section class="articles-v3">
 	  <div class="container max-width-adaptive-lg">
 	    <ul class="grid gap-lg">
@@ -161,6 +206,7 @@
 		</div>
 			<div style="text-align: center;">
 		<ul class="pagination" style="text-align: center; margin: 0 auto; width: 0px; text-align: center;">
+>>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 			<c:if test="${story.prev==true}">
 				<li class = "page-item"><a
 					href="/adaco/story/listStory?pageno=${story.startPage-1}">이전</a></li>
@@ -198,8 +244,7 @@
 			<div class="modal-content">
 				<div class="modal-body" >
 					<ul>
-						<li id="read_by_id" data-dismiss='modal'>게시물 보기</li>
-						<li id="find_joindate">가입일 보기</li>
+						<li id="read_by_id" data-dismiss='modal'>작가 작품보기</li>
 						<sec:authorize access="hasRole('ROLE_USER')">
 							<li id="write_memo">메보 보내기</li>
 						</sec:authorize>

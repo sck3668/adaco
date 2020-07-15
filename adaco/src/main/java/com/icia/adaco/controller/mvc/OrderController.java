@@ -19,11 +19,47 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 	@Autowired
+	private OrderDetailService orderDService;
+	@Autowired
 	private ObjectMapper objectMapper = new ObjectMapper();
-	private Principal principal;
 
+	
 	// 주문 하기
-	@GetMapping("/order/ordering")
+		@PostMapping("/order/ordering")
+		public ResponseEntity<?> Ordering(Order order,Bag bag,Principal principal) {
+			System.out.println("order bag ==="+bag);
+			String username = principal.getName();
+//			String user = username(principal.getName());
+			return ResponseEntity.ok(orderService.Ordering(order, bag, username));
+		}
+		
+		
+		
+		// 결제창 이동
+		// 넘어오는 orderno는 ordering에서 넘겨주는 orderno
+		@GetMapping("/order/payment")
+		public ModelAndView payment(int artno,Principal principal) {
+			return new ModelAndView("main").addObject("viewName","order/payment.jsp")
+					.addObject("order",orderService.OrderingD(principal.getName(),artno));
+		}
+		
+		
+		@GetMapping("/order/after")
+		public ModelAndView after(Principal principal,OrderDetail orderDetail) {
+			System.out.println("orderDetail===="+orderDetail);
+			int orderno = orderDetail.getOrderno();
+			orderDService.payment(orderDetail);
+			return new ModelAndView("main").addObject("viewName","order/after.jsp").addObject("order",orderDService.OrderDetail(orderDetail.getOrderno()));
+		}
+	
+	
+	
+	
+	
+	
+	////////////////////////////////////
+	// 주문 하기
+	//@GetMapping("/order/ordering")
 	public ModelAndView Ordering(Order order,Bag bag) {
 		String id = principal.getName();
 		orderService.Ordering(order, bag);
@@ -32,13 +68,13 @@ public class OrderController {
 	}
 	
 	// 주문하기
-	@PostMapping("/order/ordering")
+	//@PostMapping("/order/ordering")
 	public ResponseEntity<?> Ordering(Order order, Principal principal,Bag bag){
 		return ResponseEntity.ok(orderService.Ordering(order,bag));
 	}
 		
 	// 결제하기
-	@GetMapping("/order/payment")
+	//@GetMapping("/order/payment")
 	public ModelAndView Payment(Principal principal, OrderDto.DtoForOrdering Dto ) {
 		String username = principal.getName();
 		System.out.println("========컨트롤러 Dto"+Dto); 
@@ -66,7 +102,7 @@ public class OrderController {
 
 	
 	// 결제 완료
-	@GetMapping("/order/after")
+	//@GetMapping("/order/after")
 	public ModelAndView after() {
 		return new ModelAndView("main").addObject("viewName", "order/after.jsp");
 	}
