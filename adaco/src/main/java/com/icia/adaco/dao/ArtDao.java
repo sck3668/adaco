@@ -40,11 +40,12 @@ public class ArtDao {
 		return tpl.update("artMapper.update",art);
 	}
 	
-	//작품 내역 보기(최신순)
-	public List<Art> listByArt(int startRowNum, int endRowNum){
-		Map<String, Integer>map = new HashMap<>();
+	//작품 내역 보기(최신순) + 카테고리로 검색 리스트
+	public List<Art> listByArt(int startRowNum, int endRowNum, @Nullable String category){
+		Map<String, Object>map = new HashMap<String, Object>();
 		map.put("startRowNum", startRowNum);
 		map.put("endRowNum",endRowNum);
+		map.put("category", category);
 		return tpl.selectList("artMapper.findAll",map); 
 	}
 	
