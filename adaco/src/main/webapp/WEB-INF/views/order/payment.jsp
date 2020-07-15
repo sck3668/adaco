@@ -43,6 +43,7 @@ th {
 </head>
 <body>
 ${order}
+<form action="/adaco/order/after">
 <div id="content" class="content" data-page="payment" data-address-page="payment" style="padding-bottom:0">
         <div class="inner-w800">
             <div class="title-style clf">
@@ -228,7 +229,7 @@ ${order}
           				      	<label>작품명</label>
             				</td>
             				<td class="area-txt">
-                    			<label class="title-txt bold" for="prd-name">${order.art.artName }</label>
+                    			<label class="title-txt bold" for="prd-name"><img src="${order.art.mainImg}">${order.art.artName }</label>
 							</td>
         				</tr>
       				  <tr>
@@ -310,5 +311,6 @@ ${order}
             </div>
         </div>
 </div>
+</form>
 </body>
 </html>
