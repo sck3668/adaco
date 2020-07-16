@@ -7,8 +7,15 @@
 <title>상품 등록 페이지</title>
 <script src="/adaco/script/artValid.js"></script>
 <script>
-	
+
 //$("#category option:selected").val();
+// 	function checkcate(){
+// 		var value = $("#category").val();
+// 		if(value=="카테고리 선택")
+// 			alert("dkdldndld");
+// 		return;
+// 	}
+	
 	$(function() {
 
 		var idx = 0;
@@ -23,15 +30,15 @@
 			$input.appendTo($("#artSajin"));
 		});
 		
-		$("#delete").on("click", function(){
+		$("#deleteUpload").on("click", function(){
 			  $("#artSajin").html("");
-			  document.getElementById("add").disabled = false;
+// 			  document.getElementById("add").disabled = false;
 		});
 		
 		
 		$("#artName").on("blur", checkIrum);
 		$("#price").on("blur", checkPrice);
-		$("#artStock").on("blur", checkStock);
+		$("#stock").on("blur", checkStock);
 		$("#artDetail").on("blur", checkArtDetail);
 		$("#optionName").on("blur", checkOptionIrum);
 		$("#optionValue").on("blur", checkOptionValue);
@@ -39,6 +46,7 @@
 		$("#optionStock").on("blur", checkOptionStock);
 		$("#artTag").on("blur", checkArtTag);
 		$("#couriPrice").on("blur", checkCouriPrice);
+		$("#category").on("blur", checkCategory);
 		
 		// form을 넘기기전에 값 확인
 		$("#insert_Btn").on("click", function() {
@@ -57,7 +65,8 @@
 		var r8 = checkOptionStock();
 		var r9 = checkArtTag();
 		var r10 = checkCouriPrice();
-		var result = r1 && r2 && r3 && r4 && r5 && r6 && r7 && r8 && r9 && r10;
+		var r11 = checkCategory();
+		var result = r1 && r2 && r3 && r4 && r5 && r6 && r7 && r8 && r9 && r10 && r11;
 		if(result===true) {
 			 $("#insert_art").submit();
 		}
@@ -93,7 +102,8 @@
 								<option value="인테리어">인테리어</option>
 								<option value="공예">공예</option>
 								<option value="기타">기타</option>
-						</select> 
+							</select> 
+							<span id="category_msg"></span>
 						<input type="hidden" id="shopno" name="shopno" value="${artInfo.shopno}"/>
 						<input type="hidden" id="artistno" name="artistno" value="${artInfo.artistno}"/>	
 						</span>
@@ -111,7 +121,7 @@
 					<td colspan="2" style="vertical-align: bottom;">
 						<div id = "artSajin"></div>				
 							<button type = "button" id = "add" name="add">작품 이미지 추가</button>
-							<button type = "button" id = "delete" >업로드 취소</button>
+							<button type = "button" id = "deleteUpload" >업로드 취소</button>
 					</td>
 				</tr>
 				<tr>
@@ -121,13 +131,6 @@
 						<span id="artPrice_msg"></span>
 					</td>
 				</tr>
-<!-- 					<tr> -->
-<!-- 					<td class="first">적립금</td> -->
-<!-- 					<td colspan="2"> -->
-<!-- 						<input type="text" id="point" name="point"/>원 -->
-						
-<!-- 					</td> -->
-<!-- 				</tr> -->
 				<tr>
 					<td class="first">작품수량</td>
 					<td colspan="2">
