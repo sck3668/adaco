@@ -60,7 +60,7 @@ public class OrderService {
 		
 	
 	
-	// 주문하기
+	// 아트상세에서 주문하기
 			public int Ordering(Order order,Bag bag,String username) {
 				System.out.println("ordering service"+order+"//"+bag+"//"+username);
 				order.setOrderDate(LocalDateTime.now());
@@ -72,6 +72,24 @@ public class OrderService {
 				bagDao.insertByBag(bag);
 				int bagno = bagDao.findByArtno(artno).getBagno();
 				order.setBagno(bagno);
+				orderDao.Ordering(order);
+				System.out.println(artno+"artno111");
+				return artno;
+			}
+		//장바구니에서 주문하기
+			public int bagOrdering(Order order,Bag bag,String username) {
+				System.out.println("ordering service"+order+"//"+bag+"//"+username);
+				order.setOrderDate(LocalDateTime.now());
+				order.setUsername(username);
+				order.setShippingCharge(3000);
+				int artno = bag.getArtno();
+				Art art = artDao.readByArt(artno);
+				bag.setTotalPrice(bag.getAmount()*art.getPrice());
+				System.out.println("bag1111==="+bag);
+				//bagDao.insertByBag(bag);
+				int bagno = bagDao.findByArtno(artno).getBagno();
+				order.setBagno(bagno);
+				System.out.println("order======"+order);
 				orderDao.Ordering(order);
 				System.out.println(artno+"artno111");
 				return artno;

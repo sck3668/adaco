@@ -46,7 +46,7 @@ public class OrderController {
 					.addObject("order",orderService.OrderingD(principal.getName(),artno));
 		}
 		
-		// 결제버튼 클릭 후 주문완료 창으로 이동
+		// 결제버튼 클릭 후 결제완료 창으로 이동
 		// 결제 버튼 클릭 후 orderDetail insert(payment)
 		// return은 orderDetail read(orderDetail)
 		@GetMapping("/order/after")

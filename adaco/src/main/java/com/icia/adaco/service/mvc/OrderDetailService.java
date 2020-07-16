@@ -50,7 +50,7 @@ public class OrderDetailService {
 		//request,addPoint,postalcode,refundAccount,isShipping,state,address,recipient,
 		//System.out.println("orderDetail11111======"+orderDetail);
 		bagDao.deleteByBag(artno);
-//point증가처리
+		//point증가처리
 		Point point = Point.builder().startDate(LocalDateTime.now()).endDate(LocalDateTime.now().plusYears(1))
 				.username(username).point((int) (bag.getTotalPrice()*0.01)).build();
 		userDao.insertpoint(point);
