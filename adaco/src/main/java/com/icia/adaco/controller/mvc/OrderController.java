@@ -1,6 +1,7 @@
 package com.icia.adaco.controller.mvc;
 
 import java.security.*;
+import java.time.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
@@ -28,11 +29,11 @@ public class OrderController {
 	// 주문 하기
 		@PostMapping("/order/ordering")
 		public ResponseEntity<?> Ordering(Order order,Bag bag,Principal principal) {
-			System.out.println("order bag ==="+bag);
-			String username = principal.getName();
-			if(username==null) {
+			if(principal==null) {
 				throw new JobFailException("로그인 필요합니다");
 			}
+			String username = principal.getName();
+			
 //			String user = username(principal.getName());
 			return ResponseEntity.ok(orderService.Ordering(order, bag, username));
 		}

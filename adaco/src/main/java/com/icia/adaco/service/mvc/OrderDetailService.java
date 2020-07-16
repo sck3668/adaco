@@ -40,12 +40,14 @@ public class OrderDetailService {
 		System.out.println("bag==="+bag);
 		User user = userDao.findByid(username);
 		System.out.println("user====="+user);
-		orderDetail.setArtName(art.getArtName());
+		orderDetail.setArtName(art.getArtName()).setAddress(dto.getOriginalAddress());
 		orderDetail.setOptionName(option.getOptionName()).setOptionValue(option.getOptionValue());
 		orderDetail.setAmount(bag.getAmount()).setPrice(art.getPrice()).setEmail(user.getEmail());
+		orderDetail.setAddPoint((int) (art.getPrice()*0.01)).setState(State.답변대기);
 		//artName,optionName,optionValue,amount,price,email,tel,
 		//request,addPoint,postalcode,refundAccount,isShipping,state,address,recipient,
 		System.out.println("orderDetail11111======"+orderDetail);
+		
 		return orderDetailDao.Payment(orderDetail);
 	}
 	

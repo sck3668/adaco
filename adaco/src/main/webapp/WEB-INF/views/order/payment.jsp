@@ -37,13 +37,26 @@ th {
 </style>
 <script>
 	$(function() {
+		$("#detailAddress").on("blur",function() {
+		const address = $("#address").val();
+    	const address2	= $("#detailAddress").val();
+    	const address3 = $("#extraAddress").val();
+    	const originalAddress = address + address2 + address3;
+    	console.log(originalAddress);
+    	alert("Ss");
+    	$("#originalAddress").val(originalAddress);
+		})
 		
+// 		$("#payment").on("click",function() {
+// 		console.log($("#paymentForm").serialize());
+// 		alert("폼");
+// 		})
 	})
 </script>
 </head>
 <body>
 ${order}
-<form action="/adaco/order/after">
+<form action="/adaco/order/after" id="paymentForm">
 <div id="content" class="content" data-page="payment" data-address-page="payment" style="padding-bottom:0">
         <input type="hidden" name="orderno" value="${order.orderno }">
         <input type="hidden" name="artno" value="${order.art.artno }">
@@ -90,7 +103,7 @@ ${order}
                                 <th><em class="asterisk red">&lowast;</em>전화</th>
                                 <td>
                                     <div class="body">
-                                        <input type="text" name="tel" value="${order.user.tel }">
+                                        <input type="text" value="${order.user.tel }">
                                         <button type="button" id="telChange">변경하기</button>
                                     </div>
                                 </td>
@@ -110,7 +123,7 @@ ${order}
 							<input type="text" id="address" placeholder="주소"><br>
 							<input type="text" id="detailAddress" placeholder="상세주소">
 							<input type="text" id="extraAddress" placeholder="참고항목">
-                        
+                        	<input type="text" name="originalAddress" id="originalAddress">
                         <div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
 <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
 </div>
@@ -226,7 +239,6 @@ ${order}
                         		</div>
                             </th>
               		  </tr>
-           			</thead>
 					<tbody>
 						<tr>
 				            <td class="area-img">
@@ -251,7 +263,7 @@ ${order}
                             </div>
                         </div>
                 		<div class="ui_field--onchange  hidden" data-uipack="textarea">
-                        	<textarea name="refundAccount" maxlength="500" placeholder="주문 요청사항을 입력해주세요"></textarea>
+                        	<textarea name="request" maxlength="500" placeholder="주문 요청사항을 입력해주세요"></textarea>
                			</div>
             			</td>
         			</tr>
@@ -270,8 +282,9 @@ ${order}
                     </div>
                     <div>
                     	<input type="radio">
-                    	<input type="text" value="무통장입금">
-                    </div>
+                    	<input type="text" value="무통장입금" id="test"><br>
+                    	<input type="text" placeholder="환불계좌를 입력해주세요" name="refundAccount"> 
+					</div>
 <!--  결제 정보 -->                
                 <section>
                     <div class="final-cost ui_sticky" data-ui="sticky">
@@ -293,6 +306,14 @@ ${order}
                                         <span
                                             data-payment="shipping"
                                         >${order.art.couriPrice }</span>원
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>적립금</th>
+                                    <td>
+                                        <span
+                                            data-payment="shipping"
+                                        >${order.art.price*0.01 }</span>원
                                     </td>
                                 </tr>
 	                                <!-- 분기처리 -->
