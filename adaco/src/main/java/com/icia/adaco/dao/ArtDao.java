@@ -83,13 +83,12 @@ public class ArtDao {
 	////////////////////// 회원 전용 ///////////////////////////
 	
 	//작품 내역 보기(최신순) + 작품이름으로 검색 리스트
-	public List<Art> listByArtFromUser(int startRowNum, int endRowNum, @Nullable String artname, @Nullable String category, @Nullable String tag){
+	public List<Art> listByArtFromUser(int startRowNum, int endRowNum, @Nullable String artname, @Nullable String category){
 		Map<String, Object>map = new HashMap<String, Object>();
 		map.put("startRowNum", startRowNum);
 		map.put("endRowNum",endRowNum);
 		map.put("artName", artname);
 		map.put("category", category);
-		map.put("tag", tag);
 		return tpl.selectList("artMapper.findAllFromUser",map); 
 	}
 
@@ -132,7 +131,7 @@ public class ArtDao {
 	public List<ArtImg> findAllArtImg(Integer artno) {
 		return tpl.selectList("artMapper.findAllArtImg", artno);
 	}
-	
+	//
 	// 작품 이미지 추가
 	public int insertArtImg(ArtImg artImg) {
 		return tpl.insert("artMapper.insertArtImg", artImg);
@@ -140,14 +139,21 @@ public class ArtDao {
 	
 	////////////상점 사용///////////////
 	
-	//상점 정보에 이미지 보이기
+	//상점 정보에 이미지 보이기 
 	public List<String> findAllArtImgByShopno(int shopno) {
-		return tpl.selectList("artMapper.findAllArtImgByShopno",shopno);
+	return tpl.selectList("artMapper.findAllArtImgByShopno",shopno);
 	}
-	
-	
-	
+
+
+	public List<Integer> findAllArtnoByShopno(int shopno) {
+	return tpl.selectList("artMapper.findAllArtnoByShopno",shopno);
+	}
+
 	public int findArtistnoByArtno(int artno) {
-		return tpl.selectOne("artMapper.findArtistnoByArtno",artno);
+	return tpl.selectOne("artMapper.findArtistnoByArtno",artno);
+	}
+
+	public int findArtnoByArtstno(int artistno) {
+	return tpl.selectOne("artMapper.findArtnoByArtstno",artistno);
 	}
 }

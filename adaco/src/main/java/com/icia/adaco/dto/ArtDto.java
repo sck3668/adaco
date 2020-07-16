@@ -40,6 +40,7 @@ public class ArtDto {
 		private Integer optionStock;
 		private Integer optionPrice;
 		private String artDetail;
+		private Double accumulated;
 	}
 	
 	@Data

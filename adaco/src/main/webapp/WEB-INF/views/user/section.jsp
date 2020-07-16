@@ -39,9 +39,8 @@ $(function(){
 	$("#search").on("click", function(){
 		var artname = $("#artname").val();
 		location.href = "/adaco/art/listByUser?artname="+artname;
-// 		var artname = $("#artname").val();
-// 		location.href = "/adaco/art/listByUser?artname="+artname;
-		console.log(artname);
+// 		var tag = $(".tag").val();
+// 		location.href = "/adaco/art/listByUser?tag="+tag;
 	});
 	
 });	
@@ -53,7 +52,7 @@ $(function(){
     <div class="row">
 				<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
 		            <div class="input-group" >
-		              <input type="text"  placeholder="작품 이름 검색" aria-label="Search" aria-describedby="basic-addon2" name = "artname" id ="artname" />
+		              <input type="text"  placeholder="작품 이름 검색" aria-label="Search" aria-describedby="basic-addon2" name = "artname" id ="artname"/>
 		              <div class="input-group-append">
 		                <button type="button" id = "search">
 		                 <span style="color:gold"><i class="fas fa-search fa-lg"></i></span>
@@ -138,25 +137,22 @@ $(function(){
         	<div style="text-align: center;">
 		<ul class="pagination justify-content-center">
 			<c:if test="${artPage.prev==true}">
-				<li><a
-					href="/adaco/art/listByUser?pageno=${artPage.startPage-1}">이전</a></li>
+				<li><a href="/adaco/art/listByUser?artname=${artPage.search }&pageno=${artPage.startPage-1}">이전</a></li>
 			</c:if>
-			<c:forEach begin="${artPage.startPage}" end="${artPage.endPage}"
-				var="i">
+			<c:forEach begin="${artPage.startPage}" end="${artPage.endPage}" var="i">
 				<c:choose>
 					<c:when test="${artPage.pageno eq i }">
-						<li class="active"><a
-							href="/adaco/art/listByUser?pageno=${i}">${i}</a></li>
+						<li class="active">
+						<a href="/adaco/art/listByUser?artname=${artPage.search }&pageno=${i}">${i}</a></li>
 					</c:when>
 					<c:otherwise>
-						<li><a href="/adaco/art/listByUser?pageno=${i}">${i}</a></li>
+						<li><a href="/adaco/art/listByUser?artname=${artPage.search }&pageno=${i}">${i}</a></li>
 					</c:otherwise>
 				</c:choose>
 
 			</c:forEach>
 			<c:if test="${artPage.next==true}">
-				<li><a
-					href="/adaco/art/listByUser?pageno=${artPage.endPage+1}">다음</a></li>
+				<li><a href="/adaco/art/listByUser?artname=${artPage.search }&pageno=${artPage.endPage+1}">다음</a></li>
 			</c:if>
 		</ul>
 		</div>
