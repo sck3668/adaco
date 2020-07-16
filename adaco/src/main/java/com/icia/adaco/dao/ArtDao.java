@@ -131,7 +131,7 @@ public class ArtDao {
 	public List<ArtImg> findAllArtImg(Integer artno) {
 		return tpl.selectList("artMapper.findAllArtImg", artno);
 	}
-	
+	//
 	// 작품 이미지 추가
 	public int insertArtImg(ArtImg artImg) {
 		return tpl.insert("artMapper.insertArtImg", artImg);
