@@ -45,7 +45,32 @@ public class OrderDto {
  		private int optno;
  		private int orderno;
  	}
- 	//////////////////////////
+ 	
+ 	@Data
+ 	@AllArgsConstructor
+ 	@NoArgsConstructor
+ 	@Builder
+ 	@Accessors(chain=true)
+ 	public static class DtoForAfter{
+ 		private int orderno;
+ 		private int optno;
+ 		private int artno;
+ 		private int artistno;
+ 		private String mainImg;
+ 		private String artName;
+ 		private int amount;
+ 		private int price;
+ 		private int accumulated;	//적립금
+ 		private int totalPrice;
+ 		private String username;
+ 		private String recipient;
+ 		private String tel;
+ 		private String originalAddress;
+ 		private String refundAccount;
+ 		private String request;
+ 	}
+ 	//////////////////////////	총결제금액,주문번호,적립포인트,작품명,
+	//	배송지,배송비,작품이미지,
    
    @Data
    @AllArgsConstructor

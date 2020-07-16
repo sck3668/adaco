@@ -10,26 +10,33 @@ function check(value, pattern, area, fail_msg) {
 	return true
 }
 
-// 셀렉트 박스 체크
-function SelectBoxCheck(value, area){
+// 셀렉트 박스 카테고리 체크
+function SelectCheckCategory(value, area){
 	area.text("");
+	var value = $("#category option:selected").val();
 	if(value=="카테고리 선택") { 
 		area.text("카테고리를 선택해주세요").css({"color":"red", "font-size":"0.75em"});
 		return false;
-	}
+	} 
 	return true
 }
 
-////카테고리 확인
-function checkCategory() {
-	var value = $("#category").val();
-	return SelectBoxCheck($("#category").val(),$("#category_msg"));
+//셀렉트 박스 배송사 체크
+function SelectCheckCourier(value, area){
+	area.text("");
+	var value = $("#Courier option:selected").val();
+	if(value=="택배사") { 
+		area.text("택배사를 선택해주세요").css({"color":"red", "font-size":"0.75em"});
+		return false;
+	} 
+	return true
 }
 
-//function checkCategory() {
-//	var pattern = /^[A-Za-z0-9가-힣\s]{1,30}$/;
-//	return check($("#category").val(), pattern, $("#category_msg"), "카테고리를 선택해주세요");
-//}
+//카테고리 확인
+function checkCategory() {
+	var value = $("#category option:selected" ).val();
+	return SelectCheckCategory($("#category option:selected").val(),$("#category_msg"));
+}
 
 //작품명 확인
 function checkIrum() {
@@ -85,11 +92,11 @@ function checkArtTag() {
 	return check($("#tag").val(), pattern, $("#artTag_msg"), "검색태그는 1~10자입니다.");
 }
 
-////배송사 확인
-//function checkCourier() {
-//	var pattern = /^[A-Za-z0-9가-힣]{1,30}$/;
-//	return check($("#Courier").val(), pattern, $("#Courier_msg"), "배송사를 선택해주세요.")
-//}
+//배송사 확인
+function checkCourier() {
+	var value = $("#Courier option:selected" ).val();
+	return SelectCheckCategory($("#Courier option:selected").val(),$("#Courier_msg"));
+}
 
 //배송 가격 확인
 function checkCouriPrice() {

@@ -164,14 +164,21 @@
 		insert into art_image(imgno, artno, gyungro) values(#{imgno}, #{artno}, #{gyungro})
 	</insert>
 	
-	<!-- 상점 사용 -->
+	<!-- 상점 사용 --> 
 	<select id="findAllArtImgByShopno" resultType="String">
 		select main_img mainImg from art where shopno=#{shopno}
 	</select>
 	
+	<select id="findAllArtnoByShopno" resultType="int">
+		select artno from art where shopno=#{shopno}
+	</select>
 	
 	<select id="findArtistnoByArtno" resultType="int">
 		select artistno from art where artno=#{artno}
+	</select>
+	
+	<select id="findArtnoByArtstno" resultType="int">
+		select artno from art where artistno=#{artistno}
 	</select>
 	
  </mapper>

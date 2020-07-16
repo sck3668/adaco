@@ -35,13 +35,33 @@ th {
 /*   } */
 
 </style>
-
-
-
+<script>
+	$(function() {
+		$("#detailAddress").on("blur",function() {
+		const address = $("#address").val();
+    	const address2	= $("#detailAddress").val();
+    	const address3 = $("#extraAddress").val();
+    	const originalAddress = address + address2 + address3;
+    	console.log(originalAddress);
+    	alert("Ss");
+    	$("#originalAddress").val(originalAddress);
+		})
+		
+// 		$("#payment").on("click",function() {
+// 		console.log($("#paymentForm").serialize());
+// 		alert("폼");
+// 		})
+	})
+</script>
 </head>
 <body>
 ${order}
+<form action="/adaco/order/after" id="paymentForm">
 <div id="content" class="content" data-page="payment" data-address-page="payment" style="padding-bottom:0">
+        <input type="hidden" name="orderno" value="${order.orderno }">
+        <input type="hidden" name="artno" value="${order.art.artno }">
+        <input type="hidden" name="artistno" value="${order.art.artistno }">
+        <input type="hidden" name="optno" value="${order.option.optno }">
         <div class="inner-w800">
             <div class="title-style clf">
                 <h2 class="txt fl">주문 결제하기</h2>
@@ -65,7 +85,6 @@ ${order}
             </div>
 
             <div class="layout-split" data-layout-split="payment">
-                <section data-ui="toggle-tab">
                     <!-- 주문고객 정보 -->
                         <div class="ui_title--sub tab" data-ui-id="order_user">
                             <h4>주문고객정보</h4>
@@ -78,13 +97,13 @@ ${order}
                             <tbody>
                             <tr>
                                 <th>주문자 정보</th>
-                                <td> ${order.user.irum }</td>
+                                <td>${order.user.irum }</td>
                             </tr>
                             <tr>
                                 <th><em class="asterisk red">&lowast;</em>전화</th>
                                 <td>
                                     <div class="body">
-                                        <input type="text" name="tel" value="${order.user.tel }">
+                                        <input type="text" value="${order.user.tel }">
                                         <button type="button" id="telChange">변경하기</button>
                                     </div>
                                 </td>
@@ -104,7 +123,7 @@ ${order}
 							<input type="text" id="address" placeholder="주소"><br>
 							<input type="text" id="detailAddress" placeholder="상세주소">
 							<input type="text" id="extraAddress" placeholder="참고항목">
-                        
+                        	<input type="text" name="originalAddress" id="originalAddress">
                         <div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
 <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
 </div>
@@ -188,14 +207,14 @@ ${order}
                                 <div class="address-info item">
                                 		<br>
                                         <em class="asterisk red">&lowast;</em>
-                                        <label for="receiver">받는분</label>
-                                        <input name="delivery_name" type="text" value="${order.user.irum }">
+                                        <label for="user">받는분</label>
+                                        <input name="recipient" type="text" value="${order.user.irum }">
                                 </div>
 
                                 <div class="address-info item">
                                         <em class="asterisk red">&lowast;</em>
                                         <label for="delivery_phone">전화번호</label>
-                                        <input name="delivery_phone" type="text" value="${order.user.tel }">
+                                        <input name="tel" type="text" value="${order.user.tel }">
                                 </div>
                         </div>
 					</div>
@@ -220,14 +239,17 @@ ${order}
                         		</div>
                             </th>
               		  </tr>
-           			</thead>
 					<tbody>
 						<tr>
 				            <td class="area-img">
           				      	<label>작품명</label>
             				</td>
             				<td class="area-txt">
-                    			<label class="title-txt bold" for="prd-name">${order.art.artName }</label>
+                    			<label class="title-txt bold" for="prd-name">
+                    				<img src="${order.art.mainImg}">${order.art.artName }
+                    				<br><span>${order.bag.optionName }:</span>
+                    					<span>${order.bag.optionValue }</span>
+                    			</label>
 							</td>
         				</tr>
       				  <tr>
@@ -241,7 +263,7 @@ ${order}
                             </div>
                         </div>
                 		<div class="ui_field--onchange  hidden" data-uipack="textarea">
-                        	<textarea maxlength="500" placeholder="주문 요청사항을 입력해주세요"></textarea>
+                        	<textarea name="request" maxlength="500" placeholder="주문 요청사항을 입력해주세요"></textarea>
                			</div>
             			</td>
         			</tr>
@@ -260,9 +282,9 @@ ${order}
                     </div>
                     <div>
                     	<input type="radio">
-                    	<input type="text" value="무통장입금">
-                    </div>
-                </section>
+                    	<input type="text" value="무통장입금" id="test"><br>
+                    	<input type="text" placeholder="환불계좌를 입력해주세요" name="refundAccount"> 
+					</div>
 <!--  결제 정보 -->                
                 <section>
                     <div class="final-cost ui_sticky" data-ui="sticky">
@@ -273,7 +295,7 @@ ${order}
                                 <tr>
                                     <th>작품금액</th>
                                     <td>
-                                        <span
+                                        <span 
                                             data-payment="order"
                                         >${order.art.price }</span>원
                                     </td>
@@ -284,6 +306,14 @@ ${order}
                                         <span
                                             data-payment="shipping"
                                         >${order.art.couriPrice }</span>원
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>적립금</th>
+                                    <td>
+                                        <span
+                                            data-payment="shipping"
+                                        >${order.art.price*0.01 }</span>원
                                     </td>
                                 </tr>
 	                                <!-- 분기처리 -->
@@ -302,44 +332,14 @@ ${order}
                                 </tbody>
                             </table>
                         </div>
-                        <div class="segment-group" data-ui="toggle-tab">
-                            <div class="segment--nospacing">
-                                <div class="ui_title--sub tab" data-ui-id="info_personal1">
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            name="privacy_info"
-                                            autocomplete="off"
-                                            required
-                                            class="bp"
-                                        >
-                                        <i class="asterisk red">&lowast;</i>
-                                        개인정보 제3자 제공고지
-                                    </label>
-                                    <span class="ui_title__txtright--blue">더 보기<i class="ui_icon--arrow-down"></i></span>
-                                </div>
-                                <div class="scroll-txt" data-ui="tab-panel" data-panel-id="info_personal1">
-                                    ‣ 제공받는 자 : 위드르방<br>
-                                    ‣ 목적 : 판매자와 구매자 사이의 원활한 거래 진행, 상품의 배송을 위한 배송지 확인, 고객상담 및 불만처리 등<br>
-                                    ‣ 정보 : 별명, 이름, 전화, 주소<br>
-                                    ‣ 보유기간 : 발송완료 후 15일<br>
-                                    <br>
-                                </div>
-                            </div>
-                            
-                            <div class="segment--nospacing scroll-detector" data-ui="sticky">
-                                <div class="mfixed">
-                                    <button id="patment" class="ui_btn--red--large" >
-                                    	    결제하기
-                                    </button>
-                                </div>
-                                <p class="point" data-label="point">예상적립금 : <em>${order.art.price*0.01 }</em>P</p>
-                            </div>
+                        <div>
+                             <button id="payment">결제하기</button>
                         </div>
                     </div>
                 </section>
             </div>
         </div>
 </div>
+</form>
 </body>
 </html>

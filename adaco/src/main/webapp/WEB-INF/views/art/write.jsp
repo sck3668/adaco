@@ -47,6 +47,7 @@
 		$("#artTag").on("blur", checkArtTag);
 		$("#couriPrice").on("blur", checkCouriPrice);
 		$("#category").on("blur", checkCategory);
+		$("#Courier").on("blur", checkCourier);
 		
 		// form을 넘기기전에 값 확인
 		$("#insert_Btn").on("click", function() {
@@ -66,7 +67,8 @@
 		var r9 = checkArtTag();
 		var r10 = checkCouriPrice();
 		var r11 = checkCategory();
-		var result = r1 && r2 && r3 && r4 && r5 && r6 && r7 && r8 && r9 && r10 && r11;
+		var r12 = checkCourier();
+		var result = r1 && r2 && r3 && r4 && r5 && r6 && r7 && r8 && r9 && r10 && r11 && r12;
 		if(result===true) {
 			 $("#insert_art").submit();
 		}
@@ -186,6 +188,7 @@
 							<option value="로젠택배">로젠택배</option>
 							<option value="한진택배">한진택배</option>
 						</select> 
+						<span id="Courier_msg"></span>
 					</td>
 				</tr>
 				<tr>

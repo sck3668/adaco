@@ -139,14 +139,21 @@ public class ArtDao {
 	
 	////////////상점 사용///////////////
 	
-	//상점 정보에 이미지 보이기
+	//상점 정보에 이미지 보이기 
 	public List<String> findAllArtImgByShopno(int shopno) {
-		return tpl.selectList("artMapper.findAllArtImgByShopno",shopno);
+	return tpl.selectList("artMapper.findAllArtImgByShopno",shopno);
 	}
-	
-	
-	
+
+
+	public List<Integer> findAllArtnoByShopno(int shopno) {
+	return tpl.selectList("artMapper.findAllArtnoByShopno",shopno);
+	}
+
 	public int findArtistnoByArtno(int artno) {
-		return tpl.selectOne("artMapper.findArtistnoByArtno",artno);
+	return tpl.selectOne("artMapper.findArtistnoByArtno",artno);
+	}
+
+	public int findArtnoByArtstno(int artistno) {
+	return tpl.selectOne("artMapper.findArtnoByArtstno",artistno);
 	}
 }
