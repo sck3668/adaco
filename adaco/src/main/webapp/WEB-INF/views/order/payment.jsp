@@ -85,22 +85,22 @@ ${order}
             </div>
 
             <div class="layout-split" data-layout-split="payment">
-                    <!-- 주문고객 정보 -->
+ <!-- 주문고객 정보 -->
                         <div class="ui_title--sub tab" data-ui-id="order_user">
-                            <h4>주문고객정보</h4>
+                            <h4>주문 고객 정보</h4>
                         </div>
                         <table class="table-style-clear orderer-info" data-ui="tab-panel" data-panel-id="order_user">
                             <colgroup>
-                                <col width="90px">
-                                <col>
-                            </colgroup>
+								<col width="20%">
+								<col width="80%">
+							</colgroup>
                             <tbody>
                             <tr>
-                                <th>주문자 정보</th>
+                                <th>주문자명</th>
                                 <td>${order.user.irum }</td>
                             </tr>
                             <tr>
-                                <th><em class="asterisk red">&lowast;</em>전화</th>
+                                <th><em class="asterisk red">&lowast;</em> 전화</th>
                                 <td>
                                     <div class="body">
                                         <input type="text" value="${order.user.tel }">
@@ -109,13 +109,14 @@ ${order}
                                 </td>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td>주문, 배송시 등록된 번호로 SMS를 발송해 드립니다.</td>
+                               
+                                <td colspan="2">주문, 배송시 등록된 번호로 SMS를 발송해 드립니다.</td>
                             </tr>
                             </tbody>
                         </table><br>
 <!-- 배송 정보 -->
                         <div class="ui_title--sub">
+                        <h4>배송지 정보</h4>
                             <span class="ui_title__txt">주소 (배송지)</span>
                         </div>
 							<input type="text" id="postcode" placeholder="우편번호">
@@ -218,7 +219,7 @@ ${order}
                                 </div>
                         </div>
 					</div>
-				</div>
+				</div> <br>
                     
 <!-- 주문 작품 정보 -->
 				<div class="segment--nospacing" data-ui="order-summary-label">
@@ -242,11 +243,11 @@ ${order}
 					<tbody>
 						<tr>
 				            <td class="area-img">
-          				      	<label>작품명</label>
+          				      	<label>작품 정보</label>
             				</td>
             				<td class="area-txt">
                     			<label class="title-txt bold" for="prd-name">
-                    				<img src="${order.art.mainImg}">${order.art.artName }
+                    				<img src="${order.art.mainImg}" style="float:left;">${order.art.artName }
                     				<br><span>${order.bag.optionName }:</span>
                     					<span>${order.bag.optionValue }</span>
                     			</label>
