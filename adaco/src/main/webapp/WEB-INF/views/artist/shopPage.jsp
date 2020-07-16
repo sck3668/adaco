@@ -18,8 +18,8 @@ ${art }
   </h1>
   <div class="row">
     <div class="col-md-8">
-    <%--<img id="show_profile" src="${shop.image }"> --%>
-      <img class="img-fluid" id="shop_profile" src="${shop.image }" alt="">
+    <img id="show_profile" src="${shop.image }">
+      <img class="img-fluid" id="shop_profile" src="#" alt="">
     </div>
     <div class="col-md-4">
       <h3 class="my-3"><strong>상점 이름</strong></h3>
@@ -35,7 +35,7 @@ ${art }
         <li><a style="text-decoration: none; color: black;" href="/adaco/artist/shopRead">상점 관리 및 변경</a></li>
         <li><a style="text-decoration: none; color: black;" href="/adaco/artist/#">스토리보기</a></li>
         <li><a style="text-decoration: none; color: black;" href="/adaco/artist/artistPage">작가페이지</a></li>
-      </ul> 
+      </ul>
     </div>
   </div>
   <h3 class="my-4">작가 작품</h3>
@@ -48,19 +48,19 @@ ${art }
           </a>
     </div>
     <div class="col-md-3 col-sm-6 mb-4">
-      <a href="/adaco/art/readByArtist?artno=">
+      <a href="/adaco/art/readByArtist?artno=${shop.artno[1] }">
             <img class="img-fluid" src="${shop.img[1] }" alt="">
           </a>
     </div>
 
     <div class="col-md-3 col-sm-6 mb-4">
-      <a href="#">
+     <a href="/adaco/art/readByArtist?artno=${shop.artno[2] }">
             <img class="img-fluid" src="${shop.img[2] }" alt="">
           </a>
     </div>
 
     <div class="col-md-3 col-sm-6 mb-4">
-      <a href="#">
+     <a href="/adaco/art/readByArtist?artno=${shop.artno[3] }">
             <img class="img-fluid" src="${shop.img[3] }" alt="">
           </a>
     </div>
