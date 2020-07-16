@@ -41,7 +41,7 @@ public class BagController {
 		public ModelAndView findAllBagByUsername(String username) {
 			return new ModelAndView("main").addObject("viewName", "bag/read.jsp").addObject("bagList",bagService.findAllBagByUsername(username));
 		}
-		
+		//장바구니 화면 출력
 		@GetMapping("/bag/view")
 		public ModelAndView view() {
 			return new ModelAndView("main").addObject("viewName","bag/read.jsp");
@@ -51,11 +51,12 @@ public class BagController {
 		public ModelAndView findAllBagByUsername1(Principal principal) {
 			return new ModelAndView("main").addObject("viewName", "bag/read.jsp").addObject("bagList",bagService.findAllBagByUsername(principal.getName()));
 		}
-		 
+		// 장바구니 목록 출력
 		@GetMapping("/bag/list2")
 		public ResponseEntity<?> read(Principal principal) {
 			return ResponseEntity.ok(bagService.findAllBagByUsername(principal.getName()));
 		}
+		
 		
 		@GetMapping("/bag/checkStock")
 		public ResponseEntity<?> checkStock(int artno) {

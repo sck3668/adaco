@@ -137,6 +137,7 @@ public class UserService {
 			User u = User.builder().enabled(true).checkCode(checkCode).username(username).build();
 			userDao.update(u);
 	}
+	
 	//포인트 리스트
 	public List<PointDto.DtoForList> pointList(String username){
 		

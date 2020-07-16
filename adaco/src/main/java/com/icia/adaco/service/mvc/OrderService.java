@@ -70,6 +70,8 @@ public class OrderService {
 				Art art = artDao.readByArt(artno);
 				bag.setTotalPrice(bag.getAmount()*art.getPrice());
 				bagDao.insertByBag(bag);
+				int bagno = bagDao.findByArtno(artno).getBagno();
+				order.setBagno(bagno);
 				orderDao.Ordering(order);
 				System.out.println(artno+"artno111");
 				return artno;
@@ -83,7 +85,9 @@ public class OrderService {
 				System.out.println("333");
 				int optno = optionDao.findOptnoByArtno(artno);
 				System.out.println("4444");
-				int orderno = orderDao.findOrdernoByUsername(username);
+				//수정
+				int bagno = bagDao.findByArtno(artno).getBagno();
+				int orderno = orderDao.findOrdernoByUsername(username,bagno);
 				System.out.println("orderingD1==="+artistno+"//"+optno+"//"+orderno);
 				Option option = optionDao.readByArtno(artno);
 				System.out.println("option==="+option);

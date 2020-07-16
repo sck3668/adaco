@@ -244,6 +244,50 @@ $(function() {
 		alert("마지막");
 	})
 	
+	
+	
+	// 주문 버튼을 클릭하면 해당 상품을 구입 후 이동
+	$("#cart_area").on("click", ".buy", function() {
+		var $form = $("<form>").attr("action","/acart/order/buy").attr("method","post");
+		$("<input>").attr("type","hidden").attr("name","pno").val($(this).data("pno")).appendTo($form);
+		var countStr = $(this).parent().prev().children().find("span").text();
+		var count = parseInt(countStr);
+		$("<input>").attr("type","hidden").attr("name","count").val(count).appendTo($form);
+		$("<input>").attr("type","hidden").attr("name","_csrf").val("${_csrf.token}").appendTo($form);
+		$form.appendTo($("body")).submit();
+	});
+		
+//장바구니에서 주문 버튼 클릭 후 경제창 이동	
+	$("#order").on("click",function() {
+// 		var params  ={
+// 				_csrf: '${_csrf.token}',
+// 				username: '${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}',
+// 				artno:${bag.artno},
+// 				totalPrice:${artPageByUser.price},
+// 				amount:1, 
+// 				optionName:'${artPageByUser.optionName}',
+// 				optionValue:'${artPageByUser.optionValue}',
+// 				optionStock:${artPageByUser.optionStock}, 
+// 				optionPrice:'${artPageByUser.optionPrice}', 
+			
+// 			};
+// 		$.ajax({
+// 			url:"/adaco/order/ordering",
+// 			method:"post",
+// 			data:params,
+// 			success:function(result) {
+// 				alert("구매하기");
+// 				location.href="/adaco/order/payment?artno="+result;
+// 			}
+// 		});
+		
+	})
+	
+	
+	
+	
+	
+	
 	// 주문하기
 	$("#order").on("click",function() {
 		var ar=[];
