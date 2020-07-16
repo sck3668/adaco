@@ -88,7 +88,7 @@ public class ArtService {
 //		String artWriter = artistdao.findByid(artistno).getUsername();
 //		if(username.equals(artWriter)==false) 
 //			throw new JobFailException("권한이 없습니다.");
-		int countOfArt = artdao.countByArt();
+		int countOfArt = artdao.countSerchByCategory(category);
 		Page page = PagingUtil.getPage(pageno, countOfArt);
 		int srn = page.getStartRowNum();
 		int ern = page.getEndRowNum();

@@ -38,6 +38,14 @@
 	      where B.rnum&gt;= #{startRowNum}
 	</select>
 	
+	<!-- 카테고리로 검색한 작품 수 -->
+	<select id="countSearchByCategory" resultType="int">
+	   	select count(*)
+	   	from art 
+	   	<where>
+	   		<if test="category!=null">and category like '%'|| #{category} || '%'</if>
+	   	</where> 	
+	</select>
 	
 	<select id="findAllByArtno" resultType="art">
 		select artno, category, main_img mainImg, art_name artName, price
@@ -77,10 +85,10 @@
 		where artno=#{artno} and rownum=1
 	</update>
 	
-	<!-- 작품 count / 페이징 위한 -->
-	<select id="count" resultType="int">
-		select count(*) from art
-	</select>
+ 	<!-- 작품 count / 페이징 위한 --> 
+<!-- 	<select id="count" resultType="int"> -->
+<!-- 		select count(*) from art -->
+<!-- 	</select> -->
 	
 	<!-- 회원 사용 -->
 	

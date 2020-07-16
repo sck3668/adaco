@@ -207,7 +207,7 @@ $(function() {
 					<br><br>
 					<div>
 						<span>총 결제 금액</span>
-						<strong>${artPageByUser.price+artPageByUser.optionPrice}</strong>
+						<strong>${artPageByUser.price+artPageByUser.optionPrice+artPageByUser.couriPrice}</strong>
 					</div>				
 				</div>
 			</div>

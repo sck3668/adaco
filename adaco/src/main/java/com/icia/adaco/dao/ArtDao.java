@@ -75,9 +75,16 @@ public class ArtDao {
 		return tpl.update("artMapper.update",art);
 	}
 	
-	//작품 갯수
-	public int countByArt() {
-		return tpl.selectOne("artMapper.count");
+//	//작품 갯수
+//	public int countByArt() {
+//		return tpl.selectOne("artMapper.count");
+//	}
+	
+	//검색어에 해당되는 작품 수
+	public int countSerchByCategory(String category) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("category", category);
+		return tpl.selectOne("artMapper.countSearchByCategory",map);
 	}
 	
 	////////////////////// 회원 전용 ///////////////////////////

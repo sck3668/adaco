@@ -159,12 +159,10 @@
 			<input type="hidden" name = "category" id ="category"> 
 			<select id = "categoryChoice" class="custom-select">
 				<option selected="selected">카테고리 선택</option>
-				<option value="가방,파우치">가방,파우치</option>
-				<option value="강아지, 동물">강아지, 동물</option>
+				<option value="악세사리">악세사리</option>
+				<option value="인테리어">인테리어</option>
 				<option value="공예">공예</option>
-				<option value="악세서리">악세서리</option>
-				<option value="카테고리다">카테고리다</option>
-				<option value="카테고리다2">카테고리다2</option>
+				<option value="기타">기타</option>
 			</select>
 			<button type="button" id="search" >검색</button>
 		<hr>
@@ -226,25 +224,22 @@
 	<div style="text-align: center;">
 		<ul class="pagination justify-content-center">
 			<c:if test="${artPage.prev==true}">
-				<li><a
-					href="/adaco/art/listByArtist?pageno=${artPage.startPage-1}">이전</a></li>
+				<li><a href="/adaco/art/listByArtist?category=${artPage.search }&pageno=${artPage.startPage-1}">이전</a></li>
 			</c:if>
-			<c:forEach begin="${artPage.startPage}" end="${artPage.endPage}"
-				var="i">
+			<c:forEach begin="${artPage.startPage}" end="${artPage.endPage}" var="i">
 				<c:choose>
 					<c:when test="${artPage.pageno eq i }">
-						<li class="active"><a
-							href="/adaco/art/listByArtist?pageno=${i}">${i}</a></li>
+						<li class="active">
+						<a href="/adaco/art/listByArtist?category=${artPage.search }&pageno=${i}">${i}</a></li>
 					</c:when>
 					<c:otherwise>
-						<li><a href="/adaco/art/listByArtist?pageno=${i}">${i}</a></li>
+						<li><a href="/adaco/art/listByArtist?category=${artPage.search }&pageno=${i}">${i}</a></li>
 					</c:otherwise>
 				</c:choose>
 
 			</c:forEach>
 			<c:if test="${artPage.next==true}">
-				<li><a
-					href="/adaco/art/listByArtist?pageno=${artPage.endPage+1}">다음</a></li>
+				<li><a href="/adaco/art/listByArtist?category=${artPage.search }&pageno=${artPage.endPage+1}">다음</a></li>
 			</c:if>
 		</ul>
 	</div>
