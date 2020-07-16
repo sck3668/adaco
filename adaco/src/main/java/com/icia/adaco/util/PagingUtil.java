@@ -49,7 +49,7 @@ public class PagingUtil {
 	}
 	
 	// 스토리 목록 페이징
-	public static Page storyPage(int pageno, int countOfBoard) {
+	public static Page getPage2(int pageno, int countOfBoard) {
 		int COUNT_OF_BOARD_PER_PAGE = 9;
 		// 블록당 페이지의 개수
 		int COUNT_OF_PAGE_PER_BLOCK = 5;

@@ -204,7 +204,7 @@ ${artDetailPage}
 			<tr>
 				<td class="first">작품번호</td>
 				<td colspan="2">
-				<span id="category">${artDetailPage.artno}</span></td>
+				<span id="artno">${artDetailPage.artno}</span></td>
 			</tr>
 			<tr>
 				<td class="first">카테고리</td>

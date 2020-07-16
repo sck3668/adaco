@@ -41,8 +41,8 @@ public class ArtController {
 	
 	// 작품 리스트(최신순) + 작품 이름으로 작품 검색(회원용)
 	@GetMapping({"/art/listByUser","/"})
-	public ModelAndView artListFromUser(@RequestParam(defaultValue = "1") int pageno, @Nullable String artname, @Nullable String category, @Nullable String tag) {
-		return new ModelAndView("main").addObject("viewName","user/section.jsp").addObject("artPage",artservice.listFromUser(pageno, artname, category, tag));
+	public ModelAndView artListFromUser(@RequestParam(defaultValue = "1") int pageno, @Nullable String artname, @Nullable String category) {
+		return new ModelAndView("main").addObject("viewName","user/section.jsp").addObject("artPage",artservice.listFromUser(pageno, artname, category));
 	}
 	
 	// 작품 리스트 (리뷰순) + 작품 이름으로 작품 검색 (회원용)
@@ -63,10 +63,12 @@ public class ArtController {
 	@GetMapping("/art/readByUser")
 	public ModelAndView readFromUser(@NonNull int artno ,@Nullable Principal principal) {
 		System.out.println("상세" + artno);
+		String username;
 		if(principal!= null) {
-			String username =  principal.getName();
-		} 
-			String username = "isAnonymous()";
+			username =  principal.getName();
+		} else {
+			username = "isAnonymous()";
+		}
 		return new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPageByUser", service.readArtFromUser(artno, username))
 				.addObject("image", service.readArtImage(artno));
 	}

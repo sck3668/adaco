@@ -58,6 +58,7 @@ public class ArtService {
 				}	
 			}
 			if (option!=null) {
+				art.setAccumulated(art.getPrice()*0.01);
 				artdao.writeByArt(art);
 				option.setArtno(art.getArtno());
 				optionDao.writeByOption(option);
@@ -104,13 +105,13 @@ public class ArtService {
 	}
 
 	// 작품 리스트 최신순 + 작품이름으로 작품 검색 (회원용)
-	public Page listFromUser(int pageno, @Nullable String artname, @Nullable String category, @Nullable String tag) {
+	public Page listFromUser(int pageno, @Nullable String artname, @Nullable String category) {
 		int countOfArt = artdao.countSerchByArtName(artname);
-		Page page = PagingUtil.getPage(pageno, countOfArt);
+		Page page = PagingUtil.getPage2(pageno, countOfArt);
 		int srn = page.getStartRowNum();
 		int ern = page.getEndRowNum();
 		page.setSearch(artname);
-		List<Art> artList = artdao.listByArtFromUser(srn, ern, artname, category, tag);
+		List<Art> artList = artdao.listByArtFromUser(srn, ern, artname, category);
 		List<ArtDto.DtoForList> dtoList = new ArrayList<ArtDto.DtoForList>();
 		for (Art art : artList) {
 			ArtDto.DtoForList dto = modelMapper.map(art, ArtDto.DtoForList.class);
@@ -123,9 +124,11 @@ public class ArtService {
 	// 리뷰 순 작품 정렬 (회원용)
 	public Page listManyReview(int pageno, @Nullable String artname) {
 		int countOfArt = artdao.countSerchByArtName(artname);
-		Page page = PagingUtil.getPage(pageno, countOfArt);
+		Page page = PagingUtil.getPage2(pageno, countOfArt);
 		int srn = page.getStartRowNum();
 		int ern = page.getEndRowNum();
+		page.setSearch(artname);
+		System.out.println("셋검색"+page);
 		List<Art> artList = artdao.listManyReviewByArt(srn, ern, artname);
 		List<ArtDto.DtoForList> dtoList = new ArrayList<ArtDto.DtoForList>();
 		for (Art art : artList) {

@@ -166,7 +166,7 @@ $(function() {
 				</tr>
 				<tr>
 					<td class = "price">적립금</td>
-					<td>${artPageByUser.price*0.01 } 원</td>
+					<td>${artPageByUser.accumulated } 원</td>
 				</tr>
 				<tr>
 					<td class = "price">배송사</td>
