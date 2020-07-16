@@ -121,25 +121,25 @@ public class BagService {
 			//System.out.println("deleteService========"+list);
 			//System.out.println(username);
 			//bagdao.deleteByBag(artno);
-			System.out.println("list============="+list);
-			System.out.println("listSize=============="+list.size());
+			//System.out.println("list============="+list);
+			//System.out.println("listSize=============="+list.size());
 			
 			List<DtoForList> bagList = findAllBagByUsername(username);
 			//List<Bag> bagList = findAllByBag(artno);
 			List<Integer> deleteList = new ArrayList<>();
 			for(int i=0; i<list.size(); i++) {
 				int idx = findBag(bagList, list.get(i));
-				System.out.println("list.get(i)========"+list.get(i));
-				System.out.println("idx1============="+idx);
+				//System.out.println("list.get(i)========"+list.get(i));
+				//System.out.println("idx1============="+idx);
 				deleteList.add(idx);
 			}
 			for(int i = deleteList.size()-1; i>=0; i--) {
 				int idx = deleteList.get(i);
-				System.out.println("idx2================"+idx);
+				//System.out.println("idx2================"+idx);
 				bagList.remove(idx);
 				bagdao.deleteByBag(list.get(i));
 			}
-			System.out.println("bagList============"+bagList);
+			//System.out.println("bagList============"+bagList);
 			return bagList;
 		}
 

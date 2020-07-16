@@ -15,4 +15,5 @@ public class Order {
 	private LocalDateTime orderDate;
 	private String username;
 	private int shippingCharge;
+	private int bagno;
 }

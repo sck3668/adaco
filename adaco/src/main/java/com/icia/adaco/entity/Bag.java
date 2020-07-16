@@ -17,4 +17,5 @@ public class Bag {
 	private String optionValue;
 	private Integer optionStock;
 	private Integer optionPrice;
+	private int bagno;
 }

@@ -39,7 +39,10 @@ public class OrderDao {
 	}
 
 	// 회원아이디로 주문번호 찾기
-	public int findOrdernoByUsername(String username) {
-		return tpl.selectOne("orderMapper.findOrdernoByUsername",username);
+	public int findOrdernoByUsername(String username,int bagno) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("username", username);
+		map.put("bagno",bagno);
+		return tpl.selectOne("orderMapper.findOrdernoByUsername",map);
 	}
 }

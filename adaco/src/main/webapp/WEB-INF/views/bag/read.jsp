@@ -85,7 +85,11 @@ function printBag(bag,dest) {
 	$("<a href='#'>-</a>").attr("class","minus").attr("data-artno", bag.artno).appendTo($div);
 
 	$("<td class='six'>").text(bag.totalPrice).appendTo($tr);
-}
+	$("<input>").attr("class","artno").attr("id","artno").val(bag.artno).appendTo(dest);
+	$("<input>").attr("class","totalPrice").attr("id","totalPrice").val(bag.totalPrice).appendTo(dest);
+	$("<input>").attr("class","amount").attr("id","amount").val(bag.amount).appendTo(dest);
+	
+	}
 
 //1-2. 장바구니 전체 출력함수 - printCart()를 호출해 각 장바구니를 출력
 function printBagList() {
@@ -109,6 +113,16 @@ function printOption(option,dest) {
 	$("<span>").text(option.optionName).appendTo(dest);
 	$("<span>").text(":").appendTo(dest);
 	$("<span>").text(option.optionValue).appendTo(dest);
+	$("<input>").attr("class","optionValue").attr("id","optionValue").val(option.optionValue).appendTo(dest);
+	$("<input>").attr("class","optionName").attr("id","optionName").val(option.optionName).appendTo(dest);
+	$("<input>").attr("class","optionStock").attr("id","optionStock").val(option.optionStock).appendTo(dest);
+	$("<input>").attr("class","optionPrice").attr("id","optionPrice").val(option.optionPrice).appendTo(dest);
+	
+// 	$("<input type='text' id='optionName' name='optionName' data-optionName='option.optionName'>")
+// 	$("<input type='hidden' id='optionValue' name='optionValue' data-optionValue='option.optionValue' value='option.optionValue'>")
+// 	$("<input type='hidden' id='optionStock' name='optionStock' data-optionStock='bag.optionStock' value='bag.optionStock'>")
+// 	$("<input type='hidden' id='optionPrice' name='optionPrice' data-optionPrice='bag.optionPrice' value='bag.optionPrice'>")
+
 }
 
 function printOptionList() {
@@ -223,76 +237,162 @@ $(function() {
 				ar.push($(this).data("artno"));
 			}
 		});
-		console.log(ar);
-		alert("arr====");
 		var params = {
 				_csrf:"${_csrf.token}",
 				_method:"delete",
 				artnos:JSON.stringify(ar)
 		}
-		console.log(params);
-		alert("000");
 		$.ajax({
 			url:"/adaco/bag/choiseDelete",
 			data:params,
 			method:"post",
 		}).done((result)=>{
-			alert("성공");
 			bagList = result;
 			printBagList();
 		})
-		alert("마지막");
 	})
 	
-	// 주문하기
+	
+	
+	//선택한 작품 구매
 	$("#order").on("click",function() {
 		var ar=[];
 		$(".check").each(function(idx) {
 			if($(this).prop("checked")) {
-				ar.push($(this).data("orderno"));
-			}
-		})
-		alert("찍어보자~");
-		var params = {
-				_csrf:"${_csrf.token}",
-				orderno : $(this).attr("data-orderno"),
-				username: "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}",
-// 				totalPrice: ${orders.price},
-				_method: "get",
-				orders:JSON.stringify(ar)
-		}
-		alert("또 찍어봐");
-		$.ajax({
-			url:"/adaco/order/payment",
-			data:params,
-			method:"post"
-		}).done((result)=>{
-			alert("OK");
-			orders = result;
-			printOrderList();
-		})
-		alert("End")
-	})
-
-	// 선택한 상품 구매
-	$("#buyAll").on("click",function() {
-		var ar = [];
-		$(".check").each(function(idx) {
-			if($(this).prop("checked")) {
-				var countStr = $(this).parent().next().next().next().next().children().find("span").text();
-				var count = parseInt(countStr);
-				var obj = {
-					artno : $(this).data("artno"),
-					count : count
-				};
-				ar.push(obj);
+				ar.push($(this).data("artno"));
 			}
 		});
-		var $form = $("<form>").attr("action","/adaco/orderdetail/payment").attr("method","get");
-		$("<input>").attr("type","hidden").attr("name","json").val(JSON.stringify(ar)).appendTo($form);
+		var params = {
+				username: '${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}',
+				optionName:$(".optionName").val(),
+				optionValue:$(".optionValue").val(),
+				optionStock:$(".optionStock").val(),
+				optionPrice:$(".optionPrice").val(),
+				artno:$(".artno").val(),
+				totalPrice:$(".totalPrice").val(),
+				amount:$(".amount").val(),
+				_csrf:"${_csrf.token}",
+				_method:"post",
+				artnos:JSON.stringify(ar),
+		}
+		console.log(params);
+		alert("params");
+		$.ajax({
+			url:"/adaco/bag/ordering",
+			data:params,
+			method:"post",
+			success:function(result) {
+				alert("장바구니 구매");
+				location.href="/adaco/order/payment?artno="+result;
+			}
+		})
+	})
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 주문 버튼을 클릭하면 해당 상품을 구입 후 이동
+	$("#cart_area").on("click", ".buy", function() {
+		var $form = $("<form>").attr("action","/acart/order/buy").attr("method","post");
+		$("<input>").attr("type","hidden").attr("name","pno").val($(this).data("pno")).appendTo($form);
+		var countStr = $(this).parent().prev().children().find("span").text();
+		var count = parseInt(countStr);
+		$("<input>").attr("type","hidden").attr("name","count").val(count).appendTo($form);
 		$("<input>").attr("type","hidden").attr("name","_csrf").val("${_csrf.token}").appendTo($form);
 		$form.appendTo($("body")).submit();
 	});
+		
+//장바구니에서 주문 버튼 클릭 후 경제창 이동	
+	$("#order").on("click",function() {
+// 		var params  ={
+// 				_csrf: '${_csrf.token}',
+// 				username: '${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}',
+// 				artno:${bag.artno},
+// 				totalPrice:${artPageByUser.price},
+// 				amount:1, 
+// 				optionName:'${artPageByUser.optionName}',
+// 				optionValue:'${artPageByUser.optionValue}',
+// 				optionStock:${artPageByUser.optionStock}, 
+// 				optionPrice:'${artPageByUser.optionPrice}', 
+			
+// 			};
+// 		$.ajax({
+// 			url:"/adaco/order/ordering",
+// 			method:"post",
+// 			data:params,
+// 			success:function(result) {
+// 				alert("구매하기");
+// 				location.href="/adaco/order/payment?artno="+result;
+// 			}
+// 		});
+		
+	})
+	
+	
+	
+	
+	
+	
+// 	// 주문하기
+// 	$("#order").on("click",function() {
+// 		var ar=[];
+// 		$(".check").each(function(idx) {
+// 			if($(this).prop("checked")) {
+// 				ar.push($(this).data("orderno"));
+// 			}
+// 		})
+// 		alert("찍어보자~");
+// 		var params = {
+// 				_csrf:"${_csrf.token}",
+// 				orderno : $(this).attr("data-orderno"),
+// 				username: "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}",
+// // 				totalPrice: ${orders.price},
+// 				_method: "get",
+// 				orders:JSON.stringify(ar)
+// 		}
+// 		alert("또 찍어봐");
+// 		$.ajax({
+// 			url:"/adaco/order/payment",
+// 			data:params,
+// 			method:"post"
+// 		}).done((result)=>{
+// 			alert("OK");
+// 			orders = result;
+// 			printOrderList();
+// 		})
+// 		alert("End")
+// 	})
+
+// 	// 선택한 상품 구매
+// 	$("#buyAll").on("click",function() {
+// 		var ar = [];
+// 		$(".check").each(function(idx) {
+// 			if($(this).prop("checked")) {
+// 				var countStr = $(this).parent().next().next().next().next().children().find("span").text();
+// 				var count = parseInt(countStr);
+// 				var obj = {
+// 					artno : $(this).data("artno"),
+// 					count : count
+// 				};
+// 				ar.push(obj);
+// 			}
+// 		});
+// 		var $form = $("<form>").attr("action","/adaco/orderdetail/payment").attr("method","get");
+// 		$("<input>").attr("type","hidden").attr("name","json").val(JSON.stringify(ar)).appendTo($form);
+// 		$("<input>").attr("type","hidden").attr("name","_csrf").val("${_csrf.token}").appendTo($form);
+// 		$form.appendTo($("body")).submit();
+// 	});
 })
 </script>
 </head>
