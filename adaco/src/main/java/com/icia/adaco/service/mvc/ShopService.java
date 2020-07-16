@@ -54,13 +54,14 @@ public class ShopService {
 		Shop shop = shopDao.readByShop(shopno);
 		ShopDto.DtoForRead shopReadDto = modelMapper.map(shop,ShopDto.DtoForRead.class);
 		shopReadDto.setImg(artDao.findAllArtImgByShopno(shopno));
+		shopReadDto.setArtno(artDao.findAllArtnoByShopno(shopno));
 		return shopReadDto;
 		}
 	 
 	public void delete(int shopNo) {
 		shopDao.deleteByShop(shopNo);
 	}
-
+ 
 	public int shopCheck(String username) {
 		int artistno = artistDao.findArtistnoByUsername(username);
 		System.out.println("artistno==="+artistno);

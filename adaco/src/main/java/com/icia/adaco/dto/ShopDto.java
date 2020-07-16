@@ -39,6 +39,7 @@ public class ShopDto {
 		private String forwarding;
 		private String back;
 		private List<String> img;
+		private List<Integer> artno;
 	}
 	@Data
 	@Builder
