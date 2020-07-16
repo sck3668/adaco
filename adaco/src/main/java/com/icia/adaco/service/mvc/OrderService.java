@@ -1,10 +1,21 @@
 package com.icia.adaco.service.mvc;
 
+<<<<<<< HEAD
 import java.time.format.*;
+=======
+import java.time.*;
+>>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 import java.util.*;
+
+import javax.servlet.http.*;
 
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
+<<<<<<< HEAD
+=======
+import org.springframework.http.*;
+import org.springframework.scheduling.quartz.*;
+>>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
 
@@ -25,14 +36,22 @@ public class OrderService {
 	private BagDao bagDao;
 	@Autowired
 	private ArtDao artDao;
+	@Autowired
 	private OptionDao optionDao;
+	@Autowired
+	private ArtistDao artistDao;
+	@Autowired
 	private OrderDetailDao orderDetailDao;
 	@Autowired
 	private ObjectMapper objectMapper = new ObjectMapper();
 	@Autowired
 	private ModelMapper modelMapper;
+<<<<<<< HEAD
 
 	// 주문 하기
+=======
+		// 주문 하기    
+>>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 //		public int Ordering(String username, Order order,OrderDto.DtoForOrdering Dto) {
 //			int orderno = order.getOrderno();
 //			modelMapper.map(Dto, Order.class);
@@ -49,6 +68,7 @@ public class OrderService {
 //			OrderDetail orderDetail = orderDetailDao.OrderDetail(orderno);
 //			return orderno;
 //		}
+<<<<<<< HEAD
 	// 3
 
 	public int Ordering(Order order, Bag bag) {
@@ -68,6 +88,75 @@ public class OrderService {
 		return orderdetail.getOrderno();
 	}
 
+=======
+		// 3
+		
+	
+	
+	// 주문하기
+			public int Ordering(Order order,Bag bag,String username) {
+				System.out.println("ordering service"+order+"//"+bag+"//"+username);
+				order.setOrderDate(LocalDateTime.now());
+				order.setUsername(username);
+				order.setShippingCharge(3000);
+				int artno = bag.getArtno();
+				Art art = artDao.readByArt(artno);
+				bag.setTotalPrice(bag.getAmount()*art.getPrice());
+				bagDao.insertByBag(bag);
+				orderDao.Ordering(order);
+				System.out.println(artno+"artno111");
+				return artno;
+			}
+			
+			
+			// 주문하기 후 결제창 이동시 넘겨줄 데이터
+			public OrderDto.DtoForPayment OrderingD(String username,int artno) {
+				Art art = artDao.readByArt(artno);
+				int artistno = artDao.findArtistnoByArtno(artno);
+				System.out.println("333");
+				int optno = optionDao.findOptnoByArtno(artno);
+				System.out.println("4444");
+				int orderno = orderDao.findOrdernoByUsername(username);
+				System.out.println("orderingD1==="+artistno+"//"+optno+"//"+orderno);
+				Option option = optionDao.readByArtno(artno);
+				System.out.println("option==="+option);
+				User user = userDao.findByid(username);
+				System.out.println("user====="+user);
+				System.out.println("art===="+art);
+				Bag bag = bagDao.findByArtno(artno);
+				System.out.println("bag===="+bag);
+				String artistUsername = artistDao.findByid(artistno).getUsername();
+				String artistName = userDao.findByid(artistUsername).getIrum();
+				OrderDto.DtoForPayment dto = new OrderDto.DtoForPayment();
+				dto.setArtistName(artistName).setArt(art).setOption(option).setUser(user).setBag(bag).setArtistno(artistno).setOrderno(orderno);
+				System.out.println("orderingD  Dto ==="+dto);
+				return dto;
+			}
+	
+	
+	
+	
+	
+	////////////////////////////////
+//		public int Ordering(Order order,Bag bag) {
+//			int artno = bag.getArtno();
+//			Art art = artDao.readByArt(artno);
+//			bag.setTotalPrice(bag.getAmount()*art.getPrice());
+//			return orderDao.Ordering(order);
+//		}
+		
+		// 결제하기
+//		@PreAuthorize("isAuthenticated()")
+//		public int payment(String username,OrderDto.DtoForOrdering dto) {
+//			System.out.println(dto+"=============dto");
+//			OrderDetail orderdetail = modelMapper.map(dto, OrderDetail.class);
+//			System.out.println(orderdetail+"===============orderdetail");
+//			orderDetailDao.Payment(orderdetail);
+//			if()
+//		return orderdetail.getOrderno();
+//		}
+//		
+>>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 //		public int payByOrder(String username, OrderDetailDto.DtoForDeleteOrder Dto, Order order){
 //			int orderdetail = orderDao.Ordering(order);
 //			if(order.getUsername()===false);

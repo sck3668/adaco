@@ -41,6 +41,9 @@
 		shippingCharge from orders where orderno=#{orderno} and rownum=1
 	</select>
 	
+	<select id="findOrdernoByUsername" resultType="int">
+		select orderno from orders where username=#{username}
+	</select>
 <!-- 	<update id ="updateByOrder"> -->
 <!-- 		update orders -->
 <!-- 		<trim suffixOverrides="," prefix="set"> -->

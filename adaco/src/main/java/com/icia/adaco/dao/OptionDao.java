@@ -55,4 +55,10 @@ public class OptionDao {
 	}
 	
 	
+	// 작품번호로 옵션번호 가져오기
+		public int findOptnoByArtno(int artno) {
+			System.out.println("Dao artno1111111==="+artno);
+			return tpl.selectOne("optionMapper.findOptnoByArtno",artno);
+		}
+	
 }

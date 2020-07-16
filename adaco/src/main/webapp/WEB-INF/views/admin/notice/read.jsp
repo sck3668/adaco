@@ -137,8 +137,8 @@ input[type="text"]:focus, input[type="text"]:hover {
 		padding-left: 320px;
 	}
 	
-	#content {overflow: auto; width:1200px; min-height: 800px; margin-left: 50px; border-radius: 20px; box-shadow: 5px 5px 5px gray;}
-	#title {width: 1200px; margin-left: 50px; border-radius: 20px; box-shadow: 5px 5px 5px gray;}
+	#content {overflow: auto; width:900px; min-height: 800px; border-radius: 20px; box-shadow: 5px 5px 5px gray;}
+	#title {width: 900px; border-radius: 20px; box-shadow: 5px 5px 5px gray;}
 	::-webkit-scrollbar{width: 16px;}
 		::-webkit-scrollbar-track {background-color:#4C4C4C;}
 		::-webkit-scrollbar-thumb {background-color:#6799FF;border-radius: 10px;}
@@ -146,13 +146,6 @@ input[type="text"]:focus, input[type="text"]:hover {
 		::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
 		width:16px;height:16px;background:#4C4C4C;}
 </style>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-<script	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="/adaco/ckeditor/ckeditor.js"></script>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -287,7 +280,7 @@ input[type="text"]:focus, input[type="text"]:hover {
 	<form action="/adaco/admin/notice_write" method="post" id = "wrFrm" enctype="multipart/form-data">
 		<div id = "title_div">
 			<div class = "upper">
-				<label for = "title" style="margin-left: 50px; margin-top: 20px;">▣제목</label>
+				<label for = "title">▣제목</label>
 				<input type = "text" class = "form-control" id = "title" name = "title" readonly="readonly" style="background-color: white;">
 			</div>
 		</div>
@@ -296,7 +289,7 @@ input[type="text"]:focus, input[type="text"]:hover {
 				</ul>
 			</div>
 			<div class = "form-group" id ="content_div">
-				<label for = "content" style="margin-left: 50px;">◈내용</label>
+				<label for = "content">◈내용</label>
 				<div class = "form-group">
 					<div class = "form-control" id = "content" name = "content" cols="50" rows="10" readonly="readonly" style="background-color: white;"></div>
 				</div>
@@ -310,10 +303,13 @@ input[type="text"]:focus, input[type="text"]:hover {
 		        	<input id="checkbox1" id= "checkbox" name="checkbox" type="checkbox"> <label for="checkbox1">중요 공지</label>
 	            </div>
 				<button type = "button" class = "btn btn-success" id = "update">변경</button>
-				<button type="button" class="btn btn-danger" id = "delete">삭제</button>
+				<button type = "button" class = "btn btn-danger" id = "delete">삭제</button>
 	        </div>
-			</sec:authorize>
 			<a style="margin-left: 50px;"href="/adaco/admin/notice_list" class = "btn btn-primary">뒤로가기</a>			
+			</sec:authorize>
+			<sec:authorize access="hasRole('ROLE_USER') or hasRole('ROLE_SELLER')">
+			<a href="/adaco/user/noticeList" class = "btn btn-primary">뒤로가기</a>
+			</sec:authorize>
 			<input type = "hidden" name = "_csrf" value = "${_csrf.token }">
 	</form>
 </body>

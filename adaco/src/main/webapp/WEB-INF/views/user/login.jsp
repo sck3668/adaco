@@ -98,6 +98,14 @@ function checkPassword() {
                                         <label>
                                             <input type="checkbox" name="remember"> 아이디저장하기
                                         </label>
+                                        
+                                        <div class="custom-control custom-checkbox mb-1">
+											<input type="checkbox" class="custom-control-input" 
+    											name="remember-me" value="True"
+												id="customCheck1">
+											<label class="custom-control-label" for="customCheck1">로그인 유지</label>
+										</div>
+                                        
                                     </div>
                                 </div>
                             </div>

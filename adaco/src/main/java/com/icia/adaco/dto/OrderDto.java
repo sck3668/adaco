@@ -12,6 +12,68 @@ public class OrderDto {
    private OrderDto() {
    }
    //
+ //결제하기 화면 이동시 넘겨줄 값
+ 	@Data
+ 	@AllArgsConstructor
+ 	@NoArgsConstructor
+ 	@Builder
+ 	@Accessors(chain=true)
+ 	public static class DtoForPayment{
+ 		//Art
+// 		private String artName;
+// 		private int price;
+// 		private String artistName;
+// 		private int amount;
+// 		private int totalPrice;
+// 		private String optionName;
+// 		private String optionValue;
+// 		private Integer optionStock;
+// 		private Integer optionPrice;
+// 		private int couriPrice;
+// 		private int accumulated;
+// 		//User
+// 		private String username;
+// 		private int tel;
+// 		private String irum;
+// 		private String email;
+ 		private Art art;
+ 		private Option option;
+ 		private User user;
+ 		private Bag bag;
+ 		private String artistName;
+ 		// 외래키
+ 		private int artistno;
+ 		private int optno;
+ 		private int orderno;
+ 	}
+ 	
+ 	@Data
+ 	@AllArgsConstructor
+ 	@NoArgsConstructor
+ 	@Builder
+ 	@Accessors(chain=true)
+ 	public static class DtoForAfter{
+ 		private int orderno;
+ 		private int optno;
+ 		private int artno;
+ 		private int artistno;
+ 		private String mainImg;
+ 		private String artName;
+ 		private int amount;
+ 		private int price;
+ 		private int accumulated;	//적립금
+ 		private int totalPrice;
+ 		private String username;
+ 		private String recipient;
+ 		private String tel;
+ 		private String originalAddress;
+ 		private String refundAccount;
+ 		private String request;
+ 	}
+ 	//////////////////////////	총결제금액,주문번호,적립포인트,작품명,
+	//	배송지,배송비,작품이미지,
+   
+>>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
    @Data
    @AllArgsConstructor
    @NoArgsConstructor

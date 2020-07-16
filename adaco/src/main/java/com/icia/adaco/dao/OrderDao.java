@@ -59,4 +59,9 @@ public class OrderDao {
 	public int deleteByOrder(int orderno) {
 		return tpl.delete("orderMapper.deleteByOrder", orderno);
 	}
+
+	// 회원아이디로 주문번호 찾기
+	public int findOrdernoByUsername(String username) {
+		return tpl.selectOne("orderMapper.findOrdernoByUsername",username);
+	}
 }

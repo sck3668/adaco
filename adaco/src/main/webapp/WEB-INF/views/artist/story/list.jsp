@@ -83,11 +83,24 @@
 		width:250px;
 		height:300px;
 		display: inline-block;
+		margin: 20px;
 	}
-	
+	.writeDate {
+		font-size: 0.75em;
+		text-align: right;
+	}
+	#textAreadown {
+		display: inline-block;
+	}
+	.image {
+		display:inline-block;
+		width:70px;
+		height:70px;
+	}
+	#textAreaUp {
+		height:70px;
+	}
 </style>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script>
 	$(function() {
 		//if("${memoMsg}"!=="")
@@ -140,7 +153,8 @@
 	                <p class="color-contrast-medium"><time>${story.writeDateStr }</time>, &mdash; ${story.times } </p>
 	              </div>
 	            </div>
-		        <div class="grid gap-md items-start">
+	            <hr style="border: 1.5px solid pink;">
+		        <div class="grid gap-md items-start" style="text-align: center;">
 		          <a href="/adaco/story/readStory?storyno=${story.storyno }" class="articles-v3__img col-6@md col-7@xl">
 		            <figure class="media-wrapper">
 		              <img src="${story.image }" alt="Image description">
@@ -150,6 +164,7 @@
 		          <div class="col-6@md col-5@xl" style="  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 90%; height: 250px;">
 		            <div class="text-component">
 		              <h2 class="articles-v3__headline"><a href="/adaco/story/readStory?storyno=${story.storyno }" style="color: #ff4757; font-weight: bold;">${story.title }</a></h2>
+		              <br><br><br>
 		              <p>${story.content }</p>
 		            </div>
 		    
@@ -198,8 +213,7 @@
 			<div class="modal-content">
 				<div class="modal-body" >
 					<ul>
-						<li id="read_by_id" data-dismiss='modal'>게시물 보기</li>
-						<li id="find_joindate">가입일 보기</li>
+						<li id="read_by_id" data-dismiss='modal'>작가 작품보기</li>
 						<sec:authorize access="hasRole('ROLE_USER')">
 							<li id="write_memo">메보 보내기</li>
 						</sec:authorize>

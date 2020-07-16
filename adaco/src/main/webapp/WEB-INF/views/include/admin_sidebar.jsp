@@ -47,7 +47,7 @@
             <a class="collapse-item" href="/adaco/admin/report_list">신고글 관리</a>
             <a class="collapse-item" href="/adaco/admin/question_list">문의 관리</a>
             <a class="collapse-item" href="/adaco/admin/notice_list">공지사항 관리</a>
-            <a class="collapse-item" href="/adaco/user/faq_list">FAQ 관리</a>
+            <a class="collapse-item" href="/adaco/user/faqList">FAQ 관리</a>
           </div>
         </div>
       </li>

@@ -88,4 +88,6 @@
 			<sec:password-encoder ref="encoder" />
 		</sec:authentication-provider>
 	</sec:authentication-manager>
+	
+
 </beans>
