@@ -102,6 +102,8 @@ public class ArtRestController {
 	public ResponseEntity<?> deleteArtComment(Integer cno, Integer artno, String username){
 		return ResponseEntity.ok(service.deleteCommentOfArt(cno, artno, username));
 	}
+	//리뷰작성
+	
 	
 	
 }
