@@ -22,11 +22,11 @@
 	
 	<!-- 작품 리스트(최신순) / 카테고리로 검색 리스트-->
 	<select id="findAll" resultType="art">
-		select B.artno, B.category, B.main_img mainImg, B.art_name artName, B.price, B.art_date artDate
+		select B.artno, B.category, B.main_img mainImg, B.art_name artName, B.price, B.art_date artDate, B.artistno
 	      from
-	         (select /*+ index_desc(art art_pk_artno) */ rownum rnum, A.artno, A.category, A.main_img, A.art_name, A.price, A.art_date
+	         (select /*+ index_desc(art art_pk_artno) */ rownum rnum, A.artno, A.category, A.main_img, A.art_name, A.price, A.art_date, A.artistno
 	         from (
-	            select artno, category, main_img, art_name, price, art_date
+	            select artno, category, main_img, art_name, price, art_date, artistno
 	            from art
 	            <trim prefix="WHERE" prefixOverrides="AND">
 	            	<if test="category!=null and category != '' ">
@@ -86,9 +86,9 @@
 	</update>
 	
  	<!-- 작품 count / 페이징 위한 --> 
-<!-- 	<select id="count" resultType="int"> -->
-<!-- 		select count(*) from art -->
-<!-- 	</select> -->
+	<select id="count" resultType="int">
+		select count(*) from art
+	</select>
 	
 	<!-- 회원 사용 -->
 	

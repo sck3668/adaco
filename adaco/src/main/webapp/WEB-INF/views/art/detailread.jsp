@@ -23,6 +23,26 @@
 </style>
 <script>
 $(function() {
+
+	var idx = 0;
+	$("#add").on("click", function(){
+		var cnt = $("input[name='artSajin']").length;
+		if(cnt>=5){
+			alert("최대 5개까지 업로드 가능합니다");
+		return;
+		}
+		var $input = $("<input>").attr("type", "file").attr("name", "artSajin").attr("id", "artSajin").attr("accept", ".jpg,.jpeg,.png,.gif,.bmp");
+		idx++;
+		$input.appendTo($("#artSajin"));
+	});
+	
+// 	$("#deleteUpload").on("click", function(){
+// 		  $("#artSajin").html("");
+// //			  document.getElementById("add").disabled = false;
+// 	});
+ });
+	
+$(function() {
 	// select box에 택배사 값 받아오기
 	var $courier = $("#courier").val(); 
 	var $select = $("#Courier").find("option");
@@ -233,6 +253,8 @@ ${artDetailPage}
 				      </c:forEach>
 				    </ul>
 				  </div>
+<!-- 				  <div id = "artSajin"></div> -->
+<!-- 				  <button type = "button" id = "add" name="add">작품 이미지 추가</button> -->
 				  <input type="file" name="artSajin" id="artSajin" />
 				  <span class="nxt_fix" style="display:none;"></span>
 				</div>

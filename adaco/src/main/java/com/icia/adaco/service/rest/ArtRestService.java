@@ -59,13 +59,13 @@ public class ArtRestService {
 			throw new JobFailException("상품 수정 권한이 없습니다");
 		art = modelMapper.map(dto, Art.class);
 		option = modelMapper.map(dto,Option.class);
-		System.out.println("여기여기"+artSajin.getName());
+//		System.out.println("여기여기"+artSajin.getName());
 		if(artSajin!=null && !artSajin.isEmpty()) {
 			if (artSajin.getContentType().toLowerCase().startsWith("image/") == true) {
 				int lastIndexOfDot = artSajin.getOriginalFilename().lastIndexOf('.');
 				String extension = artSajin.getOriginalFilename().substring(lastIndexOfDot + 1);
 				File artfile = new File(artfileFolder, art.getArtName() + "." + extension);
-				System.out.println("아트네임확인" + art.getArtName());
+//				System.out.println("아트네임확인" + art.getArtName());
 				artSajin.transferTo(artfile);
 				art.setMainImg(artfilePath + artfile.getName());
 			} else {
@@ -196,31 +196,6 @@ public class ArtRestService {
 		return artList;
 		
 	}
-	
-	// 작품 선택 삭제하기
-	/*public List<DtoForList> multipleDelete(String username, List<Integer> list) {
-		List<ArtDto.DtoForList> artList = findList(username);
-		List<Integer> deleteIndexList = new ArrayList<>();
-		for(int i=0; i<list.size(); i++) {
-			int idx = findCart(artList, list.get(i));
-			deleteIndexList.add(idx);
-		}
-		for(int i=deleteIndexList.size()-1; i>=0; i--) {
-			int idx = deleteIndexList.get(i);
-			artList.remove(idx);
-		}
-		session.setAttribute("cartList", cartList);
-		return artList;
-	}
-	
-	// username으로 작품 목록 가져오기
-	private List<DtoForList> findList(String username) {
-		Integer artistno = artistDao.findArtistnoByUsername(username);
-		Art art = artDao.findArtByUsername(artistno);
-		
-		// TODO Auto-generated method stub
-		return null;
-	}*/
 
 	// 작품 댓글 작성하기
 	public List<ArtComment> writeCommentOfArt(ArtComment artcomment){

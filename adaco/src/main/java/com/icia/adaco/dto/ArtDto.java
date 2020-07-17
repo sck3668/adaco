@@ -60,6 +60,7 @@ public class ArtDto {
 		private LocalDate artDate;
 		private String username;
 		private String tag;
+		private Integer artistno;
 		List<Art> artList;
 	}
 	

@@ -17,6 +17,7 @@ import com.icia.adaco.dto.AdminBoardDto.DtoForIndex;
 import com.icia.adaco.dto.ArtDto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.exception.*;
+import com.icia.adaco.service.rest.*;
 import com.icia.adaco.util.*;
 
 @Service
@@ -31,6 +32,8 @@ public class ArtService {
 	private ArtistDao artistdao;
 	@Autowired
 	private ShopDao shopdao;
+	@Autowired
+	private ArtRestService service;
 	@Value("d:/upload/artfile")
 	private String artfileFolder;
 	@Value("http://localhost:8081/artfile/")
@@ -41,38 +44,38 @@ public class ArtService {
 		Art art = modelMapper.map(dto, Art.class);
 		Option option = modelMapper.map(dto, Option.class);
 		List<String> list = new ArrayList<String>();
-		if (artSajin!= null && artSajin.isEmpty()==false) {
+		if (artSajin != null && artSajin.isEmpty() == false) {
 			int i = 0;
-			for(MultipartFile sajin:artSajin) {
+			for (MultipartFile sajin : artSajin) {
 				if (sajin.getContentType().toLowerCase().startsWith("image/") == true) {
 					long time = System.currentTimeMillis();
 					int lastIndexOfDot = sajin.getOriginalFilename().lastIndexOf('.');
 					String extension = sajin.getOriginalFilename().substring(lastIndexOfDot + 1);
-					File artfile = new File(artfileFolder, time+i +"." + extension);
+					File artfile = new File(artfileFolder, time + i + "." + extension);
 					sajin.transferTo(artfile);
-					String gyungro = artfilePath+artfile.getName();
+					String gyungro = artfilePath + artfile.getName();
 					art.setMainImg(gyungro);
 					list.add(gyungro);
 				} else {
 					throw new JobFailException("파일 확장자를 확인해주세요.");
-				}	
+				}
 			}
-			if (option!=null) {
-				art.setAccumulated(art.getPrice()*0.01);
+			if (option != null) {
+				art.setAccumulated(art.getPrice() * 0.01);
 				artdao.writeByArt(art);
 				option.setArtno(art.getArtno());
 				optionDao.writeByOption(option);
-				for(String gyungroem:list) 
+				for (String gyungroem : list)
 					artdao.insertArtImg(ArtImg.builder().gyungro(gyungroem).artno(art.getArtno()).build());
 			} else {
 				throw new JobFailException("옵션을 등록해주세요.");
-			} 
-		
+			}
+
 		} else {
-		throw new JobFailException("작품 사진을 등록해주세요");
+			throw new JobFailException("작품 사진을 등록해주세요");
 		}
 	}
-	
+
 	// 작품 등록 시 필요한 artistno와 shopno 받아오기
 	public ArtDto.DtoForArtistnoAndShopno infoRead(String username) {
 		Integer artistno = artistdao.findArtistnoByUsername(username);
@@ -81,18 +84,22 @@ public class ArtService {
 		dto.setShopno(shopdao.readShopnoByArtistno(artistno));
 		return dto;
 	}
-	
-	// 작품 리스트 (작가용) 
+
+	// 작품 리스트 (작가용)
 	public Page list(int pageno, @Nullable String category, String username) {
-//		Integer artistno = artistdao.findArtistnoByUsername(username);
+		Integer artistno = artistdao.findArtistnoByUsername(username);
 //		String artWriter = artistdao.findByid(artistno).getUsername();
-//		if(username.equals(artWriter)==false) 
+//		Integer artistnoByartno = artdao.findArtistnoByArtno(artno);
+//		List<DtoForList> artistnoByartno = service.findAllArtByUsername(username, pageno, category);
+		
+//		if (artistno.equals(artistnoByartno) == false)
 //			throw new JobFailException("권한이 없습니다.");
 		int countOfArt = artdao.countSerchByCategory(category);
 		Page page = PagingUtil.getPage(pageno, countOfArt);
 		int srn = page.getStartRowNum();
 		int ern = page.getEndRowNum();
 		page.setSearch(category);
+//		int artistno = artistdao.findArtistnoByUsername(username);
 		List<Art> artList = artdao.listByArt(srn, ern, category);
 		List<ArtDto.DtoForList> dtoList = new ArrayList<ArtDto.DtoForList>();
 		for (Art art : artList) {
@@ -101,7 +108,7 @@ public class ArtService {
 		}
 		page.setArtList(dtoList);
 		return page;
-		
+
 	}
 
 	// 작품 리스트 최신순 + 작품이름으로 작품 검색 (회원용)
@@ -120,7 +127,7 @@ public class ArtService {
 		page.setArtList(dtoList);
 		return page;
 	}
-	
+
 	// 리뷰 순 작품 정렬 (회원용)
 	public Page listManyReview(int pageno, @Nullable String artname) {
 		int countOfArt = artdao.countSerchByArtName(artname);
@@ -128,7 +135,6 @@ public class ArtService {
 		int srn = page.getStartRowNum();
 		int ern = page.getEndRowNum();
 		page.setSearch(artname);
-		System.out.println("셋검색"+page);
 		List<Art> artList = artdao.listManyReviewByArt(srn, ern, artname);
 		List<ArtDto.DtoForList> dtoList = new ArrayList<ArtDto.DtoForList>();
 		for (Art art : artList) {
