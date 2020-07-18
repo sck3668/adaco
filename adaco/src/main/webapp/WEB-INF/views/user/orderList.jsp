@@ -74,7 +74,7 @@ $(function(){
       <div>
          <ul>
             <li><a href="/adaco/user/read" style="color: black;">내정보보기</a></li>
-            <li><a href="/adaco/user/orderlist"style="color: black;">주문내역</a></li>
+            <li><a href="/adaco/user/orderList"style="color: black;">주문내역</a></li>
             <li><a href="/adaco/user/reviewList" style="color: black;">내리뷰보기</a></li>
             <li><a href="/adaco/user/favoriteList" style="color: black;">즐겨찾기목록</a></li>
             <li><a href="/adaco/user/pointList" style="color: black;">포인트함 </a>
@@ -104,7 +104,6 @@ $(function(){
             <option value="유저">모든 유저</option>
             <option value="아티스트">판매자</option>
       </select>
-      ${order }
    </div>   
    <div id="orderMain">
    <table>
@@ -126,34 +125,37 @@ $(function(){
             <th>주문상태</th>
          </tr>
       </thead>
+      
       <tbody id = "list">
       <c:forEach items="${page.orderList}" var = "list">
                 <tr>
                 	<td>${list.orderno }</td>
                 	<td>${list.orderDateStr}</td>
-                	<td>${list.artName }</td>
+                	<td><a href="/adaco/user/orderRead?artName=${list.artName }">${list.artName }</a></td>
                 	<td>${list.artPrice }</td>
                 	<td>${list.shippingCharge }</td>
+                	<td>${list.state }</td>
                 </tr>
                 
       </c:forEach>
       </tbody>
    </table>
    </div>
+   
      <div style="text-align:center;">
       <ul class="pagination">
          <c:if test="${page.prev==true}">
-            <li><a href="/adaco/order/list?pageno=${artistPage.startPage-1}">이전</a></li>
+            <li><a href="/adaco/user/orderList?pageno=${page.startPage-1}">이전</a></li>
          </c:if>
          <c:forEach begin="${page.startPage}" end="${page.endPage}" var="i">
             <c:choose>
                <c:when test="${page.pageno eq i }">
                   <li class="active">
-                     <a href="/adaco/order/list?pageno=${i}">${i}</a>
+                     <a href="/adaco/user/orderList?pageno=${i}">${i}</a>
                   </li>
                </c:when>
                <c:otherwise>
-                  <li><a href="/adaco/order/list?username=&pageno=${i}">${i}</a></li>
+                  <li><a href="/adaco/user/oderList?username=&pageno=${i}">${i}</a></li>
                </c:otherwise>
             </c:choose>	
             

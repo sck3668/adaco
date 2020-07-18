@@ -9,17 +9,26 @@
 <!-- 		</selectKey> -->
 		insert into order_detail(orderno,optno, artno,artistno,art_name, option_name,
 		option_value, amount,price, address, recipient,tel,email,
-			request,add_point,refund_account ,is_shipping , state)
+			request,add_point,refund_account ,is_shipping , orderstate)
 			values(#{orderno},#{optno}, #{artno},#{artistno}, #{artName},#{optionName},#{optionValue},#{amount},#{price},
-			#{address},#{recipient},#{tel},#{email},#{request},#{addPoint},#{refundAccount},0,#{state})
+			#{address},#{recipient},#{tel},#{email},#{request},#{addPoint},#{refundAccount},0,#{orderState})
 	</insert>
+	<select id="findArtnoByOrderDetail" resultType="orderDetail">
+	select orderno,optno, artno,artistno,art_name artName, option_name optionName,
+		option_value optionValue, amount,price, address, recipient,tel,email,
+			request,add_point addPoint, postalcode,refund_account refundAccount,is_shipping, orderstate orderState 
+			from order_detail where art_name=#{artName} and rownum =1
+	</select>
 	
 	<!--주문 상세 -->
-	<select id="OrderDetail" resultType="orderdetail">
-	select orderno,optno, artno,artistno,art_name, option_name,
-		option_value, amount,price, address, recipient,tel,email,
-			request,add_point, postalcode,refund_account ,is_shipping, state
+	<select id="OrderDetail" resultType="orderDetail">
+	select orderno,optno, artno,artistno,art_name artName, option_name optionName,
+		option_value optionValue, amount,price, address, recipient,tel,email,
+			request,add_point addPoint, postalcode,refund_account refundAccount,is_shipping, orderstate orderState
 			from order_detail where orderno=#{orderno} and rownum =1
+	</select>
+	<select id="findByArtnameArtImage" resultType="string">
+	select main_img mainImg from art where art_name=#{artName}
 	</select>
 	
 <!-- 	<select id="Ordering"> -->
@@ -40,15 +49,15 @@
 <!-- 		<![CDATA[ -->
 <!-- 			select b.orderno, b.artname, b.option_name optionName, b.opiont_value optionValue, -->
 <!-- 				b.amount, b.price, b.address, b.recipient, b.tel, b.request, b.add_point addPoint, -->
-<!-- 				b.refundAccount, b.isShipping,b.state -->
+<!-- 				b.refundAccount, b.isShipping,b.orderState -->
 <!-- 				from -->
 <!-- 		    		(select /*+ index_asc(order_detail orderno_pk_orderno) */ rownum rnum, b.orderno, b.artname, b.option_name , b.opiont_value , -->
 <!-- 				b.amount, b.price, b.address, b.recipient, b.tel, b.request, b.add_point , -->
-<!-- 				b.refundAccount, b.isShipping, b.state -->
+<!-- 				b.refundAccount, b.isShipping, b.orderState -->
 <!-- 		         	from ( -->
 <!-- 		            	select orderno, artname, option_name , opiont_value , -->
 <!-- 							amount, price, address, recipient, tel, request, b.add_point , -->
-<!-- 							refundAccount, isShipping, state -->
+<!-- 							refundAccount, isShipping, orderState -->
 <!-- 		     	       	from order_detail -->
 <!-- 		            	order by isShipping desc ) A -->
 <!-- 		         	where rownum <= #{endRowNum})B -->
