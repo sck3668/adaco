@@ -94,11 +94,11 @@ $(document).ready(function(){
 						<ul class="sub"> 
 							<li>
 								<a href="/adaco/message/listSender" style=" text-decoration: none;" >
-									<i></i>빋은쪽지함</a>
+									<i></i>보낸쪽지함</a>
 							</li>
 							<li>
 								<a href="/adaco/message/listReceiver" style=" text-decoration: none;" >
-									<i></i>보낸쪽지함</a>
+									<i></i>받은쪽지함</a>
 							</li>
 						</ul>
 				</li>

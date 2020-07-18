@@ -95,19 +95,20 @@ public class UserController {
 	// false면 비밀번호 찾기므로 비밀번호 찾기로 이동
 	@PostMapping("/user/findIdPwd")
 	public ResponseEntity<String> findIdPwd(String findIdPwd,String tel,HttpSession session) {
-		System.out.println("findIdPwd===="+findIdPwd);
-		System.out.println("tel========"+tel);
 		if(findIdPwd.equals("findId")==true) {
 			String irum = userService.findByTel(tel);
-			System.out.println(irum+"=======");
 			session.setAttribute("irum",irum);
-			System.out.println(session.getAttribute("irum")+"================ㅋㅋ");
 			if(irum!=null) {
 				return ResponseEntity.ok("1");
 			} else {
 				return ResponseEntity.ok("2");
 			}
 		} else {
+			String irum = userService.findByTel(tel);
+			session.setAttribute("irum",irum);
+			if(irum==null) {
+				return ResponseEntity.ok("2");
+			}
 			return ResponseEntity.ok("3");
 		}
 	}

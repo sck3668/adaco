@@ -184,6 +184,7 @@ var story = ${story};
 </script>
 </head>
 <body>	
+${story }
 	<div>
 		<div class = "form-group">
 				제목<input type = "text" class = "form-control" id = "title" name = "title" readonly="readonly" style="background-color: white;" >

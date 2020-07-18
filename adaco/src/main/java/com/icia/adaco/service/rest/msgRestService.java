@@ -17,6 +17,7 @@ public class msgRestService {
 	}
 
 	public void disableByReceiver(List<Integer> list) {
+		System.out.println("list=="+list);
 		msgDao.disableByReceiver(list);
 	}
 }

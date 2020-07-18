@@ -15,11 +15,14 @@
 			if (radio_btn[i].checked == true) {
 				//라디오 버튼 값
 				radio_btn_check++;
+				if($("#tel").val()=="") {
+					alert("핸드폰 번호를 입력해주세요");
+					return false;
+				}
 				var params = {
 					findIdPwd : radio_btn[i].value,
 					tel : $("#tel").val(),
 					_csrf:'${_csrf.token}'
-					
 				};
 				$.ajax({
 					url : "/adaco/user/findIdPwd",
@@ -28,10 +31,16 @@
 					success : function(result) {
 						if (result == "1")
 							location.href = "/adaco/user/findId2";
-						else if (result == "2")
+						else if (result == "2") {
+							alert("핸드폰번호를 정확히 입력해주세요");
 							location.href = "/adaco/user/findIdPwd";
-						else
+						}
+						else if(result=="3") {
 							location.href = "/adaco/user/resetPwd";
+						}
+						else {
+							alert("체크해주세요");
+						}
 					},
 					error : function() {
 						alert("noooo");
