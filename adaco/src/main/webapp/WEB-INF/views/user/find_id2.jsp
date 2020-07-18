@@ -18,9 +18,6 @@ $(document).ready(function () {
     		  _csrf:'${_csrf.token}',
     		  irum: irum
       } */
-      console.log($("#userIrum").val());
-      console.log($("#findId2Form").serialize());
-      alert("SS");
 		if(irum==$("#userIrum").val()) {
 			$("#findId2Form").submit();
 		} else {
