@@ -66,7 +66,7 @@
 		<!-- 			<ul class="navbar-nav ml-auto"> -->
 		<div class="collapse navbar-collapse">
 			<ul class="navbar-nav ml-auto">
-				<!-- 비로그인상태 nav -->
+<!-- 비로그인상태 nav -->
 				<sec:authorize access="isAnonymous()">
 
 					<!-- 				<li class="nav-item"> -->
@@ -126,7 +126,7 @@
 						</ul></li>
 				</sec:authorize>
 
-				<!-- 일반회원  nav -->
+<!-- 일반회원  nav -->
 				
 				<sec:authorize access="hasRole('ROLE_USER')">
 					<!-- 					<li class="nav-item"><a class="nav-link logout" href="#">로그아웃</a> -->

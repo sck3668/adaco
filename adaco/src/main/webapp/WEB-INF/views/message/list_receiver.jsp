@@ -58,19 +58,21 @@ $(function() {
 	
 	
 	$("#delete").on("click", function() {
-		var ar = [];
+		var ar = "";
 		$(".mno").each(function(idx) {
 			if($(this).prop("checked")) {
-				ar.push($(this).val());
+				ar = ar + ($(this).val()) + "," ;
 			}
 		});
 		if(ar.length==0)
 			return;
 		var params ={
-			mnos: JSON.stringify(ar),
+			mnos: ar,
 			_method: 'patch',
 			_csrf:"${_csrf.token}"
 		}
+		console.log(params);
+		alert("ss");
 		$.ajax({
 			url:"/adaco/message/isReciverMessage",
 			method:"post",
@@ -136,13 +138,14 @@ $(function() {
 								<c:otherwise>X</c:otherwise>
 							</c:choose>
 						</td>
-						<td><input type="checkbox" class="mno" value=""></td>
+						<td><input type="checkbox" class="mno" value="${message.mno}"></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		<br><br><br><br><br><br><br><br><br><br><br>
-		<button style="float:right;">쪽지삭제</button>
+		<input type="hidden" value="${_csrf.token}">
+		<button id="delete" style="float:right;">쪽지삭제</button>
 	</div>
 	</section> 
 </body>

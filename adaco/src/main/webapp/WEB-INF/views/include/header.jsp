@@ -24,7 +24,7 @@ a {text-decoration: none;}
 #dropdown-menu {
 	display: inline-block; width:120px;
 }
-#dropdown {float: left; display:inline-block; width:120px; }
+#dropdown {float: left; display:inline-block; width:180px; }
 
 
 </style>
@@ -76,6 +76,33 @@ $(function() {
         </ul>
       </div>
       </div>
-      </sec:authorize>
+</sec:authorize>
+<sec:authorize access="isAnonymous()">
+      <div class="full-w gnb-scroll ">
+      <div class="inner-w container_gnb">
+        <ul class="ui_gnb">
+           <li class="dropdown" id="dropdown">
+          	<a href="#" id="dropdownCategoryMenu">
+          		<i class="fa fa-folder-open"></i> 카테고리 <i class="caret"></i>
+          	</a>
+          	<ul id="dropdown-menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownCategoryMenu"> 
+          		<li><a href="/adaco/art/listByUser"><i class="fa fa-folder"></i> 전체보기</a></li> 
+          		<li class="divider"></li> 
+          		<li><a href="http://localhost:8081/adaco/art/listByUser?category=악세사리"><i class="fa fa-folder"></i>악세사리</a></li> 
+          		<li><a href="http://localhost:8081/adaco/art/listByUser?category=인테리어"><i class="fa fa-folder"></i>인테리어</a></li> 
+          		<li><a href="http://localhost:8081/adaco/art/listByUser?category=공예"><i class="fa fa-folder"></i>공예</a></li> 
+          		<li><a href="http://localhost:8081/adaco/art/listByUser?category=기타"><i class="fa fa-folder"></i>기타</a></li> 
+          	</ul> 
+          </li>
+          <li class="ui_gnb__menu">
+            <a href="/adaco/user/artListByReview">인기작품</a>
+          </li>
+          <li class="ui_gnb__menu">
+            <a href="/adaco/story/listStory">스토리</a>
+          </li>
+        </ul>
+      </div>
+      </div>
+</sec:authorize>
 </body>
 </html>
