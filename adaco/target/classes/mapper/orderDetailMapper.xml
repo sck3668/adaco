@@ -45,7 +45,7 @@
 <!-- 	</delete> -->
 	
 	 	<!-- 모든 주문 내역 --> 
-<!-- 	<select id="OrderByAll" resultType="orderDetail"> -->
+<!-- 	<select id="OrderByAll" resultType="orderDetail"> -->ㅇ
 <!-- 		<![CDATA[ -->
 <!-- 			select b.orderno, b.artname, b.option_name optionName, b.opiont_value optionValue, -->
 <!-- 				b.amount, b.price, b.address, b.recipient, b.tel, b.request, b.add_point addPoint, -->
