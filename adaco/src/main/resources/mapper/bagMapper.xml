@@ -55,4 +55,8 @@
 	<delete id="deleteByBag">
 		delete from bag where artno=#{artno} and rownum=1
 	</delete>
+	
+	<select id="findArtnoByBagno">
+		select artno from bag where bagno=#{bagno}
+	</select>
  </mapper>

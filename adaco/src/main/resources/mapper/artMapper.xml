@@ -34,7 +34,7 @@
 	            	</if>
 	            </trim>
 	       		order by artno desc) A
-	         where rownum&lt;= #{endRowNum})B
+	         where artistno=#{artistno} and rownum&lt;= #{endRowNum})B
 	      where B.rnum&gt;= #{startRowNum}
 	</select>
 	
