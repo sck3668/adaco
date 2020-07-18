@@ -29,4 +29,5 @@ public class Page {
 	List<ArtDto.DtoForReviewList> artReviewList;
 	List<StoryBoardDto.DtoForList> storyList;
 	List<StoryCommentDto.DtoForList> storyCommentList;
+	List<OrderDto.DtoForList> orderList;
 }

@@ -12,6 +12,24 @@ import com.icia.adaco.entity.*;
 public class OrderDao {
 	@Autowired
 	private SqlSessionTemplate tpl;
+	public List<Integer> orderFindByUsername(String username) {
+		return tpl.selectList("orderMapper.orderFindByUsername",username);
+	}
+	public List<Bag> BagFindUsernameArtno(String username) {
+		return tpl.selectList("orderMapper.BagFindUsernameArtno",username);
+	}
+	//유저네임으로 아트 찾기
+	/*
+	 * public String ArtNameByUsername(String username) { return
+	 * tpl.selectOne("orderMapper.ArtNameByUsername",username); } public String
+	 * ArtPriceByUsername(String username) { return
+	 * tpl.selectOne("orderMapper.ArtPriceByUsername",username); }
+	 */
+	
+	//유저네임으로 검색
+	public int count(String username) {
+		return tpl.selectOne("orderMapper.count",username);
+	}
 	
 	// 주문  하기
 	public int Ordering(Order order) {
@@ -19,8 +37,12 @@ public class OrderDao {
 	}
 	
 	// 주문 내역 보기
-	public List<Order> findAllByOrder() {
-		return tpl.selectList("orderMapper.findAllByOrder");
+	public List<Order> findAllByOrder(int startRowNum,int endRowNum,String username) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("startRowNum",startRowNum);
+		map.put("endRowNum", endRowNum);
+		map.put("username",username);
+	return tpl.selectList("orderMapper.findAllByOrder",map);
 	}
 	
 	// 주문 상세 보기

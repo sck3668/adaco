@@ -26,6 +26,10 @@
 		where rnum>=#{startRowNum}
 		]]>
 	</select>
+	<!-- 아트번호로 리뷰찾기 -->
+	<select id="findAllReview" resultType="review">
+		select rno,star,content,write_date writeDate,artno,username from review where artno=#{artno}
+	</select>
 	
 	<!--해당 작품 리뷰 수  -->
 	<select id="count" resultType="int">

@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="orderMapper">
-	
+	<select id="count" resultType="int">
+		select count(*) from orders where username=#{username}
+	</select>
+	<select id="orderFindByUsername" resultType="int">
+		select orderno from orders where username=#{username}	
+	</select>
 	<!-- 주문 하기 -->
 	<insert id="Ordering">
 		<selectKey keyProperty="orderno" resultType="int" order="BEFORE">
@@ -10,12 +15,25 @@
 		insert into orders(orderno, order_date,username,shipping_charge,bagno)
 		values(#{orderno},sysdate,#{username},#{shippingCharge},#{bagno})
 	</insert>
+	<select id="BagFindUsernameArtno" resultType="bag">
+		select artno from bag where username =#{username}
+	</select>
 	
 <!-- 	주문 내역  -->
 	<select id = "findAllByOrder" resultType="order">
-		select orderno, order_date orderDate, username, shipping_charge shippingCharge
-		from orders
+		<![CDATA[
+	select * from		
+		(select rownum as rnum ,o.*from
+			(select /*+ index_desc(orders orders_pk_orderno)*/orderno,order_date orderDate,username,shipping_charge shippingCharge from orders) o
+			where rownum <=#{endRowNum})
+	where rnum>=#{startRowNum} and username=#{username}
+		]]>
+		
+		
 	</select>
+	 <select id="ArtNameByUsername" resultType="Art">
+	 	select art_name from art where username=#{username}
+	 </select> 
 	 
 <!-- 	 주문 상세 내역  -->
 	<select id = "findByOrder" resultType="order">

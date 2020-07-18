@@ -127,8 +127,8 @@ public class ArtDto {
 		private String optionValue;
 		private Integer optionStock;
 		private Integer optionPrice;
-		private List<ArtComment> artComments;
-		private List<Review> reviews;
+		private List<ArtCommentDto.DtoForList> artComments;
+		private List<ReviewDto.DtoForList> reviews;
 		private String artDetail;
 		private Integer artCommentCnt;
 		private Integer shopno;

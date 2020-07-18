@@ -3,8 +3,6 @@ package com.icia.adaco.service.mvc;
 import java.io.*;
 import java.util.*;
 
-import javax.validation.*;
-
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.lang.*;
@@ -13,7 +11,6 @@ import org.springframework.web.multipart.*;
 
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
-import com.icia.adaco.dto.AdminBoardDto.DtoForIndex;
 import com.icia.adaco.dto.ArtDto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.exception.*;

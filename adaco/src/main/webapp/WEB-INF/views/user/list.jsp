@@ -74,7 +74,7 @@ $(function(){
       <div>
          <ul>
             <li><a href="/adaco/user/read" style="color: black;">내정보보기</a></li>
-            <li><a href="/adaco/order/list"style="color: black;">주문내역</a></li>
+            <li><a href="/adaco/user/orderlist"style="color: black;">주문내역</a></li>
             <li><a href="/adaco/user/reviewList" style="color: black;">내리뷰보기</a></li>
             <li><a href="/adaco/user/favoriteList" style="color: black;">즐겨찾기목록</a></li>
             <li><a href="/adaco/user/pointList" style="color: black;">포인트함 </a>
@@ -104,8 +104,8 @@ $(function(){
             <option value="유저">모든 유저</option>
             <option value="아티스트">판매자</option>
       </select>
+      ${order }
    </div>   
-   ${page }
    <div id="orderMain">
    <table>
       <colgroup>
@@ -155,7 +155,7 @@ $(function(){
                <c:otherwise>
                   <li><a href="/adaco/order/list?username=&pageno=${i}">${i}</a></li>
                </c:otherwise>
-            </c:choose>
+            </c:choose>	
             
          </c:forEach>
          <c:if test="${Page.next==true}">
