@@ -43,8 +43,10 @@ public class ArtDao {
 	//작품 내역 보기(최신순) + 카테고리로 검색 리스트
 	public List<Art> listByArt(int startRowNum, int endRowNum, @Nullable String category){
 		Map<String, Object>map = new HashMap<String, Object>();
+		
 		map.put("startRowNum", startRowNum);
 		map.put("endRowNum",endRowNum);
+//		map.put("artno",artno);
 		map.put("category", category);
 		return tpl.selectList("artMapper.findAll",map); 
 	}
@@ -78,6 +80,13 @@ public class ArtDao {
 	//작품 갯수
 	public int countByArt() {
 		return tpl.selectOne("artMapper.count");
+	}
+	
+	//검색어에 해당되는 작품 수
+	public int countSerchByCategory(String category) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("category", category);
+		return tpl.selectOne("artMapper.countSearchByCategory",map);
 	}
 	
 	////////////////////// 회원 전용 ///////////////////////////

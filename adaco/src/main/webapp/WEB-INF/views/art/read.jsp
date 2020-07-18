@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
     
 <!DOCTYPE html>
 <html>
@@ -8,6 +9,18 @@
 <meta charset="UTF-8">
 <title>상품 상세 페이지</title>
 <style>
+	#review_textarea{
+	width: 600px;
+	float: right;
+}
+	#reviews{
+		overflow: auto;
+		height: 450px;
+	}
+	#comments{
+		overflow: auto;
+		height: 450px;
+	}
 	.visual_img li {
 	position: relative;
 	display: inline;
@@ -18,7 +31,86 @@
 		height: 400px;	
 	}
 </style>
+<script></script>
+<sec:authorize access="isAuthenticated()">
+	<script>
+		var isLogin = true;
+		var loginId = "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}"
+	</script>
+</sec:authorize>
+<sec:authorize access="isAnonymous()">
+	<script>
+		var isLogin = false;
+		var loginId = undefined;
+	</script>
+</sec:authorize>
 <script>
+var art = ${art}
+function loadImage() {
+	var file = $("#sajin")[0].files[0];	
+	var maxSize = 1024*1024; // 1MB
+	if(file.size>maxSize) {
+		Swal.fire({
+			icon: 'error',
+		  	title: '크기 오류',
+			text: '파일크기는 1MB를 넘을 수 없습니다'
+		});
+		$("#sajin").val("");
+		return false;
+	}
+	
+	// 이하 하드디스크에 있는 이미지 파일을 로딩해 화면에 출력하는 코드
+	var reader = new FileReader();
+	reader.onload = function(e) {
+		$("#show_profile").attr("src", e.target.result);
+	}
+	reader.readAsDataURL(file);
+	return true;
+}
+function printReview(reviews){
+	var $reviews = $("#reviews");
+	$reviews.empty();
+	$.each(reviews,function(i,review){
+		var $review = $("<div>").appendTo($reviews)
+		var $upper_div = $("<div>").appendTo($review)
+		var $center_div=$("<div>").appendTo($review)
+		var $lower_div=$("<div>").appendTo($review)
+	  	$("<span></span>").text(review.username).appendTo($upper_div);
+		$("<div>").html(review.content).css("display","inline-block").appendTo($center_div);
+		$("<span>").text(review.writeDateStr).appendTo($lower_div);
+// 		$("<span>").hmtl(review.star).appendTo($lower_div)
+		 if(review.username===loginId){
+				var btn = $("<button>").attr("class","delete_review").attr("data-username", review.username).attr("data-rno",review.rno)
+				.text("삭제").appendTo($center_div).css("float","right")
+			}
+	})
+	
+}
+
+
+function printComment(comments){
+	var $comments = $("#comments");
+	$comments.empty();
+	$.each(comments,function(i,comment){
+		var $comment = $("<div>").appendTo($comments)
+		var $upper_div =$("<div>").appendTo($comment)
+		var $center_div=$("<div>").appendTo($comment)
+		var $lower_div =$("<div>").appendTo($comment)
+		console.log(comment);
+		$("<span></span>").text(comment.username).appendTo($upper_div);
+		$("<img>").attr("src",comment.profile).css("width","60px").css("height","60px").appendTo($center_div);
+		$("<div>").html(comment.content).css("display","inline-block").appendTo($center_div);
+		$("<span>").text(comment.writeDateStr).appendTo($lower_div);
+		 if(comment.username===loginId){
+			var btn = $("<button>").attr("class","delete_comment").attr("data-username", comment.username).attr("data-cno",comment.cno)
+			.text("삭제").appendTo($center_div).css("float","right")
+		}
+	})
+	
+}	
+
+
+
 function checkFavorite() {
 	var $isFavorite = ${artPageByUser.isFavorite}
 	if($isFavorite == true)
@@ -28,6 +120,99 @@ function checkFavorite() {
 }
 
 $(function() {
+	console.log(art)
+	printReview(art.reviews)
+	printComment(art.comments)
+	
+	 $("#sajin").on("change", loadImage); 
+	
+	//리뷰작성
+	
+	 $("#review_write").on("click",function(){
+		 var $artno = $("#artno").val();
+			var $content =$("#review_textarea").val();
+			console.log($content)
+			var formData = new FormData();
+			formData.append("content",$content)
+			formData.append("artno",$artno)
+  			if($("#sajin")[0].files[0]!=undefined)
+					formData.append("sajin", $("#sajin")[0].files[0]);
+			formData.append("_csrf", "${_csrf.token}");
+			formData.append("_method", "put");
+			
+				for (var key of formData.keys()) {
+					  console.log(key);
+					}
+				for (var value of formData.values()) {
+					  console.log(value);
+					}
+			$.ajax({
+				url:"/adaco/artReview/review",
+				method:"post",
+				data:formData,
+				processData:false,
+				contentType:false
+			}).done((r)=>{console.log(r),$("#review_textarea").val()})
+			  .fail((r)=>{console.log(r)})
+})
+// 		var parmas={
+// 			_csrf:"${_csrf.token}",
+// 			_method:"put",
+// 			content:$("#review_textarea").val(),
+// 			artno:$("#artno").val(),
+// 		}
+// 		console.log(parmas)
+		
+	
+	
+	
+	
+	//댓글작성
+	$("#comment_write").on("click",function(){
+		var parmas = {
+				artno :$("#artno").val(),
+				content:$("#comment_textarea").val(),
+				_csrf:"${_csrf.token}",
+				_method:"put",
+		}
+		console.log(parmas)
+		$.ajax({
+			url:"/adaco/artcomment/write",
+			method:"post",
+			data:parmas
+		}).done((r)=>{printComment(r),$("#comment_textarea").val("")})
+		  .fail((r)=>{console.log(r)})
+		
+	})
+	//댓글삭제
+	$("#comments").on("click",".delete_comment",function(){
+      
+		var $artno = $("#artno").val()
+		//data -ano 속성의 값을 꺼낼떄
+		//data("ano") ->넣은 값의 타입 그대로
+		//attr("data-ano")->문자열
+		console.log(this)
+		var params={
+				cno: $(this).data("cno"),
+				artno :$artno,
+ 				_method:"delete",
+ 				_csrf:"${_csrf.token}"
+		}
+		console.log(params)
+		$.ajax({
+			url:"/adaco/artcomment/delete",
+			method:"post",
+			data:params
+			
+		}).done((r)=>{console.log(r)})
+		  .fail((r)=>{console.log(r)})
+		
+	})
+	
+	
+	
+	
+	
 	checkFavorite();
 	var image_ul = document.querySelector(".visual_img");
 
@@ -207,7 +392,7 @@ $(function() {
 					<br><br>
 					<div>
 						<span>총 결제 금액</span>
-						<strong>${artPageByUser.price+artPageByUser.optionPrice}</strong>
+						<strong>${artPageByUser.price+artPageByUser.optionPrice+artPageByUser.couriPrice}</strong>
 					</div>				
 				</div>
 			</div>
@@ -225,6 +410,41 @@ $(function() {
 	<textarea style="width: 900px; min-height: 600px; text-align: center; border: none;" readonly="readonly">
 		${artPageByUser.artDetail }
 	</textarea>
-</div>
+<div class="form-group">
+				<label for="review_textarea" id="review1">리뷰을 입력하세요</label>
+				<textarea class="form-control" rows="5"	id="review_textarea" placeholder="욕설이나 모욕적인 댓글은 삭제될 수 있습니다">
+				</textarea>
+				<div>
+					<img id="show_profile" height="240px"> <input type="hidden"
+				name="_csrf" value="${_csrf.token }">
+			<div class="form-group">
+				<label for="sajin">프로필 사진</label> <input id="sajin" type="file"
+					name="sajin" class="form-control"
+					accept=".jpg,.jpeg,.png,.gif,.bmp">
+			</div>	
+			</div>
+			</div>
+			<button type="button" class="btn btn-info" id="review_write">리뷰작성</button>
+		</div>
+			<div id="reviews">
+	</div>
+	<!-- <div>
+			<div class="form-group">
+				<label for="review_textarea">리뷰을 입력하세요</label>
+				<textarea class="form-control" rows="5"	id="review_textarea" placeholder="욕설이나 모욕적인 댓글은 삭제될 수 있습니다"></textarea>
+			</div>
+			<button type="button" class="btn btn-info" id="comment_write">댓글 작성</button>
+			
+	</div> -->
+	<div>
+			<div class="form-group">
+				<label for="comment_textarea">댓글을 입력하세요</label>
+				<textarea class="form-control" rows="5"	id="comment_textarea" placeholder="욕설이나 모욕적인 댓글은 삭제될 수 있습니다"></textarea>
+				<input type="hidden" id="artno" value="${artPageByUser.artno }">
+			</div>
+			<button type="button" class="btn btn-info" id="comment_write">댓글 작성</button>
+		</div>
+		<div id="comments">
+	</div>
 
 </html>

@@ -39,6 +39,11 @@ public class ReviewDao {
 	public int countByReviewOfArt() {
 		return tpl.selectOne("reviewMapper.count");
 	}
+	//리뷰파인드올
+	public List<Review> findAllReview(int artno){
+		return tpl.selectList("reviewMapper.findAllReview",artno);
+	}
+	
 	
 
 }	

@@ -1,21 +1,15 @@
 package com.icia.adaco.service.mvc;
 
-<<<<<<< HEAD
 import java.time.format.*;
-=======
 import java.time.*;
->>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 import java.util.*;
 
 import javax.servlet.http.*;
 
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
-<<<<<<< HEAD
-=======
 import org.springframework.http.*;
 import org.springframework.scheduling.quartz.*;
->>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
 
@@ -46,29 +40,15 @@ public class OrderService {
 	private ObjectMapper objectMapper = new ObjectMapper();
 	@Autowired
 	private ModelMapper modelMapper;
-<<<<<<< HEAD
 
 	// 주문 하기
-=======
-		// 주문 하기    
->>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
-//		public int Ordering(String username, Order order,OrderDto.DtoForOrdering Dto) {
-//			int orderno = order.getOrderno();
-//			modelMapper.map(Dto, Order.class);
-//			Art art = artDao.readByArt(orderno);
-//		//  OrderDto orderdto = OrderDto.DtoForOrdering(order.setOrderno(orderno));
-//			return orderDao.Ordering(order);
-//			
-//		}
 
-	// 2
 //		public int Ordering(Integer orderno) {
 //			Art art = artDao.readByArt(orderno);
 //			Option option = optionDao.readByArtno(orderno);
 //			OrderDetail orderDetail = orderDetailDao.OrderDetail(orderno);
 //			return orderno;
 //		}
-<<<<<<< HEAD
 	// 3
 
 	public int Ordering(Order order, Bag bag) {
@@ -88,12 +68,11 @@ public class OrderService {
 		return orderdetail.getOrderno();
 	}
 
-=======
 		// 3
 		
 	
 	
-	// 주문하기
+	// 아트상세에서 주문하기
 			public int Ordering(Order order,Bag bag,String username) {
 				System.out.println("ordering service"+order+"//"+bag+"//"+username);
 				order.setOrderDate(LocalDateTime.now());
@@ -103,6 +82,26 @@ public class OrderService {
 				Art art = artDao.readByArt(artno);
 				bag.setTotalPrice(bag.getAmount()*art.getPrice());
 				bagDao.insertByBag(bag);
+				int bagno = bagDao.findByArtno(artno).getBagno();
+				order.setBagno(bagno);
+				orderDao.Ordering(order);
+				System.out.println(artno+"artno111");
+				return artno;
+			}
+		//장바구니에서 주문하기
+			public int bagOrdering(Order order,Bag bag,String username) {
+				System.out.println("ordering service"+order+"//"+bag+"//"+username);
+				order.setOrderDate(LocalDateTime.now());
+				order.setUsername(username);
+				order.setShippingCharge(3000);
+				int artno = bag.getArtno();
+				Art art = artDao.readByArt(artno);
+				bag.setTotalPrice(bag.getAmount()*art.getPrice());
+				System.out.println("bag1111==="+bag);
+				//bagDao.insertByBag(bag);
+				int bagno = bagDao.findByArtno(artno).getBagno();
+				order.setBagno(bagno);
+				System.out.println("order======"+order);
 				orderDao.Ordering(order);
 				System.out.println(artno+"artno111");
 				return artno;
@@ -116,7 +115,9 @@ public class OrderService {
 				System.out.println("333");
 				int optno = optionDao.findOptnoByArtno(artno);
 				System.out.println("4444");
-				int orderno = orderDao.findOrdernoByUsername(username);
+				//수정
+				int bagno = bagDao.findByArtno(artno).getBagno();
+				int orderno = orderDao.findOrdernoByUsername(username,bagno);
 				System.out.println("orderingD1==="+artistno+"//"+optno+"//"+orderno);
 				Option option = optionDao.readByArtno(artno);
 				System.out.println("option==="+option);
@@ -156,7 +157,6 @@ public class OrderService {
 //		return orderdetail.getOrderno();
 //		}
 //		
->>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 //		public int payByOrder(String username, OrderDetailDto.DtoForDeleteOrder Dto, Order order){
 //			int orderdetail = orderDao.Ordering(order);
 //			if(order.getUsername()===false);

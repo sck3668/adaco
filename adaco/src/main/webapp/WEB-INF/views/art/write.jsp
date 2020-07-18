@@ -9,13 +9,27 @@
 <script>
 
 //$("#category option:selected").val();
-// 	function checkcate(){
-// 		var value = $("#category").val();
-// 		if(value=="카테고리 선택")
-// 			alert("dkdldndld");
-// 		return;
-// 	}
-	
+    function inputNumberAutoComma(obj) {
+             
+        // 기존에 들어가있던 콤마( , )를 제거한 이 후의 입력값에 다시 콤마( , )를 삽입한다.
+        obj.value = inputNumberWithComma(inputNumberRemoveComma(obj.value));
+    }
+   
+    // 천단위 이상의 숫자에 콤마( , )를 삽입하는 함수
+    function inputNumberWithComma(str) {
+
+        str = String(str);
+        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
+    }
+
+    // 콤마( , )가 들어간 값에 콤마를 제거하는 함수
+    function inputNumberRemoveComma(str) {
+
+        str = String(str);
+        return str.replace(/[^\d]+/g, "");
+    }
+	    
+	    
 	$(function() {
 
 		var idx = 0;
@@ -48,6 +62,7 @@
 		$("#couriPrice").on("blur", checkCouriPrice);
 		$("#category").on("blur", checkCategory);
 		$("#Courier").on("blur", checkCourier);
+		$("#artSajin").on("blur", checkSajin);
 		
 		// form을 넘기기전에 값 확인
 		$("#insert_Btn").on("click", function() {
@@ -68,7 +83,8 @@
 		var r10 = checkCouriPrice();
 		var r11 = checkCategory();
 		var r12 = checkCourier();
-		var result = r1 && r2 && r3 && r4 && r5 && r6 && r7 && r8 && r9 && r10 && r11 && r12;
+		var r13 = checkSajin();
+		var result = r1 && r2 && r3 && r4 && r5 && r6 && r7 && r8 && r9 && r10 && r11 && r12 && r13;
 		if(result===true) {
 			 $("#insert_art").submit();
 		}
@@ -118,18 +134,19 @@
 						<span id="artName_msg"></span>
 					</td>
 				</tr>
-				<tr height="150">
+				<tr height="170">
 					<td class="first">작품 이미지</td>
 					<td colspan="2" style="vertical-align: bottom;">
-						<div id = "artSajin"></div>				
+						<div id = "artSajin"></div>	<br>			
 							<button type = "button" id = "add" name="add">작품 이미지 추가</button>
 							<button type = "button" id = "deleteUpload" >업로드 취소</button>
+							<span id="artSajin_msg"></span>
 					</td>
 				</tr>
 				<tr>
 					<td class="first">작품가격</td>
 					<td colspan="2">
-						<input type="text" id="price" name="price" />원
+						<input type="text" id="price" name="price" />원   <!--onKeyup="inputNumberAutoComma(this);" value=""   --> 
 						<span id="artPrice_msg"></span>
 					</td>
 				</tr>

@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.dto.BagDto.*;
 import com.icia.adaco.entity.*;
+import com.icia.adaco.exception.*;
 import com.icia.adaco.service.mvc.*;
 import com.sun.mail.iap.*;
 
@@ -26,6 +27,8 @@ import com.sun.mail.iap.*;
 public class BagController {
 	@Autowired
 	private BagService bagService;
+	@Autowired
+	private OrderService orderService;
 	@Autowired
 	private ObjectMapper objectMapper = new ObjectMapper();
 	
@@ -37,25 +40,26 @@ public class BagController {
 			return ResponseEntity.ok(bagService.insertByBag(bag));
 		}
 		
-		@GetMapping("/bag/list")
-		public ModelAndView findAllBagByUsername(String username) {
-			return new ModelAndView("main").addObject("viewName", "bag/read.jsp").addObject("bagList",bagService.findAllBagByUsername(username));
-		}
-		
+//		@GetMapping("/bag/list")
+//		public ModelAndView findAllBagByUsername(String username) {
+//			return new ModelAndView("main").addObject("viewName", "bag/read.jsp").addObject("bagList",bagService.findAllBagByUsername(username));
+//		}
+		//장바구니 화면 출력
 		@GetMapping("/bag/view")
 		public ModelAndView view() {
 			return new ModelAndView("main").addObject("viewName","bag/read.jsp");
 		}
 		
-		@GetMapping("/bag/list1")
-		public ModelAndView findAllBagByUsername1(Principal principal) {
-			return new ModelAndView("main").addObject("viewName", "bag/read.jsp").addObject("bagList",bagService.findAllBagByUsername(principal.getName()));
-		}
-		 
+//		@GetMapping("/bag/list1")
+//		public ModelAndView findAllBagByUsername1(Principal principal) {
+//			return new ModelAndView("main").addObject("viewName", "bag/read.jsp").addObject("bagList",bagService.findAllBagByUsername(principal.getName()));
+//		}
+		// 장바구니 목록 출력
 		@GetMapping("/bag/list2")
 		public ResponseEntity<?> read(Principal principal) {
 			return ResponseEntity.ok(bagService.findAllBagByUsername(principal.getName()));
 		}
+		
 		
 		@GetMapping("/bag/checkStock")
 		public ResponseEntity<?> checkStock(int artno) {
@@ -74,6 +78,19 @@ public class BagController {
 			List<Integer> list = objectMapper.readValue(artnos, new TypeReference<List<Integer>>() {});
 			List<BagDto.DtoForList> bagList = bagService.deleteByBag(list,principal.getName());
 			return ResponseEntity.ok(bagList);
+		}
+		
+		//선택한 작품 구매
+		@PostMapping("/bag/ordering")
+		public ResponseEntity<?> Ordering(Order order,Bag bag,Principal principal) throws JsonParseException, JsonMappingException, IOException {
+			System.out.println("bag/ordering=="+"//"+order+"//"+bag);
+			//List<Integer> list = objectMapper.readValue(artnos, new TypeReference<List<Integer>>() {});
+			if(principal==null) {
+				throw new JobFailException("로그인 필요합니다");
+			}
+			String username = principal.getName();
+//			String user = username(principal.getName());
+			return ResponseEntity.ok(orderService.bagOrdering(order, bag, username));
 		}
 //////////////////////////////////////////////
 	/*

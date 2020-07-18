@@ -12,8 +12,8 @@
 		<selectKey keyProperty="orderno" resultType="int" order="BEFORE">
 			select orders_seq.nextval from dual
 		</selectKey>
-		insert into orders(orderno, order_date,username,shipping_charge)
-		values(#{orderno},sysdate,#{username},#{shippingCharge})
+		insert into orders(orderno, order_date,username,shipping_charge,bagno)
+		values(#{orderno},sysdate,#{username},#{shippingCharge},#{bagno})
 	</insert>
 	<select id="BagFindUsernameArtno" resultType="bag">
 		select artno from bag where username =#{username}
@@ -42,7 +42,7 @@
 	</select>
 	
 	<select id="findOrdernoByUsername" resultType="int">
-		select orderno from orders where username=#{username}
+		select orderno from orders where username=#{username} and bagno=#{bagno}
 	</select>
 <!-- 	<update id ="updateByOrder"> -->
 <!-- 		update orders -->

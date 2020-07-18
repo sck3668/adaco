@@ -22,11 +22,11 @@
 	
 	<!-- 작품 리스트(최신순) / 카테고리로 검색 리스트-->
 	<select id="findAll" resultType="art">
-		select B.artno, B.category, B.main_img mainImg, B.art_name artName, B.price, B.art_date artDate
+		select B.artno, B.category, B.main_img mainImg, B.art_name artName, B.price, B.art_date artDate, B.artistno
 	      from
-	         (select /*+ index_desc(art art_pk_artno) */ rownum rnum, A.artno, A.category, A.main_img, A.art_name, A.price, A.art_date
+	         (select /*+ index_desc(art art_pk_artno) */ rownum rnum, A.artno, A.category, A.main_img, A.art_name, A.price, A.art_date, A.artistno
 	         from (
-	            select artno, category, main_img, art_name, price, art_date
+	            select artno, category, main_img, art_name, price, art_date, artistno
 	            from art
 	            <trim prefix="WHERE" prefixOverrides="AND">
 	            	<if test="category!=null and category != '' ">
@@ -38,6 +38,14 @@
 	      where B.rnum&gt;= #{startRowNum}
 	</select>
 	
+	<!-- 카테고리로 검색한 작품 수 -->
+	<select id="countSearchByCategory" resultType="int">
+	   	select count(*)
+	   	from art 
+	   	<where>
+	   		<if test="category!=null">and category like '%'|| #{category} || '%'</if>
+	   	</where> 	
+	</select>
 	
 	<select id="findAllByArtno" resultType="art">
 		select artno, category, main_img mainImg, art_name artName, price
@@ -77,7 +85,7 @@
 		where artno=#{artno} and rownum=1
 	</update>
 	
-	<!-- 작품 count / 페이징 위한 -->
+ 	<!-- 작품 count / 페이징 위한 --> 
 	<select id="count" resultType="int">
 		select count(*) from art
 	</select>
@@ -146,7 +154,7 @@
 	<select id="findByArtFromUser" resultType="art">
 		select artno, art_name artName, price, main_img mainImg , art_img artImg , stock, tag, category, shopno, 
 		couri_price couriPrice, return_address returnAddress, courier, read_cnt readCnt, accumulated, favorite_cnt favoriteCnt, 
-		artistno, art_detail artDetail, art_comment_cnt artCommentCnt
+		artistno, art_detail artDetail, art_comment_cnt artCommentCnt,review_cnt reviewCnt
 		from art
 		where artno=#{artno} and rownum=1
 	</select>

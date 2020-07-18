@@ -15,7 +15,7 @@
 	
 	<select id = "findByArtno" resultType="bag">
 		select username, artno, total_price totalPrice, amount
-		,option_name optionName, option_value optionValue,option_stock optionStock,option_price optionPrice
+		,option_name optionName, option_value optionValue,option_stock optionStock,option_price optionPrice,bagno
 		from bag where artno=#{artno} and rownum=1
 	</select>
 	
@@ -25,9 +25,12 @@
 		from bag where username=#{username} and rownum=1
 	</select>
 	<insert id = "insertByBag">
-		insert into bag(username,artno,total_price,amount,option_name
+	<selectKey keyProperty="bagno" resultType="int" order="BEFORE">
+		select bag_seq.nextval from dual
+	</selectKey>
+		insert into bag(bagno,username,artno,total_price,amount,option_name
 		,option_value,option_stock,option_price)
-		values(#{username},#{artno},#{totalPrice},#{amount}
+		values(#{bagno},#{username},#{artno},#{totalPrice},#{amount}
 		,#{optionName},#{optionValue},#{optionStock},#{optionPrice})
 	</insert>
 	

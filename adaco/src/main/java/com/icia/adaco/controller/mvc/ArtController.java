@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.*;
 import org.springframework.web.servlet.*;
 
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.databind.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.service.mvc.*;
 import com.icia.adaco.service.rest.*;
@@ -28,6 +30,8 @@ public class ArtController {
 	private ArtService artservice;
 	@Autowired
 	private ArtRestService service;
+	@Autowired
+	ObjectMapper objectMapper;
 	
 	
 	// 작품 리스트 (작가용)
@@ -61,16 +65,22 @@ public class ArtController {
 	
 	// 작품 상세보기 (회원용)
 	@GetMapping("/art/readByUser")
-	public ModelAndView readFromUser(@NonNull int artno ,@Nullable Principal principal) {
+	public ModelAndView readFromUser(@NonNull int artno ,@Nullable Principal principal) throws JsonProcessingException {
 		System.out.println("상세" + artno);
-		String username;
-		if(principal!= null) {
-			username =  principal.getName();
-		} else {
-			username = "isAnonymous()";
-		}
-		return new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPageByUser", service.readArtFromUser(artno, username))
+		System.out.println(principal.getName());
+		if(principal.getName()!= null) {
+			String username =  principal.getName();
+		} 
+			String username = "isAnonymous()";
+			
+		ModelAndView mav= new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPageByUser", service.readArtFromUser(artno, username))
 				.addObject("image", service.readArtImage(artno));
+		ArtDto.DtoForRead dto = service.readArtFromUser(artno, username);
+		System.out.println(dto+"디티오");
+		String json = objectMapper.writeValueAsString(dto);
+		mav.addObject("art",json);
+		System.out.println("제이슨"+json);
+		return mav;
 	}
 	
 	// 작품 등록 + 등록시 필요한 artistno, shopno 받아오기

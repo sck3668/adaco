@@ -32,6 +32,14 @@
 		background-color: #FFFFFF;
 		opacity: 0.5; 
 		}
+/* 		.col-sm-3{ */
+/* 		position: fixed; */
+/* 		width: 150px; */
+/* 		height: 200px; */
+/* 		top: 105px; */
+/* 		left: 10%; */
+/* 		margin-left: -500px; */
+/* 		} */
  </style> 
 <sec:authorize access="isAuthenticated()">
 	<script>
@@ -39,12 +47,7 @@
 		var loginId = "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}"
 	</script>
 </sec:authorize>
-<sec:authorize access="isAnonymous()">
-	<script>
-		var isLogin = false;
-		var loginId = undefined;
-	</script>
-</sec:authorize>
+
 <script>
 	//카테고리로 작품 찾기
 	$(function(){
@@ -154,17 +157,51 @@
 <body>
 <%--  	${artPage.artList }  --%>
  	<h5>작품 목록</h5>	
+<!--  	<div> -->
+<!-- 				<h3><strong><a href="/adaco/artist/artistpage" style="text-decoration: none; color: black;" >MY Menu</a></strong></h3> -->
+<!-- 				<ul class="list-group" id="navi"> -->
+<!-- 					<li class="list-group-item list-group-item-action"><a -->
+<!-- 						href="/adaco/artist/shopPage" -->
+<!-- 						style="color: black; text-decoration: none;" >상점 정보</a></li> -->
+<!-- 					<li class="list-group-item list-group-item-action" id="group"> -->
+<!-- 						<div class="title"> -->
+<!-- 							<a style="color: black; text-decoration: none;"> -->
+<!-- 							작품 관리 -->
+<!-- 							</a> -->
+<!-- 						</div> -->
+<!-- 						<ul class="sub">  -->
+<!-- 							<li> -->
+<!-- 								<a href="/adaco/art/listByArtist" style="color: black; text-decoration: none;" > -->
+<!-- 									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 작품 목록</a> -->
+<!-- 							</li> -->
+<!-- 							<li> -->
+<!-- 								<a href="/adaco/art/write" style="color: black; text-decoration: none;" > -->
+<!-- 									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 작품 등록</a> -->
+<!-- 							</li> -->
+<!-- 						</ul> -->
+<!-- 					</li> -->
+<!-- 					<li class="list-group-item list-group-item-action"><a -->
+<!-- 						href="/adaco/artist/artistRead" -->
+<!-- 						style="color: black; text-decoration: none;">내 정보 관리</a></li> -->
+<!-- 					<li class="list-group-item list-group-item-action"><a -->
+<!-- 						href="/adaco/order/artistSellList" -->
+<!-- 						style="color: black; text-decoration: none;">판매내역</a></li> -->
+<!-- 					<li class="list-group-item list-group-item-action"><a -->
+<!-- 						href="#" style="color: black; text-decoration: none;">메세지함</a></li> -->
+<!-- 					<li class="list-group-item list-group-item-action"><a -->
+<!-- 						href="/adaco/artist/sales" -->
+<!-- 						style="color: black; text-decoration: none;">매출 관리</a></li> -->
+<!-- 				</ul> -->
+<!-- 			</div> -->
 	<div>
 		<hr> 작품 검색&nbsp;
 			<input type="hidden" name = "category" id ="category"> 
 			<select id = "categoryChoice" class="custom-select">
 				<option selected="selected">카테고리 선택</option>
-				<option value="가방,파우치">가방,파우치</option>
-				<option value="강아지, 동물">강아지, 동물</option>
+				<option value="악세사리">악세사리</option>
+				<option value="인테리어">인테리어</option>
 				<option value="공예">공예</option>
-				<option value="악세서리">악세서리</option>
-				<option value="카테고리다">카테고리다</option>
-				<option value="카테고리다2">카테고리다2</option>
+				<option value="기타">기타</option>
 			</select>
 			<button type="button" id="search" >검색</button>
 		<hr>
@@ -226,25 +263,22 @@
 	<div style="text-align: center;">
 		<ul class="pagination justify-content-center">
 			<c:if test="${artPage.prev==true}">
-				<li><a
-					href="/adaco/art/listByArtist?pageno=${artPage.startPage-1}">이전</a></li>
+				<li><a href="/adaco/art/listByArtist?category=${artPage.search }&pageno=${artPage.startPage-1}">이전</a></li>
 			</c:if>
-			<c:forEach begin="${artPage.startPage}" end="${artPage.endPage}"
-				var="i">
+			<c:forEach begin="${artPage.startPage}" end="${artPage.endPage}" var="i">
 				<c:choose>
 					<c:when test="${artPage.pageno eq i }">
-						<li class="active"><a
-							href="/adaco/art/listByArtist?pageno=${i}">${i}</a></li>
+						<li class="active">
+						<a href="/adaco/art/listByArtist?category=${artPage.search }&pageno=${i}">${i}</a></li>
 					</c:when>
 					<c:otherwise>
-						<li><a href="/adaco/art/listByArtist?pageno=${i}">${i}</a></li>
+						<li><a href="/adaco/art/listByArtist?category=${artPage.search }&pageno=${i}">${i}</a></li>
 					</c:otherwise>
 				</c:choose>
 
 			</c:forEach>
 			<c:if test="${artPage.next==true}">
-				<li><a
-					href="/adaco/art/listByArtist?pageno=${artPage.endPage+1}">다음</a></li>
+				<li><a href="/adaco/art/listByArtist?category=${artPage.search }&pageno=${artPage.endPage+1}">다음</a></li>
 			</c:if>
 		</ul>
 	</div>
