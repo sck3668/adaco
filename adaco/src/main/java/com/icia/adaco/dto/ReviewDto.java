@@ -19,7 +19,7 @@ public class ReviewDto {
 		private String username;
 		private String writeDateStr;
 		private String content;
-		private String profile;
+		private String image;
 		private int rno;
 	}
 }

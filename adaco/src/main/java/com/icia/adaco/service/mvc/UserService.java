@@ -13,6 +13,7 @@ import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.crypto.password.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.*;
 
 import com.icia.adaco.dao.*;
@@ -36,6 +37,10 @@ public class UserService {
 	private ModelMapper modelMapper;
 	@Autowired
 	private MailUtil mailUtil;
+	@Autowired
+	private OrderDao orderDao;
+	@Autowired
+	private OrderDetailDao orderDetailDao;
 	@Value("d:/upload/profile")
 	private String profileFolder;
 	@Value("http://localhost:8081/profile/")
@@ -239,4 +244,33 @@ public class UserService {
 		else
 			throw new JobFailException("잘못된 비밀번호 입니다");
 	}
+
+	public Page orderList(@RequestParam(defaultValue ="1")int pageno,String username) {
+		
+		
+		
+		
+		List<Order> orderList = userDao.OrdernoFindByUsername(username);
+		List<OrderDto.DtoForList> orderListDto = new ArrayList<OrderDto.DtoForList>();
+		for(Order order:orderList) {
+			OrderDto.DtoForList dto = modelMapper.map(order,OrderDto.DtoForList.class);
+			int orderno = order.getOrderno();
+			OrderDetail orderDetail = orderDetailDao.OrderDetail(orderno);
+			dto.setOrderDateStr(order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
+			dto.setArtName(orderDetail.getArtName());
+			dto.setArtPrice(orderDetail.getPrice());
+			dto.setState(orderState.입금대기);
+			orderListDto.add(dto);
+		}
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

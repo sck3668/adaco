@@ -73,7 +73,6 @@ public class OrderDto {
  	//////////////////////////	총결제금액,주문번호,적립포인트,작품명,
 	//	배송지,배송비,작품이미지,
    
->>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
    @Data
    @AllArgsConstructor
    @NoArgsConstructor
@@ -86,7 +85,7 @@ public class OrderDto {
       private int shippingCharge;
       private String artName;
       private int artPrice;
-      private State state;
+      private orderState state;
       }
    //
    @Data

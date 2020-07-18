@@ -107,4 +107,13 @@ public class UserDao {
 		public String passwordFindUsername(String username) {
 			return sql.selectOne("userMapper.passwordFindUsername",username);
 		}
+	//유저네임으로 DetailorderNo
+		public List<Order> OrdernoFindByUsername(String username) {
+			return sql.selectList("userMapper.OrdernoFindByUsername",username);
+		}
+		
+		
+		
+		
+		
 }

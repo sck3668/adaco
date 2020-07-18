@@ -233,11 +233,15 @@ public class ArtRestService {
 			artDao.updateByArt(Art.builder().artno(review.getArtno()).reviewCnt(1).build());
 			
 			  if(sajin!=null && sajin.isEmpty()==false) {
-			  if(sajin.getContentType().toLowerCase().startsWith("image/")==true) { int
-			  lastindexOfDot = sajin.getOriginalFilename().lastIndexOf('.'); String
-			  extension = sajin.getOriginalFilename().substring(lastindexOfDot+1); File
-			  arfile = new File(artfileFolder,review.getUsername()+"."+extension);
-			  sajin.transferTo(arfile); review.setImage(artfilePath+review.getImage()); } }
+			  if(sajin.getContentType().toLowerCase().startsWith("image/")==true) { 
+		  int lastindexOfDot = sajin.getOriginalFilename().lastIndexOf('.');
+		  String extension = sajin.getOriginalFilename().substring(lastindexOfDot+1); 
+		  File arfile = new File(artfileFolder,review.getUsername()+"."+extension);
+		  sajin.transferTo(arfile);
+		  review.setImage(artfilePath+review.getImage());
+		  System.out.println("여기서의 리뷴느 뭐야"+review);
+			  }
+	 }
 			 
 //			if(detailDao.OrderDetail(orderDao.findUsernameByorderno(username)).equals(review.getArtno()==0)){
 //				return null;

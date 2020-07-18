@@ -224,4 +224,18 @@ public class UserController {
 		ra.addFlashAttribute("msg", "비밀번호를 변경했습니다");
 		return "redirect:/";
 	}
+	@PreAuthorize("isAuthenticated")
+	@GetMapping("/user/orderList")
+	public ModelAndView userOrderList(@RequestParam(defaultValue ="1")int pageno,Principal principal) {
+		return new ModelAndView("main")
+				.addObject("viewName","/user/orderList.jsp")
+				.addObject("page",userService.orderList(principal.getName()));
+		
+	}
+	
+	
+	
+	
+	
+	
 }

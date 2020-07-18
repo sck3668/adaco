@@ -126,7 +126,6 @@ $(function() {
 	 $("#sajin").on("change", loadImage); 
 	
 	//리뷰작성
-	
 	 $("#review_write").on("click",function(){
 		 var $artno = $("#artno").val();
 			var $content =$("#review_textarea").val();
@@ -151,7 +150,7 @@ $(function() {
 				data:formData,
 				processData:false,
 				contentType:false
-			}).done((r)=>{console.log(r),$("#review_textarea").val()})
+			}).done((r)=>{printReview(r),$("#review_textarea").val()})
 			  .fail((r)=>{console.log(r)})
 })
 // 		var parmas={
