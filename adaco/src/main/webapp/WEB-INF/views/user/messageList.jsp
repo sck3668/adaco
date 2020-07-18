@@ -49,12 +49,12 @@
 		</div>
 		<div>
 			<ul>
-				<li><a href="/adaco/user/read" style="color: black;">내정보보기</a></li>
-				<li><a href="/adaco/order/list"style="color: black;">주문내역</a></li>
-				<li><a href="/adaco/user/reviewList" style="color: black;">내리뷰보기</a></li>
-				<li><a href="/adaco/user/favoriteList" style="color: black;">즐겨찾기목록</a></li>
-				<li><a href="/adaco/user/pointList" style="color: black;">포인트함 </a>
-				<li><a href="/adaco/user/messageList" style="color: black;">메세지함</a>
+			<li><a href="/adaco/user/read" style="color: black;">내정보보기</a></li>
+            <li><a href="/adaco/user/orderlist"style="color: black;">주문내역</a></li>
+            <li><a href="/adaco/user/reviewList" style="color: black;">내리뷰보기</a></li>
+            <li><a href="/adaco/user/favoriteList" style="color: black;">즐겨찾기목록</a></li>
+            <li><a href="/adaco/user/pointList" style="color: black;">포인트함 </a>
+            <li><a href="/adaco/user/messageList" style="color: black;">메세지함</a>
 			</ul>
 		</div>
 	</div>

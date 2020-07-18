@@ -8,7 +8,6 @@ import lombok.experimental.*;
 @NoArgsConstructor
 @Accessors(chain=true)
 @Builder
-
 public class OrderDetail {
 	private Integer orderno;
 	private Integer optno;
@@ -28,5 +27,5 @@ public class OrderDetail {
 	private String postalcode;
 	private String refundAccount;
 	private Boolean isShipping;
-	private State state;
+	private orderState orderState;
 }

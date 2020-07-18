@@ -22,6 +22,15 @@ public class OrderDetailDao {
 	public OrderDetail OrderDetail(Integer orderno) {
 		return tpl.selectOne("orderDetailMapper.OrderDetail", orderno);
 	}
+	// Artno로 디테일 찾기
+	public OrderDetail findArtnoByOrderDetail(String artName) {
+		return tpl.selectOne("orderDetailMapper.findArtnoByOrderDetail",artName);
+	}
+	// ArtName으로 이미지찾기
+	public String findByArtnameArtImage(String artName) {
+		return tpl.selectOne("orderDetailMapper.findByArtnameArtImage",artName);
+	}
+	
 	
 //	// 결제 취소
 //	public int deleteByOrderDetail(int orderno) {
