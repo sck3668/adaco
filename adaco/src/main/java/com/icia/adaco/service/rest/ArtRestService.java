@@ -99,9 +99,7 @@ public class ArtRestService {
 	
 	// 작품 상세보기 옵션 포함(회원용)
 	public ArtDto.DtoForRead readArtFromUser(Integer artno, @Nullable String username) {
-		System.out.println("**********");
 		Art art = artDao.readByArtFromUser(artno);
-		System.out.println("=================아트"+art);
 		Option option = optionDao.readByArtno(artno);
 		if (art == null)
 			throw new ArtNotFoundException();
@@ -109,10 +107,10 @@ public class ArtRestService {
 
 		if (option != null) {
 			option.setArtno(art.getArtno());
-			dto.setOptno(option.getOptno());
+			dto.setOptno(option.getOptno());	
 			dto.setOptionName(option.getOptionName());
 			dto.setOptionValue(option.getOptionValue());
-			dto.setOptionStock(option.getOptionStock());
+			dto.setOptionStock(option.getOptionStock())	;
 			dto.setOptionPrice(option.getOptionPrice());
 		}
 		if (username != null) {
@@ -120,26 +118,22 @@ public class ArtRestService {
 			dto.setIsFavorite(isFavorite);
 			artDao.updateByArt(Art.builder().artno(artno).readCnt(1).build());
 		}
-		System.out.println("아트아트" + art);
 		if (art.getArtCommentCnt() > 0 ) {
-			System.out.println("디티오디티오ㄻㄻ" + art);
 			List<ArtComment> commentList = artCommemtDao.listByCommentOfArt(artno);
 			List<ArtCommentDto.DtoForList> dtoList = new ArrayList<ArtCommentDto.DtoForList>();
-			System.out.println("디티오디티오" + art);
 			for (ArtComment artcomment : commentList) {
 				ArtCommentDto.DtoForList artDto = modelMapper.map(artcomment, ArtCommentDto.DtoForList.class);
 				artDto.setWriteDateStr(artcomment.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
 				artDto.setCno(artcomment.getCno());
 				dtoList.add(artDto);
+				System.out.println("디티오리스트"+dtoList);
 			}
 			dto.setArtComments(dtoList);
-			System.out.println("디티오디티오호루라기" + dto);
 			
 		}
 		if (art.getReviewCnt() > 0) {
 			System.out.println("getReviewCnt아트"+art);
 			List<Review> reviewList = reviewDao.findAllReview(artno);
-			System.out.println("리뷰씨엔티"+art.getReviewCnt());
 			List<ReviewDto.DtoForList> dtoList = new ArrayList<ReviewDto.DtoForList>();
 			for (Review review : reviewList) {
 				ReviewDto.DtoForList reviewDto = modelMapper.map(review, ReviewDto.DtoForList.class);
@@ -149,7 +143,6 @@ public class ArtRestService {
 			}
 			dto.setReviews(dtoList);
 		}
-		System.out.println("서비스 디티오"+dto);
 
 		return dto;
 	}
@@ -263,10 +256,7 @@ public class ArtRestService {
 
 		// 작품 댓글 삭제하기
 		public List<ArtComment> deleteCommentOfArt(Integer cno, Integer artno, String username) {
-			System.out.println(username);
-			System.out.println(artno);
 			ArtComment artcomment = artCommemtDao.readByCommentOfArt(cno);
-			System.out.println(artcomment + "============");
 			if (username.equals(artcomment.getUsername()) == false)
 				throw new JobFailException("댓글을 삭제할 수 없습니다");
 			artCommemtDao.deleteByCommentOfArt(cno);

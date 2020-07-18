@@ -120,7 +120,6 @@ function checkFavorite() {
 }
 
 $(function() {
-	console.log(art)
 	printReview(art.reviews)
 	printComment(art.comments)
 	
@@ -204,7 +203,7 @@ $(function() {
 			method:"post",
 			data:params
 			
-		}).done((r)=>{console.log(r)})
+		}).done((r)=>{printComment(r)})
 		  .fail((r)=>{console.log(r)})
 		
 	})
