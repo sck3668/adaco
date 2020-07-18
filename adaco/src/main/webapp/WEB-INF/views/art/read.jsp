@@ -78,6 +78,7 @@ function printReview(reviews){
 	  	$("<span></span>").text(review.username).appendTo($upper_div);
 		$("<div>").html(review.content).css("display","inline-block").appendTo($center_div);
 		$("<span>").text(review.writeDateStr).appendTo($lower_div);
+		$("<img>").attr("src",review.image).appendTo($lower_div);
 // 		$("<span>").hmtl(review.star).appendTo($lower_div)
 		 if(review.username===loginId){
 				var btn = $("<button>").attr("class","delete_review").attr("data-username", review.username).attr("data-rno",review.rno)
@@ -121,7 +122,7 @@ function checkFavorite() {
 
 $(function() {
 	printReview(art.reviews)
-	printComment(art.comments)
+	printComment(art.artComments)
 	
 	 $("#sajin").on("change", loadImage); 
 	
@@ -131,9 +132,9 @@ $(function() {
 			var $content =$("#review_textarea").val();
 			console.log($content)
 			var formData = new FormData();
-			formData.append("content",$content)
-			formData.append("artno",$artno)
-  			if($("#sajin")[0].files[0]!=undefined)
+			formData.append("content",$content);
+			formData.append("artno",$artno);
+  			//if($("#sajin")[0].files[0]!=undefined)
 					formData.append("sajin", $("#sajin")[0].files[0]);
 			formData.append("_csrf", "${_csrf.token}");
 			formData.append("_method", "put");
@@ -150,7 +151,7 @@ $(function() {
 				data:formData,
 				processData:false,
 				contentType:false
-			}).done((r)=>{printReview(r),$("#review_textarea").val()})
+			}).done((r)=>{printReview(r),$("#review_textarea").val("")})
 			  .fail((r)=>{console.log(r)})
 })
 // 		var parmas={
@@ -160,8 +161,27 @@ $(function() {
 // 			artno:$("#artno").val(),
 // 		}
 // 		console.log(parmas)
+	//리뷰삭제하기	
+	$("#reviews").on("click",".delete_review",function(){
+		var $artno = $("#artno").val()
+		//data -ano 속성의 값을 꺼낼떄
+		//data("ano") ->넣은 값의 타입 그대로
+		//attr("data-ano")->문자열
+		var params={
+				rno: $(this).data("rno"),
+				artno :$artno,
+ 				_method:"delete",
+ 				_csrf:"${_csrf.token}"
+		}
+		console.log(params)
+		$.ajax({
+			url:"/adaco/artReview/reviewDelete",
+			method:"post",
+			data:params
+		}).done((r)=>{printReview(r)})
+		  .fail((r)=>{console.log(r)})
 		
-	
+	})
 	
 	
 	
@@ -319,7 +339,8 @@ $(function() {
 });
 </script>
 </head>
-<body>	
+<body>
+${art }	
 <div>
 	<div id="main">
 		<div>

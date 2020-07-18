@@ -148,10 +148,11 @@ public class ArtDto {
 		private star star;
 		private String content;
 		private String image;
-		private LocalDateTime writeDate;
+		private String writeDateStr;
 		private String username;
 		private Integer favoriteCnt;
 		private Boolean isFavorite;
+		private String artfile;
 	}
 	 
 	public static class DtoForBag{
