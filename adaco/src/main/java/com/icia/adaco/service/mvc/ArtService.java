@@ -99,8 +99,7 @@ public class ArtService {
 		int srn = page.getStartRowNum();
 		int ern = page.getEndRowNum();
 		page.setSearch(category);
-//		int artistno = artistdao.findArtistnoByUsername(username);
-		List<Art> artList = artdao.listByArt(srn, ern, category,artistno);
+		List<Art> artList = artdao.listByArt1(srn, ern, category,artistno);
 		List<ArtDto.DtoForList> dtoList = new ArrayList<ArtDto.DtoForList>();
 		for (Art art : artList) {
 			ArtDto.DtoForList dto = modelMapper.map(art, ArtDto.DtoForList.class);
