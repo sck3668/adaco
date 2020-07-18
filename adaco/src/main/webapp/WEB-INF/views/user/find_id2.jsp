@@ -47,12 +47,12 @@ $(document).ready(function () {
 			</div>
 			<div>
 				<c:forEach items="${irumAll}" var="irum" end="2">
-					<input type="radio" name="irum" value="${irum}">
-					<input type="text" value="${irum }"><br>
+					<input type="radio" name="irum" value="${irum}" >
+					<input type="text" value="${irum }" readonly ><br>
 				</c:forEach>
-					<input type="radio" name="irum" value="${irum }">
-					<input type="text" value="${irum}"><br>
-					<input type="hidden" id="userIrum" value="${irum}">
+					<input type="radio" name="irum" value="${irum }" readonly >
+					<input type="text" value="${irum}" readonly ><br>
+					<input type="hidden" id="userIrum" value="${irum}" readonly >
 					
 			</div>
 			<div>

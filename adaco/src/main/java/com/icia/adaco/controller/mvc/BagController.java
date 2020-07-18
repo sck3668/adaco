@@ -45,6 +45,7 @@ public class BagController {
 //			return new ModelAndView("main").addObject("viewName", "bag/read.jsp").addObject("bagList",bagService.findAllBagByUsername(username));
 //		}
 		//장바구니 화면 출력
+		@PreAuthorize("isAuthenticated()")
 		@GetMapping("/bag/view")
 		public ModelAndView view() {
 			return new ModelAndView("main").addObject("viewName","bag/read.jsp");
