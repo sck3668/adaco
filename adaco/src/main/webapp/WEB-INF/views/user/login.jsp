@@ -3,6 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"/>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -397,6 +400,14 @@ function checkUsername() {
 			$("#loginForm").submit(); 
 		}); 
 	}) 
+	function ps(){
+if (this.forms.password.type="password")
+box.innerHTML="<input type=\"html\" name=\"password\" size=\"100\" value="+this.forms.password.value+">";
+click.innerHTML="<a href=\"javascript:txt()\" style=\"text-decoration: none\"><i class=\"fas fa-eye-slash\"></i></a>"}
+function txt(){
+if (this.forms.password.type="text")
+box.innerHTML="<input type=\"password\" name=\"password\" size=\"100\"  value="+this.forms.password.value+">";
+click.innerHTML="<a href=\"javascript:ps()\" style=\"text-decoration: none\"><i class=\"far fa-eye\"></i></a>"}
 </script>
 </head>
 <body>
@@ -421,8 +432,9 @@ function checkUsername() {
           <input type="text" id="username" name="username" required="required"/>
         </div>
         <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" required="required"/>
+          <label for="password">Password</label><label for="password">Password</label><span id=click><a href="javascript:ps()" style="text-decoration: none;"><i class="far fa-eye"></i></a></span>
+<!--           <input type="password" id="password" name="password" required="required"/> -->
+   <span id=box style="width: 450px;"><input type="password" id="password"  name="password" required="required" style="width: 450px;"></span>
         </div>
         <div class="form-group">
           <label class="form-remember">

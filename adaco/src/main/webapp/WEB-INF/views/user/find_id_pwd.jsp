@@ -5,6 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src ="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>
 	function radio_chk() {
 		//라디오 버튼 Name 가져오기
@@ -58,20 +65,64 @@
 <body>
 	<!--  핸드폰 인증api(rest)-->
 	<!-- <form action="/adaco/user/findIdPwd" method="post" id="findIdForm"> -->
+<!-- 	<form id="findIdForm"> -->
+<!-- 		<div> -->
+<!-- 			<div> -->
+<!-- 				<hr> -->
+<!-- 				<h1>휴대폰 인증</h1> -->
+<!-- 				<hr> -->
+<!-- 			</div> -->
+<!-- 			<input type="radio" name="radio_btn" value="findId">아이디찾기 <input -->
+<!-- 				type="radio" name="radio_btn" value="findPwd">비밀번호찾기 -->
+<!-- 			<div> -->
+<!-- 				<input type="text" id="tel" name="tel" placeholder="가입하신 연락처를 입력하세요"> -->
+<!-- 			</div> -->
+<!-- 			<input type="button" value="인증하기" onclick="radio_chk();" /> -->
+<!-- 		</div> -->
+<!-- 	</form> -->
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;
+	<img src="${pageContext.request.contextPath}/image/hanstory.png"
+		style="width: 350px; height: 150px;" alt="">
+	<br>
+	<br>
+	<hr class="my-hr3">
+	<br>
+	<br>
+<body cellpadding="0" cellspacing="0" marginleft="0" margintop="0"
+	width="100%" height="100%" align="center">
 	<form id="findIdForm">
-		<div>
-			<div>
-				<hr>
-				<h1>휴대폰 인증</h1>
-				<hr>
+		<div class="card align-middle"
+			style="width: 30rem; border-radius: 20px;">
+			<div class="card-title" style="margin-top: 30px;">
+				<h2 class="card-title text-center" style="color: #113366;">휴대폰
+					인증</h2>
 			</div>
-			<input type="radio" name="radio_btn" value="findId">아이디찾기 <input
-				type="radio" name="radio_btn" value="findPwd">비밀번호찾기
-			<div>
-				<input type="text" id="tel" name="tel" placeholder="가입하신 연락처를 입력하세요">
+			<div class="card-body">
+				<h5 class="form-signin-heading">가입하신 휴대폰 번호를 입력하세요</h5>
+				<label for="inputEmail" class="sr-only"></label> <input type="text"
+					id="tel" name="tel" class="form-control" placeholder="(-)를 제외"
+					required autofocus><BR>
+				<div class="checkbox">
+					<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio"
+						name="radio_btn" value="findId"> 아이디 찾기
+					</label>&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<label> <input type="radio" name="radio_btn"
+						value="findPwd"> 비밀번호 찾기
+					</label>
+				</div>
+				<input type="button" value="인 증 하 기"
+					class="btn btn-lg btn-primary btn-block" onclick="radio_chk();" />
 			</div>
-			<input type="button" value="인증하기" onclick="radio_chk();" />
 		</div>
 	</form>
+	<div class="modal"></div>
 </body>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 </html>
