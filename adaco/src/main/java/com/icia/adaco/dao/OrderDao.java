@@ -79,7 +79,7 @@ public class OrderDao {
 		return tpl.selectOne("orderMapper.findOrderDateByoderno", orderno);
 	}
 	
-	//주문번호로 배송비 찾기
+	//주문번호로 배송비 찾기//
 	public int findShippingByoderno(Integer orderno) {
 		return tpl.selectOne("orderMapper.findShippingByoderno", orderno);
 	}
