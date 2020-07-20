@@ -400,13 +400,14 @@ function checkUsername() {
 			$("#loginForm").submit(); 
 		}); 
 	}) 
+	//<button type="button" class="btn btn-outline-primary" id="login">로그인</button>
 	function ps(){
 if (this.forms.password.type="password")
-box.innerHTML="<input type=\"html\" name=\"password\" size=\"100\" value="+this.forms.password.value+">";
-click.innerHTML="<a href=\"javascript:txt()\" style=\"text-decoration: none\"><i class=\"fas fa-eye-slash\"></i></a>"}
+box.innerHTML="<input type=\"html\" id=\"password\" required=\"required\" name=\"password\" size=\"100\" value="+this.forms.password.value+">" ;
+click.innerHTML="<a href=\"javascript:txt()\" style=\"text-decoration: none\"><i class=\"fas fa-eye-slash\"></i></a> "}
 function txt(){
 if (this.forms.password.type="text")
-box.innerHTML="<input type=\"password\" name=\"password\" size=\"100\"  value="+this.forms.password.value+">";
+box.innerHTML="<input type=\"password\" id=\"password\" required=\"required\"  name=\"password\" size=\"100\"  value="+this.forms.password.value+">";
 click.innerHTML="<a href=\"javascript:ps()\" style=\"text-decoration: none\"><i class=\"far fa-eye\"></i></a>"}
 </script>
 </head>
@@ -434,7 +435,8 @@ click.innerHTML="<a href=\"javascript:ps()\" style=\"text-decoration: none\"><i 
         <div class="form-group">
           <label for="password">Password</label><span id=click><a href="javascript:ps()" style="text-decoration: none;"><i class="far fa-eye"></i></a></span>
 <!--           <input type="password" id="password" name="password" required="required"/> -->
-   <span id=box style="width: 450px;"><input type="password" id="password"  name="password" required="required" style="width: 450px;"></span>
+   <span id=box style="width: 450px;">
+   <input type="password" id="password"  name="password" required="required" style="width: 450px;"></span>
         </div>
         <div class="form-group">
           <label class="form-remember">
@@ -446,7 +448,7 @@ click.innerHTML="<a href=\"javascript:ps()\" style=\"text-decoration: none\"><i 
          <button type="button" class="btn btn-outline-primary" id="login">로그인</button>
         </div>
         <div class="form-group">
- 			<a href="/adaco/user/join"><button type="button" class="btn btn outline primary"   id="join" style="width: 450px;" >회원가입</button></a>
+ 			<a href="/adaco/user/join"><button type="button" class="btn btn outline primary"  id="join" style="width: 450px;" >회원가입</button></a>
          </div>
          </div>
       </form>

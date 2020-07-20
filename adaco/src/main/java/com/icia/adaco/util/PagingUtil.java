@@ -38,7 +38,7 @@ public class PagingUtil {
 		int endPage = startPage + COUNT_OF_PAGE_PER_BLOCK - 1;
 		
 		endPage = (endPage>countOfPage)?countOfPage:endPage;
-		
+	
 		boolean isPrev = blockNo>0? true : false;
 		boolean isNext = endPage != countOfPage? true: false; 
 		
