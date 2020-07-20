@@ -391,12 +391,12 @@ function checkUsername() {
  		}); 
 		
 		$("#password").on("keypress", function(key) { 
- 			if(key.keyCode!=13) 
-				return; 
-			if(checkUsername()==false) 
-				return; 
-			if(checkPassword()==false) 
- 				return; 
+//  			if(key.keyCode!=13) 
+// 				return; 
+// 			if(checkUsername()==false) 
+// 				return; 
+// 			if(checkPassword()==false) 
+//  				return; 
 			$("#loginForm").submit(); 
 		}); 
 	}) 
@@ -438,8 +438,6 @@ click.innerHTML="<a href=\"javascript:ps()\" style=\"text-decoration: none\"><i 
         </div>
         <div class="form-group">
           <label class="form-remember">
-            <input type="checkbox"/>아이디 저장하기<br>
-             <input type="checkbox"/>로그인 유지
           </label><a href="/adaco/user/findIdPwd" id="findIdPwd" class="form-recovery">계정을 잃어버렸나요?</a>
         </div>
          <div>
@@ -459,68 +457,5 @@ click.innerHTML="<a href=\"javascript:ps()\" style=\"text-decoration: none\"><i 
 </div>
 </div>
 
-<!-- <main class="login-form"> -->
-<!--     <div class="cotainer"> -->
-<!--         <div class="row justify-content-center"> -->
-<!--             <div class="col-md-8"> -->
-<!--                 <div class="card"> -->
-<!--                     <div class="card-header">로그인</div> -->
-<!--                     <div class="card-body"> -->
-<!--                         <form action="/adaco/user/login" method="post" id="loginForm"> -->
-<!--                             <div class="form-group row"> -->
-<!--                                 <span for="username" class="col-md-4 col-form-label text-md-right"> -->
-<!--                                 	username -->
-<!--                                 </span> -->
-<!--                                 <div class="col-md-6"> -->
-<!--                                     <input type="text" id="username" class="form-control" name="username" required autofocus> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-
-<!--                             <div class="form-group row"> -->
-<!--                                 <label for="password" class="col-md-4 col-form-label text-md-right"> -->
-<!--                                 	password -->
-<!--                                 </label> -->
-<!--                                 <div class="col-md-6"> -->
-<!--                                     <input type="password" id="password" class="form-control" name="password" required> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-
-<!--                             <div class="form-group row"> -->
-<!--                                 <div class="col-md-6 offset-md-4"> -->
-<!--                                     <div class="checkbox"> -->
-<!--                                         <label> -->
-<!--                                             <input type="checkbox" name="remember"> 아이디저장하기 -->
-<!--                                         </label> -->
-                                        
-<!--                                         <div class="custom-control custom-checkbox mb-1"> -->
-<!-- 											<input type="checkbox" class="custom-control-input"  -->
-<!--     											name="remember-me" value="True" -->
-<!-- 												id="customCheck1"> -->
-<!-- 											<label class="custom-control-label" for="customCheck1">로그인 유지</label> -->
-<!-- 										</div> -->
-                                        
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-<!--                             <div class="col-md-6 offset-md-4"> -->
-<%--                               	<input type="hidden" name="_csrf" value="${_csrf.token}"> --%>
-<!--                                 <button type="button" class="btn btn-primary" id="login"> -->
-<!--                            		         로그인 -->
-<!--                                 </button> -->
-<!--                                 <div style="width:300px; height:30px; background-color: white; text-align: center; border: 1px solid black;"> -->
-<!--                                 	<a id="join" href="/adaco/user/join" class="btn btn-link">회원가입</a> -->
-<!--                                 </div> -->
-<!--                                 <div style="width:300px; height:30px; background-color: white; text-align: center; border: 1px solid black;"> -->
-<!--                                 	<a id="findIdPwd" href="/adaco/user/findIdPwd" class="btn btn-link">아이디/비밀번호 찾기</a> -->
-<!--                             	</div> -->
-                            	
-<!--                             </div> -->
-<!--                     </form> -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--     </div> -->
-<!--     </main> -->
 </body>
 </html>
