@@ -85,7 +85,7 @@ public class OrderDto {
       private int shippingCharge;
       private String artName;
       private int artPrice;
-      private orderState state;
+      private State state;
       }
    //
    @Data

@@ -8,12 +8,12 @@
 		option_value, amount,price, address, recipient,tel,email,
 			request,add_point,refund_account ,is_shipping , orderstate)
 			values(#{orderno},#{optno}, #{artno},#{artistno}, #{artName},#{optionName},#{optionValue},#{amount},#{price},
-			#{address},#{recipient},#{tel},#{email},#{request},#{addPoint},#{refundAccount},0,#{orderState})
+			#{address},#{recipient},#{tel},#{email},#{request},#{addPoint},#{refundAccount},0,#{state})
 	</insert>
 	<select id="findArtnoByOrderDetail" resultType="orderDetail">
 	select orderno,optno, artno,artistno,art_name artName, option_name optionName,
 		option_value optionValue, amount,price, address, recipient,tel,email,
-			request,add_point addPoint, postalcode,refund_account refundAccount,is_shipping, orderstate orderState 
+			request,add_point addPoint, postalcode,refund_account refundAccount,is_shipping, orderstate state 
 			from order_detail where art_name=#{artName} and rownum =1
 	</select>
 	
@@ -21,68 +21,12 @@
 	<select id="OrderDetail" resultType="orderDetail">
 	select orderno,optno, artno,artistno,art_name artName, option_name optionName,
 		option_value optionValue, amount,price, address, recipient,tel,email,
-			request,add_point addPoint, postalcode,refund_account refundAccount,is_shipping, orderstate orderState
+			request,add_point addPoint, postalcode,refund_account refundAccount,is_shipping, orderstate state
 			from order_detail where orderno=#{orderno} and rownum =1
 	</select>
 	<select id="findByArtnameArtImage" resultType="string">
 	select main_img mainImg from art where art_name=#{artName}
 	</select>
 	
-<!-- 	<select id="Ordering"> -->
-<!-- 		select o.orderno, o.optno, o.artno, o.artistno, o.artname, o.option_name optionName, p.optname, p.artname -->
-<!-- 		from o.orderdetail, p.option, a.art -->
-<!-- 		where o.orderdetail=p.option=a.art beetween o.orderno  -->
-<!-- 		group by  -->
-		
-<!-- 	</select> -->
- 	
- 		<!-- 결제 취소  -->
-<!-- 	<delete id="deleteByOrderDetail"> -->
-<!-- 		delete from order_detail where orderno=#{orderno} and rownum=1 -->
-<!-- 	</delete> -->
-	
-	 	<!-- 모든 주문 내역 --> 
-<!-- 	<select id="OrderByAll" resultType="orderDetail"> -->ㅇ
-<!-- 		<![CDATA[ -->
-<!-- 			select b.orderno, b.artname, b.option_name optionName, b.opiont_value optionValue, -->
-<!-- 				b.amount, b.price, b.address, b.recipient, b.tel, b.request, b.add_point addPoint, -->
-<!-- 				b.refundAccount, b.isShipping,b.orderState -->
-<!-- 				from -->
-<!-- 		    		(select /*+ index_asc(order_detail orderno_pk_orderno) */ rownum rnum, b.orderno, b.artname, b.option_name , b.opiont_value , -->
-<!-- 				b.amount, b.price, b.address, b.recipient, b.tel, b.request, b.add_point , -->
-<!-- 				b.refundAccount, b.isShipping, b.orderState -->
-<!-- 		         	from ( -->
-<!-- 		            	select orderno, artname, option_name , opiont_value , -->
-<!-- 							amount, price, address, recipient, tel, request, b.add_point , -->
-<!-- 							refundAccount, isShipping, orderState -->
-<!-- 		     	       	from order_detail -->
-<!-- 		            	order by isShipping desc ) A -->
-<!-- 		         	where rownum <= #{endRowNum})B -->
-<!-- 		      	where B.rnum >= #{startRowNum} -->
-<!-- 		]]> -->
-<!-- 	</select> -->
 
-	<!-- 주문 상세 내역  -->
-<!-- 	<select id="findOrderByDetail" resultType="int"> -->
-<!-- 		select orderno, optno, artno, artistno,artname,optionName,optionValue, -->
-<!-- 				amount,price,addtel,email,request,addPoint, -->
-<!-- 				postalcode,refundAccoress,recipient,unt,isShipping -->
-<!-- 		from oder_detail -->
-<!-- 		where orderno = #{orderno} and rownum =1  -->
-<!--  	</select> -->
-
-<!-- 	 특정 주문 목록 -->  
-<!-- 	<select id="orderView" resultType=""> -->
-<!-- 		select o.orderno, o.orderDate, o.orderRec, -->
-<!-- 		o.userAddr1, o.userAddr2, o.userAddr3, -->
-<!-- 		o.orderPhon, o.amount, o.orderDate, o.delivery, -->
-<!-- 		d.orderDetailsNum, d.gdsNum, d.cartStock, -->
-<!-- 		g.gdsName, g.gdsThumbImg, g.gdsPrice -->
-<!-- 		from tbl_order o -->
-<!-- 		inner join tbl_order_details d -->
-<!-- 		on o.orderno = d.orderno -->
-<!-- 		inner join tbl_goods g -->
-<!-- 		on d.gdsNum = g.gdsNum -->
-<!-- 		where o.orderno = #{orderno} -->
-<!--  	</select> -->
 </mapper>

@@ -67,6 +67,7 @@ $(function(){
 </script>
 </head>
 <body>
+${page }
  <aside id="asideMain">
    <div id="aside">
       <div id="profile">
@@ -107,6 +108,7 @@ $(function(){
    </div>   
    <div id="orderMain">
    <table>
+   
       <colgroup>
             <col width="6%">
             <col width="15%">
@@ -125,6 +127,7 @@ $(function(){
             <th>주문상태</th>
          </tr>
       </thead>
+      
       
       <tbody id = "list">
       <c:forEach items="${page.orderList}" var = "list">

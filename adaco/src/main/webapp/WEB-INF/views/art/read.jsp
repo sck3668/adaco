@@ -97,7 +97,6 @@ function printComment(comments){
 		var $upper_div =$("<div>").appendTo($comment)
 		var $center_div=$("<div>").appendTo($comment)
 		var $lower_div =$("<div>").appendTo($comment)
-		console.log(comment);
 		$("<span></span>").text(comment.username).appendTo($upper_div);
 		$("<img>").attr("src",comment.profile).css("width","60px").css("height","60px").appendTo($center_div);
 		$("<div>").html(comment.content).css("display","inline-block").appendTo($center_div);
@@ -135,7 +134,7 @@ $(function() {
 			formData.append("content",$content);
 			formData.append("artno",$artno);
   			//if($("#sajin")[0].files[0]!=undefined)
-					formData.append("sajin", $("#sajin")[0].files[0]);
+			formData.append("sajin", $("#sajin")[0].files[0]);
 			formData.append("_csrf", "${_csrf.token}");
 			formData.append("_method", "put");
 			

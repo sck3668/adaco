@@ -27,5 +27,5 @@ public class OrderDetail {
 	private String postalcode;
 	private String refundAccount;
 	private Boolean isShipping;
-	private orderState orderState;
+	private State state;
 }

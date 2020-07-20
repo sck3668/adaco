@@ -268,7 +268,7 @@ public class UserService {
 			dto.setArtName(orderDetail.getArtName());
 			System.out.println("셋아트네임"+dto.setArtName(orderDetail.getArtName()));
 			dto.setArtPrice(orderDetail.getPrice());
-			dto.setState(orderState.배송준비중);
+			dto.setState(com.icia.adaco.entity.State.답변대기);
 			orderListDto.add(dto);
 			}
 		}
