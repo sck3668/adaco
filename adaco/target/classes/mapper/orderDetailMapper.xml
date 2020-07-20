@@ -4,6 +4,9 @@
 
 	<!-- 결제 하기 -->
 	<insert id="Payment">
+<!-- 		<selectKey keyProperty="orderno" resultType="int" order="BEFORE"> -->
+<!-- 			select order_detail_seq.nextval from dual -->
+<!-- 		</selectKey> -->
 		insert into order_detail(orderno,optno, artno,artistno,art_name, option_name,
 		option_value, amount,price, address, recipient,tel,email,
 			request,add_point,refund_account ,is_shipping , orderstate)
