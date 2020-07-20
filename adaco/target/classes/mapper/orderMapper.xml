@@ -62,8 +62,18 @@
 	</select>
 	
 	<!-- 작가 전용 --> 
-<!-- 	<select id="orderFindByUsername" resultType="int"> -->
-<!-- 		select orderno from orders where username=#{username}	 -->
-<!-- 	</select> -->
+	<!-- 주문번호로 구매자 아이디 찾기 -->
+	<select id="findUsernameByoderno" resultType="String">
+		select username from orders where orderno=#{orderno}
+	</select>
 	
+	<!-- 주문번호로 구매일 찾기 -->
+	<select id="findOrderDateByoderno" resultType="String">
+		select order_date from orders where orderno=#{orderno}
+	</select>
+	
+	<!-- 주문번호로 배송비 찾기 -->
+	<select id="findShippingByoderno" resultType="int">
+		select shipping_charge from orders where orderno=#{orderno}
+	</select>
  </mapper>

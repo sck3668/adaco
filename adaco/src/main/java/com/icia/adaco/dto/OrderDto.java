@@ -81,7 +81,7 @@ public class OrderDto {
  		private String refundAccount;
  		private List<String> request;
  	}
- 	//////////////////////////	총결제금액,주문번호,적립포인트,작품명,
+ 	////////////////////////////	총결제금액,주문번호,적립포인트,작품명,
 	//	배송지,배송비,작품이미지,
    
    @Data
@@ -97,11 +97,13 @@ public class OrderDto {
       private int shippingCharge;
       private String artName;
       private int artPrice;
-      private orderState state;
+      private orderState orderState;
       private int artistno;
       private String recipient;
       private Integer price;
       private Integer artno;
+      private String optionName;
+      private String optionValue;
       }
    //
    @Data

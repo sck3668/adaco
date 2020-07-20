@@ -67,7 +67,14 @@ public class ArtistController {
 //				.addObject("art",artRestService.readArt(artno, principal.getName()))
 	}
 	
-	//주문, 배송 관리
+	// 주문 내역 상세 
+	@GetMapping("/artist/orderDetail")
+	public ModelAndView orderDetail() {
+		return new ModelAndView("main").addObject("viewName", "artist/orderDetail.jsp");
+	}
+	
+	
+	
 //		@PreAuthorize("isAuthenticated()")
 		@GetMapping("/artist/orderAdmin")
 		public ModelAndView orderAdmin() {

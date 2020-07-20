@@ -180,7 +180,7 @@ $(function(){
    </div>
    </aside>
  <section id="section">
- ${page.orderList }
+<%--  ${page.orderList } --%>
 <h3>주문 목록</h3>
 <!-- <hr> -->
 	<div id="idSearch" style="float:right;">
@@ -197,22 +197,22 @@ $(function(){
 	<br><br>	
 	<table>
 		<colgroup>
-				<col width="10%">
-				<col width="10%">
+				<col width="11%">
 				<col width="15%">
+				<col width="12%">
 				<col width="10%">
 				<col width="25%">
-				<col width="10%">
-				<col width="10%">
+				<col width="12%">
+				<col width="12%">
 			</colgroup>
 <%-- 	 <caption><strong><h3>주문 목록</h3></strong></caption> --%>
 		<thead id="th">
 			<tr>
 				<th>주문 번호</th>
-				<th>주문 일자</th>
+				<th>주문일</th>
 				<th>구매자 ID</th>
 				<th>수취인</th>
-				<th>작품/옵션명</th>
+				<th>작품명/옵션</th>
 				<th>총 결제액</th>
 				<th>주문 상태</th>
 			</tr>
@@ -220,13 +220,23 @@ $(function(){
 		<tbody id = "list">
 		<c:forEach items="${page.orderList}" var = "list">
 			<tr>
-				<td><a href="/adaco/order/sellistDetail?oderno=">${list.orderno }</a></td>
-				<td>2020.11.28</td> <!-- ${artPageByUser.price } -->
-				<td>leehj9999</td> <!-- ${artPageByUser.price } -->
-				<td>${list.recipient}</td> <!-- ${artPageByUser.price } -->
-				<td><a href="/adaco/order_read?artName=${art.artName}">${art.artName}안녕하세요</a></td><!-- ${artPageByUser.price } -->
-				<td>${list.price}</td> <!-- ${artPageByUser.price } -->
-				<td>배송중</td> <!-- ${artPageByUser.price } -->
+				<td><a href="/adaco/artist/orderDetail?oderno=${list.orderno }">${list.orderno }</a></td>
+				<td>${list.orderDateStr}</td>
+				<td>${list.username}</td> 
+				<td>${list.recipient}</td> 
+				<td>${list.artName} / ${list.optionName}:${list.optionValue}</td>
+				<td>${list.price+list.shippingCharge}</td> 
+				<td>
+					<select id="Shipping">
+						<option selected="selected">주문상태 선택</option>
+						<option>입금 대기</option>
+						<option>입금 완료</option>
+						<option>배송 준비중</option>
+						<option>배송중</option>
+						<option>배송완료</option>
+					</select> 
+					<input type="hidden" id="state" name="state" value="${list.orderState}" />
+				</td> 
 			</tr>					
 		</c:forEach>
 		</tbody>

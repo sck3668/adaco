@@ -54,6 +54,8 @@ public class OrderDetailDao {
 	return tpl.selectList("orderDetailMapper.findAllOrderByArtist",map);
 	}
 	
+	//
+	
 	
 	
 //	// 결제 취소
