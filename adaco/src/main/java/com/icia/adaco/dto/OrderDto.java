@@ -78,6 +78,7 @@ public class OrderDto {
    @NoArgsConstructor
    @Builder
    @Accessors(chain=true)
+   // 회원, 작가 함께 사용
    public static class DtoForList{
       private int orderno;
       private String orderDateStr;
@@ -86,6 +87,10 @@ public class OrderDto {
       private String artName;
       private int artPrice;
       private State state;
+      private int artistno;
+      private String recipient;
+      private Integer price;
+      private Integer artno;
       }
    //
    @Data

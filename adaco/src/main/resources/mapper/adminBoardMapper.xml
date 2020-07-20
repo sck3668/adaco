@@ -166,4 +166,11 @@
 		delete from category where category = #{category} and rownum = 1
 	</delete>
 	
+	<select id = "countMessageById" resultType="int">
+		select count(*) from message where recipient_id = #{recipientId}
+	</select>
+	
+	<select id = "countNoReadMessageById" resultType="int">
+		select count(*) from message where recipient_id = #{recipientId} and msg_check = 0
+	</select>
 </mapper>

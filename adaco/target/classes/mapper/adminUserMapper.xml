@@ -64,12 +64,12 @@
 	</update>
 	
 	<select id="findOrderById" resultType="string">
-		select d.state from orders o, order_detail d
+		select d.orderstate from orders o, order_detail d
 		where o.orderno = d.orderno and username = #{username}
 	</select>
 	
 	<select id="findSellById" resultType="string">
-		select state from order_detail d, artist a
+		select orderstate from order_detail d, artist a
 		where a.artistno = d.artistno and username = #{username}
 	</select>
 	

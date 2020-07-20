@@ -67,13 +67,8 @@ public class ArtController {
 	// 작품 상세보기 (회원용)
 	@GetMapping("/art/readByUser")
 	public ModelAndView readFromUser(@NonNull int artno ,@Nullable Principal principal) throws JsonProcessingException {
-		System.out.println("상세" + artno);
-		System.out.println(principal.getName());
-		if(principal.getName()!= null) {
-			String username =  principal.getName();
-		} 
-			String username = "isAnonymous()";
-			
+		String username = principal!=null?principal.getName():null;
+		
 		ModelAndView mav= new ModelAndView("main").addObject("viewName","art/read.jsp").addObject("artPageByUser", service.readArtFromUser(artno, username))
 				.addObject("image", service.readArtImage(artno));
 		ArtDto.DtoForRead dto = service.readArtFromUser(artno, username);

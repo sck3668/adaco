@@ -4,6 +4,7 @@ import java.security.*;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.lang.*;
 import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import com.fasterxml.jackson.databind.*;
 import com.icia.adaco.dao.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.service.mvc.*;
+import com.icia.adaco.service.rest.*;
 
 @Controller
 public class ArtistController {
@@ -28,6 +30,12 @@ public class ArtistController {
 	private ObjectMapper objectMapper;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private OrderDetailService orderDetailService;
+	@Autowired
+	private ArtRestService artRestService;
+	@Autowired
+	private OrderService orderService;
 	
 	
 	//마이페이지 화면
@@ -44,10 +52,19 @@ public class ArtistController {
 	 
 	
 	//판매목록화면
+//	@PreAuthorize("isAuthenticated()")
+//	@GetMapping("/artist/artistSellList")
+//	public ModelAndView artistSellList() {
+//		return new ModelAndView("main").addObject("viewName","artist/artistSellList.jsp");
+//	}
+	
+	// 작가번호로 주문리스트찾기
 	@PreAuthorize("isAuthenticated()")
-	@GetMapping("/order/artistSellList")
-	public ModelAndView artistSellList() {
-		return new ModelAndView("main").addObject("viewName","order/artistSellList.jsp");
+	@GetMapping("/artist/artistSellList")
+	public ModelAndView artistSellList(@RequestParam(defaultValue ="1")int pageno, Principal principal ){
+		return new ModelAndView("main").addObject("viewName","artist/artistSellList.jsp")
+				.addObject("page",orderDetailService.OrderListByArtist(pageno,principal.getName()));
+//				.addObject("art",artRestService.readArt(artno, principal.getName()))
 	}
 	
 	

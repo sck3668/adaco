@@ -29,4 +29,45 @@
 	</select>
 	
 
+	<!-- 작가전용 -->
+	<!-- 작가번호로 주문찾기 -->
+	<select id="orderFindByArtistno" resultType="int">
+		select orderno from order_detail where artistno=#{artistno}	
+	</select>
+	
+	<!-- 작가번호로 주문리스트 -->
+	<!-- 주문 내역  -->
+	<select id = "findAllOrderByArtist" resultType="orderDetail">
+		<![CDATA[
+		select * from		
+			(select rownum as rnum ,o.*from
+				(select /*+ index_desc(orders orders_pk_orderno)*/orderno, artno, optno, price, recipient,artistno from order_detail) o
+				where artistno=#{artistno} and rownum <=#{endRowNum})
+		where rnum>=#{startRowNum}
+		]]>
+				
+	</select>
+	
+	<!-- 주문 count / 페이징 위한 --> 
+	<select id="count" resultType="int">
+		select count(*) from order_detail
+	</select>
+	
+	<!-- 구매자 ID로 검색도 해야됨 -->
+<!-- 	<select id="findAllOrderByArtist" resultType="orderDetail"> -->
+<!-- 		select B.artno, B.category, B.main_img mainImg, B.art_name artName, B.price, B.art_date artDate, B.artistno -->
+<!-- 	      from -->
+<!-- 	         (select /*+ index_desc(orders orders_pk_orderno) */ rownum rnum, A.artno, A.category, A.main_img, A.art_name, A.price, A.art_date, A.artistno -->
+<!-- 	         from ( -->
+<!-- 	            select artno, category, main_img, art_name, price, art_date, artistno -->
+<!-- 	            from art -->
+<!-- 	            <trim prefix="WHERE" prefixOverrides="AND"> -->
+<!-- 	            	<if test="category!=null and category != '' "> -->
+<!-- 	            		AND category like '%'|| #{category} || '%'  -->
+<!-- 	            	</if> -->
+<!-- 	            </trim> -->
+<!-- 	       		order by artno desc) A -->
+<!-- 	         where artistno=#{artistno} and rownum&lt;= #{endRowNum})B -->
+<!-- 	      where B.rnum&gt;= #{startRowNum} -->
+<!-- 	</select> -->
 </mapper>
