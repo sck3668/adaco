@@ -27,7 +27,6 @@ public class OrderDetailController {
 		private ObjectMapper objectMapper = new ObjectMapper();
 		
 		
-<<<<<<< HEAD
 	// 주문 내역 상세 
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/orderdetail/orderdetail")
@@ -42,7 +41,6 @@ public class OrderDetailController {
 		System.out.println(list);
 		return null;
 	}
-=======
 //		@GetMapping("/orderdetail/ordering")
 //		public String findbyOrderDetail(Principal principal,String username,Integer orderno) {
 //			String id = principal.getName();
@@ -59,21 +57,20 @@ public class OrderDetailController {
 //			Order order = objectMapper.readValue(json, new TypeReference<List<Order>>() {});
 //			return new ModelAndView("main").addObject("viewName", "order_detail/payment.jsp").addObject("order", objectMapper.readValue(json, new TypeReference<List<Order>>() {}));
 //		}
-		
-		// 주문 내역 상세 
-		@GetMapping("/orderdetail/orderdetail")
-		public ModelAndView orderDetail( ) {
-			return new ModelAndView("main").addObject("viewName", "order_detail/orderdetail.jsp");
-		}
-		
-		
-		@PostMapping("/orderdetail/payment")
-		public String buyAll(String json,Principal principal) throws JsonParseException, JsonMappingException, IOException {
-			List<Order> list = objectMapper.readValue(json, new TypeReference<List<Order>>() {});
-			System.out.println(list);
-			return null;
-		}
-		
+//		
+//		// 주문 내역 상세 
+//		@GetMapping("/orderdetail/orderdetail")
+//		public ModelAndView orderDetail( ) {
+//			return new ModelAndView("main").addObject("viewName", "order_detail/orderdetail.jsp");
+//		}
+//		
+//		
+//		@PostMapping("/orderdetail/payment")
+//		public String buyAll(String json,Principal principal) throws JsonParseException, JsonMappingException, IOException {
+//			List<Order> list = objectMapper.readValue(json, new TypeReference<List<Order>>() {});
+//			System.out.println(list);
+//			return null;
+//		}
+//		
 
->>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 }

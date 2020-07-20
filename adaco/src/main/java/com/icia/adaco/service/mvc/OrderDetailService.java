@@ -62,8 +62,6 @@ public class OrderDetailService {
 		System.out.println("afterDto=="+afterDto);
 		return afterDto;
 	}
-<<<<<<< HEAD
-=======
 	
 
 	
@@ -114,5 +112,4 @@ public class OrderDetailService {
 			return page;
 			}
 	
->>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 }

@@ -231,9 +231,6 @@ public class OrderService {
 			}
 			page.setOrderList(dtolist);
 			return page;
-<<<<<<< HEAD
-=======
-			
 
 		/*
 		 * List<Integer> ordernoList = orderDao.orderFindByUsername(username);
@@ -264,7 +261,6 @@ public class OrderService {
 		 * System.out.println(dto+"ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"); dtoList.add(dto); }
 		 * page.setOrderList(dtoList); return page;
 		 */
->>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 	}
 
 }
