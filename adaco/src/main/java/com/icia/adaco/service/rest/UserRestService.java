@@ -94,7 +94,7 @@ public class UserRestService {
 			artDao.updateByArt(Art.builder().artno(artno).favoriteCnt(art.getFavoriteCnt()+1).build());
 			return userDao.insertFavorite(favorite);
 		} else {
-			Favorite favorite = userDao.findByArtnoFavoriteId(artno);
+			Favorite favorite = userDao.findByArtnoFavoriteId(artno, username);
 			userDao.deleteFavorite(favorite.getFavno());
 			return artDao.updateByArt(Art.builder().artno(artno).favoriteCnt(art.getFavoriteCnt()-1).build());
 		}
