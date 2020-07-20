@@ -21,7 +21,7 @@
 		select username from users where email=#{email} and rownum=1
 	</select>
 	<select id="findById" resultType="user">
-		select username,password,email,irum,tel,profile,address,join_date joinDate,birth_date birthDate
+		select username,password,email,irum,tel,profile,address,join_date joinDate,birth_date birthDate,login_failure_cnt loginFailureCnt
 		from users where username=#{username} and rownum=1
 	</select>
 	<update id="update">

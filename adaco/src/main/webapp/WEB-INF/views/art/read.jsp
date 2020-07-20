@@ -324,16 +324,15 @@ $(function() {
 				optionStock:${artPageByUser.optionStock},
 				optionPrice:'${artPageByUser.optionPrice}',
 			};
-			console.log(params);
-			alert("sss");
 			$.ajax({
 				url:"/adaco/bag/add",
 				method:"post",
 				data:params,
 				success:function(result){
-					alert("tjdrhd");
-					if(result=="1")
+					if(result=="1") {
 						alert("성공");
+						location.href="/adaco/bag/view"
+					}
 					else
 						alert("실패");
 				},error:function(result) {

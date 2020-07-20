@@ -16,6 +16,7 @@ import org.springframework.stereotype.*;
 import com.fasterxml.jackson.databind.*;
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
+import com.icia.adaco.dto.OrderDto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.util.*;
 
@@ -41,16 +42,7 @@ public class OrderService {
 	@Autowired
 	private ModelMapper modelMapper;
 
-	// 주문 하기
-
-//		public int Ordering(Integer orderno) {
-//			Art art = artDao.readByArt(orderno);
-//			Option option = optionDao.readByArtno(orderno);
-//			OrderDetail orderDetail = orderDetailDao.OrderDetail(orderno);
-//			return orderno;
-//		}
-	// 3
-
+	//주문하기
 	public int Ordering(Order order, Bag bag) {
 		int artno = bag.getArtno();
 		Art art = artDao.readByArt(artno);
@@ -68,116 +60,140 @@ public class OrderService {
 		return orderdetail.getOrderno();
 	}
 
-		// 3
-		
-	
-	
 	// 아트상세에서 주문하기
-			public int Ordering(Order order,Bag bag,String username) {
-				System.out.println("ordering service"+order+"//"+bag+"//"+username);
-				order.setOrderDate(LocalDateTime.now());
-				order.setUsername(username);
-				order.setShippingCharge(3000);
-				int artno = bag.getArtno();
-				Art art = artDao.readByArt(artno);
-				bag.setTotalPrice(bag.getAmount()*art.getPrice());
-				bagDao.insertByBag(bag);
-				int bagno = bagDao.findByArtno(artno).getBagno();
-				order.setBagno(bagno);
-				orderDao.Ordering(order);
-				System.out.println(artno+"artno111");
-				return artno;
-			}
-		//장바구니에서 주문하기
-			public int bagOrdering(Order order,Bag bag,String username) {
-				System.out.println("ordering service"+order+"//"+bag+"//"+username);
-				order.setOrderDate(LocalDateTime.now());
-				order.setUsername(username);
-				order.setShippingCharge(3000);
-				int artno = bag.getArtno();
-				Art art = artDao.readByArt(artno);
-				bag.setTotalPrice(bag.getAmount()*art.getPrice());
-				System.out.println("bag1111==="+bag);
-				//bagDao.insertByBag(bag);
-				int bagno = bagDao.findByArtno(artno).getBagno();
-				order.setBagno(bagno);
-				System.out.println("order======"+order);
-				orderDao.Ordering(order);
-				System.out.println(artno+"artno111");
-				return artno;
+	public int Ordering(Order order,Bag bag,String username) {
+		System.out.println("ordering service"+order+"//"+bag+"//"+username);
+		order.setOrderDate(LocalDateTime.now());
+		order.setUsername(username);
+		order.setShippingCharge(3000);
+		int artno = bag.getArtno();
+		Art art = artDao.readByArt(artno);
+		bag.setTotalPrice(bag.getAmount()*art.getPrice());
+		bagDao.insertByBag(bag);
+		int bagno = bagDao.findByArtno(artno).getBagno();
+		order.setBagno(bagno);
+		orderDao.Ordering(order);
+		System.out.println(artno+"artno111");
+		return artno;
+	}
+	//장바구니에서 주문하기
+	public Map<String, Object> bagOrdering(List<Integer> list,String username) {
+		//list값은 artno
+		OrderDto.DtoForOrdernos dto = new OrderDto.DtoForOrdernos();
+		System.out.println("bagordering list=="+list);
+		Order order = new Order();
+		order.setOrderDate(LocalDateTime.now());
+		order.setUsername(username);
+		order.setShippingCharge(3000);
+		List<Integer> list1 = new ArrayList<Integer>();
+		for(int i=0; i<list.size(); i++) {
+			int bagno = bagDao.findByArtno(list.get(i)).getBagno();
+			order.setBagno(bagno);
+			System.out.println("for==bagno=="+bagno);
+			System.out.println("for==order=="+order);
+			orderDao.Ordering(order);
+			int orderno = orderDao.findOrdernoByUsername(username, order.getBagno());
+			list1.add(orderno);
+			
+		}
+		//List<Integer> ordernos = orderDao.findOrdernoByUsername(username, order.getBagno());
+		//list.add(orderno);
+		System.out.println("order==="+order);
+		
+		//System.out.println("bagOrdering orderno==="+orderno);
+		//orderno로 장바구니 번호를 찾아서 목록을 출력
+		System.out.println("list1===="+list1);
+		List<String> listStr = new ArrayList<String>();
+		for(Integer listIt:list1) {
+			String ordernosStr = Integer.toString(listIt);
+			listStr.add(ordernosStr);
+			//dto.setOrdernos(ordernosStr);
+		}
+		System.out.println("listStr=="+listStr);
+		System.out.println("dto==="+dto);
+		System.out.println("dto1111="+dto);
+		Map<String,Object> map = new HashMap<String, Object>();
+		for(String str:listStr) {
+			for(int i=0; i<listStr.size(); i++) {
+				map.put("str"+i,listStr.get(i));
+				//map.put("STR",listStr.get(i++));
 			}
 			
-			
-			// 주문하기 후 결제창 이동시 넘겨줄 데이터
-			public OrderDto.DtoForPayment OrderingD(String username,int artno) {
-				Art art = artDao.readByArt(artno);
-				int artistno = artDao.findArtistnoByArtno(artno);
-				System.out.println("333");
-				int optno = optionDao.findOptnoByArtno(artno);
-				System.out.println("4444");
-				//수정
-				int bagno = bagDao.findByArtno(artno).getBagno();
-				int orderno = orderDao.findOrdernoByUsername(username,bagno);
-				System.out.println("orderingD1==="+artistno+"//"+optno+"//"+orderno);
-				Option option = optionDao.readByArtno(artno);
-				System.out.println("option==="+option);
-				User user = userDao.findByid(username);
-				System.out.println("user====="+user);
-				System.out.println("art===="+art);
-				Bag bag = bagDao.findByArtno(artno);
-				System.out.println("bag===="+bag);
-				String artistUsername = artistDao.findByid(artistno).getUsername();
-				String artistName = userDao.findByid(artistUsername).getIrum();
-				OrderDto.DtoForPayment dto = new OrderDto.DtoForPayment();
-				dto.setArtistName(artistName).setArt(art).setOption(option).setUser(user).setBag(bag).setArtistno(artistno).setOrderno(orderno);
-				System.out.println("orderingD  Dto ==="+dto);
-				return dto;
-			}
+		}
+		System.out.println("map======="+map);
+		return map;
+	}
 	
 	
+	// 주문하기 후 결제창 이동시 넘겨줄 데이터
+	public OrderDto.DtoForPayment OrderingD(String username,int artno) {
+		Art art = artDao.readByArt(artno);
+		int artistno = artDao.findArtistnoByArtno(artno);
+		int optno = optionDao.findOptnoByArtno(artno);
+		//수정
+		int bagno = bagDao.findByArtno(artno).getBagno();
+		int orderno = orderDao.findOrdernoByUsername(username,bagno);
+		Option option = optionDao.readByArtno(artno);
+		User user = userDao.findByid(username);
+		Bag bag = bagDao.findByArtno(artno);
+		String artistUsername = artistDao.findByid(artistno).getUsername();
+		String artistName = userDao.findByid(artistUsername).getIrum();
+		OrderDto.DtoForPayment dto = new OrderDto.DtoForPayment();
+		List<Art> artList = new ArrayList<Art>();
+		artList.add(art);
+		dto.setArtistName(artistName).setOption(option).setUser(user).setBag(bag).setArtistno(artistno).setOrderno(orderno);
+		dto.setArtList(artList);
+		return dto;
+	}
 	
-	
+	// 장바구니에서 주문하기 후 결제창 이동시 넘겨줄 데이터
+	public DtoForPayment bagOrderingD(String username,String ordernos) {
+		//{"str1":"462","str0":"461"}
+	//	System.out.println(ordernos.substring(9,12));
+	//	System.out.println(ordernos.substring(22,25));
+		System.out.println("======");
+		int orderno1 = Integer.parseInt(ordernos.substring(9,12));
+		int orderno2 = Integer.parseInt(ordernos.substring(22,25));
+	//	System.out.println("paymentOrderno==="+orderno1);
+	//	System.out.println("==="+orderno2);
+	//	int orderno = 0;
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(orderno1);
+		list.add(orderno2);
+		OrderDto.DtoForPayment dto = new OrderDto.DtoForPayment();
+		System.out.println("list=="+list);
+		List<Art> artList = new ArrayList<Art>();
+		for(int orderno:list) {
+		//Order order1 = orderDao.findByOrder(orderno);
+		List<Integer> bagnoList = orderDao.findBagnoByOrderno(orderno);
+		System.out.println("bagnoList==="+bagnoList);
+		for(int bagno1:bagnoList) {
+			int artno = bagDao.findArtnoByBagno(bagno1);
+			Art art = artDao.readByArt(artno);
+			int artistno = artDao.findArtistnoByArtno(artno);
+		//int optno = optionDao.findOptnoByArtno(artno);
+		//수정
+		//int bagno = bagDao.findByArtno(artno).getBagno();
+		//int orderno = orderDao.findOrdernoByUsername(username,bagno);
+			Option option = optionDao.readByArtno(artno);
+			User user = userDao.findByid(username);
+			Bag bag = bagDao.findByArtno(artno);
+			String artistUsername = artistDao.findByid(artistno).getUsername();
+			String artistName = userDao.findByid(artistUsername).getIrum();
+			dto.setArtistName(artistName).setOption(option).setUser(user).setBag(bag).setArtistno(artistno).setOrderno(orderno);
+			System.out.println("art==="+art);
+			artList.add(art);
+			dto.setLastPrice(art.getPrice()+bag.getOptionPrice()+art.getCouriPrice());
+		}
+		System.out.println("artList=="+artList);
+		dto.setArtList(artList);
+		}
+		System.out.println("lastDto=="+dto);
+		return dto;
+		
+	}
 	
 	////////////////////////////////
-//		public int Ordering(Order order,Bag bag) {
-//			int artno = bag.getArtno();
-//			Art art = artDao.readByArt(artno);
-//			bag.setTotalPrice(bag.getAmount()*art.getPrice());
-//			return orderDao.Ordering(order);
-//		}
-		
-		// 결제하기
-//		@PreAuthorize("isAuthenticated()")
-//		public int payment(String username,OrderDto.DtoForOrdering dto) {
-//			System.out.println(dto+"=============dto");
-//			OrderDetail orderdetail = modelMapper.map(dto, OrderDetail.class);
-//			System.out.println(orderdetail+"===============orderdetail");
-//			orderDetailDao.Payment(orderdetail);
-//			if()
-//		return orderdetail.getOrderno();
-//		}
-//		
-//		public int payByOrder(String username, OrderDetailDto.DtoForDeleteOrder Dto, Order order){
-//			int orderdetail = orderDao.Ordering(order);
-//			if(order.getUsername()===false);
-//				orderDao.Ordering(order);
-//			return order.getOrderno(); 
-//		}
-
-//		
-//		// 상품 상세에서 주문
-//		public int insertByOrder(Order order,ArtDto.DtoForOrder Dto) {
-//			int artno = order.getOrderno();
-//			Art art = artDao.findAllByUsername();
-//			
-//		}
-//		
-//		public int insertOrder2(Order order, ArtDto.DtoForOrder Dto,String username) {
-//			int artno = order.getOrderno();
-//			Art art = artDao.findAllByUsername(username);
-//			
-//		}
-
 	// 주문 내역
 	public List<OrderDto.DtoForOrdering> BagByOrder(String username, int orderno) {
 		OrderDto.DtoForOrdering orderdto = new OrderDto.DtoForOrdering();
@@ -187,31 +203,9 @@ public class OrderService {
 		List<OrderDto.DtoForOrdering> dtolist = new ArrayList<>();
 		System.out.println("===================333");
 		for (Order order : OrderList) {
-//			int orderno = order.getOrderno();
-//			Order order = orderDao.findByOrder(orderno);
-//			Art art = artDao.readByArt(artno);
-//			List<Option> option = option
-//			OrderDetailDto.DtoForOrdering dtoorder = modelMapper.map(oorderno,OrderDetailDto.DtoForOrderin.classg);
-//			dtoOrder.setArt(art);
-//			dtoOrder.setOption(option);
-//			dtoList.add(dtoOrder);
 		}
 		return dtolist;
 
-	}
-
-	// 장바구니에 담긴 상품 주문하기
-//		public void BagByOrder(BagDto.DtoForWrite Dto,Bag bag,  String username, Integer shippingCharge, Order order,ModelMapper modelMapper) {
-//			Order order = bagDao.insertByBag(bag);
-//			modelMapper.addConverter(order.getOrderno());
-//			orderDao.Ordering(order);
-//		}
-
-	// 장바구니에 담긴 상품 주문하기
-	public void BagByOrder(String username, OrderDto.DtoForOrdering Dto) {
-		Order order = modelMapper.map(Dto, Order.class);
-		Bag bag = modelMapper.map(Dto, Bag.class);
-		orderDao.Ordering(order);
 	}
 
 	// 주문 내역 보기
@@ -237,7 +231,6 @@ public class OrderService {
 			}
 			page.setOrderList(dtolist);
 			return page;
-			
 
 		/*
 		 * List<Integer> ordernoList = orderDao.orderFindByUsername(username);
@@ -269,23 +262,5 @@ public class OrderService {
 		 * page.setOrderList(dtoList); return page;
 		 */
 	}
-
-	// 주문 상세 내역 보기
-	public void findByOrder(Integer orderno) {
-		orderDao.findByOrder(orderno);
-	}
-
-	// 주문 완료 후 장바구니에 담긴 상품 제거
-	public int RemoveCartByOrder(String username, Integer artno, Integer orderno) {
-		Bag bag = bagDao.findByArtno(artno);
-		Order order = orderDao.findByOrder(orderno);
-//			if(order.getUsername()==true);
-		bagDao.deleteByBag(artno);
-		return artno;
-
-	}
-	// 주문알람(유저용)
-
-	// 주문-결제하면 이벤트 발생시키는 서비스
 
 }

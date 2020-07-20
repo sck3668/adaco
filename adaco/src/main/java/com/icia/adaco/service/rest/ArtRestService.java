@@ -186,13 +186,13 @@ public class ArtRestService {
 		return -1;
 	}
 	// 회원아이디로 작품목록 불러오기-------
-	public List<ArtDto.DtoForList> findAllArtByUsername(String username,int pageno, @Nullable String category) {
+	public List<ArtDto.DtoForList> findAllArtByUsername(String username,int pageno, @Nullable String category,@Nullable int artistno) {
 		ArtDto.DtoForList dto1 = new ArtDto.DtoForList();
 		int countOfArt = artDao.countByArt();
 		Page page = PagingUtil.getPage(pageno, countOfArt);
 		int srn = page.getStartRowNum();
 		int ern = page.getEndRowNum();
-		List<Art> artList = artDao.listByArt(srn, ern, category);
+		List<Art> artList = artDao.listByArt(srn, ern, category,artistno);
 		List<ArtDto.DtoForList> dtoList = new ArrayList<>();
 		for(Art art1:artList) {
 			ArtDto.DtoForList dto = modelMapper.map(art1,ArtDto.DtoForList.class);
@@ -208,10 +208,13 @@ public class ArtRestService {
 		String artWriter = artistDao.findByid(artistno).getUsername();
 		if(username.equals(artWriter)==false)
 			throw new IllegalJobException();
-		List<DtoForList> artList = findAllArtByUsername(username,pageno,category);
+		System.out.println("222");
+		List<DtoForList> artList = findAllArtByUsername(username,pageno,category,artistno);
+		System.out.println("artList=="+artList);
 		List<Integer> deleteList = new ArrayList<Integer>();
 		for(int i=0; i<list.size(); i++) {
 			int idx = findArt(artList,list.get(i));
+			System.out.println("idx=="+idx);
 			deleteList.add(idx);
 		}
 		for(int i = deleteList.size()-1; i>=0; i--) {
