@@ -189,4 +189,10 @@
 		select artno from art where artistno=#{artistno}
 	</select>
 	
+	
+	<!-- 작가 사용 -->
+	<select id="findArtnoByArtistno" resultType="int">
+		select artno from art where artistno=#{artistno}
+	</select>
+	
  </mapper>

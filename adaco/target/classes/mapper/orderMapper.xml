@@ -57,4 +57,10 @@
 		delete from orders where orderno=#{orderno} and rownum=1
 	</delete>
 	
+	
+	<!-- 작가 전용 --> 
+<!-- 	<select id="orderFindByUsername" resultType="int"> -->
+<!-- 		select orderno from orders where username=#{username}	 -->
+<!-- 	</select> -->
+	
  </mapper>
