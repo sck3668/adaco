@@ -91,6 +91,8 @@ public class OrderDto {
       private String recipient;
       private Integer price;
       private Integer artno;
+      private String optionName;
+      private String optionValue;
       }
    //
    @Data

@@ -220,12 +220,12 @@ $(function(){
 		<tbody id = "list">
 		<c:forEach items="${page.orderList}" var = "list">
 			<tr>
-				<td><a href="/adaco/order/sellistDetail?oderno=">${list.orderno }</a></td>
-				<td>2020.11.28</td> <!-- ${artPageByUser.price } -->
-				<td>leehj9999</td> <!-- ${artPageByUser.price } -->
-				<td>${list.recipient}</td> <!-- ${artPageByUser.price } -->
-				<td><a href="/adaco/order_read?artName=${art.artName}">${art.artName}안녕하세요</a></td><!-- ${artPageByUser.price } -->
-				<td>${list.price}</td> <!-- ${artPageByUser.price } -->
+				<td><a href="/adaco/artist/orderDetail?oderno=">${list.orderno }</a></td>
+				<td>${list.orderDateStr}2020.11.28</td> <!-- ${artPageByUser.price } -->
+				<td>${list.username}leehj9999</td> <!-- ${artPageByUser.price } -->
+				<td>${list.recipient}</td> 
+				<td>${list.artName} / ${list.optionName}:${list.optionValue}</td>
+				<td>${list.price}</td> 
 				<td>배송중</td> <!-- ${artPageByUser.price } -->
 			</tr>					
 		</c:forEach>

@@ -40,7 +40,7 @@
 		<![CDATA[
 		select * from		
 			(select rownum as rnum ,o.*from
-				(select /*+ index_desc(orders orders_pk_orderno)*/orderno, artno, optno, price, recipient,artistno from order_detail) o
+				(select /*+ index_desc(orders orders_pk_orderno)*/orderno, artno, optno, price, recipient,artistno, art_name artName, option_Name optionName, option_value optionValue from order_detail ) o
 				where artistno=#{artistno} and rownum <=#{endRowNum})
 		where rnum>=#{startRowNum}
 		]]>
