@@ -57,10 +57,16 @@
 		delete from orders where orderno=#{orderno} and rownum=1
 	</delete>
 	
+<<<<<<< HEAD
+	<select id="findBagnoByOrderno" resultType="int">
+		select bagno from orders where orderno=#{orderno}
+	</select>
+=======
 	
 	<!-- 작가 전용 --> 
 <!-- 	<select id="orderFindByUsername" resultType="int"> -->
 <!-- 		select orderno from orders where username=#{username}	 -->
 <!-- 	</select> -->
+>>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 	
  </mapper>

@@ -67,8 +67,6 @@ public class ArtistController {
 //				.addObject("art",artRestService.readArt(artno, principal.getName()))
 	}
 	
-	
-	
 	//주문, 배송 관리
 //		@PreAuthorize("isAuthenticated()")
 		@GetMapping("/artist/orderAdmin")

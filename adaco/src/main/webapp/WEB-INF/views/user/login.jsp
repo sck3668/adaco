@@ -380,10 +380,10 @@ function checkUsername() {
  		} 
 		
 		$("#login").on("click", function() { 
-			if(checkUsername()==false) 
-				return; 
-			if(checkPassword()==false) 
-				return; 
+// 			if(checkUsername()==false) 
+// 				return; 
+// 			if(checkPassword()==false) 
+// 				return; 
  			$("#loginForm").submit(); 
  		}); 
 		

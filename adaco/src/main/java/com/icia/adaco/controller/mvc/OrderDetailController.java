@@ -5,6 +5,7 @@ import java.security.*;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
@@ -25,14 +26,23 @@ public class OrderDetailController {
 		@Autowired
 		private ObjectMapper objectMapper = new ObjectMapper();
 		
-//		@GetMapping("/orderdetail/overview")
-//		public ModelAndView OrderDetail(Principal principal,Model model, @RequestParam(vla)) {
-//			String id = principal.getName();
-//			model.addAttribute("orderlist", (id,orderDetail()));
-//			model.addAttribute("viewName", "order_detail.jsp");
-//			return new ModelAndView("main").addObject("viewName", "order_detail/orverview.jsp");
-//		}
 		
+<<<<<<< HEAD
+	// 주문 내역 상세 
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/orderdetail/orderdetail")
+	public ModelAndView orderDetail( ) {
+		return new ModelAndView("main").addObject("viewName", "order_detail/orderdetail.jsp");
+	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/orderdetail/payment")
+	public String buyAll(String json,Principal principal) throws JsonParseException, JsonMappingException, IOException {
+		List<Order> list = objectMapper.readValue(json, new TypeReference<List<Order>>() {});
+		System.out.println(list);
+		return null;
+	}
+=======
 //		@GetMapping("/orderdetail/ordering")
 //		public String findbyOrderDetail(Principal principal,String username,Integer orderno) {
 //			String id = principal.getName();
@@ -65,4 +75,5 @@ public class OrderDetailController {
 		}
 		
 
+>>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 }
