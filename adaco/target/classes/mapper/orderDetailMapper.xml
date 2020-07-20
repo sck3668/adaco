@@ -8,12 +8,12 @@
 		option_value, amount,price, address, recipient,tel,email,
 			request,add_point,refund_account ,is_shipping , orderstate)
 			values(#{orderno},#{optno}, #{artno},#{artistno}, #{artName},#{optionName},#{optionValue},#{amount},#{price},
-			#{address},#{recipient},#{tel},#{email},#{request},#{addPoint},#{refundAccount},0,#{state})
+			#{address},#{recipient},#{tel},#{email},#{request},#{addPoint},#{refundAccount},0,#{orderstate})
 	</insert>
 	<select id="findArtnoByOrderDetail" resultType="orderDetail">
 	select orderno,optno, artno,artistno,art_name artName, option_name optionName,
 		option_value optionValue, amount,price, address, recipient,tel,email,
-			request,add_point addPoint, postalcode,refund_account refundAccount,is_shipping, orderstate state 
+			request,add_point addPoint, postalcode,refund_account refundAccount,is_shipping, orderstate orderstate 
 			from order_detail where art_name=#{artName} and rownum =1
 	</select>
 	
@@ -21,7 +21,7 @@
 	<select id="OrderDetail" resultType="orderDetail">
 	select orderno,optno, artno,artistno,art_name artName, option_name optionName,
 		option_value optionValue, amount,price, address, recipient,tel,email,
-			request,add_point addPoint, postalcode,refund_account refundAccount,is_shipping, orderstate state
+			request,add_point addPoint, postalcode,refund_account refundAccount,is_shipping, orderstate orderstate
 			from order_detail where orderno=#{orderno} and rownum =1
 	</select>
 	<select id="findByArtnameArtImage" resultType="string">

@@ -137,7 +137,7 @@ ${page }
                 	<td><a href="/adaco/user/orderRead?artName=${list.artName }">${list.artName }</a></td>
                 	<td>${list.artPrice }</td>
                 	<td>${list.shippingCharge }</td>
-                	<td>${list.state }</td>
+                	<td>${list.orderstate }</td>
                 </tr>
                 
       </c:forEach>

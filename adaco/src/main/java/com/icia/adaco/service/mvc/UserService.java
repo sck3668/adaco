@@ -255,11 +255,15 @@ public class UserService {
 		int ern = page.getEndRowNum();
 		List<Order>orderList = orderDao.findAllByOrder(srn, ern, username);
 		List<OrderDto.DtoForList> orderListDto = new ArrayList<OrderDto.DtoForList>();
+		System.out.println("서비스진입");
 //		orderService.payment(username, dto);
 		for(Order order:orderList) {
 			OrderDto.DtoForList dto = modelMapper.map(order,OrderDto.DtoForList.class);
+			System.out.println("오더"+order);
 			int orderno = order.getOrderno();
+			System.out.println("orderno"+orderno);
 			OrderDetail orderDetail = orderDetailDao.OrderDetail(orderno);
+			System.out.println("orderDetail"+orderDetail);
 			if(orderDetail==null) {
 				return null;
 			}
@@ -268,19 +272,24 @@ public class UserService {
 			dto.setArtName(orderDetail.getArtName());
 			System.out.println("셋아트네임"+dto.setArtName(orderDetail.getArtName()));
 			dto.setArtPrice(orderDetail.getPrice());
-			dto.setState(com.icia.adaco.entity.State.답변대기);
+			dto.setOrderstate(orderState.입금대기);
 			orderListDto.add(dto);
 			}
 		}
+		System.out.println("페이지"+page);
 		page.setOrderList(orderListDto);
 		return page;
 	}
 	//오더리드
 	public OrderDetailDto.DtoForReadOrder userOrderRead(String username,String artName) {
-			String image = orderDetailDao.findByArtnameArtImage(artName);
+		System.out.println("11111");	
+		String image = orderDetailDao.findByArtnameArtImage(artName);
 			OrderDetail orderDetail = orderDetailDao.findArtnoByOrderDetail(artName);
+			System.out.println("22222");
 			System.out.println(orderDetail+"오더디테일");
 			OrderDetailDto.DtoForReadOrder dto = modelMapper.map(orderDetail,OrderDetailDto.DtoForReadOrder.class);
+			
+			System.out.println("dto=="+dto);
 			dto.setMainImg(image);
 			System.out.println("디티오"+dto);
 			return dto;

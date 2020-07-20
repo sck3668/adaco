@@ -53,7 +53,7 @@ public class OrderDetailService {
 		orderDetail.setArtName(art.getArtName()).setAddress(dto.getOriginalAddress());
 		orderDetail.setOptionName(option.getOptionName()).setOptionValue(option.getOptionValue());
 		orderDetail.setAmount(bag.getAmount()).setPrice(art.getPrice()).setEmail(user.getEmail());
-		orderDetail.setAddPoint((int) (art.getPrice()*0.01)).setState(State.답변대기);
+		orderDetail.setAddPoint((int) (art.getPrice()*0.01)).setOrderstate(orderState.입금대기);
 		//artName,optionName,optionValue,amount,price,email,tel,
 		//request,addPoint,postalcode,refundAccount,isShipping,state,address,recipient,
 		//System.out.println("orderDetail11111======"+orderDetail);
@@ -62,6 +62,7 @@ public class OrderDetailService {
 		Point point = Point.builder().startDate(LocalDateTime.now()).endDate(LocalDateTime.now().plusYears(1))
 				.username(username).point((int) (bag.getTotalPrice()*0.01)).build();
 		userDao.insertpoint(point);
+		System.out.println("orderDetail1111111111111"+orderDetail);
 		return orderDetailDao.Payment(orderDetail);
 	}
 	

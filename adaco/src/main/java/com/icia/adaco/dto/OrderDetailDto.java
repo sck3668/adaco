@@ -33,7 +33,7 @@ public class OrderDetailDto {
 		private String refundAccount;
 		private Boolean isShipping;
 		private String mainImg;
-		private State state;;
+		private orderState orderstate;;
 	}
 	
 	// 결제 취소
