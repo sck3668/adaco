@@ -426,13 +426,13 @@ click.innerHTML="<a href=\"javascript:ps()\" style=\"text-decoration: none\"><i 
     </div>
     
     <div class="form-content">
-      <form action="/adaco/user/login" method="post" id="loginForm">
+      <form action="/adaco/user/login" method="post" id="loginForm" name="forms">
         <div class="form-group">
           <label for="username">Username</label>
           <input type="text" id="username" name="username" required="required"/>
         </div>
         <div class="form-group">
-          <label for="password">Password</label><label for="password">Password</label><span id=click><a href="javascript:ps()" style="text-decoration: none;"><i class="far fa-eye"></i></a></span>
+          <label for="password">Password</label><span id=click><a href="javascript:ps()" style="text-decoration: none;"><i class="far fa-eye"></i></a></span>
 <!--           <input type="password" id="password" name="password" required="required"/> -->
    <span id=box style="width: 450px;"><input type="password" id="password"  name="password" required="required" style="width: 450px;"></span>
         </div>

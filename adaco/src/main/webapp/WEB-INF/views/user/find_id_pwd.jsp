@@ -56,11 +56,53 @@
 			}
 		}
 		if (radio_btn_check == 0) {
-			alert("아이디찾기,비밀번호 찾기를 선택해주세요");
+// 			alert("아이디찾기,비밀번호 찾기를 선택해주세요");
+Swal.fire({
+  icon: 'error',
+  title: '인증 오류',
+  text: '아이디 또는 비밀번호 찾기를 선택해주세요',
+  footer: '<a href>도움이 필요한가요?</a>'
+})
 			return;
 		}
 	}
 </script>
+<style>
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding-top: 80px;
+	padding-bottom: 40px;
+	font-family: "Nanum Gothic", arial, helvetica, sans-serif;
+	background-repeat: no-repeat;
+	background: linear-gradient(to bottom right, #F6F6F6, #FFFFFF);
+}
+
+.card {
+	margin: 0 auto; /* Added */
+	float: none; /* Added */
+	margin-bottom: 10px; /* Added */
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+}
+
+.form-signin .form-control {
+	position: relative;
+	height: auto;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 10px;
+	font-size: 16px;
+}
+
+.my-hr3 {
+	asd border: 0;
+	height: 3px;
+	background: #ccc;
+}
+</style>
 </head>
 <body>
 	<!--  핸드폰 인증api(rest)-->
