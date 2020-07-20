@@ -225,6 +225,7 @@ public class ArtRestService {
 
 	// 작품 리뷰 작성하기
 		public List<ArtDto.DtoForReviewList> writeReviewOfArt(Review review,MultipartFile sajin,Integer artno,String username) throws IllegalStateException, IOException {
+			System.out.println("서비스진입");
 			System.out.println("sajin=="+sajin.getName());
 			review.setWriteDate(LocalDateTime.now());
 			String reviewStr = review.getContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
