@@ -33,97 +33,66 @@ public class BagController {
 	private ObjectMapper objectMapper = new ObjectMapper();
 	
 	// 장바구니  추가--------------------------
-		@PostMapping("/bag/add")
-		public ResponseEntity<?> insert(Bag bag,Principal principal) {
-			System.out.println("bag============"+bag);
-			System.out.println("controller=================");
-			return ResponseEntity.ok(bagService.insertByBag(bag));
-		}
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/bag/add")
+	public ResponseEntity<?> insert(Bag bag,Principal principal) {
+		System.out.println("bag============"+bag);
+		System.out.println("controller=================");
+		return ResponseEntity.ok(bagService.insertByBag(bag));
+	}
 		
-//		@GetMapping("/bag/list")
-//		public ModelAndView findAllBagByUsername(String username) {
-//			return new ModelAndView("main").addObject("viewName", "bag/read.jsp").addObject("bagList",bagService.findAllBagByUsername(username));
-//		}
-		//장바구니 화면 출력
-		@PreAuthorize("isAuthenticated()")
-		@GetMapping("/bag/view")
-		public ModelAndView view() {
-			return new ModelAndView("main").addObject("viewName","bag/read.jsp");
-		}
+	//장바구니 화면 출력
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/bag/view")
+	public ModelAndView view() {
+		return new ModelAndView("main").addObject("viewName","bag/read.jsp");
+	}
 		
-//		@GetMapping("/bag/list1")
-//		public ModelAndView findAllBagByUsername1(Principal principal) {
-//			return new ModelAndView("main").addObject("viewName", "bag/read.jsp").addObject("bagList",bagService.findAllBagByUsername(principal.getName()));
-//		}
-		// 장바구니 목록 출력
-		@GetMapping("/bag/list2")
-		public ResponseEntity<?> read(Principal principal) {
-			return ResponseEntity.ok(bagService.findAllBagByUsername(principal.getName()));
+	// 장바구니 목록 출력
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/bag/list2")
+	public ResponseEntity<?> read(Principal principal) {
+		return ResponseEntity.ok(bagService.findAllBagByUsername(principal.getName()));
+	}
+	
+	// 장바구니 재고 체크
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/bag/checkStock")
+	public ResponseEntity<?> checkStock(int artno) {
+		return ResponseEntity.ok(bagService.checkStock(artno));
+	}
+	
+	// 장바구니 수량 변경
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/bag/change")
+	public ResponseEntity<?> change(int artno,boolean isIncrese) {
+		Bag bag = bagService.change(artno,isIncrese);
+		return ResponseEntity.ok(bag);
+	}
+	
+	// 장바구니 선택 삭제
+	@PreAuthorize("isAuthenticated()")
+	@DeleteMapping("/bag/choiseDelete")
+	public ResponseEntity<?> delete(String artnos,Principal principal) throws JsonParseException, JsonMappingException, IOException {
+		System.out.println("deleteController artno======="+artnos);
+		List<Integer> list = objectMapper.readValue(artnos, new TypeReference<List<Integer>>() {});
+		List<BagDto.DtoForList> bagList = bagService.deleteByBag(list,principal.getName());
+		return ResponseEntity.ok(bagList);
+	}
+	
+	//선택한 작품 구매
+	@PostMapping("/bag/ordering")
+	public ResponseEntity<?> Ordering(String artnos,Principal principal) throws JsonParseException, JsonMappingException, IOException {
+		//System.out.println("bag/ordering=="+"//"+order+"//"+bag);
+		System.out.println("bag/ordering controller");
+		List<Integer> list = objectMapper.readValue(artnos, new TypeReference<List<Integer>>() {});
+		if(principal==null) {
+			throw new JobFailException("로그인 필요합니다");
 		}
-		
-		
-		@GetMapping("/bag/checkStock")
-		public ResponseEntity<?> checkStock(int artno) {
-			return ResponseEntity.ok(bagService.checkStock(artno));
-		}
-		
-		@PostMapping("/bag/change")
-		public ResponseEntity<?> change(int artno,boolean isIncrese) {
-			Bag bag = bagService.change(artno,isIncrese);
-			return ResponseEntity.ok(bag);
-		}
-		
-		@DeleteMapping("/bag/choiseDelete")
-		public ResponseEntity<?> delete(String artnos,Principal principal) throws JsonParseException, JsonMappingException, IOException {
-			System.out.println("deleteController artno======="+artnos);
-			List<Integer> list = objectMapper.readValue(artnos, new TypeReference<List<Integer>>() {});
-			List<BagDto.DtoForList> bagList = bagService.deleteByBag(list,principal.getName());
-			return ResponseEntity.ok(bagList);
-		}
-		
-		//선택한 작품 구매
-		@PostMapping("/bag/ordering")
-		public ResponseEntity<?> Ordering(Order order,Bag bag,Principal principal) throws JsonParseException, JsonMappingException, IOException {
-			System.out.println("bag/ordering=="+"//"+order+"//"+bag);
-			//List<Integer> list = objectMapper.readValue(artnos, new TypeReference<List<Integer>>() {});
-			if(principal==null) {
-				throw new JobFailException("로그인 필요합니다");
-			}
-			String username = principal.getName();
-//			String user = username(principal.getName());
-			return ResponseEntity.ok(orderService.bagOrdering(order, bag, username));
-		}
+		System.out.println("bag/ordering list=="+list);
+		String username = principal.getName();
+//		String user = username(principal.getName());
+		return ResponseEntity.ok(orderService.bagOrdering(list,username));
+	}
 //////////////////////////////////////////////
-	/*
-	 * @GetMapping("/user/bag") public ModelAndView bagRead() { return new
-	 * ModelAndView("main").addObject("viewName", "bag/read.jsp"); }
-	 */
-	
-	/*
-	 * @GetMapping("/bag/list1") public ModelAndView list1(@Nullable int artno) {
-	 * return new
-	 * ModelAndView("main").addObject("viewName","bag/read.jsp").addObject("list1",
-	 * bagService.findAllByBag(artno)); }
-	 */
-	
-//	  @GetMapping("/bag/list") 
-//	  public ModelAndView list2() { 
-//		  return new ModelAndView("main").addObject("viewName","bag/read.jsp"); 
-//		  }
-	 
-	
-			/*
-			 * @GetMapping("/bag/read") public ResponseEntity<?> list(String username) {
-			 * System.out.println("bag/list  list1출력"); List<Bag> bagList =
-			 * bagService.findAllBagByUsername(username); return ResponseEntity.ok(bagList);
-			 * }
-			 */
-	
-	
-//	@PostMapping("/bag/delete")
-	//public ResponseEntity<?> delete(HttpSession session, int artno) {
-		//List<Bag> bagList = bagService.deleteByBag(artno);
-		//System.out.println(bagList+"controller CartList");
-		//return ResponseEntity.ok(bagList);
-	//}
 }

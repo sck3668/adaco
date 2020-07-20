@@ -20,32 +20,20 @@ public class OrderRestService {
 	private OrderDao orderDao;
 	
 	// 주문 취소
-		@DeleteMapping("/order/delete")
-		public void DeleteByOrder(Principal principal,Integer orderno,String username,Integer optno) {
-			Order order = orderDao.findByOrder(orderno);
-			if(order==null)
-				throw new OrderNotFoundException();
-			if(order.getUsername().equals(principal.getName())==true) {
-				throw new OrderJobFailException("주문이 취소 되었습니다");
-			}
-//			if(username.equals(principal)==true) {
-//				throw new OrderJobFailException("주문이 취소 되었습니다");
-//				}
+	@DeleteMapping("/order/delete")
+	public void DeleteByOrder(Principal principal,Integer orderno,String username,Integer optno) {
+		Order order = orderDao.findByOrder(orderno);
+		if(order==null)
+			throw new OrderNotFoundException();
+		if(order.getUsername().equals(principal.getName())==true) {
+			throw new OrderJobFailException("주문이 취소 되었습니다");
+		}
 }
-		@DeleteMapping("/order/ordering")
-		public String delete(Integer orderno) {
-			orderDao.deleteByOrder(orderno);
-			return "rediredt:/adaco";
-		}
-		
-		@DeleteMapping("/order/delete")
-		public ResponseEntity<?> delete(Principal principal, int orderno){
-			List<Order> orderlist = orderDao.findAllByOrder();
-			return ResponseEntity.ok(orderlist);
-		}
-		// 주문취소2 
-//		public void DeleteByOrder(Integer orderno) {
-//			orderDao.deleteByOrder(orderno);
-//		}
+	// 주문
+	@DeleteMapping("/order/ordering")
+	public String delete(Integer orderno) {
+		orderDao.deleteByOrder(orderno);
+		return "rediredt:/adaco";
+	}
 		
 }

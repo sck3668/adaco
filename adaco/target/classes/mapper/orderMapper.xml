@@ -57,6 +57,9 @@
 		delete from orders where orderno=#{orderno} and rownum=1
 	</delete>
 	
+	<select id="findBagnoByOrderno" resultType="int">
+		select bagno from orders where orderno=#{orderno}
+	</select>
 	
 	<!-- 작가 전용 --> 
 <!-- 	<select id="orderFindByUsername" resultType="int"> -->

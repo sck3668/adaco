@@ -22,12 +22,13 @@ public class MessageController {
 	@Autowired
 	private msgService msgService;
 	
+	// 메시지 작성 화면
 	@GetMapping("/message/write")
 	public ModelAndView write(@RequestParam @NotNull String recipientId) {
 		System.out.println("messageWrite");
 		return new ModelAndView("main").addObject("viewName", "message/write.jsp").addObject("recipientId", recipientId);
 	}
-	// 메모 보내기
+	// 메시지 보내기
 	@PostMapping("/message/write")
 	public ModelAndView write(Message msg, BindingResult results, Principal principal) throws BindException {
 		if(results.hasErrors())

@@ -59,4 +59,12 @@ public class BagDao {
 	public List<Bag> findAllByBag(){
 		return tpl.selectList("bagMapper.findAllByBag");
 	}
+
+	public List<Integer> findBagnoByOrderno(int orderno) {
+		return tpl.selectList("orderMapper.findBagnoByOrderno",orderno);
+	}
+
+	public int findArtnoByBagno(int bagno) {
+		return tpl.selectOne("bagMapper.findArtnoByBagno",bagno);
+	}
 }

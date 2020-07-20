@@ -62,18 +62,20 @@ function printBag(bag,dest) {
 	
 	
 	$("<td class='first'>").append($("<input>").attr("type","checkbox").attr("class","check").attr("data-artno", bag.artno)).appendTo($tr);
-	$("<td class='second'>").append($("<img>").attr("src", "").css("width", "135px")).appendTo($tr);
+	$("<td class='second'>").append($("<img>").attr("src", "bag.art.mainImg").css("width", "135px")).appendTo($tr);
 	$("<td class='third'>").text(bag.art.artName).appendTo($tr);
 
 	var $td = $("<td class='fourth'>").appendTo($tr);
-	
-	var $optionArea = $("<div class='price' id='optionArea'>").appendTo($td);
-	var optionList = bag.option;
-	var $optionArea = $("#optionArea");
-	$.each(optionList,function(idx,option) {
-		printOption(option,$optionArea);
-	})
-	printOptionList()
+	$("<span>").text(bag.optionName).appendTo($td);
+	$("<span>").text(":").appendTo($td);
+	$("<span>").text(bag.optionValue).appendTo($td);
+// 	var $optionArea = $("<div class='price' id='optionArea'>").appendTo($td);
+// 	var optionList = bag.option;
+// 	var $optionArea = $("#optionArea");
+// 	$.each(optionList,function(idx,option) {
+// 		printOption(option,$optionArea);
+// 	})
+// 	printOptionList()
 	
 	
 	// 5번째 td에는 <button> 2개를 붙일 것임. 따라서 var $td로 저장
@@ -109,29 +111,29 @@ function printBagList() {
 	});
 }
 
-function printOption(option,dest) {
-	$("<span>").text(option.optionName).appendTo(dest);
-	$("<span>").text(":").appendTo(dest);
-	$("<span>").text(option.optionValue).appendTo(dest);
-	$("<input>").attr("class","optionValue").attr("id","optionValue").val(option.optionValue).appendTo(dest);
-	$("<input>").attr("class","optionName").attr("id","optionName").val(option.optionName).appendTo(dest);
-	$("<input>").attr("class","optionStock").attr("id","optionStock").val(option.optionStock).appendTo(dest);
-	$("<input>").attr("class","optionPrice").attr("id","optionPrice").val(option.optionPrice).appendTo(dest);
+// function printOption(option,dest) {
+// 	$("<span>").text(option.optionName).appendTo(dest);
+// 	$("<span>").text(":").appendTo(dest);
+// 	$("<span>").text(option.optionValue).appendTo(dest);
+// 	$("<input>").attr("class","optionValue").attr("id","optionValue").val(option.optionValue).appendTo(dest);
+// 	$("<input>").attr("class","optionName").attr("id","optionName").val(option.optionName).appendTo(dest);
+// 	$("<input>").attr("class","optionStock").attr("id","optionStock").val(option.optionStock).appendTo(dest);
+// 	$("<input>").attr("class","optionPrice").attr("id","optionPrice").val(option.optionPrice).appendTo(dest);
 	
 // 	$("<input type='text' id='optionName' name='optionName' data-optionName='option.optionName'>")
 // 	$("<input type='hidden' id='optionValue' name='optionValue' data-optionValue='option.optionValue' value='option.optionValue'>")
 // 	$("<input type='hidden' id='optionStock' name='optionStock' data-optionStock='bag.optionStock' value='bag.optionStock'>")
 // 	$("<input type='hidden' id='optionPrice' name='optionPrice' data-optionPrice='bag.optionPrice' value='bag.optionPrice'>")
 
-}
+// }
 
-function printOptionList() {
-//	var $optionArea = $("#optionArea");
-//	var optionList = bag;
-//	$.each(optionList,function(idx,option) {
-//		printOption(option,$optionArea);
-//	})
-}
+// function printOptionList() {
+// //	var $optionArea = $("#optionArea");
+// //	var optionList = bag;
+// //	$.each(optionList,function(idx,option) {
+// //		printOption(option,$optionArea);
+// //	})
+// }
 
 
 
@@ -150,7 +152,7 @@ $(function() {
 	}).done((result)=>{ 
 		bagList = result;
 		printBagList();
-		printOptionList();
+		//printOptionList();
 	})
 	
 	
@@ -174,6 +176,8 @@ $(function() {
 						artno:$(this).attr("data-artno"),
 						isIncrese:"1"
 				}
+				console.log($(this).next());
+				alert("SS")
 				return $.ajax({
 					url:"/adaco/bag/change",
 					data:params,
@@ -264,13 +268,13 @@ $(function() {
 		});
 		var params = {
 				username: '${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}',
-				optionName:$(".optionName").val(),
-				optionValue:$(".optionValue").val(),
-				optionStock:$(".optionStock").val(),
-				optionPrice:$(".optionPrice").val(),
-				artno:$(".artno").val(),
-				totalPrice:$(".totalPrice").val(),
-				amount:$(".amount").val(),
+// 				optionName:$(".optionName").val(),
+// 				optionValue:$(".optionValue").val(),
+// 				optionStock:$(".optionStock").val(),
+// 				optionPrice:$(".optionPrice").val(),
+// 				artno:$(".artno").val(),
+// 				totalPrice:$(".totalPrice").val(),
+// 				amount:$(".amount").val(),
 				_csrf:"${_csrf.token}",
 				_method:"post",
 				artnos:JSON.stringify(ar),
@@ -282,8 +286,20 @@ $(function() {
 			data:params,
 			method:"post",
 			success:function(result) {
+				console.log(result);
 				alert("장바구니 구매");
-				location.href="/adaco/order/payment?artno="+result;
+				ordernos=JSON.stringify(result);
+				var params1 ={
+						ordernos:ordernos,
+						_csrf:"${_csrf.token}"
+				}
+				console.log(params1);
+				alert("parmas1");
+				
+				var $form = $("<form>").attr("action","/adaco/order/bagPayment").attr("method","get");
+				$("<input>").attr("type","hidden").attr("name","ordernos").val(ordernos).appendTo($form);
+				$("<input>").attr("type","hidden").attr("name","_csrf").val("${_csrf.token}").appendTo($form);
+				$form.appendTo($("body")).submit(); 
 			}
 		})
 	})
@@ -314,7 +330,7 @@ $(function() {
 	});
 		
 //장바구니에서 주문 버튼 클릭 후 경제창 이동	
-	$("#order").on("click",function() {
+//	$("#order").on("click",function() {
 // 		var params  ={
 // 				_csrf: '${_csrf.token}',
 // 				username: '${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}',
@@ -337,7 +353,7 @@ $(function() {
 // 			}
 // 		});
 		
-	})
+//	})
 	
 	
 	
