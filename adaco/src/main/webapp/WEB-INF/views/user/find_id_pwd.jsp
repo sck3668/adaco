@@ -23,7 +23,13 @@
 				//라디오 버튼 값
 				radio_btn_check++;
 				if($("#tel").val()=="") {
-					alert("핸드폰 번호를 입력해주세요");
+// 					alert("핸드폰 번호를 입력해주세요");
+Swal.fire({
+  icon: 'error',
+  title: '인증 오류',
+  text: '휴대폰 번호를 입력해주세요!',
+  footer: 'Please enter your cell phone number.'
+})
 					return false;
 				}
 				var params = {
@@ -39,19 +45,28 @@
 						if (result == "1")
 							location.href = "/adaco/user/findId2";
 						else if (result == "2") {
-							alert("핸드폰번호를 정확히 입력해주세요");
-							location.href = "/adaco/user/findIdPwd";
+// 							alert("핸드폰번호를 정확히 입력해주세요");
+Swal.fire({
+  icon: 'error',
+  title: '인증 오류',
+  text: '휴대폰 번호를 정확히 입력해주세요!',
+  footer: 'Please enter your cell phone number correctly'
+})
+// 							location.href = "/adaco/user/findIdPwd";
 						}
 						else if(result=="3") {
 							location.href = "/adaco/user/resetPwd";
 						}
 						else {
-							alert("체크해주세요");
+// 							alert("체크해주세요");
+Swal.fire({
+  icon: 'error',
+  title: '인증 오류',
+  text: '아이디 또는 비밀번호 찾기를 선택해주세요',
+  footer: 'Please select Find ID or Password'
+})
 						}
 					},
-					error : function() {
-						alert("noooo");
-					}
 				})
 			}
 		}
@@ -61,7 +76,7 @@ Swal.fire({
   icon: 'error',
   title: '인증 오류',
   text: '아이디 또는 비밀번호 찾기를 선택해주세요',
-  footer: '<a href>도움이 필요한가요?</a>'
+  footer: 'Please select Find ID or Password'
 })
 			return;
 		}
