@@ -3,6 +3,8 @@ package com.icia.adaco.controller.mvc;
 import java.security.*;
 import java.time.*;
 
+import javax.servlet.http.*;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.stereotype.*;
@@ -24,8 +26,6 @@ public class OrderController {
 	private OrderDetailService orderDService;
 	@Autowired
 	private ObjectMapper objectMapper = new ObjectMapper();
-
-	
 	// 주문 하기
 		@PostMapping("/order/ordering")
 		public ResponseEntity<?> Ordering(Order order,Bag bag,Principal principal) {
@@ -95,8 +95,10 @@ public class OrderController {
 	
 	// 주문 내역 보기
 	@GetMapping("/order/list")
-	public ModelAndView findAllByOrder() {
-		return new ModelAndView("main").addObject("viewName", "order/list.jsp");
+	public ModelAndView findAllByOrder(@RequestParam(defaultValue ="1")int pageno, Principal principal) {
+		return new ModelAndView("main")
+				.addObject("viewName", "order/list.jsp")
+				.addObject("page",orderService.OrderList(pageno,principal.getName()));
 	}
 
 	// 주문 상세 보기

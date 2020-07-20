@@ -127,8 +127,8 @@ public class ArtDto {
 		private String optionValue;
 		private Integer optionStock;
 		private Integer optionPrice;
-		private List<ArtComment> artComments;
-		private List<Review> reviews;
+		private List<ArtCommentDto.DtoForList> artComments;
+		private List<ReviewDto.DtoForList> reviews;
 		private String artDetail;
 		private Integer artCommentCnt;
 		private Integer shopno;
@@ -148,10 +148,11 @@ public class ArtDto {
 		private star star;
 		private String content;
 		private String image;
-		private LocalDateTime writeDate;
+		private String writeDateStr;
 		private String username;
 		private Integer favoriteCnt;
 		private Boolean isFavorite;
+		private String artfile;
 	}
 	 
 	public static class DtoForBag{

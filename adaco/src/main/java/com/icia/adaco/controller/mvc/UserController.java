@@ -46,7 +46,7 @@ public class UserController {
 		return new ModelAndView("main").addObject("viewName","user/join.jsp");
 	}
 	//내정보화면 
-	//@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/read")
 	public ModelAndView read(Principal principal) {
 		  return new ModelAndView("main")
@@ -95,19 +95,20 @@ public class UserController {
 	// false면 비밀번호 찾기므로 비밀번호 찾기로 이동
 	@PostMapping("/user/findIdPwd")
 	public ResponseEntity<String> findIdPwd(String findIdPwd,String tel,HttpSession session) {
-		System.out.println("findIdPwd===="+findIdPwd);
-		System.out.println("tel========"+tel);
 		if(findIdPwd.equals("findId")==true) {
 			String irum = userService.findByTel(tel);
-			System.out.println(irum+"=======");
 			session.setAttribute("irum",irum);
-			System.out.println(session.getAttribute("irum")+"================ㅋㅋ");
 			if(irum!=null) {
 				return ResponseEntity.ok("1");
 			} else {
 				return ResponseEntity.ok("2");
 			}
 		} else {
+			String irum = userService.findByTel(tel);
+			session.setAttribute("irum",irum);
+			if(irum==null) {
+				return ResponseEntity.ok("2");
+			}
 			return ResponseEntity.ok("3");
 		}
 	}
@@ -142,10 +143,12 @@ public class UserController {
 	
 	//비밀변호변경
 	@PostMapping("/user/resetPwd")
-	public String resetPassword(String username,String email) {
+	public String resetPassword(String username,String email,RedirectAttributes ra) {
+		String password = userDao.passwordFindUsername(username);
 		System.out.println(username+"ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ");
 		try {
 			userService.resetPassword(username, email);
+			ra.addFlashAttribute("msg","당신의 임시비밀번호는 이메일에있다");
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
@@ -170,7 +173,7 @@ public class UserController {
 	}
 		
 	//포인트 메인화면
-	//@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/pointList")
 	public ModelAndView userPoint(Principal principal) {
 		System.out.println(userService.pointList(principal.getName()));
@@ -180,7 +183,7 @@ public class UserController {
 				.addObject("point",userService.pointList(principal.getName()));
 	}
 	//리뷰 리스트
-	//@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/reviewList")
 	public ModelAndView userReview(Principal principal) {
 		return new ModelAndView("main")
@@ -188,7 +191,7 @@ public class UserController {
 				.addObject("Review",userService.reviewList(principal.getName()));
 	}
 	//즐겨찾기 화면 리스트
-	//@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/favoriteList")
 	public ModelAndView favoriteList(Principal principal) {
 		System.out.println(userService.favoriteList(principal.getName())+"컨트롤러");
@@ -196,7 +199,7 @@ public class UserController {
 				.addObject("viewName","user/favoriteList.jsp")
 				.addObject("favorite",userService.favoriteList(principal.getName()));
 	}
-	//@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/messageList")
 	public ModelAndView messageList(Principal principal) {
 		return new ModelAndView("main").addObject("viewName","user/messageList.jsp");
@@ -209,17 +212,40 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	//@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/changePwd")
 	public ModelAndView changePwd() {
 		return new ModelAndView("main").addObject("viewName","user/changePwd.jsp");
 	}
 	
-	//@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/user/changePwd")
 	public String changePwd(String password,String newPassword, Principal principal, RedirectAttributes ra) {
-		userService.changePwd(password,newPassword, principal.getName());
+		userService.changePwd (password,newPassword, principal.getName());
 		ra.addFlashAttribute("msg", "비밀번호를 변경했습니다");
 		return "redirect:/";
 	}
+	//오더리스트
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/user/orderList")
+	public ModelAndView userOrderList(@RequestParam(defaultValue ="1")int pageno,Principal principal) {
+		return new ModelAndView("main")
+				.addObject("viewName","user/orderList.jsp")
+				.addObject("page",userService.orderList(pageno,principal.getName()));
+	}
+	//오더리드
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/user/orderRead")
+	public ModelAndView userOrderRead(Principal principal,String artName) {
+		System.out.println("artName"+artName);
+		return new ModelAndView("main")
+				.addObject("viewName","user/orderRead.jsp")
+				.addObject("orderDetail",userService.userOrderRead(principal.getName(), artName));
+				
+	}
+	
+	
+	
+	
+	
 }

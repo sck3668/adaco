@@ -268,9 +268,10 @@ $(function() {
 		//약관동의
 		var $agree = $('input:radio[name="agree"]:checked').val();
 			if($agree!=="on"){
-				alert("동의눌러")
+				alert("약관에동의 해주세요")
+				return null;
 			}
-			
+			console.log($agree)
 		var result = r1 && r2 && r3 && r4 && r5 && r6 && r7;
 		console.log($("#joinForm").serialize());
 		
@@ -372,7 +373,7 @@ $(function() {
 				<button type="button" id="join" class="btn btn-primary">
 					회원가입<i class="fa fa-check spaceLeft"></i>
 				</button>
-				<button type="button" class="btn btn-warning">
+				<button type="button" onclick="location.href=/adaco/" class="btn btn-warning">
 					가입취소<i class="fa fa-times spaceLeft"></i>
 				</button>
 			</div>

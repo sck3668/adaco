@@ -1,6 +1,7 @@
 package com.icia.adaco.dto;
 
 import java.time.*;
+import java.util.*;
 
 import com.icia.adaco.entity.*;
 
@@ -8,9 +9,9 @@ import lombok.*;
 import lombok.experimental.*;
 
 public class OrderDto {
-	  private OrderDto() {
-	   }
-
+   private OrderDto() {
+   }
+   //
  //결제하기 화면 이동시 넘겨줄 값
  	@Data
  	@AllArgsConstructor
@@ -77,7 +78,27 @@ public class OrderDto {
    @NoArgsConstructor
    @Builder
    @Accessors(chain=true)
-   private static class DtoForWrite{
+   // 회원, 작가 함께 사용
+   public static class DtoForList{
+      private int orderno;
+      private String orderDateStr;
+      private String username;
+      private int shippingCharge;
+      private String artName;
+      private int artPrice;
+      private orderState state;
+      private int artistno;
+      private String recipient;
+      private Integer price;
+      private Integer artno;
+      }
+   //
+   @Data
+   @AllArgsConstructor
+   @NoArgsConstructor
+   @Builder
+   @Accessors(chain=true)
+   public static class DtoForWrite{
       private int orderno;
       private LocalDateTime orderDate;
       private String username;

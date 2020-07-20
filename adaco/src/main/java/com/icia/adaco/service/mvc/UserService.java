@@ -1,3 +1,4 @@
+
 package com.icia.adaco.service.mvc;
 
 import java.io.*;
@@ -10,9 +11,11 @@ import javax.validation.constraints.*;
 
 import org.apache.commons.lang3.*;
 import org.modelmapper.*;
+import org.omg.PortableServer.POAManagerPackage.State;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.crypto.password.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.*;
 
 import com.icia.adaco.dao.*;
@@ -36,12 +39,18 @@ public class UserService {
 	private ModelMapper modelMapper;
 	@Autowired
 	private MailUtil mailUtil;
+	@Autowired
+	private OrderDao orderDao;
+	@Autowired
+	private OrderDetailDao orderDetailDao;
 	@Value("d:/upload/profile")
 	private String profileFolder;
 	@Value("http://localhost:8081/profile/")
 	private String profilePath;
 	@Autowired
 	private ReviewDao reviewDao;
+	@Autowired
+	private OrderService orderService;
 	
 	public void join(UserDto.DtoForJoin dto, MultipartFile sajin) throws IllegalStateException, IOException, MessagingException {
 		User user = modelMapper.map(dto, User.class);
@@ -174,7 +183,6 @@ public class UserService {
 	}
 	//페이보릿즐찾리스트
 	public List<Favorite> favoriteList(String username){
-		System.out.println(username+"gggg");
 		return userDao.findAllFavorite(username);
 	}
 	//페이보릿 유저네임으로 개수세기
@@ -231,7 +239,7 @@ public class UserService {
 		String encodedPassword = user.getPassword();
 		if(pwdEncoder.matches(password, encodedPassword)==true) {
 		System.out.println(encodedPassword+"이것이 유저다");
-		System.out.println(password+"이것은 패스워드");
+		System.out.println(password+"이것은 패스워드");	
 		System.out.println(newPassword);
 			String newEncodedPassword = pwdEncoder.encode(newPassword);
 			userDao.update(User.builder().password(newEncodedPassword).username(username).build());
@@ -239,4 +247,43 @@ public class UserService {
 		else
 			throw new JobFailException("잘못된 비밀번호 입니다");
 	}
+	//오더리스트
+	public Page orderList(@RequestParam(defaultValue ="1")int pageno,String username) {
+		int countOfBoard = orderDao.count(username);
+		Page page = PagingUtil.getPage(pageno, countOfBoard);
+		int srn = page.getStartRowNum();
+		int ern = page.getEndRowNum();
+		List<Order>orderList = orderDao.findAllByOrder(srn, ern, username);
+		List<OrderDto.DtoForList> orderListDto = new ArrayList<OrderDto.DtoForList>();
+//		orderService.payment(username, dto);
+		for(Order order:orderList) {
+			OrderDto.DtoForList dto = modelMapper.map(order,OrderDto.DtoForList.class);
+			int orderno = order.getOrderno();
+			OrderDetail orderDetail = orderDetailDao.OrderDetail(orderno);
+			if(orderDetail==null) {
+				return null;
+			}
+			else {
+			dto.setOrderDateStr(order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
+			dto.setArtName(orderDetail.getArtName());
+			System.out.println("셋아트네임"+dto.setArtName(orderDetail.getArtName()));
+			dto.setArtPrice(orderDetail.getPrice());
+			dto.setState(orderState.배송준비중);
+			orderListDto.add(dto);
+			}
+		}
+		page.setOrderList(orderListDto);
+		return page;
+	}
+	//오더리드
+	public OrderDetailDto.DtoForReadOrder userOrderRead(String username,String artName) {
+			String image = orderDetailDao.findByArtnameArtImage(artName);
+			OrderDetail orderDetail = orderDetailDao.findArtnoByOrderDetail(artName);
+			System.out.println(orderDetail+"오더디테일");
+			OrderDetailDto.DtoForReadOrder dto = modelMapper.map(orderDetail,OrderDetailDto.DtoForReadOrder.class);
+			dto.setMainImg(image);
+			System.out.println("디티오"+dto);
+			return dto;
+	}
+	
 }

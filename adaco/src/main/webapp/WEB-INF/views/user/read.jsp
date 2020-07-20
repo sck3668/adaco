@@ -75,7 +75,36 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 <script>
+$(function() {
 
+	//모든 서브 메뉴 감추기
+	$(".sub").css({display:"none"}); 
+	//$(".sub").hide(); //위코드와 동일 
+
+	$(".title").click(function(){
+	    //일단 서브메뉴 다 가립니다.
+	    $(".sub").css({display:"none"});
+	    
+	    //열린 서브메뉴에 대해서만 가립니다.
+	    $(".sub").each(function(){
+	        console.log($(this).css("display"));
+	        if($(this).css("display")=="block") {
+	            //$(".sub").css({display:"none"});
+	            //$(this).hide();
+	            $(this).slideUp("fast");
+	        }
+	    });
+
+	    //현재 요소의 다음 요소를 보이게 합니다.
+	    //$(this).next("ul").css({display:"block"});
+	    //$(this).next("ul").show();
+	    $(this).next("ul").slideDown("fast");
+
+
+	})
+	})
+	
+	
 function makePage(){
 	// 비밀번호 변경 div를 보이지않도록 변경
 	$("#passwordArea").hide();
@@ -251,22 +280,38 @@ $(function(){
 </head>
 <body>
 <div>
- <aside id="asideMain">
+<aside id="asideMain">
 	<div id="aside">
 		<div id="profile">
 		</div>
 		<div>
 			<ul>
 				<li><a href="/adaco/user/read" style="color: black;">내정보보기</a></li>
-				<li><a href="/adaco/order/read"style="color: black;">주문내역</a></li>
+				<li><a href="/adaco/user/orderList"style="color: black;">주문내역</a></li>
 				<li><a href="/adaco/user/reviewList" style="color: black;">내리뷰보기</a></li>
 				<li><a href="/adaco/user/favoriteList" style="color: black;">즐겨찾기목록</a></li>
 				<li><a href="/adaco/user/pointList" style="color: black;">포인트함 </a>
-				<li><a href="/adaco/user/messageList" style="color: black;">메세지함</a>
+				<li>
+						<div class="title">
+							<a style="color: black; text-decoration: none;">
+							메세지함
+							</a>
+						</div>
+						<ul class="sub"> 
+							<li>
+								<a href="/adaco/message/listSender" style=" text-decoration: none;" >
+									<i></i>빋은쪽지함</a>
+							</li>
+							<li>
+								<a href="/adaco/message/listReceiver" style=" text-decoration: none;" >
+									<i></i>보낸쪽지함</a>
+							</li>
+						</ul>
+				</li>
 			</ul>
 		</div>
 	</div>
-	</aside>
+</aside>
 	<section id="section">
 		<div>
 			<img id ="show_profile" height="200px;" src="${user.profile }">

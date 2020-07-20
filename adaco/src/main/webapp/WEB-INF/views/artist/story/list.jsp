@@ -149,6 +149,7 @@
 	              </a>
 	        
 	              <div class="text-component text-sm line-height-xs v-space-xs">
+	                <span class='writer' data-toggle="modal" data-target="#myModal" data-writer="${story.writer }">${story.writer }</span><br>
 	                <p><a href="#0" class="articles-v3__author-name" rel="author">${story.writer }</a></p>
 	                <p class="color-contrast-medium"><time>${story.writeDateStr }</time>, &mdash; ${story.times } </p>
 	              </div>
@@ -206,7 +207,6 @@
 		</div>
 	</sec:authorize>
 	
-
 	
 	<div class="modal fade" id="myModal" role="dialog" style="top:40%;">
 		<div class="modal-dialog">

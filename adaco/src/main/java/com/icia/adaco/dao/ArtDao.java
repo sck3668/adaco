@@ -51,6 +51,19 @@ public class ArtDao {
 		return tpl.selectList("artMapper.findAll",map); 
 	}
 	
+
+	//작품 내역 보기(최신순) + 카테고리로 검색 리스트 + 작가 아이디로 검색
+	public List<Art> listByArt1(int startRowNum, int endRowNum, @Nullable String category,int artistno){
+		Map<String, Object>map = new HashMap<String, Object>();
+		
+		map.put("startRowNum", startRowNum);
+		map.put("endRowNum",endRowNum);
+//		map.put("artno",artno);
+		map.put("artistno",artistno);
+		map.put("category", category);
+		return tpl.selectList("artMapper.findAll",map); 
+	}
+	
 	
 	//작품 삭제
 	public int deleteByArt(int artno) {
@@ -165,4 +178,9 @@ public class ArtDao {
 	public int findArtnoByArtstno(int artistno) {
 	return tpl.selectOne("artMapper.findArtnoByArtstno",artistno);
 	}
+	
+	public List<Integer> findArtnoByArtistno(int artistno) {
+	return tpl.selectList("artMapper.findArtnoByArtstno",artistno);
+	}
+	
 }

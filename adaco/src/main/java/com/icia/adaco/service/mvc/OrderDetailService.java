@@ -2,6 +2,8 @@ package com.icia.adaco.service.mvc;
 
 
 import java.time.*;
+import java.time.format.*;
+import java.util.*;
 
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.*;
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
+import com.icia.adaco.util.*;
 
 @Service
 public class OrderDetailService {
@@ -26,6 +29,11 @@ public class OrderDetailService {
 	private BagDao bagDao;
 	@Autowired
 	private UserDao userDao;
+	@Autowired 
+	private OrderDao orderDao;
+	@Autowired
+	private ArtistDao artistDao;
+	
 	
 	// 결제하기
 	public int payment(OrderDto.DtoForAfter dto,String username) {
@@ -45,7 +53,7 @@ public class OrderDetailService {
 		orderDetail.setArtName(art.getArtName()).setAddress(dto.getOriginalAddress());
 		orderDetail.setOptionName(option.getOptionName()).setOptionValue(option.getOptionValue());
 		orderDetail.setAmount(bag.getAmount()).setPrice(art.getPrice()).setEmail(user.getEmail());
-		orderDetail.setAddPoint((int) (art.getPrice()*0.01)).setState(State.답변대기);
+		orderDetail.setAddPoint((int) (art.getPrice()*0.01)).setOrderState(orderState.입금대기);
 		//artName,optionName,optionValue,amount,price,email,tel,
 		//request,addPoint,postalcode,refundAccount,isShipping,state,address,recipient,
 		//System.out.println("orderDetail11111======"+orderDetail);
@@ -65,7 +73,6 @@ public class OrderDetailService {
 		return afterDto;
 	}
 	
-	
 
 	
 	
@@ -79,4 +86,40 @@ public class OrderDetailService {
 //		return orderDetailDao.OrderByAll(startRowNum, endRowNum);
 //		
 //	}
+	
+	/////// 작가 전용 ///////////
+	// 주문 내역보기 (작가용)
+	public Page OrderListByArtist(int pageno, String username) {
+		// artno를 불
+			Integer artistno = artistDao.findArtistnoByUsername(username);
+//			List<Integer> artnos = artDao.findArtnoByArtistno(artistno);
+//			List<String> artnames = new ArrayList<String>();
+//			for(int artno:artnos) {
+//				String artname = artDao.readByArt(artno).getArtName();
+//				artnames.add(artname);
+//			}
+			
+			List<Integer>ordernoList = orderDetailDao.orderFindByArtistno(artistno);
+			for(Integer orderno:ordernoList) {
+				OrderDetail detail = orderDetailDao.OrderDetail(orderno);
+			}
+			
+			int countOfBoard = orderDetailDao.countByOrder();
+			Page page = PagingUtil.getPage(pageno, countOfBoard);
+			int srn = page.getStartRowNum();
+			int ern = page.getEndRowNum();
+			List<OrderDetail>orderList = orderDetailDao.FindAllOrderByArtist(srn, ern, artistno);
+			List<OrderDto.DtoForList>dtolist=new ArrayList<OrderDto.DtoForList>();
+			for(OrderDetail orderdetail:orderList) {
+				OrderDto.DtoForList dto = modelMapper.map(orderdetail,OrderDto.DtoForList.class);
+//				dto.setOrderDateStr(order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
+//			dto.setArtName(artName);
+				dtolist.add(dto);
+				System.out.println(dto+"주문내역보기");
+			}
+			page.setOrderList(dtolist);
+			
+			return page;
+			}
+	
 }
