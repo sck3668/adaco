@@ -115,6 +115,7 @@ public class AdminBoardDto {
 		private Integer countByNoAnswerQuestion;
 		private Integer countByUser;
 		private Integer countByArtist;
+		private Integer countByMessage;
+		private Integer countByNoReadMessage;
 	}
-	
 }

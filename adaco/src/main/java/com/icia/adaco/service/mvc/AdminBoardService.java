@@ -188,12 +188,14 @@ public class AdminBoardService {
 		return dto;
 	}
 
-	public AdminBoardDto.DtoForIndex indexRead() {
+	public AdminBoardDto.DtoForIndex indexRead(String username) {
 		AdminBoardDto.DtoForIndex dto = new DtoForIndex();
 		dto.setCountByQuestion(dao.countByQuestion(null, null));
 		dto.setCountByNoAnswerQuestion(dao.countByQuestion(null, State.답변대기));
 		dto.setCountByUser(userDao.countByUser(null));
 		dto.setCountByArtist(userDao.countByArtist(null));
+		dto.setCountByMessage(dao.countMessageById(username));
+		dto.setCountByNoReadMessage(dao.countNoReadMessageById(username));
 		return dto;
 	}
 

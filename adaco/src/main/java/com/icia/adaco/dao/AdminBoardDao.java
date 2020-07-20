@@ -151,4 +151,14 @@ public class AdminBoardDao {
 	public int deleteByCategory(String category) {
 		return tpl.delete("adminBoardMapper.deleteByCategory", category);
 	}
+	
+//	메시지 카운팅
+	public int countMessageById(String recipientId) {
+		return tpl.selectOne("adminBoardMapper.countMessageById", recipientId);
+	}
+	
+//	안읽은 메시지 카운팅
+	public int countNoReadMessageById(String recipientId) {
+		return tpl.selectOne("adminBoardMapper.countNoReadMessageById", recipientId);
+	}
 }
