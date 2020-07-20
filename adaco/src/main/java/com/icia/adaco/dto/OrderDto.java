@@ -70,7 +70,7 @@ public class OrderDto {
  		private String refundAccount;
  		private String request;
  	}
- 	//////////////////////////	총결제금액,주문번호,적립포인트,작품명,
+ 	////////////////////////////	총결제금액,주문번호,적립포인트,작품명,
 	//	배송지,배송비,작품이미지,
    
    @Data
