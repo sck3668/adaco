@@ -381,7 +381,7 @@ function checkUsername() {
  			$("#alert").text(msg); 
  			$("#msg").show(); 
  		} 
-		
+		//
 		$("#login").on("click", function() { 
 			if(checkUsername()==false) 
 				return; 
@@ -391,8 +391,8 @@ function checkUsername() {
  		}); 
 		
 		$("#password").on("keypress", function(key) { 
-//  			if(key.keyCode!=13) 
-// 				return; 
+ 			if(key.keyCode!=13) 
+				return; 
 // 			if(checkUsername()==false) 
 // 				return; 
 // 			if(checkPassword()==false) 
