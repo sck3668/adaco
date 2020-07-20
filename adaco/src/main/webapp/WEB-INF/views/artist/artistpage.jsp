@@ -231,7 +231,6 @@
 	if(msg=="msg") {
 		var confirm_val = confirm("상점을 개설하시겠습니까?");
 		if(confirm_val) {
-	
 			document.location.href = "/adaco/artist/shopMade"
 		}
 	}
