@@ -18,7 +18,7 @@ public class OrderDetailDaoTest {
 	@Autowired
 	private OrderDetailDao orderDetaildao;
 	
-	@Test
+	//@Test
 	public void Payment() {
 		OrderDetail orderdetail = OrderDetail.builder()
 				.orderno(203)
@@ -47,6 +47,15 @@ public class OrderDetailDaoTest {
 	public void OrderDetailTest() {
 		orderDetaildao.OrderDetail(1);
 	}
+	
+	//////작가 전용//////////
+	//작가번호로 주문 리스트
+	@Test
+		public void listByArtTest() {
+			assertThat(orderDetaildao.FindAllOrderByArtist(1,10,200),is(notNullValue()));
+		}
+	
+	
 	//@Test
 //	public void deleteByOrderDetailTest() {
 //		assertThat(orderDetaildao.deleteByOrderDetail(2), is(notNullValue()));

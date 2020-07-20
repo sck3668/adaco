@@ -178,4 +178,9 @@ public class ArtDao {
 	public int findArtnoByArtstno(int artistno) {
 	return tpl.selectOne("artMapper.findArtnoByArtstno",artistno);
 	}
+	
+	public List<Integer> findArtnoByArtistno(int artistno) {
+	return tpl.selectList("artMapper.findArtnoByArtstno",artistno);
+	}
+	
 }

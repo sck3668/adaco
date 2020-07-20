@@ -1,6 +1,8 @@
 package com.icia.adaco.dao;
 
 
+import java.util.*;
+
 import org.mybatis.spring.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
@@ -30,6 +32,28 @@ public class OrderDetailDao {
 	public String findByArtnameArtImage(String artName) {
 		return tpl.selectOne("orderDetailMapper.findByArtnameArtImage",artName);
 	}
+	
+	///////////작가 전용//////////////////
+	
+	// 작가 번호로 주문 내역 찾기
+	public List<Integer> orderFindByArtistno(int artistno) {
+		return tpl.selectList("orderDetailMapper.findAllOrderByArtist",artistno);
+	}
+	
+	//주문 갯수
+	public int countByOrder() {
+		return tpl.selectOne("orderDetailMapper.count");
+	}
+	
+	// 작가번호로 주문내역 리스트
+	public List<OrderDetail> FindAllOrderByArtist(int startRowNum,int endRowNum,int artistno) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("startRowNum",startRowNum);
+		map.put("endRowNum", endRowNum);
+		map.put("artistno",artistno);
+	return tpl.selectList("orderDetailMapper.findAllOrderByArtist",map);
+	}
+	
 	
 	
 //	// 결제 취소
