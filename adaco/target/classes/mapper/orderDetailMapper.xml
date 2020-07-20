@@ -8,12 +8,12 @@
 		option_value, amount,price, address, recipient,tel,email,
 			request,add_point,refund_account ,is_shipping , orderstate)
 			values(#{orderno},#{optno}, #{artno},#{artistno}, #{artName},#{optionName},#{optionValue},#{amount},#{price},
-			#{address},#{recipient},#{tel},#{email},#{request},#{addPoint},#{refundAccount},0,#{orderState})
+			#{address},#{recipient},#{tel},#{email},#{request},#{addPoint},#{refundAccount},0,#{orderstate})
 	</insert>
 	<select id="findArtnoByOrderDetail" resultType="orderDetail">
 	select orderno,optno, artno,artistno,art_name artName, option_name optionName,
 		option_value optionValue, amount,price, address, recipient,tel,email,
-			request,add_point addPoint, postalcode,refund_account refundAccount,is_shipping, orderstate orderState 
+			request,add_point addPoint, postalcode,refund_account refundAccount,is_shipping, orderstate orderstate 
 			from order_detail where art_name=#{artName} and rownum =1
 	</select>
 	
@@ -21,13 +21,14 @@
 	<select id="OrderDetail" resultType="orderDetail">
 	select orderno,optno, artno,artistno,art_name artName, option_name optionName,
 		option_value optionValue, amount,price, address, recipient,tel,email,
-			request,add_point addPoint, postalcode,refund_account refundAccount,is_shipping, orderstate orderState
+			request,add_point addPoint, postalcode,refund_account refundAccount,is_shipping, orderstate orderstate
 			from order_detail where orderno=#{orderno} and rownum =1
 	</select>
 	<select id="findByArtnameArtImage" resultType="string">
 	select main_img mainImg from art where art_name=#{artName}
 	</select>
 	
+
 	<!-- 작가전용 -->
 	<!-- 작가번호로 주문찾기 -->
 	<select id="orderFindByArtistno" resultType="int">
@@ -40,7 +41,7 @@
 		<![CDATA[
 		select * from		
 			(select rownum as rnum ,o.*from
-				(select /*+ index_desc(orders orders_pk_orderno)*/orderno, artno, optno, price, recipient,artistno, art_name artName, option_Name optionName, option_value optionValue, orderstate from order_detail ) o
+				(select /*+ index_desc(orders orders_pk_orderno)*/orderno, artno, optno, price, recipient,artistno, art_name artName, option_Name optionName, option_value optionValue, orderstate orderstate from order_detail ) o
 				where artistno=#{artistno} and rownum <=#{endRowNum})
 		where rnum>=#{startRowNum}
 		]]>

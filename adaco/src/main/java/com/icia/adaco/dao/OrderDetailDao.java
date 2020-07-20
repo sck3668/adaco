@@ -22,14 +22,19 @@ public class OrderDetailDao {
 	
 	// 주문 상세
 	public OrderDetail OrderDetail(Integer orderno) {
+		System.out.println("Dao."+orderno);
 		return tpl.selectOne("orderDetailMapper.OrderDetail", orderno);
 	}
 	// Artno로 디테일 찾기
 	public OrderDetail findArtnoByOrderDetail(String artName) {
+		System.out.println("4444");
+
 		return tpl.selectOne("orderDetailMapper.findArtnoByOrderDetail",artName);
 	}
 	// ArtName으로 이미지찾기
 	public String findByArtnameArtImage(String artName) {
+		System.out.println("333333");
+
 		return tpl.selectOne("orderDetailMapper.findByArtnameArtImage",artName);
 	}
 	
@@ -47,6 +52,7 @@ public class OrderDetailDao {
 	
 	// 작가번호로 주문내역 리스트
 	public List<OrderDetail> FindAllOrderByArtist(int startRowNum,int endRowNum,int artistno) {
+		System.out.println("dao=====");
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("startRowNum",startRowNum);
 		map.put("endRowNum", endRowNum);

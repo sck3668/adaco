@@ -119,6 +119,18 @@ $(document).ready(function(){
     })
 });
 
+	//주문 상태값 받아오기
+$(function() {
+	// select box에 주문상태 값 받아오기
+	var $state = $("#state").val(); 
+	var $select = $("#Shipping").find("option");
+	$select.each(function(idx, option) {
+	if($(option).text()==$state) {
+	$($select[idx]).prop("selected", true);
+	}
+	});
+});
+
 $(function(){
 	$("#search").on("click", function(){
 		var username = $("#username").val();
@@ -180,7 +192,7 @@ $(function(){
    </div>
    </aside>
  <section id="section">
-<%--  ${page.orderList } --%>
+ ${page.orderList }
 <h3>주문 목록</h3>
 <!-- <hr> -->
 	<div id="idSearch" style="float:right;">
@@ -235,7 +247,7 @@ $(function(){
 						<option>배송중</option>
 						<option>배송완료</option>
 					</select> 
-					<input type="hidden" id="state" name="state" value="${list.orderState}" />
+					<input type="text" id="state" name="state" value="${list.orderstate}" />
 				</td> 
 			</tr>					
 		</c:forEach>
