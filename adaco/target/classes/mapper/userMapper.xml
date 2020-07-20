@@ -90,7 +90,7 @@
 		select sum(point) from point where username = #{username}
 	</select>	
 		<select id="findByArtnoFavoriteId" resultType="favorite">
-		select favno, artno, username, art_name artName, price from favorite where artno = #{artno}
+		select favno, artno, username, art_name artName, price from favorite where artno = #{artno} and username = #{username}
 	</select>
 	<select id="existsByFavorite" resultType="boolean">
 		select count(*) from favorite where username = #{username} and artno = #{artno}
