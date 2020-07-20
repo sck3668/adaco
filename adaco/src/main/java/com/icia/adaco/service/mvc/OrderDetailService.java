@@ -91,6 +91,7 @@ public class OrderDetailService {
 	// 주문 내역보기 (작가용)
 	public Page OrderListByArtist(int pageno, String username) {
 			Integer artistno = artistDao.findArtistnoByUsername(username);
+//			Integer orderno = orderDao.findOrdernoByUsername(username, bagno);
 //			List<Integer> artnos = artDao.findArtnoByArtistno(artistno);
 //			List<String> artnames = new ArrayList<String>();
 //			for(int artno:artnos) {
@@ -112,7 +113,7 @@ public class OrderDetailService {
 			for(OrderDetail orderdetail:orderList) {
 				OrderDto.DtoForList dto = modelMapper.map(orderdetail,OrderDto.DtoForList.class);
 //				dto.setOrderDateStr(order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
-//			dto.setArtName(artnames);
+				dto.setUsername(username);
 				dtolist.add(dto);
 				System.out.println(dto+"주문내역보기");
 			}

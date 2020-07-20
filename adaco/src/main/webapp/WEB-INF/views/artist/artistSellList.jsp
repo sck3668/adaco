@@ -222,7 +222,7 @@ $(function(){
 			<tr>
 				<td><a href="/adaco/artist/orderDetail?oderno=">${list.orderno }</a></td>
 				<td>${list.orderDateStr}2020.11.28</td> <!-- ${artPageByUser.price } -->
-				<td>${list.username}leehj9999</td> <!-- ${artPageByUser.price } -->
+				<td>${list.username}</td> 
 				<td>${list.recipient}</td> 
 				<td>${list.artName} / ${list.optionName}:${list.optionValue}</td>
 				<td>${list.price}</td> 
