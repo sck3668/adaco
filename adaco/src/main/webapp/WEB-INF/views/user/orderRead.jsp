@@ -181,7 +181,6 @@ ${orderDetail }
 			</tr>
 			</tbody>
       	</table> --%>
-      	
     </div><!-- totalWrap /div -->
 </body>
 </body>
