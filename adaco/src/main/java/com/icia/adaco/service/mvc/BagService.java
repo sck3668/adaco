@@ -33,8 +33,6 @@ public class BagService {
 		System.out.println("bag1=="+bag1);
 		//username 찾은 장바구니의 artno가 추가하는 bag의 artno와 같은 경우 수량 증가
 		// 장바구니 추가는 하지 않음
-		System.out.println("bag artno="+bag.getArtno());
-		System.out.println("bag1 artno="+bag1.getArtno());
 		if(bag1==null) {
 			return bagdao.insertByBag(bag);
 		} else {
