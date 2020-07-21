@@ -111,8 +111,6 @@ function printComment(comments){
 	
 }	
 
-
-
 function checkFavorite() {
 	var $isFavorite = ${artPageByUser.isFavorite}
 	if($isFavorite == true)
@@ -281,6 +279,7 @@ $(function() {
 	
 	// 구매하기
 	$("#payment").on("click",function(){
+		
 		var params  ={
 			_csrf: '${_csrf.token}',
 			username: '${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}',
@@ -291,15 +290,13 @@ $(function() {
 			artno:${artPageByUser.artno},
 			totalPrice:${artPageByUser.price},
 			amount:1, 
-			optionName:'${artPageByUser.optionName}',
+			//optionName:'${artPageByUser.optionName}',
+			optionName:$("#optionName").val(),
 			optionValue:'${artPageByUser.optionValue}',
 			optionStock:${artPageByUser.optionStock}, 
 			optionPrice:'${artPageByUser.optionPrice}', 
 		
 		};
-			
-		console.log(params);
-			alert("var");
 			$.ajax({
 				url:"/adaco/order/ordering",
 				method:"post",
@@ -313,13 +310,16 @@ $(function() {
 	
 	//장바구니 추가
 	$("#addBag").on("click",function() {
+		var confirm_val = confirm("장바구니로 이동하시겠습니까?");
+  		if(confirm_val) {
 			var params = {
 				_csrf : "${_csrf.token}",
 				username: "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}",
 				artno:${artPageByUser.artno},
 				totalPrice:${artPageByUser.price},
 				amount:1,
-				optionName:'${artPageByUser.optionName}',		
+				//optionName:'${artPageByUser.optionName}',
+				optionName:$("#optionName").val(),
 				optionValue:'${artPageByUser.optionValue}',
 				optionStock:${artPageByUser.optionStock},
 				optionPrice:'${artPageByUser.optionPrice}',
@@ -330,7 +330,6 @@ $(function() {
 				data:params,
 				success:function(result){
 					if(result=="1") {
-						alert("성공");
 						location.href="/adaco/bag/view"
 					}
 					else
@@ -339,8 +338,10 @@ $(function() {
 					console.log(result);
 					alert("실패실패");
 				}
-			})
+			});
+  		}
 	});
+	
 });
 </script>
 </head>
@@ -392,9 +393,9 @@ ${art }
 				<tr>
 					<td class = "option">옵션 선택</td>
 					<td>
-						<select>
-						<option selected="selected">${artPageByUser.optionName }을 선택하세요</option>
-						<option value="optionName">${artPageByUser.optionValue }</option>
+						<select id="selectOption">
+							<option selected="selected" id="selected">${artPageByUser.optionName }을 선택하세요</option>
+							<option value="${artPageByUser.optionName }" id="optionName">${artPageByUser.optionValue }</option>
 						</select>
 					</td>
 				</tr>

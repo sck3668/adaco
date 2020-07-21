@@ -68,8 +68,6 @@ public class OrderDetailService {
 		System.out.println("afterDto=="+afterDto);
 		return afterDto;
 	}
-
-	
 	
 	// 모든 주문 내역 보기
 	

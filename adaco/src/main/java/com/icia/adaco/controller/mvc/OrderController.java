@@ -1,9 +1,6 @@
 package com.icia.adaco.controller.mvc;
 
 import java.security.*;
-import java.time.*;
-
-import javax.servlet.http.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
@@ -50,17 +47,11 @@ public class OrderController {
 	
 	// 장바구니에서 결제창 이동
 	// 넘어오는 orderno는 ordering에서 넘겨주는 orderno
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/order/bagPayment")
 	public ModelAndView bagPayment(String ordernos,Principal principal) {
-		System.out.println("bagPayment ordernos=="+ordernos);
-		System.out.println(principal.getName());
-		//DtoForPayment dto = orderService.bagOrderingD(principal.getName(),ordernos);
 		return new ModelAndView("main").addObject("viewName","order/payment.jsp")
 				.addObject("order",orderService.bagOrderingD(principal.getName(),ordernos));
-				//ResponseEntity.ok(dto);
-//				new ModelAndView("main")
-//				.addObject("order",orderService.OrderingD(principal.getName(),artno))
-//				.addObject("viewName","order/payment.jsp");
 	}
 	
 	// 결제버튼 클릭 후 결제완료 창으로 이동
@@ -69,12 +60,8 @@ public class OrderController {
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/order/after")
 	public ModelAndView after(Principal principal,OrderDto.DtoForAfter dto) {
-		System.out.println("after dto==="+dto);
-		int orderno = dto.getOrderno();
 		orderDService.payment(dto,principal.getName());
 		return new ModelAndView("main").addObject("viewName","order/after.jsp").addObject("order",orderDService.OrderDetail(dto,principal.getName()));
 	}
-
 	
-	////////////////////////////////////
 }

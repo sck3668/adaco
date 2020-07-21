@@ -23,35 +23,33 @@ public class BagService {
 	private OptionDao optionDao;
 	@Autowired
 	private ModelMapper modelMapper;
-	@Autowired
-	private ArtistDao artistDao;
 	
 	// 장바구니 추가
 	public int insertByBag(Bag bag) {
 		int artno = bag.getArtno();
-		System.out.println("artno==========="+artno);
-		System.out.println("art============"+artdao.readByArt(artno));
 		Art art = artdao.readByArt(artno);
-		
 		bag.setTotalPrice(bag.getAmount()*art.getPrice());
 		return bagdao.insertByBag(bag);
 	}
 	
 	// 회원아이디로 장바구니 목록 불러오기
 	public List<BagDto.DtoForList> findAllBagByUsername(String username) {
-		BagDto.DtoForList dto1 = new BagDto.DtoForList();
+//		BagDto.DtoForList dto1 = new BagDto.DtoForList();
 		List<Bag> bagList = (List<Bag>) bagdao.findAllBagByUsername(username);
 		List<BagDto.DtoForList> dtoList= new ArrayList<>();
+		//int lastPrice = 0;
 		for(Bag bag1:bagList) {
 			int artno = bag1.getArtno();
-			Bag bag = bagdao.findByArtno(artno);
+//			Bag bag = bagdao.findByArtno(artno);
 			Art art = artdao.readByArt(artno);
 			Option option = optionDao.readByArtno(artno);
 			BagDto.DtoForList dtoBag = modelMapper.map(bag1,BagDto.DtoForList.class);
-			dtoBag.setArt(art);
-			dtoBag.setOptionName(option.getOptionName()).setOptionValue(option.getOptionValue());
+			dtoBag.setArt(art).setOptionName(option.getOptionName()).setOptionValue(option.getOptionValue());
+			//lastPrice += bag1.getTotalPrice();
+			//dtoBag.setLastPrice(lastPrice);
 			dtoList.add(dtoBag);
 		}
+		System.out.println("dtoList=="+dtoList);
 		return dtoList;
 	}
 	
@@ -68,8 +66,6 @@ public class BagService {
 	public Bag change(int artno, boolean isIncrese) {
 		Bag bag = bagdao.findByArtno(artno);
 		Art art = artdao.readByArt(artno);
-		System.out.println("bag=="+bag);
-		System.out.println("art=="+art);
 		if(isIncrese==true) {
 			bag.setAmount(bag.getAmount()+1);
 			bag.setTotalPrice(bag.getAmount()*art.getPrice());
@@ -90,8 +86,6 @@ public class BagService {
 	
 	// 장바구니 index 찾기
 	private int findBag(List<BagDto.DtoForList> bagList, int artno) {
-		System.out.println("findBag artno========"+artno);
-		System.out.println("findBag bagList========"+bagList);
 		for (int i = 0; i < bagList.size(); i++) {
 			if (bagList.get(i).getArtno() == artno) 
 				return i;
@@ -114,5 +108,4 @@ public class BagService {
 		}
 		return bagList;
 	}
-////////////////////////////////////////////////	
 }
