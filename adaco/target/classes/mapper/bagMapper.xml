@@ -3,11 +3,6 @@
 <mapper namespace="bagMapper">
 	<!-- 장바구니 목록 보기 -->
 	
-	<select id = "findAllByBag" resultType="bag">
-		select username, artno, total_price totalPrice, amount
-		,option_name optionName, option_value optionValue
-		from bag
-	</select>
 	<select id="findAllByUsername" resultType="bag">
 		select username,artno,total_price totalPrice, amount, option_name optionName,
 		option_value optionValue,option_stock optionStock,option_price optionPrice from bag where username=#{username}
@@ -59,4 +54,5 @@
 	<select id="findArtnoByBagno" resultType="int">
 		select artno from bag where bagno=#{bagno}
 	</select>
+	
  </mapper>

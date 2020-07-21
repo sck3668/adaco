@@ -119,6 +119,67 @@ $(document).ready(function(){
     })
 });
 
+	// select box에 주문상태 값 받아오기
+	$(function() {
+		var $orderstate = $(".state").val(); 
+		var $select = $("#OrderState").find("option");
+		$select.each(function(idx, option) {
+			if($(option)!=null) {
+		
+		$select.each(function(idx, option) {
+		if($(option).text()==$orderstate) {
+		$($select[idx]).prop("selected", true);
+		}
+	
+		});
+		}
+		});
+	});
+		// select box값으로 주문상태 변경
+		$(function() {
+			
+			$("#OrderState").on("change", function() {
+		
+			var choice = $("#OrderState").val();
+			var $orderstate = $("#orderstate").val(); 
+			var $select = $("#OrderState").find("option");
+			
+			$select.each(function(idx, option) {
+			if(choice!="주문상태 선택") {
+			$("#orderstate").val(choice);
+			$("#orderstate").prop("disabled", true);
+			}
+			if(choice=="주문상태 선택") {
+			alert("주문상태를 선택해주세요");
+			}
+			})
+		});
+
+		});
+
+	// '저장'버튼으로 주문상태만 수정
+// 	$("#update_Btn").on("click", function() {
+// 		var $orderstate = $("#orderstate").val();
+// 		var params = {
+// 			_method: "put",
+// 			_csrf: "${_csrf.token}",
+// 			orderno : ${OrderDto.DtoForList.orderno},
+// 			orderstate: $orderstate
+// 		};
+// 		console.log(orderno);
+// 		console.log(params);
+// 		alert("SS");
+		
+// 		$.ajax({
+// 			url: "/adaco/artist/updateOrderDetail",
+// 			method: "post",
+// 			data: params
+// 		}).done(()=>{alert("주문상태가 변경 되었습니다.");})
+// 		.fail(()=>{alert("주문상태 변경이 실패했습니다.");});
+// 	})
+
+
+
 $(function(){
 	$("#search").on("click", function(){
 		var username = $("#username").val();
@@ -168,7 +229,7 @@ $(function(){
 						href="/adaco/artist/artistRead"
 						style="color: black; text-decoration: none;">내 정보 관리</a></li>
 					<li class="list-group-item list-group-item-action"><a
-						href="/adaco/order/artistSellList"
+						href="/adaco/artist/orderList"
 						style="color: black; text-decoration: none;">판매내역</a></li>
 					<li class="list-group-item list-group-item-action"><a
 						href="#" style="color: black; text-decoration: none;">메세지함</a></li>
@@ -180,7 +241,7 @@ $(function(){
    </div>
    </aside>
  <section id="section">
- ${page.orderList }
+<%--  ${page.orderList } --%>
 <h3>주문 목록</h3>
 <!-- <hr> -->
 	<div id="idSearch" style="float:right;">
@@ -195,24 +256,25 @@ $(function(){
 <!-- 		</select> -->
 <!-- 	</div> -->
 	<br><br>	
+	<form role="form" method="post" autocomplete="off">
 	<table>
 		<colgroup>
-				<col width="10%">
-				<col width="10%">
+				<col width="13%">
 				<col width="15%">
+				<col width="12%">
 				<col width="10%">
-				<col width="25%">
-				<col width="10%">
-				<col width="10%">
+				<col width="27%">
+				<col width="12%">
+				<col width="12%">
 			</colgroup>
 <%-- 	 <caption><strong><h3>주문 목록</h3></strong></caption> --%>
 		<thead id="th">
 			<tr>
 				<th>주문 번호</th>
-				<th>주문 일자</th>
+				<th>주문일</th>
 				<th>구매자 ID</th>
 				<th>수취인</th>
-				<th>작품/옵션명</th>
+				<th>작품명/옵션</th>
 				<th>총 결제액</th>
 				<th>주문 상태</th>
 			</tr>
@@ -220,36 +282,50 @@ $(function(){
 		<tbody id = "list">
 		<c:forEach items="${page.orderList}" var = "list">
 			<tr>
-				<td><a href="/adaco/order/sellistDetail?oderno=">${list.orderno }</a></td>
-				<td>2020.11.28</td> <!-- ${artPageByUser.price } -->
-				<td>leehj9999</td> <!-- ${artPageByUser.price } -->
-				<td>${list.recipient}</td> <!-- ${artPageByUser.price } -->
-				<td><a href="/adaco/order_read?artName=${art.artName}">${art.artName}안녕하세요</a></td><!-- ${artPageByUser.price } -->
-				<td>${list.price}</td> <!-- ${artPageByUser.price } -->
-				<td>배송중</td> <!-- ${artPageByUser.price } -->
+				<td><a href="/adaco/artist/orderDetail?orderno=${list.orderno}">${list.orderno }</a></td>
+				<td>${list.orderDateStr}</td>
+				<td>${list.username}</td> 
+				<td>${list.recipient}</td> 
+				<td>${list.artName} / ${list.optionName}:${list.optionValue}</td>
+				<td>${list.price+list.shippingCharge}</td> 
+				<td>
+					<select id="OrderState" class="State">
+						<option selected="selected">주문상태 선택</option>
+						<option>입금대기</option>
+						<option>입금완료</option>
+						<option>배송준비중</option>
+						<option>배송중</option>
+						<option>배송완료</option>
+					</select> 
+					<input type="text" class="state" name="orderstate"  value="${list.orderstate}"  style="width:100px"/>
+				</td> 
 			</tr>					
 		</c:forEach>
 		</tbody>
 	</table>
+	</form>
+		<div class="inputArea" align="center">
+			<button type="button" id="update_Btn">변경</button>
+		</div>
  	<div style="text-align:center;">
 		<ul class="pagination">
 			<c:if test="${page.prev==true}">
-				<li><a href="/adaco/artist/artistSellList?pageno=${page.startPage-1}">이전</a></li>
+				<li><a href="/adaco/artist/orderList?pageno=${page.startPage-1}">이전</a></li>
 			</c:if>
 			<c:forEach begin="${page.startPage}" end="${page.endPage}" var="i">
 				<c:choose>
 					<c:when test="${page.pageno eq i }">
 						<li class="active">
-							<a href="/adaco/artist/artistSellList?pageno=${i}">${i}</a>
+							<a href="/adaco/artist/orderList?pageno=${i}">${i}</a>
 						</li>
 					</c:when>
 					<c:otherwise>
-						<li><a href="/adaco/artist/artistSellList?pageno=${i}">${i}</a></li>
+						<li><a href="/adaco/artist/orderList?pageno=${i}">${i}</a></li>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 			<c:if test="${page.next==true}">
-				<li><a href="/adaco/artist/artistSellList?pageno=${page.endPage+1}">다음</a></li>
+				<li><a href="/adaco/artist/orderList?pageno=${page.endPage+1}">다음</a></li>
 			</c:if>
 		</ul>
 	</div>

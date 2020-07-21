@@ -20,7 +20,7 @@ public class OrderDaoTest {
 	@Autowired
 	private OrderDao orderdao;
 	
-	@Test
+//	@Test
 	public void insertByOrderTest() {
 		Order order = Order.builder()
 				.username("syi15931")
@@ -49,4 +49,9 @@ public class OrderDaoTest {
 //	public void findAllByOrderTest() {
 //		orderdao.findAllByOrder(1);
 //	}
+	
+	@Test
+	public void findByOrder() {
+		assertThat(orderdao.findUsernameByoderno(599), is("leehj5919"));
+	}
 }

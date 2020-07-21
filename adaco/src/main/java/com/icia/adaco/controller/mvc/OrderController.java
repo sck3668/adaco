@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
 
 import com.fasterxml.jackson.databind.*;
+import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.exception.*;
@@ -22,6 +23,8 @@ public class OrderController {
 	private OrderService orderService;
 	@Autowired
 	private OrderDetailService orderDService;
+	@Autowired
+	private ArtDao artDao;
 	@Autowired
 	private ObjectMapper objectMapper = new ObjectMapper();
 	
@@ -62,6 +65,11 @@ public class OrderController {
 	public ModelAndView after(Principal principal,OrderDto.DtoForAfter dto) {
 		System.out.println("after dto=="+dto);
 		orderDService.payment(dto,principal.getName());
+		//구매한 수량만큼 작품 재고에서 차감
+		Art art = Art.builder().artno(dto.getArtno()).build();
+		int stock = art.getStock()-dto.getAmount();
+		art.setStock(stock);
+		artDao.updateByArt(art);
 		return new ModelAndView("main").addObject("viewName","order/after.jsp").addObject("order",orderDService.OrderDetail(dto,principal.getName()));
 	}
 	

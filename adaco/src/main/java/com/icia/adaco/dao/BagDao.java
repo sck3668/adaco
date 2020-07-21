@@ -52,14 +52,9 @@ public class BagDao {
 		return tpl.selectOne("bagMapper.findArtnoByBagno",bagno);
 	}
 	
-	
-	// 장바구니 목록 보기
-//	public List<Bag> findAllByBag(){
-//		return tpl.selectList("bagMapper.findAllByBag");
-//	}
-//
-//	public List<Integer> findBagnoByOrderno(int orderno) {
-//		return tpl.selectList("orderMapper.findBagnoByOrderno",orderno);
-//	}
+	// username으로 장바구니 찾기
+	public Bag findBagByUsername(String username) {
+		return tpl.selectOne("bagMapper.findBagByUsername",username);
+	}
 
 }

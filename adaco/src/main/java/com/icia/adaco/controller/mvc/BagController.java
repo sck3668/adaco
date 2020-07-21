@@ -33,7 +33,7 @@ public class BagController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/bag/add")
 	public ResponseEntity<?> insert(Bag bag,Principal principal) {
-		return ResponseEntity.ok(bagService.insertByBag(bag));
+		return ResponseEntity.ok(bagService.insertByBag(bag,principal.getName()));
 	}
 		
 	//장바구니 화면 출력

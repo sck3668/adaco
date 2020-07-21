@@ -25,11 +25,27 @@ public class BagService {
 	private ModelMapper modelMapper;
 	
 	// 장바구니 추가
-	public int insertByBag(Bag bag) {
+	public int insertByBag(Bag bag,String username) {
 		int artno = bag.getArtno();
 		Art art = artdao.readByArt(artno);
 		bag.setTotalPrice(bag.getAmount()*art.getPrice());
-		return bagdao.insertByBag(bag);
+		Bag bag1 = bagdao.findBagByUsername(username);
+		System.out.println("bag1=="+bag1);
+		//username 찾은 장바구니의 artno가 추가하는 bag의 artno와 같은 경우 수량 증가
+		// 장바구니 추가는 하지 않음
+		System.out.println("bag artno="+bag.getArtno());
+		System.out.println("bag1 artno="+bag1.getArtno());
+		if(bag1==null) {
+			return bagdao.insertByBag(bag);
+		} else {
+			if(bag1.getArtno().equals(bag.getArtno())==true) {
+				bag1.setAmount(bag.getAmount()+bag1.getAmount());
+				bag1.setTotalPrice(bag.getTotalPrice()+bag1.getTotalPrice());
+				return bagdao.updateByBag(bag1);
+			} else {
+				return 1;
+			}
+		}
 	}
 	
 	// 회원아이디로 장바구니 목록 불러오기

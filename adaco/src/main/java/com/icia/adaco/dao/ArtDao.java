@@ -96,6 +96,11 @@ public class ArtDao {
 		return tpl.selectOne("artMapper.count");
 	}
 	
+	//작가번호기준으로 작품 갯수
+	public int countByArtistno(Integer artistno) {
+		return tpl.selectOne("artMapper.countByArtistno");
+	}
+	
 	//검색어에 해당되는 작품 수
 	public int countSerchByCategory(String category) {
 		Map<String, String> map = new HashMap<String, String>();
@@ -183,5 +188,6 @@ public class ArtDao {
 	public List<Integer> findArtnoByArtistno(int artistno) {
 	return tpl.selectList("artMapper.findArtnoByArtstno",artistno);
 	}
+	
 	
 }

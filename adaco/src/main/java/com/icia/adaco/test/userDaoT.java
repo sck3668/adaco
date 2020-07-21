@@ -101,5 +101,11 @@ public class userDaoT {
 	public void TotalPoint() {
 		System.out.println(userDao.TotalPoint("tjdcjfgns3")+"토탈포인튼");
 	}
+	//작가사용
+	//username으로 이름찾기 테스트
+	@Test
+	public void findByOrder() {
+		assertThat(userDao.irumByUsername("leehj5919"), is("현주이"));
+	}
 		
 }
