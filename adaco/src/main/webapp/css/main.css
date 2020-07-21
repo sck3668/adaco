@@ -20,6 +20,7 @@ header, nav, aside, footer, section {
 	margin: 0 auto;
 }
 
+
 aside {
 	float: left;
 }
@@ -30,7 +31,6 @@ section {
 	float: right;
 	min-height: 600px;
 }
-
 #main {
 	width:1000px;
 	overflow: hidden;
