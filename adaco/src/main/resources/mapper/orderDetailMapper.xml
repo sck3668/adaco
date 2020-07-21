@@ -16,6 +16,13 @@
 			request,add_point addPoint, postalcode,refund_account refundAccount,is_shipping, orderstate orderstate 
 			from order_detail where art_name=#{artName} and rownum =1
 	</select>
+	<!-- 오더번호로 디테일찾기 -->
+	<select id="findByOrdernoOrderDetail" resultType="orderDetail">
+		select orderno,optno, artno,artistno,art_name artName, option_name optionName,
+		option_value optionValue, amount,price, address, recipient,tel,email,
+			request,add_point addPoint, postalcode,refund_account refundAccount,is_shipping, orderstate orderstate
+			from order_detail where orderno=#{orderno} and rownum =1
+	</select>
 	
 	<!--주문 상세 -->
 	<select id="OrderDetail" resultType="orderDetail">

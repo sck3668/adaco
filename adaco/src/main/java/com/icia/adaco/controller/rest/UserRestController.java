@@ -82,4 +82,5 @@ public class UserRestController {
 	public ResponseEntity<String> findProfile(String username) {
 		return ResponseEntity.ok(userRestService.findProfile(username));
 	}
+	
 }

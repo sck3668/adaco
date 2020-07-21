@@ -173,7 +173,7 @@ ${artPage }
 		</button>
 	</div>
 	<div>
-		<table class="table table-hover">
+		<table class="table">
 			<colgroup>
 				<col width="5%">
 				<col width="15%">

@@ -28,12 +28,14 @@
 			where username=#{username} and rownum <=#{endRowNum})
 	where rnum>=#{startRowNum}
 		]]>
-		
-		
 	</select>
+		<!-- 유저네임으로 리스트찾기 -->
+<!-- 		<select id="OrderFindAll" resultType="order"> -->
+<!-- 		select shipping_charge shippingCharge from orders where username=#{username} -->
+<!-- 		</select> -->
 	 <select id="ArtNameByUsername" resultType="Art">
 	 	select art_name from art where username=#{username}
-	 </select> 
+	 </select>
 	 
 <!-- 	 주문 상세 내역  -->
 	<select id = "findByOrder" resultType="order">
@@ -60,6 +62,9 @@
 	<select id="findBagnoByOrderno" resultType="int">
 		select bagno from orders where orderno=#{orderno}
 	</select>
+	<select id="findUsernameByCharge" resultType="order">
+		select shipping_charge shippingCharge from orders where username=#{username}
+	</select>
 	
 	<!-- 작가 전용 --> 
 	<!-- 주문번호로 구매자 아이디 찾기 -->
@@ -76,4 +81,7 @@
 	<select id="findShippingByoderno" resultType="int">
 		select shipping_charge from orders where orderno=#{orderno}
 	</select>
+<!-- 	<select id="orderFindByUsername" resultType="int"> -->
+<!-- 		select orderno from orders where username=#{username}	 -->
+<!-- 	</select> -->
  </mapper>

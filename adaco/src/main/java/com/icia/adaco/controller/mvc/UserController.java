@@ -240,13 +240,12 @@ public class UserController {
 	@GetMapping("/user/orderRead")
 	public ModelAndView userOrderRead(Principal principal,String artName) {
 		System.out.println("00000");
-		System.out.println("artName"+artName);
+		
 		return new ModelAndView("main")
 				.addObject("viewName","user/orderRead.jsp")
-				.addObject("orderDetail",userService.userOrderRead(principal.getName(), artName));
+				.addObject("orderDetail",userService.userOrderRead(principal.getName(),artName));
 				
 	}
-	
 	
 	
 	

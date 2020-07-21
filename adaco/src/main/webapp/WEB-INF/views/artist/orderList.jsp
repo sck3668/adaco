@@ -241,7 +241,7 @@ $(function(){
    </div>
    </aside>
  <section id="section">
- ${page.orderList }
+<%--  ${page.orderList } --%>
 <h3>주문 목록</h3>
 <!-- <hr> -->
 	<div id="idSearch" style="float:right;">

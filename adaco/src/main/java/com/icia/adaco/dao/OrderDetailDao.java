@@ -28,15 +28,16 @@ public class OrderDetailDao {
 	}
 	// Artno로 디테일 찾기
 	public OrderDetail findArtnoByOrderDetail(String artName) {
-		System.out.println("4444");
-
 		return tpl.selectOne("orderDetailMapper.findArtnoByOrderDetail",artName);
 	}
 	// ArtName으로 이미지찾기
 	public String findByArtnameArtImage(String artName) {
-		System.out.println("333333");
 
 		return tpl.selectOne("orderDetailMapper.findByArtnameArtImage",artName);
+	}
+	// Orderno 로 디테일 찾기
+	public OrderDetail findByOrdernoOrderDetail(int orderno) {
+		return tpl.selectOne("orderDetailMapper.findByOrdernoOrderDetail",orderno);
 	}
 	
 	///////////작가 전용//////////////////

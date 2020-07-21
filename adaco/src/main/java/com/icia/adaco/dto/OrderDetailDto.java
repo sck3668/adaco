@@ -36,9 +36,8 @@ public class OrderDetailDto {
 		private orderState orderstate;
 		private String username;
 		private String orderDateStr;
-		private int shippingCharge;
 		private String irum;
-		
+		private Integer shippingCharge;
 	}
 	
 	// 결제 취소
