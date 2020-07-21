@@ -175,7 +175,7 @@
 	        let documentHeight = $(document).height();
 	        
 	        
-	        console.log("documentHeight:" + documentHeight + " | scrollTop:" + scrollTop + " | windowHeight: " + windowHeight );
+	        //console.log("documentHeight:" + documentHeight + " | scrollTop:" + scrollTop + " | windowHeight: " + windowHeight );
 	        // scrollbar의 thumb가 바닥 전 30px까지 도달 하면 리스트를 가져온다.
 	        
 	        if( scrollTop + windowHeight + 30 > documentHeight && check == true){
@@ -233,8 +233,7 @@
 	              </a>
 	        
 	              <div class="text-component text-sm line-height-xs v-space-xs">
-	                <span class='writer' data-toggle="modal" data-target="#myModal" data-writer="${story.writer }">${story.writer }</span><br>
-	                <p><a href="#0" class="articles-v3__author-name" rel="author">${story.writer }</a></p>
+	                <p style="margin-bottom: 0px;"><a href="#0" class="articles-v3__author-name writer" rel="author" data-toggle="modal" data-target="#myModal" data-writer="${story.writer }" style="">${story.writer }</a></p>
 	                <p class="color-contrast-medium"><time>${story.writeDateStr }</time>, &mdash; ${story.times } </p>
 	              </div>
 	            </div>
