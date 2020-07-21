@@ -119,7 +119,7 @@ $(function(){
 			<td class="first">적립금</td><td colspan="2"><span class="orderDetail"></span>${orderDetail.addPoint }</td>
 		</tr>
 		<tr>
-			<td class="first">상태</td><td colspan="2"><span class="orderDetail"></span>${orderDetail.orderState }</td>
+			<td class="first">상태</td><td colspan="2"><span class="orderDetail"></span>${orderDetail.orderstate}</td>
 		</tr>
 		<tr>
 <%-- 				<td class="first">상태</td><td colspan="2"><span class="orderDetail"></span>${orderDetail.adress}</td> --%>

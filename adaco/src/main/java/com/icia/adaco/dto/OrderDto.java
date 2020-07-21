@@ -97,7 +97,7 @@ public class OrderDto {
       private int shippingCharge;
       private String artName;
       private int artPrice;
-      private orderState state;
+      private orderState orderstate;
       private int artistno;
       private String recipient;
       private Integer price;

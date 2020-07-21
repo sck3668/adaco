@@ -101,6 +101,7 @@ public class ArtRestController {
 		//리뷰작성
 		@PutMapping("/artReview/review")
 		public ResponseEntity<?>writeArtReview(Review review, @Nullable MultipartFile sajin,Integer artno,Principal principal) throws IllegalStateException, IOException{
+			System.out.println("진입");
 			return ResponseEntity.ok(service.writeReviewOfArt(review,sajin,artno,principal.getName()));
 		}
 		//리뷰삭제
