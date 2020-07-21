@@ -67,4 +67,7 @@ public class OrderDao {
 		map.put("bagno",bagno);
 		return tpl.selectOne("orderMapper.findOrdernoByUsername",map);
 	}
+	public List<Integer> findBagnoByOrderno(int orderno) {
+		return tpl.selectList("orderMapper.findBagnoByOrderno",orderno);
+	}
 }

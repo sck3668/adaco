@@ -40,7 +40,8 @@ public class BagDto {
 		private int artno;
 		private int totalPrice;
 		private Integer amount;		//수량
-		private List<Option> option;
+		private String optionName;
+		private String optionValue;
 		private Art art;
 	}
 	

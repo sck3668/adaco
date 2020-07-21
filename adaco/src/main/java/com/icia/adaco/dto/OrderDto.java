@@ -11,7 +11,17 @@ import lombok.experimental.*;
 public class OrderDto {
    private OrderDto() {
    }
-   //
+   
+   //결제시 넘겨줄 ordernos
+ 	 @Data
+ 	 @AllArgsConstructor
+ 	 @NoArgsConstructor
+ 	 @Builder
+ 	 @Accessors(chain=true)
+ 	  public static class DtoForOrdernos{
+ 		  private List<String> ordernos;
+ 	  }
+ 	 
  //결제하기 화면 이동시 넘겨줄 값
  	@Data
  	@AllArgsConstructor
@@ -36,7 +46,7 @@ public class OrderDto {
 // 		private int tel;
 // 		private String irum;
 // 		private String email;
- 		private Art art;
+ 		private List<Art> artList;
  		private Option option;
  		private User user;
  		private Bag bag;
@@ -45,6 +55,7 @@ public class OrderDto {
  		private int artistno;
  		private int optno;
  		private int orderno;
+ 		private int lastPrice;
  	}
  	
  	@Data
@@ -68,7 +79,7 @@ public class OrderDto {
  		private String tel;
  		private String originalAddress;
  		private String refundAccount;
- 		private String request;
+ 		private List<String> request;
  	}
  	//////////////////////////	총결제금액,주문번호,적립포인트,작품명,
 	//	배송지,배송비,작품이미지,
@@ -86,7 +97,7 @@ public class OrderDto {
       private int shippingCharge;
       private String artName;
       private int artPrice;
-      private orderState state;
+      private orderState orderstate;
       private int artistno;
       private String recipient;
       private Integer price;

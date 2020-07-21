@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,27 +10,27 @@
 
 <style>
 table {
-	width: 100%;
+   width: 100%;
 }
 
 table, th, td {
-	border: 1px solid #bcbcbc;
+   border: 1px solid #bcbcbc;
 }
 
 table {
-	width: 100%;
-	border-top: 1px solid #444444;
-	border-collapse: collapse;
+   width: 100%;
+   border-top: 1px solid #444444;
+   border-collapse: collapse;
 }
 
 th, td {
-	border-bottom: 1px solid #444444;
-	padding: 10px;
-	text-align: center;
+   border-bottom: 1px solid #444444;
+   padding: 10px;
+   text-align: center;
 }
 
 th {
-	background-color: #bbdefb;
+   background-color: #bbdefb;
 }
 /*   td { */
 /*     background-color: #e3f2fd; */
@@ -42,36 +44,38 @@ th {
 } 
 
  li { 
-	display:inline
+   display:inline
  } 
 
 </style>
 <script>
-	$(function() {
-		$("#detailAddress").on("blur",function() {
-		const address = $("#address").val();
-    	const address2	= $("#detailAddress").val();
-    	const address3 = $("#extraAddress").val();
-    	const originalAddress = address + address2 + address3;
-    	console.log(originalAddress);
-    	alert("Ss");
-    	$("#originalAddress").val(originalAddress);
-		})
-		
-// 		$("#payment").on("click",function() {
-// 		console.log($("#paymentForm").serialize());
-// 		alert("폼");
-// 		})
-	})
+   $(function() {
+      $("#detailAddress").on("blur",function() {
+      const address = $("#address").val();
+       const address2   = $("#detailAddress").val();
+       const address3 = $("#extraAddress").val();
+       const originalAddress = address + address2 + address3;
+       console.log(originalAddress);
+       alert("Ss");
+       $("#originalAddress").val(originalAddress);
+      })
+      
+//       $("#payment").on("click",function() {
+//       console.log($("#paymentForm").serialize());
+//       alert("폼");
+//       })
+   })
 </script>
 </head>
 <body>
-<%-- ${order} --%>
+${order }
 <form action="/adaco/order/after" id="paymentForm">
 <div id="content" class="content" data-page="payment" data-address-page="payment" style="padding-bottom:0">
         <input type="hidden" name="orderno" value="${order.orderno }">
-        <input type="hidden" name="artno" value="${order.art.artno }">
-        <input type="hidden" name="artistno" value="${order.art.artistno }">
+	<c:forEach items="${order.artList}" var="art">
+        <input type="hidden" name="artno" value="${art.artno }">
+        <input type="hidden" name="artistno" value="${art.artistno }">
+	</c:forEach>
         <input type="hidden" name="optno" value="${order.option.optno }">
         <div class="inner-w800"><!-- 주문고객/배송정보 큰 열린 div -->
             <div class="title-style clf"><!-- 주문결제 순서 열린 div -->
@@ -93,18 +97,18 @@ th {
                     </li>
                 </ol>
             </div><!-- 주문결제 순서 닫힌 div --><br>
-                	<hr width="1500px;">
+                   <hr width="1500px;">
 
             <div class="layout-split" data-layout-split="payment"><!-- 주문고객/배송지정보 열린 div -->
  <!-- 주문고객 정보 -->
-	             <div class="ui_title--sub tab" data-ui-id="order_user"><!-- 주문고객정보 제목 열린 div -->
-	                 <h4>주문 고객 정보</h4>
-	             </div><!-- 주문고객정보 제목 닫힌 div -->
+                <div class="ui_title--sub tab" data-ui-id="order_user"><!-- 주문고객정보 제목 열린 div -->
+                    <h4>주문 고객 정보</h4>
+                </div><!-- 주문고객정보 제목 닫힌 div -->
                      <table class="table-style-clear orderer-info" data-ui="tab-panel" data-panel-id="order_user">
                         <colgroup>
-							<col width="20%">
-							<col width="80%">
-						</colgroup>
+                     <col width="20%">
+                     <col width="80%">
+                  </colgroup>
                          <tbody>
                          <tr>
                              <th>주문자명</th>
@@ -128,51 +132,51 @@ th {
                     
                     <h4>배송지 정보</h4>
                     <table>
-                    	<colgroup>
-							<col width="20%">
-							<col width="80%">
-						</colgroup>
-                    	<tr class="address-info item">
-                    		<th class="address-info item">
+                       <colgroup>
+                     <col width="20%">
+                     <col width="80%">
+                  </colgroup>
+                       <tr class="address-info item">
+                          <th class="address-info item">
                               <em class="asterisk red">&lowast;</em>
                               <label for="user">받는분</label>
-                    		</th>
-                    		<td style= "text-align: left;">
-                    			<input name="recipient" type="text" value="${order.user.irum }">
-                    		</td>
-                    	</tr>
-                    	<tr class="address-info item">
-                    		<th class="address-info item">
-                    			<em class="asterisk red">&lowast;</em>
+                          </th>
+                          <td style= "text-align: left;">
+                             <input name="recipient" type="text" value="${order.user.irum }">
+                          </td>
+                       </tr>
+                       <tr class="address-info item">
+                          <th class="address-info item">
+                             <em class="asterisk red">&lowast;</em>
                                 <label for="delivery_phone">전화번호</label>
-                    		</th>
-                    		<td style= "text-align: left;">
-                    			<input name="tel" type="text" value="${order.user.tel }">
-                    		</td>
-                    	</tr>
-                    	<tr>
-                    		<th>
-                    			<div class="ui_title--sub"><!-- 주소(배송지)텍스트 열린 div -->
-                    			<span class="ui_title__txt">주소 (배송지)</span>
-                    			</div><!-- 주소(배송지)텍스트 닫힌 div -->
-                    		</th>
-          		    
-          		     		<td style= "text-align: left;">
-          		     			<input type="text" id="postcode" placeholder="우편번호">
-								<input type="button" onclick="execDaumPostcode()" value="주소 찾기"><br>
-								<input type="text" id="address" placeholder="주소"><br>
-								<input type="text" id="detailAddress" placeholder="상세주소">
-								<input type="text" id="extraAddress" placeholder="참고항목">
-		                      	<input type="text" name="originalAddress" id="originalAddress">
-							    <div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative"><!-- 이미지 열린div -->
-									<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
-								</div><!-- 이미지 닫힌div -->
-          		     		</td>
-                    	</tr>
+                          </th>
+                          <td style= "text-align: left;">
+                             <input name="tel" type="text" value="${order.user.tel }">
+                          </td>
+                       </tr>
+                       <tr>
+                          <th>
+                             <div class="ui_title--sub"><!-- 주소(배송지)텍스트 열린 div -->
+                             <span class="ui_title__txt">주소 (배송지)</span>
+                             </div><!-- 주소(배송지)텍스트 닫힌 div -->
+                          </th>
+                    
+                           <td style= "text-align: left;">
+                              <input type="text" id="postcode" placeholder="우편번호">
+                        <input type="button" onclick="execDaumPostcode()" value="주소 찾기"><br>
+                        <input type="text" id="address" placeholder="주소"><br>
+                        <input type="text" id="detailAddress" placeholder="상세주소">
+                        <input type="text" id="extraAddress" placeholder="참고항목">
+                               <input type="text" name="originalAddress" id="originalAddress">
+                         <div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative"><!-- 이미지 열린div -->
+                           <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
+                        </div><!-- 이미지 닫힌div -->
+                           </td>
+                       </tr>
                     </table>
                    
 <!--                  </div> -->
-						
+                  
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
     // 우편번호 찾기 찾기 화면을 넣을 element
@@ -249,137 +253,140 @@ th {
         element_wrap.style.display = 'block';
     }
 </script>     
-	</div><!-- 주문고객/배송정보 닫힌 div --> 
+   </div><!-- 주문고객/배송정보 닫힌 div --> 
 </div> <!-- 주문고객/배송정보 큰 닫힌 div -->                 
 <br>
 <!-- 주문작품 정보 -->
-        	<div class="segment--nospacing" data-ui="order-summary-label"><!-- 결제하기버튼까지 큰 열린 div -->
-				<div class="ui_title--sub tab " data-ui-id="order_cart"><!-- 제목 열린 div -->
-					<h4>주문 작품 정보</h4>
-				</div><!-- 제목 닫힌 div -->
-				<div data-ui="tab-panel" data-panel-id="order_cart" style=""><!-- ordercart 열린 div -->
-				<table>
-					<tr>
-						<td class="txt-group" style= "text-align: left;"><b>${order.artistName } 작가님</b></td>
-					</tr>
-				</table>
-				<table>
-					<colgroup>
-						<col width="15%">
-						<col width="30%">
-						<col width="10%">
-						<col width="10%">
-						<col width="10%">
-					</colgroup>
-					<thead>
-						<tr>
-							<th colspan="2" class="area-img" style= "text-align: center;">작품/옵션 정보</th>
-							<th style= "text-align: center;">작품 금액</th>
-							<th style= "text-align: center;">배송비</th>
-							<th style= "text-align: center;">주문금액</th>
-						</tr>
-					</thead>
-					<tbody id="list">
-					<tr class="area-txt">
-						<td style="border-right: none; vertical-align: middle;">
-							<a href="/adaco/art/readByUser?artno=${order.art.artno }">
-								<img src="${order.art.mainImg}" width="130px" height="130px">
-							</a>
-						</td>
-						<td style= "text-align: left; border-left-style:none; border-top: none;">
-							<a href="/adaco/art/readByUser?artno=${order.art.artno }" style="text-decoration:none; color:black" title="${order.art.artName }">
-								<strong>${order.art.artName }</strong>
-							</a><br><br>
-							<span>${order.bag.optionName } :</span>
-                    		<span>${order.bag.optionValue }</span>
-							<span> | 수량 : ${order.bag.amount }개</span>
-							<span> | + ${order.option.optionPrice}원</span>
-						</td>
-						<td>
-							${order.art.price+ order.option.optionPrice}원
-						</td>
-						<td>
-							${order.art.couriPrice}원
-						</td>
-						<td>
-							${order.art.price+order.art.couriPrice+order.option.optionPrice }원
-						</td>
-					</tr>
-					<tr>
-						<td colspan="5">
-							<div class="ui_field--onchange  hidden" data-uipack="textarea">
-                        		<textarea name="request" maxlength="500" placeholder="주문 요청사항을 입력해주세요" style="width:100%;"></textarea>
-               				</div>
-						</td>
-					</tr>
-				</tbody>
-        		</table><br>
-        	
+           <div class="segment--nospacing" data-ui="order-summary-label"><!-- 결제하기버튼까지 큰 열린 div -->
+            <div class="ui_title--sub tab " data-ui-id="order_cart"><!-- 제목 열린 div -->
+               <h4>주문 작품 정보</h4>
+            </div><!-- 제목 닫힌 div -->
+            <div data-ui="tab-panel" data-panel-id="order_cart" style=""><!-- ordercart 열린 div -->
+            <table>
+               <tr>
+                  <td class="txt-group" style= "text-align: left;"><b>${order.artistName } 작가님</b></td>
+               </tr>
+            </table>
+            <c:forEach items="${order.artList}" var="art">
+            <table>
+               <colgroup>
+                  <col width="15%">
+                  <col width="30%">
+                  <col width="10%">
+                  <col width="10%">
+                  <col width="10%">
+               </colgroup>
+               <thead>
+                  <tr>
+                     <th colspan="2" class="area-img" style= "text-align: center;">작품/옵션 정보</th>
+                     <th style= "text-align: center;">작품 금액</th>
+                     <th style= "text-align: center;">배송비</th>
+                     <th style= "text-align: center;">주문금액</th>
+                  </tr>
+               </thead>
+               <tbody id="list">
+               <tr class="area-txt">
+                  <td style="border-right: none; vertical-align: middle;">
+                     <a href="/adaco/art/readByUser?artno=${art.artno }">
+                        <img src="${art.mainImg}" width="130px" height="130px">
+                     </a>
+                  </td>
+                  <td style= "text-align: left; border-left-style:none; border-top: none;">
+                     <a href="/adaco/art/readByUser?artno=${art.artno }" style="text-decoration:none; color:black" title="${art.artName }">
+                        <strong>${rt.artName }</strong>
+                     </a><br><br>
+                     <span>${order.bag.optionName } :</span>
+                          <span>${order.bag.optionValue }</span>
+                     <span> | 수량 : ${order.bag.amount }개</span>
+                     <span> | + ${order.option.optionPrice}원</span>
+                  </td>
+                  <td>
+                     ${art.price+ order.option.optionPrice}원
+                  </td>
+                  <td>
+                     ${art.couriPrice}원
+                  </td>
+                  <td>
+                     ${art.price+art.couriPrice+order.option.optionPrice }원
+                  </td>
+               </tr>
+               <tr>
+                  <td colspan="5">
+                     <div class="ui_field--onchange  hidden" data-uipack="textarea">
+                              <textarea name="request" maxlength="500" placeholder="주문 요청사항을 입력해주세요" style="width:100%;"></textarea>
+                           </div>
+                  </td>
+               </tr>
+            </tbody>
+              </table>
+              </c:forEach><br>
+           
 <!-- 결제 수단 -->
                     <div class="segment"><!-- 제목 열린 div -->
                         <h4>결제 수단</h4>
                     </div><!-- 제목 닫힌 div -->
                     <div class="tableWrap1" style="width:49%; float:left;"><!-- 결제수단 표 감싸는 열린 div -->
-	                    <table id="tb1" >
-	                    	<colgroup>
-								<col width="25%">
-								<col width="75%">
-							</colgroup>
-	                    	<tr>
-	                    		<th>결제 수단</th>
-	                    		<td style="text-align: left;">
-			                   		<input type="radio" name ="Payment" value="무통장입금" id="test" /> 무통장입금
-	                    		</td>
-	                    	</tr>
-	                    	<tr>
-	                    		<th>입금은행</th>
-	                    		<td style="text-align: left;">신한은행</td>
-	                    	</tr>
-	                    	<tr>
-	                    		<th>입금자</th>
-	                    		<td style="text-align: left;">
-	                    			<input type="text" value="${order.user.irum }" />
-	                    		</td>
-	                    	</tr>
-	                    	<tr>
-	                    		<th>환불 계좌</th>
-	                    		<td style="text-align: left;" >
-<!-- 	                    			<input type="text" placeholder="환불계좌를 입력해주세요" name="refundAccount" style="width:200px;" /> -->
-	                    			<textarea name="refundAccount" maxlength="500" placeholder="환불계좌를 입력해주세요." style="width:100%;"></textarea>
-	                    		</td>
-	                    	</tr>
-	                    </table>
-	                    </div><!-- 결제수단 표 감싸는 닫힌 div -->
-<!-- 					</div> -->
-					
+                       <table id="tb1" >
+                          <colgroup>
+                        <col width="25%">
+                        <col width="75%">
+                     </colgroup>
+                          <tr>
+                             <th>결제 수단</th>
+                             <td style="text-align: left;">
+                                  <input type="radio" name ="Payment" value="무통장입금" id="test" /> 무통장입금
+                             </td>
+                          </tr>
+                          <tr>
+                             <th>입금은행</th>
+                             <td style="text-align: left;">신한은행</td>
+                          </tr>
+                          <tr>
+                             <th>입금자</th>
+                             <td style="text-align: left;">
+                                <input type="text" value="${order.user.irum }" />
+                             </td>
+                          </tr>
+                          <tr>
+                             <th>환불 계좌</th>
+                             <td style="text-align: left;" >
+<!--                                 <input type="text" placeholder="환불계좌를 입력해주세요" name="refundAccount" style="width:200px;" /> -->
+                                <textarea name="refundAccount" maxlength="500" placeholder="환불계좌를 입력해주세요." style="width:100%;"></textarea>
+                             </td>
+                          </tr>
+                       </table>
+                       </div><!-- 결제수단 표 감싸는 닫힌 div -->
+<!--                </div> -->
+               
 <!--  결제 정보 -->                
 <!--                 <section> -->
+           <c:forEach items="${order.artList}" var="art">
                     <div class="final-cost ui_sticky" data-ui="sticky"><!-- 결제정보 열린 div -->
                         <h4 class="table-header" style="position: relative; left: 20px;top: -35px;">결제 정보</h4>
                         <div class="segment" data-ui="paymentData-view"><!-- 결제정보 버튼전 열린 div -->
                            <div class="tableWrap2" style="width:49%; float:right;"><!-- 결제정보 표 감싸는 열린 div -->
                             <table style="padding-left:500; position: relative; top: -37px">
-                            	<colgroup>
-								<col width="25%">
-								<col width="75%">
-								</colgroup>
+                               <colgroup>
+                        <col width="25%">
+                        <col width="75%">
+                        </colgroup>
                                 <tbody>
                                 <tr>
                                     <th>작품 금액</th>
                                     <td>
-                                        <span  data-payment="order">${order.art.price+order.option.optionPrice}</span>원
+                                        <span  data-payment="order">${art.price+order.option.optionPrice}</span>원
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>배송비</th>
                                     <td>
-                                        <span data-payment="shipping">${order.art.couriPrice }</span>원
+                                        <span data-payment="shipping">${art.couriPrice }</span>원
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>예상 적립금</th>
                                     <td>
-                                        <span data-payment="shipping">${order.art.accumulated}</span>원
+                                        <span data-payment="shipping">${art.accumulated}</span>원
                                     </td>
                                 </tr>
 <!--                                 <tr> -->
@@ -388,19 +395,20 @@ th {
 <!--                                         <span data-payment="shipping"></span>원 -->
 <!--                                     </td> -->
 <!--                                 </tr> -->
-	                                <!-- 분기처리 -->
+                                   <!-- 분기처리 -->
                                 </tbody>
                             </table>
+                        </c:forEach> 
                             <table class="spacing" style="position: relative; top: -37px">
-                            	<colgroup>
-								<col width="25%">
-								<col width="75%">
-								</colgroup>
+                               <colgroup>
+                        <col width="25%">
+                        <col width="75%">
+                        </colgroup>
                                 <tbody>
                                 <tr class="total">
                                     <th>최종 결제<br>금액</th>
                                     <td colspan="2" class="hilight red">
-                                        <span data-payment="total" style="font-weight:bold;"><em>${order.art.price+order.art.couriPrice+order.option.optionPrice }원</em></span>
+                                        <span data-payment="total" style="font-weight:bold;"><em>${order.lastPrice}원</em></span>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -408,12 +416,14 @@ th {
                             </div><!-- 결제정보 표 감싸는 닫힌 div -->
                         </div><br><!-- 결제정보 버튼전 닫힌 div -->
                        <div class="inputArea" align="center" style="position: relative; right: -250px; bottom:-25px"><!-- 버튼 열린 div -->
-							<button id="payment" class="btn btn-primary">결제하기</button>
-							<a href="/adaco/art/readByUser?artno=${order.art.artno }">
-								<button type="button" id="back_Btn" class="btn btn-warning">취소</button>
-							</a>
-						</div><!-- 버튼 닫힌 div -->
-                        </div><!-- 결제정보 닫힌 div -->
+                     <button id="payment" class="btn btn-primary">결제하기</button>
+                     <a href="/adaco/art/readByUser?artno=${art.artno }">
+                        <button type="button" id="back_Btn" class="btn btn-warning">취소</button>
+                     </a>
+                  </div><!-- 버튼 닫힌 div -->
+                        </div>
+                       
+                        <!-- 결제정보 닫힌 div -->
                     </div><!-- ordercart 닫힌 div -->
 <!--                 </section> -->
             </div><!-- 결제하기버튼까지 큰 닫힌 div -->

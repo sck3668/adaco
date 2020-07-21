@@ -78,7 +78,9 @@ function printReview(reviews){
 	  	$("<span></span>").text(review.username).appendTo($upper_div);
 		$("<div>").html(review.content).css("display","inline-block").appendTo($center_div);
 		$("<span>").text(review.writeDateStr).appendTo($lower_div);
-		$("<img>").attr("src",review.image).appendTo($lower_div);
+		if(review.image!==null){
+			$("<img>").attr("src",review.image).appendTo($lower_div);	
+		}
 // 		$("<span>").hmtl(review.star).appendTo($lower_div)
 		 if(review.username===loginId){
 				var btn = $("<button>").attr("class","delete_review").attr("data-username", review.username).attr("data-rno",review.rno)
@@ -97,7 +99,6 @@ function printComment(comments){
 		var $upper_div =$("<div>").appendTo($comment)
 		var $center_div=$("<div>").appendTo($comment)
 		var $lower_div =$("<div>").appendTo($comment)
-		console.log(comment);
 		$("<span></span>").text(comment.username).appendTo($upper_div);
 		$("<img>").attr("src",comment.profile).css("width","60px").css("height","60px").appendTo($center_div);
 		$("<div>").html(comment.content).css("display","inline-block").appendTo($center_div);
@@ -125,17 +126,22 @@ $(function() {
 	printComment(art.artComments)
 	
 	 $("#sajin").on("change", loadImage); 
-	
+
+
 	//리뷰작성
 	 $("#review_write").on("click",function(){
+					
+		const patt = /^.{5,1000}$/;
+		var $content =$("#review_textarea").val();
+		 if(patt.test($content)==false)
+			 return false;
 		 var $artno = $("#artno").val();
-			var $content =$("#review_textarea").val();
-			console.log($content)
 			var formData = new FormData();
 			formData.append("content",$content);
 			formData.append("artno",$artno);
-  			//if($("#sajin")[0].files[0]!=undefined)
-					formData.append("sajin", $("#sajin")[0].files[0]);
+  			if($("#sajin")[0].files[0]!=undefined){
+			formData.append("sajin", $("#sajin")[0].files[0]);	
+  			}
 			formData.append("_csrf", "${_csrf.token}");
 			formData.append("_method", "put");
 			
@@ -151,7 +157,7 @@ $(function() {
 				data:formData,
 				processData:false,
 				contentType:false
-			}).done((r)=>{printReview(r),$("#review_textarea").val("")})
+			}).done((r)=>{printReview(r),$("#review_textarea").val(""),location.reload(true)})
 			  .fail((r)=>{console.log(r)})
 })
 // 		var parmas={
@@ -318,16 +324,15 @@ $(function() {
 				optionStock:${artPageByUser.optionStock},
 				optionPrice:'${artPageByUser.optionPrice}',
 			};
-			console.log(params);
-			alert("sss");
 			$.ajax({
 				url:"/adaco/bag/add",
 				method:"post",
 				data:params,
 				success:function(result){
-					alert("tjdrhd");
-					if(result=="1")
+					if(result=="1") {
 						alert("성공");
+						location.href="/adaco/bag/view"
+					}
 					else
 						alert("실패");
 				},error:function(result) {
@@ -431,7 +436,7 @@ ${art }
 	</textarea>
 <div class="form-group">
 				<label for="review_textarea" id="review1">리뷰을 입력하세요</label>
-				<textarea class="form-control" rows="5"	id="review_textarea" placeholder="욕설이나 모욕적인 댓글은 삭제될 수 있습니다">
+				<textarea class="form-control" rows="5"	id="review_textarea" placeholder="욕설이나 모욕적인 댓글은 삭제될 수 있습니다" maxlength="1000">
 				</textarea>
 				<div>
 					<img id="show_profile" height="240px"> <input type="hidden"

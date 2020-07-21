@@ -304,4 +304,11 @@ public class AdminTest {
 		adminUserRestService.update("spring2321", "ROLE_MANAGER", false);
 	}
 
+	@Autowired
+	ArtService artService;
+	
+	@Test
+	public void artServiceTesT() {
+		artService.listFromUser(2, null, null);
+	}
 }

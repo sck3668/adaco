@@ -186,13 +186,13 @@ public class ArtRestService {
 		return -1;
 	}
 	// 회원아이디로 작품목록 불러오기-------
-	public List<ArtDto.DtoForList> findAllArtByUsername(String username,int pageno, @Nullable String category) {
+	public List<ArtDto.DtoForList> findAllArtByUsername(String username,int pageno, @Nullable String category,@Nullable int artistno) {
 		ArtDto.DtoForList dto1 = new ArtDto.DtoForList();
 		int countOfArt = artDao.countByArt();
 		Page page = PagingUtil.getPage(pageno, countOfArt);
 		int srn = page.getStartRowNum();
 		int ern = page.getEndRowNum();
-		List<Art> artList = artDao.listByArt(srn, ern, category);
+		List<Art> artList = artDao.listByArt(srn, ern, category,artistno);
 		List<ArtDto.DtoForList> dtoList = new ArrayList<>();
 		for(Art art1:artList) {
 			ArtDto.DtoForList dto = modelMapper.map(art1,ArtDto.DtoForList.class);
@@ -208,10 +208,13 @@ public class ArtRestService {
 		String artWriter = artistDao.findByid(artistno).getUsername();
 		if(username.equals(artWriter)==false)
 			throw new IllegalJobException();
-		List<DtoForList> artList = findAllArtByUsername(username,pageno,category);
+		System.out.println("222");
+		List<DtoForList> artList = findAllArtByUsername(username,pageno,category,artistno);
+		System.out.println("artList=="+artList);
 		List<Integer> deleteList = new ArrayList<Integer>();
 		for(int i=0; i<list.size(); i++) {
 			int idx = findArt(artList,list.get(i));
+			System.out.println("idx=="+idx);
 			deleteList.add(idx);
 		}
 		for(int i = deleteList.size()-1; i>=0; i--) {
@@ -225,12 +228,13 @@ public class ArtRestService {
 
 	// 작품 리뷰 작성하기
 		public List<ArtDto.DtoForReviewList> writeReviewOfArt(Review review,MultipartFile sajin,Integer artno,String username) throws IllegalStateException, IOException {
-			System.out.println("sajin=="+sajin.getName());
+			System.out.println("서비스진입");
+			System.out.println("review"+review);
 			review.setWriteDate(LocalDateTime.now());
 			String reviewStr = review.getContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
 			review.setContent(reviewStr);
 			review.setStar(star.onePoint).setUsername(username).setArtno(artno);
-			
+			System.out.println("리뷰"+review);
 			  if(sajin!=null && sajin.isEmpty()==false) {
 			  if(sajin.getContentType().toLowerCase().startsWith("image/")==true) { 
 		  int lastindexOfDot = sajin.getOriginalFilename().lastIndexOf('.');
@@ -238,13 +242,11 @@ public class ArtRestService {
 		  File artfile = new File(artfileFolder,review.getUsername()+"."+extension);
 		  sajin.transferTo(artfile);
 		  review.setImage(artfilePath+artfile.getName());
-			  } else {
-				  review.setImage(artfilePath+"anony.jpg");
-			  }
-	 } else {
-		  review.setImage(artfilePath+"anony.jpg");
-	 }
-			  reviewDao.writeByReviewOfArt(review);
+		  			  }
+			  } 		
+			  System.out.println("리뷰겟이미지"+review.getImage());
+				 reviewDao.writeByReviewOfArt(review);  
+			  //System.out.println(""+reviewDao.writeByReviewOfArt(review));
 			List<Review> reviewList = reviewDao.findAllReview(artno);
 			System.out.println("reviewList=="+reviewList);
 			artDao.updateByArt(Art.builder().artno(review.getArtno()).reviewCnt(1).build());
@@ -262,6 +264,7 @@ public class ArtRestService {
 			System.out.println("dtoList=="+dtoList);
 				return dtoList;
 			};
+
 		
 		//리뷰 삭제하기
 			public List<ArtDto.DtoForReviewList> deleteReviewOfArt(Integer rno, Integer artno, String username) {
@@ -288,7 +291,7 @@ public class ArtRestService {
 			artcomment.setWriteDate(LocalDateTime.now());
 			String commentStr = artcomment.getContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
 			artcomment.setContent(commentStr);
-			artCommemtDao.writeByCommentOfArt(artcomment);
+			 artCommemtDao.writeByCommentOfArt(artcomment);  
 			artDao.updateByArt(Art.builder().artno(artcomment.getArtno()).artCommentCnt(1).build());
 			List<ArtComment> commentList = artCommentDao.listByCommentOfArt(artcomment.getArtno());
 			List<ArtCommentDto.DtoForList> dtoList = new ArrayList<ArtCommentDto.DtoForList>();

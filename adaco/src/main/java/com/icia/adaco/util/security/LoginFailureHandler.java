@@ -24,14 +24,17 @@ public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler{
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
+		System.out.println("fial");
 		String username = request.getParameter("username");
 		System.out.println(username+"이거는 실패햇을경우");
 		HttpSession session = request.getSession();
 		      if(exception instanceof BadCredentialsException) {
 		    	  User user = dao.findByid(username);
+		    	  System.out.println("user"+user);
 		    	  if(user==null) {
 		    		  session.setAttribute("msg", "아이디를 찾을수없습니다");
 		    	  } else {
+		    		  System.out.println(user.getLoginFailureCnt()+"!!");
 		    		  int loginFailureCnt = user.getLoginFailureCnt()+1;
 		    		  if(loginFailureCnt<5) {
 		    			  dao.update(User.builder().username(username).loginFailureCnt(loginFailureCnt).build());

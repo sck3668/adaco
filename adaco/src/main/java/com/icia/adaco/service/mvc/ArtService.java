@@ -111,7 +111,7 @@ public class ArtService {
 	public Page listFromUser(int pageno, @Nullable String artname, @Nullable String category) {
 		int countOfArt = artdao.countSerchByArtName(artname);
 		Page page = PagingUtil.getPage2(pageno, countOfArt);
-		int srn = page.getStartRowNum();
+		int srn = 1;
 		int ern = page.getEndRowNum();
 		page.setSearch(artname);
 		List<Art> artList = artdao.listByArtFromUser(srn, ern, artname, category);

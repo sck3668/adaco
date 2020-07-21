@@ -37,23 +37,16 @@ public class OrderDetailService {
 	
 	// 결제하기
 	public int payment(OrderDto.DtoForAfter dto,String username) {
-		//System.out.println("orderDto after dto ==="+dto);
 		OrderDetail orderDetail = modelMapper.map(dto,OrderDetail.class);
-		//System.out.println("orderDetail=="+orderDetail);
 		int artno = dto.getArtno();
-		//System.out.println("payment-artno==="+artno);
 		Art art = artDao.readByArt(artno);
-		//System.out.println("art=="+art);
 		Option option = optionDao.readByArtno(artno);
-		//System.out.println("option=="+option);
 		Bag bag = bagDao.findByArtno(artno);
-		//System.out.println("bag==="+bag);
 		User user = userDao.findByid(username);
-		//System.out.println("user====="+user);
 		orderDetail.setArtName(art.getArtName()).setAddress(dto.getOriginalAddress());
 		orderDetail.setOptionName(option.getOptionName()).setOptionValue(option.getOptionValue());
 		orderDetail.setAmount(bag.getAmount()).setPrice(art.getPrice()).setEmail(user.getEmail());
-		orderDetail.setAddPoint((int) (art.getPrice()*0.01)).setOrderState(orderState.입금대기);
+		orderDetail.setAddPoint((int) (art.getPrice()*0.01)).setOrderstate(orderState.입금대기);
 		//artName,optionName,optionValue,amount,price,email,tel,
 		//request,addPoint,postalcode,refundAccount,isShipping,state,address,recipient,
 		//System.out.println("orderDetail11111======"+orderDetail);
@@ -62,6 +55,7 @@ public class OrderDetailService {
 		Point point = Point.builder().startDate(LocalDateTime.now()).endDate(LocalDateTime.now().plusYears(1))
 				.username(username).point((int) (bag.getTotalPrice()*0.01)).build();
 		userDao.insertpoint(point);
+		System.out.println("orderDetail1111111111111"+orderDetail);
 		return orderDetailDao.Payment(orderDetail);
 	}
 	

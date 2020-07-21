@@ -56,7 +56,7 @@
 		delete from bag where artno=#{artno} and rownum=1
 	</delete>
 	
-	<select id="findArtnoByBagno">
+	<select id="findArtnoByBagno" resultType="int">
 		select artno from bag where bagno=#{bagno}
 	</select>
  </mapper>

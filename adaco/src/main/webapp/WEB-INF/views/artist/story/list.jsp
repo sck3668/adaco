@@ -103,6 +103,9 @@
 </style>
 <script>
 	$(function() {
+		var url = window.location.href;
+		var page = url.split("/");
+		console.log(page[5]);
 		//if("${memoMsg}"!=="")
 		//	toastr.info("새로운 메모가 있습니다");
 		

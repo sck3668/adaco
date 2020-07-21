@@ -67,6 +67,7 @@ $(function(){
 </script>
 </head>
 <body>
+${page }
  <aside id="asideMain">
    <div id="aside">
       <div id="profile">
@@ -107,6 +108,7 @@ $(function(){
    </div>   
    <div id="orderMain">
    <table>
+   
       <colgroup>
             <col width="6%">
             <col width="15%">
@@ -126,6 +128,7 @@ $(function(){
          </tr>
       </thead>
       
+      
       <tbody id = "list">
       <c:forEach items="${page.orderList}" var = "list">
                 <tr>
@@ -134,7 +137,7 @@ $(function(){
                 	<td><a href="/adaco/user/orderRead?artName=${list.artName }">${list.artName }</a></td>
                 	<td>${list.artPrice }</td>
                 	<td>${list.shippingCharge }</td>
-                	<td>${list.state }</td>
+                	<td>${list.orderstate }</td>
                 </tr>
                 
       </c:forEach>

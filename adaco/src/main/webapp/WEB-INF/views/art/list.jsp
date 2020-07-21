@@ -133,7 +133,7 @@
 					artnos: JSON.stringify(ar),
 					pageno:${artPage.pageno}
 				}
-// 				console.log(params)
+ 				console.log(params)
 				$.ajax({
 					url:"/adaco/art/deleteChoice",
 					data: params,

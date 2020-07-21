@@ -65,10 +65,15 @@ public class ShopController {
 	public ModelAndView shopPage(Principal principal) {
 		int artistno = artistDao.findArtistnoByUsername(principal.getName());
 		Shop shop = shopDao.readShopByArtistno(artistno);
-		int shopno = shop.getShopno();
-		if(shop.getShopno()==null) {
-			throw new JobFailException("상점을 먼저 만들어주세요");
+		if(shop==null) {
+			//model.addAttribute("msg", "메시지"); 
+			//model.addAttribute("url", "saveok.jsp"); 
+
+			//return "redirect";
+			return new ModelAndView("main").addObject("viewName","artist/artistpage.jsp")
+					.addObject("msg","msg");
 		}
+		int shopno = shop.getShopno();
 		return new ModelAndView("main").addObject("viewName","artist/shopPage.jsp").addObject("shop",shopService.shopRead(shopno));
 	}
 	
