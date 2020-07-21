@@ -143,7 +143,7 @@ html[xmlns] .clearfix {
 	height: 1%; 
 }
 </style>
-<body>
+<body>    
 <sec:authorize access="isAnonymous()">
     <div class="wrap">
 	<ul id="nav" style="background-color: #C2E2E8">
