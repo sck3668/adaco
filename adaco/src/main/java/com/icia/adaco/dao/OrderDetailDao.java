@@ -60,7 +60,10 @@ public class OrderDetailDao {
 	return tpl.selectList("orderDetailMapper.findAllOrderByArtist",map);
 	}
 	
-	//
+	// 주문상태 업데이트
+	public int updateByOrderDetail(OrderDetail orderDetail) {
+		return tpl.update("orderDetailMapper.update",orderDetail);
+	}
 	
 	
 	

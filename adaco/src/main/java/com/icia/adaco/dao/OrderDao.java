@@ -15,6 +15,14 @@ public class OrderDao {
 	public List<Integer> orderFindByUsername(String username) {
 		return tpl.selectList("orderMapper.orderFindByUsername",username);
 	}
+	
+	//////작가용////
+	
+	//고객아이디로 하나의 주문 찾기
+	public int orderFindByUsername1(String username) {
+		return tpl.selectOne("orderMapper.orderFindByUsername",username);
+	}
+	
 	public List<Bag> BagFindUsernameArtno(String username) {
 		return tpl.selectList("orderMapper.BagFindUsernameArtno",username);
 	}

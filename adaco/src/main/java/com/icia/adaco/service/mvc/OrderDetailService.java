@@ -13,6 +13,7 @@ import org.springframework.stereotype.*;
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
+import com.icia.adaco.exception.*;
 import com.icia.adaco.util.*;
 
 @Service
@@ -66,7 +67,6 @@ public class OrderDetailService {
 		System.out.println("afterDto=="+afterDto);
 		return afterDto;
 	}
-	
 
 	
 	
@@ -92,37 +92,60 @@ public class OrderDetailService {
 //				String artname = artDao.readByArt(artno).getArtName();
 //				artnames.add(artname);
 //			}
-			System.out.println("11111");
 			List<Integer>ordernoList = orderDetailDao.orderFindByArtistno(artistno);
 			for(Integer orderno:ordernoList) {
 				OrderDetail detail = orderDetailDao.OrderDetail(orderno);
 			}
-			System.out.println("222222");
 			int countOfBoard = orderDetailDao.countByOrder();
 			Page page = PagingUtil.getPage(pageno, countOfBoard);
 			int srn = page.getStartRowNum();
 			int ern = page.getEndRowNum();
-			System.out.println("33333");
-			System.out.println(artistno);
 			List<OrderDetail> orderList = orderDetailDao.FindAllOrderByArtist(srn, ern, artistno);
-			System.out.println("4444");
-			System.out.println("orderList=="+orderList);
 			List<OrderDto.DtoForList>dtolist=new ArrayList<OrderDto.DtoForList>();
-			System.out.println("55555");
 			for(OrderDetail orderdetail:orderList) {
 				OrderDto.DtoForList dto = modelMapper.map(orderdetail,OrderDto.DtoForList.class);
 				String username1 = orderDao.findUsernameByoderno(dto.getOrderno());
 				String orderDate = orderDao.findOrderDateByoderno(dto.getOrderno());
 				int shippingCharge = orderDao.findShippingByoderno(dto.getOrderno());
-//				dto.setOrderDateStr(orderDate.format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
 				dto.setUsername(username1).setOrderDateStr(orderDate).setShippingCharge(shippingCharge);
 				dto.setOrderstate(orderdetail.getOrderstate());
 				dtolist.add(dto);
-				System.out.println(dto+"주문내역보기");
+//				System.out.println(dto+"주문내역보기");
 			}
 			page.setOrderList(dtolist);
 			
 			return page;
 			}
+	
+	
+	// 주문 상태 업데이트
+	public void update(OrderDetailDto.DtoForUpdate dto, String username) {
+		OrderDetail orderDetail = orderDetailDao.OrderDetail(dto.getOrderno());
+		Integer artistno = artistDao.findArtistnoByUsername(username);
+		if(orderDetail == null)
+			throw new JobFailException("주문내역이 없습니다.");
+		if(artistno.equals(dto.getArtistno())==false)
+			throw new IllegalJobException();
+		orderDetailDao.updateByOrderDetail(orderDetail);
+	}
+	
+	// 고객 주문 상세보기(작가용)
+	
+	// 주문 상세 보기
+	public OrderDetailDto.DtoForReadOrder OrderDetailByArtist(Integer orderno, String username) {
+		OrderDetail orderDetail = orderDetailDao.OrderDetail(orderno);
+		OrderDetailDto.DtoForReadOrder orderDto = modelMapper.map(orderDetail,OrderDetailDto.DtoForReadOrder.class);
+		Integer artistno = artistDao.findArtistnoByUsername(username);
+		if(artistno.equals(orderDto.getArtistno())==false)
+			throw new IllegalJobException();
+		//username1은 주문한 고객 아이디
+		String username1 = orderDao.findUsernameByoderno(orderDto.getOrderno());
+		String orderDate = orderDao.findOrderDateByoderno(orderDto.getOrderno());
+		int shippingCharge = orderDao.findShippingByoderno(orderDto.getOrderno());
+		String irum = userDao.irumByUsername(username1);
+		orderDto.setUsername(username1).setOrderDateStr(orderDate).setShippingCharge(shippingCharge).setOrderstate(orderDetail.getOrderstate()).setIrum(irum);
+		//System.out.println(orderDto+"44444444444");
+		return orderDto;
+	}
 	
 }

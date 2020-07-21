@@ -10,13 +10,18 @@ import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.*;
 
 import com.icia.adaco.dao.*;
+import com.icia.adaco.dto.ArtDto.*;
+import com.icia.adaco.dto.OrderDetailDto.*;
 import com.icia.adaco.entity.*;
+import com.icia.adaco.service.mvc.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/**/*-context.xml")
 public class OrderDetailDaoTest {
 	@Autowired
 	private OrderDetailDao orderDetaildao;
+	@Autowired
+	private OrderDetailService orderDetailService;
 	
 	//@Test
 	public void Payment() {
@@ -49,12 +54,26 @@ public class OrderDetailDaoTest {
 	}
 	
 	//////작가 전용//////////
-	//작가번호로 주문 리스트
-	@Test
+	//작가번호로 주문 리스트 테스트 ok
+	//@Test
 		public void listByArtTest() {
 			assertThat(orderDetaildao.FindAllOrderByArtist(1,10,200),is(notNullValue()));
 		}
 	
+	// 주문번호 업데이트 테스트 ok
+	//@Test
+		public void updateByOrderTest() {
+			OrderDetail orderDetail = OrderDetail.builder().orderno(45).orderstate(orderState.입금완료).build();
+			assertThat(orderDetaildao.updateByOrderDetail(orderDetail), is(1));
+		}
+		
+	//고객 주문 상세보기 테스트
+	@Test
+	public void readOrderTest() {
+		DtoForReadOrder order = orderDetailService.OrderDetailByArtist(675, "leehj5919");
+		assertThat(order.getArtistno(), is(200));
+	}
+
 	
 	//@Test
 //	public void deleteByOrderDetailTest() {

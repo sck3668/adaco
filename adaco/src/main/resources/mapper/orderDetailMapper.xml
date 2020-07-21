@@ -36,7 +36,6 @@
 	</select>
 	
 	<!-- 작가번호로 주문리스트 -->
-	<!-- 주문 내역  -->
 	<select id = "findAllOrderByArtist" resultType="orderDetail">
 		<![CDATA[
 		select * from		
@@ -52,6 +51,12 @@
 	<select id="count" resultType="int">
 		select count(*) from order_detail
 	</select>
+	
+	<!-- 주문상태 업데이트 -->
+	<update id="update">
+		update order_detail set orderstate=#{orderstate}
+		where orderno=#{orderno} and rownum=1 
+	</update>
 	
 	<!-- 구매자 ID로 검색도 해야됨 -->
 <!-- 	<select id="findAllOrderByArtist" resultType="orderDetail"> -->

@@ -293,7 +293,7 @@ ${order }
                   </td>
                   <td style= "text-align: left; border-left-style:none; border-top: none;">
                      <a href="/adaco/art/readByUser?artno=${art.artno }" style="text-decoration:none; color:black" title="${art.artName }">
-                        <strong>${rt.artName }</strong>
+                        <strong>${art.artName }</strong>
                      </a><br><br>
                      <span>${order.bag.optionName } :</span>
                           <span>${order.bag.optionValue }</span>
