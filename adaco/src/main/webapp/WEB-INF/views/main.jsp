@@ -20,7 +20,7 @@
 </head>
 <body>
  <div id="page">
-  	<header class="header" id="header">
+  	<header class="header" id="header" style=" height: 80px;">
 		<jsp:include page="include/header.jsp" />
 	</header>
 	<nav class="navbar navbar-expand-lg navbar-dark alert-danger fixed-top " >
