@@ -18,6 +18,15 @@ public class OrderDao {
 	public List<Bag> BagFindUsernameArtno(String username) {
 		return tpl.selectList("orderMapper.BagFindUsernameArtno",username);
 	}
+	//유저네임으로 파인드올찾기 리스트불러오기
+	public String orderShippingCharge(String username){
+		return tpl.selectOne
+				("orderMapper.orderShippingCharge",username);
+	}
+	//유저네임으로 배송비찾기
+	public List<Order> findUsernameByCharge(String username) {
+		return tpl.selectList("orderMapper.findUsernameByCharge",username);
+	}
 	//유저네임으로 아트 찾기
 	/*
 	 * public String ArtNameByUsername(String username) { return

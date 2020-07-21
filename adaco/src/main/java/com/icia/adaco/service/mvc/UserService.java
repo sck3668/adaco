@@ -20,6 +20,8 @@ import org.springframework.web.multipart.*;
 
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
+import com.icia.adaco.dto.OrderDetailDto.*;
+import com.icia.adaco.dto.OrderDto.*;
 import com.icia.adaco.dto.UserDto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.exception.*;
@@ -282,17 +284,17 @@ public class UserService {
 	}
 	//오더리드
 	public OrderDetailDto.DtoForReadOrder userOrderRead(String username,String artName) {
-		System.out.println("11111");	
-		String image = orderDetailDao.findByArtnameArtImage(artName);
-			OrderDetail orderDetail = orderDetailDao.findArtnoByOrderDetail(artName);
-			System.out.println("22222");
-			System.out.println(orderDetail+"오더디테일");
-			OrderDetailDto.DtoForReadOrder dto = modelMapper.map(orderDetail,OrderDetailDto.DtoForReadOrder.class);
-			
-			System.out.println("dto=="+dto);
-			dto.setMainImg(image);
-			System.out.println("디티오"+dto);
-			return dto;
+		OrderDetail orderDetail = orderDetailDao.findArtnoByOrderDetail(artName);
+		List<Order> Charge = orderDao.findUsernameByCharge(username);
+		OrderDetail detail = orderDetailDao.findByOrdernoOrderDetail(orderDetail.getOrderno());
+		System.out.println(detail+"디테일");
+		OrderDetailDto.DtoForReadOrder dto = modelMapper.map(detail,OrderDetailDto.DtoForReadOrder.class);
+		System.out.println(dto+"디티오");
+		for(Order shippingCharge :Charge) {
+			dto.setShippingCharge(shippingCharge.getShippingCharge());
+		}
+		System.out.println(dto+"디티오");
+		return  dto;
 	}
 	
 }

@@ -52,9 +52,15 @@
    </style>
 <script type="text/javascript">
 $(function(){
-   $("#search").on("click", function(){
+	
+	
+	
+	
+	
+	
+  /*  $("#search").on("click", function(){
       var username = $("#username").val();
-      location.href = "/adaco/order/list?username="+username   
+      location.href = "/adaco/user/orderList?username="+username   
    });
    $(".category").on("change", function(){
       var $category = $(".category").val();
@@ -62,7 +68,7 @@ $(function(){
          location.href = "/adaco/order/list"
       if($category == "아티스트")
          location.href = "/adaco/order/list" */
-   }); 
+//    });  */
 });   
 </script>
 </head>
@@ -95,7 +101,7 @@ ${page }
 <!--             <th>주문상태</th> -->
 <!--    </div> -->
    <h3>주문 내역</h3>
-   <div>
+ <!--   <div>
    <input type="text" id="username" name="username" placeholder="사용자 검색">
    <button type = "button" id = "search">검색</button>
    </div>
@@ -105,7 +111,7 @@ ${page }
             <option value="유저">모든 유저</option>
             <option value="아티스트">판매자</option>
       </select>
-   </div>   
+   </div>    -->
    <div id="orderMain">
    <table>
    
@@ -164,7 +170,7 @@ ${page }
             
          </c:forEach>
          <c:if test="${Page.next==true}">
-            <li><a href="/adaco/order/list?username=${page.endPage+1}">다음</a></li>
+            <li><a href="/adaco/user/orderList?username=${page.endPage+1}">다음</a></li>
          </c:if>
       </ul>
    </div>
