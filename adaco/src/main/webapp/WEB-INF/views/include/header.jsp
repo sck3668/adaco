@@ -140,7 +140,7 @@ html[xmlns] .clearfix {
 }
 
 * html .clearfix {
-	height: 1%;
+	height: 1%; 
 }
 </style>
 <body>
