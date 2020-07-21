@@ -147,7 +147,7 @@
 
 </head>
 <body>
-${artPage }
+<%-- ${artPage } --%>
 <%--  	${artPage.artList }  --%>
  	<h5>작품 목록</h5>	
 	<div>

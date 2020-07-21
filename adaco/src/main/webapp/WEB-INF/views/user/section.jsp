@@ -33,6 +33,40 @@
 		background-color: #FFFFFF;
 		width:300px;
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	body{
+    animation: fadein 250ms ease-out;
+    -moz-animation: fadein 250ms ease-out; /* Firefox */
+    -webkit-animation: fadein 250ms ease-out; /* Safari and  Chrome */
+    -o-animation: fadein 250ms ease-out; /* Opera */
+	}
+	@keyframes fadein {
+	    from {opacity:0;}
+	    to {opacity:1;}
+	}
+	@-moz-keyframes fadein { /* Firefox */
+	    from {opacity:0;}
+	    to {opacity:1;}
+	}
+	@-webkit-keyframes fadein { /* Safari and Chrome */
+	    from {opacity:0;}
+	    to {opacity:1;}
+	}
+	@-o-keyframes fadein { /* Opera */
+	    from {opacity:0;}
+	    to {opacity: 1;}
+	}
+
+
  </style> 
 <script type="text/javascript">
 $(function(){
@@ -42,7 +76,20 @@ $(function(){
 // 		var tag = $(".tag").val();
 // 		location.href = "/adaco/art/listByUser?tag="+tag;
 	});
-	
+	    
+    
+    $("body").css("display", "none");
+    $("body").fadeIn(100);
+    $("a.transition").click(function(event){
+    event.preventDefault();
+    linkLocation = this.href;
+    $("body").fadeOut(100, redirectPage);
+    });
+    function redirectPage() {
+    window.location = linkLocation;
+    }
+
+
 });	
 
 </script>

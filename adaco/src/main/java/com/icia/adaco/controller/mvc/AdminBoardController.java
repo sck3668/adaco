@@ -38,8 +38,8 @@ public class AdminBoardController {
 	
 	@Secured("ROLE_ADMIN")
 	@GetMapping("/admin/")
-	public ModelAndView adminIndex() {
-		return new ModelAndView("admin/index").addObject("index", service.indexRead());
+	public ModelAndView adminIndex(Principal principa) {
+		return new ModelAndView("admin/index").addObject("index", service.indexRead(principa.getName()));
 	}
 	
 	@Secured("ROLE_ADMIN")

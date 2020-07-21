@@ -25,6 +25,9 @@
   	var $countByNoAnswerQuestion= ${index.countByNoAnswerQuestion};
   	var $countByUser = ${index.countByUser};
   	var $countByArtist = ${index.countByArtist};
+  	var $countByMsg = ${index.countByMessage};
+  	var $countByNoReadMsg = ${index.countByNoReadMessage};
+  	
   	$(function(){
   		$("#logout").on("click", function(){
   			var param = {
@@ -40,14 +43,21 @@
   			});
   		});
   		var $countByAnswer = $countByQuestion - $countByNoAnswerQuestion;
-  		var nanuge = $countByAnswer/$countByQuestion;
-  		var per = Math.round(nanuge*100);
-  		$("#noanswer_per").text(per+"%");
+  		var answerNanuge = $countByAnswer/$countByQuestion;
+  		var answerPer = Math.round(answerNanuge*100);
+  		$("#noanswer_per").text(answerPer+"%");
   		$("#noanswer_per_id").css({
-  			width: per+"%",
+  			width: answerPer+"%"
   		})
   		
-  	
+  		var $countByReadMsg = $countByMsg - $countByNoReadMsg;
+  		var msgNanuge = $countByReadMsg/$countByMsg;
+  		var msgPer = Math.round(msgNanuge*100);
+  		$("#noanswer_per").text(answerPer+"%");
+  		$("#read_msg_per").text(msgPer+"%");
+  		$("#read_msg_per_id").css({
+  			width: msgPer+"%"
+  		})
   	})
   </script>
 </head>
@@ -176,7 +186,7 @@
               				</h5>
               		        <div class="card border-0 bg-light text-center hov-p">
               				<hr>
-              				<h5 class="text-dark font-weight-bold m-2"><a class="nav-link" href="/adaco/user/faq_list" style="height: 72px; padding: 15px; color: #f6c23e;">
+              				<h5 class="text-dark font-weight-bold m-2"><a class="nav-link" href="/adaco/user/faqList" style="height: 72px; padding: 15px; color: #f6c23e;">
               					FAQ
               				</a></h5>
               				</div>
@@ -205,9 +215,13 @@
                   <div class="progress mb-4">
                     <div class="progress-bar bg-info" role="progressbar" id = "noanswer_per_id" style="width: 20%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
-                  <h4 class="small font-weight-bold">의욕<span class="float-right">10%</span></h4>
+                  <h4 class="small font-weight-bold">메시지 확인률<span class="float-right" id="read_msg_per"></span></h4>
                   <div class="progress mb-4">
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: 10%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-success" role="progressbar" id = "read_msg_per_id" style="width: 20%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <h4 class="small font-weight-bold">의욕<span class="float-right">30%</span></h4>
+                  <div class="progress mb-4">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: 30%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </div>
               </div>
