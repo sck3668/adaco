@@ -60,6 +60,7 @@ public class OrderController {
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/order/after")
 	public ModelAndView after(Principal principal,OrderDto.DtoForAfter dto) {
+		System.out.println("after dto=="+dto);
 		orderDService.payment(dto,principal.getName());
 		return new ModelAndView("main").addObject("viewName","order/after.jsp").addObject("order",orderDService.OrderDetail(dto,principal.getName()));
 	}
