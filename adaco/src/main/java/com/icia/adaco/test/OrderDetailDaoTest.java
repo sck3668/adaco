@@ -61,14 +61,14 @@ public class OrderDetailDaoTest {
 		}
 	
 	// 주문번호 업데이트 테스트 ok
-	//@Test
+	@Test
 		public void updateByOrderTest() {
-			OrderDetail orderDetail = OrderDetail.builder().orderno(45).orderstate(orderState.입금완료).build();
+			OrderDetail orderDetail = OrderDetail.builder().orderno(794).orderstate(orderState.입금완료).build();
 			assertThat(orderDetaildao.updateByOrderDetail(orderDetail), is(1));
 		}
 		
 	//고객 주문 상세보기 테스트
-	@Test
+	//@Test
 	public void readOrderTest() {
 		DtoForReadOrder order = orderDetailService.OrderDetailByArtist(675, "leehj5919");
 		assertThat(order.getArtistno(), is(200));

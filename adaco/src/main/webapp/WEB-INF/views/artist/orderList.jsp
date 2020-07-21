@@ -121,28 +121,42 @@ $(document).ready(function(){
 
 	// select box에 주문상태 값 받아오기
 	$(function() {
-		var $orderstate = $("#orderstate").val(); 
+		var $orderstate = $(".state").val(); 
 		var $select = $("#OrderState").find("option");
+		$select.each(function(idx, option) {
+			if($(option)!=null) {
+		
 		$select.each(function(idx, option) {
 		if($(option).text()==$orderstate) {
 		$($select[idx]).prop("selected", true);
 		}
 	
 		});
-
-	// select box값으로 주문상태 변경
-	$("#OrderState").on("change", function() {
-		var choice = $("#OrderState").val();
-		if(choice!="주문상태 선택") {
-		$("#orderstate").val(choice);
-		$("#orderstate").prop("disabled", true);
 		}
-		if(choice=="택배사 선택") {
-		alert("주문상태를 선택해주세요");
-		}
-		})
+		});
+	});
+		// select box값으로 주문상태 변경
+		$(function() {
+			
+			$("#OrderState").on("change", function() {
+		
+			var choice = $("#OrderState").val();
+			var $orderstate = $("#orderstate").val(); 
+			var $select = $("#OrderState").find("option");
+			
+			$select.each(function(idx, option) {
+			if(choice!="주문상태 선택") {
+			$("#orderstate").val(choice);
+			$("#orderstate").prop("disabled", true);
+			}
+			if(choice=="주문상태 선택") {
+			alert("주문상태를 선택해주세요");
+			}
+			})
+		});
 
-	
+		});
+
 	// '저장'버튼으로 주문상태만 수정
 // 	$("#update_Btn").on("click", function() {
 // 		var $orderstate = $("#orderstate").val();
@@ -163,7 +177,7 @@ $(document).ready(function(){
 // 		}).done(()=>{alert("주문상태가 변경 되었습니다.");})
 // 		.fail(()=>{alert("주문상태 변경이 실패했습니다.");});
 // 	})
-});
+
 
 
 $(function(){
@@ -275,7 +289,7 @@ $(function(){
 				<td>${list.artName} / ${list.optionName}:${list.optionValue}</td>
 				<td>${list.price+list.shippingCharge}</td> 
 				<td>
-					<select id="OrderState">
+					<select id="OrderState" class="State">
 						<option selected="selected">주문상태 선택</option>
 						<option>입금대기</option>
 						<option>입금완료</option>
@@ -283,7 +297,7 @@ $(function(){
 						<option>배송중</option>
 						<option>배송완료</option>
 					</select> 
-					<input type="text" id="orderstate" name="orderstate"  value="${list.orderstate}"  style="width:100px"/>
+					<input type="text" class="state" name="orderstate"  value="${list.orderstate}"  style="width:100px"/>
 				</td> 
 			</tr>					
 		</c:forEach>
@@ -296,22 +310,22 @@ $(function(){
  	<div style="text-align:center;">
 		<ul class="pagination">
 			<c:if test="${page.prev==true}">
-				<li><a href="/adaco/artist/artistSellList?pageno=${page.startPage-1}">이전</a></li>
+				<li><a href="/adaco/artist/orderList?pageno=${page.startPage-1}">이전</a></li>
 			</c:if>
 			<c:forEach begin="${page.startPage}" end="${page.endPage}" var="i">
 				<c:choose>
 					<c:when test="${page.pageno eq i }">
 						<li class="active">
-							<a href="/adaco/artist/artistSellList?pageno=${i}">${i}</a>
+							<a href="/adaco/artist/orderList?pageno=${i}">${i}</a>
 						</li>
 					</c:when>
 					<c:otherwise>
-						<li><a href="/adaco/artist/artistSellList?pageno=${i}">${i}</a></li>
+						<li><a href="/adaco/artist/orderList?pageno=${i}">${i}</a></li>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 			<c:if test="${page.next==true}">
-				<li><a href="/adaco/artist/artistSellList?pageno=${page.endPage+1}">다음</a></li>
+				<li><a href="/adaco/artist/orderList?pageno=${page.endPage+1}">다음</a></li>
 			</c:if>
 		</ul>
 	</div>
