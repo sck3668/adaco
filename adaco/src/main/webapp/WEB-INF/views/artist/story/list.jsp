@@ -100,6 +100,33 @@
 	#textAreaUp {
 		height:70px;
 	}
+	
+	
+	
+	
+	
+	body{
+    animation: fadein 500ms ease-out;
+    -moz-animation: fadein 500ms ease-out; /* Firefox */
+    -webkit-animation: fadein 500ms ease-out; /* Safari and  Chrome */
+    -o-animation: fadein 500ms ease-out; /* Opera */
+	}
+	@keyframes fadein {
+	    from {opacity:0;}
+	    to {opacity:1;}
+	}
+	@-moz-keyframes fadein { /* Firefox */
+	    from {opacity:0;}
+	    to {opacity:1;}
+	}
+	@-webkit-keyframes fadein { /* Safari and Chrome */
+	    from {opacity:0;}
+	    to {opacity:1;}
+	}
+	@-o-keyframes fadein { /* Opera */
+	    from {opacity:0;}
+	    to {opacity: 1;}
+	}
 </style>
 <script>
 	$(function() {
@@ -135,6 +162,60 @@
 		$("body").on("click", "#write_memo", function() {
 			location.href = "/adaco/message/write?recipientId=" + $(this).attr("data-writer")
 		});
+		
+		
+		
+		var $endPage = ${story.endPage};
+	    var check = true;
+	    
+	    $(window).scroll(function(){
+	        let $window = $(this);
+	        let scrollTop = $window.scrollTop();
+	        let windowHeight = $window.height();
+	        let documentHeight = $(document).height();
+	        
+	        
+	        console.log("documentHeight:" + documentHeight + " | scrollTop:" + scrollTop + " | windowHeight: " + windowHeight );
+	        // scrollbar의 thumb가 바닥 전 30px까지 도달 하면 리스트를 가져온다.
+	        
+	        if( scrollTop + windowHeight + 30 > documentHeight && check == true){
+		 		fetchList();   	
+	 		    check = false;
+	        }
+	    
+	    })
+	    function fetchList() {
+		    var url = window.location.href;
+		    var pageno = url.split("=");
+		    var thisPage = pageno[1];
+		    if(thisPage == null) {
+		    	thisPage= 1;
+		    }
+	        if(thisPage == $endPage){
+	            return;
+	        }
+	        
+	       	var startNo = thisPage*1+1;
+	        $.ajax({
+	            url:"/adaco/story/listStory?pageno="+startNo ,
+	            method: "GET",
+	        }).done(()=>{
+		        history.pushState(null, null, "/adaco/story/listStory?pageno="+startNo);
+			    location.reload(true);
+	        }).fail((f)=>console.log(f));
+	    }
+	    
+	    
+	    $("body").css("display", "none");
+	    $("body").fadeIn(100);
+	    $("a.transition").click(function(event){
+	    event.preventDefault();
+	    linkLocation = this.href;
+	    $("body").fadeOut(100, redirectPage);
+	    });
+	    function redirectPage() {
+	    window.location = linkLocation;
+	    }
 	})
 </script>
 </head>

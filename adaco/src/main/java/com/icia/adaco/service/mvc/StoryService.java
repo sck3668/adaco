@@ -40,7 +40,7 @@ public class StoryService {
 	public Page storyList(int pageno) {
 		int countOfBoard = storyDao.count();
 		Page page = PagingUtil.getPage(pageno, countOfBoard);
-		int srn = page.getStartRowNum();
+		int srn = 1;
 		int ern = page.getEndRowNum();
 		List<Story> storyList = null;
 		storyList = storyDao.findAllStory(srn, ern);
