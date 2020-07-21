@@ -59,7 +59,7 @@ function printBag(bag,dest) {
 	var $div = $("<div>").appendTo(dest);
 	var $table = $("<table>").appendTo($div);
 	var $tr = $("<tr>").appendTo($table);
-	
+	var bag = bag;
 	
 	$("<td class='first'>").append($("<input>").attr("type","checkbox").attr("class","check").attr("data-artno", bag.artno)).appendTo($tr);
 	$("<td class='second'>").append($("<img>").attr("src", "bag.art.mainImg").css("width", "135px")).appendTo($tr);
@@ -86,18 +86,22 @@ function printBag(bag,dest) {
 	$("<span>").text(bag.amount).appendTo($div);
 	$("<a href='#'>-</a>").attr("class","minus").attr("data-artno", bag.artno).appendTo($div);
 
-	$("<td class='six'>").text(bag.totalPrice).appendTo($tr);
-	$("<input>").attr("class","artno").attr("id","artno").val(bag.artno).appendTo(dest);
-	$("<input>").attr("class","totalPrice").attr("id","totalPrice").val(bag.totalPrice).appendTo(dest);
-	$("<input>").attr("class","amount").attr("id","amount").val(bag.amount).appendTo(dest);
+	$("<td class='six'>").text(bag.art.price).appendTo($tr);
+	$("<input>").attr("class","artno").attr("type","hidden").attr("id","artno").val(bag.artno).appendTo(dest);
 	
+// 	var $total = $("#total");
+// 		var $div = $("<div id='total'>").appendTo($total);
+// 	$("<span>").text(bag.lastPrice).appendTo($total);
 	}
+	
+
 
 //1-2. 장바구니 전체 출력함수 - printCart()를 호출해 각 장바구니를 출력
 function printBagList() {
 	// 장바구니 출력 영역을 선택한 다음 내용을 제거
 	var $bagArea = $("#bagArea");
 	$bagArea.empty();
+
 
 	// 장바구니 목록이 비어있다면 empty_cart.jpg 출력하고 선택삭제, 주문하기 버튼 영역을 안보이게
 	/* if(bagList.length==0) {
@@ -139,6 +143,8 @@ function printBagList() {
 
 
 $(function() {
+
+	
 	$("#check_all").prop("checked", false);
 	
 	var parmas ={
@@ -152,6 +158,7 @@ $(function() {
 	}).done((result)=>{ 
 		bagList = result;
 		printBagList();
+		
 		//printOptionList();
 	})
 	
@@ -165,7 +172,6 @@ $(function() {
 		$(".check").prop("checked", isChoice);
 	});
 	
-	
 	//수량 증가
 	$("#bagArea").on("click", ".plus", function(e) {
 		$.ajax({
@@ -176,8 +182,6 @@ $(function() {
 						artno:$(this).attr("data-artno"),
 						isIncrese:"1"
 				}
-				console.log($(this).next());
-				alert("SS")
 				return $.ajax({
 					url:"/adaco/bag/change",
 					data:params,
@@ -187,7 +191,7 @@ $(function() {
 				$(this).next().text(bag.amount);
 				$(this).parent().prev().text(bag.totalPrice + "원");
 			}).fail(()=>{
-				alert("실패");
+				alert("수량");
 			})
 		
 	})
@@ -236,6 +240,10 @@ $(function() {
 	//선택한 상품 삭제
 	$("#choiseDelete").on("click",function() {
 		var ar=[];
+		if($(".check").prop("checked")==false) {
+			alert("작품을 선택해주세요");
+			return false;
+		} else {
 		$(".check").each(function(idx) {
 			if($(this).prop("checked")) {
 				ar.push($(this).data("artno"));
@@ -254,80 +262,60 @@ $(function() {
 			bagList = result;
 			printBagList();
 		})
+		}
 	})
-	
 	
 	
 	//선택한 작품 구매
 	$("#order").on("click",function() {
 		var ar=[];
+		if($(".check").prop("checked")==false) {
+			alert("작품을 선택해주세요");
+			return false;
+		} else {
 		$(".check").each(function(idx) {
 			if($(this).prop("checked")) {
 				ar.push($(this).data("artno"));
 			}
 		});
+		
 		var params = {
 				username: '${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}',
-// 				optionName:$(".optionName").val(),
-// 				optionValue:$(".optionValue").val(),
-// 				optionStock:$(".optionStock").val(),
-// 				optionPrice:$(".optionPrice").val(),
-// 				artno:$(".artno").val(),
-// 				totalPrice:$(".totalPrice").val(),
-// 				amount:$(".amount").val(),
 				_csrf:"${_csrf.token}",
 				_method:"post",
 				artnos:JSON.stringify(ar),
 		}
-		console.log(params);
-		alert("params");
 		$.ajax({
 			url:"/adaco/bag/ordering",
 			data:params,
 			method:"post",
 			success:function(result) {
-				console.log(result);
-				alert("장바구니 구매");
 				ordernos=JSON.stringify(result);
 				var params1 ={
 						ordernos:ordernos,
 						_csrf:"${_csrf.token}"
 				}
-				console.log(params1);
-				alert("parmas1");
-				
 				var $form = $("<form>").attr("action","/adaco/order/bagPayment").attr("method","get");
 				$("<input>").attr("type","hidden").attr("name","ordernos").val(ordernos).appendTo($form);
 				$("<input>").attr("type","hidden").attr("name","_csrf").val("${_csrf.token}").appendTo($form);
 				$form.appendTo($("body")).submit(); 
 			}
 		})
+		}
 	})
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	// 주문 버튼을 클릭하면 해당 상품을 구입 후 이동
-	$("#cart_area").on("click", ".buy", function() {
-		var $form = $("<form>").attr("action","/acart/order/buy").attr("method","post");
-		$("<input>").attr("type","hidden").attr("name","pno").val($(this).data("pno")).appendTo($form);
-		var countStr = $(this).parent().prev().children().find("span").text();
-		var count = parseInt(countStr);
-		$("<input>").attr("type","hidden").attr("name","count").val(count).appendTo($form);
-		$("<input>").attr("type","hidden").attr("name","_csrf").val("${_csrf.token}").appendTo($form);
-		$form.appendTo($("body")).submit();
-	});
+// 	$("#cart_area").on("click", ".buy", function() {
+// 		var $form = $("<form>").attr("action","/acart/order/buy").attr("method","post");
+// 		$("<input>").attr("type","hidden").attr("name","pno").val($(this).data("pno")).appendTo($form);
+// 		var countStr = $(this).parent().prev().children().find("span").text();
+// 		var count = parseInt(countStr);
+// 		$("<input>").attr("type","hidden").attr("name","count").val(count).appendTo($form);
+// 		$("<input>").attr("type","hidden").attr("name","_csrf").val("${_csrf.token}").appendTo($form);
+// 		$form.appendTo($("body")).submit();
+// 	});
 		
 //장바구니에서 주문 버튼 클릭 후 경제창 이동	
 //	$("#order").on("click",function() {
@@ -354,10 +342,6 @@ $(function() {
 // 		});
 		
 //	})
-	
-	
-	
-	
 	
 	
 // 	// 주문하기
@@ -414,7 +398,6 @@ $(function() {
 </head>
 
 <body>
-${bag }
 	<table style="width:800px;">
 	<colgroup>
       		<col width="5%">
@@ -425,71 +408,17 @@ ${bag }
       		<col width="5%">
       	</colgroup>
 		<tr>
-			<th>선택</th><th>이미지</th><th>상품명</th><th>옵션</th><th>수량</th><th>가격</th>
+			<th>선택</th><th>이미지</th><th>상품명</th><th>옵션</th><th>수량 및 총가격</th><th>작품가격</th>
 		</tr>
 	</table>
 	<div id="bagArea">
+	</div><br>
+	<div id="total">
 	</div>
 	<div id="button_area">
 		<input type="checkbox" id="checkAll">전체 선택 
 		<button id="choiseDelete">선택삭제</button>
 		<button type="button" id="order">주문하기</button>
 	</div>
-  <%--  <div>
-   <h1>장바구니</h1>
-      <table class="table table-hover">
-      	<colgroup>
-      		<col width="10%">
-      		<col width="10%">
-      		<col width="10%">
-      		<col width="10%">
-      		<col width="20%">
-      		<col width="10%">
-      		<col width="10%">
-      	</colgroup>
-         <thead>
-         <tr>
-            <th>번호</th><th>이미지</th><th>상품명</th><th>옵션 값</th><th>수량</th><th>주문금액</th><th>선택</th>
-         </tr>
-         </thead>
-         <tbody>
-           <c:forEach items="${bagList}" var="bag"> 
-                <tr> 
-                   <td>${bag.art.artno }
-                   		<input type="hidden" id="artno" value="${bag.art.artno}">
-                   </td> 
-                   <td><a href="#"></a></td> 
-                   <td>${bag.art.artName }</td> 
-                   <td>
-                   		<c:forEach items="${bag.option }" var="option">
-								${option.optionName }:
-                   				${option.optionValue}<hr>
-                   		</c:forEach>
-                   </td>
-				  <td> 
-				  	<input type="hidden" id="artno" value="${bag.art.artno}">
-				  	<input type="button" value="+" class="plus" name="plus">
-				  	<input type="text" value="${bag.amount }" class="amount" name="amount">
-				  	<input type="button" value="-" class="minus" name="minus">
-				  	<input type="hidden" id="artno" value="${bag.art.artno}">
-                   </td>
-					<td>${bag.art.price }원</td>
-					<td>
-						<input type="checkbox" name="check" class="check" data-artno="${bag.artno}" value="${bag.artno }">
-						<input type="hidden" id="artno" value="${bag.art.artno}">
-					</td>
-            	</tr> 
-            </c:forEach>
-            <tr>
-            	<td>
-            		<input type="checkbox" id="checkAll">전체선택
-						<button id="deleteAll">전체삭제</button>
-						<button type="button" id="OrderAll">주문하기</button>
-            	</td>
-            </tr>
-         </tbody>
-       </table>
-      <button id="choiseDelete" style="float:right;">선택 삭제</button>
-   </div> --%>
 </body>
 </html>

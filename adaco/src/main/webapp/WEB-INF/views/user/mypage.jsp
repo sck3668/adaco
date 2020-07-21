@@ -113,9 +113,9 @@ $(document).ready(function(){
 				<h2>MY정보</h2>
 			</div>
 			<ul class="dashboard-list">
-				<li class="list">포인트:<strong style="color: red;">${point }p</strong></li>
-				<li class="list">리뷰수:<strong style="color: red;">${review }개</strong></li>
-				<li class="list">즐겨찾기수:<strong style="color: red;">${favorite }개</strong></li>
+				<li class="list">포인트:<a href="/adaco/user/pointList"><strong style="color: red;">${point }p</strong></a></li>
+				<li class="list">리뷰수:<a href="/adaco/user/reviewList"><strong style="color: red;">${review }개</strong></a></li>
+				<li class="list">즐겨찾기수:<a href="/adaco/user/favoriteList"><strong style="color: red;">${favorite }개</strong></a></li>
 			</ul>
 		</div>
 	</section>

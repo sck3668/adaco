@@ -55,15 +55,8 @@ th {
        const address2   = $("#detailAddress").val();
        const address3 = $("#extraAddress").val();
        const originalAddress = address + address2 + address3;
-       console.log(originalAddress);
-       alert("Ss");
        $("#originalAddress").val(originalAddress);
       })
-      
-//       $("#payment").on("click",function() {
-//       console.log($("#paymentForm").serialize());
-//       alert("폼");
-//       })
    })
 </script>
 </head>
@@ -167,7 +160,7 @@ ${order }
                         <input type="text" id="address" placeholder="주소"><br>
                         <input type="text" id="detailAddress" placeholder="상세주소">
                         <input type="text" id="extraAddress" placeholder="참고항목">
-                               <input type="text" name="originalAddress" id="originalAddress">
+                        <input type="hidden" name="originalAddress" id="originalAddress">
                          <div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative"><!-- 이미지 열린div -->
                            <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
                         </div><!-- 이미지 닫힌div -->
@@ -267,7 +260,7 @@ ${order }
                   <td class="txt-group" style= "text-align: left;"><b>${order.artistName } 작가님</b></td>
                </tr>
             </table>
-            <c:forEach items="${order.artList}" var="art">
+            <c:forEach items="${order.artList}" var="art" varStatus="status">
             <table>
                <colgroup>
                   <col width="15%">
@@ -293,12 +286,14 @@ ${order }
                   </td>
                   <td style= "text-align: left; border-left-style:none; border-top: none;">
                      <a href="/adaco/art/readByUser?artno=${art.artno }" style="text-decoration:none; color:black" title="${art.artName }">
-                        <strong>${rt.artName }</strong>
+                        <strong>${art.artName }</strong>
                      </a><br><br>
-                     <span>${order.bag.optionName } :</span>
-                          <span>${order.bag.optionValue }</span>
-                     <span> | 수량 : ${order.bag.amount }개</span>
+                  <c:forEach items="${order.bagList}" begin="1" end="1" var="bag">
+                     <span>${order.bagList[status.index].optionName}:</span>
+                          <span>${order.bagList[status.index].optionValue }</span>
+                     <span> | 수량 : ${order.bagList[status.index].amount }개</span>
                      <span> | + ${order.option.optionPrice}원</span>
+                  </c:forEach>
                   </td>
                   <td>
                      ${art.price+ order.option.optionPrice}원
@@ -307,7 +302,7 @@ ${order }
                      ${art.couriPrice}원
                   </td>
                   <td>
-                     ${art.price+art.couriPrice+order.option.optionPrice }원
+                     ${order.bagList[status.index].amount*art.price+art.couriPrice+order.option.optionPrice }원
                   </td>
                </tr>
                <tr>
@@ -360,7 +355,6 @@ ${order }
                
 <!--  결제 정보 -->                
 <!--                 <section> -->
-           <c:forEach items="${order.artList}" var="art">
                     <div class="final-cost ui_sticky" data-ui="sticky"><!-- 결제정보 열린 div -->
                         <h4 class="table-header" style="position: relative; left: 20px;top: -35px;">결제 정보</h4>
                         <div class="segment" data-ui="paymentData-view"><!-- 결제정보 버튼전 열린 div -->
@@ -372,21 +366,37 @@ ${order }
                         </colgroup>
                                 <tbody>
                                 <tr>
-                                    <th>작품 금액</th>
+                                    <th>총 주문 금액</th>
                                     <td>
-                                        <span  data-payment="order">${art.price+order.option.optionPrice}</span>원
+                                    	<c:set var = "totalPrice" value = "0" />
+											<c:forEach var="art" items="${order.artList}" varStatus="status">     
+												<input type="hidden" value="${order.bagList[status.index].amount*art.price+order.option.optionPrice}">
+										<c:set var= "totalPrice" value="${totalPrice + order.bagList[status.index].amount*art.price+order.option.optionPrice}"/>
+											</c:forEach>
+										<c:out value="${totalPrice}원"/>
+<%--                                         <span  data-payment="order">${art.price+order.option.optionPrice}</span>원 --%>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>배송비</th>
                                     <td>
-                                        <span data-payment="shipping">${art.couriPrice }</span>원
+                                    <c:set var = "couriPrice" value = "0" />
+										<c:forEach var="art" items="${order.artList}" varStatus="status">     
+											<input type="hidden" value="${art.couriPrice}">
+									<c:set var= "couriPrice" value="${couriPrice + art.couriPrice}"/>
+										</c:forEach>
+									<c:out value="${couriPrice}원"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>예상 적립금</th>
                                     <td>
-                                        <span data-payment="shipping">${art.accumulated}</span>원
+                                    	<c:set var = "accumulated" value = "0" />
+											<c:forEach var="art" items="${order.artList}" varStatus="status">     
+												<input type="hidden" value="${order.bagList[status.index].amount*art.price+order.option.optionPrice}">
+										<c:set var= "accumulated" value="${accumulated + order.bagList[status.index].amount*art.price+order.option.optionPrice}"/>
+											</c:forEach>
+										<c:out value="${accumulated*0.01}원"/>
                                     </td>
                                 </tr>
 <!--                                 <tr> -->
@@ -398,7 +408,6 @@ ${order }
                                    <!-- 분기처리 -->
                                 </tbody>
                             </table>
-                        </c:forEach> 
                             <table class="spacing" style="position: relative; top: -37px">
                                <colgroup>
                         <col width="25%">
@@ -407,8 +416,14 @@ ${order }
                                 <tbody>
                                 <tr class="total">
                                     <th>최종 결제<br>금액</th>
+<!--                                     art.price+art.couriPrice+order.option.optionPrice  -->
                                     <td colspan="2" class="hilight red">
-                                        <span data-payment="total" style="font-weight:bold;"><em>${order.lastPrice}원</em></span>
+										<c:set var = "total" value = "0" />
+											<c:forEach var="art" items="${order.artList}" varStatus="status">     
+													<input type="hidden" value="${art.price+art.couriPrice+order.option.optionPrice}">
+										<c:set var= "total" value="${total + order.bagList[status.index].amount*art.price+art.couriPrice+order.option.optionPrice}"/>
+											</c:forEach>
+										<c:out value="${total}원"/>  
                                     </td>
                                 </tr>
                                 </tbody>

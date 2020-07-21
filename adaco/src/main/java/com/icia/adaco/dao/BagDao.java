@@ -12,59 +12,54 @@ import com.icia.adaco.entity.*;
 public class BagDao {
 	@Autowired
 	private SqlSessionTemplate tpl;
-	@Autowired
-	private OptionDao optionDao;
-	
 	
 	// 장바구니 목록에 작품 추가---------------
 	public int insertByBag(Bag bag) {
 		return tpl.insert("bagMapper.insertByBag", bag);
 	}
 	
+	// 회원아이디로 장바구니 목록 불러오기
 	public List<Bag> findAllBagByUsername(String username) {
 		return tpl.selectList("bagMapper.findAllByUsername",username);
 	}
-		
+	
+	// 장바구니 수량 증가
 	public int increaseByAmount(int artno) {
 		return tpl.update("bagMapper.increaseByAmount",artno);
 	}
 	
+	// 장바구니 수량 감소
 	public int decreaseByAmount(int artno) {
 		return tpl.update("bagMapper.decreaseByAmount",artno);
 	}
 	
-	
-	//===================================
-		// 회원아이디로 장바구니 찾기
-		/*public Bag findBagByUsername(String username) {
-			return tpl.selectOne("bagMapper.findBagByUsername",username);
-		}	
-*/
-
-	// 장바구니에  담아둔 작품의 총금액,수량,옵션명 옵션값 변경
-	public int updateByBag(Bag bag) {
-		return tpl.update("bagMapper.updateByBag", bag);
-	}
-	// 장바구니 담아둔 작품 삭제
-	public int deleteByBag(Integer artno) {
-		return tpl.delete("bagMapper.deleteByBag", artno);
-	}
-	// 장바구니에 담긴 작품 보기
+	// 작품번호로 장바구니에 담긴 작품 보기
 	public Bag findByArtno(Integer artno) {
 		return tpl.selectOne("bagMapper.findByArtno", artno);
 	}
 	
+	// 장바구니에  담아둔 작품의 총금액,수량,옵션명 옵션값 변경
+	public int updateByBag(Bag bag) {
+		return tpl.update("bagMapper.updateByBag", bag);
+	}
 	
-	// 장바구니 목록 보기
-	public List<Bag> findAllByBag(){
-		return tpl.selectList("bagMapper.findAllByBag");
+	// 장바구니 담아둔 작품 삭제
+	public int deleteByBag(Integer artno) {
+		return tpl.delete("bagMapper.deleteByBag", artno);
 	}
-
-	public List<Integer> findBagnoByOrderno(int orderno) {
-		return tpl.selectList("orderMapper.findBagnoByOrderno",orderno);
-	}
-
+	// 장바구니 번호로 작품번호 찾기
 	public int findArtnoByBagno(int bagno) {
 		return tpl.selectOne("bagMapper.findArtnoByBagno",bagno);
 	}
+	
+	
+	// 장바구니 목록 보기
+//	public List<Bag> findAllByBag(){
+//		return tpl.selectList("bagMapper.findAllByBag");
+//	}
+//
+//	public List<Integer> findBagnoByOrderno(int orderno) {
+//		return tpl.selectList("orderMapper.findBagnoByOrderno",orderno);
+//	}
+
 }

@@ -229,6 +229,8 @@ public class UserController {
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/orderList")
 	public ModelAndView userOrderList(@RequestParam(defaultValue ="1")int pageno,Principal principal) {
+		System.out.println("00000");
+		System.out.println("artName"+principal.getName());
 		return new ModelAndView("main")
 				.addObject("viewName","user/orderList.jsp")
 				.addObject("page",userService.orderList(pageno,principal.getName()));
@@ -237,6 +239,7 @@ public class UserController {
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/orderRead")
 	public ModelAndView userOrderRead(Principal principal,String artName) {
+		System.out.println("00000");
 		System.out.println("artName"+artName);
 		return new ModelAndView("main")
 				.addObject("viewName","user/orderRead.jsp")

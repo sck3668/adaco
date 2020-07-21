@@ -4,7 +4,6 @@ import java.io.*;
 import java.security.*;
 import java.util.*;
 
-import javax.servlet.http.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
@@ -17,11 +16,9 @@ import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.core.type.*;
 import com.fasterxml.jackson.databind.*;
 import com.icia.adaco.dto.*;
-import com.icia.adaco.dto.BagDto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.exception.*;
 import com.icia.adaco.service.mvc.*;
-import com.sun.mail.iap.*;
 
 @Controller
 public class BagController {
@@ -36,8 +33,6 @@ public class BagController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/bag/add")
 	public ResponseEntity<?> insert(Bag bag,Principal principal) {
-		System.out.println("bag============"+bag);
-		System.out.println("controller=================");
 		return ResponseEntity.ok(bagService.insertByBag(bag));
 	}
 		
@@ -74,25 +69,19 @@ public class BagController {
 	@PreAuthorize("isAuthenticated()")
 	@DeleteMapping("/bag/choiseDelete")
 	public ResponseEntity<?> delete(String artnos,Principal principal) throws JsonParseException, JsonMappingException, IOException {
-		System.out.println("deleteController artno======="+artnos);
 		List<Integer> list = objectMapper.readValue(artnos, new TypeReference<List<Integer>>() {});
 		List<BagDto.DtoForList> bagList = bagService.deleteByBag(list,principal.getName());
 		return ResponseEntity.ok(bagList);
 	}
 	
 	//선택한 작품 구매
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/bag/ordering")
 	public ResponseEntity<?> Ordering(String artnos,Principal principal) throws JsonParseException, JsonMappingException, IOException {
-		//System.out.println("bag/ordering=="+"//"+order+"//"+bag);
-		System.out.println("bag/ordering controller");
 		List<Integer> list = objectMapper.readValue(artnos, new TypeReference<List<Integer>>() {});
 		if(principal==null) {
 			throw new JobFailException("로그인 필요합니다");
 		}
-		System.out.println("bag/ordering list=="+list);
-		String username = principal.getName();
-//		String user = username(principal.getName());
-		return ResponseEntity.ok(orderService.bagOrdering(list,username));
+		return ResponseEntity.ok(orderService.bagOrdering(list,principal.getName()));
 	}
-//////////////////////////////////////////////
 }

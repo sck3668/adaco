@@ -7,7 +7,7 @@
 		select review_seq.nextval from dual
 	</selectKey>
 		 insert into review(rno, content, star, write_date, image, artno, username)
-		 values(#{rno}, #{content}, #{star}, sysdate, #{image}, #{artno}, #{username})
+		 values(#{rno}, #{content}, #{star}, sysdate, #{image,jdbcType=VARCHAR}, #{artno}, #{username})
 	</insert>
 	
 	<!-- 작품 리뷰 삭제 -->	
