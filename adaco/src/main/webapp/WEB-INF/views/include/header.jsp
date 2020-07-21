@@ -1,108 +1,182 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>           
-    
+    pageEncoding="UTF-8"%> 
+    <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>            
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<style>
-
-a {text-decoration: none;}
-#header  {
-	letter-spacing: 0.75em
-}
-#header p {
-	font-size: 1.75em;
-	text-align: center;
-}
-.ui_gnb {}
-.ui_gnb__menu {
-	display: inline-block; width:120px;
-}
-#dropdown-menu {
-	display: inline-block; width:120px;
-}
-#dropdown {float: left; display:inline-block; width:180px; }
-
-
-</style>
-<script>
-$(function(){
-	$("#search").on("click", function(){
-		var category = $("#category").val();
-		location.href = "/adaco/art/listByArtist?category="+category;
-	});
-});	
-
-function init() {
-	$("#dropdown-menu").hide();
-	}
-$(function() {
-	init();
-	$("#dropdown-menu").hide();
- 	$("#dropdownCategoryMenu").on("click", function() {
-		$("#dropdown-menu").toggle();	
- 		}); 
-	})
-	
-</script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<title></title>
 </head>
-<body>
-<sec:authorize access="hasRole('ROLE_USER')">
-      <div class="full-w gnb-scroll ">
-      <div class="inner-w container_gnb">
-        <ul class="ui_gnb">
-           <li class="dropdown" id="dropdown">
-          	<a href="#" id="dropdownCategoryMenu">
-          		<i class="fa fa-folder-open"></i> 카테고리 <i class="caret"></i>
-          	</a>
-          	<ul id="dropdown-menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownCategoryMenu"> 
-          		<li><a href="/adaco/art/listByUser"><i class="fa fa-folder"></i> 전체보기</a></li> 
-          		<li class="divider"></li> 
-          		<li><a href="http://localhost:8081/adaco/art/listByUser?category=악세사리"><i class="fa fa-folder"></i>악세사리</a></li> 
-          		<li><a href="http://localhost:8081/adaco/art/listByUser?category=인테리어"><i class="fa fa-folder"></i>인테리어</a></li> 
-          		<li><a href="http://localhost:8081/adaco/art/listByUser?category=공예"><i class="fa fa-folder"></i>공예</a></li> 
-          		<li><a href="http://localhost:8081/adaco/art/listByUser?category=기타"><i class="fa fa-folder"></i>기타</a></li> 
-          	</ul> 
-          </li>
-          <li class="ui_gnb__menu">
-            <a href="/adaco/user/artListByReview">인기작품</a>
-          </li>
-          <li class="ui_gnb__menu">
-            <a href="/adaco/story/listStory">스토리</a>
-          </li>
-        </ul>
-      </div>
-      </div>
-</sec:authorize>
+<script type="text/javascript">
+$(document).ready(function() {	
+	$('#nav li').hover(function() {
+		$('ul', this).slideDown(200);
+		$(this).children('a:first').addClass("hov");fqj
+	}, function() {
+		$('ul', this).slideUp(100);
+		$(this).children('a:first').removeClass("hov");		
+	});
+});
+</script>
+<style>
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: Arial, Tahoma, sans-serif;
+	font-size: 11px;
+	color: #232323;
+}
+
+.wrap {
+	width: 750px;
+	margin: 0 auto;
+}
+
+/* @group core nav menu */
+#nav {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	border-left: 1px solid #d5dce8;
+	border-right: 1px solid #d5dce8;
+	border-bottom: 1px solid #d5dce8;
+	border-bottom-left-radius: 4px;
+	-moz-border-radius-bottomleft: 4px;
+	-webkit-border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	-moz-border-radius-bottomright: 4px;
+	-webkit-border-bottom-right-radius: 4px;
+	height: 50px;
+	padding-left: 15px;
+	padding-right: 15px;
+	background: #edf3f7;
+}
+
+#nav li {
+	float: left;
+	display: block;
+	background: none;
+	position: relative;
+	z-index: 999;
+	margin: 0 1px;
+}
+
+#nav li a {
+	display: block;
+	padding: 0;
+	font-weight: 700;
+	line-height: 50px;
+	text-decoration: none;
+	color: #818ba3;
+	zoom: 1;
+	border-left: 1px solid transparent;
+	border-right: 1px solid transparent;
+	padding: 0px 12px;
+}
+
+#nav li a:hover, #nav li a.hov {
+	background-color: #fff;
+	border-left: 1px solid #d5dce8;
+	border-right: 1px solid #d5dce8;
+	color: #576482;
+}
+
+/* @group subnav */
+#nav ul {
+	position: absolute;
+	left: 5px;
+	display: none;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	border: 1px #d5dce8 solid;
+}
+
+#nav ul li {
+	width: 180px;
+	float: cneter;
+	border-top: 1px solid #fff;
+	text-align: left;
+}
+
+#nav ul li:hover {
+	border-left: 0px solid transparent;
+	border-right: 0px solid transparent;
+	background: #eee
+}
+/*  #nav ul a { display: block; height: 20px; line-height: 20px; padding: 8px 5px; color: #666; border-bottom: 1px solid transparent; text-transform:  uppercase; color: #797979; font-weight: normal; }  */
+#nav ul a:hover {
+	text-decoration: none;
+	border-right-color: transparent;
+	border-left-color: transparent;
+	background: transparent;
+	color: #4e4e4e;
+}
+
+* html #nav ul {
+	margin: 0 0 0 -2px;
+}
+
+/** @group clearfix **/
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+
+.clearfix {
+	display: inline-block;
+}
+
+html[xmlns] .clearfix {
+	display: block;
+}
+
+* html .clearfix {
+	height: 1%; 
+}
+</style>
+<body>   
 <sec:authorize access="isAnonymous()">
-      <div class="full-w gnb-scroll ">
-      <div class="inner-w container_gnb">
-        <ul class="ui_gnb">
-           <li class="dropdown" id="dropdown">
-          	<a href="#" id="dropdownCategoryMenu">
-          		<i class="fa fa-folder-open"></i> 카테고리 <i class="caret"></i>
-          	</a>
-          	<ul id="dropdown-menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownCategoryMenu"> 
-          		<li><a href="/adaco/art/listByUser"><i class="fa fa-folder"></i> 전체보기</a></li> 
-          		<li class="divider"></li> 
-          		<li><a href="http://localhost:8081/adaco/art/listByUser?category=악세사리"><i class="fa fa-folder"></i>악세사리</a></li> 
-          		<li><a href="http://localhost:8081/adaco/art/listByUser?category=인테리어"><i class="fa fa-folder"></i>인테리어</a></li> 
-          		<li><a href="http://localhost:8081/adaco/art/listByUser?category=공예"><i class="fa fa-folder"></i>공예</a></li> 
-          		<li><a href="http://localhost:8081/adaco/art/listByUser?category=기타"><i class="fa fa-folder"></i>기타</a></li> 
-          	</ul> 
-          </li>
-          <li class="ui_gnb__menu">
-            <a href="/adaco/user/artListByReview">인기작품</a>
-          </li>
-          <li class="ui_gnb__menu">
-            <a href="/adaco/story/listStory">스토리</a>
-          </li>
-        </ul>
-      </div>
-      </div>
+    <div class="wrap">
+	<ul id="nav" style="background-color: #C2E2E8">
+		<li><a href="#">카테고리</a>
+			<ul>
+				<li style="background: #C2E2E8;"><a href="/adaco/art/listByUser">전체 보기</a></li>
+			</ul>
+		</li>
+		<li><a href="http://localhost:8081/adaco/"><i class="fas fa-home">HOME</i></a></li>
+		<li><a href="http://localhost:8081/adaco/art/listByUser?category=공예"><i class="fas fa-drafting-compass">공예</i></a></li>
+		<li><a href="http://localhost:8081/adaco/art/listByUser?category=인테리어"><i class="fas fa-american-sign-language-interpreting">인테리어</i></a></li>
+		<li><a href="http://localhost:8081/adaco/art/listByUser?category=악세사리"><i class="fas fa-hat-wizard">악세사리</i></a></li>
+		<li><a href="/adaco/user/artListByReview"><i class="fas fa-kiss-wink-heart">인기 작품</i></a></li>
+		<li><a href="/adaco/story/listStory"><i class="fas fa-book-open">스토리</i></a></li>
+	</ul>
+</div>
+</sec:authorize>
+<sec:authorize access="hasRole('ROLE_USER')">
+    <div class="wrap">
+	<ul id="nav" style="background-color: #C2E2E8">
+		<li><a href="#">카테고리</a>
+			<ul>
+				<li style="background: #C2E2E8;"><a href="/adaco/art/listByUser">전체 보기</a></li>
+			</ul>
+		</li>
+		<li><a href="http://localhost:8081/adaco/"><i class="fas fa-home">HOME</i></a></li>
+		<li><a href="http://localhost:8081/adaco/art/listByUser?category=공예"><i class="fas fa-drafting-compass">공예</i></a></li>
+		<li><a href="http://localhost:8081/adaco/art/listByUser?category=인테리어"><i class="fas fa-american-sign-language-interpreting">인테리어</i></a></li>
+		<li><a href="http://localhost:8081/adaco/art/listByUser?category=악세사리"><i class="fas fa-hat-wizard">악세사리</i></a></li>
+		<li><a href="/adaco/user/artListByReview"><i class="fas fa-kiss-wink-heart">인기 작품</i></a></li>
+		<li><a href="/adaco/story/listStory"><i class="fas fa-book-open">스토리</i></a></li>
+	</ul>
+</div>
 </sec:authorize>
 </body>
 </html>
