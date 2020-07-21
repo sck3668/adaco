@@ -29,33 +29,18 @@ public class OrderDto {
  	@Builder
  	@Accessors(chain=true)
  	public static class DtoForPayment{
- 		//Art
-// 		private String artName;
-// 		private int price;
-// 		private String artistName;
-// 		private int amount;
-// 		private int totalPrice;
-// 		private String optionName;
-// 		private String optionValue;
-// 		private Integer optionStock;
-// 		private Integer optionPrice;
-// 		private int couriPrice;
-// 		private int accumulated;
-// 		//User
-// 		private String username;
-// 		private int tel;
-// 		private String irum;
-// 		private String email;
  		private List<Art> artList;
+ 		private List<String> writerList;
+ 		private List<Bag> bagList;
  		private Option option;
- 		private User user;
  		private Bag bag;
+ 		private User user;
  		private String artistName;
- 		// 외래키
  		private int artistno;
  		private int optno;
  		private int orderno;
  		private int lastPrice;
+ 		
  	}
  	
  	@Data

@@ -67,9 +67,6 @@ public class OrderDetailService {
 		return afterDto;
 	}
 	
-
-	
-	
 	// 모든 주문 내역 보기
 	
 //	public void orderlist(Principal principal, String username, Integer orderno) {

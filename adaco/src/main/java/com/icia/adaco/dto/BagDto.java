@@ -43,6 +43,11 @@ public class BagDto {
 		private String optionName;
 		private String optionValue;
 		private Art art;
+		public int lastPrice;
+		public int lastPrice(int totalPrice) {
+			int lastPrice = 0;
+			return lastPrice += totalPrice;
+		}
+		
 	}
-	
 }
