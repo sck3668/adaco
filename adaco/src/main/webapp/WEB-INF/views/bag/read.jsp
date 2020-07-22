@@ -61,7 +61,7 @@ function printBag(bag,dest) {
 	var $tr = $("<tr>").appendTo($table);
 	var bag = bag;
 	
-	$("<td class='first'>").append($("<input>").attr("type","checkbox").attr("class","check").attr("data-artno", bag.artno)).appendTo($tr);
+	$("<td class='first'>").append($("<input>").attr("type","checkbox").attr("class","check").attr("name","check").attr("data-artno", bag.artno)).appendTo($tr);
 	$("<td class='second'>").append($("<img>").attr("src", "bag.art.mainImg").css("width", "135px")).appendTo($tr);
 	$("<td class='third'>").text(bag.art.artName).appendTo($tr);
 
@@ -240,9 +240,11 @@ $(function() {
 	//선택한 상품 삭제
 	$("#choiseDelete").on("click",function() {
 		var ar=[];
-		if($(".check").prop("checked")==false) {
-			alert("작품을 선택하세요");
-		}
+		var cnt = $("input[name='check']:checked").length;
+		 if(cnt == 0){
+	            alert("선택된 작품이 없습니다.");
+	            return;
+		 }
 		
 		$(".check").each(function(idx) {
 			if($(this).prop("checked")) {
@@ -269,10 +271,13 @@ $(function() {
 	//선택한 작품 구매
 	$("#order").on("click",function() {
 		var ar=[];
-		if($(".check").prop("checked")==false) {
-			alert("작품을 선택해주세요");
-			return false;
-		} else {
+		
+		var cnt = $("input[name='check']:checked").length;
+		 if(cnt == 0){
+	            alert("선택된 작품이 없습니다.");
+	            return;
+		 }
+		 else {
 		$(".check").each(function(idx) {
 			if($(this).prop("checked")) {
 				ar.push($(this).data("artno"));

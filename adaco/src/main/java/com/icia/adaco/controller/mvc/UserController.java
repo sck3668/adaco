@@ -128,7 +128,7 @@ public class UserController {
 		ra.addFlashAttribute("msg","당신의아이디:"+username);
 		return "redirect:/user/login";
 	}
-	//비밀번호변c
+	//비밀번호변경
 	@GetMapping("/user/resetPwd")
 	public ModelAndView resetPassword() {
 		return new ModelAndView("main").addObject("viewName","user/reset_pwd.jsp");
@@ -160,7 +160,8 @@ public class UserController {
 				.addObject("viewName","user/mypage.jsp")
 				.addObject("point",userService.totalpoint(principal.getName()))
 				.addObject("review",userService.ReviewUsernameFind(principal.getName()))
-				.addObject("favorite",userService.FavoriteUsernameCount(principal.getName()));
+				.addObject("favorite",userService.FavoriteUsernameCount(principal.getName()))
+				.addObject("user",userService.read(principal.getName()));
 				
 	}
 		
@@ -176,10 +177,10 @@ public class UserController {
 	//리뷰 리스트
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/reviewList")
-	public ModelAndView userReview(Principal principal) {
+	public ModelAndView userReview(Principal principal,int artno) {
 		return new ModelAndView("main")
 				.addObject("viewName","user/reviewList.jsp")
-				.addObject("Review",userService.reviewList(principal.getName()));
+				.addObject("Review",userService.reviewList(principal.getName(),artno));
 	}
 	//즐겨찾기 화면 리스트
 	@PreAuthorize("isAuthenticated()")
@@ -197,19 +198,20 @@ public class UserController {
 		return new ModelAndView("main").addObject("viewName","user/messageList.jsp");
 	}
 	//회원 삭제
+	@PreAuthorize("isAuthenticated()")
 	@DeleteMapping("/user/delete")
 	public String delete(SecurityContextLogoutHandler handler, HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
 		userService.delete(authentication.getName());
 		handler.logout(request, response, authentication);
 		return "redirect:/";
 	}
-	
+	//비밀번호 변경 화면
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/changePwd")
 	public ModelAndView changePwd() {
 		return new ModelAndView("main").addObject("viewName","user/changePwd.jsp");
 	}
-	
+	//비밀번호변경
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/user/changePwd")
 	public String changePwd(String password,String newPassword, Principal principal, RedirectAttributes ra) {

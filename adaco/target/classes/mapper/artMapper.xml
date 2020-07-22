@@ -47,6 +47,11 @@
 	   	</where> 	
 	</select>
 	
+	<!-- 아티스트번호 기준으로 작품 수 -->
+	<select id="countByArtistno" resultType="int">
+		select count(*) from art where artistno=#{artistno}
+	</select>
+	
 	<select id="findAllByArtno" resultType="art">
 		select artno, category, main_img mainImg, art_name artName, price
 		from art where artno = #{artno}

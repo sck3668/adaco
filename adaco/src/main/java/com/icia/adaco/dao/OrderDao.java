@@ -15,6 +15,14 @@ public class OrderDao {
 	public List<Integer> orderFindByUsername(String username) {
 		return tpl.selectList("orderMapper.orderFindByUsername",username);
 	}
+	
+	//////작가용////
+	
+	//고객아이디로 하나의 주문 찾기
+	public int orderFindByUsername1(String username) {
+		return tpl.selectOne("orderMapper.orderFindByUsername",username);
+	}
+	
 	public List<Bag> BagFindUsernameArtno(String username) {
 		return tpl.selectList("orderMapper.BagFindUsernameArtno",username);
 	}
@@ -76,6 +84,23 @@ public class OrderDao {
 		map.put("bagno",bagno);
 		return tpl.selectOne("orderMapper.findOrdernoByUsername",map);
 	}
+	
+	////////작가 사용///////////
+	//주문 번호로 주문자 찾기
+	public String findUsernameByoderno(Integer orderno) {
+		return tpl.selectOne("orderMapper.findUsernameByoderno", orderno);
+	}
+	
+	//주문 번호로 주문일 찾기
+	public String findOrderDateByoderno(Integer orderno) {
+		return tpl.selectOne("orderMapper.findOrderDateByoderno", orderno);
+	}
+	
+	//주문번호로 배송비 찾기//
+	public int findShippingByoderno(Integer orderno) {
+		return tpl.selectOne("orderMapper.findShippingByoderno", orderno);
+	}
+	
 	public List<Integer> findBagnoByOrderno(int orderno) {
 		return tpl.selectList("orderMapper.findBagnoByOrderno",orderno);
 	}

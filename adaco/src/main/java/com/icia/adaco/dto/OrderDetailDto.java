@@ -33,9 +33,11 @@ public class OrderDetailDto {
 		private String refundAccount;
 		private Boolean isShipping;
 		private String mainImg;
-		private Integer shippingCharge;
-		private orderState orderstate;;
+		private orderState orderstate;
+		private String username;
 		private String orderDateStr;
+		private String irum;
+		private Integer shippingCharge;
 	}
 	
 	// 결제 취소
@@ -60,6 +62,19 @@ public class OrderDetailDto {
 		private String postalcode;
 		private String refundAccount;
 		
+	}
+	
+		// 주문 상태 업데이트
+		@Data
+		@AllArgsConstructor
+		@NoArgsConstructor
+		@Builder
+		@Accessors(chain=true)
+		public static class DtoForUpdate{
+		private Integer orderno;
+		private orderState orderstate;
+		private Integer artistno;
+		private String username;
 	}
 }
 	

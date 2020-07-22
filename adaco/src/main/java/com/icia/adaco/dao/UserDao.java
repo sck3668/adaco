@@ -115,6 +115,11 @@ public class UserDao {
 			return sql.selectList("userMapper.OrdernoFindByUsername",username);
 		}
 		
+	//작가 사용
+	//유저네임으로 이름찾기
+	public String irumByUsername(String username) {
+		return sql.selectOne("userMapper.irumByUsername", username);
+	}
 		
 		
 		
