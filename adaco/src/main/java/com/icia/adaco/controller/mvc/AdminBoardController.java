@@ -25,11 +25,8 @@ import com.sun.istack.internal.*;
 
 import lombok.*;
 
-//@PreAuthorize("isAuthenticated()")
-//@Secured("ROLE_ADMIN")
 @Controller
 public class AdminBoardController {
-	
 	@Autowired
 	AdminBoardService service;
 	@Autowired
@@ -95,7 +92,6 @@ public class AdminBoardController {
 		return mav;
 	}
 	
-//	@PreAuthorize("isAuthenticated()")
 	@Secured("ROLE_ADMIN")
 	@PostMapping("/admin/question_answer")
 	public String questionAnswer(Question question, Principal principal) {
@@ -142,8 +138,6 @@ public class AdminBoardController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-//		for(MultipartFile f:dto.getAttachments())
-//			System.out.println("파일이름"+f.getOriginalFilename());
 		return "redirect:/";
 	}
 	

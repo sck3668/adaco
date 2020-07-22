@@ -46,7 +46,6 @@
 <section class="cd-faq js-cd-faq container max-width-md margin-top-lg margin-bottom-lg">
 	<ul class="cd-faq__categories">
 		<li><a class="cd-faq__category cd-faq__category-selected truncate" href="#basics">FAQ 10선</a></li>
-		<!-- 어드민 권한 나중에 ㅇㅇ -->
 		<sec:authorize access="hasRole('ROLE_ADMIN')">	
 		<li><a class="cd-faq__category truncate" href="#mobile">관리자</a></li>
 		</sec:authorize>
@@ -54,7 +53,8 @@
 		<li><a class="cd-faq__category truncate" href="#account">Account</a></li>
 		<li><a class="cd-faq__category truncate" href="#payments">Payments</a></li>
 		<li><a class="cd-faq__category truncate" href="#privacy">Privacy</a></li>
-		<li><a class="cd-faq__category truncate" href="#delivery">Delivery</a></li> -->
+		<li><a class="cd-faq__category truncate" href="#delivery">Delivery</a></li>
+		-->
 	</ul> <!-- cd-faq__categories -->
 
 	<div class="cd-faq__items">
@@ -75,7 +75,6 @@
 		</c:forEach>
 		</ul> <!-- cd-faq__group -->
 		
-		<!-- 어드민 권한 나중에 ㅇㅇ -->
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<ul id="mobile" class="cd-faq__group">
 			<li class="cd-faq__title"><h2>관리자</h2></li>
@@ -111,7 +110,8 @@
 		</ul>
 		</sec:authorize>
 
-		<!-- 
+		<!-- FAQ 카테고리 양식 -->
+		<!--
 		<ul id="account" class="cd-faq__group">
 			<li class="cd-faq__title"><h2>Account</h2></li>
 			<li class="cd-faq__item">

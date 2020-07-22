@@ -33,7 +33,7 @@ public class BagController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/bag/add")
 	public ResponseEntity<?> insert(Bag bag,Principal principal) {
-		return ResponseEntity.ok(bagService.insertByBag(bag));
+		return ResponseEntity.ok(bagService.insertByBag(bag,principal.getName()));
 	}
 		
 	//장바구니 화면 출력
@@ -53,15 +53,15 @@ public class BagController {
 	// 장바구니 재고 체크
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/bag/checkStock")
-	public ResponseEntity<?> checkStock(int artno) {
-		return ResponseEntity.ok(bagService.checkStock(artno));
+	public ResponseEntity<?> checkStock(int artno,Principal principal) {
+		return ResponseEntity.ok(bagService.checkStock(artno,principal.getName()));
 	}
 	
 	// 장바구니 수량 변경
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/bag/change")
-	public ResponseEntity<?> change(int artno,boolean isIncrese) {
-		Bag bag = bagService.change(artno,isIncrese);
+	public ResponseEntity<?> change(int artno,boolean isIncrese,Principal principal) {
+		Bag bag = bagService.change(artno,isIncrese,principal.getName());
 		return ResponseEntity.ok(bag);
 	}
 	

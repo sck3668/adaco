@@ -81,13 +81,16 @@ public class OrderService {
 		order.setUsername(username);
 		order.setShippingCharge(3000);
 		List<Integer> list1 = new ArrayList<Integer>();
+		int bagno = 0;
 		for(int i=0; i<list.size(); i++) {
-			int bagno = bagDao.findByArtno(list.get(i)).getBagno();
+			System.out.println("list=="+list);
+			bagno = bagDao.findByArtno(list.get(i)).getBagno();
+			System.out.println("bagno=="+bagno);
 			order.setBagno(bagno);
 			orderDao.Ordering(order);
+			System.out.println("order=="+order);
 			int orderno = orderDao.findOrdernoByUsername(username, order.getBagno());
 			list1.add(orderno);
-			
 		}
 		//orderno로 장바구니 번호를 찾아서 목록을 출력
 		System.out.println("list1===="+list1);
