@@ -17,6 +17,57 @@
 
 </style>
 <script>
+	// select box에 주문상태 값 받아오기
+	$(function() {
+		var $orderstate = $("#orderstate").val(); 
+		var $select = $(".State").find("option");
+		$select.each(function(idx, option) {
+		if($(option).text()==$orderstate) {
+		$($select[idx]).prop("selected", true);
+			}
+		});
+	
+
+	// select box값으로 주문상태 변경
+		$("#OrderState").on("change", function() {
+		var choice = $("#OrderState").val();
+		var $orderstate = $("#orderstate").val(); 
+		var $select = $("#OrderState").find("option");
+		
+		$select.each(function(idx, option) {
+		if(choice!="주문상태 선택") {
+		$("#orderstate").val(choice);
+		$("#orderstate").prop("disabled", true);
+		}
+		if(choice=="주문상태 선택") {
+		alert("주문상태를 선택해주세요");
+		}
+		})
+	});
+});
+	
+	// '저장'버튼으로 주문상태만 수정
+// 	$(function() {
+// 	$("#update_Btn").on("click", function() {
+// 		var $orderstate = $("#orderstate").val();
+// 		var params = {
+// 			_method: "put",
+// 			_csrf: "${_csrf.token}",
+// 			orderno : ${OrderDto.DtoForList.orderno},
+// 			orderstate: $orderstate
+// 		};
+// 		console.log(orderno);
+// 		console.log(params);
+// 		alert("SS");
+		
+// 		$.ajax({
+// 			url: "/adaco/artist/updateOrderDetail",
+// 			method: "post",
+// 			data: params
+// 		}).done(()=>{alert("주문상태가 변경 되었습니다.");})
+// 		.fail(()=>{alert("주문상태 변경이 실패했습니다.");});
+// 	})
+// });
 	
 </script>
 </head>
@@ -45,7 +96,18 @@
 				<th>주문 일자</th>
 				<td>${orderDetail.orderDateStr}</td> 
 				<th>주문 상태</th> 
-				<td>${orderDetail.orderstate}</td> 
+				<td>
+					<select id="OrderState" class="State">
+						<option selected="selected">주문상태 선택</option>
+						<option>입금대기</option>
+						<option>입금완료</option>
+						<option>배송준비중</option>
+						<option>배송중</option>
+						<option>배송완료</option>
+					</select> 
+					<input type="text" class="state" name="orderstate"  id="orderstate" value="${orderDetail.orderstate}"  style="width:100px"/>
+					<button type="submit" id="update_Btn">주문상태 변경</button>
+				</td> 
 			</tr>
 			<tr>
 				<th>구매자 ID</th>

@@ -272,7 +272,7 @@ $(function(){
 				<th>주문 번호</th>
 				<th>주문일</th>
 				<th>구매자 ID</th>
-				<th>수취인</th>
+				<th>받는분</th>
 				<th>작품명/옵션</th>
 				<th>총 결제액</th>
 				<th>주문 상태</th>
