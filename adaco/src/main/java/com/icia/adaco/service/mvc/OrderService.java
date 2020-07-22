@@ -66,6 +66,7 @@ public class OrderService {
 		int artno = bag.getArtno();
 		Art art = artDao.readByArt(artno);
 		bag.setTotalPrice(bag.getAmount()*art.getPrice());
+		
 		bagDao.insertByBag(bag);
 		int bagno = bagDao.findByArtno(artno).getBagno();
 		order.setBagno(bagno);

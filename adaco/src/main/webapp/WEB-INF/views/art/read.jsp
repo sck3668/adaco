@@ -343,6 +343,19 @@ $(function() {
 	});
 	
 });
+
+// 수량 증가
+$(function() {
+	$("#plus").on("click", function(this){  
+
+     var abc = $(this).prev().val();
+
+     $(this).prev().val(parseInt(abc)+1);
+
+      console.log(abc);
+
+});
+});
 </script>
 </head>
 <body>
@@ -397,6 +410,20 @@ ${art }
 							<option selected="selected" id="selected">${artPageByUser.optionName }을 선택하세요</option>
 							<option value="${artPageByUser.optionName }" id="optionName">${artPageByUser.optionValue }</option>
 						</select>
+					</td>
+				</tr>
+				<tr>
+					<td class = "amount">수량 선택</td>
+					<td>
+						<div data-v-794fc8d2="" class="option_card__counter">
+							<button data-v-794fc8d2="" type="button" class="ui_btn--mini" id="minus">
+				                -
+				            </button> 
+           					 <input data-v-794fc8d2="" type="number" min="1" max="999" name="count" > 
+           					<button data-v-794fc8d2="" type="button" class="ui_btn--mini" id="plus">
+				                +
+				            </button>
+            			</div>
 					</td>
 				</tr>
 			</table>
