@@ -149,13 +149,6 @@ public class OrderService {
 			list.add(Integer.parseInt(split[i].substring(idx,Lidx)));
 		}
 		System.out.println("listlist==="+list);
-//		System.out.println(ordernos.indexOf(","));
-//		System.out.println(ordernos.lastIndexOf('"'));
-//		System.out.println(ordernos.indexOf(":"));
-		
-//		System.out.println(ordernos.substring(idx,idx+3));
-//		System.out.println(ordernos.substring(one+9,one+9+3));
-		//System.out.println(ordernos.substring(22,25));
 		System.out.println("======");
 		if(one==-1) {
 //			orderno1 = Integer.parseInt(ordernos.substring(idx,idx+3));

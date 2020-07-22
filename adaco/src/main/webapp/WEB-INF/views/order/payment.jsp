@@ -58,12 +58,12 @@ th {
        $("#originalAddress").val(originalAddress);
       })
    })
-   $(function(){
-	var text = ${order.price*0.01}+"";
-	text = text.split(".");
-	console.log(text[0]);
-	$("#accumulated").text(text[0]+"원");
-	})
+//    $(function(){
+// 	var text = ${accumulated*0.01}+"";
+// 	text = text.split(".");
+// 	console.log(text[0]);
+// 	$("#accumulated").text(text[0]+"원");
+// 	})
 </script>
 </head>
 <body>

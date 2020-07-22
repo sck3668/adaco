@@ -76,6 +76,8 @@ public class ArtRestService {
 			throw new JobFailException("등록된 사진이 없습니다");
 		}
 		option.setArtno(art.getArtno());
+		ArtImg artImg = ArtImg.builder().artno(art.getArtno()).gyungro(art.getMainImg()).build();
+		artDao.updateArtImg(artImg);
 		optionDao.updateByOption(option);
 		artDao.updateByArt(art);
 	}
