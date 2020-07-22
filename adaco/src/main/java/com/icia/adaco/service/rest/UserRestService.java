@@ -30,24 +30,24 @@ public class UserRestService {
 	@Autowired
 	private ArtDao artDao;
 	private ArtistDao artistDao;
-	
+	//유저네임 존재여부 아이디확인
 	public boolean checkId(String username) throws UsernameExistException {
 		if(userDao.existsUsername(username)==true)
 			throw new UsernameExistException();
-		System.out.println("=============eq???????????????????");
 		return true;	
 	}
-
+	//이메일 존재여부 이메일 확인
 	public boolean checkEmail(String email) {
 		if(userDao.existsEmail(email)==true)
 			throw new EmailExistException();
 		return true;
 	}
-	
+	//즐겨찾기 삭제
 	public int favoriteDelete(int favno) {
 			Favorite favorite = userDao.findByFavoriteId(favno);
 		return	userDao.deleteFavorite(favno);
 	}
+	//회원정보 업데이트
 	public void update(DtoForUpdate dto, MultipartFile sajin ) throws IllegalStateException, IOException {
 		// 비밀번호가 존재하는 경우 비밀번호 확인. 실패하면 작업 중지 
 		if(dto.getPassword()!=null) {
@@ -55,15 +55,13 @@ public class UserRestService {
 			if(user==null)
 				throw new UserNotFoundException();
 			dto.setProfile(user.getProfile());
-			System.out.println(dto.getProfile()+"야매다이것이");
 			String encodedPassword = user.getPassword();
+			//기존비번과 타이핑한 비밀번호 비교 여부 
 			if(pwdEncoder.matches(dto.getPassword(), encodedPassword)==false)
 				throw new JobFailException("비밀번호를 확인할 수 없습니다");
 			dto.setPassword(pwdEncoder.encode(dto.getNewPassword()));
-			System.out.println(dto+"ㅎ");
 		}
 		User user = modelMapper.map(dto, User.class);
-		System.out.println(user+"이거는 유저다");
 		// 프사 변경없이 바로 update하면 sajin==null
 		if(sajin!=null && !sajin.isEmpty()) {
 			if(sajin.getContentType().toLowerCase().startsWith("image/")==true) {
@@ -75,15 +73,13 @@ public class UserRestService {
 				System.out.println(sajin+"이것은 사진서비스쪽");
 			}
 		}
-		System.out.println(sajin+"이것은 사진서비스쪽 아래꺼");
 		userDao.update(user);
 	}
-
+	//리뷰 삭제
 	public void reviewDelete(int rno) {
-		System.out.println(rno+"여기 글");
 		userDao.reviewDelete(rno);
 	}
-	
+	//즐겨찾기 업데이트
 	public int favoriteUpdate(String username,int artno) {
 		Art art = artDao.readByArt(artno);
 		if (art == null)
@@ -99,12 +95,11 @@ public class UserRestService {
 			return artDao.updateByArt(Art.builder().artno(artno).favoriteCnt(art.getFavoriteCnt()-1).build());
 		}
 	}
-	
+	//유저 회원탈퇴
 	public void userDelete(String username) {
 		userDao.delete(username);
-		System.out.println(username);
 	}
-
+	//유저네임으로 프로필불러오기
 	public String findProfile(String username) {
 		User user = userDao.findByid(username);
 		return user.getProfile();

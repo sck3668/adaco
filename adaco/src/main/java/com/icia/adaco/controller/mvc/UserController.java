@@ -61,12 +61,8 @@ public class UserController {
 			throw new BindException(bindingResult);
 		try {
 			userService.join(dto, sajin);
-			System.out.println("========");
-			System.out.println("gg");
 		} catch (IllegalStateException | IOException | MessagingException e) {
 			e.printStackTrace();
-			System.out.println("ggg");
-			System.out.println("=============msgg");
 		}
 		ra.addFlashAttribute("msg", "가입확인메일을 보냈습니다. 확인해주십시오");
 		return "redirect:/system/msg";
@@ -117,7 +113,6 @@ public class UserController {
 	@GetMapping("/user/findId2")
 	public ModelAndView findId2(HttpSession session) {
 		String irum = (String) session.getAttribute("irum");
-		System.out.println(irum+"gg");
 		session.removeAttribute("irum");
 		return new ModelAndView("main")
 				.addObject("viewName","user/find_id2.jsp")
@@ -130,9 +125,7 @@ public class UserController {
 	@PostMapping("/user/findId2")
 	public String findId2(String irum,RedirectAttributes ra) {
 		String username = userService.findByIrum(irum);
-		System.out.println(username);
 		ra.addFlashAttribute("msg","당신의아이디:"+username);
-		System.out.println(username+"ggggggggggggg");	
 		return "redirect:/user/login";
 	}
 	//비밀번호변c
@@ -145,7 +138,6 @@ public class UserController {
 	@PostMapping("/user/resetPwd")
 	public String resetPassword(String username,String email,RedirectAttributes ra) {
 		String password = userDao.passwordFindUsername(username);
-		System.out.println(username+"ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ");
 		try {
 			userService.resetPassword(username, email);
 			ra.addFlashAttribute("msg","당신의 임시비밀번호는 이메일에있다");
@@ -176,7 +168,6 @@ public class UserController {
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/pointList")
 	public ModelAndView userPoint(Principal principal) {
-		System.out.println(userService.pointList(principal.getName()));
 		return new ModelAndView("main")
 				.addObject("viewName","user/point.jsp")
 				.addObject("totalPoint",userService.totalpoint(principal.getName()))
@@ -199,6 +190,7 @@ public class UserController {
 				.addObject("viewName","user/favoriteList.jsp")
 				.addObject("favorite",userService.favoriteList(principal.getName()));
 	}
+	//메시지 리스트함
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/messageList")
 	public ModelAndView messageList(Principal principal) {
@@ -229,8 +221,6 @@ public class UserController {
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/orderList")
 	public ModelAndView userOrderList(@RequestParam(defaultValue ="1")int pageno,Principal principal) {
-		System.out.println("00000");
-		System.out.println("artName"+principal.getName());
 		return new ModelAndView("main")
 				.addObject("viewName","user/orderList.jsp")
 				.addObject("page",userService.orderList(pageno,principal.getName()));
@@ -239,7 +229,6 @@ public class UserController {
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/orderRead")
 	public ModelAndView userOrderRead(Principal principal,String artName) {
-		System.out.println("00000");
 		
 		return new ModelAndView("main")
 				.addObject("viewName","user/orderRead.jsp")
