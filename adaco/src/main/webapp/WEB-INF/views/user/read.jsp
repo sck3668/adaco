@@ -1,110 +1,81 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <style>
-	#tel1, #tel2, #tel3 {
-	
-		width: 125px;
-		
-	}
-		#aside {
-		width:110px;
-		height:500px;
-		background-color: gray;
-		float: left;
-	}
-	#profile {
-		width:200px;
-		height:200px;
-	}
-	#section {
-	width: 850px;
+#tel1, #tel2, #tel3 {
+	width: 125px;
+}
+
+#section {
+	width: 750px;
 	padding: 5px;
 	float: right;
 	min-height: 600px;
-	}
-	#my {
-		width:750px;
-		padding: 0px;
-		height:80px;
-		background-color: gray;
-		margin: 0px;
-	}
-	
-	.list {
-		margin-top:0px;
-		padding-top:0px;
-		display:inline-block;
-		width:240px;
-		height:50px;
-		border: 1px solid red;
-	}
-	#user td {
-		height: 60px;
-		line-height: 60px;
-	}
-	
-	#user td input {
-		height: 25px;
-	}
-	
-	
-	.first {
-		width:250px;
-		text-align: center;
-	}
-	.first1{
-		width:200px;
-		text-align: center;
-	}
-	#profile_sajin {
-		line-height: 25px;
-	}
-	.key {
-		width: 35%;
-		display: inline-block;
-	}
+}
+
+#my {
+	width: 750px;
+	padding: 0px;
+	height: 80px;
+	background-color: gray;
+	margin: 0px;
+}
+
+.list {
+	margin-top: 0px;
+	padding-top: 0px;
+	display: inline-block;
+	width: 240px;
+	height: 50px;
+	border: 1px solid red;
+}
+
+#user td {
+	height: 60px;
+	line-height: 60px;
+}
+
+#user td input {
+	height: 25px;
+}
+
+.first {
+	width: 250px;
+	text-align: center;
+}
+
+.first1 {
+	width: 200px;
+	text-align: center;
+}
+
+#profile_sajin {
+	line-height: 25px;
+}
+
+.key {
+	width: 35%;
+	display: inline-block;
+}
+
+#menu {
+	width: 180px;
+}
 </style>
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 <script>
-$(function() {
 
-	//모든 서브 메뉴 감추기
-	$(".sub").css({display:"none"}); 
-	//$(".sub").hide(); //위코드와 동일 
-
-	$(".title").click(function(){
-	    //일단 서브메뉴 다 가립니다.
-	    $(".sub").css({display:"none"});
-	    
-	    //열린 서브메뉴에 대해서만 가립니다.
-	    $(".sub").each(function(){
-	        console.log($(this).css("display"));
-	        if($(this).css("display")=="block") {
-	            //$(".sub").css({display:"none"});
-	            //$(this).hide();
-	            $(this).slideUp("fast");
-	        }
-	    });
-
-	    //현재 요소의 다음 요소를 보이게 합니다.
-	    //$(this).next("ul").css({display:"block"});
-	    //$(this).next("ul").show();
-	    $(this).next("ul").slideDown("fast");
-
-
-	})
-	})
-	
-	
 function makePage(){
 	// 비밀번호 변경 div를 보이지않도록 변경
 	$("#passwordArea").hide();
@@ -245,6 +216,36 @@ $(function(){
 			  .fail((r)=> {console.log(r)});
 				
 		});
+	
+	
+	$(function() {
+
+		//모든 서브 메뉴 감추기
+		$(".sub").css({display:"none"}); 
+		//$(".sub").hide(); //위코드와 동일 
+
+		$(".title").click(function(){
+		    //일단 서브메뉴 다 가립니다.
+		    $(".sub").css({display:"none"});
+		    
+		    //열린 서브메뉴에 대해서만 가립니다.
+		    $(".sub").each(function(){
+		        console.log($(this).css("display"));
+		        if($(this).css("display")=="block") {
+		            //$(".sub").css({display:"none"});
+		            //$(this).hide();
+		            $(this).slideUp("fast");
+		        }
+		    });
+
+		    //현재 요소의 다음 요소를 보이게 합니다.
+		    //$(this).next("ul").css({display:"block"});
+		    //$(this).next("ul").show();
+		    $(this).next("ul").slideDown("fast");
+
+
+		})
+		})
 	/* $("#update").on("click",function(){
 		var $email1 = $("#email1").val();
 		var $email2 = $("#email2").val();
@@ -279,91 +280,105 @@ $(function(){
 </script>
 </head>
 <body>
-<div>
-<aside id="asideMain">
-	<div id="aside">
-		<div id="profile">
-		</div>
-		<div>
-			<ul>
-				<li><a href="/adaco/user/read" style="color: black;">내정보보기</a></li>
-				<li><a href="/adaco/user/orderList"style="color: black;">주문내역</a></li>
-				<li><a href="/adaco/user/reviewList" style="color: black;">내리뷰보기</a></li>
-				<li><a href="/adaco/user/favoriteList" style="color: black;">즐겨찾기목록</a></li>
-				<li><a href="/adaco/user/pointList" style="color: black;">포인트함 </a>
-				<li>
-						<div class="title">
-							<a style="color: black; text-decoration: none;">
-							메세지함
-							</a>
-						</div>
+	<div>
+		<aside id="asideMain">
+			<div id="aside">
+				<div class="col-sm-3">
+					<!-- side menu (link) -->
+					<h3>
+						<strong><a href="/adaco/artist/artistpage"
+							style="text-decoration: none; color: black;">MY Menu</a></strong>
+					</h3>
+					<ul class="list-group" id="navi">
+						<li class="list-group-item list-group-item-action"
+							style="width: 170px;"><a href="/adaco/user/read"
+							style="color: black; text-decoration: none;">내 정보 보기</a></li>
+						<li class="list-group-item list-group-item-action"
+							style="width: 170px;"><a href="/adaco/user/orderList"
+							style="color: black; text-decoration: none;">주문내역</a></li>
+						<li class="list-group-item list-group-item-action"
+							style="width: 170px;"><a href="/adaco/user/reviewList"
+							style="color: black; text-decoration: none;">내 리뷰 보기</a></li>
+						<li class="list-group-item list-group-item-action"
+							style="width: 170px;"><a href="/adaco/user/favoriteList"
+							style="color: black; text-decoration: none;">즐겨찾기 목록</a></li>
+						<li class="list-group-item list-group-item-action"
+							style="width: 170px;"><a href="/adaco/user/pointList"
+							style="color: black; text-decoration: none;">포인트함</a></li>
+						<li class="list-group-item list-group-item-action" id="group"
+							style="width: 170px;">
+							<div class="title">
+								<a style="color: black; text-decoration: none;"> 메시지함 </a>
+							</div>
 						<ul class="sub"> 
 							<li>
-								<a href="/adaco/message/listSender" style=" text-decoration: none;" >
-									<i></i>빋은쪽지함</a>
+								<a href="/adaco/message/listSender" style="color: black; text-decoration: none;" >
+									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 받은 메시지</a>
 							</li>
 							<li>
-								<a href="/adaco/message/listReceiver" style=" text-decoration: none;" >
-									<i></i>보낸쪽지함</a>
+								<a href="/adaco/message/listReceiver" style="color: black; text-decoration: none;" >
+									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 보낸 메시지</a>
 							</li>
 						</ul>
-				</li>
-			</ul>
-		</div>
-	</div>
-</aside>
-	<section id="section">
-		<div>
-			<img id ="show_profile" height="200px;" src="${user.profile }">
-		</div>
-	
-		<div>
-			<input type="file" name="sajin" id="sajin">
-		</div>
-		<table class="table table-hover" id="user">
-			<tr>
-				<td class="first">이름:</td>
-				<td><span id="irum">${user.irum }</span></td>
-			</tr>	
-			<tr>
-				<td class="first1">아이디:</td>
-				<td><span id="username">${user.username }</span></td>
-			</tr>
-			<tr>
-				<td class="first1">생년월일:</td>
-				<td><span id="birthDate">${user.birthDateStr }</span></td>
-			</tr>
-			<tr>
-				<td class="first">비밀번호:<span id="passwordspan"></span></td>
-				<td><button type="button"class="btn btn-info" id="pwdbtn">비밀번호 수정</button>
-				<div id ="passwordArea">
-					<span class="key">현재비밀번호:</span><input type="password" id="password"><br>
-					<span class="key">새 비밀번호 : </span><input type="password" id="newPassword"><br>     
-					<span class="key">새 비밀번호 확인 : </span><input type="password" id="newPassword2">
-					<button type="button" class="btn btn-info" id="changePwd">변경</button>
+						</li>
+					</ul>
 				</div>
-				</td>
-			</tr>
-			<tr>
-			<td class="first">이메일</td>
-			<td colspan="2">
-				<input type="text" name="email1" id="email1">&nbsp;@&nbsp;<input type="text" name="email2" id="email2">&nbsp;&nbsp;
-				<select id="selectEmail">
-					<option selected="selected">직접 입력</option>
-					<option value="naver.com">naver.com</option>
-					<option value="daum.net">daum.net</option>
-					<option value="gmail.com">gmail.com</option>
-				</select>
-			</tr>
-			<tr><td class="first">연락처</td>
-			<td colspan="2">
-				<input type="text" id="tel" value="${user.tel }" maxlength="11">
-			</td>
-			</tr>
-		</table>	
-		<button type="button" class="btn btn-info" id="update">변경</button>
-		<button type="button" class="btn btn-info" id="delete">탈퇴</button>
-	</section>
+			</div>
+		</aside>
+		<section id="section">
+			<div>
+				<img id="show_profile" height="200px;" src="${user.profile }">
+			</div>
+
+			<div>
+				<input type="file" name="sajin" id="sajin">
+			</div>
+			<table class="table table-hover" id="user">
+				<tr>
+					<td class="first">이름:</td>
+					<td><span id="irum">${user.irum }</span></td>
+				</tr>
+				<tr>
+					<td class="first1">아이디:</td>
+					<td><span id="username">${user.username }</span></td>
+				</tr>
+				<tr>
+					<td class="first1">생년월일:</td>
+					<td><span id="birthDate">${user.birthDateStr }</span></td>
+				</tr>
+				<tr>
+					<td class="first">비밀번호:<span id="passwordspan"></span></td>
+					<td><button type="button" class="btn btn-info" id="pwdbtn">비밀번호
+							수정</button>
+						<div id="passwordArea">
+							<span class="key">현재비밀번호:</span><input type="password"
+								id="password"><br> <span class="key">새 비밀번호
+								: </span><input type="password" id="newPassword"><br> <span
+								class="key">새 비밀번호 확인 : </span><input type="password"
+								id="newPassword2">
+							<button type="button" class="btn btn-info" id="changePwd">변경</button>
+						</div></td>
+				</tr>
+				<tr>
+					<td class="first">이메일</td>
+					<td colspan="2"><input type="text" name="email1" id="email1">&nbsp;@&nbsp;<input
+						type="text" name="email2" id="email2">&nbsp;&nbsp; <select
+						id="selectEmail">
+							<option selected="selected">직접 입력</option>
+							<option value="naver.com">naver.com</option>
+							<option value="daum.net">daum.net</option>
+							<option value="gmail.com">gmail.com</option>
+					</select>
+				</tr>
+				<tr>
+					<td class="first">연락처</td>
+					<td colspan="2"><input type="text" id="tel"
+						value="${user.tel }" maxlength="11"></td>
+				</tr>
+			</table>
+			<button type="button" class="btn btn-info" id="update">변경</button>
+			<button type="button" class="btn btn-info" id="delete">탈퇴</button>
+		</section>
 	</div>
 </body>
 </html>

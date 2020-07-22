@@ -86,7 +86,10 @@ public class UserRestController {
 	//댓글 신고기능
 	@PatchMapping("/user/commentReport")
 	public ResponseEntity<?> Report(int artno,Principal principal,int cno){
-		return ResponseEntity.ok(null);
+		System.out.println(artno+"아트엔오");
+		System.out.println(principal.getName());
+		System.out.println(cno+"씨엔오");
+		return ResponseEntity.ok(userRestService.commentReport(artno, principal.getName(), cno));
 	}
 	
 }

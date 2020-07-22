@@ -7,22 +7,18 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	#aside {
-		width:110px;
-		height:500px;
-		background-color: gray;
-		float: left;
-	}
-	#profile {
-		width:200px;
-		height:200px;
-	}
 	#section {
 	width: 850px;
 	padding: 5px;
 	float: right;
 	min-height: 600px;
 	}
+	#delete{
+	margin-right: 30px;
+	}
+	    table, th, td {
+        text-align: center;
+  }  
 </style>
 <script>
 $(function() {
@@ -84,6 +80,7 @@ $(function() {
 </script>
 </head>
 <body>
+<<<<<<< HEAD
 <aside id="asideMain">
 	<div id="aside">
 		<div id="profile">
@@ -145,7 +142,8 @@ $(function() {
 		</table>
 		<br><br><br><br><br><br><br><br><br><br><br>
 		<input type="hidden" value="${_csrf.token}">
-		<button id="delete" style="float:right;">쪽지삭제</button>
+		<a href="/adaco/message/listSender"><button  class="btn btn-primary" style="float:right;">보낸 쪽지함 으로 이동</button></a>
+		<button id="delete" class="btn btn-primary" style="float:right;">쪽지삭제</button> 
 	</div>
 	</section> 
 </body>

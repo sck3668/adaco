@@ -81,6 +81,7 @@ function printReview(reviews){
 		if(review.image!==null){
 			$("<img>").attr("src",review.image).appendTo($lower_div);	
 		}
+		
 // 		$("<span>").hmtl(review.star).appendTo($lower_div)
 		 if(review.username===loginId){
 				var btn = $("<button>").attr("class","delete_review").attr("data-username", review.username).attr("data-rno",review.rno)
@@ -103,6 +104,7 @@ function printComment(comments){
 		$("<img>").attr("src",comment.profile).css("width","60px").css("height","60px").appendTo($center_div);
 		$("<div>").html(comment.content).css("display","inline-block").appendTo($center_div);
 		$("<span>").text(comment.writeDateStr).appendTo($lower_div);
+		$("<button>").attr('class','report_comment').attr("data-username",comment.username).attr("data-cno",comment.cno).text("신고").appendTo($lower_div).css("float","right");
 		 if(comment.username===loginId){
 			var btn = $("<button>").attr("class","delete_comment").attr("data-username", comment.username).attr("data-cno",comment.cno)
 			.text("삭제").appendTo($center_div).css("float","right")
@@ -126,7 +128,23 @@ $(function() {
 	 $("#sajin").on("change", loadImage); 
 
 	//신고글기능
-	
+	$("#comments").on("click",".report_comment",function(){
+		var $artno = $("#artno").val()
+		var parmas={
+				_method:"patch",
+				_csrf:"${_csrf.token}",
+				cno:$(this).data("cno"),
+				artno:$artno
+		}
+		console.log(parmas)
+		$.ajax({
+			data:parmas,
+			method:"post",
+			url:"/adaco/user/commentReport"
+		}).done((r)=>{confirm("신고하겟습니가?")
+		}).fail((r)=>{alert("이미 신고처리된 댓글입니다.")})
+	      
+	})
 	
 	
 	//리뷰작성
@@ -194,6 +212,10 @@ $(function() {
 	
 	//댓글작성
 	$("#comment_write").on("click",function(){
+		const patt = /^.{1,1000}$/;
+		var $content =$("#comment_textarea").val();
+		 if(patt.test($content)==false)
+			 return false;
 		var parmas = {
 				artno :$("#artno").val(),
 				content:$("#comment_textarea").val(),
@@ -471,7 +493,6 @@ ${art }
 				<input type="hidden" id="artno" value="${artPageByUser.artno }">
 			</div>
 			<button type="button" class="btn btn-info" id="comment_write">댓글 작성</button>
-			<button type="button" class="btn btn-info" id="report_write">신고</button>
 		</div>
 		<div id="comments">
 	</div>

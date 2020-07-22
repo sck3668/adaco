@@ -110,17 +110,14 @@ public class UserRestService {
 		return user.getProfile();
 	}
 	//댓글 신고기능
-	public void commentReport(int artno,String username,int cno) {
-		Art art = artDao.readByArtFromUser(artno);
-		System.out.println(art+"아트");
-		User user = userDao.findByid(username);
-		System.out.println(user+"유저");
+	public int commentReport(int artno,String username,int cno) {
 		ArtComment artComment = artCommentDao.readByCommentOfArt(cno);
+		System.out.println(artComment);
 		Boolean isCheck = reportDao.existsUsername(username, cno);
 		if(isCheck==true)
-			return;
+			throw new JobFailException("암궈나");
 		//리포트1증가
-		artCommentDao.updateByReportCnt(artComment);
-		System.out.println(artComment+"아트씨엔오");
+		artCommentDao.updateByReportCnt(cno);
+		return reportDao.insert(username, cno); 
 	}
 }
