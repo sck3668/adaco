@@ -110,7 +110,7 @@ public class UserRestService {
 		return user.getProfile();
 	}
 	//댓글 신고기능
-	public void Report(int artno,String username,int cno) {
+	public void commentReport(int artno,String username,int cno) {
 		Art art = artDao.readByArtFromUser(artno);
 		System.out.println(art+"아트");
 		User user = userDao.findByid(username);
