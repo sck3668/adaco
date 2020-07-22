@@ -61,10 +61,17 @@ public class OrderDto {
  		private int totalPrice;
  		private String username;
  		private String recipient;
+ 		private String postalcode;
  		private String tel;
+ 		private int shippingCharge;
  		private String originalAddress;
  		private String refundAccount;
  		private List<String> request;
+ 		private String orderDateStr;
+ 		private String optionValue;
+ 		private String optionName;
+ 		private Art art;
+ 		private Option option;
  	}
  	//////////////////////////	총결제금액,주문번호,적립포인트,작품명,
 	//	배송지,배송비,작품이미지,
