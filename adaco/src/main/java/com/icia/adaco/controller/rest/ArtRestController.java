@@ -95,7 +95,6 @@ public class ArtRestController {
 			String profile = result.getBody();
 			artcomment.setProfile(profile);
 			artcomment.setUsername(principal.getName());
-			
 			return ResponseEntity.ok(service.writeCommentOfArt(artcomment));	
 		}
 		//리뷰작성

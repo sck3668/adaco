@@ -30,6 +30,10 @@ public class ArtService {
 	@Autowired
 	private ShopDao shopdao;
 	@Autowired
+	private OrderDao orderDao;
+	@Autowired
+	private OrderDetailDao orderDetailDao;
+	@Autowired
 	private ArtRestService service;
 	@Value("d:/upload/artfile")
 	private String artfileFolder;
@@ -147,5 +151,14 @@ public class ArtService {
 		}
 		page.setArtList(dtoList);
 		return page;
+	}
+
+	public Boolean paymentCheck(String username, String artName) {
+		if(orderDetailDao.findArtnoByOrderDetail(artName)==null) {
+			return false;
+		}
+		int orderno = orderDetailDao.findArtnoByOrderDetail(artName).getOrderno();
+		// 주문테이블에 orderno로 username 있는지 체크
+		return orderDao.findUsernameIsPay(orderno);
 	}
 }

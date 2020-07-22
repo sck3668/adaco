@@ -8,14 +8,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
-	function init() {
-		$("#gogak-d").hide();
-	}
+// 	function init() {
+// 		$("#gogak-d").hide();
+// 	}
 	$(function() {
-		init();
-		$("#gogak").on("click", function() {
-			$("#gogak-d").toggle();
-		});
+// 		init();
+// 		$("#gogak").on("click", function() {
+// 			$("#gogak-d").toggle();
+// 		});
 
 		$(".logout").on("click", function() {
 			var param = {
@@ -35,6 +35,7 @@
 			var params = {
 				_csrf : '${_csrf.token}',
 			}
+			console.log(params);
 			$.ajax({
 				url : "/adaco/artist/checkShop",
 				method : "post",

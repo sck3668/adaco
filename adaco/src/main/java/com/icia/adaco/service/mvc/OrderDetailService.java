@@ -58,8 +58,9 @@ public class OrderDetailService {
 		//point증가처리
 		Point point = Point.builder().startDate(LocalDateTime.now()).endDate(LocalDateTime.now().plusYears(1))
 				.username(username).point((int) (bag.getTotalPrice()*0.01)).build();
+		System.out.println("point==="+point);
 		userDao.insertpoint(point);
-		System.out.println("orderDetail1111111111111"+orderDetail);
+		System.out.println("DService payment orderDetail=="+orderDetail);
 		return orderDetailDao.Payment(orderDetail);
 	}
 	
