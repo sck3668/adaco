@@ -81,12 +81,12 @@ ${order }
                     </li>
                     <li class="active" style="color:blue;">
                         <em class="icon-num">2</em>
-                        <span style="color:blue;">주문결제</span>
+                        <span >주문결제</span>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
                         <em class="icon-num">3</em>
-                        <span>주문완료</span>
+                        <span >주문완료</span>
                     </li>
                 </ol>
             </div><!-- 주문결제 순서 닫힌 div --><br>

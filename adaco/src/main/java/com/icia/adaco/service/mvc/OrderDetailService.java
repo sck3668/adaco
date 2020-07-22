@@ -63,11 +63,23 @@ public class OrderDetailService {
 	
 	// 주문 상세 보기
 	public OrderDto.DtoForAfter OrderDetail(OrderDto.DtoForAfter dto,String username) {
-		System.out.println("orderDetail dto==="+dto);
-		OrderDto.DtoForAfter afterDto = modelMapper.map(dto,OrderDto.DtoForAfter.class);
-		System.out.println("afterDto=="+afterDto);
+		System.out.println("orderDetail dto===" + dto);
+		
+		Art art = artDao.readByArt(dto.getArtno());
+		Order order = orderDao.findByOrder(dto.getOrderno());
+		Bag bag = bagDao.findByArtno(dto.getArtno());
+		OrderDetail orderDetail = orderDetailDao.OrderDetail(dto.getOrderno());
+		System.out.println("OrderDetail@@!@#!@@========"+orderDetail);
+		OrderDto.DtoForAfter afterDto = modelMapper.map(dto, OrderDto.DtoForAfter.class);
+		String orderDateStr = order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일"));
+		afterDto.setOrderDateStr(orderDateStr).setArtName(art.getArtName()).setUsername(username)
+//		.setPostalcode(orderDetail.getPostalcode())
+		.setOptionName(orderDetail.getOptionName()).setOptionValue(orderDetail.getOptionValue())
+		.setAmount(orderDetail.getAmount()).setPrice(orderDetail.getPrice()).setShippingCharge(order.getShippingCharge());
+		System.out.println("afterDto==" + afterDto);
 		return afterDto;
-	}
+	} 
+	
 	
 	// 모든 주문 내역 보기
 	
@@ -118,13 +130,14 @@ public class OrderDetailService {
 	
 	
 	// 주문 상태 업데이트
-	public void update(OrderDetailDto.DtoForUpdate dto, String username) {
+	public void update(OrderDetailDto.DtoForUpdate dto) {
 		OrderDetail orderDetail = orderDetailDao.OrderDetail(dto.getOrderno());
-		Integer artistno = artistDao.findArtistnoByUsername(username);
+//		Integer artistno = artistDao.findArtistnoByUsername(username);
 		if(orderDetail == null)
 			throw new JobFailException("주문내역이 없습니다.");
-		if(artistno.equals(dto.getArtistno())==false)
-			throw new IllegalJobException();
+//		if(artistno.equals(dto.getArtistno())==false)
+//			throw new IllegalJobException();
+		orderDetail = modelMapper.map(dto, OrderDetail.class);
 		orderDetailDao.updateByOrderDetail(orderDetail);
 	}
 	

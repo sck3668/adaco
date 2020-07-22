@@ -73,9 +73,9 @@ public class ArtistController {
 	// 주문 상태 업데이트
 	@PreAuthorize("isAuthenticated()")
 	@PutMapping("/artist/updateOrderDetail")
-	public ResponseEntity<?> updateOrderDetail(OrderDetailDto.DtoForUpdate dto ,Principal principal) {
-		dto.setUsername(principal.getName());
-		orderDetailService.update(dto, principal.getName());
+	public ResponseEntity<?> updateOrderDetail(OrderDetailDto.DtoForUpdate dto) {
+//		dto.setUsername(principal.getName());
+		orderDetailService.update(dto);
 		return ResponseEntity.ok(null);
 	}
 	

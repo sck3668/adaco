@@ -8,6 +8,7 @@
 <title>작가 작품 목록</title>
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">  -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <style>
 	th {
@@ -31,43 +32,44 @@
 	// select box값으로 주문상태 변경
 		$("#OrderState").on("change", function() {
 		var choice = $("#OrderState").val();
-		var $orderstate = $("#orderstate").val(); 
-		var $select = $("#OrderState").find("option");
-		
-		$select.each(function(idx, option) {
 		if(choice!="주문상태 선택") {
 		$("#orderstate").val(choice);
 		$("#orderstate").prop("disabled", true);
 		}
 		if(choice=="주문상태 선택") {
+		$("#orderstate").val(choice);
 		alert("주문상태를 선택해주세요");
 		}
 		})
-	});
-});
 	
 	// '저장'버튼으로 주문상태만 수정
-// 	$(function() {
-// 	$("#update_Btn").on("click", function() {
-// 		var $orderstate = $("#orderstate").val();
-// 		var params = {
-// 			_method: "put",
-// 			_csrf: "${_csrf.token}",
-// 			orderno : ${OrderDto.DtoForList.orderno},
-// 			orderstate: $orderstate
-// 		};
-// 		console.log(orderno);
-// 		console.log(params);
-// 		alert("SS");
+
+	$("#update_Btn").on("click", function() {
+		var $orderstate = $("#orderstate").val();
+		if($orderstate=="주문상태 선택"){
+			alert("주문상태를 선택해주세요");
+			return;
+		}
+		var params = {
+			_method: "put",
+			_csrf: "${_csrf.token}",
+			orderno : ${orderDetail.orderno},
+			orderstate: $orderstate
+		};
+		console.log(params);
+		alert("SS");
 		
-// 		$.ajax({
-// 			url: "/adaco/artist/updateOrderDetail",
-// 			method: "post",
-// 			data: params
-// 		}).done(()=>{alert("주문상태가 변경 되었습니다.");})
-// 		.fail(()=>{alert("주문상태 변경이 실패했습니다.");});
-// 	})
-// });
+		$.ajax({
+			url: "/adaco/artist/updateOrderDetail",
+			method: "post",
+			data: params
+		}).done(()=>{alert("주문상태가 변경 되었습니다.");
+		location.href = "/adaco/artist/orderList";
+		})
+		.fail(()=>{alert("주문상태 변경이 실패했습니다.");});
+	})
+	
+});
 	
 </script>
 </head>
@@ -105,7 +107,7 @@
 						<option>배송중</option>
 						<option>배송완료</option>
 					</select> 
-					<input type="text" class="state" name="orderstate"  id="orderstate" value="${orderDetail.orderstate}"  style="width:100px"/>
+					<input type="hidden" class="state" name="orderstate"  id="orderstate" value="${orderDetail.orderstate}"  style="width:100px"/>
 					<button type="submit" id="update_Btn">주문상태 변경</button>
 				</td> 
 			</tr>

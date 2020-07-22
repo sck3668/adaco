@@ -119,44 +119,38 @@ $(document).ready(function(){
     })
 });
 
-	// select box에 주문상태 값 받아오기
-	$(function() {
-		var $orderstate = $("#orderstate").val(); 
-		var $select = $(".State").find("option");
-// 		$orderstate.each(function(){
+// 	// select box에 주문상태 값 받아오기
+// 	$(function() {
+// 		var $orderstate = $("#orderstate").val(); 
+// 		var $select = $(".State").find("option");
+// 		$select.each(function(idx, option) {
+// 		if($(option).text()==$orderstate) {
+// 		$($select[idx]).prop("selected", true);
+// 		}
+// 		});
 			
-		$select.each(function(idx, option) {
-		if($(option).text()==$orderstate) {
-		$($select[idx]).prop("selected", true);
-		}
-		});
-			
-// 		})
-	});
-	
-		// select box값으로 주문상태 변경
-		$(function() {
-			
-			$("#OrderState").on("change", function() {
+// 		// select box값으로 주문상태 변경
 		
-			var choice = $("#OrderState").val();
-			var $orderstate = $("#orderstate").val(); 
-			var $select = $("#OrderState").find("option");
+// 			$("#OrderState").on("change", function() {
+		
+// 			var choice = $("#OrderState").val();
+// 			var $orderstate = $("#orderstate").val(); 
+// 			var $select = $("#OrderState").find("option");
 			
-			$select.each(function(idx, option) {
-			if(choice!="주문상태 선택") {
-			$("#orderstate").val(choice);
-			$("#orderstate").prop("disabled", true);
-			}
-			if(choice=="주문상태 선택") {
-			alert("주문상태를 선택해주세요");
-			}
-			})
-		});
+// 			$select.each(function(idx, option) {
+// 			if(choice!="주문상태 선택") {
+// 			$("#orderstate").val(choice);
+// 			$("#orderstate").prop("disabled", true);
+// 			}
+// 			if(choice=="주문상태 선택") {
+// 			alert("주문상태를 선택해주세요");
+// 			}
+// 			})
+// 		});
 
-		});
+	
 
-	// '저장'버튼으로 주문상태만 수정
+// 	// '저장'버튼으로 주문상태만 수정
 // 	$("#update_Btn").on("click", function() {
 // 		var $orderstate = $("#orderstate").val();
 // 		var params = {
@@ -179,12 +173,14 @@ $(document).ready(function(){
 
 
 
-$(function(){
-	$("#search").on("click", function(){
-		var username = $("#username").val();
-		location.href = "/adaco/admin/artist_list?username="+username	
+// $(function(){
+// 	$("#search").on("click", function(){
+// 		var username = $("#username").val();
+// 		location.href = "/adaco/admin/artist_list?username="+username	
 // 		adaco/art/listByArtist?category="+category;
-	});
+	
+// 	});
+	
 // 	$(".category").on("change", function(){
 // 		var $category = $(".category").val();
 // 		if($category == "유저")
@@ -192,7 +188,7 @@ $(function(){
 // 		if($category == "아티스트")
 // 			location.href = "/adaco/admin/artist_list"
 // 	});
-});	
+// });	
 	
 </script>
 </head>

@@ -60,6 +60,7 @@ $(function() {
 		$("#courier").prop("disabled", true);
 		}
 		if(choice=="택배사 선택") {
+		$("#courier").val(choice);
 		alert("택배사를 선택해주세요");
 		}
 		})
@@ -104,7 +105,10 @@ $(function() {
 		var $optionValue = $("#optionValue").val();
 		var $optionPrice = $("#optionPrice").val();
 		var $optionStock = $("#optionStock").val();
-		
+		if($courier=="택배사 선택"){
+			alert("택배사를 선택해주세요");
+			return;
+		}
 	
 		
 		var formData = new FormData();
