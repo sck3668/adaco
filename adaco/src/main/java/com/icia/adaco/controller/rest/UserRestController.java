@@ -83,5 +83,10 @@ public class UserRestController {
 	public ResponseEntity<String> findProfile(String username) {
 		return ResponseEntity.ok(userRestService.findProfile(username));
 	}
+	//댓글 신고기능
+	@PatchMapping("/user/commentReport")
+	public ResponseEntity<?> Report(int artno,Principal principal){
+		return ResponseEntity.ok(null);
+	}
 	
 }

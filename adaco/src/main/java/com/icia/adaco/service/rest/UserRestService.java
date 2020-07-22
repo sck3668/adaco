@@ -2,7 +2,6 @@
 package com.icia.adaco.service.rest;
 
 import java.io.*;
-import java.util.*;
 
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
@@ -29,7 +28,13 @@ public class UserRestService {
 	private String profilePath;
 	@Autowired
 	private ArtDao artDao;
+	@Autowired
 	private ArtistDao artistDao;
+	@Autowired
+	private ArtCommentDao artCommentDao;
+	@Autowired
+	private ReportDao reportDao;
+	
 	//유저네임 존재여부 아이디확인
 	public boolean checkId(String username) throws UsernameExistException {
 		if(userDao.existsUsername(username)==true)
@@ -103,5 +108,19 @@ public class UserRestService {
 	public String findProfile(String username) {
 		User user = userDao.findByid(username);
 		return user.getProfile();
+	}
+	//댓글 신고기능
+	public void Report(int artno,String username,int cno) {
+		Art art = artDao.readByArtFromUser(artno);
+		System.out.println(art+"아트");
+		User user = userDao.findByid(username);
+		System.out.println(user+"유저");
+		ArtComment artComment = artCommentDao.readByCommentOfArt(cno);
+		Boolean isCheck = reportDao.existsUsername(username, cno);
+		if(isCheck==true)
+			return;
+		//리포트1증가
+		artCommentDao.updateByReportCnt(artComment);
+		System.out.println(artComment+"아트씨엔오");
 	}
 }

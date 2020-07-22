@@ -187,7 +187,7 @@ public class UserService {
 		return userDao.Favoritecount(username);
 	}
 	//유저리뷰함
-	public List<Review> reviewList(String username,int artno){
+	public List<Review> reviewList(String username){
 		return userDao.listByReviewUser(username);
 	}
 	//리뷰개수 유저네임으로세기

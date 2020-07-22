@@ -14,15 +14,6 @@
 		width: 125px;
 		
 	}
-		#aside {
-		width:100px;
-		height:500px;
-		float: left;
-	}
-	#profile {
-		width:200px;
-		height:200px;
-	}
 	#section {
 	width: 750px;
 	padding: 5px;
@@ -248,6 +239,34 @@ $(function(){
 		  .fail((r)=>{console.log(r)});
 	}) */
 });
+$(function() {
+
+	//모든 서브 메뉴 감추기
+	$(".sub").css({display:"none"}); 
+	//$(".sub").hide(); //위코드와 동일 
+
+	$(".title").click(function(){
+	    //일단 서브메뉴 다 가립니다.
+	    $(".sub").css({display:"none"});
+	    
+	    //열린 서브메뉴에 대해서만 가립니다.
+	    $(".sub").each(function(){
+	        console.log($(this).css("display"));
+	        if($(this).css("display")=="block") {
+	            //$(".sub").css({display:"none"});
+	            //$(this).hide();
+	            $(this).slideUp("fast");
+	        }
+	    });
+
+	    //현재 요소의 다음 요소를 보이게 합니다.
+	    //$(this).next("ul").css({display:"block"});
+	    //$(this).next("ul").show();
+	    $(this).next("ul").slideDown("fast");
+
+
+	})
+	})
 
 </script>
 </head>
@@ -258,19 +277,51 @@ $(function(){
 		<div class="col-sm-3">
 				<!-- side menu (link) -->
 				<h3><strong><a href="/adaco/artist/artistpage" style="text-decoration: none; color: black;" >MY Menu</a></strong></h3>
-				<ul class="list-group" id="menu">
-					<li class="list-group-item list-group-item-action"><a
+				<ul class="list-group" id="navi">
+					<li class="list-group-item list-group-item-action" style="width: 170px;"><a
 						href="/adaco/artist/shopPage"
-						style="color: black; text-decoration: none;">상점 정보</a></li>
-					<li class="list-group-item list-group-item-action"><a
+						style="color: black; text-decoration: none;" >상점 정보</a></li>
+					<li class="list-group-item list-group-item-action" id="group" style="width: 170px;">
+						<div class="title">
+							<a style="color: black; text-decoration: none;">
+							작품 관리
+							</a>
+						</div>
+						<ul class="sub"> 
+							<li>
+								<a href="/adaco/art/listByArtist" style="color: black; text-decoration: none;" >
+									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 작품 목록</a>
+							</li>
+							<li>
+								<a href="/adaco/art/write" style="color: black; text-decoration: none;" >
+									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 작품 등록</a>
+							</li>
+						</ul>
+					</li>
+					<li class="list-group-item list-group-item-action" style="width: 170px;"><a
 						href="/adaco/artist/artistRead"
-						style="color: black; text-decoration: none;">내 정보 관리</a></li>
-					<li class="list-group-item list-group-item-action"><a
-						href="/adaco/order/artistSellList"
+						style="color: black; text-decoration: none;" >내 정보 관리</a></li>
+					<li class="list-group-item list-group-item-action" style="width: 170px;"><a
+						href="/adaco/artist/artistSellList"
 						style="color: black; text-decoration: none;">판매내역</a></li>
-					<li class="list-group-item list-group-item-action"><a
-						href="#" style="color: black; text-decoration: none;">메세지함</a></li>
-					<li class="list-group-item list-group-item-action"><a
+					<li class="list-group-item list-group-item-action" style="width: 170px;">
+						<div class="title">
+							<a style="color: black; text-decoration: none;">
+							메세지함
+							</a>
+						</div>
+							<ul class="sub"> 
+							<li>
+								<a href="/adaco/message/listSender" style=" text-decoration: none;" >
+									<i></i>보낸쪽지함</a>
+							</li>
+							<li>
+								<a href="/adaco/message/listReceiver" style=" text-decoration: none;" >
+									<i></i>받은쪽지함</a>
+							</li>
+						</ul>
+					</li>
+					<li class="list-group-item list-group-item-action" style="width: 170px;"><a
 						href="/adaco/artist/sales"
 						style="color: black; text-decoration: none;">매출 관리</a></li>
 				</ul>

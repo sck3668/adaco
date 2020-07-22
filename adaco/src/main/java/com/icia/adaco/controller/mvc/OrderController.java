@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
 
 import com.fasterxml.jackson.databind.*;
+import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.exception.*;
@@ -22,6 +23,10 @@ public class OrderController {
 	private OrderService orderService;
 	@Autowired
 	private OrderDetailService orderDService;
+	@Autowired
+	private ArtDao artDao;
+	@Autowired
+	private OrderDetailDao orderDetailDao;
 	@Autowired
 	private ObjectMapper objectMapper = new ObjectMapper();
 	
@@ -60,7 +65,22 @@ public class OrderController {
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/order/after")
 	public ModelAndView after(Principal principal,OrderDto.DtoForAfter dto) {
+		System.out.println("after dto=="+dto);
+//		OrderDto.DtoForAfter(orderno=84, optno=4, artno=200, artistno=1, mainImg=null,
+//				artName=null, amount=0, price=0, accumulated=0, totalPrice=0,
+//				username=null, recipient=송찬권, tel=01023088434, 
+//				originalAddress=서울 강서구 강서로 375111 (마곡동), refundAccount=11122222, 
+//				request=[111])
 		orderDService.payment(dto,principal.getName());
+		//구매한 수량만큼 작품 재고에서 차감
+		Art art = artDao.readByArt(dto.getArtno());
+		System.out.println("art=="+art);
+		int amount = orderDetailDao.findArtnoByOrderDetail(art.getArtName()).getAmount();
+		System.out.println("amount=="+amount);
+		int stock = art.getStock()-amount;
+		System.out.println("stock=="+stock);
+		art.setStock(stock);
+		artDao.updateByArt(art);
 		return new ModelAndView("main").addObject("viewName","order/after.jsp").addObject("order",orderDService.OrderDetail(dto,principal.getName()));
 	}
 	

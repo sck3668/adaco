@@ -125,7 +125,10 @@ $(function() {
 	
 	 $("#sajin").on("change", loadImage); 
 
-
+	//신고글기능
+	
+	
+	
 	//리뷰작성
 	 $("#review_write").on("click",function(){
 					
@@ -468,6 +471,7 @@ ${art }
 				<input type="hidden" id="artno" value="${artPageByUser.artno }">
 			</div>
 			<button type="button" class="btn btn-info" id="comment_write">댓글 작성</button>
+			<button type="button" class="btn btn-info" id="report_write">신고</button>
 		</div>
 		<div id="comments">
 	</div>

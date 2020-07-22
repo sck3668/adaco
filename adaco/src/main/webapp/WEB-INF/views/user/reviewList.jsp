@@ -7,38 +7,74 @@
 <meta charset="EUC-KR">
 <title>Insert title here</title>
 	<style>
-	#aside {
-		width:110px;
-		height:500px;
-		background-color: gray;
-		float: left;
-	}	
-	#profile {
-		width:200px;
-		height:200px;
-	}
-	#section {
-	width: 850px;
+
+
+
+#section {
+	width: 700px;
 	padding: 5px;
 	float: right;
 	min-height: 600px;
-	}
-	#my {
-		width:750px;
-		padding: 0px;
-		height:80px;
-		background-color: gray;
-		margin: 0px;
-	}
-	
-	.list {
-		margin-top:0px;
-		padding-top:0px;
-		display:inline-block;
-		width:240px;
-		height:50px;
-		border: 1px solid red;
-	}
+}
+
+#my {
+	width: 750px;
+	padding: 0px;
+	height: 80px;
+	background-color: gray;
+	margin: 0px;
+}
+
+.list {
+	margin-top: 0px;
+	padding-top: 0px;
+	display: inline-block;
+	width: 240px;
+	height: 50px;
+	border: 1px solid red;
+}
+
+ul#navi {
+	width: 200px;
+	text-indent: 10px;
+	cursor: pointer;
+}
+
+ul#navi, ul#navi ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+li.group {
+	margin-bottom: 3px;
+}
+
+li.group div.title {
+	height: 35px;
+	line-height: 35px;
+	/*         background:#9ab92e; */
+	cursor: pointer;
+}
+
+ul.sub li {
+	margin-bottom: 2px;
+	height: 35px;
+	line-height: 35px;
+	/*         background:#f4f4f4; */
+	cursor: pointer;
+}
+
+ul.sub li a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	text-decoration: none;
+	color: #000;
+}
+
+ul.sub li:hover {
+	background: #f4f4f4;
 </style>
 <script>
 $(function(){
@@ -95,32 +131,47 @@ ${Review }
 	<div id="aside">
 		<div id="profile">
 		</div>
-		<div>
-			<ul>
-				<li><a href="/adaco/user/read" style="color: black;">내정보보기</a></li>
-				<li><a href="/adaco/user/orderList"style="color: black;">주문내역</a></li>
-				<li><a href="/adaco/user/reviewList" style="color: black;">내리뷰보기</a></li>
-				<li><a href="/adaco/user/favoriteList" style="color: black;">즐겨찾기목록</a></li>
-				<li><a href="/adaco/user/pointList" style="color: black;">포인트함 </a>
-				<li>
+		<div class="col-sm-3">
+				<!-- side menu (link) -->
+				<h3>
+					<strong><a href="/adaco/user/mypage" style="text-decoration: none; color: black;">
+						MY Menu</a></strong>
+				</h3>
+				<ul class="list-group" id="navi" >
+					<li class="list-group-item list-group-item-action" ><a
+						href="/adaco/user/read"
+						style="color: black; text-decoration: none;">내 정보 보기</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/user/orderList"
+						style="color: black; text-decoration: none;">주문내역</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/user/reviewList"
+						style="color: black; text-decoration: none;">내 리뷰 보기</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/user/favoriteList"
+						style="color: black; text-decoration: none;">즐겨찾기 목록</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/user/pointList"
+						style="color: black; text-decoration: none;">포인트함</a></li>
+						<li class="list-group-item list-group-item-action" id="group">
 						<div class="title">
 							<a style="color: black; text-decoration: none;">
-							메세지함
+							메시지함
 							</a>
 						</div>
 						<ul class="sub"> 
 							<li>
-								<a href="/adaco/message/listSender" style=" text-decoration: none;" >
-									<i></i>빋은쪽지함</a>
+								<a href="/adaco/message/listSender" style="color: black; text-decoration: none;" >
+									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 받은 메시지</a>
 							</li>
 							<li>
-								<a href="/adaco/message/listReceiver" style=" text-decoration: none;" >
-									<i></i>보낸쪽지함</a>
+								<a href="/adaco/message/listReceiver" style="color: black; text-decoration: none;" >
+									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 보낸 메시지</a>
 							</li>
 						</ul>
-				</li>
-			</ul>
-		</div>
+					</li>
+				</ul>
+			</div>
 	</div>
 </aside>
 	<section id="section">

@@ -177,10 +177,10 @@ public class UserController {
 	//리뷰 리스트
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/reviewList")
-	public ModelAndView userReview(Principal principal,int artno) {
+	public ModelAndView userReview(Principal principal) {
 		return new ModelAndView("main")
 				.addObject("viewName","user/reviewList.jsp")
-				.addObject("Review",userService.reviewList(principal.getName(),artno));
+				.addObject("Review",userService.reviewList(principal.getName()));
 	}
 	//즐겨찾기 화면 리스트
 	@PreAuthorize("isAuthenticated()")

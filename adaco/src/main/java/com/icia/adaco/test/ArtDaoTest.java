@@ -96,5 +96,5 @@ public class ArtDaoTest {
 			assertThat(artdao.readByArtFromUser(45), is(notNullValue()));
 			assertThat(artdao.readByArtFromUser(45).getArtName(),is("변경신상"));
 		}
-
+  
 }
