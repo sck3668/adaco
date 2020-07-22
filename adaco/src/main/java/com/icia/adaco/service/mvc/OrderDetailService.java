@@ -49,6 +49,8 @@ public class OrderDetailService {
 		orderDetail.setOptionName(option.getOptionName()).setOptionValue(option.getOptionValue());
 		orderDetail.setAmount(bag.getAmount()).setPrice(art.getPrice()).setEmail(user.getEmail());
 		orderDetail.setAddPoint((int) (art.getPrice()*0.01)).setOrderstate(orderState.입금대기);
+		int optno = optionDao.findOptnoByArtno(artno);
+		orderDetail.setOptno(optno);
 		//artName,optionName,optionValue,amount,price,email,tel,
 		//request,addPoint,postalcode,refundAccount,isShipping,state,address,recipient,
 		//System.out.println("orderDetail11111======"+orderDetail);

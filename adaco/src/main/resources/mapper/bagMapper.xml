@@ -3,27 +3,34 @@
 <mapper namespace="bagMapper">
 	<!-- 장바구니 목록 보기 -->
 	
-	<select id = "findAllByBag" resultType="bag">
-		select username, artno, total_price totalPrice, amount
-		,option_name optionName, option_value optionValue
-		from bag
-	</select>
 	<select id="findAllByUsername" resultType="bag">
-		select username,artno,total_price totalPrice, amount, option_name optionName,
-		option_value optionValue,option_stock optionStock,option_price optionPrice from bag where username=#{username}
+		select username,artno,total_price totalPrice, amount, 
+		option_name optionName,	option_value optionValue,option_stock optionStock,
+		option_price optionPrice,bagno 
+		from bag where username=#{username}
 	</select>
 	
 	<select id = "findByArtno" resultType="bag">
 		select username, artno, total_price totalPrice, amount
-		,option_name optionName, option_value optionValue,option_stock optionStock,option_price optionPrice,bagno
+		,option_name optionName, option_value optionValue,option_stock optionStock,
+		option_price optionPrice,bagno
 		from bag where artno=#{artno} and rownum=1
 	</select>
 	
 	<select id="findBagByUsername" resultType="bag">
 		select artno, total_price totalPrice, amount
-		,option_name optionName, option_value optionValue
+		,option_name optionName, option_value optionValue,option_stock optionStock,
+		option_price optionPrice
 		from bag where username=#{username} and rownum=1
 	</select>
+	
+	<select id="findByArtnoUsername" resultType="bag">
+		select username,artno, total_price totalPrice, amount
+		,option_name optionName, option_value optionValue,option_stock optionStock,
+		option_price optionPrice
+		from bag where username=#{username} and artno=#{artno} and rownum=1
+	</select>
+	
 	<insert id = "insertByBag">
 	<selectKey keyProperty="bagno" resultType="int" order="BEFORE">
 		select bag_seq.nextval from dual
@@ -44,6 +51,16 @@
 		</trim>
 		where artno=#{artno} and rownum=1
 	</update>
+	<update id="updateByBagUsername">
+		update bag
+		<trim suffixOverrides="," prefix="set">
+			<if test="totalPrice!=null">total_price=#{totalPrice},</if>
+			<if test="amount!=null">amount=#{amount},</if>
+			<if test="optionName!=null">option_name=#{optionName},</if>
+			<if test="optionValue!=null">option_value=#{optionValue}</if>
+		</trim>
+		where artno=#{artno} and username=#{username} and rownum=1
+	</update>
 	<update id="increaseByAmount">
 		update bag set amount=amount+1 where artno=#{artno}
 	</update>
@@ -59,4 +76,5 @@
 	<select id="findArtnoByBagno" resultType="int">
 		select artno from bag where bagno=#{bagno}
 	</select>
+	
  </mapper>

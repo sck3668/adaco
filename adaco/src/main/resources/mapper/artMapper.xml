@@ -44,6 +44,7 @@
 	   	from art 
 	   	<where>
 	   		<if test="category!=null">and category like '%'|| #{category} || '%'</if>
+	   		<if test="artistno!=null">and artistno=#{artistno}</if>
 	   	</where> 	
 	</select>
 	
