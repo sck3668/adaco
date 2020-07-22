@@ -116,6 +116,8 @@ public class OrderService {
 		int optno = optionDao.findOptnoByArtno(artno);
 		//수정
 		int bagno = bagDao.findByArtno(artno).getBagno();
+		System.out.println("bagno"+bagno);
+		System.out.println("username=="+username);
 		int orderno = orderDao.findOrdernoByUsername(username,bagno);
 		Option option = optionDao.readByArtno(artno);
 		User user = userDao.findByid(username);
