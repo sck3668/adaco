@@ -1,124 +1,201 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	
-	#aside {
-		width:110px;
-		height:500px;
-		background-color: gray;
-		float: left;
-	}
-	#profile {
-		width:200px;
-		height:200px;
-	}
-	#section {
+#aside {
+	width: 110px;
+	height: 500px;
+	background-color: gray;
+	float: left;
+}
+
+#profile {
+	width: 200px;
+	height: 200px;
+}
+
+#section {
 	width: 850px;
 	padding: 5px;
 	float: right;
 	min-height: 600px;
-	}
-	#my {
-		width:750px;
-		padding: 0px;
-		height:80px;
-		background-color: gray;
-		margin: 0px;
-	}
-	
-	.list {
-		margin-top:0px;
-		padding-top:0px;
-		display:inline-block;
-		width:240px;
-		height:50px;
-		border: 1px solid red;
-	}
+}
+
+#my {
+	width: 750px;
+	padding: 0px;
+	height: 80px;
+	background-color: gray;
+	margin: 0px;
+}
+
+.list {
+	margin-top: 0px;
+	padding-top: 0px;
+	display: inline-block;
+	width: 240px;
+	height: 50px;
+	border: 1px solid red;
+}
+
+ul#navi {
+	width: 200px;
+	text-indent: 10px;
+	cursor: pointer;
+}
+
+ul#navi, ul#navi ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+li.group {
+	margin-bottom: 3px;
+}
+
+li.group div.title {
+	height: 35px;
+	line-height: 35px;
+	/*         background:#9ab92e; */
+	cursor: pointer;
+}
+
+ul.sub li {
+	margin-bottom: 2px;
+	height: 35px;
+	line-height: 35px;
+	/*         background:#f4f4f4; */
+	cursor: pointer;
+}
+
+ul.sub li a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	text-decoration: none;
+	color: #000;
+}
+
+ul.sub li:hover {
+	background: #f4f4f4;
+}
 </style>
 <script>
-$(document).ready(function(){
-    
-    //모든 서브 메뉴 감추기
-    $(".sub").css({display:"none"}); 
-    //$(".sub").hide(); //위코드와 동일 
+	$(document).ready(function() {
 
-    $(".title").click(function(){
-        //일단 서브메뉴 다 가립니다.
-        $(".sub").css({display:"none"});
-        
-        //열린 서브메뉴에 대해서만 가립니다.
-        $(".sub").each(function(){
-            console.log($(this).css("display"));
-            if($(this).css("display")=="block") {
-                //$(".sub").css({display:"none"});
-                //$(this).hide();
-                $(this).slideUp("fast");
-            }
-        });
+		//모든 서브 메뉴 감추기
+		$(".sub").css({
+			display : "none"
+		});
+		//$(".sub").hide(); //위코드와 동일 
 
-        //현재 요소의 다음 요소를 보이게 합니다.
-        //$(this).next("ul").css({display:"block"});
-        //$(this).next("ul").show();
-        $(this).next("ul").slideDown("fast");
+		$(".title").click(function() {
+			//일단 서브메뉴 다 가립니다.
+			$(".sub").css({
+				display : "none"
+			});
 
+			//열린 서브메뉴에 대해서만 가립니다.
+			$(".sub").each(function() {
+				console.log($(this).css("display"));
+				if ($(this).css("display") == "block") {
+					//$(".sub").css({display:"none"});
+					//$(this).hide();
+					$(this).slideUp("fast");
+				}
+			});
 
-    })
-});
+			//현재 요소의 다음 요소를 보이게 합니다.
+			//$(this).next("ul").css({display:"block"});
+			//$(this).next("ul").show();
+			$(this).next("ul").slideDown("fast");
+
+		})
+	});
 </script>
 </head>
 
 <body>
-<div>
- <aside id="asideMain">
-	<div id="aside">
-		<div id="profile">
+	<div class="jumbotron text-center mb-0">
+		<h1>
+			<span id="irum">${user.irum }</span> 님의 페이지입니다.
+		</h1>
+		<br>
+		<p>환영합니다.</p>
+	</div>
+	<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#collapsibleNavbar">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
 		</div>
-		<div>
-			<ul>
-				<li><a href="/adaco/user/read" style="color: black;">내정보보기</a></li>
-				<li><a href="/adaco/user/orderList"style="color: black;">주문내역</a></li>
-				<li><a href="/adaco/user/reviewList" style="color: black;">내리뷰보기</a></li>
-				<li><a href="/adaco/user/favoriteList" style="color: black;">즐겨찾기목록</a></li>
-				<li><a href="/adaco/user/pointList" style="color: black;">포인트함 </a>
-				<li>
+	</nav>
+
+	<!-- content -->
+	<div class="container pt-3">
+		<div class="row">
+			<!-- left content -->
+			<div class="col-sm-3">
+				<!-- side menu (link) -->
+				<h3>
+					<strong>
+						MY Menu</strong>
+				</h3>
+				<ul class="list-group" id="navi">
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/user/read"
+						style="color: black; text-decoration: none;">내 정보 보기</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/user/orderList"
+						style="color: black; text-decoration: none;">주문내역</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/user/reviewList"
+						style="color: black; text-decoration: none;">내 리뷰 보기</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/user/favoriteList"
+						style="color: black; text-decoration: none;">즐겨찾기 목록</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/user/pointList"
+						style="color: black; text-decoration: none;">포인트함</a></li>
+					<li class="list-group-item list-group-item-action" id="group">
 						<div class="title">
 							<a style="color: black; text-decoration: none;">
-							메세지함
+							메시지함
 							</a>
 						</div>
 						<ul class="sub"> 
 							<li>
-								<a href="/adaco/message/listSender" style=" text-decoration: none;" >
-									<i></i>보낸쪽지함</a>
+								<a href="/adaco/message/listSender" style="color: black; text-decoration: none;" >
+									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 받은 메시지</a>
 							</li>
 							<li>
-								<a href="/adaco/message/listReceiver" style=" text-decoration: none;" >
-									<i></i>받은쪽지함</a>
+								<a href="/adaco/message/listReceiver" style="color: black; text-decoration: none;" >
+									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 보낸 메시지</a>
 							</li>
 						</ul>
-				</li>
-			</ul>
-		</div>
-	</div>
-	</aside>
-	
-	<section id="section">
-		<div id="myInfo">
-			<div id="my">
-				<h2>MY정보</h2>
+					</li>
+				</ul>
 			</div>
-			<ul class="dashboard-list">
-				<li class="list">포인트:<a href="/adaco/user/pointList"><strong style="color: red;">${point }p</strong></a></li>
-				<li class="list">리뷰수:<a href="/adaco/user/reviewList"><strong style="color: red;">${review }개</strong></a></li>
-				<li class="list">즐겨찾기수:<a href="/adaco/user/favoriteList"><strong style="color: red;">${favorite }개</strong></a></li>
-			</ul>
+			<div class="col-sm-8">
+				<br>
+				<h2>나의 내역</h2>
+				<br>
+				<ul class="dashboard-list">
+					<li>포인트:<strong style="color: red;">${point }p</strong></li>
+					<li>리뷰수:<strong style="color: red;">${review }개</strong></li>
+					<li>즐겨찾기수:<strong style="color: red;">${favorite }개</strong></li>
+				</ul>
+			</div>
+			<br> <br> <br> <br> <br> <br> <br>
+			<br> <br> <br> <br> <br> <br> <br>
+			<br> <br> <br>
 		</div>
-	</section>
 	</div>
 </body>
 </html>
