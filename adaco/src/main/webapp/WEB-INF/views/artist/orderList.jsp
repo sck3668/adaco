@@ -121,20 +121,16 @@ $(document).ready(function(){
 
 	// select box에 주문상태 값 받아오기
 	$(function() {
-		var $orderstate = $(".state").val(); 
+		var $orderstate = $("#orderstate").val(); 
 		var $select = $("#OrderState").find("option");
-		$select.each(function(idx, option) {
-			if($(option)!=null) {
-		
 		$select.each(function(idx, option) {
 		if($(option).text()==$orderstate) {
 		$($select[idx]).prop("selected", true);
 		}
-	
 		});
-		}
-		});
+		
 	});
+	
 		// select box값으로 주문상태 변경
 		$(function() {
 			
@@ -297,7 +293,7 @@ $(function(){
 						<option>배송중</option>
 						<option>배송완료</option>
 					</select> 
-					<input type="text" class="state" name="orderstate"  value="${list.orderstate}"  style="width:100px"/>
+					<input type="text" class="state" name="orderstate"  id="orderstate" value="${list.orderstate}"  style="width:100px"/>
 				</td> 
 			</tr>					
 		</c:forEach>

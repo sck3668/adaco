@@ -63,7 +63,7 @@ public class OrderDetailDaoTest {
 	// 주문번호 업데이트 테스트 ok
 	@Test
 		public void updateByOrderTest() {
-			OrderDetail orderDetail = OrderDetail.builder().orderno(794).orderstate(orderState.입금완료).build();
+			OrderDetail orderDetail = OrderDetail.builder().orderno(955).orderstate(orderState.배송중).build();
 			assertThat(orderDetaildao.updateByOrderDetail(orderDetail), is(1));
 		}
 		
