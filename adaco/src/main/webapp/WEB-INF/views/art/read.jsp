@@ -419,7 +419,7 @@ ${art }
 							<button data-v-794fc8d2="" type="button" class="ui_btn--mini" id="minus">
 				                -
 				            </button> 
-           					 <input data-v-794fc8d2="" type="number" min="1" max="999" name="count" > 
+           					 <input data-v-794fc8d2="" type="number" min="1" max="999" name="count" style="text-align: center;">  
            					<button data-v-794fc8d2="" type="button" class="ui_btn--mini" id="plus">
 				                +
 				            </button>
