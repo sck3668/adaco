@@ -76,7 +76,7 @@ public class OrderDetailService {
 		.setAmount(orderDetail.getAmount()).setPrice(orderDetail.getPrice()).setShippingCharge(order.getShippingCharge());
 		System.out.println("afterDto==" + afterDto);
 		return afterDto;
-	}
+	} 
 	
 	
 	// 모든 주문 내역 보기

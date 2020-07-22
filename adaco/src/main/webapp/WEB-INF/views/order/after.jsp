@@ -56,6 +56,17 @@ th {
 	hight: 800px;
 }
 
+ ol {
+     list-style:none; 
+     margin:0; 
+     padding:0; 
+     float:right;
+} 
+
+ li { 
+   display:inline
+ } 
+
 
 </style>
 
@@ -104,12 +115,34 @@ ${art} <br>
 ${option } 
 
 우편 번호 : ${order_detail.postalcode }
-<div>
-	<section>
 	<div id="ByALl">
-		<h3>주문이 정상적으로 완료 되었습니다.</h3>
-		<hr width="2500px;">
+		<div>
+		<h2>주문이 정상적으로 완료 되었습니다.</h2>
+		 <ol class="page-location fr">
+            <li>
+               <em class="icon-num">1</em>
+               <span>장바구니</span>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="active" >
+               <em class="icon-num">2</em>
+               <span >주문결제</span>
+               <i class="fa fa-angle-right"></i>
+             </li>
+             <li style="color:blue;">
+                <em class="icon-num">3</em>
+                <span >주문완료</span>
+              </li>
+          </ol>
+        </div>
+        <br>
+			<hr width="1500px;">
+			
+<!-- 		상품 정보		 -->
+	<div>
+		<div>
 		<h4>주문 상품/배송지 정보</h4>
+		</div>
 		<p>주문 날짜:${order.orderDateStr}&nbsp;|&nbsp;주문 번호:${order.orderno}</p>
 			<table>
 				<colgroup>
@@ -142,7 +175,8 @@ ${option }
 				</tbody>
 			</table>
 	</div>	
-	</section>
+	<br><br>
+<!-- 	배송지 정보   -->
 	<div id="shipping">
 		<h4>배송지 정보</h4>
 			<table>
@@ -164,11 +198,11 @@ ${option }
 			</table>
 	</div>
 </div>
+<br>
 		<div id="button">
 			<a href="/adaco/"><button type="button" class="btn btn-primary" >
 				쇼핑 계속하기
 			</button></a>
 		</div>
-		
 </body>
 </html>
