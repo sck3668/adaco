@@ -58,6 +58,12 @@ th {
        $("#originalAddress").val(originalAddress);
       })
    })
+//    $(function(){
+// 	var text = ${accumulated*0.01}+"";
+// 	text = text.split(".");
+// 	console.log(text[0]);
+// 	$("#accumulated").text(text[0]+"원");
+// 	})
 </script>
 </head>
 <body>
@@ -392,7 +398,7 @@ ${order }
                                 </tr>
                                 <tr>
                                     <th>예상 적립금</th>
-                                    <td>
+                                    <td id="accumulated">
                                     	<c:set var = "accumulated" value = "0" />
 											<c:forEach var="art" items="${order.artList}" varStatus="status">     
 												<input type="hidden" value="${order.bagList[status.index].amount*art.price+order.option.optionPrice}">

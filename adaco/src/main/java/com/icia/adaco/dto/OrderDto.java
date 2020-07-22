@@ -36,6 +36,7 @@ public class OrderDto {
  		private Bag bag;
  		private User user;
  		private String artistName;
+ 		private int price;
  		private int artistno;
  		private int optno;
  		private int orderno;
