@@ -77,6 +77,7 @@ public class ArtRestService {
 		}
 		option.setArtno(art.getArtno());
 		ArtImg artImg = ArtImg.builder().artno(art.getArtno()).gyungro(art.getMainImg()).build();
+		//작품 사진 변경하기
 		artDao.updateArtImg(artImg);
 		optionDao.updateByOption(option);
 		artDao.updateByArt(art);
