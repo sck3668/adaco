@@ -122,13 +122,16 @@ $(document).ready(function(){
 	// select box에 주문상태 값 받아오기
 	$(function() {
 		var $orderstate = $("#orderstate").val(); 
-		var $select = $("#OrderState").find("option");
+		var $select = $(".State").find("option");
+// 		$orderstate.each(function(){
+			
 		$select.each(function(idx, option) {
 		if($(option).text()==$orderstate) {
 		$($select[idx]).prop("selected", true);
 		}
 		});
-		
+			
+// 		})
 	});
 	
 		// select box값으로 주문상태 변경
@@ -284,16 +287,16 @@ $(function(){
 				<td>${list.recipient}</td> 
 				<td>${list.artName} / ${list.optionName}:${list.optionValue}</td>
 				<td>${list.price+list.shippingCharge}</td> 
-				<td>
-					<select id="OrderState" class="State">
-						<option selected="selected">주문상태 선택</option>
-						<option>입금대기</option>
-						<option>입금완료</option>
-						<option>배송준비중</option>
-						<option>배송중</option>
-						<option>배송완료</option>
-					</select> 
-					<input type="text" class="state" name="orderstate"  id="orderstate" value="${list.orderstate}"  style="width:100px"/>
+				<td>${list.orderstate}
+<!-- 					<select id="OrderState" class="State"> -->
+<!-- 						<option selected="selected">주문상태 선택</option> -->
+<!-- 						<option>입금대기</option> -->
+<!-- 						<option>입금완료</option> -->
+<!-- 						<option>배송준비중</option> -->
+<!-- 						<option>배송중</option> -->
+<!-- 						<option>배송완료</option> -->
+<!-- 					</select>  -->
+<%-- 					<input type="text" class="state" name="orderstate"  id="orderstate" value="${list.orderstate}"  style="width:100px"/> --%>
 				</td> 
 			</tr>					
 		</c:forEach>
