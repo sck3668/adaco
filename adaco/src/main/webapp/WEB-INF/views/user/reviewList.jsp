@@ -125,6 +125,7 @@ $(".title").click(function(){
 </script>
 </head>
 <body>
+${Review }
 <div>
 <aside id="asideMain">
 	<div id="aside">
@@ -181,12 +182,13 @@ $(".title").click(function(){
          <tr>
             <th>번호</th><th>상품</th><th>내용</th>
          </tr>
+         
          </thead>
          <tbody>
           <c:forEach items="${Review}" var="list">
       		<tr> 
                   <td>${list.rno }</td>
-                  <td>${list.artno }</td>
+                  <td><a href="/adaco/art/readByUser?artno=${list.artno}">${list.artno }</a></td>
                   <td>${list.content }</td>
                   <td><button type="button" id="delete">삭제</button>
                   	  <input type="hidden" value="${list.rno }">

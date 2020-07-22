@@ -21,17 +21,17 @@ import com.icia.adaco.service.rest.*;
 public class UserRestController {
 	@Autowired
 	private UserRestService userRestService;
-
+	//유저네임 확인
 	@GetMapping("/user/check_id")
 	public ResponseEntity<Boolean> checkId(@RequestParam String username) {
 		return ResponseEntity.ok(userRestService.checkId(username));
 	}
-
+	//이메일 확인
 	@GetMapping("/user/check_email")
 	public ResponseEntity<Boolean> checkEmail(@RequestParam @NotNull String email) {
 		return ResponseEntity.ok(userRestService.checkEmail(email));
 	}
-	
+	//내정보화면 업데이트
 	@PreAuthorize("isAuthenticated()")
 	@PutMapping("/user/update")
 	public ResponseEntity<Void> update(@Valid UserDto.DtoForUpdate dto, BindingResult results, MultipartFile sajin, Principal principal) throws BindException {
@@ -51,10 +51,10 @@ public class UserRestController {
 	//유저 즐찾삭제
 	@DeleteMapping("/user/favoriteDelete")
 	public ResponseEntity<?> favoriteDelete(int favno){
-		System.out.println(favno);
 		userRestService.favoriteDelete(favno);
 		return ResponseEntity.ok(userRestService.favoriteDelete(favno));
 	}
+	//리뷰 삭제
 	@PutMapping("/user/reviewDelete")
 	public ResponseEntity<?>reviewDelete(int rno){
 		userRestService.reviewDelete(rno);
@@ -67,20 +67,29 @@ public class UserRestController {
 //		return ResponseEntity.ok(null);
 //	}
 //	
+	//즐겨찾기 업데이트
 	@PostMapping("/user/favoriteUpdate")
 	public ResponseEntity<?> add(Principal principal,int artno) {
 		return ResponseEntity.ok(userRestService.favoriteUpdate(principal.getName(), artno));
 	}
+	//유저 회원탈퇴
 	@PutMapping("/user/delete")
 	public ResponseEntity<?> delete(Principal principal) {
 		userRestService.userDelete(principal.getName());
-			System.out.println(principal.getName()+"로그인한아이디");
 		return ResponseEntity.ok(null);
 	}
-	
+	//프로필 사진
 	@GetMapping("/user/profile")
 	public ResponseEntity<String> findProfile(String username) {
 		return ResponseEntity.ok(userRestService.findProfile(username));
+	}
+	//댓글 신고기능
+	@PatchMapping("/user/commentReport")
+	public ResponseEntity<?> Report(int artno,Principal principal,int cno){
+		System.out.println(artno+"아트엔오");
+		System.out.println(principal.getName());
+		System.out.println(cno+"씨엔오");
+		return ResponseEntity.ok(userRestService.commentReport(artno, principal.getName(), cno));
 	}
 	
 }

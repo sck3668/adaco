@@ -40,7 +40,7 @@
 	</update>
 	<select id="findAllByPoint" resultType="point">
 		select point,start_date startDate, total_point totalPoint
-		,end_date endDate,username from point where username=#{username}
+		,end_date endDate,username from point where username=#{username} order by start_date desc 
 	</select>
 	<insert id="insertpoint">
 		insert into point(point,start_date,end_date,username)
