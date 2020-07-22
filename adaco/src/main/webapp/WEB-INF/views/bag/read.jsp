@@ -25,22 +25,33 @@
 	}
 	
 	table {
-		width: 800px;
+ 		width: 100%; 
 		border-collapse: collapse;
 		border: 1px solid lightgray;
 		text-align: center;
 	}
-	.first { width: 40px; }
-	.second { width: 160px;  }
-	.third { widht: 160px; font-size: 0.8em; }
-	.fourth {width: 160px;}
-	.fifth { width: 240px; }
-	.six {width:40px;}
+  	.first { width: 5%; }  
+  	.second { width: 20%;  } 
+  	.third { widht: 30%; font-size: 0.8em; }  
+  	.fourth {width: 20%;} 
+  	.fifth { width: 10%; }  
+  	.six {width:5%;}  
 	.button_area a, .button_area span { 
 		font-size: 0.8em; text-align: center;
 		height: 30px; line-height: 30px;
 	}
 	.price { padding-left: 15px; }
+	
+	 ol {
+     list-style:none; 
+     margin:0; 
+     padding:0; 
+     float:right;
+	} 
+
+	 li { 
+	   display:inline
+	 } 
 </style>
 <script>
 /*$(function() {
@@ -172,11 +183,20 @@ $(function() {
 		$(".check").prop("checked", isChoice);
 	});
 	
-	//수량 증가
+	// 수량 증가
 	$("#bagArea").on("click", ".plus", function(e) {
+		var params = {
+				_csrf:"${_csrf.token}",
+				artno:$(this).attr("data-artno")	
+		}
 		$.ajax({
-			url:"/adaco/bag/checkStock?artno="+$(this).attr("data-artno")
-			}).then(()=>{
+			url:"/adaco/bag/checkStock?artno="+$(this).attr("data-artno"),
+			data:params,
+			method:"get"
+			}).then((result)=>{
+				if(result==false) {
+					alert("최대수량입니다");
+				} else {
 				var params = {
 						_csrf:"${_csrf.token}",
 						artno:$(this).attr("data-artno"),
@@ -186,15 +206,18 @@ $(function() {
 					url:"/adaco/bag/change",
 					data:params,
 					method:"post"
+				}).then((bag)=>{
+					$(this).next().text(bag.amount);
+					$(this).parent().prev().text(bag.totalPrice + "원");
+				}).fail(()=>{
 				})
+			}
 			}).then((bag)=>{
 				$(this).next().text(bag.amount);
 				$(this).parent().prev().text(bag.totalPrice + "원");
 			}).fail(()=>{
-				alert("수량");
+		})
 			})
-		
-	})
 	
 	//수량 감소
 	$("#bagArea").on("click", ".minus", function(e) {
@@ -403,15 +426,34 @@ $(function() {
 </head>
 
 <body>
-	<table style="width:800px;">
-	<colgroup>
-      		<col width="5%">
-      		<col width="20%">
-      		<col width="20%">
-      		<col width="20%">
-      		<col width="30%">
-      		<col width="5%">
-      	</colgroup>
+<h2>장바구니</h2>
+	<ol class="page-location fr">
+        <li style="color:blue;">
+            <em class="icon-num">1</em>
+            <span>장바구니</span>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li class="active">
+            <em class="icon-num">2</em>
+            <span >주문결제</span>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <em class="icon-num">3</em>
+            <span >주문완료</span>
+        </li>
+    </ol>
+    <br>
+    <hr width="1500px;">
+	<table> <!--  style="width:800px;" -->
+<%-- 	<colgroup> --%>
+<%--       		<col width="5%"> --%>
+<%--       		<col width="20%"> --%>
+<%--       		<col width="20%"> --%>
+<%--       		<col width="20%"> --%>
+<%--       		<col width="30%"> --%>
+<%--       		<col width="10%"> --%>
+<%--       	</colgroup> --%>
 		<tr>
 			<th>선택</th><th>이미지</th><th>상품명</th><th>옵션</th><th>수량 및 총가격</th><th>작품가격</th>
 		</tr>

@@ -225,7 +225,7 @@ $(document).ready(function(){
 						style="color: black; text-decoration: none;">내 정보 관리</a></li>
 					<li class="list-group-item list-group-item-action"><a
 						href="/adaco/artist/orderList"
-						style="color: black; text-decoration: none;">판매내역</a></li>
+						style="color: black; text-decoration: none;">주문 / 배송 관리</a></li>
 					<li class="list-group-item list-group-item-action"><a
 						href="#" style="color: black; text-decoration: none;">메세지함</a></li>
 					<li class="list-group-item list-group-item-action"><a
@@ -237,7 +237,7 @@ $(document).ready(function(){
    </aside>
  <section id="section">
 <%--  ${page.orderList } --%>
-<h3>주문 목록</h3>
+<h3>주문 / 배송 관리</h3>
 <!-- <hr> -->
 	<div id="idSearch" style="float:right;">
 	<input type="text" id="username" name="username" placeholder="구매자 ID 검색">
@@ -251,7 +251,7 @@ $(document).ready(function(){
 <!-- 		</select> -->
 <!-- 	</div> -->
 	<br><br>	
-	<form role="form" method="post" autocomplete="off">
+<!-- 	<form role="form" method="post" autocomplete="off"> -->
 	<table>
 		<colgroup>
 				<col width="13%">
@@ -298,10 +298,10 @@ $(document).ready(function(){
 		</c:forEach>
 		</tbody>
 	</table>
-	</form>
-		<div class="inputArea" align="center">
-			<button type="button" id="update_Btn">변경</button>
-		</div>
+<!-- 	</form> -->
+<!-- 		<div class="inputArea" align="center"> -->
+<!-- 			<button type="button" id="update_Btn">변경</button> -->
+<!-- 		</div> -->
  	<div style="text-align:center;">
 		<ul class="pagination">
 			<c:if test="${page.prev==true}">

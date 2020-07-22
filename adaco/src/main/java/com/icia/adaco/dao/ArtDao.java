@@ -102,9 +102,10 @@ public class ArtDao {
 	}
 	
 	//검색어에 해당되는 작품 수
-	public int countSerchByCategory(String category) {
-		Map<String, String> map = new HashMap<String, String>();
+	public int countSearchByCategory(String category,int artistno) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("category", category);
+		map.put("artistno",artistno);
 		return tpl.selectOne("artMapper.countSearchByCategory",map);
 	}
 	
