@@ -80,6 +80,39 @@ $(function() {
 </script>
 </head>
 <body>
+<<<<<<< HEAD
+<aside id="asideMain">
+	<div id="aside">
+		<div id="profile">
+		</div>
+		<div>
+			<ul>
+				<li><a href="/adaco/user/read" style="color: black;">내정보보기</a></li>
+				<li><a href="/adaco/user/orderList"style="color: black;">주문내역</a></li>
+				<li><a href="/adaco/user/reviewList" style="color: black;">내리뷰보기</a></li>
+				<li><a href="/adaco/user/favoriteList" style="color: black;">즐겨찾기목록</a></li>
+				<li><a href="/adaco/user/pointList" style="color: black;">포인트함 </a>
+				<li>
+						<div class="title">
+							<a style="color: black; text-decoration: none;">
+							메세지함
+							</a>
+						</div>
+						<ul class="sub"> 
+							<li>
+								<a href="/adaco/message/listSender" style=" text-decoration: none;" >
+									<i></i>빋은쪽지함</a>
+							</li>
+							<li>
+								<a href="/adaco/message/listReceiver" style=" text-decoration: none;" >
+									<i></i>보낸쪽지함</a>
+							</li>
+						</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+</aside>
 <section id="section">
 	 <div>
 	<h1>받은쪽지함</h1>

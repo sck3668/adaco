@@ -174,8 +174,8 @@
 	        let windowHeight = $window.height();
 	        let documentHeight = $(document).height();
 	        
-	        
-	        //console.log("documentHeight:" + documentHeight + " | scrollTop:" + scrollTop + " | windowHeight: " + windowHeight );
+	       	// 현재 스크롤 위치 확인 
+	        // console.log("documentHeight:" + documentHeight + " | scrollTop:" + scrollTop + " | windowHeight: " + windowHeight );
 	        // scrollbar의 thumb가 바닥 전 30px까지 도달 하면 리스트를 가져온다.
 	        
 	        if( scrollTop + windowHeight + 30 > documentHeight && check == true){

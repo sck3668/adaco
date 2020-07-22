@@ -53,9 +53,10 @@ public class UserService {
 	private ReviewDao reviewDao;
 	@Autowired
 	private OrderService orderService;
-	
+
 	public void join(UserDto.DtoForJoin dto, MultipartFile sajin) throws IllegalStateException, IOException, MessagingException {
 		User user = modelMapper.map(dto, User.class);
+		//사진이 null이 않을때 && 사진이 비어있지 않을때 
 		if(sajin!=null && sajin.isEmpty()==false) {
 			if(sajin.getContentType().toLowerCase().startsWith("image/")==true) {
 				int lastIndexOfDot = sajin.getOriginalFilename().lastIndexOf('.');
@@ -88,7 +89,7 @@ public class UserService {
 		/* List<String> authorities = dto.getAuthorities(); */
 		/* for(String authority:authorities) */ 
 			authorityDao.insert(user.getUsername(), "ROLE_USER");
-		
+		//사진 이메일 링크 보내기
 		String link = "<a href='http://localhost:8081/adaco/user/join_check?checkCode=" + checkCode + "'>";
 		StringBuffer sb = new StringBuffer("<p>회원가입을 위한 안내 메일입니다</p>");
 		sb.append("<p>가입 확인을 위해 아래 링크를 클릭해 주세요</p>");
@@ -107,39 +108,39 @@ public class UserService {
 		if(user==null)
 			throw new UserNotFoundException();
 		user.getProfile();
-		//생일
+		//생일 
 		UserDto.DtoForRead dto = modelMapper.map(user,UserDto.DtoForRead.class);
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
 		dto.setBirthDateStr(user.getBirthDate().format(dtf));
-		System.out.println(dto.getProfile()+"사진 프로필 사진");
 		
 		return dto;
 		
 	}
+	//전화번호로 이름찾기
 	public String findByTel(String tel) {
-		System.out.println(userDao.findidByCheckTel(tel)+"=======");
 		return userDao.findidByCheckTel(tel);
 	}
-	
+	// 이름 존재 여부
 	public boolean exsitsUsername(String irum) {
 		return userDao.existsUsername(irum);
 	}
+	// 이메일이 존재 여부
 	public boolean existsEmail(String email) {
 		return userDao.existsEmail(email);
 	}
+	// 이메일로 유저네임 찾기
 	public String findByEmail(String email) {
 		return userDao.findidByCheckEmail(email);
 	}
-	
+	// 이름으로 유저네임 찾기
 	public String findByIrum(String irum) {
 		String username = userDao.findidByCheckName(irum);
-		System.out.println(username+"이거에 유저네임은 뭐야 시발");
 		if(username==null)
 			throw new JobFailException("이름이 달라달라4달라");
 		
 		return userDao.findidByCheckName(irum);
 	}
-	
+	// 회원가입시 체크코드 로확인
 	public void joinCheck(@NotNull String checkCode) {
 			String username = userDao.findJoinCheckCode(checkCode);
 			/*
@@ -151,14 +152,8 @@ public class UserService {
 	
 	//포인트 리스트
 	public List<PointDto.DtoForList> pointList(String username){
-		
-		
 		List<Point> point = userDao.findAllByPoint(username);
-		//null
-			System.out.println(point+"그냥포인트============");
 		List<PointDto.DtoForList> listPoint = new ArrayList<PointDto.DtoForList>();
-			System.out.println(listPoint+"리스트포인트위에꺼");
-		System.out.println(listPoint+"리스트포인트아래꺼");
 		if(point!=null) {
 		for(Point point1:point) {
 			PointDto.DtoForList dto = modelMapper.map(point,PointDto.DtoForList.class);
@@ -176,7 +171,7 @@ public class UserService {
 		}
 		return listPoint;
 }
-		
+	//포인트 합계
 	public Integer totalpoint(String username) {
 		if(userDao.TotalPoint(username)==null) {
 			return 0;
@@ -220,7 +215,6 @@ public class UserService {
 	//2단계 비밀번호 찾기
 	public void resetPassword(String username,String email) throws MessagingException {
 		User user = userDao.findByid(username);
-		System.out.println(user);
 		if(user==null)
 			throw new UserNotFoundException();
 		if(user.getEmail().equals(email)==false)
@@ -240,9 +234,6 @@ public class UserService {
 			throw new UserNotFoundException();
 		String encodedPassword = user.getPassword();
 		if(pwdEncoder.matches(password, encodedPassword)==true) {
-		System.out.println(encodedPassword+"이것이 유저다");
-		System.out.println(password+"이것은 패스워드");	
-		System.out.println(newPassword);
 			String newEncodedPassword = pwdEncoder.encode(newPassword);
 			userDao.update(User.builder().password(newEncodedPassword).username(username).build());
 		}
@@ -257,28 +248,22 @@ public class UserService {
 		int ern = page.getEndRowNum();
 		List<Order>orderList = orderDao.findAllByOrder(srn, ern, username);
 		List<OrderDto.DtoForList> orderListDto = new ArrayList<OrderDto.DtoForList>();
-		System.out.println("서비스진입");
 //		orderService.payment(username, dto);
 		for(Order order:orderList) {
 			OrderDto.DtoForList dto = modelMapper.map(order,OrderDto.DtoForList.class);
-			System.out.println("오더"+order);
 			int orderno = order.getOrderno();
-			System.out.println("orderno"+orderno);
 			OrderDetail orderDetail = orderDetailDao.OrderDetail(orderno);
-			System.out.println("orderDetail"+orderDetail);
 			if(orderDetail==null) {
 				return null;
 			}
 			else {
 			dto.setOrderDateStr(order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
 			dto.setArtName(orderDetail.getArtName());
-			System.out.println("셋아트네임"+dto.setArtName(orderDetail.getArtName()));
 			dto.setArtPrice(orderDetail.getPrice());
 			dto.setOrderstate(orderState.입금대기);
 			orderListDto.add(dto);
 			}
 		}
-		System.out.println("페이지"+page);
 		page.setOrderList(orderListDto);
 		return page;
 	}
@@ -287,13 +272,10 @@ public class UserService {
 		OrderDetail orderDetail = orderDetailDao.findArtnoByOrderDetail(artName);
 		List<Order> Charge = orderDao.findUsernameByCharge(username);
 		OrderDetail detail = orderDetailDao.findByOrdernoOrderDetail(orderDetail.getOrderno());
-		System.out.println(detail+"디테일");
 		OrderDetailDto.DtoForReadOrder dto = modelMapper.map(detail,OrderDetailDto.DtoForReadOrder.class);
-		System.out.println(dto+"디티오");
 		for(Order shippingCharge :Charge) {
 			dto.setShippingCharge(shippingCharge.getShippingCharge());
 		}
-		System.out.println(dto+"디티오");
 		return  dto;
 	}
 	

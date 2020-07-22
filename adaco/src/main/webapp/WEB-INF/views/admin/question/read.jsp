@@ -49,17 +49,6 @@ function printAnswer(answer) {
 	var $answer = $("#answer_content");
 	$answer.empty();
 	$answer.text(question.answerContent);
-	
-/* 	var $answer = $("#answer_div");
-	$answer.empty();
-	
-	var $comment = $("<div>").appendTo($answer);
-	var $upper_div = $("<div>").appendTo($answer);
-	var $center_div = $("<div>").appendTo($answer);
-	var $lower_div = $("<div>").appendTo($answer);
-	$("<span>").html(question.answerContent).appendTo($center_div);
-	var time = question.answerDateStr;
-	$("<span>").text(time).appendTo($lower_div); */
 }
 
 function checkState() {
