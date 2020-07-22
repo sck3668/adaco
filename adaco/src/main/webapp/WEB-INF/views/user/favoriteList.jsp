@@ -175,11 +175,11 @@ $(function() {
 						<ul class="sub"> 
 							<li>
 								<a href="/adaco/message/listSender" style="color: black; text-decoration: none;" >
-									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 받은 메시지</a>
+									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 보낸 쪽지함</a>
 							</li>
 							<li>
 								<a href="/adaco/message/listReceiver" style="color: black; text-decoration: none;" >
-									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 보낸 메시지</a>
+									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 받은 쪽지함</a>
 							</li>
 						</ul>
 					</li>
