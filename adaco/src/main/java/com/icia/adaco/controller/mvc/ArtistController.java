@@ -3,7 +3,10 @@ package com.icia.adaco.controller.mvc;
 import java.security.*;
 import java.util.*;
 
+import javax.validation.constraints.*;
+
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.*;
 import org.springframework.lang.*;
 import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
@@ -14,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.*;
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
 import com.icia.adaco.dao.*;
+import com.icia.adaco.dto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.service.mvc.*;
 import com.icia.adaco.service.rest.*;
@@ -59,15 +63,41 @@ public class ArtistController {
 //	}
 	
 	// 작가번호로 주문리스트찾기
+		@PreAuthorize("isAuthenticated()")
+		@GetMapping("/artist/orderList")
+		public ModelAndView artistSellList(@RequestParam(defaultValue ="1")int pageno, Principal principal ){
+			return new ModelAndView("main").addObject("viewName","artist/orderList.jsp")
+					.addObject("page",orderDetailService.OrderListByArtist(pageno,principal.getName()));
+		}
+	
+	// 주문 상태 업데이트
 	@PreAuthorize("isAuthenticated()")
-	@GetMapping("/artist/artistSellList")
-	public ModelAndView artistSellList(@RequestParam(defaultValue ="1")int pageno, Principal principal ){
-		return new ModelAndView("main").addObject("viewName","artist/artistSellList.jsp")
-				.addObject("page",orderDetailService.OrderListByArtist(pageno,principal.getName()));
-//				.addObject("art",artRestService.readArt(artno, principal.getName()))
+	@PutMapping("/artist/updateOrderDetail")
+	public ResponseEntity<?> updateOrderDetail(OrderDetailDto.DtoForUpdate dto ,Principal principal) {
+		dto.setUsername(principal.getName());
+		orderDetailService.update(dto, principal.getName());
+		return ResponseEntity.ok(null);
 	}
 	
-	//주문, 배송 관리
+	
+	// 주문 내역 상세 
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/artist/orderDetail")
+	public ModelAndView artistOrderRead(Integer orderno, Principal principal) {
+		return new ModelAndView("main").addObject("viewName", "artist/orderDetail.jsp")
+				.addObject("orderDetail",orderDetailService.OrderDetailByArtist(orderno, principal.getName()));
+				
+	}
+	
+//	// 주문 내역 상세 
+//	@PostMapping("/artist/orderDetail")
+//	public ResponseEntity<?>orderDetailService(@RequestParam @NotNull Integer orderno, Principal principal) throws JsonProcessingException {
+//		String username = principal!=null? principal.getName():null;
+//		OrderDetailDto.DtoForReadOrder orderDto = orderDetailService.OrderDetailByArtist(orderno, username);
+//		return ResponseEntity.ok(orderDto);
+//	}
+	
+	
 //		@PreAuthorize("isAuthenticated()")
 		@GetMapping("/artist/orderAdmin")
 		public ModelAndView orderAdmin() {

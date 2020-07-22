@@ -295,7 +295,7 @@
 						href="/adaco/artist/artistRead"
 						style="color: black; text-decoration: none;">내 정보 관리</a></li>
 					<li class="list-group-item list-group-item-action"><a
-						href="/adaco/artist/artistSellList"
+						href="/adaco/artist/orderList"
 						style="color: black; text-decoration: none;">판매내역</a></li>
 					<li class="list-group-item list-group-item-action">
 						<div class="title">
