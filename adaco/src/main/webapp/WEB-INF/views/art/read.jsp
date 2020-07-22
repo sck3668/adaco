@@ -484,7 +484,7 @@ ${art }
 				<textarea class="form-control" rows="5"	id="review_textarea" placeholder="욕설이나 모욕적인 댓글은 삭제될 수 있습니다"></textarea>
 			</div>
 			<button type="button" class="btn btn-info" id="comment_write">댓글 작성</button>
-			
+			ㅇㄴㅁㄴㅁㅇㅁㄴ
 	</div> -->
 	<div>
 			<div class="form-group">
