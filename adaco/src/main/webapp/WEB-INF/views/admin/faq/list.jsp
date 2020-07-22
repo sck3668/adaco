@@ -17,6 +17,7 @@
 	$(function(){
 		$(".delete").on("click", function(){
 			var params = {
+				_method: "delete",
 				faqno : $(this).data("faqno"),
 				_csrf : "${_csrf.token}"
 			}

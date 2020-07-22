@@ -170,7 +170,7 @@ public class AdminBoardController {
 	@PostMapping("/admin/faq_write")
 	public String faqWrite(FAQ faq) {
 		service.faqWrite(faq);
-		return "redirect:/user/faq_list";
+		return "redirect:/user/faqList";
 	}
 	
 	@Secured("ROLE_ADMIN")

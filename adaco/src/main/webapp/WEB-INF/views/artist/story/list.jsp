@@ -216,11 +216,16 @@
 	    function redirectPage() {
 	    window.location = linkLocation;
 	    }
+	    
+	    $("#top").on("click", function(e){
+	    	e.preventDefault();
+	    	$('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
+	    })
 	})
 </script>
 </head>
 <body>
-	<h1>스토리</h1>
+	<h1 id = "target">스토리</h1>
 	<hr>
 	<section class="articles-v3">
 	  <div class="container max-width-adaptive-lg">
@@ -257,31 +262,8 @@
 		      </li>
 		</c:forEach>
 		</ul>
+		<a href="#target" class = "btn btn-primary" id="top">상단으로</a>
 		</div>
-			<div style="text-align: center;">
-		<ul class="pagination" style="text-align: center; margin: 0 auto; width: 0px; text-align: center;">
-			<c:if test="${story.prev==true}">
-				<li class = "page-item"><a
-					href="/adaco/story/listStory?pageno=${story.startPage-1}">이전</a></li>
-			</c:if>
-			<c:forEach begin="${story.startPage}" end="${story.endPage}"
-				var="i">
-				<c:choose>
-					<c:when test="${story.pageno eq i }">
-						<li class="page-item active"><a
-							class = "page-link" href="/adaco/story/listStory?pageno=${i}">${i}</a></li>
-					</c:when>
-					<c:otherwise>
-						<li class = "page-item"><a class = "page-link" href="/adaco/story/listStory?pageno=${i}">${i}</a></li>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-			<c:if test="${story.next==true}">
-				<li class = "page-item"><a
-					href="/adaco/story/listStory?pageno=${story.endPage+1}">다음</a></li>
-			</c:if>
-		</ul>
-	</div>
 	</section>
 	
 	<sec:authorize access="hasRole('ROLE_SELLER')">
