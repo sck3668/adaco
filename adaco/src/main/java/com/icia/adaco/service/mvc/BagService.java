@@ -26,10 +26,14 @@ public class BagService {
 	
 	// 장바구니 추가
 	public int insertByBag(Bag bag,String username) {
+		System.out.println("bag=="+bag);
+		System.out.println("username=="+username);
 		int artno = bag.getArtno();
 		Art art = artdao.readByArt(artno);
+		System.out.println("111");
 		bag.setTotalPrice(bag.getAmount()*art.getPrice());
-		Bag bag1 = bagdao.findBagByUsername(username);
+		System.out.println("222");
+		Bag bag1 = bagdao.findByArtnoUsername(artno,username);
 		System.out.println("bag1=="+bag1);
 		//username 찾은 장바구니의 artno가 추가하는 bag의 artno와 같은 경우 수량 증가
 		// 장바구니 추가는 하지 않음
@@ -54,7 +58,6 @@ public class BagService {
 		//int lastPrice = 0;
 		for(Bag bag1:bagList) {
 			int artno = bag1.getArtno();
-//			Bag bag = bagdao.findByArtno(artno);
 			Art art = artdao.readByArt(artno);
 			Option option = optionDao.readByArtno(artno);
 			BagDto.DtoForList dtoBag = modelMapper.map(bag1,BagDto.DtoForList.class);
@@ -68,8 +71,8 @@ public class BagService {
 	}
 	
 	//재고여부 확인
-	public boolean checkStock(int artno) {
-		Bag bag = bagdao.findByArtno(artno);
+	public boolean checkStock(int artno,String username) {
+		Bag bag = bagdao.findByArtnoUsername(artno, username);
 		int stock = artdao.readByArt(artno).getStock();
 		if(bag.getAmount()>=stock)
 			throw new OutOfStockExcetion();
@@ -77,15 +80,19 @@ public class BagService {
 	}
 	
 	// 개수 증감
-	public Bag change(int artno, boolean isIncrese) {
-		Bag bag = bagdao.findByArtno(artno);
+	public Bag change(int artno, boolean isIncrese,String username) {
+		Bag bag = bagdao.findByArtnoUsername(artno, username);
 		Art art = artdao.readByArt(artno);
+		System.out.println("bag=="+bag);
+		System.out.println("art==="+art);
 		if(isIncrese==true) {
+			System.out.println("bag111"+bag);
 			bag.setAmount(bag.getAmount()+1);
 			bag.setTotalPrice(bag.getAmount()*art.getPrice());
 			bagdao.increaseByAmount(artno);
 			bagdao.updateByBag(Bag.builder().artno(artno)
-					.totalPrice(bag.getAmount()*art.getPrice()).build());
+					.totalPrice(bag.getTotalPrice()).build());
+			System.out.println("bag22"+bag);
 		} else {
 			if(bag.getAmount()>1) {
 			bag.setAmount(bag.getAmount()-1);

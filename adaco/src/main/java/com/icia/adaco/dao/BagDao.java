@@ -37,7 +37,13 @@ public class BagDao {
 	public Bag findByArtno(Integer artno) {
 		return tpl.selectOne("bagMapper.findByArtno", artno);
 	}
-	
+	// 작품번호와 아이디로 장바구니 작품 보기
+	public Bag findByArtnoUsername(Integer artno,String username) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("artno",artno);
+		map.put("username",username);
+		return tpl.selectOne("bagMapper.findByArtnoUsername", map);
+	}
 	// 장바구니에  담아둔 작품의 총금액,수량,옵션명 옵션값 변경
 	public int updateByBag(Bag bag) {
 		return tpl.update("bagMapper.updateByBag", bag);

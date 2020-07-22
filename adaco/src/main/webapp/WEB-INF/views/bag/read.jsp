@@ -174,8 +174,14 @@ $(function() {
 	
 	//수량 증가
 	$("#bagArea").on("click", ".plus", function(e) {
+		var params = {
+				_csrf:"${_csrf.token}",
+				artno:$(this).attr("data-artno")	
+		}
 		$.ajax({
-			url:"/adaco/bag/checkStock?artno="+$(this).attr("data-artno")
+			url:"/adaco/bag/checkStock?artno="+$(this).attr("data-artno"),
+			data:params,
+			method:"get"
 			}).then(()=>{
 				var params = {
 						_csrf:"${_csrf.token}",
