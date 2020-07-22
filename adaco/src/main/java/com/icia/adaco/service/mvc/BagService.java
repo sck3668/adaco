@@ -74,8 +74,9 @@ public class BagService {
 	public boolean checkStock(int artno,String username) {
 		Bag bag = bagdao.findByArtnoUsername(artno, username);
 		int stock = artdao.readByArt(artno).getStock();
-		if(bag.getAmount()>=stock)
-			throw new OutOfStockExcetion();
+		if(bag.getAmount()>=stock) {
+			return false;
+		}
 		return true;
 	}
 	
@@ -90,15 +91,15 @@ public class BagService {
 			bag.setAmount(bag.getAmount()+1);
 			bag.setTotalPrice(bag.getAmount()*art.getPrice());
 			bagdao.increaseByAmount(artno);
-			bagdao.updateByBag(Bag.builder().artno(artno)
-					.totalPrice(bag.getTotalPrice()).build());
+			bagdao.updateByBagUsername(Bag.builder().username(bag.getUsername()).artno(artno)
+					.totalPrice(bag.getAmount()*art.getPrice()).build());
 			System.out.println("bag22"+bag);
 		} else {
 			if(bag.getAmount()>1) {
 			bag.setAmount(bag.getAmount()-1);
 			bag.setTotalPrice(bag.getAmount()*art.getPrice());
 			bagdao.decreaseByAmount(artno);
-			bagdao.updateByBag(Bag.builder().artno(artno)
+			bagdao.updateByBagUsername(Bag.builder().username(bag.getUsername()).artno(artno)
 					.totalPrice(bag.getAmount()*art.getPrice()).build());
 			}
 		}

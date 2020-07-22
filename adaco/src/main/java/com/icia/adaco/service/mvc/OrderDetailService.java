@@ -65,11 +65,23 @@ public class OrderDetailService {
 	
 	// 주문 상세 보기
 	public OrderDto.DtoForAfter OrderDetail(OrderDto.DtoForAfter dto,String username) {
-		System.out.println("orderDetail dto==="+dto);
-		OrderDto.DtoForAfter afterDto = modelMapper.map(dto,OrderDto.DtoForAfter.class);
-		System.out.println("afterDto=="+afterDto);
+		System.out.println("orderDetail dto===" + dto);
+		
+		Art art = artDao.readByArt(dto.getArtno());
+		Order order = orderDao.findByOrder(dto.getOrderno());
+		Bag bag = bagDao.findByArtno(dto.getArtno());
+		OrderDetail orderDetail = orderDetailDao.OrderDetail(dto.getOrderno());
+		System.out.println("OrderDetail@@!@#!@@========"+orderDetail);
+		OrderDto.DtoForAfter afterDto = modelMapper.map(dto, OrderDto.DtoForAfter.class);
+		String orderDateStr = order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일"));
+		afterDto.setOrderDateStr(orderDateStr).setArtName(art.getArtName()).setUsername(username)
+//		.setPostalcode(orderDetail.getPostalcode())
+		.setOptionName(orderDetail.getOptionName()).setOptionValue(orderDetail.getOptionValue())
+		.setAmount(orderDetail.getAmount()).setPrice(orderDetail.getPrice()).setShippingCharge(order.getShippingCharge());
+		System.out.println("afterDto==" + afterDto);
 		return afterDto;
-	}
+	} 
+	
 	
 	// 모든 주문 내역 보기
 	

@@ -172,7 +172,7 @@ $(function() {
 		$(".check").prop("checked", isChoice);
 	});
 	
-	//수량 증가
+	// 수량 증가
 	$("#bagArea").on("click", ".plus", function(e) {
 		var params = {
 				_csrf:"${_csrf.token}",
@@ -182,7 +182,10 @@ $(function() {
 			url:"/adaco/bag/checkStock?artno="+$(this).attr("data-artno"),
 			data:params,
 			method:"get"
-			}).then(()=>{
+			}).then((result)=>{
+				if(result==false) {
+					alert("최대수량입니다");
+				} else {
 				var params = {
 						_csrf:"${_csrf.token}",
 						artno:$(this).attr("data-artno"),
@@ -192,15 +195,18 @@ $(function() {
 					url:"/adaco/bag/change",
 					data:params,
 					method:"post"
+				}).then((bag)=>{
+					$(this).next().text(bag.amount);
+					$(this).parent().prev().text(bag.totalPrice + "원");
+				}).fail(()=>{
 				})
+			}
 			}).then((bag)=>{
 				$(this).next().text(bag.amount);
 				$(this).parent().prev().text(bag.totalPrice + "원");
 			}).fail(()=>{
-				alert("수량");
+		})
 			})
-		
-	})
 	
 	//수량 감소
 	$("#bagArea").on("click", ".minus", function(e) {

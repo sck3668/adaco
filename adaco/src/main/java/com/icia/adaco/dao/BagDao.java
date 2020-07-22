@@ -49,6 +49,11 @@ public class BagDao {
 		return tpl.update("bagMapper.updateByBag", bag);
 	}
 	
+	// 장바구니에  담아둔 작품의 총금액,수량,옵션명 옵션값 변경
+	public int updateByBagUsername(Bag bag) {
+		return tpl.update("bagMapper.updateByBagUsername", bag);
+	}
+	
 	// 장바구니 담아둔 작품 삭제
 	public int deleteByBag(Integer artno) {
 		return tpl.delete("bagMapper.deleteByBag", artno);
