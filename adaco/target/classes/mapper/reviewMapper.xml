@@ -43,6 +43,6 @@
 		where rno=#{rno} and rownum=1
 	</select>
 	<select id="listByReviewOfusername" resultType="user">
-		select rno,star,content,image,write_date writeDate,artno,username from user where username=#{username}
+		select rno,star,content,image,write_date writeDate,artno,username from user where username=#{username} order by rno desc
 	</select>
  </mapper>

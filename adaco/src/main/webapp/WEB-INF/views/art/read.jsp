@@ -99,6 +99,7 @@ function printReview(reviews){
 		if(review.image!==null){
 			$("<img>").attr("src",review.image).appendTo($lower_div);	
 		}
+		
 // 		$("<span>").hmtl(review.star).appendTo($lower_div)
 		 if(review.username===loginId){
 				var btn = $("<button>").attr("class","delete_review").attr("data-username", review.username).attr("data-rno",review.rno)
@@ -121,6 +122,7 @@ function printComment(comments){
 		$("<img>").attr("src",comment.profile).css("width","60px").css("height","60px").appendTo($center_div);
 		$("<div>").html(comment.content).css("display","inline-block").appendTo($center_div);
 		$("<span>").text(comment.writeDateStr).appendTo($lower_div);
+		$("<button>").attr('class','report_comment').attr("data-username",comment.username).attr("data-cno",comment.cno).text("신고").appendTo($lower_div).css("float","right");
 		 if(comment.username===loginId){
 			var btn = $("<button>").attr("class","delete_comment").attr("data-username", comment.username).attr("data-cno",comment.cno)
 			.text("삭제").appendTo($center_div).css("float","right")
@@ -143,7 +145,26 @@ $(function() {
 	
 	 $("#sajin").on("change", loadImage); 
 
-
+	//신고글기능
+	$("#comments").on("click",".report_comment",function(){
+		var $artno = $("#artno").val()
+		var parmas={
+				_method:"patch",
+				_csrf:"${_csrf.token}",
+				cno:$(this).data("cno"),
+				artno:$artno
+		}
+		console.log(parmas)
+		$.ajax({
+			data:parmas,
+			method:"post",
+			url:"/adaco/user/commentReport"
+		}).done((r)=>{confirm("신고하겟습니가?")
+		}).fail((r)=>{alert("이미 신고처리된 댓글입니다.")})
+	      
+	})
+	
+	
 	//리뷰작성
 	 $("#review_write").on("click",function(){
 					
@@ -209,6 +230,10 @@ $(function() {
 	
 	//댓글작성
 	$("#comment_write").on("click",function(){
+		const patt = /^.{1,1000}$/;
+		var $content =$("#comment_textarea").val();
+		 if(patt.test($content)==false)
+			 return false;
 		var parmas = {
 				artno :$("#artno").val(),
 				content:$("#comment_textarea").val(),
@@ -363,6 +388,8 @@ $(function() {
 	
 });
 
+
+//1. 작품 상세(고객용)에서 수량 카운트는 되나 실제로 적용 안됨
 // 수량 증가 감소
 	$(function(){
 	$('#decreaseQuantity').click(function(e){
@@ -382,9 +409,9 @@ $(function() {
 	var num = parseInt(stat,10);
 	num++;
 	
-	if(num>199){
-	alert('199이하로 구매가능 합니다.');
-	num=199;
+	if(num>${artPageByUser.stock}){
+	alert('남은 수량을 확인해주세요.');
+	num=${artPageByUser.stock};
 	}
 	$('#numberUpDown').text(num);
 	});
@@ -527,7 +554,7 @@ ${art }
 				<textarea class="form-control" rows="5"	id="review_textarea" placeholder="욕설이나 모욕적인 댓글은 삭제될 수 있습니다"></textarea>
 			</div>
 			<button type="button" class="btn btn-info" id="comment_write">댓글 작성</button>
-			
+			ㅇㄴㅁㄴㅁㅇㅁㄴㅇㅁㅇㄴ
 	</div> -->
 	<div>
 			<div class="form-group">

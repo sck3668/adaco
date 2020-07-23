@@ -346,6 +346,9 @@ $(function() {
 			if($(this).prop("checked")) {
 				ar.push($(this).data("artno"));
 			}
+			none.unstanted("check").toappend;
+			alert("구매 테스트")
+			
 		});
 		
 		var params = {

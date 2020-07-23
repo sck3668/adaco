@@ -33,8 +33,8 @@ public class ArtCommentDao {
 	}
 	
 	//신고수 업데이트
-	public int updateByReportCnt(ArtComment artcomment) {
-		return tpl.update("artCommentMapper.update", artcomment);
+	public int updateByReportCnt(int cno) {
+		return tpl.update("artCommentMapper.update", cno);
 	}
 	
 	

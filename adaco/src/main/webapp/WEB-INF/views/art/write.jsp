@@ -66,6 +66,7 @@
 		
 		// form을 넘기기전에 값 확인
 		$("#insert_Btn").on("click", function() {
+			if()
 		var formData = new FormData(document.getElementById("insert_art"));
 		for(var key of formData.keys())
 			console.log(key);
