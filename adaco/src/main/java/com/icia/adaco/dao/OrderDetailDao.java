@@ -23,7 +23,6 @@ public class OrderDetailDao {
 	
 	// 주문 상세
 	public OrderDetail OrderDetail(Integer orderno) {
-		System.out.println("Dao."+orderno);
 		return tpl.selectOne("orderDetailMapper.OrderDetail", orderno);
 	}
 	// Artno로 디테일 찾기
