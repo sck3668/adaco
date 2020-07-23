@@ -80,7 +80,6 @@ $(function() {
 </script>
 </head>
 <body>
-<<<<<<< HEAD
 <aside id="asideMain">
 	<div id="aside">
 		<div id="profile">

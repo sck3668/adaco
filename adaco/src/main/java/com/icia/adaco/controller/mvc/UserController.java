@@ -235,7 +235,6 @@ public class UserController {
 		return new ModelAndView("main")
 				.addObject("viewName","user/orderRead.jsp")
 				.addObject("orderDetail",userService.userOrderRead(principal.getName(),artName));
-				
 	}
 	
 	

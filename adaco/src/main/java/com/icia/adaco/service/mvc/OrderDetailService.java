@@ -51,34 +51,27 @@ public class OrderDetailService {
 		orderDetail.setAddPoint((int) (art.getPrice()*0.01)).setOrderstate(orderState.입금대기);
 		int optno = optionDao.findOptnoByArtno(artno);
 		orderDetail.setOptno(optno);
-		//artName,optionName,optionValue,amount,price,email,tel,
-		//request,addPoint,postalcode,refundAccount,isShipping,state,address,recipient,
-		//System.out.println("orderDetail11111======"+orderDetail);
 		bagDao.deleteByBag(artno);
 		//point증가처리
 		Point point = Point.builder().startDate(LocalDateTime.now()).endDate(LocalDateTime.now().plusYears(1))
 				.username(username).point((int) (bag.getTotalPrice()*0.01)).build();
 		userDao.insertpoint(point);
-		System.out.println("orderDetail1111111111111"+orderDetail);
+		System.out.println("DService payment orderDetail=="+orderDetail);
 		return orderDetailDao.Payment(orderDetail);
 	}
 	
 	// 주문 상세 보기
 	public OrderDto.DtoForAfter OrderDetail(OrderDto.DtoForAfter dto,String username) {
-		System.out.println("orderDetail dto===" + dto);
-		
 		Art art = artDao.readByArt(dto.getArtno());
 		Order order = orderDao.findByOrder(dto.getOrderno());
 		Bag bag = bagDao.findByArtno(dto.getArtno());
 		OrderDetail orderDetail = orderDetailDao.OrderDetail(dto.getOrderno());
-		System.out.println("OrderDetail@@!@#!@@========"+orderDetail);
 		OrderDto.DtoForAfter afterDto = modelMapper.map(dto, OrderDto.DtoForAfter.class);
 		String orderDateStr = order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일"));
 		afterDto.setOrderDateStr(orderDateStr).setArtName(art.getArtName()).setUsername(username)
 //		.setPostalcode(orderDetail.getPostalcode())
 		.setOptionName(orderDetail.getOptionName()).setOptionValue(orderDetail.getOptionValue())
 		.setAmount(orderDetail.getAmount()).setPrice(orderDetail.getPrice()).setShippingCharge(order.getShippingCharge());
-		System.out.println("afterDto==" + afterDto);
 		return afterDto;
 	} 
 	

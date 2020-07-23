@@ -149,36 +149,53 @@ $(function() {
 	
 	//리뷰작성
 	 $("#review_write").on("click",function(){
-					
-		const patt = /^.{5,1000}$/;
-		var $content =$("#review_textarea").val();
-		 if(patt.test($content)==false)
-			 return false;
-		 var $artno = $("#artno").val();
-			var formData = new FormData();
-			formData.append("content",$content);
-			formData.append("artno",$artno);
-  			if($("#sajin")[0].files[0]!=undefined){
-			formData.append("sajin", $("#sajin")[0].files[0]);	
-  			}
-			formData.append("_csrf", "${_csrf.token}");
-			formData.append("_method", "put");
-			
-				for (var key of formData.keys()) {
-					  console.log(key);
+		var $artno = $("#artno").val()
+		var params = {
+				_csrf:"${_csrf.token}",
+				artName:"${artPageByUser.artName}"
+		};
+		console.log(params);
+		 $.ajax({
+				url:"/adaco/art/paymentCheck",
+				data:params,
+				method:"get",
+				success:function(result) {
+					//작품을 구매한 경우 result = true
+					if(result==true) {
+						const patt = /^.{5,1000}$/;
+						var $content =$("#review_textarea").val();
+						 if(patt.test($content)==false)
+							 return false;
+						 var $artno = $("#artno").val();
+							var formData = new FormData();
+							formData.append("content",$content);
+							formData.append("artno",$artno);
+				  			if($("#sajin")[0].files[0]!=undefined){
+							formData.append("sajin", $("#sajin")[0].files[0]);	
+				  			}
+							formData.append("_csrf", "${_csrf.token}");
+							formData.append("_method", "put");
+							
+								for (var key of formData.keys()) {
+									  console.log(key);
+									}
+								for (var value of formData.values()) {
+									  console.log(value);
+									}
+							$.ajax({
+								url:"/adaco/artReview/review",
+								method:"post",
+								data:formData,
+								processData:false,
+								contentType:false
+							}).done((r)=>{printReview(r),$("#review_textarea").val(""),location.reload(true)})
+							  .fail((r)=>{console.log(r)})
+					} else {
+						alert("구매한 사람만 리뷰작성 가능합니다"),location.reload(true);
 					}
-				for (var value of formData.values()) {
-					  console.log(value);
-					}
-			$.ajax({
-				url:"/adaco/artReview/review",
-				method:"post",
-				data:formData,
-				processData:false,
-				contentType:false
-			}).done((r)=>{printReview(r),$("#review_textarea").val(""),location.reload(true)})
-			  .fail((r)=>{console.log(r)})
-})
+				} 
+			})		
+	})
 // 		var parmas={
 // 			_csrf:"${_csrf.token}",
 // 			_method:"put",
@@ -186,6 +203,8 @@ $(function() {
 // 			artno:$("#artno").val(),
 // 		}
 // 		console.log(parmas)
+
+
 	//리뷰삭제하기	
 	$("#reviews").on("click",".delete_review",function(){
 		var $artno = $("#artno").val()
@@ -320,7 +339,6 @@ $(function() {
 			optionValue:'${artPageByUser.optionValue}',
 			optionStock:${artPageByUser.optionStock}, 
 			optionPrice:'${artPageByUser.optionPrice}', 
-		
 		};
 			$.ajax({
 				url:"/adaco/order/ordering",
@@ -437,7 +455,7 @@ ${art }
 <%-- 								<strong class=option>${artPageByUser.optionValue}</strong> --%>
 <!-- 								<option>옵션값 선택</option> -->
 <%-- 								<option>${artPageByUser.optionValue}</option> --%>
-<!-- 							</select> -->
+<!-- 							</select> -->	
 <%-- 						</c:forEach> --%>
 					<br><br>
 					<div>
@@ -477,7 +495,7 @@ ${art }
 			<button type="button" class="btn btn-info" id="review_write">리뷰작성</button>
 		</div>
 			<div id="reviews">
-	</div>
+			</div>
 	<!-- <div>
 			<div class="form-group">
 				<label for="review_textarea">리뷰을 입력하세요</label>

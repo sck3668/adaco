@@ -44,6 +44,27 @@ public class OrderDto {
  		
  	}
  	
+	@Data
+ 	@AllArgsConstructor
+ 	@NoArgsConstructor
+ 	@Builder
+ 	@Accessors(chain=true)
+ 	public static class DtoForAfter1{
+ 		private List<Art> artList;
+ 		private List<String> writerList;
+ 		private List<Bag> bagList;
+ 		private Option option;
+ 		private Bag bag;
+ 		private User user;
+ 		private String artistName;
+ 		private int price;
+ 		private int artistno;
+ 		private int optno;
+ 		private int orderno;
+ 		private int lastPrice;
+ 		
+ 	}
+	
  	@Data
  	@AllArgsConstructor
  	@NoArgsConstructor

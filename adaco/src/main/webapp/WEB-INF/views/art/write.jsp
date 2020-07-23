@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -116,10 +117,9 @@
 						<span id="category">
 							<select id="category" name="category">
 								<option value="카테고리 선택" selected="selected">카테고리 선택</option>
-								<option value="악세사리">악세사리</option>
-								<option value="인테리어">인테리어</option>
-								<option value="공예">공예</option>
-								<option value="기타">기타</option>
+								<c:forEach items="${category}" var="category">
+									<option value="${category.category }">${category.category }</option>
+								</c:forEach>
 							</select> 
 							<span id="category_msg"></span>
 						<input type="hidden" id="shopno" name="shopno" value="${artInfo.shopno}"/>

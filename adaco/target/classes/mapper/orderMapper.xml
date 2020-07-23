@@ -84,4 +84,8 @@
 <!-- 	<select id="orderFindByUsername" resultType="int"> -->
 <!-- 		select orderno from orders where username=#{username}	 -->
 <!-- 	</select> -->
+
+	<select id="findUsernameIsPay" resultType="boolean">
+		select count(#{username}) from orders where orderno=#{orderno}
+	</select>
  </mapper>

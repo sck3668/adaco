@@ -9,6 +9,7 @@ import java.util.*;
 import javax.validation.*;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.*;
 import org.springframework.lang.*;
 import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
@@ -33,6 +34,8 @@ public class ArtController {
 	private ArtRestService service;
 	@Autowired
 	ObjectMapper objectMapper;
+	@Autowired
+	private AdminBoardService adminBoardService;
 	
 	
 	// 작품 리스트 (작가용)
@@ -82,7 +85,8 @@ public class ArtController {
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/art/write")
 	public ModelAndView write(Principal principal) {
-		return new ModelAndView("main").addObject("viewName","art/write.jsp").addObject("artInfo", artservice.infoRead(principal.getName()));
+		return new ModelAndView("main").addObject("viewName","art/write.jsp").addObject("artInfo", artservice.infoRead(principal.getName()))
+				.addObject("category",adminBoardService.categoryList());
 	}
 	
 	//작품 등록
@@ -98,5 +102,11 @@ public class ArtController {
 			e.printStackTrace();
 		}
 		return "redirect:/art/listByArtist";
+	}
+	
+	// 리뷰 등록시 구매자인시 체크
+	@GetMapping("/art/paymentCheck")
+	public ResponseEntity<?> paymentCheck(Principal principal, String artName) {
+		return ResponseEntity.ok(artservice.paymentCheck(principal.getName(),artName));
 	}
 }
