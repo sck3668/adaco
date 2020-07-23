@@ -61,6 +61,7 @@ public class OrderDto {
  		private int accumulated;	//적립금
  		private int totalPrice;
  		private String username;
+ 		private String account; 
  		private String recipient;
  		private String postalcode;
  		private String tel;
