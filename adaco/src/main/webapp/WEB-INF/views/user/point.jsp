@@ -18,13 +18,6 @@
 	min-height: 600px;
 }
 
-#my {
-	width: 750px;
-	padding: 0px;
-	height: 80px;
-	background-color: gray;
-	margin: 0px;
-}
 
 .list {
 	margin-top: 0px;
@@ -114,8 +107,8 @@ $(".title").click(function(){
 	<div class="col-sm-3">
 				<!-- side menu (link) -->
 				<h3>
-					<strong>
-						MY Menu</strong>
+					<strong><a href="/adaco/user/mypage" style="text-decoration: none; color: black;">
+						MY Menu</a></strong>
 				</h3>
 				<ul class="list-group" id="navi">
 					<li class="list-group-item list-group-item-action"><a

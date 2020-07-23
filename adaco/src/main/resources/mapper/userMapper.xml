@@ -39,7 +39,7 @@
 		where username=#{username} and rownum=1
 	</update>
 	<select id="findAllByPoint" resultType="point">
-		select point,start_date startDate, total_point totalPoint
+		select point,start_date startDate 
 		,end_date endDate,username from point where username=#{username} order by start_date desc 
 	</select>
 	<insert id="insertpoint">
