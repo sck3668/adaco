@@ -96,8 +96,11 @@ public class OrderDetailService {
 	
 	/////// 작가 전용 ///////////
 	// 주문 내역보기 (작가용)
-	public Page OrderListByArtist(int pageno, String username) {
-			Integer artistno = artistDao.findArtistnoByUsername(username);
+	public Page OrderListByArtist(int pageno, String username, @Nullable String orderstate) {
+			
+		Integer artistno = artistDao.findArtistnoByUsername(username);
+		System.out.println(username+"유저네임이야");
+		System.out.println(artistno+"아티스트엔오야아아");
 //			Integer orderno = orderDao.findOrdernoByUsername(username, bagno);
 //			List<Integer> artnos = artDao.findArtnoByArtistno(artistno);
 //			List<String> artnames = new ArrayList<String>();
@@ -109,11 +112,12 @@ public class OrderDetailService {
 			for(Integer orderno:ordernoList) {
 				OrderDetail detail = orderDetailDao.OrderDetail(orderno);
 			}
-			int countOfBoard = orderDetailDao.countByOrder();
+			int countOfBoard = orderDetailDao.countSearchByState(orderstate);
 			Page page = PagingUtil.getPage(pageno, countOfBoard);
 			int srn = page.getStartRowNum();
 			int ern = page.getEndRowNum();
-			List<OrderDetail> orderList = orderDetailDao.FindAllOrderByArtist(srn, ern, artistno);
+			page.setSearch(orderstate);
+			List<OrderDetail> orderList = orderDetailDao.FindAllOrderByArtist(srn, ern, artistno, orderstate);
 			List<OrderDto.DtoForList>dtolist=new ArrayList<OrderDto.DtoForList>();
 			for(OrderDetail orderdetail:orderList) {
 				OrderDto.DtoForList dto = modelMapper.map(orderdetail,OrderDto.DtoForList.class);
@@ -132,13 +136,14 @@ public class OrderDetailService {
 	
 	
 	// 주문 상태 업데이트
-	public void update(OrderDetailDto.DtoForUpdate dto, String username) {
+	public void update(OrderDetailDto.DtoForUpdate dto) {
 		OrderDetail orderDetail = orderDetailDao.OrderDetail(dto.getOrderno());
-		Integer artistno = artistDao.findArtistnoByUsername(username);
+//		Integer artistno = artistDao.findArtistnoByUsername(username);
 		if(orderDetail == null)
 			throw new JobFailException("주문내역이 없습니다.");
-		if(artistno.equals(dto.getArtistno())==false)
-			throw new IllegalJobException();
+//		if(artistno.equals(dto.getArtistno())==false)
+//			throw new IllegalJobException();
+		orderDetail = modelMapper.map(dto, OrderDetail.class);
 		orderDetailDao.updateByOrderDetail(orderDetail);
 	}
 	

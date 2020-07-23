@@ -79,7 +79,7 @@
 					</div>
 				</div>
 				<div class="col-xs-8 col-sm-6 col-md-2 footers-two" style="height: 210px;">
-					<h5>주(아다코)</h5>
+					<h5>(주)아다코</h5>
 					<ul class="list-unstyled">
 						<li>Search</li>
 						<li>Sell your Car</li>

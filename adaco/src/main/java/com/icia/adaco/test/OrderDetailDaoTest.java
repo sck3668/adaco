@@ -61,9 +61,9 @@ public class OrderDetailDaoTest {
 		}
 	
 	// 주문번호 업데이트 테스트 ok
-	@Test
+	//@Test
 		public void updateByOrderTest() {
-			OrderDetail orderDetail = OrderDetail.builder().orderno(794).orderstate(orderState.입금완료).build();
+			OrderDetail orderDetail = OrderDetail.builder().orderno(955).orderstate(orderState.배송중).build();
 			assertThat(orderDetaildao.updateByOrderDetail(orderDetail), is(1));
 		}
 		
@@ -72,6 +72,24 @@ public class OrderDetailDaoTest {
 	public void readOrderTest() {
 		DtoForReadOrder order = orderDetailService.OrderDetailByArtist(675, "leehj5919");
 		assertThat(order.getArtistno(), is(200));
+	}
+	
+	//주문상태로 검색한 주문 건 수 ok
+	//@Test
+	public void countSearchByStateTest() {
+		orderDetaildao.countSearchByState("입금대기");
+	}
+	
+	//주문리스트(주문번호순) + 주문상태로 검색한 주문리스트 ok
+	//@Test
+	public void FindAllOrderByArtist() {
+		assertThat(orderDetaildao.FindAllOrderByArtist(1, 14, 200, "입금대기"),is(notNullValue()));
+	}
+	
+	// 주문리스트 + 주문상태로 검색 테스트 ok
+	@Test
+	public void OrderListByArtistTest() {
+		orderDetailService.OrderListByArtist(1, "leehj8462", "입금대기");
 	}
 
 	

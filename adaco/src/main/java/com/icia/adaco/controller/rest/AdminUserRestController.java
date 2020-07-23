@@ -16,12 +16,10 @@ import lombok.*;
 
 @RestController
 public class AdminUserRestController {
-
 	@Autowired
 	AdminUserRestService service;
 	
-//	@PreAuthorize("isAuthenticated()")
-//	@Secured("ROLE_ADMIN")
+	@Secured("ROLE_ADMIN")
 	@PutMapping("/admin/user_update")
 	public ResponseEntity<Void> update(String username, @Nullable String authority, @Nullable Boolean enabled, Principal principal) {
 		String sender = principal.getName();

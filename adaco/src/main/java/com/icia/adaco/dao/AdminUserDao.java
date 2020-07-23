@@ -80,18 +80,22 @@ public class AdminUserDao {
 		return tpl.selectOne("adminUserMapper.findAuthorityById", username);
 	}
 	
+//	권한 목록 읽어오기
 	public List<String> findAuthority() {
 		return tpl.selectList("adminUserMapper.findAuthority");
 	}
 
+//	작가 불러오기
 	public Artist findByArtist(String username) {
 		return tpl.selectOne("adminUserMapper.findByArtist", username);
 	}
 
+//	작가 삭제
 	public int deleteByArtist(int artistno) {
 		return tpl.delete("adminUserMapper.deleteByArtist", artistno);
 	}
 	
+//  작가 번호로 프로필 경로 찾아오기	
 	public String findProfileByArtistno(int artistno) {
 		return tpl.selectOne("adminUserMapper.findProfileByArtistno", artistno);
 	}

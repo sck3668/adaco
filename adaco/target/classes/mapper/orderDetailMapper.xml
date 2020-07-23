@@ -44,34 +44,34 @@
 	
  	<!-- 작가번호로 주문리스트 --> 
  <!-- 작가번호로 주문리스트 -->
-	<select id="findAllOrderByArtist" resultType="orderDetail">
-		<![CDATA[
-			select * from		
-				(select rownum as rnum ,o.*from
-					(select /*+ index_desc(orders orders_pk_orderno)*/orderno, artno, optno, price, recipient,artistno, art_name artName, option_Name optionName, option_value optionValue, orderstate orderstate from order_detail ) o
-					where artistno=#{artistno} and rownum <=#{endRowNum})
-			where rnum>=#{startRowNum}
-			]]>
-	</select>
+<!-- 	<select id="findAllOrderByArtist" resultType="orderDetail"> -->
+<!-- 		<![CDATA[ -->
+<!-- 			select * from		 -->
+<!-- 				(select rownum as rnum ,o.*from -->
+<!-- 					(select /*+ index_desc(orders orders_pk_orderno)*/orderno, artno, optno, price, recipient,artistno, art_name artName, option_Name optionName, option_value optionValue, orderstate orderstate from order_detail ) o -->
+<!-- 					where artistno=#{artistno} and rownum <=#{endRowNum} order by orderno desc) -->
+<!-- 			where rnum>=#{startRowNum} -->
+<!-- 			]]> -->
+<!-- 	</select> -->
 				
 	
-	<!-- 구매자 ID로 검색도 해야됨 --> 
-<!-- 	<select id="findAllOrderByArtist" resultType="orderDetail"> -->
-<!-- 		select B.orderno, B.artno, B.optno, B.price, B.recipient, B.artistno, B.art_name artName, B.option_Name optionName, B.option_value optionValue, B.orderstate orderstate -->
-<!-- 	      from -->
-<!-- 	         (select /*+ index_desc(orders orders_pk_orderno) */ rownum rnum, A.orderno, A.artno, A.optno, A.price, A.recipient, A.artistno, A.art_name artName, A.option_Name optionName, A.option_value optionValue, A.orderstate orderstate -->
-<!-- 	         from ( -->
-<!-- 	            select orderno, artno, optno, price, recipient,artistno, art_name artName, option_Name optionName, option_value optionValue, orderstate orderstate -->
-<!-- 	            from art -->
-<!-- 	            <trim prefix="WHERE" prefixOverrides="AND"> -->
-<!-- 	            	<if test="orderstate!=null and orderstate != '' "> -->
-<!-- 	            		AND orderstate like '%'|| #{orderstate} || '%'  -->
-<!-- 	            	</if> -->
-<!-- 	            </trim> -->
-<!-- 	       		order by orderno desc) A -->
-<!-- 	         where rownum&lt;= #{endRowNum})B -->
-<!-- 	      where B.rnum&gt;= #{startRowNum} -->
-<!-- 	</select> -->
+	<!-- 주문상태로 검색도 해야됨 --> 
+	<select id="findAllOrderByArtist" resultType="orderDetail">
+		select B.orderno, B.artno, B.optno, B.price, B.recipient, B.artistno, B.art_name artName, B.option_Name optionName, B.option_value optionValue, B.orderstate 
+	      from
+	         (select /*+ index_desc(orders orders_pk_orderno) */ rownum rnum, A.orderno, A.artno, A.optno, A.price, A.recipient, A.artistno, A.art_name, A.option_Name, A.option_value, A.orderstate 
+	         from (
+	            select orderno, artno, optno, price, recipient,artistno, art_name, option_Name, option_value, orderstate 
+	            from order_detail
+	            <trim prefix="WHERE" prefixOverrides="AND">
+	            	<if test="orderstate!=null and orderstate != '' ">
+	            		AND orderstate like '%'|| #{orderstate} || '%' 
+	            	</if>
+	            </trim>
+	       		order by orderno desc) A
+	         where artistno=#{artistno} and rownum&lt;= #{endRowNum})B
+	      where B.rnum&gt;= #{startRowNum}
+	</select>
 
 	<!-- 주문 count / 페이징 위한 --> 
 	<select id="count" resultType="int">
@@ -79,13 +79,13 @@
 	</select>
 	
 	<!-- 주문상태로 검색한 주문 수 -->
-<!-- 	<select id="countSearchByState" resultType="int"> -->
-<!-- 	   	select count(*) -->
-<!-- 	   	from order_detail -->
-<!-- 	   	<where> -->
-<!-- 	   		<if test="orderstate!=null">and orderstate like '%'|| #{orderstate} || '%'</if> -->
-<!-- 	   	</where> 	 -->
-<!-- 	</select>  -->
+	<select id="countSearchByState" resultType="int">
+	   	select count(*)
+	   	from order_detail
+	   	<where>
+	   		<if test="orderstate!=null">and orderstate like '%'|| #{orderstate} || '%'</if>
+	   	</where> 	
+	</select> 
 	
 	<!-- 주문상태 업데이트 -->
 	<update id="update">
