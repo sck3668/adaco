@@ -66,14 +66,13 @@ public class StoryController {
 		mav.addObject("story", json);
 		return mav;
 	}
-	
-	@PostMapping("/story/readStory")
-	public ResponseEntity<?> read(@RequestParam @NotNull Integer storyno, Principal principal) throws JsonProcessingException {
-		System.out.println(storyno);
-		System.out.println("readStory================");
-		System.out.println(restService.readComment(storyno, principal.getName()));
-		return ResponseEntity.ok(restService.readComment(storyno, principal.getName()));
-	}
-	
+//	
+//	@PostMapping("/story/readStory")
+//	public ResponseEntity<?> read(@RequestParam @NotNull Integer storyno, Principal principal) throws JsonProcessingException {
+//		System.out.println(storyno);
+//		System.out.println("readStory================");
+//		return ResponseEntity.ok(restService.readComment(storyno, principal.getName()));
+//	}
+//	
 	
 }

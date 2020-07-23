@@ -108,12 +108,8 @@ ul.sub li:hover {
 			<div class="col-sm-3">
 				<!-- side menu (link) -->
 				<h3>
-<<<<<<< HEAD
 					<strong><a href="/adaco/user/mypage" style="text-decoration: none; color: black;">
 						MY Menu</a></strong>
-=======
-					<strong> MY Menu</strong>
->>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 				</h3>
 				<ul class="list-group" id="navi">
 					<li class="list-group-item list-group-item-action"><a

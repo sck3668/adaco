@@ -31,6 +31,20 @@ $(function() {
 				}
 			})
 		})
+		
+		$(".logout").on("click", function() {
+			var param = {
+				_csrf : "${_csrf.token}"
+			}
+			$.ajax({
+				url : "/adaco/user/logout",
+				method : "post",
+				data : param,
+				success : function() {
+					location.href = "/adaco";
+				}
+			});
+		});
 
 	})
 </script>
