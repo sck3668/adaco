@@ -173,7 +173,7 @@ ${order }
                            </td>
                        </tr>
                     </table>
-                   
+                 
 <!--                  </div> -->
                   
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -438,7 +438,7 @@ ${order }
                             </table>
                             </div><!-- 결제정보 표 감싸는 닫힌 div -->
                         </div><br><!-- 결제정보 버튼전 닫힌 div -->
-                       <div class="inputArea" align="center" style="position: relative; right: -250px; bottom:-25px"><!-- 버튼 열린 div -->
+                       <div class="inputArea" align="center" style="position: relative; right: -250px; bottom:-25px;"><!-- 버튼 열린 div -->
                      <button id="payment" class="btn btn-primary">결제하기</button>
                      <a href="/adaco/art/readByUser?artno=${art.artno }">
                         <button type="button" id="back_Btn" class="btn btn-warning">취소</button>
