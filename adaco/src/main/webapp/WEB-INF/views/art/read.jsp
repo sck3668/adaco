@@ -122,7 +122,7 @@ function printComment(comments){
 		$("<img>").attr("src",comment.profile).css("width","60px").css("height","60px").appendTo($center_div);
 		$("<div>").html(comment.content).css("display","inline-block").appendTo($center_div);
 		$("<span>").text(comment.writeDateStr).appendTo($lower_div);
-		$("<button>").attr('class','report_comment').attr("data-username",comment.username).attr("data-cno",comment.cno).text("신고").appendTo($lower_div).css("float","right");
+		$("<button>").css('background-color', '#f44336').attr('class','report_comment').attr("data-username",comment.username).attr("data-cno",comment.cno).text("신고").appendTo($lower_div).css("float","right");
 		 if(comment.username===loginId){
 			var btn = $("<button>").attr("class","delete_comment").attr("data-username", comment.username).attr("data-cno",comment.cno)
 			.text("삭제").appendTo($center_div).css("float","right")
@@ -159,8 +159,10 @@ $(function() {
 			data:parmas,
 			method:"post",
 			url:"/adaco/user/commentReport"
-		}).done((r)=>{confirm("신고하겟습니가?")
-		}).fail((r)=>{alert("이미 신고처리된 댓글입니다.")})
+		}).done((r)=>{ 
+			Swal.fire('신고하시겠습니까?')
+		}).fail((r)=>{ 
+			Swal.fire('이미 신고된 댓글입니다.')})
 	      
 	})
 	
