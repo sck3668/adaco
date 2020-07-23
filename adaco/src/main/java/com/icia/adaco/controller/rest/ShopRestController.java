@@ -41,6 +41,7 @@ public class ShopRestController {
 	@DeleteMapping("/artist/delete")
 	public ResponseEntity<?> delete(Principal principal) {
 		int artistno = artistDao.findArtistnoByUsername(principal.getName());
+		System.out.println(artistno+"!!!");
 		shopRestService.shopDelete(artistno);
 		return ResponseEntity.ok(null);
 	}

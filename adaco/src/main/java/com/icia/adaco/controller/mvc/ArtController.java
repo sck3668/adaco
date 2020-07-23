@@ -11,6 +11,7 @@ import org.springframework.http.*;
 import org.springframework.lang.*;
 import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
+import org.springframework.ui.*;
 import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.*;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.*;
 
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
+import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
 import com.icia.adaco.service.mvc.*;
 import com.icia.adaco.service.rest.*;
@@ -30,6 +32,10 @@ public class ArtController {
 	private ArtService artservice;
 	@Autowired
 	private ArtRestService service;
+	@Autowired
+	private ShopDao shopDao;
+	@Autowired
+	private ArtistDao artistDao;
 	@Autowired
 	ObjectMapper objectMapper;
 	@Autowired
@@ -80,6 +86,12 @@ public class ArtController {
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/art/write")
 	public ModelAndView write(Principal principal) {
+		//상점 개설 안했을 경우 작품 등록 하지 못하고 상점개설하시겠습니까 메시지 출력 후 이동
+		int artistno = artistDao.findArtistnoByUsername(principal.getName());
+		if(shopDao.readShopnoByArtistno(artistno)==null) {
+			return new ModelAndView("main").addObject("viewName","artist/artistpage.jsp")
+					.addObject("msg","writeMsg");
+		};
 		return new ModelAndView("main").addObject("viewName","art/write.jsp").addObject("artInfo", artservice.infoRead(principal.getName()))
 				.addObject("category",adminBoardService.categoryList());
 	}
