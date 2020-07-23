@@ -48,6 +48,5 @@ public class BagDto {
 			int lastPrice = 0;
 			return lastPrice += totalPrice;
 		}
-		
 	}
 }

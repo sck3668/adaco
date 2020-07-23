@@ -1,6 +1,4 @@
-
 package com.icia.adaco.controller.mvc;
-
 
 import java.io.*;
 import java.security.*;
@@ -37,12 +35,10 @@ public class ArtController {
 	@Autowired
 	private AdminBoardService adminBoardService;
 	
-	
 	// 작품 리스트 (작가용)
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/art/listByArtist")
 	public ModelAndView artList(@RequestParam(defaultValue = "1") int pageno, @Nullable String category, Principal principal) {
-		System.out.println("controller");
 		String username = principal.getName();
 		return new ModelAndView("main").addObject("viewName","art/list.jsp").addObject("artPage",artservice.list(pageno, category, username));
 	}

@@ -89,10 +89,5 @@ public class PagingUtil {
 		return Page.builder().startPage(startPage).endPage(endPage)
 			.startRowNum(startRowNum).endRowNum(endRowNum)
 			.isPrev(isPrev).isNext(isNext).pageno(pageno).build();
-		
 	}
 }
-
-
-
-

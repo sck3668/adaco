@@ -27,8 +27,6 @@ public class MessageRestController {
 	// 보낸 사람 측에서 메모 삭제
 	@PatchMapping("/message/isSendMessage")
 	public ResponseEntity<String> disableBySender(@RequestParam @NotNull String mnos, Principal principal) throws JsonParseException, JsonMappingException, IOException  {
-		System.out.println("mnos=="+mnos);
-		System.out.println("principal"+principal.getName());
 		List<Integer> list = new ArrayList<>();
 		String[] strings = mnos.split(",");
 		// NumberUtils.toInt는 변경에 실패하면 기본값이 0이다. 따라서 예외는 발생하지 않는다 
@@ -41,7 +39,6 @@ public class MessageRestController {
 	// 받은 사람 측에서 메모 삭제
 	@PatchMapping("/message/isReciverMessage")
 	public ResponseEntity<String> disableByReceiver(@RequestParam @NotNull String mnos, Principal principal) throws JsonParseException, JsonMappingException, IOException {
-		//List<Integer> list = objectMapper.readValue(mnos, new TypeReference<List<Integer>>() {});
 		List<Integer> list = new ArrayList<>();
 		String[] strings = mnos.split(",");
 		// NumberUtils.toInt는 변경에 실패하면 기본값이 0이다. 따라서 예외는 발생하지 않는다 

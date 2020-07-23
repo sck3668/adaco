@@ -32,7 +32,6 @@ public class AdminBoardController {
 	@Autowired
 	ObjectMapper objectMapper;
 	
-	
 	@Secured("ROLE_ADMIN")
 	@GetMapping("/admin/")
 	public ModelAndView adminIndex(Principal principa) {

@@ -5,6 +5,7 @@ import lombok.experimental.*;
 
 public class PointDto {
 	private PointDto() {}
+	
 	@Data
 	@Builder
 	@AllArgsConstructor

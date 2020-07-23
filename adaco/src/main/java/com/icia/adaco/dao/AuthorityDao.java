@@ -12,4 +12,5 @@ public interface AuthorityDao {
 
 	@Select("select authority from authorities where username=#{username}")
 	public String findByUsername(@Param("username") String username);
+	
 }

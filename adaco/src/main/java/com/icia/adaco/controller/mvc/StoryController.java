@@ -43,16 +43,15 @@ public class StoryController {
 		.addObject("viewName","artist/story/list.jsp").addObject("story",storyService.storyList(pageno));
 	}
  
-	//@PreAuthorize("hasRole('ROLE_SELLER')")
+	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@GetMapping("/story/writeStory")
 	public ModelAndView writeStory() {
 		return new ModelAndView("main").addObject("viewName","artist/story/write.jsp");
 	}
 
-	//@PreAuthorize("hasRole('ROLE_SELLER')")
+	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@PostMapping("/story/writeStory")
 	public String writeStory(StoryBoardDto.DtoForWrite writeDto, Principal principal, MultipartFile sajin) throws IOException {
-		System.out.println(sajin+"controllerc----------");
 		writeDto.setWriter(principal.getName());
 		return "redirect:/story/readStory?storyno="+storyService.storyWrite(writeDto, sajin);
 	}
@@ -66,13 +65,4 @@ public class StoryController {
 		mav.addObject("story", json);
 		return mav;
 	}
-//	
-//	@PostMapping("/story/readStory")
-//	public ResponseEntity<?> read(@RequestParam @NotNull Integer storyno, Principal principal) throws JsonProcessingException {
-//		System.out.println(storyno);
-//		System.out.println("readStory================");
-//		return ResponseEntity.ok(restService.readComment(storyno, principal.getName()));
-//	}
-//	
-	
 }

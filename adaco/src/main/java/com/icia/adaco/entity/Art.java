@@ -20,10 +20,10 @@ public class Art {
 	private String tag;
 	private LocalDateTime artDate;
 	private Integer couriPrice;
-	private String returnAddress;
-	private String courier;
+	private String returnAddress;	//환불계좌
+	private String courier;			//택배사
 	private Integer readCnt;
-	private Double accumulated; // 택배사
+	private Double accumulated; // 적립금
 	private Integer favoriteCnt;
 	private Boolean isFavorite;
 	private String category;

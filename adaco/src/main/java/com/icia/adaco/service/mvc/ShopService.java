@@ -31,8 +31,6 @@ public class ShopService {
 	private ArtDao artDao;
 	
 	public void shopMade(ShopDto.DtoForMade dtoMade, MultipartFile sajin, String username) throws IllegalStateException, IOException {
-		System.out.println("=========username"+ username);
-		//dtoMade.setArtistno(artistDao.findArtistnoByUsername(username));
 		Shop shop = modelMapper.map(dtoMade, Shop.class);
 			if(sajin.getContentType().toLowerCase().startsWith("image/")) {
 				int lastIndexOfDot = sajin.getOriginalFilename().lastIndexOf(".");
@@ -45,9 +43,7 @@ public class ShopService {
 			} 
 			int artistno = artistDao.findArtistnoByUsername(username);
 			shop.setArtistno(artistno);
-			System.out.println("shop===================="+shop);
 			shopDao.writeByShop(shop);
-			 System.out.println("*************"+shop.getShopno());
 	}
 	 
 	public ShopDto.DtoForRead shopRead(int shopno){
@@ -64,14 +60,9 @@ public class ShopService {
  
 	public int shopCheck(String username) {
 		int artistno = artistDao.findArtistnoByUsername(username);
-		System.out.println("artistno==="+artistno);
 		if(shopDao.readShopnoByArtistno(artistno)==null) {
 			return 0;
 		}
 		return 1;
 	}
-	
-	
-	
-	
 }

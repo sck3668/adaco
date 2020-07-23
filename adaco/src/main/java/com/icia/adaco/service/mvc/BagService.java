@@ -47,10 +47,8 @@ public class BagService {
 	
 	// 회원아이디로 장바구니 목록 불러오기
 	public List<BagDto.DtoForList> findAllBagByUsername(String username) {
-//		BagDto.DtoForList dto1 = new BagDto.DtoForList();
 		List<Bag> bagList = (List<Bag>) bagdao.findAllBagByUsername(username);
 		List<BagDto.DtoForList> dtoList= new ArrayList<>();
-		//int lastPrice = 0;
 		for(Bag bag1:bagList) {
 			int artno = bag1.getArtno();
 			Art art = artdao.readByArt(artno);
@@ -59,7 +57,6 @@ public class BagService {
 			dtoBag.setArt(art).setOptionName(option.getOptionName()).setOptionValue(option.getOptionValue());
 			dtoList.add(dtoBag);
 		}
-		System.out.println("dtoList=="+dtoList);
 		return dtoList;
 	}
 	

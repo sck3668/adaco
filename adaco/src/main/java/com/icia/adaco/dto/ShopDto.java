@@ -8,8 +8,8 @@ import lombok.*;
 
 public class ShopDto {
 	private ShopDto() {
-		
 	}
+	
 	@Data
 	@AllArgsConstructor
 	@NoArgsConstructor
@@ -25,6 +25,7 @@ public class ShopDto {
 		private String forwarding;
 		private String back;
 	}
+	
 	@Data
 	@AllArgsConstructor
 	@NoArgsConstructor
@@ -41,6 +42,7 @@ public class ShopDto {
 		private List<String> img;
 		private List<Integer> artno;
 	}
+	
 	@Data
 	@Builder
 	@AllArgsConstructor

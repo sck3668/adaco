@@ -27,29 +27,16 @@ public class ShopRestService {
 	@Autowired
 	private ArtistDao artistDao;
 	
-
 	public void updateByShop(String username, MultipartFile sajin, DtoForUpdate updateDto) throws IllegalStateException, IOException {
-//		System.out.println("업데이트=======" + updateDto );
-//		System.out.println("업데이트 사진 ============" + sajin);
 		int artistno = artistDao.findArtistnoByUsername(username);
 		Shop shop = shopDao.readByShop(updateDto.getShopno());
 		shop = modelMapper.map(updateDto, Shop.class);
-		System.out.println(modelMapper.map(updateDto, Shop.class)+"이게 위에꺼");
 		shop.setArtistno(artistno);
-		System.out.println(shop.getArtistno()+"ggggggssqwe");
-//		if(shop == null)
-//			 throw new JobFailException("넌 상점 없음");
 		if(shop.getArtistno()!=artistno) 
 			throw new JobFailException("작가만 수정");
-		
-		/*ffff
-		 * System.out.println(artistno+"ggggggggggqweqw");
-		 * System.out.println(shop.getArtistno()+"ggggggssqwe");
-		 */
 		shopDao.updateByShop(shop);
-		System.out.println(shopDao.updateByShop(shop)+"ggggg");
-		
 	}
+	
 	public void update(String username, MultipartFile sajin,DtoForUpdate updateDto) throws IllegalStateException, IOException {
 	Shop findShop = shopDao.readByShop(updateDto.getShopno());
 	Shop shop = modelMapper.map(updateDto, Shop.class);
@@ -65,9 +52,7 @@ public class ShopRestService {
 		shopDao.updateByShop(shop);
 	}
 	
-	
 	public void shopDelete(int artistno) {
 		shopDao.deleteByShop(artistno);
-			
 	}
 }

@@ -38,11 +38,7 @@ public class ArtRestService {
 	@Autowired
 	private ArtCommentDao artCommemtDao;
 	@Autowired
-	private OrderDetailDao detailDao;
-	@Autowired
 	private ArtCommentDao artCommentDao;
-	@Autowired
-	private OrderDao orderDao;
 	@Value("d:/upload/artfile")
 	private String artfileFolder;
 	@Value("http://localhost:8081/artfile/")
@@ -60,13 +56,11 @@ public class ArtRestService {
 			throw new JobFailException("상품 수정 권한이 없습니다");
 		art = modelMapper.map(dto, Art.class);
 		option = modelMapper.map(dto,Option.class);
-//		System.out.println("여기여기"+artSajin.getName());
 		if(artSajin!=null && !artSajin.isEmpty()) {
 			if (artSajin.getContentType().toLowerCase().startsWith("image/") == true) {
 				int lastIndexOfDot = artSajin.getOriginalFilename().lastIndexOf('.');
 				String extension = artSajin.getOriginalFilename().substring(lastIndexOfDot + 1);
 				File artfile = new File(artfileFolder, art.getArtName() + "." + extension);
-//				System.out.println("아트네임확인" + art.getArtName());
 				artSajin.transferTo(artfile);
 				art.setMainImg(artfilePath + artfile.getName());
 			} else {
@@ -131,7 +125,6 @@ public class ArtRestService {
 				artDto.setWriteDateStr(artcomment.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
 				artDto.setCno(artcomment.getCno());
 				dtoList.add(artDto);
-				System.out.println("디티오리스트"+dtoList);
 			}
 			dto.setArtComments(dtoList);
 			
@@ -187,6 +180,7 @@ public class ArtRestService {
 		}
 		return -1;
 	}
+	
 	// 회원아이디로 작품목록 불러오기-------
 	public List<ArtDto.DtoForList> findAllArtByUsername(String username,int pageno, @Nullable String category,@Nullable int artistno) {
 		ArtDto.DtoForList dto1 = new ArtDto.DtoForList();
@@ -205,18 +199,14 @@ public class ArtRestService {
 	
 	// 작품 삭제------
 	public List<DtoForList> deleteArt(List<Integer> list, int pageno,String username, @Nullable String category) {
-		System.out.println("artnos=="+list);
 		Integer artistno = artistDao.findArtistnoByUsername(username);
 		String artWriter = artistDao.findByid(artistno).getUsername();
 		if(username.equals(artWriter)==false)
 			throw new IllegalJobException();
-		System.out.println("222");
 		List<DtoForList> artList = findAllArtByUsername(username,pageno,category,artistno);
-		System.out.println("artList=="+artList);
 		List<Integer> deleteList = new ArrayList<Integer>();
 		for(int i=0; i<list.size(); i++) {
 			int idx = findArt(artList,list.get(i));
-			System.out.println("idx=="+idx);
 			deleteList.add(idx);
 		}
 		for(int i = deleteList.size()-1; i>=0; i--) {
@@ -229,114 +219,85 @@ public class ArtRestService {
 	}
 
 	// 작품 리뷰 작성하기
-		public List<ArtDto.DtoForReviewList> writeReviewOfArt(Review review,MultipartFile sajin,Integer artno,String username) throws IllegalStateException, IOException {
-			System.out.println("서비스진입");
-			System.out.println("review"+review);
-			review.setWriteDate(LocalDateTime.now());
-			String reviewStr = review.getContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
-			review.setContent(reviewStr);
-			review.setStar(star.onePoint).setUsername(username).setArtno(artno);
-			System.out.println("리뷰"+review);
-			  if(sajin!=null && sajin.isEmpty()==false) {
-			  if(sajin.getContentType().toLowerCase().startsWith("image/")==true) { 
-		  int lastindexOfDot = sajin.getOriginalFilename().lastIndexOf('.');
-		  String extension = sajin.getOriginalFilename().substring(lastindexOfDot+1); 
-		  File artfile = new File(artfileFolder,review.getUsername()+"."+extension);
-		  sajin.transferTo(artfile);
-		  review.setImage(artfilePath+artfile.getName());
-		  			  }
-			  } 		
-			  System.out.println("리뷰겟이미지"+review.getImage());
-				 reviewDao.writeByReviewOfArt(review);  
-			  //System.out.println(""+reviewDao.writeByReviewOfArt(review));
-			List<Review> reviewList = reviewDao.findAllReview(artno);
-			System.out.println("reviewList=="+reviewList);
-			artDao.updateByArt(Art.builder().artno(review.getArtno()).reviewCnt(1).build());
-			List<ArtDto.DtoForReviewList> dtoList = new ArrayList<ArtDto.DtoForReviewList>();
-			for(Review review1:reviewList) {
-				ArtDto.DtoForReviewList dto = modelMapper.map(review1,ArtDto.DtoForReviewList.class);
-				dto.setWriteDateStr(review1.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
-				dto.setRno(review1.getRno());
-				dtoList.add(dto);
-				System.out.println("dto11=="+dto);
-			}
-//			if(detailDao.OrderDetail(orderDao.findUsernameByorderno(username)).equals(review.getArtno()==0)){
-//				return null;
-//			}else {
-			System.out.println("dtoList=="+dtoList);
-				return dtoList;
-			};
+	public List<ArtDto.DtoForReviewList> writeReviewOfArt(Review review,MultipartFile sajin,Integer artno,String username) throws IllegalStateException, IOException {
+		review.setWriteDate(LocalDateTime.now());
+		String reviewStr = review.getContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
+		review.setContent(reviewStr);
+		review.setStar(star.onePoint).setUsername(username).setArtno(artno);
+		  if(sajin!=null && sajin.isEmpty()==false) {
+		  if(sajin.getContentType().toLowerCase().startsWith("image/")==true) { 
+	  int lastindexOfDot = sajin.getOriginalFilename().lastIndexOf('.');
+	  String extension = sajin.getOriginalFilename().substring(lastindexOfDot+1); 
+	  File artfile = new File(artfileFolder,review.getUsername()+"."+extension);
+	  sajin.transferTo(artfile);
+	  review.setImage(artfilePath+artfile.getName());
+	  			  }
+		  } 		
+			 reviewDao.writeByReviewOfArt(review);  
+		List<Review> reviewList = reviewDao.findAllReview(artno);
+		artDao.updateByArt(Art.builder().artno(review.getArtno()).reviewCnt(1).build());
+		List<ArtDto.DtoForReviewList> dtoList = new ArrayList<ArtDto.DtoForReviewList>();
+		for(Review review1:reviewList) {
+			ArtDto.DtoForReviewList dto = modelMapper.map(review1,ArtDto.DtoForReviewList.class);
+			dto.setWriteDateStr(review1.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
+			dto.setRno(review1.getRno());
+			dtoList.add(dto);
+			System.out.println("dto11=="+dto);
+		}
+		return dtoList;
+	};
 
+//리뷰 삭제하기
+	public List<ArtDto.DtoForReviewList> deleteReviewOfArt(Integer rno, Integer artno, String username) {
+		Review review = reviewDao.readByReviewOfArt(rno);
+		if(username.equals(review.getUsername())==false)
+			throw new JobFailException("리뷰를 삭제할 수 없습니다");
+		reviewDao.deleteByReviewOfArt(rno);
+		List<Review> reviewList = reviewDao.findAllReview(artno);
+		List<ArtDto.DtoForReviewList> dtoList = new ArrayList<ArtDto.DtoForReviewList>();
+		for(Review review1:reviewList) {
+			ArtDto.DtoForReviewList dto = modelMapper.map(review1,ArtDto.DtoForReviewList.class);
+			dto.setWriteDateStr(review1.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
+			dto.setRno(review1.getRno());
+			dtoList.add(dto);
+		}
+		return dtoList;
 		
-		//리뷰 삭제하기
-			public List<ArtDto.DtoForReviewList> deleteReviewOfArt(Integer rno, Integer artno, String username) {
-				Review review = reviewDao.readByReviewOfArt(rno);
-				if(username.equals(review.getUsername())==false)
-					throw new JobFailException("리뷰를 삭제할 수 없습니다");
-				reviewDao.deleteByReviewOfArt(rno);
-				List<Review> reviewList = reviewDao.findAllReview(artno);
-				List<ArtDto.DtoForReviewList> dtoList = new ArrayList<ArtDto.DtoForReviewList>();
-				for(Review review1:reviewList) {
-					ArtDto.DtoForReviewList dto = modelMapper.map(review1,ArtDto.DtoForReviewList.class);
-					dto.setWriteDateStr(review1.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
-					dto.setRno(review1.getRno());
-					dtoList.add(dto);
-				}
-				System.out.println("dtoList======1111"+dtoList);
-				return dtoList;
-				
-			}
-			
-			
-		// 작품 댓글 작성하기
-		public List<ArtCommentDto.DtoForList> writeCommentOfArt(ArtComment artcomment) {
-			artcomment.setWriteDate(LocalDateTime.now());
-			String commentStr = artcomment.getContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
-			artcomment.setContent(commentStr);
-			 artCommemtDao.writeByCommentOfArt(artcomment);  
-			artDao.updateByArt(Art.builder().artno(artcomment.getArtno()).artCommentCnt(1).build());
-			List<ArtComment> commentList = artCommentDao.listByCommentOfArt(artcomment.getArtno());
-			List<ArtCommentDto.DtoForList> dtoList = new ArrayList<ArtCommentDto.DtoForList>();
-			for(ArtComment artComments:commentList) {
-				ArtCommentDto.DtoForList dto = modelMapper.map(artComments,ArtCommentDto.DtoForList.class);
-				dto.setWriteDateStr(artcomment.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
-				dto.setCno(artcomment.getCno());
-				dtoList.add(dto);
-			}
-			return dtoList;
-		}
-
-		// 작품 댓글 삭제하기
-		public List<ArtCommentDto.DtoForList> deleteCommentOfArt(Integer cno, Integer artno, String username) {
-			ArtComment artcomment = artCommemtDao.readByCommentOfArt(cno);
-			if (username.equals(artcomment.getUsername()) == false)
-				throw new JobFailException("댓글을 삭제할 수 없습니다");
-			artCommemtDao.deleteByCommentOfArt(cno);
-			System.out.println(cno + "씨엔오");
-			List<ArtComment> commentList = artCommentDao.listByCommentOfArt(artno);
-			List<ArtCommentDto.DtoForList> dtoList = new ArrayList<ArtCommentDto.DtoForList>();
-			for(ArtComment artComment:commentList) {
-				ArtCommentDto.DtoForList dto = modelMapper.map(artComment,ArtCommentDto.DtoForList.class);
-				dto.setWriteDateStr(artComment.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
-				dto.setCno(artComment.getCno());
-				dtoList.add(dto);
-			}
-			return dtoList;
-		}
-//
-//		public int deleteReviewOfArt(Integer artno, String username,Integer rno) {
-//				List<Review> review = reviewDao.findAllReview(artno);
-//				
-//			
-//			
-//			return reviewDao.deleteByReviewOfArt(rno);
-//		}
-
-		// 작품 댓글 신고
-		/*
-		 * public int report(int cno, String username, boolean isReport) { ArtComment
-		 * artcomment = artCommemtDao.readByCommentOfArt(cno); if(artcomment==null)
-		 * throw new ArtCommentNotFoundException(); if( }
-		 */
-
 	}
+					
+	// 작품 댓글 작성하기
+	public List<ArtCommentDto.DtoForList> writeCommentOfArt(ArtComment artcomment) {
+		artcomment.setWriteDate(LocalDateTime.now());
+		String commentStr = artcomment.getContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
+		artcomment.setContent(commentStr);
+		 artCommemtDao.writeByCommentOfArt(artcomment);  
+		artDao.updateByArt(Art.builder().artno(artcomment.getArtno()).artCommentCnt(1).build());
+		List<ArtComment> commentList = artCommentDao.listByCommentOfArt(artcomment.getArtno());
+		List<ArtCommentDto.DtoForList> dtoList = new ArrayList<ArtCommentDto.DtoForList>();
+		for(ArtComment artComments:commentList) {
+			ArtCommentDto.DtoForList dto = modelMapper.map(artComments,ArtCommentDto.DtoForList.class);
+			dto.setWriteDateStr(artcomment.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
+			dto.setCno(artcomment.getCno());
+			dtoList.add(dto);
+		}
+		return dtoList;
+	}
+
+	// 작품 댓글 삭제하기
+	public List<ArtCommentDto.DtoForList> deleteCommentOfArt(Integer cno, Integer artno, String username) {
+		ArtComment artcomment = artCommemtDao.readByCommentOfArt(cno);
+		if (username.equals(artcomment.getUsername()) == false)
+			throw new JobFailException("댓글을 삭제할 수 없습니다");
+		artCommemtDao.deleteByCommentOfArt(cno);
+		System.out.println(cno + "씨엔오");
+		List<ArtComment> commentList = artCommentDao.listByCommentOfArt(artno);
+		List<ArtCommentDto.DtoForList> dtoList = new ArrayList<ArtCommentDto.DtoForList>();
+		for(ArtComment artComment:commentList) {
+			ArtCommentDto.DtoForList dto = modelMapper.map(artComment,ArtCommentDto.DtoForList.class);
+			dto.setWriteDateStr(artComment.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
+			dto.setCno(artComment.getCno());
+			dtoList.add(dto);
+		}
+		return dtoList;
+	}
+}

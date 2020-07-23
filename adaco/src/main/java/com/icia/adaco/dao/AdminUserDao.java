@@ -99,5 +99,4 @@ public class AdminUserDao {
 	public String findProfileByArtistno(int artistno) {
 		return tpl.selectOne("adminUserMapper.findProfileByArtistno", artistno);
 	}
-	
 }

@@ -63,7 +63,6 @@ public class AdminBoardRestController {
 		return ResponseEntity.ok("/adaco/admin/");
 	}
 	
-	
 	@Secured("ROLE_ADMIN")
 	@DeleteMapping("/admin/notice_delete")
 	public ResponseEntity<?> noticeDelete(Integer noticeno) {

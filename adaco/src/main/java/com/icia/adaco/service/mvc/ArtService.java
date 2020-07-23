@@ -71,7 +71,6 @@ public class ArtService {
 			} else {
 				throw new JobFailException("옵션을 등록해주세요.");
 			}
-
 		} else {
 			throw new JobFailException("작품 사진을 등록해주세요");
 		}
@@ -89,15 +88,7 @@ public class ArtService {
 	// 작품 리스트 (작가용)
 	public Page list(int pageno, @Nullable String category, String username) {
 		Integer artistno = artistdao.findArtistnoByUsername(username);
-		System.out.println("아티스트번호" + artistno);
-//		String artWriter = artistdao.findByid(artistno).getUsername();
-//		Integer artistnoByartno = artdao.findArtistnoByArtno(artno);
-//		List<DtoForList> artistnoByartno = service.findAllArtByUsername(username, pageno, category);
-		
-//		if (artistno.equals(artistnoByartno) == false)
-//			throw new JobFailException("권한이 없습니다.");
 		int countOfArt = artdao.countSearchByCategory(category,artistno);
-//		int countOfArt = artdao.countByArtistno(artistno);
 		Page page = PagingUtil.getPage(pageno, countOfArt);
 		int srn = page.getStartRowNum();
 		int ern = page.getEndRowNum();
@@ -108,13 +99,7 @@ public class ArtService {
 			ArtDto.DtoForList dto = modelMapper.map(art, ArtDto.DtoForList.class);
 			dtoList.add(dto);
 		}
-		page.setArtList(dtoList);
-		
-//		if(category==null) {
-//			int countOfArt = 
-//		} else {
-//			int countOfArt = 
-//		}
+			page.setArtList(dtoList);
 		return page;
 
 	}

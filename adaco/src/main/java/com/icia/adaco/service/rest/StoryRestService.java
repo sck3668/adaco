@@ -72,7 +72,6 @@ public class StoryRestService {
 				map.put("uploaded", "1");
 				map.put("fileName", imageName);
 				map.put("url", ckUrl+imageName);
-				System.out.println("맵ㅂㅂㅂㅂㅂㅂㅂㅂㅂㅂㅂㅂㅂㅂㅂㅂ"+map);
 				return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
 				} catch(Exception e) {
 					e.printStackTrace();
