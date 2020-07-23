@@ -165,6 +165,10 @@ public class ArtDao {
 	public int insertArtImg(ArtImg artImg) {
 		return tpl.insert("artMapper.insertArtImg", artImg);
 	}
+	//작품 이미지 업데이트
+	public int updateArtImg(ArtImg artImg) {
+		return tpl.update("artMapper.updateArtImg",artImg);
+	}
 	
 	////////////상점 사용///////////////
 	

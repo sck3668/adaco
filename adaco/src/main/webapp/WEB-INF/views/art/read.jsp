@@ -30,6 +30,24 @@
 		width: 500px;
 		height: 400px;	
 	}
+	.number a, .number span { 
+	text-align: center; 
+	font-size: 0.8em; 
+	height: 20px; 
+	width: 30px; 
+	line-height: 20px;
+	border: 0.8px solid gray; 
+	display: inline-block;
+	}
+	.number a {  
+	text-decoration: none; 
+	color: black; 
+	border-radius: 2px; 
+	 }
+	.number span{
+	 
+	 }
+
 </style>
 <script></script>
 <sec:authorize access="isAuthenticated()">
@@ -279,7 +297,7 @@ $(function() {
 	
 	// 구매하기
 	$("#payment").on("click",function(){
-		
+		var $amount = $("#numberUpDown").val(); 
 		var params  ={
 			_csrf: '${_csrf.token}',
 			username: '${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}',
@@ -312,6 +330,7 @@ $(function() {
 	$("#addBag").on("click",function() {
 		var confirm_val = confirm("장바구니로 이동하시겠습니까?");
   		if(confirm_val) {
+  			var $amount = $("#numberUpDown").val(); 
 			var params = {
 				_csrf : "${_csrf.token}",
 				username: "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}",
@@ -344,18 +363,33 @@ $(function() {
 	
 });
 
-// 수량 증가
-$(function() {
-	$("#plus").on("click", function(this){  
+// 수량 증가 감소
+	$(function(){
+	$('#decreaseQuantity').click(function(e){
+	e.preventDefault();
+	var stat = $('#numberUpDown').text();
+	var num = parseInt(stat,10);
+	num--;
+	if(num<=0){
+	alert('1개이상 구매가능합니다.');
+	num =1;
+	}
+	$('#numberUpDown').text(num);
+	});
+	$('#increaseQuantity').click(function(e){
+	e.preventDefault();
+	var stat = $('#numberUpDown').text();
+	var num = parseInt(stat,10);
+	num++;
+	
+	if(num>199){
+	alert('199이하로 구매가능 합니다.');
+	num=199;
+	}
+	$('#numberUpDown').text(num);
+	});
+	});
 
-     var abc = $(this).prev().val();
-
-     $(this).prev().val(parseInt(abc)+1);
-
-      console.log(abc);
-
-});
-});
 </script>
 </head>
 <body>
@@ -415,15 +449,22 @@ ${art }
 				<tr>
 					<td class = "amount">수량 선택</td>
 					<td>
-						<div data-v-794fc8d2="" class="option_card__counter">
-							<button data-v-794fc8d2="" type="button" class="ui_btn--mini" id="minus">
-				                -
-				            </button> 
-           					 <input data-v-794fc8d2="" type="number" min="1" max="999" name="count" style="text-align: center;">  
-           					<button data-v-794fc8d2="" type="button" class="ui_btn--mini" id="plus">
-				                +
-				            </button>
-            			</div>
+<!-- 						<div data-v-794fc8d2="" class="option_card__counter"> -->
+<!-- 							<button data-v-794fc8d2="" type="button" class="ui_btn--mini" id="minus"> -->
+<!-- 				                - -->
+<!-- 				            </button>  -->
+<!--            					 <input data-v-794fc8d2="" type="number" min="1" max="999" name="count" style="text-align: center;">   -->
+<!--            					<button data-v-794fc8d2="" type="button" class="ui_btn--mini" id="plus"> -->
+<!-- 				                + -->
+<!-- 				            </button> -->
+<!--             			</div> -->
+						<div class="number">
+						    <a href="#" id="decreaseQuantity">-</a>
+							<span id="numberUpDown">1</span>
+							<a href="#" id="increaseQuantity">+</a>
+						
+						</div>
+
 					</td>
 				</tr>
 			</table>

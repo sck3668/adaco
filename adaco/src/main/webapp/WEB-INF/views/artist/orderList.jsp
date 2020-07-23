@@ -303,7 +303,7 @@ $(document).ready(function(){
 <!-- 			<button type="button" id="update_Btn">변경</button> -->
 <!-- 		</div> -->
  	<div style="text-align:center;">
-		<ul class="pagination">
+		<ul class="pagination justify-content-center">
 			<c:if test="${page.prev==true}">
 				<li><a href="/adaco/artist/orderList?pageno=${page.startPage-1}">이전</a></li>
 			</c:if>

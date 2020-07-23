@@ -17,34 +17,62 @@
 	th{
 	height:50px;
 	text-align: center; 
+	background-color: #bbdefb;
 	}
 	#plus{
-	text-align: center; display: inline-block;
+	text-align: center; 
+	display: inline-block;
 	}
 	#minus{
-	text-align: center; display: inline-block;
+	text-align: center; 
+	display: inline-block;
 	}
 	#count{
-	text-align: center;  width:"3px";
+	text-align: center;  
+	width:"3px";
 	}
 	
 	table {
- 		width: 100%; 
-		border-collapse: collapse;
-		border: 1px solid lightgray;
-		text-align: center;
+	width: 100%; 
+	border-collapse: collapse;
+	border: 1px solid lightgray;
+	text-align: center;
 	}
-   	.first { width: 50px; }  
-  	.second { width:50px;  } 
-  	.third { widht: 100px; font-size: 0.8em; }  
-  	.fourth {width: 100px;} 
-  	.fifth { width: 240px; }  
-  	.six {width:40px;}  
+   	.first { 
+   	width: 5%; 
+   	}  
+  	.second { 
+  	width: 15%;  
+  	} 
+  	.third { 
+  	widht: 35%; 
+  	}  
+  	.fourth {
+  	width: 15%;
+  	} 
+  	.fifth {
+  	 width: 15%; 
+  	 }  
+  	.six {
+  	width: 15%;
+  	}  
 	.button_area a, .button_area span { 
-		font-size: 0.8em; text-align: center;
-		height: 30px; line-height: 30px;
+	text-align: center; 
+	font-size: 0.8em; 
+	height: 20px; 
+	width: 30px; 
+	line-height: 20px;
+	border: 0.8px solid gray; 
+	display: inline-block;
 	}
-	.price { padding-left: 15px; }
+	.button_area a {  
+	text-decoration: none; 
+	color: black; 
+	border-radius: 2px; 
+	 }
+	.price { 
+	padding-left: 15px; 
+	}
 	
 	 ol {
      list-style:none; 
@@ -56,6 +84,15 @@
 	 li { 
 	   display:inline
 	 } 
+	 #img{
+	 width:120px;
+	 height:120px;
+	 padding:10px;
+	 }
+	 #button_area {
+	 margin-left: 15px;
+	 
+	 }
 </style>
 <script>
 /*$(function() {
@@ -77,7 +114,7 @@ function printBag(bag,dest) {
 	var bag = bag;
 	
 	$("<td class='first'>").append($("<input>").attr("type","checkbox").attr("class","check").attr("name","check").attr("data-artno", bag.artno)).appendTo($tr);
-	$("<td class='second'>").append($("<img>").attr("src", "bag.art.mainImg").css("width", "135px")).appendTo($tr);
+	$("<td class='second'>").append($("<img>").attr("src", bag.art.mainImg).attr("id","img")).appendTo($tr);
 	$("<td class='third'>").text(bag.art.artName).appendTo($tr);
 
 	var $td = $("<td class='fourth'>").appendTo($tr);
@@ -97,9 +134,9 @@ function printBag(bag,dest) {
 	var $td = $("<td class='fifth'>").appendTo($tr);
 	$("<div class='price'>").text(bag.totalPrice+"원").appendTo($td);
 	var $div = $("<div class='button_area'>").appendTo($td);
-	$("<a href='#.'>+</a>").attr("class","plus").attr("data-artno", bag.artno).appendTo($div);
-	$("<span>").text(bag.amount).appendTo($div);
-	$("<a href='#.'>-</a>").attr("class","minus").attr("data-artno", bag.artno).appendTo($div);
+	$("<a href='#.'>+</a>").attr("class","plus").attr("data-artno", bag.artno).css('text-decoration','none').css('color','black').appendTo($div);
+	$("<span>").css("width","50px").text(bag.amount).appendTo($div);
+	$("<a href='#.'>-</a>").attr("class","minus").attr("data-artno", bag.artno).css('text-decoration','none').css('color','black').appendTo($div);
 
 	$("<td class='six'>").text(bag.art.price).appendTo($tr);
 	$("<input>").attr("class","artno").attr("type","hidden").attr("id","artno").val(bag.artno).appendTo(dest);
@@ -452,14 +489,14 @@ $(function() {
 	<table> <!--  style="width:800px;" -->
 	<colgroup>
       		<col width="5%">
-      		<col width="20%">
-      		<col width="20%">
-      		<col width="20%">
       		<col width="15%">
-      		<col width="20%">
+      		<col width="35%">
+      		<col width="15%">
+      		<col width="15%">
+      		<col width="15%">
       	</colgroup>
 		<tr>
-			<th>선택</th><th>이미지</th><th>상품명</th><th>옵션</th><th>수량 및 총가격</th><th>작품가격</th>
+			<th>선택</th><th>이미지</th><th>작품명</th><th>옵션</th><th>수량 및 총가격</th><th>작품가격</th>
 		</tr>
 	</table>
 	<div id="bagArea">
@@ -467,9 +504,9 @@ $(function() {
 	<div id="total">
 	</div>
 	<div id="button_area">
-		<input type="checkbox" id="checkAll">전체 선택 
-		<button id="choiseDelete">선택삭제</button>
-		<button type="button" id="order">주문하기</button>
+		<input type="checkbox" id="checkAll">&nbsp;전체 선택 
+		<button id="choiseDelete" class="btn btn-primary">선택삭제</button>
+		<button type="button" id="order" class="btn btn-outline-primary">주문하기</button>
 	</div>
 </body>
 </html>

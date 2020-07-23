@@ -9,25 +9,25 @@
 <script>
 
 //$("#category option:selected").val();
-    function inputNumberAutoComma(obj) {
+//     function inputNumberAutoComma(obj) {
              
-        // 기존에 들어가있던 콤마( , )를 제거한 이 후의 입력값에 다시 콤마( , )를 삽입한다.
-        obj.value = inputNumberWithComma(inputNumberRemoveComma(obj.value));
-    }
+//         // 기존에 들어가있던 콤마( , )를 제거한 이 후의 입력값에 다시 콤마( , )를 삽입한다.
+//         obj.value = inputNumberWithComma(inputNumberRemoveComma(obj.value));
+//     }
    
-    // 천단위 이상의 숫자에 콤마( , )를 삽입하는 함수
-    function inputNumberWithComma(str) {
+//     // 천단위 이상의 숫자에 콤마( , )를 삽입하는 함수
+//     function inputNumberWithComma(str) {
 
-        str = String(str);
-        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
-    }
+//         str = String(str);
+//         return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
+//     }
 
-    // 콤마( , )가 들어간 값에 콤마를 제거하는 함수
-    function inputNumberRemoveComma(str) {
+//     // 콤마( , )가 들어간 값에 콤마를 제거하는 함수
+//     function inputNumberRemoveComma(str) {
 
-        str = String(str);
-        return str.replace(/[^\d]+/g, "");
-    }
+//         str = String(str);
+//         return str.replace(/[^\d]+/g, "");
+//     }
 	    
 	    
 	$(function() {

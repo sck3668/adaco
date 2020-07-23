@@ -63,12 +63,11 @@ public class ArtistController {
 //	}
 	
 	// 작가번호로 주문리스트찾기
-		@PreAuthorize("isAuthenticated()")
-		@GetMapping("/artist/orderList")
-		public ModelAndView artistSellList(@RequestParam(defaultValue ="1")int pageno, Principal principal ){
-			return new ModelAndView("main").addObject("viewName","artist/orderList.jsp")
-					.addObject("page",orderDetailService.OrderListByArtist(pageno,principal.getName()));
-		}
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/artist/orderList")
+	public ModelAndView artistSellList(@RequestParam(defaultValue ="1")int pageno, @Nullable String orderstate, Principal principal ){
+		return new ModelAndView("main").addObject("viewName","artist/orderList.jsp").addObject("page",orderDetailService.OrderListByArtist(pageno,orderstate,principal.getName()));
+	}
 	
 	// 주문 상태 업데이트
 	@PreAuthorize("isAuthenticated()")

@@ -36,10 +36,10 @@ $(function() {
 		$input.appendTo($("#artSajin"));
 	});
 	
-// 	$("#deleteUpload").on("click", function(){
-// 		  $("#artSajin").html("");
-// //			  document.getElementById("add").disabled = false;
-// 	});
+	$("#deleteUpload").on("click", function(){
+		  $("#artSajin").html("");
+//			  document.getElementById("add").disabled = false;
+	});
  });
 	
 $(function() {
@@ -257,15 +257,16 @@ ${artDetailPage}
 				      </c:forEach>
 				    </ul>
 				  </div>
-<!-- 				  <div id = "artSajin"></div> -->
-<!-- 				  <button type = "button" id = "add" name="add">작품 이미지 추가</button> -->
-				  <input type="file" name="artSajin" id="artSajin" />
+				  <div id = "artSajin"></div>
+				  <button type = "button" id = "add" name="add">작품 이미지 추가</button>
+				  <button type = "button" id = "deleteUpload" >업로드 취소</button>
+<!-- 				  <input type="file" name="artSajin" id="artSajin" /> -->
 				  <span class="nxt_fix" style="display:none;"></span>
 				</div>
 			</tr>
 			<tr>
 				<td class="first">작품가격</td>
-				<td colspa4n="2">
+				<td colspan="2">
 				<input type="text" id="artPrice" name="artPrice" value="${artDetailPage.price}" /> 원
 				</td>
 			</tr>
