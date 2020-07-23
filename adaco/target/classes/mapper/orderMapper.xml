@@ -63,7 +63,7 @@
 		select bagno from orders where orderno=#{orderno}
 	</select>
 	<select id="findUsernameByCharge" resultType="order">
-		select shipping_charge shippingCharge from orders where username=#{username}
+		select shipping_charge shippingCharge,order_date orderDate from orders where username=#{username}
 	</select>
 	
 	<!-- 작가 전용 --> 

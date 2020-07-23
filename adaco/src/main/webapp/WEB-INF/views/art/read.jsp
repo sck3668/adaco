@@ -110,8 +110,28 @@ function printComment(comments){
 			.text("삭제").appendTo($center_div).css("float","right")
 		}
 	})
-	
 }	
+/* <div id="comments">
+	<div id="upper_div">
+		<span>
+		</span>
+	</div>
+	<div id="center_div">
+		<img src="comment.profile">
+		<div>
+		</div>
+	</div>
+	<div id="lower_div">
+		<span>
+		</span
+	</div>
+</div>
+
+ */
+
+
+
+
 
 function checkFavorite() {
 	var $isFavorite = ${artPageByUser.isFavorite}

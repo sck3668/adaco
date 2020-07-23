@@ -252,7 +252,9 @@ public class UserService {
 		for(Order order:orderList) {
 			OrderDto.DtoForList dto = modelMapper.map(order,OrderDto.DtoForList.class);
 			int orderno = order.getOrderno();
+			System.out.println(orderno+"오더엔오");
 			OrderDetail orderDetail = orderDetailDao.OrderDetail(orderno);
+			System.out.println(orderDetail+"오더디테일");
 			if(orderDetail==null) {
 				return null;
 			}
@@ -275,8 +277,8 @@ public class UserService {
 		OrderDetailDto.DtoForReadOrder dto = modelMapper.map(detail,OrderDetailDto.DtoForReadOrder.class);
 		for(Order shippingCharge :Charge) {
 			dto.setShippingCharge(shippingCharge.getShippingCharge());
+			dto.setOrderDateStr(shippingCharge.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
 		}
 		return  dto;
 	}
-	
 }

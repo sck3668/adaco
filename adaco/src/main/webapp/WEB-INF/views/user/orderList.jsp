@@ -44,19 +44,7 @@
    }
    </style>
 <script type="text/javascript">
-$(function(){
-   $("#search").on("click", function(){
-      var username = $("#username").val();
-      location.href = "/adaco/order/list?username="+username   
-   });
-   $(".category").on("change", function(){
-      var $category = $(".category").val();
-    /*   if($category == "유저")
-         location.href = "/adaco/order/list"
-      if($category == "아티스트")
-         location.href = "/adaco/order/list" */
-   }); 
-});   
+
 </script>
 </head>
 <body>
@@ -72,22 +60,11 @@ $(function(){
 
    <h3><br><br><br>주문 내역</h3>
    <hr>
-   <div>
-   <input type="text" id="username" name="username" placeholder="사용자 검색">
-   <button type = "button" id = "search">검색</button>
-   </div>
-   <div>
-      <select class="category">
-            <option value="선택">선택</option>
-            <option value="유저">모든 유저</option>
-            <option value="아티스트">판매자</option>
-      </select>
-   </div>   
    <div id="orderMain">
    <table>
       <colgroup>
             <col width="10%">
-            <col width="15%">
+            <col width="18 %">
             <col width="40%">
             <col width="10%">
             <col width="10%">
@@ -112,7 +89,7 @@ $(function(){
                 	<td><a href="/adaco/user/orderRead?artName=${list.artName }">${list.artName }</a></td>
                 	<td>${list.artPrice }</td>
                 	<td>${list.shippingCharge }</td>
-                	<td>${list.state }</td>
+                	<td>${list.orderstate }</td>
                 </tr>
                 
       </c:forEach>

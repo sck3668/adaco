@@ -187,9 +187,9 @@ ul.sub li:hover {
 				<h2>나의 내역</h2>
 				<br>
 				<ul class="dashboard-list">
-					<li>포인트:<strong style="color: red;">${point }p</strong></li>
-					<li>리뷰수:<strong style="color: red;">${review }개</strong></li>
-					<li>즐겨찾기수:<strong style="color: red;">${favorite }개</strong></li>
+					<li>포인트:<a href="/adaco/user/pointList"><strong style="color: red;">${point }p</strong></a></li>
+					<li>리뷰수:<a href="/adaco/user/reviewList"><strong style="color: red;">${review }개</strong></a></li>
+					<li>즐겨찾기수:<a href="/adaco/user/favoriteList"><strong style="color: red;">${favorite }개</strong></a></li>
 				</ul>
 			</div>
 			<br> <br> <br> <br> <br> <br> <br>
