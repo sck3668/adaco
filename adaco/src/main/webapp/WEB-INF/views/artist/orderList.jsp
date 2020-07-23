@@ -119,45 +119,38 @@ $(document).ready(function(){
     })
 });
 
-	// select box에 주문상태 값 받아오기
-	$(function() {
-		var $orderstate = $(".state").val(); 
-		var $select = $("#OrderState").find("option");
-		$select.each(function(idx, option) {
-			if($(option)!=null) {
+// 	// select box에 주문상태 값 받아오기
+// 	$(function() {
+// 		var $orderstate = $("#orderstate").val(); 
+// 		var $select = $(".State").find("option");
+// 		$select.each(function(idx, option) {
+// 		if($(option).text()==$orderstate) {
+// 		$($select[idx]).prop("selected", true);
+// 		}
+// 		});
+			
+// 		// select box값으로 주문상태 변경
 		
-		$select.each(function(idx, option) {
-		if($(option).text()==$orderstate) {
-		$($select[idx]).prop("selected", true);
-		}
+// 			$("#OrderState").on("change", function() {
+		
+// 			var choice = $("#OrderState").val();
+// 			var $orderstate = $("#orderstate").val(); 
+// 			var $select = $("#OrderState").find("option");
+			
+// 			$select.each(function(idx, option) {
+// 			if(choice!="주문상태 선택") {
+// 			$("#orderstate").val(choice);
+// 			$("#orderstate").prop("disabled", true);
+// 			}
+// 			if(choice=="주문상태 선택") {
+// 			alert("주문상태를 선택해주세요");
+// 			}
+// 			})
+// 		});
+
 	
-		});
-		}
-		});
-	});
-		// select box값으로 주문상태 변경
-		$(function() {
-			
-			$("#OrderState").on("change", function() {
-		
-			var choice = $("#OrderState").val();
-			var $orderstate = $("#orderstate").val(); 
-			var $select = $("#OrderState").find("option");
-			
-			$select.each(function(idx, option) {
-			if(choice!="주문상태 선택") {
-			$("#orderstate").val(choice);
-			$("#orderstate").prop("disabled", true);
-			}
-			if(choice=="주문상태 선택") {
-			alert("주문상태를 선택해주세요");
-			}
-			})
-		});
 
-		});
-
-	// '저장'버튼으로 주문상태만 수정
+// 	// '저장'버튼으로 주문상태만 수정
 // 	$("#update_Btn").on("click", function() {
 // 		var $orderstate = $("#orderstate").val();
 // 		var params = {
@@ -180,12 +173,14 @@ $(document).ready(function(){
 
 
 
-$(function(){
-	$("#search").on("click", function(){
-		var username = $("#username").val();
-		location.href = "/adaco/admin/artist_list?username="+username	
+// $(function(){
+// 	$("#search").on("click", function(){
+// 		var username = $("#username").val();
+// 		location.href = "/adaco/admin/artist_list?username="+username	
 // 		adaco/art/listByArtist?category="+category;
-	});
+	
+// 	});
+	
 // 	$(".category").on("change", function(){
 // 		var $category = $(".category").val();
 // 		if($category == "유저")
@@ -193,7 +188,7 @@ $(function(){
 // 		if($category == "아티스트")
 // 			location.href = "/adaco/admin/artist_list"
 // 	});
-});	
+// });	
 	
 </script>
 </head>
@@ -230,7 +225,7 @@ $(function(){
 						style="color: black; text-decoration: none;">내 정보 관리</a></li>
 					<li class="list-group-item list-group-item-action"><a
 						href="/adaco/artist/orderList"
-						style="color: black; text-decoration: none;">판매내역</a></li>
+						style="color: black; text-decoration: none;">주문 / 배송 관리</a></li>
 					<li class="list-group-item list-group-item-action"><a
 						href="#" style="color: black; text-decoration: none;">메세지함</a></li>
 					<li class="list-group-item list-group-item-action"><a
@@ -242,7 +237,7 @@ $(function(){
    </aside>
  <section id="section">
 <%--  ${page.orderList } --%>
-<h3>주문 목록</h3>
+<h3>주문 / 배송 관리</h3>
 <!-- <hr> -->
 	<div id="idSearch" style="float:right;">
 	<input type="text" id="username" name="username" placeholder="구매자 ID 검색">
@@ -256,7 +251,7 @@ $(function(){
 <!-- 		</select> -->
 <!-- 	</div> -->
 	<br><br>	
-	<form role="form" method="post" autocomplete="off">
+<!-- 	<form role="form" method="post" autocomplete="off"> -->
 	<table>
 		<colgroup>
 				<col width="13%">
@@ -273,7 +268,7 @@ $(function(){
 				<th>주문 번호</th>
 				<th>주문일</th>
 				<th>구매자 ID</th>
-				<th>수취인</th>
+				<th>받는분</th>
 				<th>작품명/옵션</th>
 				<th>총 결제액</th>
 				<th>주문 상태</th>
@@ -288,27 +283,27 @@ $(function(){
 				<td>${list.recipient}</td> 
 				<td>${list.artName} / ${list.optionName}:${list.optionValue}</td>
 				<td>${list.price+list.shippingCharge}</td> 
-				<td>
-					<select id="OrderState" class="State">
-						<option selected="selected">주문상태 선택</option>
-						<option>입금대기</option>
-						<option>입금완료</option>
-						<option>배송준비중</option>
-						<option>배송중</option>
-						<option>배송완료</option>
-					</select> 
-					<input type="text" class="state" name="orderstate"  value="${list.orderstate}"  style="width:100px"/>
+				<td>${list.orderstate}
+<!-- 					<select id="OrderState" class="State"> -->
+<!-- 						<option selected="selected">주문상태 선택</option> -->
+<!-- 						<option>입금대기</option> -->
+<!-- 						<option>입금완료</option> -->
+<!-- 						<option>배송준비중</option> -->
+<!-- 						<option>배송중</option> -->
+<!-- 						<option>배송완료</option> -->
+<!-- 					</select>  -->
+<%-- 					<input type="text" class="state" name="orderstate"  id="orderstate" value="${list.orderstate}"  style="width:100px"/> --%>
 				</td> 
 			</tr>					
 		</c:forEach>
 		</tbody>
 	</table>
-	</form>
-		<div class="inputArea" align="center">
-			<button type="button" id="update_Btn">변경</button>
-		</div>
+<!-- 	</form> -->
+<!-- 		<div class="inputArea" align="center"> -->
+<!-- 			<button type="button" id="update_Btn">변경</button> -->
+<!-- 		</div> -->
  	<div style="text-align:center;">
-		<ul class="pagination">
+		<ul class="pagination justify-content-center">
 			<c:if test="${page.prev==true}">
 				<li><a href="/adaco/artist/orderList?pageno=${page.startPage-1}">이전</a></li>
 			</c:if>

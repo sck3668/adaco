@@ -51,13 +51,14 @@ public class OrderDetailDao {
 		return tpl.selectOne("orderDetailMapper.count");
 	}
 	
-	// 작가번호로 주문내역 리스트
-		public List<OrderDetail> FindAllOrderByArtist(int startRowNum,int endRowNum,int artistno) {
-			System.out.println("dao=====");
+	// 작가번호로 주문내역 리스트 + 주문상태로 검색
+		public List<OrderDetail> FindAllOrderByArtist(int startRowNum,int endRowNum,int artistno,@Nullable String orderstate) {
+//			System.out.println("dao=====");
 			Map<String,Object> map = new HashMap<String, Object>();
 			map.put("startRowNum",startRowNum);
 			map.put("endRowNum", endRowNum);
 			map.put("artistno",artistno);
+			map.put("orderstate",orderstate);
 		return tpl.selectList("orderDetailMapper.findAllOrderByArtist",map);
 		}
 	
@@ -67,12 +68,12 @@ public class OrderDetailDao {
 	}
 	
 	//검색어에 해당되는 작품 수
-//		public int countSearchByState(orderState orderstate) {
-//			Map<Object, Object> map = new HashMap<Object, Object>();
-//			map.put("orderstate",orderstate);
-//			return tpl.selectOne("orderDetailMapper.countSearchByState",map);
-//		}
-//	
+		public int countSearchByState(String orderstate) {
+			Map<Object, Object> map = new HashMap<Object, Object>();
+			map.put("orderstate",orderstate);
+			return tpl.selectOne("orderDetailMapper.countSearchByState",map);
+		}
+	
 	
 	
 //	// 결제 취소

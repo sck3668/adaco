@@ -54,7 +54,6 @@ public class ArtController {
 	}
 	
 	// 작품 리스트 (리뷰순) + 작품 이름으로 작품 검색 (회원용)
-	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/artListByReview")
 	public ModelAndView listReviewManyArt(@RequestParam(defaultValue = "1") int pageno, @Nullable String artname) {
 		return new ModelAndView("main").addObject("viewName","user/manyReview.jsp").addObject("artReviewPage",artservice.listManyReview(pageno, artname));
