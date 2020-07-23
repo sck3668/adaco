@@ -402,6 +402,8 @@ $(function() {
 	
 	//장바구니 추가
 	$("#addBag").on("click",function() {
+		// 총 금액
+		console.log($("#totalPrice").text());
 		if(typeof loginId == "undefined") {
 			alert("로그인이 필요합니다");
 			return false;
@@ -455,6 +457,7 @@ $(function(){
 			num =1;
 		}
 		$('#numberUpDown').text(num);
+	 	$("#totalPrice").text($('#numberUpDown').text()*${artPageByUser.price+artPageByUser.optionPrice}+${artPageByUser.couriPrice});
 	});
 	
 	$('#increaseQuantity').click(function(e){
@@ -467,7 +470,11 @@ $(function(){
 			num=${artPageByUser.stock};
 		}
 		$('#numberUpDown').text(num);
+		// 수량 변경시 적용되는 총 금액
+	 	$("#totalPrice").text($('#numberUpDown').text()*${artPageByUser.price+artPageByUser.optionPrice}+${artPageByUser.couriPrice});
 	});
+	// 기본 수량 1일 때의 총 금액
+ 	$("#totalPrice").text($('#numberUpDown').text()*${artPageByUser.price+artPageByUser.optionPrice}+${artPageByUser.couriPrice});
 });
 
 </script>
@@ -566,7 +573,7 @@ ${artPageByUser }
 					<br><br>
 					<div>
 						<span>총 결제 금액</span>
-						<strong>${artPageByUser.price+artPageByUser.optionPrice+artPageByUser.couriPrice}</strong>
+						<strong id="totalPrice">${artPageByUser.price+artPageByUser.optionPrice+artPageByUser.couriPrice}</strong>
 					</div>				
 				</div>
 			</div>

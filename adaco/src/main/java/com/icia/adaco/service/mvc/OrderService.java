@@ -86,7 +86,7 @@ public class OrderService {
 			bagno = bagDao.findByArtno(list.get(i)).getBagno();
 			order.setBagno(bagno);
 			orderDao.Ordering(order);
-			int orderno = orderDao.findOrdernoByUsername(username, order.getBagno());
+			int orderno = orderDao.findOrdernoByUsername(username, bagDao.findByArtno(list.get(i)).getBagno());
 			list1.add(orderno);
 		}
 		//orderno로 장바구니 번호를 찾아서 목록을 출력

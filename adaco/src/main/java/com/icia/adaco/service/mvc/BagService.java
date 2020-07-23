@@ -28,25 +28,20 @@ public class BagService {
 	public int insertByBag(Bag bag,String username) {
 		int artno = bag.getArtno();
 		Art art = artdao.readByArt(artno);
-		System.out.println("art=="+art);
-		System.out.println("bag=="+bag);
-		bag.setTotalPrice(bag.getAmount()*art.getPrice());
-		System.out.println("bag======"+bag);
+		System.out.println("art==="+art);
+		System.out.println("bag==="+bag);
+		bag.setTotalPrice(bag.getAmount()*(bag.getOptionPrice()+art.getPrice()));
 		Bag bag1 = bagdao.findByArtnoUsername(artno,username);
-		System.out.println("bag1==="+bag1);
 		//username 찾은 장바구니의 artno가 추가하는 bag의 artno와 같은 경우 수량 증가
 		// 장바구니 추가는 하지 않음
 		if(bag1==null) {
-			System.out.println("111");
 			return bagdao.insertByBag(bag);
 		} else {
 			if(bag1.getArtno().equals(bag.getArtno())==true) {
-				System.out.println("222");
 				bag1.setAmount(bag.getAmount()+bag1.getAmount());
 				bag1.setTotalPrice(bag.getTotalPrice()+bag1.getTotalPrice());
 				return bagdao.updateByBagUsername(bag1);
 			} else {
-				System.out.println("333");
 				return 1;
 			}
 		}
@@ -83,17 +78,17 @@ public class BagService {
 		Art art = artdao.readByArt(artno);
 		if(isIncrese==true) {
 			bag.setAmount(bag.getAmount()+1);
-			bag.setTotalPrice(bag.getAmount()*art.getPrice());
+			bag.setTotalPrice(bag.getAmount()*(art.getPrice()+bag.getOptionPrice()));
 			bagdao.increaseByAmount(artno);
 			bagdao.updateByBagUsername(Bag.builder().username(bag.getUsername()).artno(artno)
-					.totalPrice(bag.getAmount()*art.getPrice()).build());
+					.totalPrice(bag.getAmount()*(art.getPrice()+bag.getOptionPrice())).build());
 		} else {
 			if(bag.getAmount()>1) {
 				bag.setAmount(bag.getAmount()-1);
-				bag.setTotalPrice(bag.getAmount()*art.getPrice());
+				bag.setTotalPrice(bag.getAmount()*(art.getPrice()+bag.getOptionPrice()));
 				bagdao.decreaseByAmount(artno);
 				bagdao.updateByBagUsername(Bag.builder().username(bag.getUsername()).artno(artno)
-					.totalPrice(bag.getAmount()*art.getPrice()).build());
+					.totalPrice(bag.getAmount()*(art.getPrice()+bag.getOptionPrice())).build());
 			}
 		}
 		return bag;
