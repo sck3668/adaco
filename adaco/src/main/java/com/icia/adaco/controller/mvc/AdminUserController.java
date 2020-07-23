@@ -11,7 +11,6 @@ import com.icia.adaco.service.mvc.*;
 
 @Controller
 public class AdminUserController {
-
 	@Autowired
 	AdminUserService service;
 	
