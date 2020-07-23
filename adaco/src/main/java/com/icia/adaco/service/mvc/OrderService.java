@@ -106,6 +106,10 @@ public class OrderService {
 	
 	// 주문하기 후 결제창 이동시 넘겨줄 데이터
 	public OrderDto.DtoForPayment OrderingD(String username,int artno) {
+		OrderDto.DtoForPayment dto = new OrderDto.DtoForPayment();
+		List<Art> artList = new ArrayList<Art>();
+		List<Bag> bagList = new ArrayList<Bag>();
+		List<String> writerList = new ArrayList<String>();
 		Art art = artDao.readByArt(artno);
 		int artistno = artDao.findArtistnoByArtno(artno);
 		int optno = optionDao.findOptnoByArtno(artno);
@@ -115,13 +119,14 @@ public class OrderService {
 		Option option = optionDao.readByArtno(artno);
 		User user = userDao.findByid(username);
 		Bag bag = bagDao.findByArtno(artno);
+		String writer = artistDao.findByid(artistno).getUsername();
 		String artistUsername = artistDao.findByid(artistno).getUsername();
 		String artistName = userDao.findByid(artistUsername).getIrum();
-		OrderDto.DtoForPayment dto = new OrderDto.DtoForPayment();
-		List<Art> artList = new ArrayList<Art>();
 		artList.add(art);
+		bagList.add(bag);
+		writerList.add(writer);
 		dto.setArtistName(artistName).setOption(option).setUser(user).setBag(bag).setArtistno(artistno).setOrderno(orderno);
-		dto.setArtList(artList);
+		dto.setArtList(artList).setBagList(bagList).setWriterList(writerList);
 		return dto;
 	}
 	

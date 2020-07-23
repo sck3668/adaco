@@ -104,4 +104,6 @@ public class ArtController {
 	public ResponseEntity<?> paymentCheck(Principal principal, String artName) {
 		return ResponseEntity.ok(artservice.paymentCheck(principal.getName(),artName));
 	}
+	
+	// 
 }

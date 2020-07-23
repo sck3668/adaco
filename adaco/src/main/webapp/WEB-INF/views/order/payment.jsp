@@ -264,7 +264,7 @@ ${order }
             <c:forEach items="${order.artList}" var="art" varStatus="status">
             <table>
                <tr>
-                  <c:forEach items="${order.writerList}" begin="1" end="1" var="writer">
+                  <c:forEach items="${order.writerList}" begin="0" end="1" var="writer">
                   <td class="txt-group" style= "text-align: left;"><b>${order.writerList[status.index]} 작가님</b></td>
                   </c:forEach>
                </tr>
@@ -296,7 +296,7 @@ ${order }
                      <a href="/adaco/art/readByUser?artno=${art.artno }" style="text-decoration:none; color:black" title="${art.artName }">
                         <strong>${art.artName }</strong>
                      </a><br><br>
-                  <c:forEach items="${order.bagList}" begin="1" end="1" var="bag">
+                  <c:forEach items="${order.bagList}" begin="0" end="1" var="bag">
                      <span>${order.bagList[status.index].optionName}:</span>
                           <span>${order.bagList[status.index].optionValue }</span>
                      <span> | 수량 : ${order.bagList[status.index].amount }개</span>

@@ -111,4 +111,5 @@ public class ArtRestController {
 	public ResponseEntity<?> deleteArtComment(Integer cno, Integer artno, Principal principal){
 		return ResponseEntity.ok(service.deleteCommentOfArt(cno, artno, principal.getName()));
 	}
+	
 }
