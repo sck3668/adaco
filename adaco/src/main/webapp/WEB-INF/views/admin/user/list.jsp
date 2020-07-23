@@ -132,7 +132,7 @@ $(function(){
 		</c:forEach>
 		</tbody>
        </table>
-		<ul class="pagination" style="text-align: center; margin: 0 auto; width: 0px; text-align: center;">
+		<ul class="pagination" style="text-align: center; margin: 0 auto; width: 0px;">
 			<c:if test="${userPage.prev==true}">
 				<li class="page-item" style="width: 60px;"><a style = "width: 60px;" class = "page-link" href="/adaco/admin/user_list?username=${userPage.search }&pageno=${userPage.startPage-1}">이전</a></li>
 			</c:if>
