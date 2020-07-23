@@ -48,6 +48,9 @@ public class ShopDao {
 			return sql.selectOne("shopMapper.readShopnoByArtistno", artistno);
 		}
 		
-
+	// 작품번호로 상점 찾기.
+	public Shop shopByArtno(int artno) {
+		return sql.selectOne("shopMapper.shopByArtno", artno);
+	}
 
 }

@@ -52,4 +52,10 @@
 	<select id="existsShopByUsername" resultType="int">
 		select count(*) from shop where shopno=#{shopno}
 	</select>
+	
+	<select id="shopByArtno">
+		select shopno,artistno,shop_name shopName, shop_intro shopIntro, businessno, account, image, forwarding, back
+		from shop where artno=#{artno}
+	</select>
+	
 </mapper>

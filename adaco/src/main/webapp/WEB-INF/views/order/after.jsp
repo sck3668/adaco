@@ -104,6 +104,36 @@ $(function(){
 //       	console.log(test[0]);
 //       	alert(test[0]);
 
+// 결제창에서 주문상세로 이동
+	$("#orderRead").on("click",function(){
+		
+		var params  ={
+			_csrf: '${_csrf.token}',
+			username: '${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}',
+// 			orderno : ${ordering.orderno},
+// 			orderDate: '${ordering.orderDate}',
+// 			shippingCharge : '${ordering.shippingCharge}',
+			orderno:${artPageByUser.artno},
+			totalPrice:${artPageByUser.price},
+			amount:1, 
+			//optionName:'${artPageByUser.optionName}',
+			optionName:$("#optionName").val(),
+			optionValue:'${artPageByUser.optionValue}',
+			optionStock:${artPageByUser.optionStock}, 
+			optionPrice:'${artPageByUser.optionPrice}', 
+		
+		};
+			$.ajax({
+				url:"/adaco/order/orderRead",
+				method:"post",
+				data:params,
+				success:function(result) {
+					alert("구매하기");
+					location.href="/adaco/order/orderRead?orderno="+result;
+				}
+			});
+		}) ;
+
 
 </script>
 
@@ -113,6 +143,7 @@ ${order } <br>
 ${order_detail} <br>
 ${art} <br>
 ${option } 
+${shop }
 
 우편 번호 : ${order_detail.postalcode }
 	<div id="ByALl">
@@ -177,6 +208,23 @@ ${option }
 	</div>	
 	<br><br>
 <!-- 	배송지 정보   -->
+	<table>
+				<thead>
+					<tr>
+						<th >계좌번호</th>
+						<td><span>${order.account} (예금주: 주식회사 핸드스토리)</span></td>
+						 
+					</tr>
+					<tr>
+						<th>입금 은행</th>
+						<td><span>우리은행</span></td>	
+					</tr>
+					<tr>
+						<th>입금기한</th>
+						<td><span>주문일로부터 3일</span></td>
+					</tr>
+				</thead>
+			</table>
 	<div id="shipping">
 		<h4>배송지 정보</h4>
 			<table>
@@ -202,11 +250,11 @@ ${option }
 		<div id="button" align="center" style="position: relative; right: -250px; bottom:-25px;">
 			<fieldset>
 			<a href="#"> 
-			<button type="button" >주문 내역 상세 보기</button>
+			<button type="button" id="orderRead">주문 내역 상세 보기</button>
 			</a>
 			<a href="/adaco/"><button type="button" class="btn btn-primary">
 				쇼핑 계속하기</button></a> 
-			</fieldset>   
+			</fieldset>
 		</div><br><br><br><br><br><br><br>
 </body>
 </html>

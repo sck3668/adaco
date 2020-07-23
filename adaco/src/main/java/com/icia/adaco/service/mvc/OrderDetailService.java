@@ -35,7 +35,8 @@ public class OrderDetailService {
 	private OrderDao orderDao;
 	@Autowired
 	private ArtistDao artistDao;
-	
+	@Autowired
+	private ShopDao shopDao;
 	
 	// 결제하기
 	public int payment(OrderDto.DtoForAfter dto,String username) {
@@ -62,7 +63,12 @@ public class OrderDetailService {
 	
 	// 주문 상세 보기
 	public OrderDto.DtoForAfter OrderDetail(OrderDto.DtoForAfter dto,String username) {
+<<<<<<< HEAD
+=======
+		System.out.println("orderDetail dto===" + dto);
+>>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 		Art art = artDao.readByArt(dto.getArtno());
+//		Shop shop = shopDao.shopByArtno(dto.getArtno());
 		Order order = orderDao.findByOrder(dto.getOrderno());
 		Bag bag = bagDao.findByArtno(dto.getArtno());
 		OrderDetail orderDetail = orderDetailDao.OrderDetail(dto.getOrderno());
@@ -72,6 +78,11 @@ public class OrderDetailService {
 //		.setPostalcode(orderDetail.getPostalcode())
 		.setOptionName(orderDetail.getOptionName()).setOptionValue(orderDetail.getOptionValue())
 		.setAmount(orderDetail.getAmount()).setPrice(orderDetail.getPrice()).setShippingCharge(order.getShippingCharge());
+<<<<<<< HEAD
+=======
+//		.setAccount(shop.getAccount())
+		System.out.println("afterDto==" + afterDto);
+>>>>>>> branch 'master' of https://github.com/sck3668/adaco.git
 		return afterDto;
 	} 
 	
