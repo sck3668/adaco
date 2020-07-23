@@ -297,6 +297,9 @@ $(function(){
 							style="width: 170px;"><a href="/adaco/user/orderList"
 							style="color: black; text-decoration: none;">주문내역</a></li>
 						<li class="list-group-item list-group-item-action"
+							style="width: 170px;"><a href="/adaco/user/questionList"
+							style="color: black; text-decoration: none;">문의내역</a></li>
+						<li class="list-group-item list-group-item-action"
 							style="width: 170px;"><a href="/adaco/user/reviewList"
 							style="color: black; text-decoration: none;">내 리뷰 보기</a></li>
 						<li class="list-group-item list-group-item-action"
@@ -310,16 +313,16 @@ $(function(){
 							<div class="title">
 								<a style="color: black; text-decoration: none;"> 메시지함 </a>
 							</div>
-						<ul class="sub"> 
-							<li>
-								<a href="/adaco/message/listSender" style="color: black; text-decoration: none;" >
-									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 받은 메시지</a>
-							</li>
-							<li>
-								<a href="/adaco/message/listReceiver" style="color: black; text-decoration: none;" >
-									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 보낸 메시지</a>
-							</li>
-						</ul>
+							<ul class="sub">
+								<li><a href="/adaco/message/listSender"
+									style="color: black; text-decoration: none;"> <i
+										class="fas fa-angle-right" style="opacity: 0.5;"></i> 받은 메시지
+								</a></li>
+								<li><a href="/adaco/message/listReceiver"
+									style="color: black; text-decoration: none;"> <i
+										class="fas fa-angle-right" style="opacity: 0.5;"></i> 보낸 메시지
+								</a></li>
+							</ul>
 						</li>
 					</ul>
 				</div>

@@ -30,6 +30,24 @@
 		width: 500px;
 		height: 400px;	
 	}
+	.number a, .number span { 
+	text-align: center; 
+	font-size: 0.8em; 
+	height: 20px; 
+	width: 30px; 
+	line-height: 20px;
+	border: 0.8px solid gray; 
+	display: inline-block;
+	}
+	.number a {  
+	text-decoration: none; 
+	color: black; 
+	border-radius: 2px; 
+	 }
+	.number span{
+	 
+	 }
+
 </style>
 <script></script>
 <sec:authorize access="isAuthenticated()">
@@ -104,7 +122,7 @@ function printComment(comments){
 		$("<img>").attr("src",comment.profile).css("width","60px").css("height","60px").appendTo($center_div);
 		$("<div>").html(comment.content).css("display","inline-block").appendTo($center_div);
 		$("<span>").text(comment.writeDateStr).appendTo($lower_div);
-		$("<button>").attr('class','report_comment').attr("data-username",comment.username).attr("data-cno",comment.cno).text("신고").appendTo($lower_div).css("float","right");
+		$("<button>").css('background-color', '#f44336').attr('class','report_comment').attr("data-username",comment.username).attr("data-cno",comment.cno).text("신고").appendTo($lower_div).css("float","right");
 		 if(comment.username===loginId){
 			var btn = $("<button>").attr("class","delete_comment").attr("data-username", comment.username).attr("data-cno",comment.cno)
 			.text("삭제").appendTo($center_div).css("float","right")
@@ -141,8 +159,10 @@ $(function() {
 			data:parmas,
 			method:"post",
 			url:"/adaco/user/commentReport"
-		}).done((r)=>{confirm("신고하겟습니가?")
-		}).fail((r)=>{alert("이미 신고처리된 댓글입니다.")})
+		}).done((r)=>{ 
+			Swal.fire('신고하시겠습니까?')
+		}).fail((r)=>{ 
+			Swal.fire('이미 신고된 댓글입니다.')})
 	      
 	})
 	
@@ -304,7 +324,7 @@ $(function() {
 	
 	// 구매하기
 	$("#payment").on("click",function(){
-		
+		var $amount = $("#numberUpDown").val(); 
 		var params  ={
 			_csrf: '${_csrf.token}',
 			username: '${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}',
@@ -337,6 +357,7 @@ $(function() {
 	$("#addBag").on("click",function() {
 		var confirm_val = confirm("장바구니로 이동하시겠습니까?");
   		if(confirm_val) {
+  			var $amount = $("#numberUpDown").val(); 
 			var params = {
 				_csrf : "${_csrf.token}",
 				username: "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}",
@@ -368,6 +389,36 @@ $(function() {
 	});
 	
 });
+
+
+//1. 작품 상세(고객용)에서 수량 카운트는 되나 실제로 적용 안됨
+// 수량 증가 감소
+	$(function(){
+	$('#decreaseQuantity').click(function(e){
+	e.preventDefault();
+	var stat = $('#numberUpDown').text();
+	var num = parseInt(stat,10);
+	num--;
+	if(num<=0){
+	alert('1개이상 구매가능합니다.');
+	num =1;
+	}
+	$('#numberUpDown').text(num);
+	});
+	$('#increaseQuantity').click(function(e){
+	e.preventDefault();
+	var stat = $('#numberUpDown').text();
+	var num = parseInt(stat,10);
+	num++;
+	
+	if(num>${artPageByUser.stock}){
+	alert('남은 수량을 확인해주세요.');
+	num=${artPageByUser.stock};
+	}
+	$('#numberUpDown').text(num);
+	});
+	});
+
 </script>
 </head>
 <body>
@@ -422,6 +473,27 @@ ${art }
 							<option selected="selected" id="selected">${artPageByUser.optionName }을 선택하세요</option>
 							<option value="${artPageByUser.optionName }" id="optionName">${artPageByUser.optionValue }</option>
 						</select>
+					</td>
+				</tr>
+				<tr>
+					<td class = "amount">수량 선택</td>
+					<td>
+<!-- 						<div data-v-794fc8d2="" class="option_card__counter"> -->
+<!-- 							<button data-v-794fc8d2="" type="button" class="ui_btn--mini" id="minus"> -->
+<!-- 				                - -->
+<!-- 				            </button>  -->
+<!--            					 <input data-v-794fc8d2="" type="number" min="1" max="999" name="count" style="text-align: center;">   -->
+<!--            					<button data-v-794fc8d2="" type="button" class="ui_btn--mini" id="plus"> -->
+<!-- 				                + -->
+<!-- 				            </button> -->
+<!--             			</div> -->
+						<div class="number">
+						    <a href="#" id="decreaseQuantity">-</a>
+							<span id="numberUpDown">1</span>
+							<a href="#" id="increaseQuantity">+</a>
+						
+						</div>
+
 					</td>
 				</tr>
 			</table>
