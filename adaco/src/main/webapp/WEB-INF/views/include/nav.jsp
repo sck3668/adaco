@@ -42,7 +42,11 @@
 				data : params,
 				success : function(result) {
 					if (result == "1") {
-						alert("상점이 이미 존재합니다")
+						Swal.fire({
+							  icon: 'warning',
+							  title: '이미 상점이 있습니다.',
+							  footer: '<a href>도움이 필요한가요?</a>'
+							})
 					} else {
 						location.href = "/adaco/artist/shopMade"
 					}

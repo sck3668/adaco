@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	    
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <html>
 <head>
 <meta charset="EUC-KR">
@@ -10,9 +11,6 @@
 
 </head>
 <style>
-
-
-
 #section {
 	width: 700px;
 	padding: 5px;
@@ -78,6 +76,7 @@ ul.sub li a {
 
 ul.sub li:hover {
 	background: #f4f4f4;
+}
 </style>
 <sec:authorize access="isAuthenticated()">
 	<script>
@@ -142,13 +141,12 @@ $(function() {
 </head>
 <body>
 
-<div>
-<aside id="asideMain">
-	<div class="col-sm-3">
+	<div>
+		<aside id="asideMain">
+			<div class="col-sm-3">
 				<!-- side menu (link) -->
 				<h3>
-					<strong>
-						MY Menu</strong>
+					<strong> MY Menu</strong>
 				</h3>
 				<ul class="list-group" id="navi">
 					<li class="list-group-item list-group-item-action"><a
@@ -157,6 +155,9 @@ $(function() {
 					<li class="list-group-item list-group-item-action"><a
 						href="/adaco/user/orderList"
 						style="color: black; text-decoration: none;">주문내역</a></li>
+					<li class="list-group-item list-group-item-action"
+						style="width: 200px;"><a href="/adaco/user/questionList"
+						style="color: black; text-decoration: none;">문의내역</a></li>
 					<li class="list-group-item list-group-item-action"><a
 						href="/adaco/user/reviewList"
 						style="color: black; text-decoration: none;">내 리뷰 보기</a></li>
@@ -168,57 +169,69 @@ $(function() {
 						style="color: black; text-decoration: none;">포인트함</a></li>
 					<li class="list-group-item list-group-item-action" id="group">
 						<div class="title">
-							<a style="color: black; text-decoration: none;">
-							메시지함
-							</a>
+							<a style="color: black; text-decoration: none;"> 메시지함 </a>
 						</div>
-						<ul class="sub"> 
-							<li>
-								<a href="/adaco/message/listSender" style="color: black; text-decoration: none;" >
-									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 보낸 쪽지함</a>
-							</li>
-							<li>
-								<a href="/adaco/message/listReceiver" style="color: black; text-decoration: none;" >
-									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 받은 쪽지함</a>
-							</li>
+						<ul class="sub">
+							<li><a href="/adaco/message/listSender"
+								style="color: black; text-decoration: none;"> <i
+									class="fas fa-angle-right" style="opacity: 0.5;"></i> 보낸 쪽지함
+							</a></li>
+							<li><a href="/adaco/message/listReceiver"
+								style="color: black; text-decoration: none;"> <i
+									class="fas fa-angle-right" style="opacity: 0.5;"></i> 받은 쪽지함
+							</a></li>
 						</ul>
 					</li>
 				</ul>
 			</div>
-</aside>
-	<form action = "/adaco/user/favoriteDelete" method="post">
-	<section id="section">
-	
-		 <div>
-   <h1>즐겨찾기함</h1>
-      <table class="table table-hover">
-         <thead>
-         <tr>
-            <th>번호</th><th>상품번호</th><th>상품명</th><th>상품가격</th><th></th>
-            <%-- <td><a href="/adaco/board/read?bno=${board.bno}" onclick="openWin()">${board.title}</a></td> --%>
-         </tr>
-         </thead>
-         <tbody>
-         <c:forEach items="${favorite }" var="list">
-      		<tr class="tr"> 
-                  <td>${list.favno }</td>
-                  <td>${list.artno }</td>
-                  <td><a href="/adaco/art/readByUser?artno=${list.artno }">${list.artName }</a></td>               
-                  <td>${list.price }</td>
-            	<td>
-            		<button type="button" id="delete" class="btn btn-info">삭제</button>
-            		<input type="hidden" value="${list.favno}">
-            	</td>
-           </tr>
-          </c:forEach>
-         </tbody>
-      </table>
-      <br><br><br><br><br><br><br><br><br><br><br>
-   </div>		
-	</section>
-	</form>
-	
+		</aside>
+		<form action="/adaco/user/favoriteDelete" method="post">
+			<section id="section">
+
+				<div>
+					<h1>즐겨찾기함</h1>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>상품번호</th>
+								<th>상품명</th>
+								<th>상품가격</th>
+								<th></th>
+								<%-- <td><a href="/adaco/board/read?bno=${board.bno}" onclick="openWin()">${board.title}</a></td> --%>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${favorite }" var="list">
+								<tr class="tr">
+									<td>${list.favno }</td>
+									<td>${list.artno }</td>
+									<td><a href="/adaco/art/readByUser?artno=${list.artno }">${list.artName }</a></td>
+									<td>${list.price }</td>
+									<td>
+										<button type="button" id="delete" class="btn btn-info">삭제</button>
+										<input type="hidden" value="${list.favno}">
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+				</div>
+			</section>
+		</form>
+
 	</div>
-	
+
 </body>
 </html>

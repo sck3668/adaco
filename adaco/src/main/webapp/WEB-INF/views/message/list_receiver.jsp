@@ -48,11 +48,6 @@ $(function() {
 
     })
 	
-	
-	
-	
-	
-	
 	$("#delete").on("click", function() {
 		var ar = "";
 		$(".mno").each(function(idx) {
