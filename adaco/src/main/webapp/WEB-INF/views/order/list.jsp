@@ -51,19 +51,7 @@
    }
    </style>
 <script type="text/javascript">
-$(function(){
-   $("#search").on("click", function(){
-      var username = $("#username").val();
-      location.href = "/adaco/order/list?username="+username   
-   });
-   $(".category").on("change", function(){
-      var $category = $(".category").val();
-    /*   if($category == "유저")
-         location.href = "/adaco/order/list"
-      if($category == "아티스트")
-         location.href = "/adaco/order/list" */
-   }); 
-});   
+ 
 </script>
 </head>
 <body>

@@ -125,7 +125,6 @@ $(".title").click(function(){
 </script>
 </head>
 <body>
-${Review }
 <div>
 <aside id="asideMain">
 	<div id="aside">

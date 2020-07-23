@@ -10,9 +10,32 @@
 <title>주문 상세 내역</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
-   
+
+#my {
+	width: 750px;
+	padding: 0px;
+	height: 80px;
+	background-color: gray;
+	margin: 0px;
+}
+
+	
+ul#navi {
+	width: 200px;
+	text-indent: 10px;
+	cursor: pointer;
+}
+
+ul#navi, ul#navi ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+   #state{
+   	font-size: small;
+   }
      #section {
-   width: 850px;
+   width: 730px;
    padding: 5px;
    float: right;
    min-height: 600px;
@@ -45,21 +68,79 @@
    </style>
 <script type="text/javascript">
 $(function(){
-   $("#search").on("click", function(){
-      var username = $("#username").val();
-      location.href = "/adaco/order/list?username="+username   
-   });
-   $(".category").on("change", function(){
-      var $category = $(".category").val();
-    /*   if($category == "유저")
-         location.href = "/adaco/order/list"
-      if($category == "아티스트")
-         location.href = "/adaco/order/list" */
-   }); 
-});   
+	//모든 서브 메뉴 감추기
+	$(".sub").css({display:"none"}); 
+	//$(".sub").hide(); //위코드와 동일 
+
+	$(".title").click(function(){
+	    //일단 서브메뉴 다 가립니다.
+	    $(".sub").css({display:"none"});
+	    
+	    //열린 서브메뉴에 대해서만 가립니다.
+	    $(".sub").each(function(){
+	        console.log($(this).css("display"));
+	        if($(this).css("display")=="block") {
+	            //$(".sub").css({display:"none"});
+	            //$(this).hide();
+	            $(this).slideUp("fast");
+	        }
+	    });
+
+	    //현재 요소의 다음 요소를 보이게 합니다.
+	    //$(this).next("ul").css({display:"block"});
+	    //$(this).next("ul").show();
+	    $(this).next("ul").slideDown("fast");
+
+
+	})
+	
+})
 </script>
 </head>
 <body>
+<aside id="asideMain">
+	<div class="col-sm-3">
+				<!-- side menu (link) -->
+				<h3>
+					<strong><a href="/adaco/user/mypage" style="text-decoration: none; color: black;">
+						MY Menu</a></strong>
+				</h3>
+				<ul class="list-group" id="navi">
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/user/read"
+						style="color: black; text-decoration: none;">내 정보 보기</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/user/orderList"
+						style="color: black; text-decoration: none;">주문내역</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/user/reviewList"
+						style="color: black; text-decoration: none;">내 리뷰 보기</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/user/favoriteList"
+						style="color: black; text-decoration: none;">즐겨찾기 목록</a></li>
+					<li class="list-group-item list-group-item-action"><a
+						href="/adaco/user/pointList"
+						style="color: black; text-decoration: none;">포인트함</a></li>
+					<li class="list-group-item list-group-item-action" id="group">
+						<div class="title">
+							<a style="color: black; text-decoration: none;">
+							메시지함
+							</a>
+						</div>
+						<ul class="sub"> 
+							<li>
+								<a href="/adaco/message/listSender" style="color: black; text-decoration: none;" >
+									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 보낸 쪽지함</a>
+							</li>
+							<li>
+								<a href="/adaco/message/listReceiver" style="color: black; text-decoration: none;" >
+									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 받은 쪽지함</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+</aside>
    <section id="section">
 <!--    <div> -->
 <!--             <li>번호</li> -->
@@ -72,27 +153,16 @@ $(function(){
 
    <h3><br><br><br>주문 내역</h3>
    <hr>
-   <div>
-   <input type="text" id="username" name="username" placeholder="사용자 검색">
-   <button type = "button" id = "search">검색</button>
-   </div>
-   <div>
-      <select class="category">
-            <option value="선택">선택</option>
-            <option value="유저">모든 유저</option>
-            <option value="아티스트">판매자</option>
-      </select>
-   </div>   
    <div id="orderMain">
    <table>
       <colgroup>
             <col width="10%">
-            <col width="15%">
+            <col width="20%">
             <col width="40%">
             <col width="10%">
             <col width="10%">
             <col width="20%">
-         </colgroup>
+         </colgroup>	
       <thead>
          <tr id="thead">
             <th>번 호</th>
@@ -112,7 +182,7 @@ $(function(){
                 	<td><a href="/adaco/user/orderRead?artName=${list.artName }">${list.artName }</a></td>
                 	<td>${list.artPrice }</td>
                 	<td>${list.shippingCharge }</td>
-                	<td>${list.state }</td>
+                	<td id="state">${list.orderstate }</td>
                 </tr>
                 
       </c:forEach>
@@ -128,7 +198,7 @@ $(function(){
          <c:forEach begin="${page.startPage}" end="${page.endPage}" var="i">
             <c:choose>
                <c:when test="${page.pageno eq i }">
-                  <li class="active">
+                  <li class="active" style="text-align: center;">
                      <a href="/adaco/user/orderList?pageno=${i}">${i}</a>
                   </li>
                </c:when>

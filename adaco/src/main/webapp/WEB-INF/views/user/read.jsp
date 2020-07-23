@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <style>
 #tel1, #tel2, #tel3 {
@@ -212,8 +213,8 @@ $(function(){
 				method:"post",
 				processData:false,
 				contentType:false
-			}).done((r)=> {console.log(r)})
-			  .fail((r)=> {console.log(r)});
+			}).done(()=> {Swal.fire('변경되었습니다')})
+			  .fail((r)=> {console.log(r),Swal.fire('탈퇴되었습니다')});
 				
 		});
 	
@@ -286,7 +287,7 @@ $(function(){
 				<div class="col-sm-3">
 					<!-- side menu (link) -->
 					<h3>
-						<strong><a href="/adaco/artist/artistpage"
+						<strong><a href="/adaco/user/mypage"
 							style="text-decoration: none; color: black;">MY Menu</a></strong>
 					</h3>
 					<ul class="list-group" id="navi">
