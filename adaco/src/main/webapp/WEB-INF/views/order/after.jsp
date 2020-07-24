@@ -211,8 +211,8 @@ ${shop }
 	<table>
 				<thead>
 					<tr>
-						<th >계좌번호</th>
-						<td><span>${artist } (예금주: 주식회사 핸드스토리)</span></td>
+						<th>계좌번호</th>
+						<td><span>${artist} (예금주: 주식회사 핸드스토리)</span></td>
 						 
 					</tr>
 					<tr>
