@@ -11,6 +11,7 @@ import org.apache.tomcat.jni.*;
 import org.apache.tomcat.util.http.fileupload.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
+import org.springframework.lang.*;
 import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,7 @@ import com.icia.adaco.service.mvc.*;
 import com.icia.adaco.service.rest.*;
 
 import lombok.*;
+import lombok.NonNull;
 
 @Controller
 public class StoryController {
@@ -35,6 +37,8 @@ public class StoryController {
 	@Autowired
 	private ShopDao shopDao;
 	@Autowired
+	private StoryDao storyDao;
+	@Autowired
 	private ArtistDao artistDao;
 	@Autowired
 	private StoryRestService storyRestService;
@@ -42,9 +46,9 @@ public class StoryController {
 	private StoryRestService restService;
 
 	@GetMapping("/story/listStory")
-	public ModelAndView listStory(@RequestParam(defaultValue = "1") int pageno) {
+	public ModelAndView listStory(@RequestParam(defaultValue = "1") int pageno,@Nullable int artistno) {
 		return new ModelAndView("main")
-		.addObject("viewName","artist/story/list.jsp").addObject("story",storyService.storyList(pageno));
+		.addObject("viewName","artist/story/list.jsp").addObject("story",storyService.storyList(pageno,artistno));
 	}
  
 	@PreAuthorize("hasRole('ROLE_SELLER')")
@@ -64,7 +68,7 @@ public class StoryController {
 	@PostMapping("/story/writeStory")
 	public String writeStory(StoryBoardDto.DtoForWrite writeDto, Principal principal, MultipartFile sajin) throws IOException {
 		writeDto.setWriter(principal.getName());
-		return "redirect:/story/readStory?storyno="+storyService.storyWrite(writeDto, sajin);
+		return "redirect:/story/readStory?storyno="+storyService.storyWrite(writeDto, sajin,principal.getName());
 	}
 	
 	// 스토리 출력

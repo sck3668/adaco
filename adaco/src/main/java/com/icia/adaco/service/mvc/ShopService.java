@@ -48,6 +48,7 @@ public class ShopService {
 	 
 	public ShopDto.DtoForRead shopRead(int shopno){
 		Shop shop = shopDao.readByShop(shopno);
+		System.out.println("shop=="+shop);
 		ShopDto.DtoForRead shopReadDto = modelMapper.map(shop,ShopDto.DtoForRead.class);
 		shopReadDto.setImg(artDao.findAllArtImgByShopno(shopno));
 		shopReadDto.setArtno(artDao.findAllArtnoByShopno(shopno));

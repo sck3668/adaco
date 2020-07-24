@@ -6,6 +6,7 @@ import javax.inject.*;
 
 import org.mybatis.spring.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.lang.*;
 import org.springframework.stereotype.*;
 
 import com.icia.adaco.entity.*;
@@ -19,10 +20,11 @@ public class StoryDao {
 		return tpl.selectOne("storyMapper.count");
 	}
 	
-	public List<Story> findAllStory(int startRowNum, int endRowNum){
+	public List<Story> findAllStory(int startRowNum, int endRowNum,@Nullable int artistno){
 		Map<String,Integer> map = new HashMap<>();
 		map.put("startRowNum", startRowNum);
 		map.put("endRowNum",endRowNum);
+		map.put("artistno",artistno);
 		return tpl.selectList("storyMapper.findAllStory", map);
 	}
 	
