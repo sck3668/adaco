@@ -25,15 +25,17 @@ public class OrderDetailDao {
 	public OrderDetail OrderDetail(Integer orderno) {
 		return tpl.selectOne("orderDetailMapper.OrderDetail", orderno);
 	}
+	
 	// Artno로 디테일 찾기
 	public OrderDetail findArtnoByOrderDetail(String artName) {
 		return tpl.selectOne("orderDetailMapper.findArtnoByOrderDetail",artName);
 	}
+	
 	// ArtName으로 이미지찾기
 	public String findByArtnameArtImage(String artName) {
-
 		return tpl.selectOne("orderDetailMapper.findByArtnameArtImage",artName);
 	}
+	
 	// Orderno 로 디테일 찾기
 	public OrderDetail findByOrdernoOrderDetail(int orderno) {
 		return tpl.selectOne("orderDetailMapper.findByOrdernoOrderDetail",orderno);
@@ -52,15 +54,14 @@ public class OrderDetailDao {
 	}
 	
 	// 작가번호로 주문내역 리스트 + 주문상태로 검색
-		public List<OrderDetail> FindAllOrderByArtist(int startRowNum,int endRowNum,int artistno,@Nullable String orderstate) {
-//			System.out.println("dao=====");
-			Map<String,Object> map = new HashMap<String, Object>();
-			map.put("startRowNum",startRowNum);
-			map.put("endRowNum", endRowNum);
-			map.put("artistno",artistno);
-			map.put("orderstate",orderstate);
+	public List<OrderDetail> FindAllOrderByArtist(int startRowNum,int endRowNum,int artistno,@Nullable String orderstate) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("startRowNum",startRowNum);
+		map.put("endRowNum", endRowNum);
+		map.put("artistno",artistno);
+		map.put("orderstate",orderstate);
 		return tpl.selectList("orderDetailMapper.findAllOrderByArtist",map);
-		}
+	}
 	
 	// 주문상태 업데이트
 	public int updateByOrderDetail(OrderDetail orderDetail) {
@@ -68,29 +69,9 @@ public class OrderDetailDao {
 	}
 	
 	//검색어에 해당되는 작품 수
-		public int countSearchByState(String orderstate) {
-			Map<Object, Object> map = new HashMap<Object, Object>();
-			map.put("orderstate",orderstate);
-			return tpl.selectOne("orderDetailMapper.countSearchByState",map);
-		}
-	
-	
-	
-//	// 결제 취소
-//	public int deleteByOrderDetail(int orderno) {
-//	return tpl.delete("orderDetailMapper.delete", orderno);
-//	}
-	
-//	// 모든 주문 내역 
-//	public List<OrderDetail> OrderByAll(int startRowNum, int endRowNum){
-//		Map<String, Integer>map = new HashMap<>();
-//		map.put("startRowNum", startRowNum);
-//		map.put("endrowum", endRowNum);
-//		return tpl.selectList("orderDetailMapper.OrderByAll", map);
-//	}
-	
-	//	 주문 상세 내역 
-//	public OrderDetail findOrderByDetail(int orderno){
-//		return tpl.selectOne("orderDetailMapper.findOrderByDetail", orderno);
-//	}
+	public int countSearchByState(String orderstate) {
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put("orderstate",orderstate);
+		return tpl.selectOne("orderDetailMapper.countSearchByState",map);
+	}
 }

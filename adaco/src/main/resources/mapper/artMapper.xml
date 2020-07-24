@@ -122,6 +122,16 @@
 	      where B.rnum&gt;= #{startRowNum}
 	</select>
 
+	<!-- 작품이름으로 검색한 작품 수(카테고리 포함) -->
+	<select id="countSearchByArtNameCG" resultType="int">
+	   	select count(*)
+	   	from art 
+	   	<where>
+	   		<if test="artName!=null">and art_name like '%'|| #{artName} || '%'</if>
+	   		<if test="category!=null">and category like '%'|| #{category} || '%'</if>
+	   	</where> 	
+	</select> 
+	
 	<!-- 작품이름으로 검색한 작품 수 -->
 	<select id="countSearchByArtName" resultType="int">
 	   	select count(*)

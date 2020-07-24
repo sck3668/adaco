@@ -32,7 +32,6 @@ public class AdminBoardController {
 	@Autowired
 	ObjectMapper objectMapper;
 	
-	
 	@Secured("ROLE_ADMIN")
 	@GetMapping("/admin/")
 	public ModelAndView adminIndex(Principal principa) {
@@ -80,6 +79,12 @@ public class AdminBoardController {
 	public ModelAndView userQuestionList(@RequestParam(defaultValue = "1")int pageno, Principal principal, @Nullable State searchType) {
 		String writer = principal.getName();
 		return new ModelAndView("main").addObject("viewName", "user/questionList.jsp").addObject("questionPage", service.questionList(pageno, writer, searchType));
+	}
+	
+	@GetMapping("/artist/questionList")
+	public ModelAndView artistQuestionList(@RequestParam(defaultValue = "1")int pageno, Principal principal, @Nullable State searchType) {
+		String writer = principal.getName();
+		return new ModelAndView("main").addObject("viewName", "artist/questionList.jsp").addObject("questionPage", service.questionList(pageno, writer, searchType));
 	}
 	
 	@PostAuthorize("isAuthenticated() or hasRole('ROLE_ADMIN')")
@@ -164,13 +169,6 @@ public class AdminBoardController {
 	public String faqWrite(FAQ faq) {
 		service.faqWrite(faq);
 		return "redirect:/user/faqList";
-	}
-	
-	@Secured("ROLE_ADMIN")
-	@PostMapping("/admin/faq_delete")
-	public String daqDelete(Integer faqno) {
-		service.faqDelete(faqno);
-		return "redirect:/user/faq_list";
 	}
 
 	@Secured("ROLE_ADMIN")

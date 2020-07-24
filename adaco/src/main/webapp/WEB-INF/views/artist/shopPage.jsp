@@ -5,12 +5,42 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+$(document).ready(function(){
+    
+    //모든 서브 메뉴 감추기
+    $(".sub").css({display:"none"}); 
+    //$(".sub").hide(); //위코드와 동일 
+
+    $(".title").click(function(){
+        //일단 서브메뉴 다 가립니다.
+        $(".sub").css({display:"none"});
+        
+        //열린 서브메뉴에 대해서만 가립니다.
+        $(".sub").each(function(){
+            console.log($(this).css("display"));
+            if($(this).css("display")=="block") {
+                //$(".sub").css({display:"none"});
+                //$(this).hide();
+                $(this).slideUp("fast");
+            }
+        });
+
+        //현재 요소의 다음 요소를 보이게 합니다.
+        //$(this).next("ul").css({display:"block"});
+        //$(this).next("ul").show();
+        $(this).next("ul").slideDown("fast");
+
+
+    })
+});
+</script>
 </head>
 <style>
  
 </style>
+${shop }
 <body>
-${art }
 <section id="section">
 <div class="container">
   <h1 class="my-4">상점 정보보기
@@ -29,13 +59,28 @@ ${art }
       <p></p>
       <h3><strong><a href="/adaco/artist/artistpage" style="text-decoration: none; color: black;" >MY Menu</a></strong></h3>
       <ul>
-        <li><a style="text-decoration: none; color: black;" href="/adaco/artist/orderAdmin">주문 및 배송 관리</a></li>
+        <li><a style="text-decoration: none; color: black;" href="/adaco/artist/orderList">주문 및 배송 관리</a></li>
         <li><a style="text-decoration: none; color: black;" href="/adaco/artist/sales">매출관리</a></li>
-        <li><a style="text-decoration: none; color: black;" href="/adaco/artist/#">쪽지함</a></li>
+        <li>
+			<div class="title">
+				<a style="color: black; text-decoration: none;">메세지함</a>
+			</div>
+			<ul class="sub"> 
+				<li>
+					<a href="/adaco/message/listSender" style=" text-decoration: none;" >
+						<i></i>보낸쪽지함</a>
+				</li>
+				<li>
+					<a href="/adaco/message/listReceiver" style=" text-decoration: none;" >
+						<i></i>받은쪽지함</a>
+				</li>
+			</ul>
+		</li>
         <li><a style="text-decoration: none; color: black;" href="/adaco/artist/shopRead">상점 관리 및 변경</a></li>
-        <li><a style="text-decoration: none; color: black;" href="/adaco/artist/#">스토리보기</a></li>
-        <li><a style="text-decoration: none; color: black;" href="/adaco/artist/artistPage">작가페이지</a></li>
+        <li><a style="text-decoration: none; color: black;" href="/adaco/story/listStory?artistno=${shop.artistno }">스토리보기</a></li>
+        <li><a style="text-decoration: none; color: black;" href="/adaco/artist/artistpage">작가페이지</a></li>
       </ul>
+      <input type="hidden" name="_csrf" value="${_csrf.token }">
     </div>
   </div>
   <h3 class="my-4">작가 작품</h3>

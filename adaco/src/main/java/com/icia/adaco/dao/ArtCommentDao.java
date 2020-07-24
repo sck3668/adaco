@@ -13,10 +13,12 @@ import com.icia.adaco.entity.*;
 public class ArtCommentDao {
 	@Inject
 	private SqlSessionTemplate tpl;
+	
 	//댓글 등록 
 	public int writeByCommentOfArt(ArtComment artcomment) {
 		return tpl.insert("artCommentMapper.insert", artcomment);
 	}
+	
 	//댓글 삭제
 	public int deleteByCommentOfArt(int cno) {
 		return tpl.delete("artCommentMapper.delete", cno);
@@ -36,7 +38,4 @@ public class ArtCommentDao {
 	public int updateByReportCnt(int cno) {
 		return tpl.update("artCommentMapper.update", cno);
 	}
-	
-	
-
 }

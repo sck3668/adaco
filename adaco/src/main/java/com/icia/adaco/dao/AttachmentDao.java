@@ -6,8 +6,6 @@ import org.apache.ibatis.annotations.*;
 
 import com.icia.adaco.entity.*;
 
-
-
 public interface AttachmentDao {
 	@Insert("insert into attachment values(attachment_seq.nextval, #{s.writer}, #{s.originalFileName}, #{s.saveFileName}, #{s.length}, #{s.storyno}, #{s.isImage})")
 	public void insert(@Param("s") Attachment s);
@@ -23,8 +21,6 @@ public interface AttachmentDao {
 
 	@Delete("delete from attachment where storyno=#{storyno}")
 	public void deleteAllByBno(Integer story);
-
-	
 	
 	//어드민
 	@Insert("insert into attachment(ano, writer, original_file_name, save_file_name, length, noticeno, is_image) values(attachment_seq.nextval, #{a.writer}, #{a.originalFileName}, #{a.saveFileName}, #{a.length}, #{a.noticeno}, #{a.isImage})")

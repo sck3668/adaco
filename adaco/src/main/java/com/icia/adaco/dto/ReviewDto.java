@@ -8,6 +8,7 @@ import lombok.experimental.*;
 
 public class ReviewDto {
 	private ReviewDto() {}
+	
 	@Data
 	@Builder
 	@AllArgsConstructor

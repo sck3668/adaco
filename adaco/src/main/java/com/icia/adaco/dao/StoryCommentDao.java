@@ -17,6 +17,7 @@ public class StoryCommentDao {
 	public int count() {
 		return tpl.selectOne("storyCommentMapper.count");
 	}
+	
 	//스토리 댓글 목록보기(페이징)
 	public List<StoryComment> findAllByCno(int startRowNum, int endRowNum,int storyno){
 		Map<String,Integer> map = new HashMap<>();

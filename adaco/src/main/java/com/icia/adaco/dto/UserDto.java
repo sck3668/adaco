@@ -26,6 +26,7 @@ public class UserDto {
 		private String address;
 		private String authority;
 	}
+	
 	@Data
 	@Accessors(chain=true)
 	public static class DtoForRead {
@@ -38,6 +39,7 @@ public class UserDto {
 		private String password;
 		
 	}
+	
 	@Data
 	@AllArgsConstructor
 	@NoArgsConstructor
@@ -59,5 +61,4 @@ public class UserDto {
 		private String profile;
 		private String birthDateStr;
 	}
-	
 }

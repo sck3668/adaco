@@ -65,14 +65,6 @@ public class AdminUserService {
 			dto.setJoinDateStr(user.getJoinDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
 			dtoList.add(dto);
 		}
-		
-//		for(Artist artist:artistList) {
-//		    AdminUserDto.DtoForArtistList dto = modelMapper.map(artist, AdminUserDto.DtoForArtistList.class);
-//		    User user = dao.findByid(artist.getUsername());
-//		    dto.setJoinDateStr(user.getJoinDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
-//			dtoList.add(dto); 
-//		}
-		
 		page.setAdminArtist(dtoList);
 		return page;
 	}
@@ -92,7 +84,4 @@ public class AdminUserService {
 		dto.setDays(days);
 		return dto;
 	}
-
-
-	
 }

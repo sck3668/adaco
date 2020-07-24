@@ -9,5 +9,5 @@ import lombok.*;
 public class ArtImg {
 	private Integer imgno;
 	private Integer artno;
-	private String gyungro;
+	private String gyungro;		//이미지 저장 경로
 }

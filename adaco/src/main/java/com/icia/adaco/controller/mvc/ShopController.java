@@ -29,13 +29,13 @@ public class ShopController {
 	private ArtistDao artistDao;
 	@Autowired
 	private ArtService artService;
+	
 	//상점개설 화면
 //	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/artist/shopMade")
 	public ModelAndView shopMade() {
 		return new ModelAndView("main").addObject("viewName","artist/shopMade.jsp");
 	}
-	
 	
 	//상점개설 처리
 	//@PreAuthorize("isAuthenticated()")
@@ -50,15 +50,12 @@ public class ShopController {
 	@GetMapping("/artist/shopRead")
 	public ModelAndView shopRead(Principal principal, @Nullable MultipartFile sajin) {
 		int artistno = artistDao.findArtistnoByUsername(principal.getName());
-		System.out.println("artisno======"+artistno);
 		Shop shop = shopDao.readShopByArtistno(artistno);
-		System.out.println("shop====="+shop);
 		int shopno = shop.getShopno();
-		System.out.println("shopno===="+shopno);
 		return new ModelAndView("main").addObject("viewName","artist/shopRead.jsp")
 				.addObject("shop",shopService.shopRead(shopno));
-				
 	}
+	
 	//작가가 보는 상점페이지
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/artist/shopPage")
@@ -66,24 +63,17 @@ public class ShopController {
 		int artistno = artistDao.findArtistnoByUsername(principal.getName());
 		Shop shop = shopDao.readShopByArtistno(artistno);
 		if(shop==null) {
-			//model.addAttribute("msg", "메시지"); 
-			//model.addAttribute("url", "saveok.jsp"); 
-
-			//return "redirect";
 			return new ModelAndView("main").addObject("viewName","artist/artistpage.jsp")
 					.addObject("msg","msg");
-		}
+			}
 		int shopno = shop.getShopno();
 		return new ModelAndView("main").addObject("viewName","artist/shopPage.jsp").addObject("shop",shopService.shopRead(shopno));
 	}
 	
-	
-	
+	// shop이 존재하는지 체크
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/artist/checkShop")
 	public ResponseEntity<?> shopCheck(Principal principal) {
-		System.out.println("getName"+principal.getName());
 		return ResponseEntity.ok(shopService.shopCheck(principal.getName()));
 	}
-	
 }

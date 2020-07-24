@@ -34,7 +34,6 @@ public class OptionDao {
 		return tpl.selectList("optionMapper.findAll",map);
 	}
 	
-	
 	// 작품번호로 검색한 옵션목록보기
 	public List<Option> findAllByartno(int artno){
 		return tpl.selectList("optionMapper.findAllByartno",artno);
@@ -54,11 +53,9 @@ public class OptionDao {
 		return tpl.selectOne("optionMapper.findByArtno",artno);
 	}
 	
-	
 	// 작품번호로 옵션번호 가져오기
-		public int findOptnoByArtno(int artno) {
-			System.out.println("Dao artno1111111==="+artno);
-			return tpl.selectOne("optionMapper.findOptnoByArtno",artno);
-		}
-	
+	public int findOptnoByArtno(int artno) {
+		System.out.println("Dao artno1111111==="+artno);
+		return tpl.selectOne("optionMapper.findOptnoByArtno",artno);
+	}
 }

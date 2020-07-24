@@ -18,7 +18,6 @@ public class ArtDto {
 	@NoArgsConstructor
 	@Builder
 	@Accessors(chain=true)
-	
 	// 작품 등록
 	public static class DtoForWrite{
 		private int artno;
@@ -94,10 +93,7 @@ public class ArtDto {
 		private String artDetail;
 		private Integer reviewCnt;
 		private Integer shopno;
-		
-	
 	}
-	
 	
 	@Data
 	@Accessors(chain=true)
@@ -132,10 +128,7 @@ public class ArtDto {
 		private String artDetail;
 		private Integer artCommentCnt;
 		private Integer shopno;
-		
-		
 	}
-	
 	
 	@Data
 	@AllArgsConstructor

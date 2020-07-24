@@ -9,61 +9,101 @@
 <title>Insert title here</title>
 </head>
 <style>
-	#tel1, #tel2, #tel3 {
-	
-		width: 125px;
-		
-	}
+#tel1, #tel2, #tel3 {
+	width: 125px;
+}
 	#section {
-	width: 750px;
+	width: 700px;
 	padding: 5px;
 	float: right;
 	min-height: 600px;
-	}
-	#my {
-		width:750px;
-		padding: 0px;
-		height:80px;
-		background-color: gray;
-		margin: 0px;
-	}
-	
-	.list {
-		margin-top:0px;
-		padding-top:0px;
-		display:inline-block;
-		width:240px;
-		height:50px;
-		border: 1px solid red;
-	}
-	#user td {
-		height: 60px;
-		line-height: 60px;
-	}
-	
-	#user td input {
-		height: 25px;
-	}
-	
-	
-	.first {
-		width:250px;
-		text-align: center;
-	}
-	.first1{
-		width:200px;
-		text-align: center;
-	}
-	#profile_sajin {
-		line-height: 25px;
-	}
-	.key {
-		width: 35%;
-		display: inline-block;
-	}
-	#menu {
-	width: 180px;
 }
+
+#my {
+	width: 750px;
+	padding: 0px;
+	height: 80px;
+	background-color: gray;
+	margin: 0px;
+}
+
+.list {
+	margin-top: 0px;
+	padding-top: 0px;
+	display: inline-block;
+	width: 240px;
+	height: 50px;
+	border: 1px solid red;
+}
+
+ul#navi {
+	width: 200px;
+	text-indent: 10px;
+	cursor: pointer;
+}
+
+ul#navi, ul#navi ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+li.group {
+	margin-bottom: 3px;
+}
+
+li.group div.title {
+	height: 35px;
+	line-height: 35px;
+	/*         background:#9ab92e; */
+	cursor: pointer;
+}
+
+ul.sub li {
+	margin-bottom: 2px;
+	height: 35px;
+	line-height: 35px;
+	/*         background:#f4f4f4; */
+	cursor: pointer;
+}
+
+ul.sub li a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	text-decoration: none;
+	color: #000;
+}
+
+ul.sub li:hover {
+	background: #f4f4f4;
+ #user td { 
+ 	height: 60px; 
+ 	line-height: 60px; 
+ } 
+
+ #user td input { 
+ 	height: 25px; 
+ } */
+
+ .first { 
+ 	width: 250px; 
+ 	text-align: center; 
+ } */
+
+ .first1 { 
+ 	width: 200px; 
+ 	text-align: center; 
+ } */
+
+ #profile_sajin { 
+ 	line-height: 25px; 
+ } 
+
+ .key { 
+ 	width: 35%; 
+ 	display: inline-block; 
+ } 
 </style>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
@@ -273,19 +313,18 @@ $(function() {
 <body>
 <div>
  <aside id="asideMain">
-	<div id="aside">
 		<div class="col-sm-3">
 				<!-- side menu (link) -->
-				<h3><strong><a href="/adaco/artist/artistpage" style="text-decoration: none; color: black;" >MY Menu</a></strong></h3>
+				<h3>
+					<strong>My Menu</strong>
+				</h3>
 				<ul class="list-group" id="navi">
-					<li class="list-group-item list-group-item-action" style="width: 170px;"><a
-						href="/adaco/artist/shopPage"
-						style="color: black; text-decoration: none;" >상점 정보</a></li>
-					<li class="list-group-item list-group-item-action" id="group" style="width: 170px;">
+					<li class="list-group-item list-group-item-action">
+						<a href="/adaco/artist/shopPage" style="color: black; text-decoration: none;" >상점 정보</a>
+					</li>
+					<li class="list-group-item list-group-item-action" id="group">
 						<div class="title">
-							<a style="color: black; text-decoration: none;">
-							작품 관리
-							</a>
+							<a style="color: black; text-decoration: none;">작품 관리</a>
 						</div>
 						<ul class="sub"> 
 							<li>
@@ -298,19 +337,17 @@ $(function() {
 							</li>
 						</ul>
 					</li>
-					<li class="list-group-item list-group-item-action" style="width: 170px;"><a
-						href="/adaco/artist/artistRead"
-						style="color: black; text-decoration: none;" >내 정보 관리</a></li>
-					<li class="list-group-item list-group-item-action" style="width: 170px;"><a
-						href="/adaco/artist/artistSellList"
-						style="color: black; text-decoration: none;">판매내역</a></li>
-					<li class="list-group-item list-group-item-action" style="width: 170px;">
+					<li class="list-group-item list-group-item-action">
+						<a href="/adaco/artist/artistRead" style="color: black; text-decoration: none;">내 정보 관리</a>
+					</li>
+					<li class="list-group-item list-group-item-action">
+						<a href="/adaco/artist/orderList" style="color: black; text-decoration: none;">판매내역</a>
+					</li>
+					<li class="list-group-item list-group-item-action">
 						<div class="title">
-							<a style="color: black; text-decoration: none;">
-							메세지함
-							</a>
+							<a style="color: black; text-decoration: none;">메세지함</a>
 						</div>
-							<ul class="sub"> 
+						<ul class="sub"> 
 							<li>
 								<a href="/adaco/message/listSender" style=" text-decoration: none;" >
 									<i></i>보낸쪽지함</a>
@@ -321,12 +358,14 @@ $(function() {
 							</li>
 						</ul>
 					</li>
-					<li class="list-group-item list-group-item-action" style="width: 170px;"><a
-						href="/adaco/artist/sales"
-						style="color: black; text-decoration: none;">매출 관리</a></li>
+					<li class="list-group-item list-group-item-action">
+						<a href="/adaco/artist/sales" style="color: black; text-decoration: none;">매출 관리</a>
+					</li>
+					<li class="list-group-item list-group-item-action">
+						<a href="/adaco/artist/questionList" style="color: black; text-decoration: none;">문의내역</a>
+					</li>
 				</ul>
 			</div>
-	</div>
 	</aside>
 	<section id="section">
 		<div>

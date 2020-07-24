@@ -5,6 +5,7 @@ import lombok.experimental.*;
 
 public class ArtCommentDto {
 	private ArtCommentDto() {}
+	
 	@Data
 	@Builder
 	@AllArgsConstructor
@@ -18,5 +19,4 @@ public class ArtCommentDto {
 		private String profile;
 		private int cno;
 	}
-	
 }

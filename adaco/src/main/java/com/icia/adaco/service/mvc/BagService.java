@@ -28,7 +28,7 @@ public class BagService {
 	public int insertByBag(Bag bag,String username) {
 		int artno = bag.getArtno();
 		Art art = artdao.readByArt(artno);
-		bag.setTotalPrice(bag.getAmount()*art.getPrice());
+		bag.setTotalPrice(bag.getAmount()*(bag.getOptionPrice()+art.getPrice()));
 		Bag bag1 = bagdao.findByArtnoUsername(artno,username);
 		//username 찾은 장바구니의 artno가 추가하는 bag의 artno와 같은 경우 수량 증가
 		// 장바구니 추가는 하지 않음
@@ -38,7 +38,7 @@ public class BagService {
 			if(bag1.getArtno().equals(bag.getArtno())==true) {
 				bag1.setAmount(bag.getAmount()+bag1.getAmount());
 				bag1.setTotalPrice(bag.getTotalPrice()+bag1.getTotalPrice());
-				return bagdao.updateByBag(bag1);
+				return bagdao.updateByBagUsername(bag1);
 			} else {
 				return 1;
 			}
@@ -47,10 +47,8 @@ public class BagService {
 	
 	// 회원아이디로 장바구니 목록 불러오기
 	public List<BagDto.DtoForList> findAllBagByUsername(String username) {
-//		BagDto.DtoForList dto1 = new BagDto.DtoForList();
 		List<Bag> bagList = (List<Bag>) bagdao.findAllBagByUsername(username);
 		List<BagDto.DtoForList> dtoList= new ArrayList<>();
-		//int lastPrice = 0;
 		for(Bag bag1:bagList) {
 			int artno = bag1.getArtno();
 			Art art = artdao.readByArt(artno);
@@ -59,7 +57,6 @@ public class BagService {
 			dtoBag.setArt(art).setOptionName(option.getOptionName()).setOptionValue(option.getOptionValue());
 			dtoList.add(dtoBag);
 		}
-		System.out.println("dtoList=="+dtoList);
 		return dtoList;
 	}
 	
@@ -79,17 +76,17 @@ public class BagService {
 		Art art = artdao.readByArt(artno);
 		if(isIncrese==true) {
 			bag.setAmount(bag.getAmount()+1);
-			bag.setTotalPrice(bag.getAmount()*art.getPrice());
+			bag.setTotalPrice(bag.getAmount()*(art.getPrice()+bag.getOptionPrice()));
 			bagdao.increaseByAmount(artno);
 			bagdao.updateByBagUsername(Bag.builder().username(bag.getUsername()).artno(artno)
-					.totalPrice(bag.getAmount()*art.getPrice()).build());
+					.totalPrice(bag.getAmount()*(art.getPrice()+bag.getOptionPrice())).build());
 		} else {
 			if(bag.getAmount()>1) {
 				bag.setAmount(bag.getAmount()-1);
-				bag.setTotalPrice(bag.getAmount()*art.getPrice());
+				bag.setTotalPrice(bag.getAmount()*(art.getPrice()+bag.getOptionPrice()));
 				bagdao.decreaseByAmount(artno);
 				bagdao.updateByBagUsername(Bag.builder().username(bag.getUsername()).artno(artno)
-					.totalPrice(bag.getAmount()*art.getPrice()).build());
+					.totalPrice(bag.getAmount()*(art.getPrice()+bag.getOptionPrice())).build());
 			}
 		}
 		return bag;

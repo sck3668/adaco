@@ -10,6 +10,7 @@ import java.util.*;
 
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.lang.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.multipart.*;
 
@@ -29,6 +30,12 @@ public class StoryService {
 	private StoryCommentDao storyCommentDao;
 	@Autowired
 	private ModelMapper modelMapper;
+	@Autowired
+	private ArtistDao artistDao;
+	@Autowired
+	private ShopDao shopDao;
+	@Autowired
+	private ArtDao artDao;
 	@Value("d:/upload/story")
 	private String storyFolder;
 	@Value("http://localhost:8081/story/")
@@ -37,13 +44,18 @@ public class StoryService {
 	@Autowired
 	private UserDao userDao;
 	
-	public Page storyList(int pageno) {
+	public Page storyList(int pageno,@Nullable Integer artistno) {
+		System.out.println("storyList Service=="+artistno);
+//		if(artistno==null) {
+//			return false;
+//		}
 		int countOfBoard = storyDao.count();
 		Page page = PagingUtil.getPage(pageno, countOfBoard);
 		int srn = 1;
 		int ern = page.getEndRowNum();
-		List<Story> storyList = null;
-		storyList = storyDao.findAllStory(srn, ern);
+		List<Story> storyList = storyDao.findAllStory(srn, ern,artistno);
+//		List<Story> storyList = null;
+//		storyList = storyDao.findAllStory(srn, ern);
 		List<StoryBoardDto.DtoForList> storydtoList = new ArrayList<StoryBoardDto.DtoForList>();
 		for (Story story : storyList) {
 			StoryBoardDto.DtoForList listDto = modelMapper.map(story, StoryBoardDto.DtoForList.class);
@@ -70,7 +82,7 @@ public class StoryService {
 		return page;
 	}
 	
-	public int storyWrite(StoryBoardDto.DtoForWrite dtoWrite,MultipartFile sajin)throws IOException {
+	public int storyWrite(StoryBoardDto.DtoForWrite dtoWrite,MultipartFile sajin,String username)throws IOException {
 		Story story = modelMapper.map(dtoWrite, Story.class);
 		if (sajin != null && sajin.isEmpty() == false) {
 			if (sajin.getContentType().toLowerCase().startsWith("image/")==true) {
@@ -84,6 +96,9 @@ public class StoryService {
 			}
 		}
 		story.setWriteDate(LocalDateTime.now());
+		int artistno = artistDao.findArtistnoByUsername(dtoWrite.getWriter());
+		System.out.println("artistno==="+artistno);
+		story.setArtistno(artistno);
 		storyDao.insert(story);
 		return story.getStoryno();
 	}

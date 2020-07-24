@@ -70,5 +70,4 @@ public class StoryBoardDto {
 		private String content;
 		private String writer;
 	}
-
 }

@@ -35,14 +35,6 @@
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
 	body{
     animation: fadein 250ms ease-out;
     -moz-animation: fadein 250ms ease-out; /* Firefox */
@@ -72,11 +64,25 @@
 $(function(){
 	$("#search").on("click", function(){
 		var artname = $("#artname").val();
-		location.href = "/adaco/art/listByUser?artname="+artname;
-// 		var tag = $(".tag").val();
-// 		location.href = "/adaco/art/listByUser?tag="+tag;
+		var url = decodeURIComponent(window.location.href);
+//			http://localhost:8081/adaco/art/listByUser?category=인테리어22
+		var idx = url.lastIndexOf("=");
+		var category = url.substring(idx+1);
+		location.href = "/adaco/art/listByUser?artname="+artname+"&category="+category;
 	});
-	    
+	$("#artname").on("keypress",function(key) {
+		var artname = $("#artname").val();
+		var url = decodeURIComponent(window.location.href);
+//			http://localhost:8081/adaco/art/listByUser?category=인테리어22
+		var idx = url.lastIndexOf("=");
+		var category = url.substring(idx+1);
+		if(key.keyCode!=13) {
+			return;
+		} else {
+			alert(category);
+			location.href = "/adaco/art/listByUser?artname="+artname+"&category="+category;
+		}
+	})
     
     $("body").css("display", "none");
     $("body").fadeIn(100);
@@ -140,7 +146,6 @@ $(function(){
 <c:forEach items="${artPage.artList }" var="art">
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="${pageContext.request.contextPath}image/art1.jpg" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
                 <sec:authorize access="isAnonymous()">
@@ -158,22 +163,6 @@ $(function(){
                 </h4>
                 <h5>${art.artName}</h5>
                 <p class="card-text">${art }</p>
-              </div>
-              <div class="card-footer">
-              <c:choose>
-              <c:when test="${art.isFavorite==false}">
-              <input type="text" value="${art.artno }">
-                <button type="button" class="favorite">
-                	<small class="text-muted"> &#9734;</small>
-                </button>
-              </c:when>
-              <c:otherwise>
-              <input type="hidden" value="${art.artno }">
-               <button type="button" class="favorite">
-              	<small class="text-muted"> &#9733;</small>
-              	</button>
-              </c:otherwise>
-              </c:choose> 
               </div>
             </div>
           </div>
@@ -193,7 +182,7 @@ $(function(){
 						<a href="/adaco/art/listByUser?artname=${artPage.search }&pageno=${i}">${i}</a></li>
 					</c:when>
 					<c:otherwise>
-						<li><a href="/adaco/art/listByUser?artname=${artPage.search }&pageno=${i}">${i}</a></li>
+						<li><a href="/adaco/art/listByUser?artname=${artPage.search }&pageno=${i}&category=${artPage.artList[i].category}">${i}</a></li>
 					</c:otherwise>
 				</c:choose>
 

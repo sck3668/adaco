@@ -38,6 +38,7 @@ public class AdminBoardDto {
 		private State state;
 		private String writeDateStr; 
 	}
+	
 	@Data
 	@AllArgsConstructor
 	@NoArgsConstructor
