@@ -6,15 +6,33 @@
 		</select>
 		
 		<!-- 작가의 스토리 목록보기-->
+<!-- 		<select id="findAllStory" resultType="story"> -->
+		
+<!-- 		 select * from -->
+<!-- 	    	(select b.* , rownum as rnum  from -->
+<!-- 			   (select /*+ index_desc(story story_pk_storyno) */ storyno, title, writer,write_date writeDate, artistno, image, content from story  -->
+<!-- 			 order by write_date desc) b -->
+<!-- 			where <if test="artistno != null">artistno=#{artistno}</if>  -->
+<!-- 			rownum&lt;#{endRowNum}) -->
+<!--   		  where rnum&gt;#{startRowNum} -->
+		
+<!-- 		</select> -->
+		
+		
 		<select id="findAllStory" resultType="story">
-		<![CDATA[
+		
 		 select * from
 	    	(select b.* , rownum as rnum  from
 			   (select /*+ index_desc(story story_pk_storyno) */ storyno, title, writer,write_date writeDate, artistno, image, content from story 
+			   <trim prefix="WHERE" prefixOverrides="AND|OR">
+	                   <if test = "artistno != null">
+	                    	AND artistno = #{artistno}
+	                    </if>   
+           		</trim>
 			 order by write_date desc) b
-			where artistno=#{artistno} and rownum<=#{endRowNum})
-  		  where rnum>=#{startRowNum}
-		]]>
+			where rownum&lt; = #{endRowNum})
+  		  where rnum&gt; = #{startRowNum}
+		
 		</select>
 		
 		<!-- 작가의 스토리 정보보기 -->

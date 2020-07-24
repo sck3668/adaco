@@ -20,7 +20,7 @@ public class StoryDao {
 		return tpl.selectOne("storyMapper.count");
 	}
 	
-	public List<Story> findAllStory(int startRowNum, int endRowNum,@Nullable int artistno){
+	public List<Story> findAllStory(int startRowNum, int endRowNum,@Nullable Integer artistno){
 		Map<String,Integer> map = new HashMap<>();
 		map.put("startRowNum", startRowNum);
 		map.put("endRowNum",endRowNum);

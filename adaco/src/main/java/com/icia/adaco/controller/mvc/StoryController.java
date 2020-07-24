@@ -46,7 +46,8 @@ public class StoryController {
 	private StoryRestService restService;
 
 	@GetMapping("/story/listStory")
-	public ModelAndView listStory(@RequestParam(defaultValue = "1") int pageno,@Nullable int artistno) {
+	public ModelAndView listStory(@RequestParam(defaultValue = "1") int pageno,@Nullable Integer artistno) {
+		System.out.println("controller========");
 		return new ModelAndView("main")
 		.addObject("viewName","artist/story/list.jsp").addObject("story",storyService.storyList(pageno,artistno));
 	}

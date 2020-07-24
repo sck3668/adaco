@@ -10,6 +10,7 @@ import java.util.*;
 
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.lang.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.multipart.*;
 
@@ -43,7 +44,11 @@ public class StoryService {
 	@Autowired
 	private UserDao userDao;
 	
-	public Page storyList(int pageno,int artistno) {
+	public Page storyList(int pageno,@Nullable Integer artistno) {
+		System.out.println("storyList Service=="+artistno);
+//		if(artistno==null) {
+//			return false;
+//		}
 		int countOfBoard = storyDao.count();
 		Page page = PagingUtil.getPage(pageno, countOfBoard);
 		int srn = 1;
