@@ -131,7 +131,6 @@ public class AdminBoardController {
 		String json = objectMapper.writeValueAsString(dto);
 		mav.addObject("notice", json);
 		return mav;
-		
 	}
 
 	@Secured("ROLE_ADMIN")
@@ -170,13 +169,6 @@ public class AdminBoardController {
 	public String faqWrite(FAQ faq) {
 		service.faqWrite(faq);
 		return "redirect:/user/faqList";
-	}
-	
-	@Secured("ROLE_ADMIN")
-	@PostMapping("/admin/faq_delete")
-	public String daqDelete(Integer faqno) {
-		service.faqDelete(faqno);
-		return "redirect:/user/faq_list";
 	}
 
 	@Secured("ROLE_ADMIN")
