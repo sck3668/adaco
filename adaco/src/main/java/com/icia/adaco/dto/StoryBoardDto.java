@@ -55,6 +55,7 @@ public class StoryBoardDto {
 		private String content;
 		private String profile;
 		private String times;
+		private int artistno;
 	}
 
 	@Data

@@ -195,12 +195,12 @@ public class UserController {
 				.addObject("favorite",userService.favoriteList(principal.getName()));
 	}
 	
-	//메시지 리스트함
-	@PreAuthorize("isAuthenticated()")
-	@GetMapping("/user/messageList")
-	public ModelAndView messageList(Principal principal) {
-		return new ModelAndView("main").addObject("viewName","user/messageList.jsp");
-	}
+//	//메시지 리스트함
+//	@PreAuthorize("isAuthenticated()")
+//	@GetMapping("/user/messageList")
+//	public ModelAndView messageList(Principal principal) {
+//		return new ModelAndView("main").addObject("viewName","user/messageList.jsp");
+//	}
 	
 	//회원 삭제
 	@PreAuthorize("isAuthenticated()")

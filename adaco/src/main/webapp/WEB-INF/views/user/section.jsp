@@ -158,7 +158,7 @@ $(function(){
             	</sec:authorize>
                 <sec:authorize access="hasRole('ROLE_SELLER')">
             		<a href="/adaco/art/readByArtist?artno=${art.artno}">
-                  	<img alt="작품 사진" src="${art.mainImg }"></a>
+                  	<img alt="작품 사진" src="${art.mainImg }" width="250px" height="200px"></a>
                  </sec:authorize>
                 </h4>
                 <h5>${art.artName}</h5>

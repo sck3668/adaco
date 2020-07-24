@@ -13,7 +13,6 @@ $(function() {
 			var params = {
 				_csrf : '${_csrf.token}',
 			}
-			console.log(params);
 			$.ajax({
 				url : "/adaco/artist/checkShop",
 				method : "post",
@@ -30,7 +29,7 @@ $(function() {
 					}
 				}
 			})
-		})
+		});
 		
 		$(".logout").on("click", function() {
 			var param = {

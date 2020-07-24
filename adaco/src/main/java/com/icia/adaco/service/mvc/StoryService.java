@@ -76,9 +76,20 @@ public class StoryService {
 			User user = userDao.findByid(story.getWriter());
 			listDto.setProfile(user.getProfile());
 			listDto.setWriteDateStr(story.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
+			if(artistno!=null) {
+				listDto.setArtistno(artistno);
+			} else {
+				listDto.setArtistno(0);
+			}
 			storydtoList.add(listDto);
 		}
+		System.out.println("listDto=="+storydtoList);
 		page.setStoryList(storydtoList);
+		if(artistno!=null) {
+			page.setArtistno(artistno);
+		} else {
+			page.setArtistno(0);
+		}
 		return page;
 	}
 	

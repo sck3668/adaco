@@ -197,10 +197,10 @@
 	        
 	       	var startNo = thisPage*1+1;
 	        $.ajax({
-	            url:"/adaco/story/listStory?pageno="+startNo ,
+	            url:"/adaco/story/listStory?pageno="+startNo+"&artistno="+${story.artistno},
 	            method: "GET",
 	        }).done(()=>{
-		        history.pushState(null, null, "/adaco/story/listStory?pageno="+startNo);
+		        history.pushState(null, null, "/adaco/story/listStory?pageno="+startNo+"&artistno="+${story.artistno});
 			    location.reload(true);
 	        }).fail((f)=>console.log(f));
 	    }
