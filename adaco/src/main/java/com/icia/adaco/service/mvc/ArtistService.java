@@ -28,7 +28,4 @@ public class ArtistService {
 		dto.setBirthDateStr(user.getBirthDate().format(dtf));
 		return dto;
 	}
-	
-
 }
-

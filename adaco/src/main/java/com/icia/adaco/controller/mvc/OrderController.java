@@ -92,6 +92,8 @@ public class OrderController {
 		message.setSendId(artistName);
 		message.setRecipientId(principal.getName());
 		msgService.send(message);
-		return new ModelAndView("main").addObject("viewName","order/after.jsp").addObject("order",orderDService.OrderDetail(dto,principal.getName()));
+		return new ModelAndView("main").addObject("viewName","order/after.jsp")
+				.addObject("order",orderDService.OrderDetail(dto,principal.getName()))
+				.addObject("artist",artistDao.findArtistnoByUsername(artistName));
 	}
 }

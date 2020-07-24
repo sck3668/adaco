@@ -197,11 +197,11 @@ ${shop }
 				<tbody>				
 					<tr> 
 						<td style="vertical-align: middle;"><a href="/adaco/art/readByUser?artno=${order.artno}"><img src="${order.mainImg }" width="150px" height="120px" ></a> ${order.artName}<br>옵션 :  ${order.optionValue }</td>
-						<td>  ${order.amount}개</td>
-						<td> ${order.price}원</td>
-						<td id="ddd"></td>
+						<td>${order.amount}개</td>
+						<td>${order.price*order.amount}원</td>
+						<td>${order.accumulated }</td>
 						<td>${order.shippingCharge}</td>
-						<td> ${order.shippingCharge+order.price}원</td>
+						<td>${order.shippingCharge+(order.price*order.amount)}원</td>
 					</tr>
 				</tbody>
 			</table>
@@ -212,7 +212,7 @@ ${shop }
 				<thead>
 					<tr>
 						<th >계좌번호</th>
-						<td><span>${order.account} (예금주: 주식회사 핸드스토리)</span></td>
+						<td><span>${artist }${order.account} (예금주: 주식회사 핸드스토리)</span></td>
 						 
 					</tr>
 					<tr>
@@ -236,7 +236,7 @@ ${shop }
 					</tr>
 					<tr>
 						<th>배송지</th>
-						<td><span>${order.originalAddress}원</span></td>	
+						<td><span>${order.originalAddress}</span></td>	
 					</tr>
 					<tr>
 						<th>배송 메세지</th>
