@@ -159,7 +159,6 @@ ${order }
                              <span class="ui_title__txt">주소 (배송지)</span>
                              </div><!-- 주소(배송지)텍스트 닫힌 div -->
                           </th>
-                    
                            <td style= "text-align: left;">
                               <input type="text" id="postcode" placeholder="우편번호">
                         <input type="button" onclick="execDaumPostcode()" value="주소 찾기"><br>
@@ -304,13 +303,17 @@ ${order }
                   </c:forEach>
                   </td>
                   <td>
-                     ${art.price+ order.option.optionPrice}원
+                  <c:forEach items="${order.bagList}" begin="0" end="0" var="bag">
+                     ${order.bagList[status.index].totalPrice + order.option.optionPrice*order.bag.amount}원
+                  </c:forEach>
                   </td>
                   <td>
                      ${art.couriPrice}원
                   </td>
                   <td>
-                     ${order.bagList[status.index].amount*art.price+art.couriPrice+order.option.optionPrice }원
+                  <c:forEach items="${order.bagList}" begin="0" end="0" var="bag">
+                     ${order.bagList[status.index].amount*(art.price+order.option.optionPrice)+art.couriPrice }원
+                  </c:forEach>
                   </td>
                </tr>
                <tr>
@@ -378,8 +381,8 @@ ${order }
                                     <td>
                                     	<c:set var = "totalPrice" value = "0" />
 											<c:forEach var="art" items="${order.artList}" varStatus="status">     
-												<input type="hidden" value="${order.bagList[status.index].amount*art.price+order.option.optionPrice}">
-										<c:set var= "totalPrice" value="${totalPrice + order.bagList[status.index].amount*art.price+order.option.optionPrice}"/>
+												<input type="hidden" value="${order.bagList[status.index].amount*(art.price+order.option.optionPrice)}">
+										<c:set var= "totalPrice" value="${totalPrice + order.bagList[status.index].amount*(art.price+order.option.optionPrice)}"/>
 											</c:forEach>
 										<c:out value="${totalPrice}원"/>
 <%--                                         <span  data-payment="order">${art.price+order.option.optionPrice}</span>원 --%>
@@ -429,7 +432,7 @@ ${order }
 										<c:set var = "total" value = "0" />
 											<c:forEach var="art" items="${order.artList}" varStatus="status">     
 													<input type="hidden" value="${art.price+art.couriPrice+order.option.optionPrice}">
-										<c:set var= "total" value="${total + order.bagList[status.index].amount*art.price+art.couriPrice+order.option.optionPrice}"/>
+										<c:set var= "total" value="${total + order.bagList[status.index].amount*(art.price+order.option.optionPrice)+art.couriPrice}"/>
 											</c:forEach>
 										<c:out value="${total}원"/>  
                                     </td>

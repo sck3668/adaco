@@ -12,9 +12,6 @@
 	
 	<select id = "countByNotice" resultType="int">
 		select count(*) from notice
-		<where>
-			<if test="isImportant == true">and is_important = 1</if>
-		</where>
 	</select>
 	
 	<select id="countByReport" resultType="int">

@@ -208,7 +208,7 @@ input[type="text"]:focus, input[type="text"]:hover {
 		if(isAdmin == true) {			
 			var ck = CKEDITOR.replace("content", {
 				height: 600,
-				filebrowserUploadUrl:"http://localhost:8081/adaco/admin/notice/ckupload"
+				filebrowserUploadUrl: 'http://localhost:8081/adaco/admin/notice/ckupload?${_csrf.parameterName}=${_csrf.token}'
 			})
 			$("#title").attr("readonly", false);
 			$("#content").attr("readonly", false);

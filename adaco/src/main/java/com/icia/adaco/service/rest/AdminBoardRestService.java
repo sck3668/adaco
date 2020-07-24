@@ -5,7 +5,6 @@ import java.util.*;
 import java.util.regex.*;
 
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.security.config.annotation.authentication.configurers.userdetails.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.multipart.*;
 
@@ -53,7 +52,13 @@ public class AdminBoardRestService {
 			int start = src.indexOf("ckimage/");
 			int end = src.indexOf("style=");
 			String fileName = src.substring(start+8, end-2);
-			File file = new File(imageFolder, fileName);
+			File file = new File("d:/upload/ckimage", fileName);
+			if(file.exists()==true)
+				file.delete();
+		}
+		List<Attachment> list = attachmentDao.findAllNoticeByNoticeno(noticeno);
+		for(Attachment a : list) {
+			File file = new File("d:/upload/attachment", a.getSaveFileName());
 			if(file.exists()==true)
 				file.delete();
 		}

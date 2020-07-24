@@ -20,6 +20,7 @@ public class Page {
 	private boolean isNext;
 	private State state;
 	private String search;
+	private int artistno;
 	List<AdminBoardDto.DtoForReportList> adminReportList;
 	List<AdminBoardDto.DtoForQuestionList> adminQuestionList;
 	List<AdminBoardDto.DtoForNoticeList> adminNoticeList;

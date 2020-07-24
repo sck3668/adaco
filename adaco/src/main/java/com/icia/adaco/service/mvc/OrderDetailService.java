@@ -71,7 +71,8 @@ public class OrderDetailService {
 		String orderDateStr = order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일"));
 		afterDto.setOrderDateStr(orderDateStr).setArtName(art.getArtName()).setUsername(username)
 		.setOptionName(orderDetail.getOptionName()).setOptionValue(orderDetail.getOptionValue())
-		.setAmount(orderDetail.getAmount()).setPrice(orderDetail.getPrice()).setShippingCharge(order.getShippingCharge());
+		.setAmount(orderDetail.getAmount()).setPrice(orderDetail.getPrice()).setShippingCharge(order.getShippingCharge())
+		.setAccumulated((int) (afterDto.getPrice()*afterDto.getAmount()*0.01));
 		return afterDto;
 	} 
 	
