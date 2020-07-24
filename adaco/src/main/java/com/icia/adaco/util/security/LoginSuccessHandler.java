@@ -31,8 +31,6 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
-	System.out.println("success");	
-		
 		/*
 		 * // 일반회원권한으로 로그인 시 메인화면
 		 * if(authorityDao.findByUsername(username).equals("ROLE_USER")) {
@@ -48,20 +46,15 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 		
 		String username = authentication.getName();
 		String password = request.getParameter("password");
-		System.out.println(password + " 패스워드요 ");
 		if(password.length()>=20) {
-			System.out.println(password+"패스워드");
 			session.setAttribute("msg","임시비밀번호로 로그인하셨습니다. 비밀번호를 변경해주세요");
 			rs.sendRedirect(request, response, "/user/changePwd");
 		} else {
 			User user = User.builder().username(authentication.getName()).loginFailureCnt(0).build();
 			userDao.update(user);
 
-			/*rs.sendRedirect(request, response, "/artist/listByUser");*/
 			// 일반회원권한으로 로그인 시 메인화면
 			if(authorityDao.findByUsername(username).equals("ROLE_USER")) {
-				System.out.println("1username="+username);
-				System.out.println("1authority==="+authorityDao.findByUsername(username));
 				rs.sendRedirect(request, response, "/art/listByUser");
 			}
 			// 작가 회원으로 로그인 시 메인화면
@@ -75,4 +68,3 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 		}
 	}
 }
-

@@ -104,4 +104,8 @@ public class OrderDao {
 	public List<Integer> findBagnoByOrderno(int orderno) {
 		return tpl.selectList("orderMapper.findBagnoByOrderno",orderno);
 	}
+
+	public Boolean findUsernameIsPay(int orderno) {
+		return tpl.selectOne("orderMapper.findUsernameIsPay",orderno);
+	}
 }

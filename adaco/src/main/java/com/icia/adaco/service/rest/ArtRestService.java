@@ -148,7 +148,6 @@ public class ArtRestService {
 			}
 			dto.setReviews(dtoList);
 		}
-
 		return dto;
 	}
 	

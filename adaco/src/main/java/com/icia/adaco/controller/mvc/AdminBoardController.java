@@ -126,7 +126,6 @@ public class AdminBoardController {
 		String json = objectMapper.writeValueAsString(dto);
 		mav.addObject("notice", json);
 		return mav;
-		
 	}
 
 	@Secured("ROLE_ADMIN")

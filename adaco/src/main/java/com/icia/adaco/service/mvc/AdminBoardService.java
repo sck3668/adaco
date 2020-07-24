@@ -16,6 +16,7 @@ import com.icia.adaco.dto.*;
 import com.icia.adaco.dto.AdminBoardDto.*;
 import com.icia.adaco.entity.*;
 import com.icia.adaco.exception.*;
+import com.icia.adaco.service.exception.*;
 import com.icia.adaco.util.*;
 
 import lombok.*;
@@ -87,26 +88,20 @@ public class AdminBoardService {
 		String answerContent = question.getAnswerContent();
 		question = dao.findQuestionById(question.getQno());
 		if(question == null)
-			throw new JobFailException("아 못찾겠습니다.");
+			throw new QuestionNotFoundException();
 		question.setState(State.답변완료);
 		question.setAnswer(answer);
 		question.setAnswerContent(answerContent);
 //		메시지 보내기 파트
 		User user = userDao.findByid(question.getWriter());
 		if(user == null)
-			throw new JobFailException("받는 사용자를 확인하지 못했습니다.");
+			throw new UserNotFoundException();
 		Message message = new Message();
 		message.setTitle("문의에 대한 답변이 등록되었습니다.");
 		StringBuffer str = new StringBuffer();
-		str.append("<br>회원님께서 문의하신<br>문의번호: ");
-		str.append(question.getQno());
-		str.append("<br>작성일: ");
-		str.append(question.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
-		str.append("<br>제목: ");
-		str.append(question.getTitle());
-		str.append("<br>문의내용: ");
-		str.append(question.getContent());
-		str.append("<br>에 대한 답변이 완료되었습니다. 마이페이지 -> 문의 내역에서 확인해주시기 바랍니다.");
+		str.append("<br>회원님께서 문의하신<br>문의번호: ").append(question.getQno()).append("<br>작성일: ")
+		.append(question.getWriteDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"))).append("<br>제목: ")
+		.append(question.getTitle()).append("<br>문의내용: ").append(question.getContent()).append("<br>에 대한 답변이 완료되었습니다. 마이페이지 -> 문의 내역에서 확인해주시기 바랍니다.");
 		message.setContent(str.toString());
 		message.setSendId(answer);
 		message.setRecipientId(question.getWriter());

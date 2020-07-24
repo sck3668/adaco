@@ -24,9 +24,7 @@ public class AdminBoardDao {
 	
 //	공지사항 개수 카운팅
 	public int countByNotice(Boolean isImportant) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("isImportant", isImportant);
-		return tpl.selectOne("adminBoardMapper.countByNotice", map);
+		return tpl.selectOne("adminBoardMapper.countByNotice", isImportant);
 	}
 	
 //	신고글 개수 카운팅
@@ -42,7 +40,7 @@ public class AdminBoardDao {
 		return tpl.selectList("adminBoardMapper.findAllByReport", map);
 	}
 	
-//	신고글 삭제 (체크해서 삭제하는거 가능하면 추가)
+//	신고글 삭제
 	public int deleteByReport(List<Integer> cnos) {
 		return tpl.delete("adminBoardMapper.deleteByReport", cnos);
 	}

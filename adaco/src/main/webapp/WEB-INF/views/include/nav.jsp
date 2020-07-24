@@ -8,33 +8,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
-	function init() {
-		$("#gogak-d").hide();
-	}
-	$(function() {
-		init();
-		$("#gogak").on("click", function() {
-			$("#gogak-d").toggle();
-		});
-
-		$(".logout").on("click", function() {
-			var param = {
-				_csrf : "${_csrf.token}"
-			}
-			$.ajax({
-				url : "/adaco/user/logout",
-				method : "post",
-				data : param,
-				success : function() {
-					location.href = "/adaco";
-				}
-			});
-		});
-
+$(function() {
 		$("#artistPage").on("click", function() {
 			var params = {
 				_csrf : '${_csrf.token}',
 			}
+			console.log(params);
 			$.ajax({
 				url : "/adaco/artist/checkShop",
 				method : "post",
@@ -52,6 +31,20 @@
 				}
 			})
 		})
+		
+		$(".logout").on("click", function() {
+			var param = {
+				_csrf : "${_csrf.token}"
+			}
+			$.ajax({
+				url : "/adaco/user/logout",
+				method : "post",
+				data : param,
+				success : function() {
+					location.href = "/adaco";
+				}
+			});
+		});
 
 	})
 </script>
