@@ -14,9 +14,8 @@
 #tel1, #tel2, #tel3 {
 	width: 125px;
 }
-
-#section {
-	width: 750px;
+	#section {
+	width: 700px;
 	padding: 5px;
 	float: right;
 	min-height: 600px;
@@ -39,37 +38,75 @@
 	border: 1px solid red;
 }
 
-#user td {
-	height: 60px;
-	line-height: 60px;
-}
-
-#user td input {
-	height: 25px;
-}
-
-.first {
-	width: 250px;
-	text-align: center;
-}
-
-.first1 {
+ul#navi {
 	width: 200px;
-	text-align: center;
+	text-indent: 10px;
+	cursor: pointer;
 }
 
-#profile_sajin {
-	line-height: 25px;
+ul#navi, ul#navi ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
 }
 
-.key {
-	width: 35%;
-	display: inline-block;
+li.group {
+	margin-bottom: 3px;
 }
 
-#menu {
-	width: 180px;
+li.group div.title {
+	height: 35px;
+	line-height: 35px;
+	/*         background:#9ab92e; */
+	cursor: pointer;
 }
+
+ul.sub li {
+	margin-bottom: 2px;
+	height: 35px;
+	line-height: 35px;
+	/*         background:#f4f4f4; */
+	cursor: pointer;
+}
+
+ul.sub li a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	text-decoration: none;
+	color: #000;
+}
+
+ul.sub li:hover {
+	background: #f4f4f4;
+ #user td { 
+ 	height: 60px; 
+ 	line-height: 60px; 
+ } 
+
+ #user td input { 
+ 	height: 25px; 
+ } */
+
+ .first { 
+ 	width: 250px; 
+ 	text-align: center; 
+ } */
+
+ .first1 { 
+ 	width: 200px; 
+ 	text-align: center; 
+ } */
+
+ #profile_sajin { 
+ 	line-height: 25px; 
+ } 
+
+ .key { 
+ 	width: 35%; 
+ 	display: inline-block; 
+ } 
+
 </style>
 <link rel="stylesheet"
 	href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -291,45 +328,35 @@ $(function(){
 							style="text-decoration: none; color: black;">MY Menu</a></strong>
 					</h3>
 					<ul class="list-group" id="navi">
-						<li class="list-group-item list-group-item-action"
-							style="width: 170px;"><a href="/adaco/user/read"
-							style="color: black; text-decoration: none;">내 정보 보기</a></li>
-						<li class="list-group-item list-group-item-action"
-							style="width: 170px;"><a href="/adaco/user/orderList"
-							style="color: black; text-decoration: none;">주문내역</a></li>
-						<li class="list-group-item list-group-item-action"
-							style="width: 170px;"><a href="/adaco/user/questionList"
-							style="color: black; text-decoration: none;">문의내역</a></li>
-						<li class="list-group-item list-group-item-action"
-							style="width: 170px;"><a href="/adaco/user/reviewList"
-							style="color: black; text-decoration: none;">내 리뷰 보기</a></li>
-						<li class="list-group-item list-group-item-action"
-							style="width: 170px;"><a href="/adaco/user/favoriteList"
-							style="color: black; text-decoration: none;">즐겨찾기 목록</a></li>
-						<li class="list-group-item list-group-item-action"
-							style="width: 170px;"><a href="/adaco/user/pointList"
-							style="color: black; text-decoration: none;">포인트함</a></li>
-						<li class="list-group-item list-group-item-action" id="group"
-							style="width: 170px;">
-							<div class="title">
-								<a style="color: black; text-decoration: none;"> 메시지함 </a>
-							</div>
-							<ul class="sub">
-								<li><a href="/adaco/message/listSender"
-									style="color: black; text-decoration: none;"> <i
-										class="fas fa-angle-right" style="opacity: 0.5;"></i> 받은 메시지
-								</a></li>
-								<li><a href="/adaco/message/listReceiver"
-									style="color: black; text-decoration: none;"> <i
-										class="fas fa-angle-right" style="opacity: 0.5;"></i> 보낸 메시지
-								</a></li>
-							</ul>
-						</li>
-					</ul>
+					<li class="list-group-item list-group-item-action"><a href="/adaco/user/read" style="color: black; text-decoration: none;">내 정보 보기</a></li>
+					<li class="list-group-item list-group-item-action"><a href="/adaco/user/questionList" style="color: black; text-decoration: none;">문의내역</a></li>
+					<li class="list-group-item list-group-item-action"><a href="/adaco/user/orderList" style="color: black; text-decoration: none;">주문내역</a></li>
+					<li class="list-group-item list-group-item-action"><a href="/adaco/user/reviewList" style="color: black; text-decoration: none;">내 리뷰 보기</a></li>
+					<li class="list-group-item list-group-item-action"><a href="/adaco/user/favoriteList" style="color: black; text-decoration: none;">즐겨찾기 목록</a></li>
+					<li class="list-group-item list-group-item-action"><a href="/adaco/user/pointList" style="color: black; text-decoration: none;">포인트함</a></li>
+					<li class="list-group-item list-group-item-action" id="group">
+						<div class="title">
+							<a style="color: black; text-decoration: none;">
+							메시지함
+							</a>
+						</div>
+						<ul class="sub"> 
+							<li>
+								<a href="/adaco/message/listSender" style="color: black; text-decoration: none;" >
+									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 보낸 쪽지함</a>
+							</li>
+							<li>
+								<a href="/adaco/message/listReceiver" style="color: black; text-decoration: none;" >
+									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 받은 쪽지함</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
 				</div>
 			</div>
 		</aside>
 		<section id="section">
+			<div>
 			<div>
 				<img id="show_profile" height="200px;" src="${user.profile }">
 			</div>
@@ -382,6 +409,7 @@ $(function(){
 			</table>
 			<button type="button" class="btn btn-info" id="update">변경</button>
 			<button type="button" class="btn btn-info" id="delete">탈퇴</button>
+			</div>
 		</section>
 	</div>
 </body>

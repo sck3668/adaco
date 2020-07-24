@@ -98,29 +98,22 @@ $(function(){
 </script>
 </head>
 <body>
+<div>
 <aside id="asideMain">
-	<div class="col-sm-3">
+	<div id="aside">
+		<div class="col-sm-3">
 				<!-- side menu (link) -->
 				<h3>
 					<strong><a href="/adaco/user/mypage" style="text-decoration: none; color: black;">
 						MY Menu</a></strong>
 				</h3>
 				<ul class="list-group" id="navi">
-					<li class="list-group-item list-group-item-action"><a
-						href="/adaco/user/read"
-						style="color: black; text-decoration: none;">내 정보 보기</a></li>
-					<li class="list-group-item list-group-item-action"><a
-						href="/adaco/user/orderList"
-						style="color: black; text-decoration: none;">주문내역</a></li>
-					<li class="list-group-item list-group-item-action"><a
-						href="/adaco/user/reviewList"
-						style="color: black; text-decoration: none;">내 리뷰 보기</a></li>
-					<li class="list-group-item list-group-item-action"><a
-						href="/adaco/user/favoriteList"
-						style="color: black; text-decoration: none;">즐겨찾기 목록</a></li>
-					<li class="list-group-item list-group-item-action"><a
-						href="/adaco/user/pointList"
-						style="color: black; text-decoration: none;">포인트함</a></li>
+					<li class="list-group-item list-group-item-action"><a href="/adaco/user/read" style="color: black; text-decoration: none;">내 정보 보기</a></li>
+					<li class="list-group-item list-group-item-action"><a href="/adaco/user/questionList" style="color: black; text-decoration: none;">문의내역</a></li>
+					<li class="list-group-item list-group-item-action"><a href="/adaco/user/orderList" style="color: black; text-decoration: none;">주문내역</a></li>
+					<li class="list-group-item list-group-item-action"><a href="/adaco/user/reviewList" style="color: black; text-decoration: none;">내 리뷰 보기</a></li>
+					<li class="list-group-item list-group-item-action"><a href="/adaco/user/favoriteList" style="color: black; text-decoration: none;">즐겨찾기 목록</a></li>
+					<li class="list-group-item list-group-item-action"><a href="/adaco/user/pointList" style="color: black; text-decoration: none;">포인트함</a></li>
 					<li class="list-group-item list-group-item-action" id="group">
 						<div class="title">
 							<a style="color: black; text-decoration: none;">
@@ -140,20 +133,11 @@ $(function(){
 					</li>
 				</ul>
 			</div>
+		</div>
 </aside>
    <section id="section">
-<!--    <div> -->
-<!--             <li>번호</li> -->
-<!--             <li>주문일자</li> -->
-<!--             <th>작품명</th> -->
-<!--             <th>금액</th> -->
-<!--             <th>배송비</th> -->
-<!--             <th>주문상태</th> -->
-<!--    </div> -->
-
-   <h3><br><br><br>주문 내역</h3>
+   <h3>주문 내역</h3>
    <hr>
-   <div id="orderMain">
    <table>
       <colgroup>
             <col width="10%">
@@ -188,8 +172,6 @@ $(function(){
       </c:forEach>
       </tbody>
    </table>
-   </div>
-   
      <div style="text-align:center;">
       <ul class="pagination">
          <c:if test="${page.prev==true}">
@@ -214,5 +196,6 @@ $(function(){
       </ul>
    </div>
    </section>
+</div>
 </body>
 </html>

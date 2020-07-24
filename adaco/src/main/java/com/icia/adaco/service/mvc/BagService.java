@@ -28,8 +28,6 @@ public class BagService {
 	public int insertByBag(Bag bag,String username) {
 		int artno = bag.getArtno();
 		Art art = artdao.readByArt(artno);
-		System.out.println("art==="+art);
-		System.out.println("bag==="+bag);
 		bag.setTotalPrice(bag.getAmount()*(bag.getOptionPrice()+art.getPrice()));
 		Bag bag1 = bagdao.findByArtnoUsername(artno,username);
 		//username 찾은 장바구니의 artno가 추가하는 bag의 artno와 같은 경우 수량 증가

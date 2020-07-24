@@ -136,23 +136,14 @@ $(".title").click(function(){
 					<strong><a href="/adaco/user/mypage" style="text-decoration: none; color: black;">
 						MY Menu</a></strong>
 				</h3>
-				<ul class="list-group" id="navi" >
-					<li class="list-group-item list-group-item-action" ><a
-						href="/adaco/user/read"
-						style="color: black; text-decoration: none;">내 정보 보기</a></li>
-					<li class="list-group-item list-group-item-action"><a
-						href="/adaco/user/orderList"
-						style="color: black; text-decoration: none;">주문내역</a></li>
-					<li class="list-group-item list-group-item-action"><a
-						href="/adaco/user/reviewList"
-						style="color: black; text-decoration: none;">내 리뷰 보기</a></li>
-					<li class="list-group-item list-group-item-action"><a
-						href="/adaco/user/favoriteList"
-						style="color: black; text-decoration: none;">즐겨찾기 목록</a></li>
-					<li class="list-group-item list-group-item-action"><a
-						href="/adaco/user/pointList"
-						style="color: black; text-decoration: none;">포인트함</a></li>
-						<li class="list-group-item list-group-item-action" id="group">
+				<ul class="list-group" id="navi">
+					<li class="list-group-item list-group-item-action"><a href="/adaco/user/read" style="color: black; text-decoration: none;">내 정보 보기</a></li>
+					<li class="list-group-item list-group-item-action"><a href="/adaco/user/questionList" style="color: black; text-decoration: none;">문의내역</a></li>
+					<li class="list-group-item list-group-item-action"><a href="/adaco/user/orderList" style="color: black; text-decoration: none;">주문내역</a></li>
+					<li class="list-group-item list-group-item-action"><a href="/adaco/user/reviewList" style="color: black; text-decoration: none;">내 리뷰 보기</a></li>
+					<li class="list-group-item list-group-item-action"><a href="/adaco/user/favoriteList" style="color: black; text-decoration: none;">즐겨찾기 목록</a></li>
+					<li class="list-group-item list-group-item-action"><a href="/adaco/user/pointList" style="color: black; text-decoration: none;">포인트함</a></li>
+					<li class="list-group-item list-group-item-action" id="group">
 						<div class="title">
 							<a style="color: black; text-decoration: none;">
 							메시지함
@@ -165,7 +156,7 @@ $(".title").click(function(){
 							</li>
 							<li>
 								<a href="/adaco/message/listReceiver" style="color: black; text-decoration: none;" >
-									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 받은 쪽지함 </a>
+									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 받은 쪽지함</a>
 							</li>
 						</ul>
 					</li>

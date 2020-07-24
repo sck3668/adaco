@@ -121,19 +121,28 @@ public class ArtDao {
 		return tpl.selectList("artMapper.findAllFromUser",map); 
 	}
 
-	//검색어에 해당되는 작품 수
-	public int countSerchByArtName(String artname) {
+	//검색어에 해당되는 작품 수(카테고리 검색 포함)
+	public int countSearchByArtNameCG(String artname,String category) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("artName", artname);
-		return tpl.selectOne("artMapper.countSearchByArtName",map);
+		map.put("category", category);
+		return tpl.selectOne("artMapper.countSearchByArtNameCG",map);
 	}
+	
+	//검색어에 해당되는 작품 수
+		public int countSerchByArtName(String artname) {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("artName", artname);
+			return tpl.selectOne("artMapper.countSearchByArtName",map);
+		}
 	
 	//작품 내역보기(리뷰순) + 작품이름으로 검색 가능
 	public List<Art> listManyReviewByArt(int startRowNum, int endRowNum, @Nullable String artname){
-		Map<String, Object>map = new HashMap<>();
+		Map<String, Object>map = new HashMap<String, Object>();
 		map.put("startRowNum", startRowNum);
 		map.put("endRowNum",endRowNum);
 		map.put("artName", artname);
+		//카테고리 검색?
 		return tpl.selectList("artMapper.reviewManyByArt",map); 
 	}
 	

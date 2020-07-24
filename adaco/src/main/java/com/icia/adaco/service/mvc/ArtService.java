@@ -106,7 +106,7 @@ public class ArtService {
 
 	// 작품 리스트 최신순 + 작품이름으로 작품 검색 (회원용)
 	public Page listFromUser(int pageno, @Nullable String artname, @Nullable String category) {
-		int countOfArt = artdao.countSerchByArtName(artname);
+		int countOfArt = artdao.countSearchByArtNameCG(artname,category);
 		Page page = PagingUtil.getPage2(pageno, countOfArt);
 		int srn = page.getStartRowNum();
 		int ern = page.getEndRowNum();

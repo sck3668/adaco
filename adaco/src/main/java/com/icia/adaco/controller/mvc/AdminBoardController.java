@@ -81,6 +81,12 @@ public class AdminBoardController {
 		return new ModelAndView("main").addObject("viewName", "user/questionList.jsp").addObject("questionPage", service.questionList(pageno, writer, searchType));
 	}
 	
+	@GetMapping("/artist/questionList")
+	public ModelAndView artistQuestionList(@RequestParam(defaultValue = "1")int pageno, Principal principal, @Nullable State searchType) {
+		String writer = principal.getName();
+		return new ModelAndView("main").addObject("viewName", "artist/questionList.jsp").addObject("questionPage", service.questionList(pageno, writer, searchType));
+	}
+	
 	@PostAuthorize("isAuthenticated() or hasRole('ROLE_ADMIN')")
 	@GetMapping("/admin/question_read")
 	public ModelAndView qusetionRead(@RequestParam(value = "qno")@NonNull Integer qno) throws JsonProcessingException {

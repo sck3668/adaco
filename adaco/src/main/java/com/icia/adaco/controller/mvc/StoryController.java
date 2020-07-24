@@ -33,6 +33,10 @@ public class StoryController {
 	@Autowired
 	ObjectMapper objectMapper;
 	@Autowired
+	private ShopDao shopDao;
+	@Autowired
+	private ArtistDao artistDao;
+	@Autowired
 	private StoryRestService storyRestService;
 	@Autowired
 	private StoryRestService restService;
@@ -45,7 +49,14 @@ public class StoryController {
  
 	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@GetMapping("/story/writeStory")
-	public ModelAndView writeStory() {
+	public ModelAndView writeStory(Principal principal) {
+		int artistno = artistDao.findArtistnoByUsername(principal.getName());
+		System.out.println("artistno=="+artistno);
+		if(shopDao.readShopnoByArtistno(artistno)==null) {
+			System.out.println();
+			return new ModelAndView("main").addObject("viewName","artist/artistpage.jsp")
+					.addObject("msg","StoryWriteMsg");
+		};
 		return new ModelAndView("main").addObject("viewName","artist/story/write.jsp");
 	}
 

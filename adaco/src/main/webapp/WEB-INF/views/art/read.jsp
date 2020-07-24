@@ -480,8 +480,6 @@ $(function(){
 </script>
 </head>
 <body>
-${art}
-${artPageByUser }
 <div>
 	<div id="main">
 		<div>
