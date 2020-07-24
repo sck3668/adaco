@@ -195,8 +195,6 @@ function printBagList() {
 
 
 $(function() {
-
-	
 	$("#check_all").prop("checked", false);
 	
 	var parmas ={
@@ -210,10 +208,7 @@ $(function() {
 	}).done((result)=>{ 
 		bagList = result;
 		printBagList();
-		
-		//printOptionList();
 	})
-	
 	
 	var isChoice = false;
 	// 전체선택 /해제
@@ -221,8 +216,10 @@ $(function() {
 	
 	$("#checkAll").on("click", function() {
 		isChoice = !isChoice;
-		$(".check").prop("checked", isChoice);
+		if($(".check").prop("checked", isChoice))
+			$("#checkAll").prop("checked", false);
 	});
+	
 	
 	// 수량 증가
 	$("#bagArea").on("click", ".plus", function(e) {
@@ -346,9 +343,6 @@ $(function() {
 			if($(this).prop("checked")) {
 				ar.push($(this).data("artno"));
 			}
-			none.unstanted("check").toappend;
-			alert("구매 테스트")
-			
 		});
 		
 		var params = {

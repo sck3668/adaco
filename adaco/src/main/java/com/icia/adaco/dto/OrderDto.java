@@ -18,7 +18,7 @@ public class OrderDto {
  	 @NoArgsConstructor
  	 @Builder
  	 @Accessors(chain=true)
- 	  public static class DtoForOrdernos{
+ 	 public static class DtoForOrdernos{
  		  private List<String> ordernos;
  	  }
  	 

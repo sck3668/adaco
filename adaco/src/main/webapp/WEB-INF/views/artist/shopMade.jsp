@@ -157,7 +157,8 @@
 	    function checkshopName() {
 	    	$("#shopName_msg").text("");
 	    	$irum = $("#shopName").val();
-	    	const patt = /^[가-힣A-Za-z0-9]{2,10}$/;
+	    	const patt = /^[가-힝A-Za-z0-9 _]*[가-힣A-Za-z0-9][가-힣A-Za-z0-9 _]*$/;  
+// 	    	/^[가-힣A-Za-z0-9]{2,10}$/;
 	    	if($irum.length==0)
 	    		return printErrorMsg($("#shopName_msg"),"상점의 이름은 필수 입니다.")
 	    	if(patt.test($irum)==false)

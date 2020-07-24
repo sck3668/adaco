@@ -10,7 +10,7 @@
 	</insert>
 	
  	<select id="readByShop" resultType="shop">
-		select shopno,shop_name shopName, shop_intro shopIntro, businessno, account, image, forwarding, back
+		select shopno,shop_name shopName, shop_intro shopIntro, businessno, account, image, forwarding, back,artistno
 		from shop where shopno=#{shopno}
  	</select> 
 

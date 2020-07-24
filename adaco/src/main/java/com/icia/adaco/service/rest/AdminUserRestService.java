@@ -23,7 +23,6 @@ public class AdminUserRestService {
 	
 	public void update(String username, String authority, Boolean enabled, String sender) {
 		
-		
 		if(authority != null && authority.equals("ROLE_SELLER")) {
 			if(dao.existsByArtist(username) == true)
 				throw new JobFailException("동일한 권한을 부여할 수 없습니다.");

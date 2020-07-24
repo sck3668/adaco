@@ -41,17 +41,20 @@ public class UserRestService {
 			throw new UsernameExistException();
 		return true;	
 	}
+	
 	//이메일 존재여부 이메일 확인
 	public boolean checkEmail(String email) {
 		if(userDao.existsEmail(email)==true)
 			throw new EmailExistException();
 		return true;
 	}
+	
 	//즐겨찾기 삭제
 	public int favoriteDelete(int favno) {
 			Favorite favorite = userDao.findByFavoriteId(favno);
 		return	userDao.deleteFavorite(favno);
 	}
+	
 	//회원정보 업데이트
 	public void update(DtoForUpdate dto, MultipartFile sajin ) throws IllegalStateException, IOException {
 		// 비밀번호가 존재하는 경우 비밀번호 확인. 실패하면 작업 중지 
@@ -75,15 +78,16 @@ public class UserRestService {
 				File file = new File(profileFolder, user.getUsername() + "." + extension);
 				sajin.transferTo(file);
 				user.setProfile(profilePath + file.getName());
-				System.out.println(sajin+"이것은 사진서비스쪽");
 			}
 		}
 		userDao.update(user);
 	}
+	
 	//리뷰 삭제
 	public void reviewDelete(int rno) {
 		userDao.reviewDelete(rno);
 	}
+	
 	//즐겨찾기 업데이트
 	public int favoriteUpdate(String username,int artno) {
 		Art art = artDao.readByArt(artno);
@@ -100,19 +104,21 @@ public class UserRestService {
 			return artDao.updateByArt(Art.builder().artno(artno).favoriteCnt(art.getFavoriteCnt()-1).build());
 		}
 	}
+	
 	//유저 회원탈퇴
 	public void userDelete(String username) {
 		userDao.delete(username);
 	}
+	
 	//유저네임으로 프로필불러오기
 	public String findProfile(String username) {
 		User user = userDao.findByid(username);
 		return user.getProfile();
 	}
+	
 	//댓글 신고기능
 	public int commentReport(int artno,String username,int cno) {
 		ArtComment artComment = artCommentDao.readByCommentOfArt(cno);
-		System.out.println(artComment);
 		Boolean isCheck = reportDao.existsUsername(username, cno);
 		if(isCheck==true)
 			throw new JobFailException("암궈나");

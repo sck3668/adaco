@@ -17,7 +17,6 @@
 		select artistno from artist where username=#{username}
 	</select>
 	
-	
 	<update id="update">
 		update artist
 		<trim suffixOverrides="," prefix="set">

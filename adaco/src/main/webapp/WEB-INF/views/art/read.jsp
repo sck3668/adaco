@@ -147,16 +147,16 @@ function printComment(comments){
 
  */
 
-
-
-
-
 function checkFavorite() {
-	var $isFavorite = ${artPageByUser.isFavorite}
-	if($isFavorite == true)
-		$("#favorite").text("★즐겨찾기");
-	else
-		$("#favorite").text("☆즐겨찾기");
+	 var $isFavorite = '${artPageByUser.isFavorite}';
+	 if ( typeof $isFavorite == "undefined" || $isFavorite == null || $isFavorite == "" ){
+		return false;
+	 } else {
+		if($isFavorite == true)
+			$("#favorite").text("★즐겨찾기");
+		else
+			$("#favorite").text("☆즐겨찾기");
+	 }
 }
 
 $(function() {
@@ -348,8 +348,13 @@ $(function() {
 			}
 		},5000);	
 	};
+	
 	//즐겨찾기 추가
 	$("#favorite").on("click",function() {
+		if(typeof loginId == "undefined") {
+			alert("로그인이 필요합니다");
+			return false;
+		}
 		var params ={
 				_csrf:"${_csrf.token}",
 				artno: ${artPageByUser.artno},
@@ -363,6 +368,10 @@ $(function() {
 	
 	// 구매하기
 	$("#payment").on("click",function(){
+		if(typeof loginId == "undefined") {
+			alert("로그인이 필요합니다");
+			return false;
+		}
 		var $amount = $("#numberUpDown").val(); 
 		var params  ={
 			_csrf: '${_csrf.token}',
@@ -373,7 +382,7 @@ $(function() {
 // 			artName : ${ordering.artName},
 			artno:${artPageByUser.artno},
 			totalPrice:${artPageByUser.price},
-			amount:1, 
+			amount:$('#numberUpDown').text(),
 			//optionName:'${artPageByUser.optionName}',
 			optionName:$("#optionName").val(),
 			optionValue:'${artPageByUser.optionValue}',
@@ -393,6 +402,12 @@ $(function() {
 	
 	//장바구니 추가
 	$("#addBag").on("click",function() {
+		// 총 금액
+		console.log($("#totalPrice").text());
+		if(typeof loginId == "undefined") {
+			alert("로그인이 필요합니다");
+			return false;
+		}
 		var confirm_val = confirm("장바구니로 이동하시겠습니까?");
   		if(confirm_val) {
   			var $amount = $("#numberUpDown").val(); 
@@ -401,7 +416,7 @@ $(function() {
 				username: "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}",
 				artno:${artPageByUser.artno},
 				totalPrice:${artPageByUser.price},
-				amount:1,
+				amount:$('#numberUpDown').text(),
 				//optionName:'${artPageByUser.optionName}',
 				optionName:$("#optionName").val(),
 				optionValue:'${artPageByUser.optionValue}',
@@ -431,36 +446,40 @@ $(function() {
 
 //1. 작품 상세(고객용)에서 수량 카운트는 되나 실제로 적용 안됨
 // 수량 증가 감소
-	$(function(){
+$(function(){
 	$('#decreaseQuantity').click(function(e){
-	e.preventDefault();
-	var stat = $('#numberUpDown').text();
-	var num = parseInt(stat,10);
-	num--;
-	if(num<=0){
-	alert('1개이상 구매가능합니다.');
-	num =1;
-	}
-	$('#numberUpDown').text(num);
+		e.preventDefault();
+		var stat = $('#numberUpDown').text();
+		var num = parseInt(stat,10);
+		num--;
+		if(num<=0){
+			alert('1개이상 구매가능합니다.');
+			num =1;
+		}
+		$('#numberUpDown').text(num);
+	 	$("#totalPrice").text($('#numberUpDown').text()*${artPageByUser.price+artPageByUser.optionPrice}+${artPageByUser.couriPrice});
 	});
-	$('#increaseQuantity').click(function(e){
-	e.preventDefault();
-	var stat = $('#numberUpDown').text();
-	var num = parseInt(stat,10);
-	num++;
 	
-	if(num>${artPageByUser.stock}){
-	alert('남은 수량을 확인해주세요.');
-	num=${artPageByUser.stock};
-	}
-	$('#numberUpDown').text(num);
+	$('#increaseQuantity').click(function(e){
+		e.preventDefault();
+		var stat = $('#numberUpDown').text();
+		var num = parseInt(stat,10);
+		num++;
+		if(num>${artPageByUser.stock}) {
+			alert('남은 수량을 확인해주세요.');
+			num=${artPageByUser.stock};
+		}
+		$('#numberUpDown').text(num);
+		// 수량 변경시 적용되는 총 금액
+	 	$("#totalPrice").text($('#numberUpDown').text()*${artPageByUser.price+artPageByUser.optionPrice}+${artPageByUser.couriPrice});
 	});
-	});
+	// 기본 수량 1일 때의 총 금액
+ 	$("#totalPrice").text($('#numberUpDown').text()*${artPageByUser.price+artPageByUser.optionPrice}+${artPageByUser.couriPrice});
+});
 
 </script>
 </head>
 <body>
-${art }	
 <div>
 	<div id="main">
 		<div>
@@ -526,9 +545,9 @@ ${art }
 <!-- 				            </button> -->
 <!--             			</div> -->
 						<div class="number">
-						    <a href="#" id="decreaseQuantity">-</a>
+						    <a href="#" id="decreaseQuantity" data-artno="${artPageByUser.artno}">-</a>
 							<span id="numberUpDown">1</span>
-							<a href="#" id="increaseQuantity">+</a>
+							<a href="#" id="increaseQuantity" data-artno="${artPageByUser.artno}">+</a>
 						
 						</div>
 
@@ -552,7 +571,7 @@ ${art }
 					<br><br>
 					<div>
 						<span>총 결제 금액</span>
-						<strong>${artPageByUser.price+artPageByUser.optionPrice+artPageByUser.couriPrice}</strong>
+						<strong id="totalPrice">${artPageByUser.price+artPageByUser.optionPrice+artPageByUser.couriPrice}</strong>
 					</div>				
 				</div>
 			</div>

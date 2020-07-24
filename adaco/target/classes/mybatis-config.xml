@@ -28,10 +28,10 @@
 		<typeAlias type="com.icia.adaco.entity.Story" alias="story"/>
 		<typeAlias type="com.icia.adaco.entity.StoryComment" alias="storyComment"/>
 		<typeAlias type="com.icia.adaco.entity.User" alias="user"/>
-		
 	</typeAliases>
 	<typeHandlers>
 		<typeHandler handler="com.icia.adaco.util.typehandler.LocalDateTimeTypeHandler"/>
+		<typeHandler javaType="com.icia.adaco.entity.orderState" handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" />
 	</typeHandlers>    
 	  
 </configuration>

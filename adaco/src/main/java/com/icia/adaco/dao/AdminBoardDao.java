@@ -10,7 +10,6 @@ import com.icia.adaco.entity.*;
 
 @Repository
 public class AdminBoardDao {
-
 	@Autowired
 	private SqlSessionTemplate tpl;
 	
@@ -66,7 +65,6 @@ public class AdminBoardDao {
 		map.put("searchType", searchType);
 		return tpl.selectList("adminBoardMapper.findAllByQuestion", map);
 	}
-	
 	
 //	1:1 문의 읽기
 	public Question findQuestionById(int qno) {

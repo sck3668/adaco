@@ -19,6 +19,7 @@ public class ReportDao {
 		map.put("cno",cno);
 		return sql.selectOne("reportMapper.existsUsername",map);
 	}
+	
 	public int insert(String username,int cno ) {
 		Map<String,Object> map=new HashMap<String, Object>();
 		map.put("username",username);

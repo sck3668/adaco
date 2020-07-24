@@ -12,7 +12,6 @@ import com.icia.adaco.service.rest.*;
 
 @Controller
 public class OrderRestController {
-	
 	@Autowired
 	private OrderRestService orderservice;
 	

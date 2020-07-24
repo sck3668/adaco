@@ -140,12 +140,9 @@ ul.sub li:hover {
 	<!-- content -->
 	<div class="container pt-3">
 		<div class="row">
-			<!-- left content -->
 			<div class="col-sm-3">
-				<!-- side menu (link) -->
 				<h3>
-					<strong>
-						MY Menu</strong>
+					<strong>MY Menu</strong>
 				</h3>
 				<ul class="list-group" id="navi">
 					<li class="list-group-item list-group-item-action"><a href="/adaco/user/read" style="color: black; text-decoration: none;">내 정보 보기</a></li>

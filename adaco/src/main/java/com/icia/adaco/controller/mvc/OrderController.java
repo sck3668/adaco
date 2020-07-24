@@ -70,12 +70,6 @@ public class OrderController {
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/order/after")
 	public ModelAndView after(Principal principal,OrderDto.DtoForAfter dto) {
-		System.out.println("after dto=="+dto);
-//		OrderDto.DtoForAfter(orderno=84, optno=4, artno=200, artistno=1, mainImg=null,
-//				artName=null, amount=0, price=0, accumulated=0, totalPrice=0,
-//				username=null, recipient=송찬권, tel=01023088434, 
-//				originalAddress=서울 강서구 강서로 375111 (마곡동), refundAccount=11122222, 
-//				request=[111])
 		orderDService.payment(dto,principal.getName());
 		//구매한 수량만큼 작품 재고에서 차감
 		Art art = artDao.readByArt(dto.getArtno());
@@ -86,6 +80,7 @@ public class OrderController {
 			}
 		art.setStock(stock);
 		artDao.updateByArt(art);
+
 //		메시지 보내기 파트
 		int artistno = dto.getArtistno();
 		String artistName = artistDao.findByid(artistno).getUsername();
@@ -99,5 +94,4 @@ public class OrderController {
 		msgService.send(message);
 		return new ModelAndView("main").addObject("viewName","order/after.jsp").addObject("order",orderDService.OrderDetail(dto,principal.getName()));
 	}
-	
 }

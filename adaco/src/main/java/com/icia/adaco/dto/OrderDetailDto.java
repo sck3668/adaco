@@ -8,6 +8,7 @@ import lombok.experimental.*;
 
 public class OrderDetailDto {
 	private OrderDetailDto() {}
+	
 	@Data
 	@AllArgsConstructor
 	@NoArgsConstructor
@@ -61,7 +62,6 @@ public class OrderDetailDto {
 		private Integer addPoint;
 		private String postalcode;
 		private String refundAccount;
-		
 	}
 	
 		// 주문 상태 업데이트
@@ -70,7 +70,7 @@ public class OrderDetailDto {
 		@NoArgsConstructor
 		@Builder
 		@Accessors(chain=true)
-		public static class DtoForUpdate{
+	public static class DtoForUpdate{
 		private Integer orderno;
 		private orderState orderstate;
 		private Integer artistno;

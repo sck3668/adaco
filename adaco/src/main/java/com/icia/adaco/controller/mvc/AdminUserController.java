@@ -31,5 +31,4 @@ public class AdminUserController {
 	public ModelAndView userRead(String username) {
 		return new ModelAndView("admin/user/read").addObject("user", service.userRead(username)).addObject("authorityType", service.getAuthorityType());
 	}
-	
 }

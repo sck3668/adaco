@@ -12,7 +12,7 @@ public class Attachment {
 	private String originalFileName;
 	private String writer;
 	private String saveFileName;
-	private Integer length;
+	private Integer length;		
 	private Integer storyno;
 	private boolean isImage;
 	private String artno;

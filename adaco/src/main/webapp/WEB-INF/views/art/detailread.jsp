@@ -219,7 +219,6 @@ $(function() {
 </script>
 </head>
 <body>	
-${artDetailPage} 
 	<h2>상세 정보 조회 및 수정</h2><br>
 	<form role="form" method="post" autocomplete="off">
 		<input type="hidden" name="artNum" value="${art.artNum}" />
@@ -257,11 +256,11 @@ ${artDetailPage}
 				      </c:forEach>
 				    </ul>
 				  </div>
-				  <div id = "artSajin"></div>
-				  <button type = "button" id = "add" name="add">작품 이미지 추가</button>
-				  <button type = "button" id = "deleteUpload" >업로드 취소</button>
-<!-- 				  <input type="file" name="artSajin" id="artSajin" /> -->
-				  <span class="nxt_fix" style="display:none;"></span>
+				  <div id = "artSajinArea"></div>
+				 	 <button type = "button" id = "add" name="add">작품 이미지 추가</button>
+					  <button type = "button" id = "deleteUpload" >업로드 취소</button>
+					  <input type="file" name="artSajin" id="artSajin" />
+					  <span class="nxt_fix" style="display:none;"></span>
 				</div>
 			</tr>
 			<tr>

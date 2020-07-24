@@ -14,8 +14,6 @@ import com.icia.adaco.exception.*;
 
 @Service
 public class OrderRestService {
-	
-	
 	@Autowired
 	private OrderDao orderDao;
 	

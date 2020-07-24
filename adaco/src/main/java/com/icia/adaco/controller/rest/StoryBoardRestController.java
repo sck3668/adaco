@@ -7,6 +7,7 @@ import javax.validation.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
+import org.springframework.security.access.prepost.*;
 import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.*;
@@ -21,15 +22,15 @@ public class StoryBoardRestController {
 	@Autowired
 	private StoryRestService restService;
 	
-	
-	//@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated()")
 	@PatchMapping("/story/update")
 	public ResponseEntity<?> updateStory(Principal principal, StoryBoardDto.DtoforUpdate updateDto) {
 		updateDto.setWriter(principal.getName());
 		restService.updateStory(updateDto, principal);
 		return ResponseEntity.ok(null);
 	}
-	//@PreAuthorize("isAuthenticated()")
+	
+	@PreAuthorize("isAuthenticated()")
 	@DeleteMapping("/story/delete")
 	public ResponseEntity<?> deleteStory(Principal principal,Integer storyno){
 		restService.deleteStory(principal, storyno);

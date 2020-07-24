@@ -86,8 +86,6 @@ public class UserService {
 		user.setJoinDate(LocalDateTime.now());
 		userDao.insert(user);
 
-		/* List<String> authorities = dto.getAuthorities(); */
-		/* for(String authority:authorities) */ 
 			authorityDao.insert(user.getUsername(), "ROLE_USER");
 		//사진 이메일 링크 보내기
 		String link = "<a href='http://localhost:8081/adaco/user/join_check?checkCode=" + checkCode + "'>";
@@ -116,22 +114,27 @@ public class UserService {
 		return dto;
 		
 	}
+	
 	//전화번호로 이름찾기
 	public String findByTel(String tel) {
 		return userDao.findidByCheckTel(tel);
 	}
+	
 	// 이름 존재 여부
 	public boolean exsitsUsername(String irum) {
 		return userDao.existsUsername(irum);
 	}
+	
 	// 이메일이 존재 여부
 	public boolean existsEmail(String email) {
 		return userDao.existsEmail(email);
 	}
+	
 	// 이메일로 유저네임 찾기
 	public String findByEmail(String email) {
 		return userDao.findidByCheckEmail(email);
 	}
+	
 	// 이름으로 유저네임 찾기
 	public String findByIrum(String irum) {
 		String username = userDao.findidByCheckName(irum);
@@ -140,12 +143,10 @@ public class UserService {
 		
 		return userDao.findidByCheckName(irum);
 	}
+	
 	// 회원가입시 체크코드 로확인
 	public void joinCheck(@NotNull String checkCode) {
 			String username = userDao.findJoinCheckCode(checkCode);
-			/*
-			 * if(username==null) throw new UserNotFoundException();
-			 */
 			User u = User.builder().enabled(true).checkCode(checkCode).username(username).build();
 			userDao.update(u);
 	}
@@ -163,14 +164,13 @@ public class UserService {
 		dto.setUsername(point1.getUsername());
 		dto.setPoint(point1.getPoint());
 		listPoint.add(dto);
-	    }
-}
-		else {
+			}
+		} else {
 			return listPoint;
-			
 		}
 		return listPoint;
-}
+	}
+	
 	//포인트 합계
 	public Integer totalpoint(String username) {
 		if(userDao.TotalPoint(username)==null) {
@@ -178,26 +178,32 @@ public class UserService {
 		} 
 		return userDao.TotalPoint(username);
 	}
-	//페이보릿즐찾리스트
+	
+	//즐겨찾기리스트
 	public List<Favorite> favoriteList(String username){
 		return userDao.findAllFavorite(username);
 	}
-	//페이보릿 유저네임으로 개수세기
+	
+	//즐겨찾기 유저네임으로 개수세기
 	public String FavoriteUsernameCount(String username) {
 		return userDao.Favoritecount(username);
 	}
+	
 	//유저리뷰함
 	public List<Review> reviewList(String username){
 		return userDao.listByReviewUser(username);
 	}
+	
 	//리뷰개수 유저네임으로세기
 	public String ReviewUsernameFind (String username) {
 		return userDao.ReviewcountUsername(username);
 	}
+	
 	//삭제리뷰함	
 	public void delete(String username) {
 		userDao.delete(username);
 	}
+	
 	// 2단계 아이디 찾기 시 랜덤 이름 값
 	public List<String> findAllIrum() {
 		List<String> list = new ArrayList<String>();
@@ -212,6 +218,7 @@ public class UserService {
 			  }
 		return randomList;
 	}
+	
 	//2단계 비밀번호 찾기
 	public void resetPassword(String username,String email) throws MessagingException {
 		User user = userDao.findByid(username);
@@ -227,6 +234,7 @@ public class UserService {
 	Mail mail = Mail.builder().sender("webmaster@icia.com").receiver(email).title("임시비밀번호 발급안내").content(text.toString()).build();
 		mailUtil.sendMail(mail);
 	}
+	
 	//비밀번호 변경후로그인후 변경
 	public void changePwd(String password, String newPassword, String username) {
 		User user = userDao.findByid(username);
@@ -240,7 +248,8 @@ public class UserService {
 		else
 			throw new JobFailException("잘못된 비밀번호 입니다");
 	}
-	//오더리스트
+	
+	//회원 주문목록
 	public Page orderList(@RequestParam(defaultValue ="1")int pageno,String username) {
 		int countOfBoard = orderDao.count(username);
 		Page page = PagingUtil.getPage(pageno, countOfBoard);
@@ -248,13 +257,10 @@ public class UserService {
 		int ern = page.getEndRowNum();
 		List<Order>orderList = orderDao.findAllByOrder(srn, ern, username);
 		List<OrderDto.DtoForList> orderListDto = new ArrayList<OrderDto.DtoForList>();
-//		orderService.payment(username, dto);
 		for(Order order:orderList) {
 			OrderDto.DtoForList dto = modelMapper.map(order,OrderDto.DtoForList.class);
 			int orderno = order.getOrderno();
-			System.out.println(orderno+"오더엔오");
 			OrderDetail orderDetail = orderDetailDao.OrderDetail(orderno);
-			System.out.println(orderDetail+"오더디테일");
 			if(orderDetail==null) {
 				return null;
 			}
@@ -262,14 +268,15 @@ public class UserService {
 			dto.setOrderDateStr(order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
 			dto.setArtName(orderDetail.getArtName());
 			dto.setArtPrice(orderDetail.getPrice());
-			dto.setOrderstate(orderState.입금대기);
+			dto.setOrderstate(orderDetail.getOrderstate());
 			orderListDto.add(dto);
 			}
 		}
 		page.setOrderList(orderListDto);
 		return page;
 	}
-	//오더리드
+	
+	//회원 주문 상세
 	public OrderDetailDto.DtoForReadOrder userOrderRead(String username,String artName) {
 		OrderDetail orderDetail = orderDetailDao.findArtnoByOrderDetail(artName);
 		List<Order> Charge = orderDao.findUsernameByCharge(username);

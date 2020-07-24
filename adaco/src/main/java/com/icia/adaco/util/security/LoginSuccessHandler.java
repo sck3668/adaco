@@ -31,16 +31,6 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
-		/*
-		 * // 일반회원권한으로 로그인 시 메인화면
-		 * if(authorityDao.findByUsername(username).equals("ROLE_USER")) {
-		 * rs.sendRedirect(request, response, "/art/listByUser"); } // 작가 회원으로 로그인 시
-		 * 메인화면 else if(authorityDao.findByUsername(username).equals("ROLE_USER")) {
-		 * rs.sendRedirect(request, response, "/adaco/art/listByArtist"); } // 관리자로 로그인
-		 * 시 메인화면 else if(authorityDao.findByUsername(username).equals("ROLE_AMIN")) {
-		 * 
-		 * }
-		 */
 		
 		HttpSession session = request.getSession();
 		

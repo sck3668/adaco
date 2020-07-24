@@ -26,8 +26,6 @@ public class ShopRestController {
 	
 	@PutMapping("/artist/updateByShop")
 	public ResponseEntity<?> updateShop(ShopDto.DtoForUpdate updateDto,  MultipartFile sajin , Principal principal) throws IllegalStateException, IOException {
-//		int artistno =	artistDao.findArtistnoByUsername(principal.getName());
-		System.out.println(updateDto+"ggggggggggg");
 		shopRestService.updateByShop(principal.getName(), sajin, updateDto);
 		return ResponseEntity.ok(null);
 	}
@@ -39,12 +37,11 @@ public class ShopRestController {
 		return ResponseEntity.ok(null);
 		}
 	
-//	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated()")
 	@DeleteMapping("/artist/delete")
 	public ResponseEntity<?> delete(Principal principal) {
-		System.out.println("username==="+principal.getName());
 		int artistno = artistDao.findArtistnoByUsername(principal.getName());
-		System.out.println("artistno==="+artistno);
+		System.out.println(artistno+"!!!");
 		shopRestService.shopDelete(artistno);
 		return ResponseEntity.ok(null);
 	}

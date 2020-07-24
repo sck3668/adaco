@@ -12,10 +12,12 @@ import com.icia.adaco.entity.*;
 public class ReviewDao {
 	@Autowired
 	private SqlSessionTemplate tpl;
+	
 	//작품 리뷰 작성 
 	public int writeByReviewOfArt(Review review) {
 		return tpl.insert("reviewMapper.insert", review);
 	}
+	
 	//작품 리뷰 목록
 	public List<Art> listByReviewOfArt(int startRowNum, int endRowNum){
 		Map<String, Integer>map = new HashMap<>();
@@ -23,10 +25,13 @@ public class ReviewDao {
 		map.put("endRowNum",endRowNum);
 		return tpl.selectList("reviewMapper.findAll",map); 
 	}
+	
 	//작품 리뷰 삭제
 	public int deleteByReviewOfArt(int rno) {
 		return tpl.delete("reviewMapper.delete",rno);
 	}
+	
+	// username으로 리뷰 리스트 찾기
 	public List<Art> listByReviewOfusername(String username){
 		return tpl.selectList("reviewMapper.listByReviewOfusername",username);
 	}
@@ -35,15 +40,14 @@ public class ReviewDao {
 	public Review readByReviewOfArt(Integer rno) {
 		return tpl.selectOne("reviewMapper.findById",rno);
 	}
+	
 	//리뷰 갯수
 	public int countByReviewOfArt() {
 		return tpl.selectOne("reviewMapper.count");
 	}
-	//리뷰파인드올
+	
+	//모든 리뷰 찾기
 	public List<Review> findAllReview(int artno){
 		return tpl.selectList("reviewMapper.findAllReview",artno);
 	}
-	
-	
-
 }	

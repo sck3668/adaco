@@ -14,9 +14,9 @@ public class Shop {
 	private Integer artistno;
 	private String shopName;
 	private String shopIntro;
-	private String businessno;
-	private String account;
+	private String businessno;	//사업자번호
+	private String account;		//계좌
 	private String image;
-	private String forwarding;
-	private String back;
+	private String forwarding;	//출고지
+	private String back;		//반품지
 }

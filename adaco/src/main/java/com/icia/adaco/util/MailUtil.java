@@ -24,7 +24,6 @@ public class MailUtil {
 		messageHelper.setSubject(mail.getTitle());
 		// 이메일 내용
 		messageHelper.setText(mail.getContent(), true);
-		System.out.println(message+"메세지이ㅣ이이이");
 		mailSender.send(message);
 	}
 }

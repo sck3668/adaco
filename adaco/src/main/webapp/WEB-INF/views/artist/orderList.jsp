@@ -198,16 +198,16 @@ $(document).ready(function(){
 <!--       <div id="profile"> -->
 <!--       </div> -->
       <div class="col-sm-3">
-				<h3>MY Menu</h3>
-				<ul class="list-group" id="menu">
-					<li class="list-group-item list-group-item-action"><a
-						href="/adaco/artist/shopPage"
-						style="color: black; text-decoration: none;">상점 정보</a></li>
+				<h3>
+					<strong>My Menu</strong>
+				</h3>
+				<ul class="list-group" id="navi">
+					<li class="list-group-item list-group-item-action">
+						<a href="/adaco/artist/shopPage" style="color: black; text-decoration: none;" >상점 정보</a>
+					</li>
 					<li class="list-group-item list-group-item-action" id="group">
 						<div class="title">
-							<a style="color: black; text-decoration: none;">
-							작품 관리
-							</a>
+							<a style="color: black; text-decoration: none;">작품 관리</a>
 						</div>
 						<ul class="sub"> 
 							<li>
@@ -220,17 +220,33 @@ $(document).ready(function(){
 							</li>
 						</ul>
 					</li>
-					<li class="list-group-item list-group-item-action"><a
-						href="/adaco/artist/artistRead"
-						style="color: black; text-decoration: none;">내 정보 관리</a></li>
-					<li class="list-group-item list-group-item-action"><a
-						href="/adaco/artist/orderList"
-						style="color: black; text-decoration: none;">주문 / 배송 관리</a></li>
-					<li class="list-group-item list-group-item-action"><a
-						href="#" style="color: black; text-decoration: none;">메세지함</a></li>
-					<li class="list-group-item list-group-item-action"><a
-						href="/adaco/artist/sales"
-						style="color: black; text-decoration: none;">매출 관리</a></li>
+					<li class="list-group-item list-group-item-action">
+						<a href="/adaco/artist/artistRead" style="color: black; text-decoration: none;">내 정보 관리</a>
+					</li>
+					<li class="list-group-item list-group-item-action">
+						<a href="/adaco/artist/orderList" style="color: black; text-decoration: none;">판매내역</a>
+					</li>
+					<li class="list-group-item list-group-item-action">
+						<div class="title">
+							<a style="color: black; text-decoration: none;">메세지함</a>
+						</div>
+						<ul class="sub"> 
+							<li>
+								<a href="/adaco/message/listSender" style=" text-decoration: none;" >
+									<i></i>보낸쪽지함</a>
+							</li>
+							<li>
+								<a href="/adaco/message/listReceiver" style=" text-decoration: none;" >
+									<i></i>받은쪽지함</a>
+							</li>
+						</ul>
+					</li>
+					<li class="list-group-item list-group-item-action">
+						<a href="/adaco/artist/sales" style="color: black; text-decoration: none;">매출 관리</a>
+					</li>
+					<li class="list-group-item list-group-item-action">
+						<a href="/adaco/artist/questionList" style="color: black; text-decoration: none;">문의내역</a>
+					</li>
 				</ul>
 			</div>
    </div>

@@ -5,14 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript"> 
-var message = '${msg}'; 
-var returnUrl = '${url}'; 
-alert(message); 
-document.location.href = url; 
-</script>
+
 </head>
 <body>
-
+	<script type="text/javascript"> 
+		var message = '${msg}'; 
+		var returnUrl = '${url}'; 
+		alert(mag); 
+		document.location.href = url; 
+	</script>
 </body>
 </html>

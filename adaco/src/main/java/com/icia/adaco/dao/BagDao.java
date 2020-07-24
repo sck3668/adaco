@@ -67,5 +67,4 @@ public class BagDao {
 	public Bag findBagByUsername(String username) {
 		return tpl.selectOne("bagMapper.findBagByUsername",username);
 	}
-
 }

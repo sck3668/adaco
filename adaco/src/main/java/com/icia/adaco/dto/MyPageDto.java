@@ -12,9 +12,8 @@ import lombok.experimental.*;
 @NoArgsConstructor
 @Accessors(chain=true)
 @Builder
-public class MyPageDto {
+	public class MyPageDto {
 		private List<Favorite> favorite;
 		private List<Review> review;
 		private int point;
-		
-}
+	}
