@@ -105,7 +105,24 @@ public class ArtService {
 	}
 
 	// 작품 리스트 최신순 + 작품이름으로 작품 검색 (회원용)
-	public Page listFromUser(int pageno, @Nullable String artname, @Nullable String category) {
+	public Page listFromUser(int pageno, @Nullable String artname, @Nullable String category,@Nullable String writer) {
+		System.out.println("writer=="+writer);
+		if(writer!=null) {
+			Integer artistno = artistdao.findArtistnoByUsername(writer);
+			int countOfArt = artdao.countSearchByCategory(category,artistno);
+			Page page = PagingUtil.getPage(pageno, countOfArt);
+			int srn = page.getStartRowNum();
+			int ern = page.getEndRowNum();
+			page.setSearch(category);
+			List<Art> artList = artdao.listByArt1(srn, ern, category,artistno);
+			List<ArtDto.DtoForList> dtoList = new ArrayList<ArtDto.DtoForList>();
+			for (Art art : artList) {
+				ArtDto.DtoForList dto = modelMapper.map(art, ArtDto.DtoForList.class);
+				dtoList.add(dto);
+			}
+			page.setArtList(dtoList);
+			return page;
+		}
 		int countOfArt = artdao.countSearchByArtNameCG(artname,category);
 		Page page = PagingUtil.getPage2(pageno, countOfArt);
 		int srn = page.getStartRowNum();

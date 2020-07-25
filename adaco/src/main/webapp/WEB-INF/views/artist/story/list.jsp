@@ -149,15 +149,6 @@
 			location.href = "/adaco/art/listByUser?writer=" + $(this).data("writer");
 		});
 		
-		// 1-3. 모달 대화상자의 가입일 조회 클릭
-		$("#find_joindate").on("click", function() {
-			console.log("/adaco/user/joinDate?username=" + $(this).attr("data-writer"));
-			$.ajax({
-				url: "/adaco/user/joinDate?username=" + $(this).attr("data-writer"),
-				method: "get",
-			}).done((result)=>swal($(this).attr("data-writer") + "님의 가입일", result, "success")).fail(()=>swal("오류 발생!", $(this).attr("data-writer") + "님의 가입일", "warning"));
-		});
-		
 		// 1-5. 모달 대화상자의 메모 보내기
 		$("body").on("click", "#write_memo", function() {
 			location.href = "/adaco/message/write?recipientId=" + $(this).attr("data-writer")

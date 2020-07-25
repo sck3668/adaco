@@ -102,7 +102,7 @@ public class ArtDao {
 	}
 	
 	//검색어에 해당되는 작품 수
-	public int countSearchByCategory(String category,int artistno) {
+	public int countSearchByCategory(@Nullable String category,int artistno) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("category", category);
 		map.put("artistno",artistno);

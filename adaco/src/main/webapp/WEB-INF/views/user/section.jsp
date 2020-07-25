@@ -2,10 +2,10 @@
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>           
-    
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
  <link
@@ -62,6 +62,19 @@
  </style> 
 <script type="text/javascript">
 $(function(){
+// 	$("#category").on("click",function() {
+// 		var url = decodeURIComponent(window.location.href);
+// 		var idx = url.lastIndexOf("=");
+// 		var category = url.substring(idx+1);
+// 		console.log(category);
+// 		if(category!='${artPage.pageno}') {
+// 			/adaco/art/listByUser?artname=${artPage.search }&pageno=${i}&category=${artPage.artList[i].category}
+// 			$("#category").attr("href","/adaco/art/listByUser?pageno="+${i}&category=${artPage.artList[i].category});
+// 		};
+	
+// 	});
+	
+	
 	$("#search").on("click", function(){
 		var artname = $("#artname").val();
 		var url = decodeURIComponent(window.location.href);
@@ -73,7 +86,6 @@ $(function(){
 	$("#artname").on("keypress",function(key) {
 		var artname = $("#artname").val();
 		var url = decodeURIComponent(window.location.href);
-//			http://localhost:8081/adaco/art/listByUser?category=인테리어22
 		var idx = url.lastIndexOf("=");
 		var category = url.substring(idx+1);
 		if(key.keyCode!=13) {
@@ -99,8 +111,12 @@ $(function(){
 });	
 
 </script>
+
+
 </head>
 <body>
+
+${artPage }
 	<div class="container">
     <div class="row">
 				<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
@@ -182,9 +198,11 @@ $(function(){
 						<a href="/adaco/art/listByUser?artname=${artPage.search }&pageno=${i}">${i}</a></li>
 					</c:when>
 					<c:otherwise>
-						<li><a href="/adaco/art/listByUser?artname=${artPage.search }&pageno=${i}&category=${artPage.artList[i].category}">${i}</a></li>
+<%-- 								<li><a id="category" href="/adaco/art/listByUser?artname=${artPage.search }&pageno=${i}">${i}</a></li> --%>
+								<li><a href="/adaco/art/listByUser?artname=${artPage.search }&pageno=${i}&category=${artPage.artList[i].category}">${i}</a></li>
 					</c:otherwise>
 				</c:choose>
+<%-- 						<li><a href="/adaco/art/listByUser?artname=${artPage.search }&pageno=${i}&category=${artPage.artList[i].category}">${i}</a></li> --%>
 
 			</c:forEach>
 			<c:if test="${artPage.next==true}">
