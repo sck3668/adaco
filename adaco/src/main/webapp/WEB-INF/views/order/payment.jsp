@@ -451,7 +451,6 @@ ${order }
                      </a>
                   </div><!-- 버튼 닫힌 div -->
                         </div>
-                       
                         <!-- 결제정보 닫힌 div -->
                     </div><!-- ordercart 닫힌 div -->
 <!--                 </section> -->
