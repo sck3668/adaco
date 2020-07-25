@@ -39,7 +39,7 @@ public class OrderDto {
  		private int price;
  		private int artistno;
  		private int optno;
- 		private int orderno;
+ 		private List<Integer> ordernoList;
  		private int lastPrice;
  		
  	}
@@ -71,10 +71,10 @@ public class OrderDto {
  	@Builder
  	@Accessors(chain=true)
  	public static class DtoForAfter{
- 		private int orderno;
- 		private int optno;
- 		private int artno;
- 		private int artistno;
+ 		private List<Integer> ordernos;
+ 		private List<Integer> optnos;
+ 		private List<Integer> artnos;
+ 		private List<Integer> artistnos;
  		private String mainImg;
  		private String artName;
  		private int amount;

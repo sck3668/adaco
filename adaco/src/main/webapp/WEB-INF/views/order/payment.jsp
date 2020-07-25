@@ -64,16 +64,62 @@ th {
 // 	console.log(text[0]);
 // 	$("#accumulated").text(text[0]+"원");
 // 	})
+
+// 여러개 작품 결제하기
+ $(function() {
+	 
+	$("#payment").on("click",function() {
+		console.log($("#paymentForm").serialize());
+		alert("SS");
+		
+		
+// 		var ar=[];
+		
+// 		$(".artnos").each(function(idx) {
+// 			ar.push($(this).data("artno"));
+// 		 })
+// 		console.log(ar);
+// 		alert("DD");
+
+// 		var params = {
+// 				username: '${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}',
+// 				_csrf:"${_csrf.token}",
+// 				_method:"post",
+// 				artnos:JSON.stringify(ar),
+// 		}
+// 		$.ajax({
+// 			url:"/adaco/order/after",
+// 			data:params,
+// 			method:"post",
+// 			success:function(result) {
+// 				ordernos=JSON.stringify(result);
+// 				var params1 ={
+// 						ordernos:ordernos,
+// 						_csrf:"${_csrf.token}"
+// 				}
+// 				var $form = $("<form>").attr("action","/adaco/order/bagPayment").attr("method","get");
+// 				$("<input>").attr("type","hidden").attr("name","ordernos").val(ordernos).appendTo($form);
+// 				$("<input>").attr("type","hidden").attr("name","_csrf").val("${_csrf.token}").appendTo($form);
+// 				$form.appendTo($("body")).submit(); 
+// 			}
+// 		})
+// 		}
+	// 결제화면에서 작품리스트의 artno를 받아와서 배열에 넣고 orderno를 받아옴 	aftering
+	// String ordernos를 문자로 받아와 바꾸고 dto를 리턴				after
+	})
+ })
 </script>
 </head>
 <body>
 ${order }
 <form action="/adaco/order/after" id="paymentForm">
 <div id="content" class="content" data-page="payment" data-address-page="payment" style="padding-bottom:0">
-        <input type="hidden" name="orderno" value="${order.orderno }">
+    <c:forEach items="${order.ordernoList}" var="orderno">    
+        <input type="text" name="ordernos" value="${orderno}">
+    </c:forEach>
 	<c:forEach items="${order.artList}" var="art">
-        <input type="hidden" name="artno" value="${art.artno }">
-        <input type="hidden" name="artistno" value="${art.artistno }">
+        <input type="text" name="artnos" class="artnos" value="${art.artno }" data-artno="${art.artno}">
+        <input type="hidden" name="artistnos" value="${art.artistno }">
 	</c:forEach>
         <input type="hidden" name="optno" value="${order.option.optno }">
         <div class="inner-w800"><!-- 주문고객/배송정보 큰 열린 div -->

@@ -169,7 +169,7 @@ ${order }
 		<div>
 		<h4>주문 상품/배송지 정보</h4>
 		</div>
-		<p>주문 날짜:${order.orderDateStr}&nbsp;|&nbsp;주문 번호:${order.orderno}</p>
+		<p>주문 날짜:&nbsp;|&nbsp;주문 번호:</p>
 			<table>
 				<colgroup>
 					<col width="520px">
@@ -191,7 +191,7 @@ ${order }
 				</thead>								
 				<tbody>				
 					<tr> 
-						<td style="vertical-align: middle;"><a href="/adaco/art/readByUser?artno=${order.artno}"><img src="${order.mainImg }" width="150px" height="120px" ></a> ${order.artName}<br>옵션 :  ${order.optionValue }</td>
+<%-- 						<td style="vertical-align: middle;"><a href="/adaco/art/readByUser?artno=${order.artno}"><img src="${order.mainImg }" width="150px" height="120px" ></a> ${order.artName}<br>옵션 :  ${order.optionValue }</td> --%>
 						<td>${order.amount}개</td>
 						<td>${order.price*order.amount}원</td>
 						<td>${order.accumulated }</td>
@@ -207,7 +207,7 @@ ${order }
 				<thead>
 					<tr>
 						<th>계좌번호</th>
-						<td><span>${artist}(예금주: 주식회사 핸드스토리)</span></td>
+<%-- 						<td><span>${artist}(예금주: 주식회사 핸드스토리)</span></td> --%>
 						 
 					</tr>
 					<tr>
@@ -231,11 +231,11 @@ ${order }
 					</tr>
 					<tr>
 						<th>배송지</th>
-						<td><span>${order.originalAddress}</span></td>	
+<%-- 						<td><span>${order.originalAddress}</span></td>	 --%>
 					</tr>
 					<tr>
 						<th>배송 메세지</th>
-						<td><span>${order.request}</span></td>
+<%-- 						<td><span>${order.request}</span></td> --%>
 					</tr>
 				</thead>
 			</table>

@@ -186,7 +186,7 @@ public class ArtDao {
 	return tpl.selectList("artMapper.findAllArtnoByShopno",shopno);
 	}
 
-	public int findArtistnoByArtno(int artno) {
+	public int findArtistnoByArtno(@Nullable Integer artno) {
 	return tpl.selectOne("artMapper.findArtistnoByArtno",artno);
 	}
 

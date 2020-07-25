@@ -29,6 +29,8 @@ public class ShopController {
 	private ArtistDao artistDao;
 	@Autowired
 	private ArtService artService;
+	@Autowired
+	private ArtDao artDao;
 	
 	//상점개설 화면
 //	@PreAuthorize("isAuthenticated()")
@@ -59,15 +61,47 @@ public class ShopController {
 	//작가가 보는 상점페이지
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/artist/shopPage")
-	public ModelAndView shopPage(Principal principal) {
-		int artistno = artistDao.findArtistnoByUsername(principal.getName());
+	public ModelAndView shopPage(Principal principal,@Nullable Integer artno) {
+		int artistno;
+		if(artistDao.findArtistnoByUsername(principal.getName())!=null) {
+			artistno = artistDao.findArtistnoByUsername(principal.getName());
+		}
+		else {
+			artistno = artDao.findArtistnoByArtno(artno);
+		}
+//		int artistno = artistDao.findArtistnoByUsername(principal.getName());
 		Shop shop = shopDao.readShopByArtistno(artistno);
 		if(shop==null) {
 			return new ModelAndView("main").addObject("viewName","artist/artistpage.jsp")
 					.addObject("msg","msg");
 			}
 		int shopno = shop.getShopno();
+		
 		return new ModelAndView("main").addObject("viewName","artist/shopPage.jsp").addObject("shop",shopService.shopRead(shopno));
+	
+	}
+	
+	// 회원이 보는 상점 페이지
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/artist/shopPageByUser")
+	public ModelAndView shopPageByUser(Principal principal,@Nullable Integer artno) {
+		int artistno;
+		if(artistDao.findArtistnoByUsername(principal.getName())!=null) {
+			artistno = artistDao.findArtistnoByUsername(principal.getName());
+		}
+		else {
+			artistno = artDao.findArtistnoByArtno(artno);
+		}
+//		int artistno1 = artistDao.findArtistnoByUsername(principal.getName());
+		Shop shop = shopDao.readShopByArtistno(artistno);
+		if(shop==null) {
+			return new ModelAndView("main").addObject("viewName","artist/artistpage.jsp")
+					.addObject("msg","msg");
+			}
+		int shopno = shop.getShopno();
+		
+		return new ModelAndView("main").addObject("viewName","artist/shopPageByUser.jsp").addObject("shop",shopService.shopRead(shopno));
+	
 	}
 	
 	// shop이 존재하는지 체크

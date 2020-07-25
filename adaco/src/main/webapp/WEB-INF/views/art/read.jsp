@@ -515,7 +515,7 @@ $(function(){
 		  <span class="nxt_fix" style="display:none;"></span>
 		</div>
 		<div id="content">
-			<h3><strong>${artPageByUser.artName }</strong><a href="http://localhost:8081/adaco/artist/shopPage" style="text-decoration: none;">
+			<h3><strong>${artPageByUser.artName }</strong><a href="http://localhost:8081/adaco/artist/shopPageByUser?artno=${artPageByUser.artno }" style="text-decoration: none;">
 					<button type="button" class = "btn btn-outline-info" id="shop" style="margin-bottom: 10px; " > <!--style="float:right"  -->
 						상점 구경하러가기
 					</button>

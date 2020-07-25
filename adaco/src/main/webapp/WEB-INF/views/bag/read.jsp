@@ -115,12 +115,14 @@ function printBag(bag,dest) {
 	
 	$("<td class='first'>").append($("<input>").attr("type","checkbox").attr("class","check").attr("name","check").attr("data-artno", bag.artno)).appendTo($tr);
 	$("<td class='second'>").append($("<img>").attr("src", bag.art.mainImg).attr("id","img")).appendTo($tr);
-	$("<td class='third'>").text(bag.art.artName).appendTo($tr);
-
+	var $td = $("<td class='third'>").appendTo($tr);
+	$("<a href=/adaco/art/readByUser?artno="+(bag.art.artno)+">").text(bag.art.artName).appendTo($td);
 	var $td = $("<td class='fourth'>").appendTo($tr);
+	var $br = $("<br>");
 	$("<span>").text(bag.optionName).appendTo($td);
 	$("<span>").text(":").appendTo($td);
 	$("<span>").text(bag.optionValue).appendTo($td);
+	$("<span>").text("+"+bag.optionPrice).appendTo($td);
 // 	var $optionArea = $("<div class='price' id='optionArea'>").appendTo($td);
 // 	var optionList = bag.option;
 // 	var $optionArea = $("#optionArea");
@@ -384,7 +386,8 @@ $(function() {
 		})
 		}
 	})
-	
+	// 장바구니에서 선택한 작품의 artno를 받아와서 배열에 넣고 orderno를 받아옴
+	//String ordernos를 문자로 받아와 숫자로 바꾸고 dto로 리턴
 	
 	
 	// 주문 버튼을 클릭하면 해당 상품을 구입 후 이동

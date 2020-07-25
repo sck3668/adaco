@@ -115,6 +115,7 @@ public class OrderService {
 		List<Art> artList = new ArrayList<Art>();
 		List<Bag> bagList = new ArrayList<Bag>();
 		List<String> writerList = new ArrayList<String>();
+		List<Integer> ordernoList = new ArrayList<Integer>();
 		Art art = artDao.readByArt(artno);
 		int artistno = artDao.findArtistnoByArtno(artno);
 		int optno = optionDao.findOptnoByArtno(artno);
@@ -129,9 +130,10 @@ public class OrderService {
 		String artistName = userDao.findByid(artistUsername).getIrum();
 		artList.add(art);
 		bagList.add(bag);
+		ordernoList.add(orderno);
 		writerList.add(writer);
-		dto.setArtistName(artistName).setOption(option).setUser(user).setBag(bag).setArtistno(artistno).setOrderno(orderno);
-		dto.setArtList(artList).setBagList(bagList).setWriterList(writerList);
+		dto.setArtistName(artistName).setOption(option).setUser(user).setBag(bag).setArtistno(artistno);
+		dto.setOrdernoList(ordernoList).setArtList(artList).setBagList(bagList).setWriterList(writerList);
 		return dto;
 	}
 	
@@ -153,6 +155,7 @@ public class OrderService {
 			List<Art> artList = new ArrayList<Art>();
 			List<Bag> bagList = new ArrayList<Bag>();
 			List<String> writerList = new ArrayList<String>();
+			List<Integer> ordernoList = new ArrayList<Integer>();
 			for(int orderno:list) {
 				List<Integer> bagnoList = orderDao.findBagnoByOrderno(orderno);
 				for(int bagno1:bagnoList) {
@@ -167,12 +170,14 @@ public class OrderService {
 					Bag bag = bagDao.findByArtno(artno);
 					String artistUsername = artistDao.findByid(artistno).getUsername();
 					String artistName = userDao.findByid(artistUsername).getIrum();
-					dto.setArtistName(artistName).setOption(option).setUser(user).setArtistno(artistno).setOrderno(orderno);
+					dto.setArtistName(artistName).setOption(option).setUser(user).setArtistno(artistno);
 					artList.add(art);
 					bagList.add(bag);
+					ordernoList.add(orderno);
 					writerList.add(writer);
+					
 				}
-				dto.setArtList(artList).setBagList(bagList).setWriterList(writerList);
+				dto.setOrdernoList(ordernoList).setArtList(artList).setBagList(bagList).setWriterList(writerList);
 			}
 			return dto;
 		} else {
@@ -180,6 +185,7 @@ public class OrderService {
 			List<Art> artList = new ArrayList<Art>();
 			List<Bag> bagList = new ArrayList<Bag>();
 			List<String> writerList = new ArrayList<String>();
+			List<Integer> ordernoList = new ArrayList<Integer>();
 			for(int orderno:list) {
 				List<Integer> bagnoList = orderDao.findBagnoByOrderno(orderno);
 				for(int bagno1:bagnoList) {
@@ -193,14 +199,16 @@ public class OrderService {
 					Bag bag = bagDao.findByArtno(artno);
 					String artistUsername = artistDao.findByid(artistno).getUsername();
 					String artistName = userDao.findByid(artistUsername).getIrum();
-					dto.setArtistName(artistName).setOption(option).setUser(user).setArtistno(artistno).setOrderno(orderno);
+					dto.setArtistName(artistName).setOption(option).setUser(user).setArtistno(artistno);
 					artList.add(art);
 					bagList.add(bag);
+					ordernoList.add(orderno);
 					writerList.add(writer);
 				}
-				dto.setArtList(artList).setBagList(bagList).setWriterList(writerList);
+				dto.setOrdernoList(ordernoList).setArtList(artList).setBagList(bagList).setWriterList(writerList);
 			}
 			return dto;
 		}
 	}
+	
 }

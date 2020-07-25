@@ -1,7 +1,9 @@
 package com.icia.adaco.controller.mvc;
 
+import java.io.*;
 import java.security.*;
 import java.time.format.*;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
@@ -10,6 +12,8 @@ import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
 
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.core.type.*;
 import com.fasterxml.jackson.databind.*;
 import com.icia.adaco.dao.*;
 import com.icia.adaco.dto.*;
@@ -64,15 +68,22 @@ public class OrderController {
 				.addObject("order",orderService.bagOrderingD(principal.getName(),ordernos));
 	}
 	
+	
 	// 결제버튼 클릭 후 결제완료 창으로 이동
 	// 결제 버튼 클릭 후 orderDetail insert(payment)
 	// return은 orderDetail read(orderDetail)
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/order/after")
 	public ModelAndView after(Principal principal,OrderDto.DtoForAfter dto) {
+		System.out.println("dto==="+dto);
 		orderDService.payment(dto,principal.getName());
 		//구매한 수량만큼 작품 재고에서 차감
-		Art art = artDao.readByArt(dto.getArtno());
+		List<Integer> artnos = dto.getArtnos();
+		System.out.println("artnos=="+artnos);
+		for(int artno:artnos) {
+//		Art art = artDao.readByArt(dto.getArtno());
+		Art art = artDao.readByArt(artno);
+		System.out.println("art==="+art);
 		int amount = orderDetailDao.findArtnoByOrderDetail(art.getArtName()).getAmount();
 		int stock = art.getStock()-amount;
 		if(stock<=0) {
@@ -80,9 +91,11 @@ public class OrderController {
 			}
 		art.setStock(stock);
 		artDao.updateByArt(art);
-
+		}
 //		메시지 보내기 파트
-		int artistno = dto.getArtistno();
+		List<Integer> artistnos = dto.getArtistnos();
+		for(int artistno:artistnos) {
+//		int artistno = dto.getArtistno();
 		String artistName = artistDao.findByid(artistno).getUsername();
 		Message message = new Message();
 		message.setTitle(artistName+"님의 작품을 구매하셨습니다.");
@@ -92,8 +105,12 @@ public class OrderController {
 		message.setSendId(artistName);
 		message.setRecipientId(principal.getName());
 		msgService.send(message);
+		}
 		return new ModelAndView("main").addObject("viewName","order/after.jsp")
 				.addObject("order",orderDService.OrderDetail(dto,principal.getName()))
-				.addObject("artist",artistDao.findArtistnoByUsername(artistName));
+				.addObject("artist",artistDao.findArtistnoByUsername("sss"));
+		
 	}
+	///////////////////////
+	
 }

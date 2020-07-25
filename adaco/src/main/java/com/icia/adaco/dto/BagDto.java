@@ -42,6 +42,7 @@ public class BagDto {
 		private Integer amount;		//수량
 		private String optionName;
 		private String optionValue;
+		private int optionPrice;
 		private Art art;
 		public int lastPrice;
 		public int lastPrice(int totalPrice) {

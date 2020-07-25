@@ -39,7 +39,6 @@ $(document).ready(function(){
 <style>
  
 </style>
-${shop }
 <body>
 <section id="section">
 <div class="container">
