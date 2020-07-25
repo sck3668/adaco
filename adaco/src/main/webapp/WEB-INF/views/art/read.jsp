@@ -48,6 +48,7 @@
 	 
 	 }
 
+
 </style>
 <script></script>
 <sec:authorize access="isAuthenticated()">
@@ -231,7 +232,7 @@ $(function() {
 							}).done((r)=>{printReview(r),$("#review_textarea").val(""),location.reload(true)})
 							  .fail((r)=>{console.log(r)})
 					} else {
-						alert("구매한 사람만 리뷰작성 가능합니다"),location.reload(true);
+						Swal.fire('리뷰는 구매한 사람만 작성이 가능합니다.');
 					}
 				} 
 			})		
@@ -352,7 +353,11 @@ $(function() {
 	//즐겨찾기 추가
 	$("#favorite").on("click",function() {
 		if(typeof loginId == "undefined") {
-			alert("로그인이 필요합니다");
+			Swal.fire(
+					  '로그인이 필요합니다.',
+					  '',
+					  'warning'
+					)
 			return false;
 		}
 		var params ={
@@ -369,7 +374,11 @@ $(function() {
 	// 구매하기
 	$("#payment").on("click",function(){
 		if(typeof loginId == "undefined") {
-			alert("로그인이 필요합니다");
+			Swal.fire(
+					  '로그인이 필요합니다.',
+					  '',
+					  'warning'
+					)
 			return false;
 		}
 		var $amount = $("#numberUpDown").val(); 
@@ -394,7 +403,6 @@ $(function() {
 				method:"post",
 				data:params,
 				success:function(result) {
-					alert("구매하기");
 					location.href="/adaco/order/payment?artno="+result;
 				}
 			});
@@ -405,7 +413,11 @@ $(function() {
 		// 총 금액
 		console.log($("#totalPrice").text());
 		if(typeof loginId == "undefined") {
-			alert("로그인이 필요합니다");
+			Swal.fire(
+					  '로그인이 필요합니다.',
+					  '',
+					  'warning'
+					)
 			return false;
 		}
 		var confirm_val = confirm("장바구니로 이동하시겠습니까?");
@@ -453,7 +465,11 @@ $(function(){
 		var num = parseInt(stat,10);
 		num--;
 		if(num<=0){
-			alert('1개이상 구매가능합니다.');
+			Swal.fire(
+					  '한 개 이상 구매가 가능합니다.',
+					  '<a href>도움이 필요하신가요?<a>',
+					  'warning'
+					)
 			num =1;
 		}
 		$('#numberUpDown').text(num);
@@ -466,7 +482,11 @@ $(function(){
 		var num = parseInt(stat,10);
 		num++;
 		if(num>${artPageByUser.stock}) {
-			alert('남은 수량을 확인해주세요.');
+			Swal.fire(
+					  '남은 수량을 확인해주세요.',
+					  '<a href>도움이 필요하신가요?<a>',
+					  'warning'
+					)
 			num=${artPageByUser.stock};
 		}
 		$('#numberUpDown').text(num);
@@ -495,12 +515,12 @@ $(function(){
 		  <span class="nxt_fix" style="display:none;"></span>
 		</div>
 		<div id="content">
-			<h3><strong>${artPageByUser.artName }</strong></h3>
-				<a href="http://localhost:8081/adaco/artist/shopPage">
-					<button type="button" class = "btn btn-warning" id="shop" > <!--style="float:right"  -->
-						상점
+			<h3><strong>${artPageByUser.artName }</strong><a href="http://localhost:8081/adaco/artist/shopPage" style="text-decoration: none;">
+					<button type="button" class = "btn btn-outline-info" id="shop" style="margin-bottom: 10px; " > <!--style="float:right"  -->
+						상점 구경하러가기
 					</button>
-				</a><br>
+				</a></h3>
+				<br>
 			<div id="content1">
 			<table class = "table table-hover" style="text-align: center;">
 				<tr>
@@ -526,7 +546,7 @@ $(function(){
 				<tr>
 					<td class = "option">옵션 선택</td>
 					<td>
-						<select id="selectOption">
+						<select id="selectOption" >
 							<option selected="selected" id="selected">${artPageByUser.optionName }을 선택하세요</option>
 							<option value="${artPageByUser.optionName }" id="optionName">${artPageByUser.optionValue }</option>
 						</select>
@@ -544,10 +564,11 @@ $(function(){
 <!-- 				                + -->
 <!-- 				            </button> -->
 <!--             			</div> -->
+
 						<div class="number">
-						    <a href="#" id="decreaseQuantity" data-artno="${artPageByUser.artno}">-</a>
-							<span id="numberUpDown">1</span>
-							<a href="#" id="increaseQuantity" data-artno="${artPageByUser.artno}">+</a>
+						    <a href="#" id="decreaseQuantity" data-artno="${artPageByUser.artno}" style="text-decoration: none; border:0 solid black;" ><i class="far fa-minus-square"></i></a>
+							<span id="numberUpDown" style="width: 100px; height:23px;">1</span>
+							<a href="#" id="increaseQuantity" data-artno="${artPageByUser.artno}" style="text-decoration: none; border:0 solid black; "><i class="fas fa-plus-square" ></i></a>
 						
 						</div>
 

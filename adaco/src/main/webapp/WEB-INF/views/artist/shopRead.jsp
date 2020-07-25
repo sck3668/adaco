@@ -11,16 +11,13 @@
 	#profileUpdate{
 		float: right;	
 		}
-	 #aside { 
-       width:110px; 
-      height:500px; 
-    background-color: gray; 
-     float: left; 
-   } 
-    #profile { 
-       width:200px; 
-       height:200px; 
-    } 
+	
+#section {
+	width: 750px;
+	padding: 5px;
+	float: right;
+	min-height: 600px;
+}
 </style>
 <script>
 
@@ -126,25 +123,24 @@ $(function(){
 </head>
 <body>
 <div>
-${shop }
  <aside id="asideMain">
 	<div id="aside">
 		<div class="col-sm-3">
 				<!-- side menu (link) -->
 				<h3><strong><a href="/adaco/artist/artistpage" style="text-decoration: none; color: black;" >MY Menu</a></strong></h3>
 				<ul class="list-group" id="menu">
-					<li class="list-group-item list-group-item-action"><a
+					<li class="list-group-item list-group-item-action" style="width: 175px;"><a
 						href="/adaco/artist/shopPage"
-						style="color: black; text-decoration: none;">상점 정보</a></li>
-					<li class="list-group-item list-group-item-action"><a
+						style="color: black; text-decoration: none; ">상점 정보</a></li>
+					<li class="list-group-item list-group-item-action" style="width: 175px;" ><a
 						href="/adaco/artist/artistRead"
 						style="color: black; text-decoration: none;">내 정보 관리</a></li>
-					<li class="list-group-item list-group-item-action"><a
+					<li class="list-group-item list-group-item-action" style="width: 175px;" ><a
 						href="/adaco/order/artistSellList"
 						style="color: black; text-decoration: none;">판매내역</a></li>
-					<li class="list-group-item list-group-item-action"><a
+					<li class="list-group-item list-group-item-action"style="width: 175px;" ><a
 						href="#" style="color: black; text-decoration: none;">메세지함</a></li>
-					<li class="list-group-item list-group-item-action"><a
+					<li class="list-group-item list-group-item-action"style="width: 175px;" ><a
 						href="/adaco/artist/sales"
 						style="color: black; text-decoration: none;">매출 관리</a></li>
 				</ul>
@@ -155,26 +151,25 @@ ${shop }
 	<h3>상점 수정</h3>
 	<form action="/adaco/artist/updateByShop" method="post"  id="joinForm" enctype="multipart/form-data">
 		<div>
-			<img id ="show_profile" height="200px;" src="${shop.image }">
+			<img id ="show_profile" height="200px;" src="${shop.image }"><br><br>
 			 <input type="hidden" name="_csrf" value="${_csrf.token }">
-			 <input type="hidden" id="shopno" value="${shop.shopno }">
-			<button type="button" id="profileUpdate">프로필사진 업데이트</button>
+			 <input type="hidden" id="shopno" value="${shop.shopno }"><br><br>
+			<button type="button" id="profileUpdate" class="btn btn-success">프로필사진 업데이트</button>
 		</div>
-  
 		<div>
-			<input type="file" name="sajin" id="sajin">
+			<input type="file" name="sajin" id="sajin" style="margin-bottom: 5px;"><br><br>
 		</div>
 		<table class="table table-hover" id="user">
 			<tr>
-				<td class="first">이름:</td>
+				<td class="first">상점 이름:</td>
 				<td><span>
-				<input type="text" value="${shop.shopName}" name="shopName" id="shopName"></span></td>
+				<input class="form-control" type="text" value="${shop.shopName}" name="shopName" id="shopName" style="width: 300px;"></span></td>
 			</tr>
 				<!-- ================================================================ -->
 			<tr>
 				<td class="first1">상점 소개:</td>
 				<td><span>
-				<input type="text" value="${shop.shopIntro }" name="shopIntro" id="shopIntro"></span></td>
+				<input class="form-control" type="text" value="${shop.shopIntro }" name="shopIntro" id="shopIntro"></span></td>
 			</tr>
 				<!-- ================================================================ -->
 			<tr>
@@ -184,7 +179,7 @@ ${shop }
 			<tr>
 				<td class="first1">계좌번호:</td>
 				<td><span>
-				<input type="text" value="${shop.account}" name="account" id="account"></span></td>
+				<input class="form-control" type="text" value="${shop.account}" name="account" id="account"></span></td>
 			</tr>
 			<tr>
 				<td class="first1">출고지</td>
@@ -194,9 +189,9 @@ ${shop }
 				<td class="first1">반품지:</td>
 				<td><span id="birthDate">${shop.back }</span></td>
 			</tr>
-		</table>	
-		<button type="button" class="btn btn-info" id="update">변경하자</button>
-		<button type="button" class="btn btn-info" id="delete">삭제하기</button>
+		</table><br><br>
+		<button type="button" class="btn btn-info" id="update">변 경 하 기</button>
+		<button type="button" class="btn btn-danger" id="delete" style="margin-left: 500px;">삭 제 하 기</button>
 		</form>
 	</section>
 	</div>

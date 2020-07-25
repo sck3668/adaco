@@ -11,6 +11,9 @@
 	
 </sec:authorize>-->
 <style type="text/css">
+
+
+
 .visual_img li {
 	position: relative;
 	display: inline;
@@ -20,6 +23,47 @@
 	width: 500px;
 	height: 400px;	
 }
+
+
+.filebox {display:inline-block; margin-right: 10px;}
+
+
+.filebox label {
+  display: inline-block;
+  padding: .5em .75em;
+  color: #999;
+  font-size: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #fdfdfd;
+  cursor: pointer;
+  border: 1px solid #ebebeb;
+  border-bottom-color: #e2e2e2;
+  border-radius: .25em;
+}
+
+.filebox input[type="file"] {  /* 파일 필드 숨기기 */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip:rect(0,0,0,0);
+  border: 0;
+}
+
+.filebox.bs3-primary label {
+  color: #fff;
+  background-color: #337ab7;
+    border-color: #2e6da4;
+}
+
+.filebox.bs3-success label {
+  color: #fff;
+  background-color: #5cb85c;
+    border-color: #4cae4c;
+}
 </style>
 <script>
 $(function() {
@@ -28,7 +72,11 @@ $(function() {
 	$("#add").on("click", function(){
 		var cnt = $("input[name='artSajin']").length;
 		if(cnt>=5){
-			alert("최대 5개까지 업로드 가능합니다");
+			Swal.fire(
+      			  '최대 5개까지 등록됩니다.',
+      			  '',
+      			  'warning'
+      			)
 		return;
 		}
 		var $input = $("<input>").attr("type", "file").attr("name", "artSajin").attr("id", "artSajin").attr("accept", ".jpg,.jpeg,.png,.gif,.bmp");
@@ -150,7 +198,11 @@ $(function() {
 				}).done(()=>{alert("작품이 수정되었습니다.");
 				location.href="/adaco/art/listByArtist";
 				})
-				.fail(()=>{alert("작품 수정이 실패했습니다.");})
+				.fail(()=>{Swal.fire(
+						  '작품 수정 실패하였습니다.',
+						  '',
+						  'error'
+						)})
 				})
 });
 	
@@ -225,7 +277,7 @@ $(function() {
 		<h5>작품 기본정보</h5><br>
 		<table class="table table-hover" id="art">
 			<tr>
-				<td class="first">작품번호</td>
+				<td class="first" id="fi">작품번호</td>
 				<td colspan="2">
 				<span id="artno">${artDetailPage.artno}</span></td>
 			</tr>
@@ -242,7 +294,7 @@ $(function() {
 			<tr>
 				<td class="first">작품명</td>
 				<td colspan="2">
-				<input type="text" id="artName" name="artName" value="${artDetailPage.artName}" />
+				<input class="form-control" style="width: 350px;" type="text" id="artName" name="artName" value="${artDetailPage.artName}" />
 				</td>
 			</tr>
 			<tr>
@@ -257,46 +309,51 @@ $(function() {
 				    </ul>
 				  </div>
 				  <div id = "artSajinArea"></div>
-				 	 <button type = "button" id = "add" name="add">작품 이미지 추가</button>
-					  <button type = "button" id = "deleteUpload" >업로드 취소</button>
-					  <input type="file" name="artSajin" id="artSajin" />
+				 	 <button type = "button" id = "add" name="add" class="btn btn-primary">작품 이미지 추가</button>
+					  <button type = "button" id = "deleteUpload" class="btn btn-danger" >업로드 취소</button>
+<!-- 					  <input type="file" name="artSajin" id="artSajin" class="btn btn-success"/> -->
+<div class="filebox bs3-success">
+                          <label for="artSajin"style="margin-top: 9px;">프로필 업로드</label> 
+                          <input type="file" name="artSajin" id="artSajin"" />
+<!--                           <input type="file" id="ex_file2">  -->
+                        </div>
 					  <span class="nxt_fix" style="display:none;"></span>
 				</div>
 			</tr>
 			<tr>
 				<td class="first">작품가격</td>
 				<td colspan="2">
-				<input type="text" id="artPrice" name="artPrice" value="${artDetailPage.price}" /> 원
+				<input type="text" id="artPrice" name="artPrice" value="${artDetailPage.price}" class="form-control" style="width: 350px; display: inline;" /> 원
 				</td>
 			</tr>
 			<tr>
 				<td class="first">작품수량</td>
 				<td colspan="2">
-				<input type="text" id="artStock" name="artStock" value="${artDetailPage.stock}" />
+				<input type="text" id="artStock" name="artStock" value="${artDetailPage.stock}" class="form-control" style="width: 350px;" />
 				</td>
 			</tr>
 			<tr>
 				<td class="first">작품소개</td>
 				<td colspan="2">
-				<textarea rows="5" cols="50" id="artDetail" name="artDetail">${artDetailPage.artDetail}</textarea>
+				<textarea rows="5" cols="50" id="artDetail" name="artDetail" class="form-control" style="width: 350px;" >${artDetailPage.artDetail}</textarea>
 				</td>
 			</tr>
 			<tr>
 			<td class="first">옵션</td>
 				<td colspan="2">
 					<div id="optionArea">
-						<span class="key">옵션명 </span><input type="text" id="optionName" value="${artDetailPage.optionName}"><br>
-						<span class="key">옵션값 </span><input type="text" id="optionValue" value="${artDetailPage.optionValue}"><br>
-						<span class="key">옵션 추가가격 </span><input type="text" id="optionPrice" value="${artDetailPage.optionPrice}"><br>
-						<span class="key">옵션재고 </span><input type="text" id="optionStock" value="${artDetailPage.optionStock}">
-		  				<button type="button" class="btn btn-primary" id="updateOption">저장</button>
+						<span class="key">옵션 명 </span><input placeholder="옵션명"   class="form-control" style="width: 350px; " type="text" id="optionName" value="${artDetailPage.optionName}"><br>
+						<span class="key">옵션 값 </span><input placeholder="옵션값" class="form-control" style="width: 350px; " type="text" id="optionValue" value="${artDetailPage.optionValue}"><br>
+						<span class="key">추가 가격</span><input placeholder="옵션 추가가격" class="form-control" style="width: 350px; " type="text" id="optionPrice" value="${artDetailPage.optionPrice}"><br>
+						<span class="key">재고</span><input placeholder="옵션재고" class="form-control" style="width: 350px;  " type="text" id="optionStock" value="${artDetailPage.optionStock}"><br>
+		  				<button type="button" class="btn btn-success" id="updateOption" style="margin-left: 750px;">저 장 하 기</button>
 					</div>
 				</td>
 			</tr> 
 			<tr>
-				<td class="first">검색태그</td>
+				<td class="first" style="width: 80px;">태그</td>
 				<td colspan="2">
-				<input type="text" id="artTag" name="artTag" value="${artDetailPage.tag}" />
+				<input class="form-control" style="width: 350px;" type="text" id="artTag" name="artTag" value="${artDetailPage.tag}" />
 				</td>
 			</tr>
 		</table>
@@ -306,19 +363,19 @@ $(function() {
 			<tr>
 				<td class="first">택배사</td>
 				<td colspan="2">
-				<select id="Courier">
+				<select id="Courier" class="form-control" style="width: 350px;">
 					<option selected="selected">택배사 선택</option>
 					<option>대한통운</option>
 					<option>로젠택배</option>
 					<option>한진택배</option>
 				</select> 
-				<input type="hidden" id="courier" name="courier" value="${artDetailPage.courier}" />
+				<input class="form-control" style="width: 350px;" type="hidden" id="courier" name="courier" value="${artDetailPage.courier}" />
 				</td>
 			</tr>
 			<tr>
 				<td class="first">배송가격</td>
 				<td colspan="2">
-				<input type="text" id="artCouriPrice" name="artCouriPrice" value="${artDetailPage.couriPrice}" />
+				<input class="form-control" style="width: 350px;" type="text" id="artCouriPrice" name="artCouriPrice" value="${artDetailPage.couriPrice}" />
 				</td>
 			</tr>
 		</table>

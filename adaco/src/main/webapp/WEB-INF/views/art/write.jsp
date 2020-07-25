@@ -37,7 +37,11 @@
 		$("#add").on("click", function(){
 			var cnt = $("input[name='artSajin']").length;
 			if(cnt>=5){
-				alert("최대 5개까지 업로드 가능합니다");
+				Swal.fire(
+	        			  '최대 5개까지 등록됩니다.',
+	        			  '',
+	        			  'warning'
+	        			)
 			return;
 			}
 			var $input = $("<input>").attr("type", "file").attr("name", "artSajin").attr("id", "artSajin").attr("accept", ".jpg,.jpeg,.png,.gif,.bmp");
@@ -115,22 +119,22 @@
 					<td class="first">카테고리</td>
 					<td colspan="2">
 						<span id="category">
-							<select id="category" name="category">
-								<option value="카테고리 선택" selected="selected">카테고리 선택</option>
+							<select id="category" name="category" class="form-control">
+								<option value="카테고리 선택" selected="selected" >카테고리 선택</option>
 								<c:forEach items="${category}" var="category">
 									<option value="${category.category }">${category.category }</option>
 								</c:forEach>
 							</select> 
 							<span id="category_msg"></span>
-						<input type="hidden" id="shopno" name="shopno" value="${artInfo.shopno}"/>
-						<input type="hidden" id="artistno" name="artistno" value="${artInfo.artistno}"/>	
+						<input type="hidden" id="shopno" name="shopno" value="${artInfo.shopno}" class="form-control" />
+						<input type="hidden" id="artistno" name="artistno" value="${artInfo.artistno}" class="form-control" />	
 						</span>
 					</td>
 				</tr>
 				<tr>
 					<td class="first">작품명</td>
 					<td colspan="2">
-						<input type="text" id="artName" name="artName"  />
+						<input type="text" id="artName" name="artName" class="form-control"  />
 						<span id="artName_msg"></span>
 					</td>
 				</tr>
@@ -138,29 +142,29 @@
 					<td class="first">작품 이미지</td>
 					<td colspan="2" style="vertical-align: bottom;">
 						<div id = "artSajin"></div>	<br>			
-							<button type = "button" id = "add" name="add">작품 이미지 추가</button>
-							<button type = "button" id = "deleteUpload" >업로드 취소</button>
+							<button type = "button" id = "add" name="add" class="btn btn-info">작품 이미지 추가</button>
+							<button type = "button" id = "deleteUpload" class="btn btn-danger" style="margin-left: 20px;">업로드 취소</button>
 							<span id="artSajin_msg"></span>
 					</td>
 				</tr>
 				<tr>
 					<td class="first">작품가격</td>
 					<td colspan="2">
-						<input type="text" id="price" name="price" />원   <!--onKeyup="inputNumberAutoComma(this);" value=""   --> 
+						<input type="text" id="price" name="price" class="form-control" style="width: 300px; display: inline;" />&ensp;원   <!--onKeyup="inputNumberAutoComma(this);" value=""   --> 
 						<span id="artPrice_msg"></span>
 					</td>
 				</tr>
 				<tr>
 					<td class="first">작품수량</td>
 					<td colspan="2">
-						<input type="text" id="stock" name="stock" />
+						<input type="text" id="stock" name="stock" class="form-control" />
 						<span id="artStock_msg"></span>
 					</td>
 				</tr>
 				<tr>
 					<td class="first">작품소개</td>
 					<td colspan="2">
-						<textarea rows="5" cols="50" id="artDetail" name="artDetail"></textarea>
+						<textarea rows="5" cols="50" id="artDetail" name="artDetail" class="form-control" ></textarea>
 						<span id="artDetail_msg"></span>
 					</td>
 				</tr>
@@ -168,13 +172,13 @@
 					<td class="first">옵션</td>
 					<td colspan="2">
 						<div id="optionArea">
-							<span class="key">옵션명 </span><input type="text" id="optionName" name="optionName" >
+							<span class="key"> </span><input type="text" id="optionName" name="optionName" placeholder="옵션 명" class="form-control" style="display: inline; width: 300px;" ><br>
 							<span id="optionName_msg"></span><br>
-							<span class="key">옵션값 </span><input type="text" id="optionValue" name="optionValue">
+							<span class="key"> </span><input type="text" id="optionValue" name="optionValue" placeholder="옵션 값" class="form-control" style="display: inline; width: 300px;"><br>
 							<span id="optionValue_msg"></span><br>
-							<span class="key">옵션 추가가격 </span><input type="text" id="optionPrice" name="optionPrice">원
+							<span class="key"> </span><input type="text" id="optionPrice" name="optionPrice" placeholder="옵션 추가가격" class="form-control" style="display: inline; width: 300px;" >&ensp;원<br>
 							<span id="optionPrice_msg"></span><br>
-							<span class="key">옵션수량 </span><input type="text" id="optionStock" name="optionStock">
+							<span class="key"> </span><input type="text" id="optionStock" name="optionStock" placeholder="옵션 수량" class="form-control" style="display: inline; width: 300px;">&ensp;개<br>
 							<span id="optionStock_msg"></span>
 						</div>
 					</td>
@@ -182,7 +186,7 @@
 				<tr>
 					<td class="first">검색태그</td>
 					<td colspan="2">
-						<input type="text" id="tag" name="tag" />
+						<input type="text" id="tag" name="tag" class="form-control" />
 						<span id="artTag_msg"></span>
 					</td>
 				</tr>
@@ -197,9 +201,9 @@
 					<col width="80%">
 				</colgroup>
 				<tr>
-					<td class="first">택배사</td>
+					<td class="first" class="form-control">택배사</td>
 					<td colspan="2">
-						<select id="Courier" name="Courier">
+						<select id="Courier" name="Courier" class="form-control">
 							<option value="택배사" selected="selected">택배사</option>
 							<option value="대한통운">대한통운</option>
 							<option value="로젠택배">로젠택배</option>
@@ -209,9 +213,9 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="first">배송가격</td>
+					<td class="first" >배송가격</td>
 					<td colspan="2">
-						<input type="text" id="couriPrice" name="couriPrice" />
+						<input type="text" id="couriPrice" name="couriPrice" class="form-control" style="width: 300px; display: inline;"/>&ensp;원
 						<span id="artCouriPrice_msg"></span>
 					</td>
 				</tr>

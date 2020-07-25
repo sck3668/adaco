@@ -108,7 +108,11 @@
 	$("#delete_Btn").click(function(){
 		var cnt = $("input[name='chBox']:checked").length;
         if(cnt == 0){
-            alert("선택된 작품이 없습니다.");
+        	Swal.fire(
+        			  '선택된 작품이없습니다',
+        			  '',
+        			  'warning'
+        			)
             return;
         } else{
 	  	var confirm_val = confirm("정말 삭제하시겠습니까?");
@@ -160,7 +164,7 @@
 				<option value="공예">공예</option>
 				<option value="기타">기타</option>
 			</select>
-			<button type="button" id="search" >검색</button>
+			<button type="button" id="search" class="btn btn-success" >검색</button>
 		<hr>
 	</div>
 	

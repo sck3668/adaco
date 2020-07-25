@@ -233,7 +233,12 @@ $(function() {
 			method:"get"
 			}).then((result)=>{
 				if(result==false) {
-					alert("최대수량입니다");
+					Swal.fire({
+						  icon: 'error',
+						  title: '실패',
+						  text: '최대 수량입니다. 수량을 확인해주세요!',
+						  footer: ''
+						})
 				} else {
 				var params = {
 						_csrf:"${_csrf.token}",
@@ -303,7 +308,12 @@ $(function() {
 		var ar=[];
 		var cnt = $("input[name='check']:checked").length;
 		 if(cnt == 0){
-	            alert("선택된 작품이 없습니다.");
+			 Swal.fire({
+				  icon: 'error',
+				  title: '실패',
+				  text: ' 최대 수량입니다.',
+				  footer: ''
+				})
 	            return;
 		 }
 		
@@ -335,7 +345,12 @@ $(function() {
 		
 		var cnt = $("input[name='check']:checked").length;
 		 if(cnt == 0){
-	            alert("선택된 작품이 없습니다.");
+			 Swal.fire({
+				  icon: 'error',
+				  title: '실패',
+				  text: '선택된 작품이 없습니다.',
+				  footer: ''
+				})
 	            return;
 		 }
 		 else {
@@ -502,7 +517,7 @@ $(function() {
 	</div>
 	<div id="button_area">
 		<input type="checkbox" id="checkAll">&nbsp;전체 선택 
-		<button id="choiseDelete" class="btn btn-primary">선택삭제</button>
+		<button id="choiseDelete" class="btn btn-outline-primary">선택삭제</button>
 		<button type="button" id="order" class="btn btn-outline-primary">주문하기</button>
 	</div>
 </body>
