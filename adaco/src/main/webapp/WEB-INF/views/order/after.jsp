@@ -139,13 +139,8 @@ $(function(){
 
 </head>
 <body>
-${order } <br>
-${order_detail} <br>
-${art} <br>
-${option } 
-${shop }
+${order }
 
-우편 번호 : ${order_detail.postalcode }
 	<div id="ByALl">
 		<div>
 		<h2>주문이 정상적으로 완료 되었습니다.</h2>

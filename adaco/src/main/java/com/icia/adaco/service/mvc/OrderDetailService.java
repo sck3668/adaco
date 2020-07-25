@@ -48,7 +48,7 @@ public class OrderDetailService {
 		User user = userDao.findByid(username);
 		orderDetail.setArtName(art.getArtName()).setAddress(dto.getOriginalAddress());
 		orderDetail.setOptionName(option.getOptionName()).setOptionValue(option.getOptionValue());
-		orderDetail.setAmount(bag.getAmount()).setPrice(art.getPrice()).setEmail(user.getEmail());
+		orderDetail.setAmount(bag.getAmount()).setPrice(art.getPrice()+bag.getOptionPrice()).setEmail(user.getEmail());
 		orderDetail.setAddPoint((int) (art.getPrice()*0.01)).setOrderstate(orderState.입금대기);
 		int optno = optionDao.findOptnoByArtno(artno);
 		orderDetail.setOptno(optno);

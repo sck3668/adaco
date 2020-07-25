@@ -163,7 +163,7 @@ $(function(){
                 <tr>
                 	<td>${list.orderno }</td>
                 	<td>${list.orderDateStr}</td>
-                	<td><a href="/adaco/user/orderRead?artName=${list.artName }">${list.artName }</a></td>
+                	<td><a href="/adaco/user/orderRead?orderno=${list.orderno }">${list.artName }</a></td>
                 	<td>${list.artPrice }</td>
                 	<td>${list.shippingCharge }</td>
                 	<td id="state">${list.orderstate }</td>

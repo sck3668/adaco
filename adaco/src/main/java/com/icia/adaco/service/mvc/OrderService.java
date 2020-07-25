@@ -49,23 +49,26 @@ public class OrderService {
 		bag.setTotalPrice(bag.getAmount() * art.getPrice());
 		return orderDao.Ordering(order);
 	}
-
+//사용안함
 	// 결제하기
 	@PreAuthorize("isAuthenticated()")
 	public int payment(String username, OrderDto.DtoForOrdering dto) {
+		System.out.println("DtoForOrdering==="+dto);
 		OrderDetail orderdetail = modelMapper.map(dto, OrderDetail.class);
+		System.out.println("orderdetail=="+orderdetail);
 		orderDetailDao.Payment(orderdetail);
 		return orderdetail.getOrderno();
 	}
 
 	// 아트상세에서 주문하기
 	public int Ordering(Order order,Bag bag,String username) {
-		order.setOrderDate(LocalDateTime.now());
-		order.setUsername(username);
-		order.setShippingCharge(3000);
 		int artno = bag.getArtno();
 		Art art = artDao.readByArt(artno);
-		bag.setTotalPrice(bag.getAmount()*art.getPrice());
+
+		order.setOrderDate(LocalDateTime.now());
+		order.setUsername(username);
+		order.setShippingCharge(art.getCouriPrice());
+				bag.setTotalPrice(bag.getAmount()*art.getPrice());
 		bagDao.insertByBag(bag);
 		int bagno = bagDao.findByArtno(artno).getBagno();
 		order.setBagno(bagno);
@@ -79,12 +82,14 @@ public class OrderService {
 		Order order = new Order();
 		order.setOrderDate(LocalDateTime.now());
 		order.setUsername(username);
-		order.setShippingCharge(3000);
+//		order.setShippingCharge(3000);
 		List<Integer> list1 = new ArrayList<Integer>();
 		int bagno = 0;
 		for(int i=0; i<list.size(); i++) {
 			bagno = bagDao.findByArtno(list.get(i)).getBagno();
+			Art art = artDao.readByArt(list.get(i));
 			order.setBagno(bagno);
+			order.setShippingCharge(art.getCouriPrice());
 			orderDao.Ordering(order);
 			int orderno = orderDao.findOrdernoByUsername(username, bagDao.findByArtno(list.get(i)).getBagno());
 			list1.add(orderno);

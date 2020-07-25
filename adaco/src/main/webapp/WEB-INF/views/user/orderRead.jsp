@@ -98,7 +98,7 @@
            	<tr>
 				<td>무통장 입금</td><!-- ${artPageByUser.price } -->
 				<td>${orderDetail.orderDateStr}</td> <!-- ${artPageByUser.price } -->
-				<td>${orderDetail.price+orderDetail.shippingCharge}원</td> 
+				<td>${orderDetail.price*orderDetail.amount+orderDetail.shippingCharge}원</td> 
 			</tr>
 			</tbody>
       	</table>

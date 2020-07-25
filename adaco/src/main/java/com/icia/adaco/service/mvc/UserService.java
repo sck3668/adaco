@@ -277,15 +277,17 @@ public class UserService {
 	}
 	
 	//회원 주문 상세
-	public OrderDetailDto.DtoForReadOrder userOrderRead(String username,String artName) {
-		OrderDetail orderDetail = orderDetailDao.findArtnoByOrderDetail(artName);
+	public OrderDetailDto.DtoForReadOrder userOrderRead(String username,int orderno) {
+//		OrderDetail orderDetail = orderDetailDao.findArtnoByOrderDetail(artName);
 		List<Order> Charge = orderDao.findUsernameByCharge(username);
-		OrderDetail detail = orderDetailDao.findByOrdernoOrderDetail(orderDetail.getOrderno());
+		Order order = orderDao.findByOrder(orderno);
+		OrderDetail detail = orderDetailDao.findByOrdernoOrderDetail(orderno);
 		OrderDetailDto.DtoForReadOrder dto = modelMapper.map(detail,OrderDetailDto.DtoForReadOrder.class);
 		for(Order shippingCharge :Charge) {
-			dto.setShippingCharge(shippingCharge.getShippingCharge());
+			dto.setShippingCharge(order.getShippingCharge());
 			dto.setOrderDateStr(shippingCharge.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
 		}
+		System.out.println("dto===="+dto);
 		return  dto;
 	}
 }

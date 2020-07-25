@@ -239,9 +239,10 @@ public class UserController {
 	//유저가 보는 주문 상세내역
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/orderRead")
-	public ModelAndView userOrderRead(Principal principal,String artName) {
+	public ModelAndView userOrderRead(Principal principal,int orderno) {
+		System.out.println("orderno1111"+orderno);
 		return new ModelAndView("main")
 				.addObject("viewName","user/orderRead.jsp")
-				.addObject("orderDetail",userService.userOrderRead(principal.getName(),artName));
+				.addObject("orderDetail",userService.userOrderRead(principal.getName(),orderno));
 	}
 }
