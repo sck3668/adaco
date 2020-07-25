@@ -84,6 +84,37 @@ ul.sub li a {
 ul.sub li:hover {
 	background: #f4f4f4;
 }
+
+table.type11 {
+	border-collapse: separate;
+	border-spacing: 1px;
+	text-align: center;
+	line-height: 1.5;
+	margin: 20px 10px;
+}
+
+table.type11 th {
+	width: 222px;
+	padding: 10px;
+	font-weight: bold;
+	vertical-align: top;
+	color: #fff;
+	background: #ce4869;
+}
+
+table.type11 td {
+	width: 222px;
+	padding: 10px;
+	vertical-align: top;
+	border-bottom: 1px solid #ccc;
+	background: #eee;
+}
+
+.my-hr3 {
+	border: 0;
+	height: 3px;
+	background: #ccc;
+}
 </style>
 <script>
 	$(document).ready(function() {
@@ -140,9 +171,11 @@ ul.sub li:hover {
 	<!-- content -->
 	<div class="container pt-3">
 		<div class="row">
+			<!-- left content -->
 			<div class="col-sm-3">
+				<!-- side menu (link) -->
 				<h3>
-					<strong>MY Menu</strong>
+					<strong> MY Menu</strong>
 				</h3>
 				<ul class="list-group" id="navi">
 					<li class="list-group-item list-group-item-action"><a href="/adaco/user/read" style="color: black; text-decoration: none;">내 정보 보기</a></li>
@@ -151,34 +184,51 @@ ul.sub li:hover {
 					<li class="list-group-item list-group-item-action"><a href="/adaco/user/reviewList" style="color: black; text-decoration: none;">내 리뷰 보기</a></li>
 					<li class="list-group-item list-group-item-action"><a href="/adaco/user/favoriteList" style="color: black; text-decoration: none;">즐겨찾기 목록</a></li>
 					<li class="list-group-item list-group-item-action"><a href="/adaco/user/pointList" style="color: black; text-decoration: none;">포인트함</a></li>
-					<li class="list-group-item list-group-item-action" id="group">
+						<li class="list-group-item list-group-item-action" id="group">
 						<div class="title">
-							<a style="color: black; text-decoration: none;">
-							메시지함
-							</a>
+							<a style="color: black; text-decoration: none;"> 메시지함 </a>
 						</div>
-						<ul class="sub"> 
-							<li>
-								<a href="/adaco/message/listSender" style="color: black; text-decoration: none;" >
-									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 보낸 쪽지함</a>
-							</li>
-							<li>
-								<a href="/adaco/message/listReceiver" style="color: black; text-decoration: none;" >
-									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 받은 쪽지함</a>
-							</li>
+						<ul class="sub">
+							<li><a href="/adaco/message/listSender"
+								style="color: black; text-decoration: none;"> <i
+									class="fas fa-angle-right" style="opacity: 0.5;"></i> 보낸 쪽지함
+							</a></li>
+							<li><a href="/adaco/message/listReceiver"
+								style="color: black; text-decoration: none;"> <i
+									class="fas fa-angle-right" style="opacity: 0.5;"></i> 받은 쪽지함
+							</a></li>
 						</ul>
 					</li>
 				</ul>
 			</div>
-			<div class="col-sm-8">
+
+
+			<!--  추가해줘야 하는 부분 ============================ -->
+
+			<div class="col-sm-9" style="height: 700px;">
 				<br>
 				<h2>나의 내역</h2>
-				<br>
-				<ul class="dashboard-list">
-					<li>포인트:<a href="/adaco/user/pointList"><strong style="color: red;">${point }p</strong></a></li>
-					<li>리뷰수:<a href="/adaco/user/reviewList"><strong style="color: red;">${review }개</strong></a></li>
-					<li>즐겨찾기수:<a href="/adaco/user/favoriteList"><strong style="color: red;">${favorite }개</strong></a></li>
-				</ul>
+				<hr class="my-hr3">
+				<!-- 				<ul class="dashboard-list"> -->
+				<%-- 					<li>포인트:<strong style="color: red;">${point }p</strong></li> --%>
+				<%-- 					<li>리뷰수:<strong style="color: red;">${review }개</strong></li> --%>
+				<%-- 					<li>즐겨찾기수:<strong style="color: red;">${favorite }개</strong></li> --%>
+				<!-- 				</ul> -->
+				<table class="type11">
+					<thead>
+						<tr>
+							<th scope="cols">포 인 트</th>
+							<th scope="cols">리 뷰 수</th>
+							<th scope="cols">즐 겨 찾 기 수</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>${point }point</td>
+							<td>${review }개</td>
+							<td>${favorite }개</td>
+						</tr>
+				</table>
 			</div>
 			<br> <br> <br> <br> <br> <br> <br>
 			<br> <br> <br> <br> <br> <br> <br>

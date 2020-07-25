@@ -140,8 +140,8 @@ ${order }
                               <em class="asterisk red">&lowast;</em>
                               <label for="user">받는분</label>
                           </th>
-                          <td style= "text-align: left;">
-                             <input name="recipient" type="text" value="${order.user.irum }">
+                          <td style= "text-align: left;" >
+                             <input class="form-control" name="recipient" type="text" value="${order.user.irum }" style="width: 176px;">
                           </td>
                        </tr>
                        <tr class="address-info item">
@@ -150,7 +150,7 @@ ${order }
                                 <label for="delivery_phone">전화번호</label>
                           </th>
                           <td style= "text-align: left;">
-                             <input name="tel" type="text" value="${order.user.tel }">
+                             <input class="form-control"  style="width: 176px;" name="tel" type="text" value="${order.user.tel }">
                           </td>
                        </tr>
                        <tr>
@@ -160,11 +160,14 @@ ${order }
                              </div><!-- 주소(배송지)텍스트 닫힌 div -->
                           </th>
                            <td style= "text-align: left;">
-                              <input type="text" id="postcode" placeholder="우편번호">
-                        <input type="button" onclick="execDaumPostcode()" value="주소 찾기"><br>
-                        <input type="text" id="address" placeholder="주소"><br>
-                        <input type="text" id="detailAddress" placeholder="상세주소">
-                        <input type="text" id="extraAddress" placeholder="참고항목">
+                           <div>
+                        <input class="form-control"  style="width: 176px; display: inline;" type="text" id="postcode" placeholder="우편번호">
+                        <input class="btn btn-primary" type="button" onclick="execDaumPostcode()" value="주소 찾기"><br><br></div>
+                        <input class="form-control"  style="width: 176px;" type="text" id="address" placeholder="주소"><br>
+                        <div>
+                        <input class="form-control" type="text" id="detailAddress" placeholder="상세주소"style="width: 250px; display: inline;">
+                        <input class="form-control" type="text" id="extraAddress" placeholder="참고항목" style="width: 250px; display: inline;">
+                        </div>
                         <input type="hidden" name="originalAddress" id="originalAddress">
                          <div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative"><!-- 이미지 열린div -->
                            <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
@@ -255,7 +258,7 @@ ${order }
 </div> <!-- 주문고객/배송정보 큰 닫힌 div -->                 
 <br>
 <!-- 주문작품 정보 -->
-           <div class="segment--nospacing" data-ui="order-summary-label"><!-- 결제하기버튼까지 큰 열린 div -->
+           <div class="segment--nospacing" data-ui="order-summary-label" style="margin-bottom: 100px;"><!-- 결제하기버튼까지 큰 열린 div -->
             <div class="ui_title--sub tab " data-ui-id="order_cart"><!-- 제목 열린 div -->
                <h4>주문 작품 정보</h4>
             </div><!-- 제목 닫힌 div -->
@@ -319,7 +322,7 @@ ${order }
                <tr>
                   <td colspan="5">
                      <div class="ui_field--onchange  hidden" data-uipack="textarea">
-                              <textarea name="request" maxlength="500" placeholder="주문 요청사항을 입력해주세요" style="width:100%;"></textarea>
+                              <textarea  class= form-control name="request" maxlength="500" placeholder="주문 요청사항을 입력해주세요" style="width:100%;"></textarea>
                            </div>
                   </td>
                </tr>
@@ -350,14 +353,14 @@ ${order }
                           <tr>
                              <th>입금자</th>
                              <td style="text-align: left;">
-                                <input type="text" value="${order.user.irum }" />
+                                <input class="form-control" type="text" value="${order.user.irum }" />
                              </td>
                           </tr>
                           <tr>
                              <th>환불 계좌</th>
                              <td style="text-align: left;" >
 <!--                                 <input type="text" placeholder="환불계좌를 입력해주세요" name="refundAccount" style="width:200px;" /> -->
-                                <textarea name="refundAccount" maxlength="500" placeholder="환불계좌를 입력해주세요." style="width:100%;"></textarea>
+                                <textarea class="form-control" name="refundAccount" maxlength="500" placeholder="환불계좌를 입력해주세요." style="width:100%;"></textarea>
                              </td>
                           </tr>
                        </table>

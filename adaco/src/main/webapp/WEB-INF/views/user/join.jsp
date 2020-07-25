@@ -34,6 +34,62 @@
 #email2 {
 	width: 100px;
 }
+
+body {margin: 10px}
+.where {
+  display: block;
+  margin: 25px 15px;
+  font-size: 11px;
+  color: #000;
+  text-decoration: none;
+  font-family: verdana;
+  font-style: italic;
+} 
+
+
+
+
+.filebox {display:inline-block; margin-right: 10px;}
+
+
+.filebox label {
+  display: inline-block;
+  padding: .5em .75em;
+  color: #999;
+  font-size: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #fdfdfd;
+  cursor: pointer;
+  border: 1px solid #ebebeb;
+  border-bottom-color: #e2e2e2;
+  border-radius: .25em;
+}
+
+.filebox input[type="file"] {  /* 파일 필드 숨기기 */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip:rect(0,0,0,0);
+  border: 0;
+}
+
+.filebox.bs3-primary label {
+  color: #fff;
+  background-color: #337ab7;
+    border-color: #2e6da4;
+}
+
+.filebox.bs3-success label {
+  color: #fff;
+  background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+
 </style>
 <script>
 
@@ -268,7 +324,11 @@ $(function() {
 		//약관동의
 		var $agree = $('input:radio[name="agree"]:checked').val();
 			if($agree!=="on"){
-				alert("약관에동의 해주세요")
+				Swal.fire(
+						  '약관을 동의해주세요',
+						  '',
+						  'warning'
+						)
 				return null;
 			}
 			console.log($agree)
@@ -306,15 +366,28 @@ $(function() {
 			<hr>
 		</div>
 	</div>
+	
+	
+	
+
+
+	
+	
 	<div id="wrap">
 		<form action="/adaco/user/join" method="post" id="joinForm"
 			enctype="multipart/form-data">
 			<img id="show_profile" height="240px"> <input type="hidden"
-				name="_csrf" value="${_csrf.token }">
+				name="_csrf" value="${_csrf.token }"><br><br>
 			<div class="form-group">
-				<label for="sajin">프로필 사진</label> <input id="sajin" type="file"
+<!-- 				<label for="sajin">프로필 사진</label>  -->
+				<div class="filebox bs3-primary">
+                          <label for="sajin">프로필 업로드</label> 
+                          <input id="sajin" type="file" 
 					name="sajin" class="form-control"
 					accept=".jpg,.jpeg,.png,.gif,.bmp">
+<!--                           <input type="file" id="ex_file2">  -->
+                        </div>
+				
 			</div>
 			<div class="form-group">
 				<label for="irum">이름</label> <input type="text" class="form-control"
@@ -338,23 +411,23 @@ $(function() {
 					id="pwdCheck_msg"></span>
 			</div>
 			<div class="form-group">
-				<label for="email">이메일</label><br> <input type="text"
-					id="email1">&nbsp;@&nbsp;<input type="text" id="email2">&nbsp;&nbsp;
-				<select id="selectEmail">
-					<option selected="selected">직접 입력</option>
+				<label for="email">이메일</label><br> <input type="text" class="form-control" style=" display: inline; width: 150px;" 
+					id="email1">&nbsp;&nbsp;<i class="fas fa-at"></i>&nbsp;&nbsp;<input type="text" id="email2" class="form-control" style=" display: inline; width: 150px;">&nbsp;&nbsp;
+				<select id="selectEmail" class="form-control" style=" display: inline; width: 150px;">
+					<option selected="selected" >직접 입력</option>
 					<option value="naver.com">naver.com</option>
 					<option value="daum.net">daum.net</option>
 					<option value="gmail.com">gmail.com</option>
 				</select>
-				<button id="email" type="button">확인</button>
+				<button id="email" type="button" class="btn btn-outline-primary" style="margin-bottom: 5px;">확인</button>
 				<span id="email_msg"></span>
 			</div>
 			<div class="form-group">
-				<label for="tel">연락처</label><br> <input type="text" id="tel1"
-					maxlength="3">&nbsp-&nbsp; <input type="text" id="tel2"
-					maxlength="4">&nbsp-&nbsp; <input type="text" id="tel3"
+				<label for="tel">연락처</label><br> <input type="text" id="tel1" style=" display: inline; width: 150px;" class="form-control"
+					maxlength="3">&nbsp;&nbsp;<i class="fas fa-minus"></i>&nbsp;&nbsp; <input type="text" id="tel2" style=" display: inline; width: 150px;" class="form-control"
+					maxlength="4">&nbsp;&nbsp;<i class="fas fa-minus"></i>&nbsp;&nbsp; <input type="text" id="tel3" style=" display: inline; width: 150px;" class="form-control"
 					maxlength="4">
-				<button id="tel" type="button">확인</button>
+				<button id="tel" type="button" class="btn btn-outline-primary"  style="margin-bottom: 5px;">확인</button>
 				<span id="tel_msg"></span>
 			</div>
 			<div class="form-group">

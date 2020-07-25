@@ -245,7 +245,7 @@ ${order }
 		<div id="button" align="center" style="position: relative; right: -250px; bottom:-25px;">
 			<fieldset>
 			<a href="#"> 
-			<button type="button" id="orderRead">주문 내역 상세 보기</button>
+			<button class="btn btn-primary" id="orderRead">주문 내역 상세 보기</button>
 			</a>
 			<a href="/adaco/"><button type="button" class="btn btn-primary">
 				쇼핑 계속하기</button></a> 
