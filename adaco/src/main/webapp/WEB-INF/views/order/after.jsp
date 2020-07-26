@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+            <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,12 +95,12 @@ th {
 // }
 
 // 	소수점자리 제거
-$(function(){
-	var text = ${order.price*0.01}+"";
-	text = text.split(".");
-	console.log(text[0]);
-	$("#ddd").text(text[0]+"원");
-	})
+// $(function(){
+// 	var text = ${order.price*0.01}+"";
+// 	text = text.split(".");
+// 	console.log(text[0]);
+// 	$("#ddd").text(text[0]+"원");
+// 	})
 //       var test = $("#ddd").text();
 //     	test = test.split(".");
 //       	console.log(test[0]);
@@ -189,15 +191,24 @@ ${order }
 						<th>총 주문금액</th>
 					</tr>
 				</thead>								
-				<tbody>				
+				<tbody>
+					<c:forEach items="${order.detailList}" var="detail" varStatus="status">
 					<tr> 
-<%-- 						<td style="vertical-align: middle;"><a href="/adaco/art/readByUser?artno=${order.artno}"><img src="${order.mainImg }" width="150px" height="120px" ></a> ${order.artName}<br>옵션 :  ${order.optionValue }</td> --%>
-						<td>${order.amount}개</td>
-						<td>${order.price*order.amount}원</td>
-						<td>${order.accumulated }</td>
-						<td>${order.shippingCharge}</td>
-						<td>${order.shippingCharge+(order.price*order.amount)}원</td>
+						<td style="vertical-align: middle;"><a href="/adaco/art/readByUser?artno=${detail.artno}"><img src="" width="150px" height="120px" ></a> ${detail.artName}<br>${detail.optionName} :  ${detail.optionValue}</td>
+						<td>${detail.amount}개</td>
+						<td>${detail.price}원</td>
+						<td>${detail.price*detail.amount*0.01 }</td>
+						<td>${order.orderList[status.index].shippingCharge}</td>
+						<td>${order.orderList[status.index].shippingCharge+(detail.price*detail.amount)}원</td>
 					</tr>
+					<tr>
+						<th>배송 메세지</th>
+							<c:forEach items="${order.requestList}" var="detail" begin="0" end="0">
+								<td><span>${order.requestList[status.index]}</span></td>
+							</c:forEach>
+					</tr>
+					<br>
+					</c:forEach>
 				</tbody>
 			</table>
 	</div>	
@@ -207,7 +218,7 @@ ${order }
 				<thead>
 					<tr>
 						<th>계좌번호</th>
-<%-- 						<td><span>${artist}(예금주: 주식회사 핸드스토리)</span></td> --%>
+						<td><span>1002-645-004351(예금주: 주식회사 핸드스토리)</span></td>
 						 
 					</tr>
 					<tr>
@@ -227,15 +238,10 @@ ${order }
 					<tr>
 						<th >받는분</th>
 						<td><span>${order.recipient}</span></td>
-						 
 					</tr>
 					<tr>
 						<th>배송지</th>
-<%-- 						<td><span>${order.originalAddress}</span></td>	 --%>
-					</tr>
-					<tr>
-						<th>배송 메세지</th>
-<%-- 						<td><span>${order.request}</span></td> --%>
+						<td><span>${order.address}</span></td>	
 					</tr>
 				</thead>
 			</table>

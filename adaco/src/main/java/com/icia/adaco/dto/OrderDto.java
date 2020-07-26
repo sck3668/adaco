@@ -53,6 +53,8 @@ public class OrderDto {
  		private List<Art> artList;
  		private List<String> writerList;
  		private List<Bag> bagList;
+ 		private List<Order> orderList;
+ 		private List<OrderDetail> detailList;
  		private Option option;
  		private Bag bag;
  		private User user;
@@ -61,8 +63,10 @@ public class OrderDto {
  		private int artistno;
  		private int optno;
  		private int orderno;
- 		private int lastPrice;
- 		
+ 		private String orderDateStr;
+ 		private String recipient;
+ 		private String address;
+ 		private List<String> requestList;
  	}
 	
  	@Data

@@ -386,8 +386,8 @@ $(function() {
 		})
 		}
 	})
-	// 장바구니에서 선택한 작품의 artno를 받아와서 배열에 넣고 orderno를 받아옴
-	//String ordernos를 문자로 받아와 숫자로 바꾸고 dto로 리턴
+	// 장바구니에서 선택한 작품의 artno를 받아와서 배열에 넣고 orderno를 받아옴 ordering
+	//String ordernos를 문자로 받아와 숫자로 바꾸고 dto로 리턴 		bagPayment
 	
 	
 	// 주문 버튼을 클릭하면 해당 상품을 구입 후 이동
