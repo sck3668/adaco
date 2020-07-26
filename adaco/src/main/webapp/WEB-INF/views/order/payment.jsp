@@ -111,7 +111,6 @@ th {
 </script>
 </head>
 <body>
-${order }
 <form action="/adaco/order/after" id="paymentForm">
 <div id="content" class="content" data-page="payment" data-address-page="payment" style="padding-bottom:0">
     <c:forEach items="${order.ordernoList}" var="orderno">    

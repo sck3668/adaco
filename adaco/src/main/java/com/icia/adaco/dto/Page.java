@@ -21,6 +21,7 @@ public class Page {
 	private State state;
 	private String search;
 	private int artistno;
+	private String category;
 	List<AdminBoardDto.DtoForReportList> adminReportList;
 	List<AdminBoardDto.DtoForQuestionList> adminQuestionList;
 	List<AdminBoardDto.DtoForNoticeList> adminNoticeList;

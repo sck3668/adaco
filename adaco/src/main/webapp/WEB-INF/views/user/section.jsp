@@ -115,8 +115,6 @@ $(function(){
 
 </head>
 <body>
-
-${artPage }
 	<div class="container">
     <div class="row">
 				<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
@@ -195,15 +193,12 @@ ${artPage }
 				<c:choose>
 					<c:when test="${artPage.pageno eq i }">
 						<li class="active">
-						<a href="/adaco/art/listByUser?artname=${artPage.search }&pageno=${i}">${i}</a></li>
+						<a href="/adaco/art/listByUser?artname=${artPage.search }&pageno=${i}&category=${artPage.category}">${i}</a></li>
 					</c:when>
 					<c:otherwise>
-<%-- 								<li><a id="category" href="/adaco/art/listByUser?artname=${artPage.search }&pageno=${i}">${i}</a></li> --%>
-								<li><a href="/adaco/art/listByUser?artname=${artPage.search }&pageno=${i}&category=${artPage.artList[i].category}">${i}</a></li>
+								<li><a href="/adaco/art/listByUser?artname=${artPage.search }&pageno=${i}&category=${artPage.category}">${i}</a></li>
 					</c:otherwise>
 				</c:choose>
-<%-- 						<li><a href="/adaco/art/listByUser?artname=${artPage.search }&pageno=${i}&category=${artPage.artList[i].category}">${i}</a></li> --%>
-
 			</c:forEach>
 			<c:if test="${artPage.next==true}">
 				<li><a href="/adaco/art/listByUser?artname=${artPage.search }&pageno=${artPage.endPage+1}">다음</a></li>

@@ -224,9 +224,9 @@ table.type11 td {
 					</thead>
 					<tbody>
 						<tr>
-							<td>${point }point</td>
-							<td>${review }개</td>
-							<td>${favorite }개</td>
+							<td><a href="/adaco/user/pointList">${point }p</a></td>
+							<td><a href="/adaco/user/reviewList">${review }개</a></td>
+							<td><a href="/adaco/user/favoriteList">${favorite }개</a></td>
 						</tr>
 				</table>
 			</div>

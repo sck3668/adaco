@@ -135,6 +135,8 @@ public class ArtService {
 			dtoList.add(dto);
 		}
 		page.setArtList(dtoList);
+		if(category!=null)
+			page.setCategory(category);
 		return page;
 	}
 
