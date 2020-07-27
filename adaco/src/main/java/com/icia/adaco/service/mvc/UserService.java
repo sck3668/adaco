@@ -294,22 +294,39 @@ public class UserService {
 		return  dto;
 	}
 	
-	 @Scheduled(cron = "0 */1 * * * ?")
+	// 포인트 소멸 안내 메세지 보내기
+	@Scheduled(cron="0 0 12 1/1 * ?")
 	 public void pointMsg() {
-		System.out.println("msg=="+LocalDateTime.now());
+		List<Point> PointList = userDao.findByPoint();
+		for(int i=0; i<PointList.size(); i++)
+		{
+			Point Point = PointList.get(i);
+			if(Point.getEndDate()==LocalDateTime.now().minusWeeks(1)) {
+				Message message = new Message();
+				message.setTitle("포인트 소멸 안내");
+				int point = Point.getPoint();
+				StringBuffer str = new StringBuffer();
+				str.append("7일 후"+point+"포인트가 소멸됩니다");
+				message.setContent(str.toString());
+				// 보내는 아이디는 관리자 아이디
+				message.setSendId("admin123");
+				message.setRecipientId(Point.getUsername());
+				msgService.send(message);
+			}
+		}
+	}
+	
+//	@Scheduled(cron="0 0 12 1/1 * ?")
+//	public void deletePoint() {
 //		List<Point> PointList = userDao.findByPoint();
-//		for(Point Point:PointList) {
-//		if(Point.getEndDate()!=LocalDateTime.now().minusWeeks(1)) {
-//			Message message = new Message();
-//			message.setTitle("포인트 소멸 안내");
-//			int point = Point.getPoint();
-//			StringBuffer str = new StringBuffer();
-//			str.append("7일 후"+point+"포인트가 소멸됩니다");
-//			message.setContent(str.toString());
-//			message.setSendId("admin");
-//			message.setRecipientId(Point.getUsername());
-//			msgService.send(message);
+//		for(int i=0; i<PointList.size(); i++)
+//		{
+//			Point Point = PointList.get(i);
+//			if(Point.getEndDate()==LocalDateTime.now()) {
+//				int point = Point.getPoint();
+//				userDao.deletePoint();
 //			}
 //		}
-	}
+//	}
+	
 }

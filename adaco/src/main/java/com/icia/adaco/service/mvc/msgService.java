@@ -45,6 +45,7 @@ public class msgService {
 		msg.setUsername(msg.getSendId());
 		msg.setWriteDate(LocalDateTime.now());
 		msg.setMsgCheck(false);
+		System.out.println("msg111=="+msg);
 		msgDao.insert(msg);
 		handler.sendMessage(msg.getSendId(), msg.getRecipientId(), msg.getTitle());
 	}
