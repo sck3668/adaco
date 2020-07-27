@@ -287,7 +287,6 @@
 	    		console.log(r6)
 	    		console.log($("#joinForm").serialize());
 	    		if(result==true) {
-	    			alert("성공")
 	    			console.log("success============");
 	    			$("#joinForm").submit();
 	    		}else {
@@ -333,7 +332,7 @@
 					<input type="text" id="businessno1" maxlength="3">&nbsp-&nbsp
 					<input type="text" id="businessno2" maxlength="2">&nbsp-&nbsp
 					<input type="text" id="businessno3" maxlength="5">
-					<button type="button" id=businessno>확인</button>
+					<button type="button" id=businessno class="btn btn-outline-primary">확인</button>
 					<span id="businessno_msg"></span>
 					</div>
 <!-- 					계좌번호 입력 -->

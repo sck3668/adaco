@@ -71,10 +71,9 @@ $(function(){
 // 			/adaco/art/listByUser?artname=${artPage.search }&pageno=${i}&category=${artPage.artList[i].category}
 // 			$("#category").attr("href","/adaco/art/listByUser?pageno="+${i}&category=${artPage.artList[i].category});
 // 		};
-	
 // 	});
 	
-	
+	   
 	$("#search").on("click", function(){
 		var artname = $("#artname").val();
 		var url = decodeURIComponent(window.location.href);
@@ -176,7 +175,7 @@ $(function(){
                  </sec:authorize>
                 </h4>
                 <h5>${art.artName}</h5>
-                <p class="card-text">${art }</p>
+                <p class="card-text"></p>
               </div>
             </div>
           </div>
