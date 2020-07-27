@@ -143,7 +143,7 @@ public class UserService {
 	public String findByIrum(String irum) {
 		String username = userDao.findidByCheckName(irum);
 		if(username==null)
-			throw new JobFailException("이름이 달라달라4달라");
+			throw new JobFailException("이름이 일치하지 않습니다");
 		
 		return userDao.findidByCheckName(irum);
 	}
