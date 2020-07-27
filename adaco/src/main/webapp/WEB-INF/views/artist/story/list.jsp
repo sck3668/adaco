@@ -187,13 +187,27 @@
 	        }
 	        
 	       	var startNo = thisPage*1+1;
-	        $.ajax({
-	            url:"/adaco/story/listStory?pageno="+startNo+"&artistno="+${story.artistno},
-	            method: "GET",
-	        }).done(()=>{
-		        history.pushState(null, null, "/adaco/story/listStory?pageno="+startNo+"&artistno="+${story.artistno});
-			    location.reload(true);
-	        }).fail((f)=>console.log(f));
+	       	var artistno = ${story.artistno};
+	       	// 작가회원이 아닐시 artistno는 0이 들어옴 
+	       	// artistno가 0 인 경우는 일반회원
+	       	// artistno가 0 이 아닌 경우는 작가
+	       	if(artistno!=0) {
+		        $.ajax({
+		            url:"/adaco/story/listStory?pageno="+startNo+"&artistno="+${story.artistno},
+		            method: "GET",
+		        }).done(()=>{
+			        history.pushState(null, null, "/adaco/story/listStory?pageno="+startNo+"&artistno="+${story.artistno});
+				    location.reload(true);
+		        }).fail((f)=>console.log(f));
+	       	} else {
+	       	 $.ajax({
+		            url:"/adaco/story/listStory?pageno="+startNo,
+		            method: "GET",
+		        }).done(()=>{
+			        history.pushState(null, null, "/adaco/story/listStory?pageno="+startNo);
+				    location.reload(true);
+		        }).fail((f)=>console.log(f));
+	       	}
 	    }
 	    
 	    

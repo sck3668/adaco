@@ -316,17 +316,17 @@ public class UserService {
 		}
 	}
 	
-//	@Scheduled(cron="0 0 12 1/1 * ?")
-//	public void deletePoint() {
-//		List<Point> PointList = userDao.findByPoint();
-//		for(int i=0; i<PointList.size(); i++)
-//		{
-//			Point Point = PointList.get(i);
-//			if(Point.getEndDate()==LocalDateTime.now()) {
-//				int point = Point.getPoint();
-//				userDao.deletePoint();
-//			}
-//		}
-//	}
+	@Scheduled(cron="0 0 12 1/1 * ?")
+	public void deletePoint() {
+		List<Point> PointList = userDao.findByPoint();
+		for(int i=0; i<PointList.size(); i++)
+		{
+			Point Point = PointList.get(i);
+			if(Point.getEndDate()==LocalDateTime.now()) {
+				String username = Point.getUsername();
+				userDao.deletePoint(username);
+			}
+		}
+	}
 	
 }

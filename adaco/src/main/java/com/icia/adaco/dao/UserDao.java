@@ -60,8 +60,8 @@ public class UserDao {
 		return tpl.selectList("userMapper.findByPoint");
 	}
 	
-	public int deletePoint() {
-		return tpl.delete("userMapper.deletePoint");
+	public int deletePoint(String username) {
+		return tpl.delete("userMapper.deletePoint",username);
 	}
 	
 	public String findJoinCheckCode(String checkCode) {

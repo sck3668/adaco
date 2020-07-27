@@ -51,7 +51,7 @@
 		,end_date endDate,username from point
 	</select>
 	<delete id="deletePoint">
-		delete from point
+		delete from point where username=#{username}
 	</delete>
 	<select id="findJoinCheckCode" resultType="string">
 		select username from users where check_code=#{checkCode} and rownum=1

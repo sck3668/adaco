@@ -45,10 +45,6 @@ public class StoryService {
 	private UserDao userDao;
 	
 	public Page storyList(int pageno,@Nullable Integer artistno) {
-		System.out.println("storyList Service=="+artistno);
-//		if(artistno==null) {
-//			return false;
-//		}
 		int countOfBoard = storyDao.count();
 		Page page = PagingUtil.getPage(pageno, countOfBoard);
 		int srn = 1;
@@ -83,13 +79,13 @@ public class StoryService {
 			}
 			storydtoList.add(listDto);
 		}
-		System.out.println("listDto=="+storydtoList);
 		page.setStoryList(storydtoList);
 		if(artistno!=null) {
 			page.setArtistno(artistno);
 		} else {
 			page.setArtistno(0);
 		}
+		System.out.println("page===="+page);
 		return page;
 	}
 	

@@ -35,7 +35,7 @@ public class ShopDao {
 	}
 	
 	//작품 등록에 필요
-	public Integer readShopnoByArtistno(int artistno) {
+	public Integer readShopnoByArtistno(Integer artistno) {
 		return sql.selectOne("shopMapper.readShopnoByArtistno", artistno);
 	}
 		
