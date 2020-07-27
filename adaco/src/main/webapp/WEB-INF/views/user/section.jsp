@@ -176,7 +176,7 @@ $(function(){
                  </sec:authorize>
                 </h4>
                 <h5>${art.artName}</h5>
-                <p class="card-text">${art }</p>
+                <p class="card-text"></p>
               </div>
             </div>
           </div>

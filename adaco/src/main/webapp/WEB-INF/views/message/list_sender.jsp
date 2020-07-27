@@ -92,47 +92,6 @@ $(function() {
 	<div id="aside">
 		<div id="profile">
 		</div>
-		<div class="col-sm-3">
-				<!-- side menu (link) -->
-				<h3>
-					<strong><a href="/adaco/user/mypage" style="text-decoration: none; color: black;">
-						MY Menu</a></strong>
-				</h3>
-				<ul class="list-group" id="navi" >
-					<li class="list-group-item list-group-item-action" ><a
-						href="/adaco/user/read"
-						style="color: black; text-decoration: none;">내 정보 보기</a></li>
-					<li class="list-group-item list-group-item-action"><a
-						href="/adaco/user/orderList"
-						style="color: black; text-decoration: none;">주문내역</a></li>
-					<li class="list-group-item list-group-item-action"><a
-						href="/adaco/user/reviewList"
-						style="color: black; text-decoration: none;">내 리뷰 보기</a></li>
-					<li class="list-group-item list-group-item-action"><a
-						href="/adaco/user/favoriteList"
-						style="color: black; text-decoration: none;">즐겨찾기 목록</a></li>
-					<li class="list-group-item list-group-item-action"><a
-						href="/adaco/user/pointList"
-						style="color: black; text-decoration: none;">포인트함</a></li>
-						<li class="list-group-item list-group-item-action" id="group">
-						<div class="title">
-							<a style="color: black; text-decoration: none;">
-							메시지함
-							</a>
-						</div>
-						<ul class="sub"> 
-							<li>
-								<a href="/adaco/message/listSender" style="color: black; text-decoration: none;" >
-									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 보낸 쪽지함</a>
-							</li>
-							<li>
-								<a href="/adaco/message/listReceiver" style="color: black; text-decoration: none;" >
-									<i class="fas fa-angle-right" style="opacity: 0.5;"></i> 받은 쪽지함 </a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-			</div>
 	</div>
 </aside>
 <section id="section">
@@ -160,7 +119,7 @@ $(function() {
 	</div>
 	<br><br><br><br><br><br><br><br><br><br><br>
 	<input type="hidden" value="${_csrf.token}">
-	<a href="/adaco/message/listReceiver"><button  class="btn btn-primary" style="float:right;">보낸 쪽지함 으로 이동</button></a>
+	<a href="/adaco/message/listReceiver"><button  class="btn btn-primary" style="float:right;">받은 쪽지함 으로 이동</button></a>
 	<button id="delete" class="btn btn-primary" style="float:right;">쪽지삭제</button>
 </section>
 </body>

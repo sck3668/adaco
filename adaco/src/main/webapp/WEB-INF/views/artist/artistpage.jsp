@@ -106,18 +106,28 @@
 	
 	var msg = '${msg}'; 
 	if(msg=="writeMsg") {
-		var confirm_val = confirm("작품등록을 위해 상점을 개설하시겠습니까?");
-		if(confirm_val) {
-			document.location.href = "/adaco/artist/shopMade"
-		}
+		var confirm_val = Swal.fire({
+			  icon: 'error',
+			  title: '작품 등록 실패',
+			  text: '상점을 먼저 만들어야 합니다. 아래 링크를 눌러주세요',
+			  footer: '<a href="/adaco/artist/shopMade">상점 개설하기!</a>'
+			})
+// 		if(confirm_val) {
+// 			document.location.href = "/adaco/artist/shopMade"
+// 		}
 	}
 	
 	var msg = '${msg}'; 
 	if(msg=="StoryWriteMsg") {
-		var confirm_val = confirm("스토리 작성을 위해 상점을 개설하시겠습니까?");
-		if(confirm_val) {
-			document.location.href = "/adaco/artist/shopMade"
-		}
+		var confirm_val =Swal.fire({
+			  icon: 'error',
+			  title: '스토리 작성 실패',
+			  text: '상점을 먼저 만들어야 합니다. 아래 링크를 눌러주세요',
+			  footer: '<a href="/adaco/artist/shopMade">상점 개설하기!</a>'
+// 		if(confirm_val) {
+// 			document.location.href = "/adaco/artist/shopMade"
+// 		}
+	})
 	}
 	
 </script>
@@ -202,26 +212,6 @@
 				</ul>
 			</div>
 			<!-- right content -->
-			<div class="col-sm-8">
-				<h2>나의 작품 보기</h2>
-				<p>2018년 8월 6일, 여름 미니 2집 Summer Magic</p>
-				<img src="banner.jpg" class="img-fluid rounded">
-				<hr>
-				<!-- side menu (link) -->
-				<h3>오늘의 소식!</h3>
-				<p>레드벨벳(Red Velvet)의 'Power Up'(파워 업)이 인기 고공행진 중이다.</p>
-				<p>지난 6일 공개된 레드벨벳 여름 미니앨범 타이틀 곡 'Power Up'은 9일 오전 10시 기준 멜론, 지니,
-					엠넷뮤직, 벅스뮤직, 올레뮤직, 네이버뮤직, 소리바다 등 각종 음원 차트 1위를 올킬함은 물론, 중국 샤미뮤직 종합
-					차트도 정상을 차지하며 4일 연속 1위를 기록하고 있어 레드벨벳 파워를 실감케 했다.</p>
-				<div class="text-center">
-					<img src="banner2.jpg" class="img-fluid rounded mb-3">
-				</div>
-				<p>또 지난 7일부터 인스타그램, 트위터, 페이스북 등 레드벨벳 공식 SNS에는 초강력 서머송 'Power
-					Up'의 포인트 안무 '파도춤'과 '아기상어춤'을 선보이는 SM 소속 아티스트들의 영상이 순차 공개돼 화제를 모으고
-					있다.</p>
-				<p>이번 영상에는 동방신기 유노윤호, 슈퍼주니어 희철, 소녀시대 태연, 효연, 윤아, 샤이니 민호, 엑소 수호,
-					NCT 등 SM 아티스트들이 'Power Up' 포인트 안무를 함께 추며 레드벨벳의 컴백을 응원하는 모습을 만날 수 있어
-					훈훈함을 더한다. 레드벨벳은 'Power Up'으로 활발한 활동을 펼친다.</p>
 				<br>
 				<br>
 				<br>
@@ -230,16 +220,6 @@
 				<br>
 				<br>
 				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-			</div>
 		</div>
 	</div>
 </body>
