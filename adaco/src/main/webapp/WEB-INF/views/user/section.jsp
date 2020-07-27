@@ -71,7 +71,6 @@ $(function(){
 // 			/adaco/art/listByUser?artname=${artPage.search }&pageno=${i}&category=${artPage.artList[i].category}
 // 			$("#category").attr("href","/adaco/art/listByUser?pageno="+${i}&category=${artPage.artList[i].category});
 // 		};
-	
 // 	});
 	
 	   
