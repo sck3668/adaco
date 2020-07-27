@@ -74,7 +74,7 @@ $(function(){
 	
 // 	});
 	
-	  
+	   
 	$("#search").on("click", function(){
 		var artname = $("#artname").val();
 		var url = decodeURIComponent(window.location.href);
