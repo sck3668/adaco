@@ -177,6 +177,9 @@ public class UserController {
 				.addObject("point",userService.pointList(principal.getName()));
 	}
 	
+	// 포인트 만료일 7일 전에 메시지 전송
+	
+	
 	//리뷰 리스트
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/user/reviewList")
@@ -245,4 +248,6 @@ public class UserController {
 				.addObject("viewName","user/orderRead.jsp")
 				.addObject("orderDetail",userService.userOrderRead(principal.getName(),orderno));
 	}
+	
+	
 }
