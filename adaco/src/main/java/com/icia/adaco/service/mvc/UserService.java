@@ -13,6 +13,7 @@ import org.apache.commons.lang3.*;
 import org.modelmapper.*;
 import org.omg.PortableServer.POAManagerPackage.State;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.scheduling.annotation.*;
 import org.springframework.security.crypto.password.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ import com.icia.adaco.dto.OrderDetailDto.*;
 import com.icia.adaco.dto.OrderDto.*;
 import com.icia.adaco.dto.UserDto.*;
 import com.icia.adaco.entity.*;
+import com.icia.adaco.entity.Message;
 import com.icia.adaco.exception.*;
 import com.icia.adaco.service.exception.*;
 import com.icia.adaco.util.*;
@@ -45,6 +47,8 @@ public class UserService {
 	private OrderDao orderDao;
 	@Autowired
 	private OrderDetailDao orderDetailDao;
+	@Autowired
+	private msgService msgService;
 	@Value("d:/upload/profile")
 	private String profileFolder;
 	@Value("http://localhost:8081/profile/")
@@ -287,7 +291,25 @@ public class UserService {
 			dto.setShippingCharge(order.getShippingCharge());
 			dto.setOrderDateStr(shippingCharge.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy년MM월dd일")));
 		}
-		System.out.println("dto===="+dto);
 		return  dto;
+	}
+	
+	 @Scheduled(cron = "0 */1 * * * ?")
+	 public void pointMsg() {
+		System.out.println("msg=="+LocalDateTime.now());
+//		List<Point> PointList = userDao.findByPoint();
+//		for(Point Point:PointList) {
+//		if(Point.getEndDate()!=LocalDateTime.now().minusWeeks(1)) {
+//			Message message = new Message();
+//			message.setTitle("포인트 소멸 안내");
+//			int point = Point.getPoint();
+//			StringBuffer str = new StringBuffer();
+//			str.append("7일 후"+point+"포인트가 소멸됩니다");
+//			message.setContent(str.toString());
+//			message.setSendId("admin");
+//			message.setRecipientId(Point.getUsername());
+//			msgService.send(message);
+//			}
+//		}
 	}
 }

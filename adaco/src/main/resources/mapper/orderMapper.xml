@@ -24,7 +24,7 @@
 		<![CDATA[
 	select * from		
 		(select rownum as rnum ,o.*from
-			(select /*+ index_desc(orders orders_pk_orderno)*/orderno,order_date orderDate,username,shipping_charge shippingCharge from orders) o
+			(select /*+ index_desc(orders pk_orders)*/orderno,order_date orderDate,username,shipping_charge shippingCharge from orders) o
 			where username=#{username} and rownum <=#{endRowNum})
 	where rnum>=#{startRowNum}
 		]]>

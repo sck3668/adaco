@@ -69,8 +69,8 @@ th {
  $(function() {
 	 
 	$("#payment").on("click",function() {
-		console.log($("#paymentForm").serialize());
-		alert("SS");
+// 		console.log($("#paymentForm").serialize());
+// 		alert("SS");
 		
 		
 // 		var ar=[];
@@ -114,10 +114,10 @@ th {
 <form action="/adaco/order/after" id="paymentForm">
 <div id="content" class="content" data-page="payment" data-address-page="payment" style="padding-bottom:0">
     <c:forEach items="${order.ordernoList}" var="orderno">    
-        <input type="text" name="ordernos" value="${orderno}">
+        <input type="hidden" name="ordernos" value="${orderno}">
     </c:forEach>
 	<c:forEach items="${order.artList}" var="art">
-        <input type="text" name="artnos" class="artnos" value="${art.artno }" data-artno="${art.artno}">
+        <input type="hidden" name="artnos" class="artnos" value="${art.artno }" data-artno="${art.artno}">
         <input type="hidden" name="artistnos" value="${art.artistno }">
 	</c:forEach>
         <input type="hidden" name="optno" value="${order.option.optno }">
