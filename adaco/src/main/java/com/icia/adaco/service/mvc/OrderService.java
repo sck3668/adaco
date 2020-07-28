@@ -214,16 +214,12 @@ public class OrderService {
 	public boolean delete(String ordernos,String username) {
 		List<Integer> list = new ArrayList<Integer>();
 		int one = ordernos.indexOf(",");
-		System.out.println("ont=="+one);
 		String ordernos1 = ordernos.replace("[", "");
 		String ordernos2 = ordernos1.replace("]", "");
-		System.out.println("ordernos==="+ordernos2);
 		String[] split = ordernos2.split(",");
-		System.out.println("split=="+split.toString());
 		for (int i = 0; i < split.length; i++) {
 			System.out.println(split[i]+"@@@");
 			list.add(Integer.parseInt(split[i].substring(0)));
-			System.out.println("list=="+list);
 		}
 		if(one==-1) {
 			for(int orderno:list) {
