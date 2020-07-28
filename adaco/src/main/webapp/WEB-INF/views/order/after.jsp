@@ -115,7 +115,7 @@ th {
 // 			orderno : ${ordering.orderno},
 // 			orderDate: '${ordering.orderDate}',
 // 			shippingCharge : '${ordering.shippingCharge}',
-			orderno:${artPageByUser.artno},
+			orderno:${artPageByUser.orderno},
 			totalPrice:${artPageByUser.price},
 			amount:1, 
 			//optionName:'${artPageByUser.optionName}',
@@ -130,7 +130,6 @@ th {
 				method:"post",
 				data:params,
 				success:function(result) {
-					alert("구매하기");
 					location.href="/adaco/order/orderRead?orderno="+result;
 				}
 			});
@@ -202,7 +201,7 @@ th {
 					<tr>
 						<th>배송 메세지</th>
 							<c:forEach items="${order.requestList}" var="detail" begin="0" end="0">
-								<td><span>${order.requestList[status.index]}</span></td>
+								<td colspan="6"><span>${order.requestList[status.index]}</span></td>
 							</c:forEach>
 					</tr>
 					<br>

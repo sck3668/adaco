@@ -49,6 +49,21 @@ th {
 
 </style>
 <script>
+function printErrorMsg(target,msg) {
+	target.text(msg).css("color","red").css("font-size","0.75em");
+}
+
+function checkRefundAccount() {
+ 	  $("#refundAccount_msg").text("");
+ 		$refundAccount = $("#refundAccount").val();
+ 		const patt = /^[0-9]{11,13}$/;
+ 		if($refundAccount.length==0)
+ 			return printErrorMsg($("#refundAccount_msg"),"환불계좌는 필수입력입니다");
+ 		if(patt.test($refundAccount)==false)
+ 			return printErrorMsg($("#refundAccount_msg"),"환불계좌는 숫자 11~13자리입니다");
+ 		return true;
+ 		};
+ 		
    $(function() {
       $("#detailAddress").on("blur",function() {
       const address = $("#address").val();
@@ -57,21 +72,44 @@ th {
        const originalAddress = address + address2 + address3;
        $("#originalAddress").val(originalAddress);
       })
-   })
-//    $(function(){
-// 	var text = ${accumulated*0.01}+"";
-// 	text = text.split(".");
-// 	console.log(text[0]);
-// 	$("#accumulated").text(text[0]+"원");
-// 	})
-
-// 여러개 작품 결제하기
- $(function() {
+      
+   $("#refundAccount").on("blur",function() {
+	   checkRefundAccount();
+   });
+      
+	$("#payment").on("click",function() {
+		 alert("Sss");
+		 var formData = new FormData(document.getElementById("paymentForm"));
+		 console.log($("#paymentFrom").serialize());
+		 alert("Ss");
+		 if(checkRefundAccount()==true) {
+			$("#paymentForm").submit();
+		}
+	})
 	
- })
+	$("#back_Btn").on("click",function() {
+		var ordernos = JSON.stringify(${order.ordernoList});
+		var params = {
+			_csrf: '${_csrf.token}',
+			ordernos:ordernos
+		};
+		console.log(params);
+		alert("Sss");
+		$.ajax({
+			url:"/adaco/order/back",
+			data:params,
+			method:"post",
+			success:function() {
+				location.href="/adaco/";
+			}
+		})
+	})
+	
+})
 </script>
 </head>
 <body>
+${order }
 <form action="/adaco/order/after" id="paymentForm">
 <div id="content" class="content" data-page="payment" data-address-page="payment" style="padding-bottom:0">
     <c:forEach items="${order.ordernoList}" var="orderno">    
@@ -452,10 +490,8 @@ th {
                             </div><!-- 결제정보 표 감싸는 닫힌 div -->
                         </div><br><!-- 결제정보 버튼전 닫힌 div -->
                        <div class="inputArea" align="center" style="position: relative; right: -250px; bottom:-25px;"><!-- 버튼 열린 div -->
-                     <button id="payment" class="btn btn-primary">결제하기</button>
-                     <a href="/adaco/art/readByUser?artno=${art.artno }">
+                     <button type="button" id="payment" class="btn btn-primary">결제하기</button>
                         <button type="button" id="back_Btn" class="btn btn-warning">취소</button>
-                     </a>
                   </div><!-- 버튼 닫힌 div -->
                         </div>
                         <!-- 결제정보 닫힌 div -->

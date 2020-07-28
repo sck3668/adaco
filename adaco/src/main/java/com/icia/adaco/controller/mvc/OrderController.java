@@ -75,15 +75,12 @@ public class OrderController {
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/order/after")
 	public ModelAndView after(Principal principal,OrderDto.DtoForAfter dto) {
-		System.out.println("dto==="+dto);
 		orderDService.payment(dto,principal.getName());
 		//구매한 수량만큼 작품 재고에서 차감
 		List<Integer> artnos = dto.getArtnos();
-		System.out.println("artnos=="+artnos);
 		for(int artno:artnos) {
 //		Art art = artDao.readByArt(dto.getArtno());
 		Art art = artDao.readByArt(artno);
-		System.out.println("art==="+art);
 		int amount = orderDetailDao.findArtnoByOrderDetail(art.getArtName()).getAmount();
 		int stock = art.getStock()-amount;
 		if(stock<=0) {
@@ -111,6 +108,13 @@ public class OrderController {
 				.addObject("artist",artistDao.findArtistnoByUsername("sss"));
 		
 	}
+	
+	//주문 취소
+	@PostMapping("/order/back")
+	public ResponseEntity<?> orderBack(String ordernos,Principal principal) {
+		return ResponseEntity.ok(orderService.delete(ordernos,principal.getName()));
+	}
+	
 	///////////////////////
 	
 }

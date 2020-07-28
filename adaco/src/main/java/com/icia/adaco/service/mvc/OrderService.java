@@ -142,7 +142,6 @@ public class OrderService {
 		List<Integer> list = new ArrayList<Integer>();
 		int one = ordernos.indexOf(",");
 		String[] split = ordernos.split(",");
-		int orderno1 = 0;
 		int idx = ordernos.indexOf(":")+2;
 		int Lidx = 0;
 		for (int i = 0; i < split.length; i++) {
@@ -211,4 +210,31 @@ public class OrderService {
 		}
 	}
 	
+	//결제창에서 취소 클릭 시 주문 취소
+	public boolean delete(String ordernos,String username) {
+		List<Integer> list = new ArrayList<Integer>();
+		int one = ordernos.indexOf(",");
+		System.out.println("ont=="+one);
+		String ordernos1 = ordernos.replace("[", "");
+		String ordernos2 = ordernos1.replace("]", "");
+		System.out.println("ordernos==="+ordernos2);
+		String[] split = ordernos2.split(",");
+		System.out.println("split=="+split.toString());
+		for (int i = 0; i < split.length; i++) {
+			System.out.println(split[i]+"@@@");
+			list.add(Integer.parseInt(split[i].substring(0)));
+			System.out.println("list=="+list);
+		}
+		if(one==-1) {
+			for(int orderno:list) {
+				orderDao.deleteByOrder(orderno);
+			}
+			return true;
+		} else {
+			for(int orderno:list) {
+				orderDao.deleteByOrder(orderno);
+			}
+			return true;
+		}
+	}
 }
