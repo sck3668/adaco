@@ -78,10 +78,8 @@ function checkRefundAccount() {
    });
       
 	$("#payment").on("click",function() {
-		 alert("Sss");
 		 var formData = new FormData(document.getElementById("paymentForm"));
 		 console.log($("#paymentFrom").serialize());
-		 alert("Ss");
 		 if(checkRefundAccount()==true) {
 			$("#paymentForm").submit();
 		}
@@ -93,8 +91,6 @@ function checkRefundAccount() {
 			_csrf: '${_csrf.token}',
 			ordernos:ordernos
 		};
-		console.log(params);
-		alert("Sss");
 		$.ajax({
 			url:"/adaco/order/back",
 			data:params,

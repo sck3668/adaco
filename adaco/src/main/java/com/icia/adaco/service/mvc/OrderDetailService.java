@@ -42,13 +42,11 @@ public class OrderDetailService {
 	public int payment(OrderDto.DtoForAfter dto,String username) {
 		List<Integer> artnos = dto.getArtnos();
 		List<Integer> artistnos = dto.getArtistnos();
-		System.out.println("1111"+artnos);
-		System.out.println("2222"+artistnos);
 //		for(int i=0; i<artnos.size(); i++) {
-			System.out.println("artnosSize"+artnos.size());
 		OrderDetail orderDetail = modelMapper.map(dto,OrderDetail.class);
-		System.out.println("orderDetail111=="+orderDetail);
-		for(int artno:artnos) {
+		for(int i=0; i<artnos.size(); i++) {
+			int artno = artnos.get(i);
+//		for(int artno:artnos) {
 		Art art = artDao.readByArt(artno);
 		Option option = optionDao.readByArtno(artno);
 		Bag bag = bagDao.findByArtno(artno);
@@ -60,12 +58,7 @@ public class OrderDetailService {
 			int orderno = orderDao.findOrdernoByUsername(username, bag.getBagno());
 			orderDetail.setArtno(artno).setArtistno(artistno)
 			.setOptno(optno).setOrderno(orderno);
-			System.out.println("orderDetail222=="+orderDetail);
 			
-			System.out.println("art====="+art);
-			System.out.println("dto======="+dto);
-			System.out.println("orderDetail333=="+orderDetail);
-
 			orderDetail.setArtName(art.getArtName()).setAddress(dto.getOriginalAddress());
 			orderDetail.setOptionName(option.getOptionName()).setOptionValue(option.getOptionValue());
 			orderDetail.setAmount(bag.getAmount()).setPrice(art.getPrice()+bag.getOptionPrice()).setEmail(user.getEmail());
@@ -73,17 +66,17 @@ public class OrderDetailService {
 			orderDetail.setOptno(optno);
 			bagDao.deleteByBag(artno);
 			//point증가처리
-			Point point = Point.builder().startDate(LocalDateTime.now()).endDate(LocalDateTime.now().plusYears(1))
-					.username(username).point((int) (bag.getTotalPrice()*0.01)).build();
-			System.out.println("point=="+point);
-			userDao.insertpoint(point);
-			System.out.println("DService payment orderDetail=="+orderDetail);
-			
+//			for(int i=0; i<artnos.size(); i++) {
+//			Point point = Point.builder().startDate(LocalDateTime.now().plusSeconds(artnos.get(i))).endDate(LocalDateTime.now().plusYears(1))
+//					.username(username).point((int) (bag.getTotalPrice()*0.01)).build();
+//			System.out.println("point=="+point);
+//			userDao.insertpoint(point);
+//			System.out.println("DService payment orderDetail=="+orderDetail);
+//			}
 //			}
 		orderDetailDao.Payment(orderDetail);
 		}
 		System.out.println("DService payment orderDetail22222=="+orderDetail);
-//		orderDetailDao.Payment(orderDetail);
 //		}
 		return 1;
 	}
