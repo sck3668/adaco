@@ -78,7 +78,6 @@ function checkEnabled() {
 				   alert("정보가 갱신되었습니다.");
 				   location.reload(true);
 				}).fail((f)=>alert("정보를 변경하지 못하였습니다. 사유:" +f));
-				
 		});
 		
 		$("#logout").on("click", function(){

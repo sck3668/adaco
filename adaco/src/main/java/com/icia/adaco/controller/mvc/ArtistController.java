@@ -41,7 +41,7 @@ public class ArtistController {
 	@Autowired
 	private OrderService orderService;
 	
-	//마이페이지 화면
+	//작가페이지 화면
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/artist/artistpage")
 	public ModelAndView artistpage(Principal principal) {

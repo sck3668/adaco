@@ -67,46 +67,7 @@ th {
 
 // 여러개 작품 결제하기
  $(function() {
-	 
-	$("#payment").on("click",function() {
-// 		console.log($("#paymentForm").serialize());
-// 		alert("SS");
-		
-		
-// 		var ar=[];
-		
-// 		$(".artnos").each(function(idx) {
-// 			ar.push($(this).data("artno"));
-// 		 })
-// 		console.log(ar);
-// 		alert("DD");
-
-// 		var params = {
-// 				username: '${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}',
-// 				_csrf:"${_csrf.token}",
-// 				_method:"post",
-// 				artnos:JSON.stringify(ar),
-// 		}
-// 		$.ajax({
-// 			url:"/adaco/order/after",
-// 			data:params,
-// 			method:"post",
-// 			success:function(result) {
-// 				ordernos=JSON.stringify(result);
-// 				var params1 ={
-// 						ordernos:ordernos,
-// 						_csrf:"${_csrf.token}"
-// 				}
-// 				var $form = $("<form>").attr("action","/adaco/order/bagPayment").attr("method","get");
-// 				$("<input>").attr("type","hidden").attr("name","ordernos").val(ordernos).appendTo($form);
-// 				$("<input>").attr("type","hidden").attr("name","_csrf").val("${_csrf.token}").appendTo($form);
-// 				$form.appendTo($("body")).submit(); 
-// 			}
-// 		})
-// 		}
-	// 결제화면에서 작품리스트의 artno를 받아와서 배열에 넣고 orderno를 받아옴 	aftering
-	// String ordernos를 문자로 받아와 바꾸고 dto를 리턴				after
-	})
+	
  })
 </script>
 </head>
@@ -404,8 +365,9 @@ th {
                           <tr>
                              <th>환불 계좌</th>
                              <td style="text-align: left;" >
-<!--                                 <input type="text" placeholder="환불계좌를 입력해주세요" name="refundAccount" style="width:200px;" /> -->
-                                <textarea class="form-control" name="refundAccount" maxlength="500" placeholder="환불계좌를 입력해주세요." style="width:100%;"></textarea>
+                                <input type="text" placeholder="환불계좌는'-'를 제외하고 입력해주세요" id="refundAccount" name="refundAccount" style="width:200px;" maxlength="13"/>
+                                <span id="refundAccount_msg"></span>
+<!--                                 <textarea class="form-control" name="refundAccount" maxlength="13" placeholder="환불계좌 '-'제외하고 입력해주세요." style="width:100%;"></textarea> -->
                              </td>
                           </tr>
                        </table>

@@ -45,12 +45,14 @@ public class StoryController {
 	@Autowired
 	private StoryRestService restService;
 
+	//스토리 목록 출력
 	@GetMapping("/story/listStory")
 	public ModelAndView listStory(@RequestParam(defaultValue = "1") int pageno,@Nullable Integer artistno) {
 		return new ModelAndView("main")
 		.addObject("viewName","artist/story/list.jsp").addObject("story",storyService.storyList(pageno,artistno));
 	}
- 
+	
+	// 스토리 작성 화면
 	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@GetMapping("/story/writeStory")
 	public ModelAndView writeStory(Principal principal) {
@@ -63,7 +65,8 @@ public class StoryController {
 		};
 		return new ModelAndView("main").addObject("viewName","artist/story/write.jsp");
 	}
-
+	
+	// 스토리 작성
 	@PreAuthorize("hasRole('ROLE_SELLER')")
 	@PostMapping("/story/writeStory")
 	public String writeStory(StoryBoardDto.DtoForWrite writeDto, Principal principal, MultipartFile sajin) throws IOException {

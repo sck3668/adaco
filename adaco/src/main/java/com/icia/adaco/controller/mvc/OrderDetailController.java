@@ -24,20 +24,5 @@ public class OrderDetailController {
 	private OrderService orderService;
 	@Autowired
 	private ObjectMapper objectMapper = new ObjectMapper();
-		
-	// 주문 내역 상세 
-	@PreAuthorize("isAuthenticated()")
-	@GetMapping("/orderdetail/orderdetail")
-	public ModelAndView orderDetail( ) {
-		return new ModelAndView("main").addObject("viewName", "order_detail/orderdetail.jsp");
-	}
-	
-	@PreAuthorize("isAuthenticated()")
-	@PostMapping("/orderdetail/payment")
-	public String buyAll(String json,Principal principal) throws JsonParseException, JsonMappingException, IOException {
-		List<Order> list = objectMapper.readValue(json, new TypeReference<List<Order>>() {});
-		System.out.println(list);
-		return null;
-	}
 
 }

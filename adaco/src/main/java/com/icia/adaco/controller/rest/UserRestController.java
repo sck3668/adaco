@@ -69,12 +69,12 @@ public class UserRestController {
 		return ResponseEntity.ok(userRestService.favoriteUpdate(principal.getName(), artno));
 	}
 	
-	//유저 회원탈퇴
-	@PutMapping("/user/delete")
-	public ResponseEntity<?> delete(Principal principal) {
-		userRestService.userDelete(principal.getName());
-		return ResponseEntity.ok(null);
-	}
+//	//유저 회원탈퇴
+//	@PutMapping("/user/delete")
+//	public ResponseEntity<?> delete(Principal principal) {
+//		userRestService.userDelete(principal.getName());
+//		return ResponseEntity.ok(null);
+//	}
 	
 	//프로필 사진
 	@GetMapping("/user/profile")

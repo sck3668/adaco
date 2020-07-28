@@ -15,11 +15,4 @@ public class OrderRestController {
 	@Autowired
 	private OrderRestService orderservice;
 	
-	// 주문 취소
-	@PreAuthorize("isAuthenticated()")
-	@DeleteMapping("/user/order_list")
-	public ResponseEntity<?> OrderDelete(Principal principal, Integer orderno){
-		orderservice.DeleteByOrder(principal,orderno);
-		return ResponseEntity.ok("/user/order_list");
-	}
 }

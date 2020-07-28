@@ -57,7 +57,7 @@
 		select username from users where check_code=#{checkCode} and rownum=1
 	</select>
 	<select id="findAllFavorite" resultType="favorite">
-		select favno,artno,username,price,art_name artName from favorite where username=#{username}
+		select favno,artno,username,price,art_name artName from favorite where username=#{username} order by favno desc
 	</select>
 	<insert id="insertFavorite">
 		<selectKey keyProperty="favno" resultType="int" order="BEFORE">
@@ -70,7 +70,7 @@
 		select count(*) from favorite where username=#{username}	
 	</select>
 	<select id = "listByReviewUser" resultType="review">
-		select rno,content,artno,username from review where username=#{username}
+		select rno,content,artno,username from review where username=#{username} order by artno asc
 	</select>
 	<select id="findByFavoriteId" resultType="favorite">
 		select favno,artno,username,art_name artName,price from favorite where favno = #{favno}

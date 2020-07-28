@@ -39,7 +39,6 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private UserDao userDao;
-	private ArtService artService;
 	
 	//회원가입 화면
 	@GetMapping("/user/join")
@@ -129,13 +128,13 @@ public class UserController {
 		return "redirect:/user/login";
 	}
 	
-	//비밀번호변경
+	//비밀번호 찾기
 	@GetMapping("/user/resetPwd")
 	public ModelAndView resetPassword() {
 		return new ModelAndView("main").addObject("viewName","user/reset_pwd.jsp");
 	}
 	
-	//비밀변호변경
+	//비밀변호 찾기
 	@PostMapping("/user/resetPwd")
 	public String resetPassword(String username,String email,RedirectAttributes ra) {
 		String password = userDao.passwordFindUsername(username);
@@ -176,9 +175,6 @@ public class UserController {
 				.addObject("totalPoint",userService.totalpoint(principal.getName()))
 				.addObject("point",userService.pointList(principal.getName()));
 	}
-	
-	// 포인트 만료일 7일 전에 메시지 전송
-	
 	
 	//리뷰 리스트
 	@PreAuthorize("isAuthenticated()")

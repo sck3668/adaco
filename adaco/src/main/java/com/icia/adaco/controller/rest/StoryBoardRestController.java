@@ -22,6 +22,7 @@ public class StoryBoardRestController {
 	@Autowired
 	private StoryRestService restService;
 	
+	// 스토리 수정
 	@PreAuthorize("isAuthenticated()")
 	@PatchMapping("/story/update")
 	public ResponseEntity<?> updateStory(Principal principal, StoryBoardDto.DtoforUpdate updateDto) {
@@ -30,6 +31,7 @@ public class StoryBoardRestController {
 		return ResponseEntity.ok(null);
 	}
 	
+	// 스토리 삭제
 	@PreAuthorize("isAuthenticated()")
 	@DeleteMapping("/story/delete")
 	public ResponseEntity<?> deleteStory(Principal principal,Integer storyno){
@@ -37,6 +39,7 @@ public class StoryBoardRestController {
 		return ResponseEntity.ok("/adaco/story/listStory");
 	}
 	
+	// 스토리 ckupload
 	@PostMapping("/story/ckupload")
 	public ResponseEntity<?> ckupload(MultipartFile upload) throws IOException{
 		return ResponseEntity.ok(restService.ckupload(upload));

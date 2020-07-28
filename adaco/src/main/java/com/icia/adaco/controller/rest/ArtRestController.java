@@ -101,7 +101,7 @@ public class ArtRestController {
 	}
 	//리뷰삭제
 	@DeleteMapping("/artReview/reviewDelete")
-	public ResponseEntity<?>deleteArtReview(Integer artno,Principal principal,Integer rno){
+	public ResponseEntity<?> deleteArtReview(Integer artno,Principal principal,Integer rno){
 		return ResponseEntity.ok(service.deleteReviewOfArt(rno,artno,principal.getName()));
 	}
 	
